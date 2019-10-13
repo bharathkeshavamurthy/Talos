@@ -10,3 +10,5 @@ https://www.st.com/content/ccc/resource/technical/document/reference_manual/grou
 https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.pdf <br/>
 # Advanced Serial Communication (advanced sercom)
 https://www.gctronic.com/doc/index.php?title=Advanced_sercom_protocol
+# Black Magic Probe Programmer/Debugger
+https://github.com/blacksphere/blackmagic/wiki
