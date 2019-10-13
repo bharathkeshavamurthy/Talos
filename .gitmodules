@@ -9,3 +9,9 @@
 	path = src/main/cpp/org/purdue/ece/talos/monitor2
 	url = https://github.com/e-puck2/monitor.git
 	branch = wifi
+[submodule "src/main/cpp/org/purdue/ece/talos/e-puck2_main-processor"]
+	path = src/main/cpp/org/purdue/ece/talos/e-puck2_main-processor
+	url = https://github.com/e-puck2/e-puck2_main-processor.git
+[submodule "src/main/cpp/org/purdue/ece/talos/e-puck2_cpp"]
+	path = src/main/cpp/org/purdue/ece/talos/e-puck2_cpp
+	url = https://github.com/e-puck2/e-puck2_cpp.git
