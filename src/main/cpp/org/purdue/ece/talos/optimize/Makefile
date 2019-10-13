@@ -14,6 +14,6 @@ CPPSRC = $(CHCPPSRC) Robot.cpp Controller.cpp
 # Options
 USE_OPT += --specs=nosys.specs
 USE_OPT += -lstdc++
-USE_CPPOPT = -std=c++11
+USE_CPPOPT += -std=c++11
 # Include the Makefile corresponding to the e-puck2_main-processor project
 include $(GLOBAL_PATH)/Makefile

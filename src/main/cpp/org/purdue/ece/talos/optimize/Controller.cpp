@@ -11,15 +11,15 @@
  */
 
 #include "ch.h"
-#include "memory_protection.h"
 #include "hal.h"
 #include "leds.h"
 #include "motors.h"
 #include "Robot.h"
+#include "memory_protection.h"
 
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <math.h>
 #include <string.h>
 #include <Controller.h>
 
@@ -57,15 +57,15 @@ int main(void) {
 		chThdSleepMilliseconds(2000);
 
 		/* Set the RGB LEDs to RED */
-		for (int i = LED2; i < NUM_RGB_LED; i++) {
+		for (int i = LED2; i != NUM_RGB_LED; i++) {
 			robot.setRgbLed(i, 255, 0, 0);
 		}
 		/* Set the RGB LEDs to GREEN */
-		for (int i = LED2; i < NUM_RGB_LED; i++) {
+		for (int i = LED2; i != NUM_RGB_LED; i++) {
 			robot.setRgbLed(i, 0, 255, 0);
 		}
 		/* Set the RGB LEDs to BLUE */
-		for (int i = LED2; i < NUM_RGB_LED; i++) {
+		for (int i = LED2; i != NUM_RGB_LED; i++) {
 			robot.setRgbLed(i, 0, 0, 255);
 		}
 
