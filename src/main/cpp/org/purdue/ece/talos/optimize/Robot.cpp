@@ -23,26 +23,25 @@ Robot::~Robot() {
 	/* Nothing to do */
 }
 
-void setRightMotorSpeed(int speed) {
+void Robot::setRightMotorSpeed(int speed) {
 	right_motor_set_speed(speed);
 }
 
-void setLeftMotorSpeed(int speed) {
+void Robot::setLeftMotorSpeed(int speed) {
 	left_motor_set_speed(speed);
 }
 
-void turnOnLed(int ledNumber) {
+void Robot::turnOnLed(int ledNumber) {
 	set_led((led_name_t) ledNumber, 1);
 }
 
-void turnOffLed(int ledNumber) {
+void Robot::turnOffLed(int ledNumber) {
 	set_led((led_name_t) ledNumber, 0);
 }
 
 void Robot::setRgbLed(int ledNumber, uint8_t red_value, uint8_t green_value,
 		uint8_t blue_value) {
-	set_rgb_led((rgb_led_name_t) led_number, red_value, green_value,
-			blue_value);
+	set_rgb_led((rgb_led_name_t) ledNumber, red_value, green_value, blue_value);
 }
 
 void Robot::turnOnBodyLed() {

@@ -14,6 +14,7 @@
 #include "memory_protection.h"
 #include "hal.h"
 #include "leds.h"
+#include "motors.h"
 #include "Robot.h"
 
 #include <stdio.h>
@@ -35,13 +36,14 @@ int main(void) {
 	Robot robot;
 
 	/* Set both Motor speeds to 1000 */
+	motors_init();
 	robot.setRightMotorSpeed(1000);
 	robot.setLeftMotorSpeed(1000);
 
 	while (1) {
 
 		/* Turn on the Red LEDs */
-		for (size_t i = 0; i < led_name_t::_size; i++) {
+		for (int i = LED1; i != NUM_LED; i++) {
 			robot.turnOnLed(i);
 		}
 
@@ -51,23 +53,24 @@ int main(void) {
 		/* Turn on the Front LED */
 		robot.turnOnFrontLed();
 
+		/* Sleep for 2 seconds */
+		chThdSleepMilliseconds(2000);
+
 		/* Set the RGB LEDs to RED */
-		for (size_t i = 0; i < rgb_led_name_t::_size; i++) {
+		for (int i = LED2; i < NUM_RGB_LED; i++) {
 			robot.setRgbLed(i, 255, 0, 0);
 		}
-
 		/* Set the RGB LEDs to GREEN */
-		for (size_t i = 0; i < rgb_led_name_t::_size; i++) {
+		for (int i = LED2; i < NUM_RGB_LED; i++) {
 			robot.setRgbLed(i, 0, 255, 0);
 		}
-
 		/* Set the RGB LEDs to BLUE */
-		for (size_t i = 0; i < rgb_led_name_t::_size; i++) {
+		for (int i = LED2; i < NUM_RGB_LED; i++) {
 			robot.setRgbLed(i, 0, 0, 255);
 		}
 
 		/* Turn off the Red LEDs */
-		for (size_t i = 0; i < led_name_t::_size; i++) {
+		for (int i = LED1; i != NUM_LED; i++) {
 			robot.turnOffLed(i);
 		}
 
@@ -76,6 +79,9 @@ int main(void) {
 
 		/* Turn off the Front LED */
 		robot.turnOffFrontLed();
+
+		/* Sleep for 2 seconds */
+		chThdSleepMilliseconds(2000);
 
 	}
 

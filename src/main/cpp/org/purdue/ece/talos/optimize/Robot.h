@@ -21,6 +21,8 @@ public:
 
 	Robot();
 
+	~Robot();
+
 	/// The Motors
 	void setRightMotorSpeed(int speed);
 	void setLeftMotorSpeed(int speed);
@@ -40,10 +42,6 @@ public:
 	/// The Front LED
 	void turnOnFrontLed();
 	void turnOffFrontLed();
-
-private:
-
-	~Robot();
 
 };
 

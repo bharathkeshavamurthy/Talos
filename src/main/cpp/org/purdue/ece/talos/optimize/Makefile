@@ -12,7 +12,7 @@ CSRC = stack.c
 # C++ sources
 CPPSRC = $(CHCPPSRC) Robot.cpp Controller.cpp
 # Options
-USE_OPT += --specsnosys.specs
+USE_OPT += --specs=nosys.specs
 USE_OPT += -lstdc++
 USE_CPPOPT = -std=c++11
 # Include the Makefile corresponding to the e-puck2_main-processor project
