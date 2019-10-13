@@ -1,3 +1,11 @@
 [submodule "src/main/cpp/org/purdue/ece/talos/monitor"]
 	path = src/main/cpp/org/purdue/ece/talos/monitor
 	url = https://github.com/e-puck2/monitor
+[submodule "monitor"]
+	path = monitor
+	url = https://github.com/e-puck2/monitor.git
+	branch = wifi
+[submodule "src/main/cpp/org/purdue/ece/talos/monitor2"]
+	path = src/main/cpp/org/purdue/ece/talos/monitor2
+	url = https://github.com/e-puck2/monitor.git
+	branch = wifi
