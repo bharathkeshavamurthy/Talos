@@ -47,8 +47,8 @@ static bool load_config(void) {
  * 		d. Microphones
  * 		e. Serial Peripheral Interface (SPI)
  * 		f. Digital Camera Interface (DCMI)
- * 		g. Proximity Sensors
- * 		h. Battery Level Sensors
+ * 		g. IR Proximity Sensors
+ * 		h. Battery Level Sensor
  * 		i. IR Remote Receiver
  * 		j. Digital to Analog Converter (DAC)
  * 		k. Ground Sensor
