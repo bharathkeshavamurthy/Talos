@@ -8,12 +8,12 @@ GLOBAL_PATH = ../e-puck2_main-processor
 # The name of the project
 PROJECT = optimize
 # C sources
-# CSRC = stack.c
+CSRC = talos.c
 # C++ sources
-CPPSRC = $(CHCPPSRC) Talos.cpp
+# CPPSRC = $(CHCPPSRC) talos.cpp
 # Options
-USE_OPT += --specs=nosys.specs
-USE_OPT += -lstdc++
-USE_CPPOPT += -std=c++11
+# USE_OPT += --specs=nosys.specs
+# USE_OPT += -lstdc++
+# USE_CPPOPT += -std=c++11
 # Include the Makefile corresponding to the e-puck2_main-processor project
 include $(GLOBAL_PATH)/Makefile

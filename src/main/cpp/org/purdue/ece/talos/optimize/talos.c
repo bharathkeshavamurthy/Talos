@@ -1,5 +1,5 @@
 /*
- * talos.cpp
+ * talos.c
  *
  *  Created on: Oct 16, 2019
  *  Author: Bharath Keshavamurthy <bkeshava@purdue.edu>
@@ -10,12 +10,11 @@
  *  Copyright (c) 2019. All Rights Reserved.
  */
 
-/* C++ variant */
+/* C-variant */
 
 /* This file has been derived from the provided e-puck2 main controller firmware */
 
 #include <math.h>
-#include <vector>
 #include <talos.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -200,12 +199,12 @@ int main(void) {
 
 		// Find the IPC Message Bus Topic to subscribe to in order to receive the IR Proximity Sensors' values
 		proximity_msg_t prox_values;
-		std::vector<uint16_t> prox_inputs;
+		uint16_t prox_inputs[8];
 		messagebus_topic_t *prox_topic = messagebus_find_topic_blocking(&bus,
 				"/proximity");
 		messagebus_topic_wait(prox_topic, &prox_values, sizeof(prox_values));
 		for (unsigned int sensor_index = 0; sensor_index < 8; sensor_index++) {
-			prox_inputs.push_back(get_calibrated_prox(sensor_index));
+			prox_inputs[sensor_index] = get_calibrated_prox(sensor_index);
 		}
 
 		// Configure the Motors according to the processed IR Proximity Sensors' values
@@ -216,8 +215,8 @@ int main(void) {
 				(int16_t) ((MOTOR_SPEED_LIMIT / 2) - (prox_inputs[0] * 8)
 						- (prox_inputs[1] * 4) - (prox_inputs[2] * 2)));
 
-		// Refresh @ 100 Hz
-		chThdSleepUntilWindowed(time, time + MS2ST(10));
+		// Refresh @ 10 Hz
+		chThdSleepUntilWindowed(time, time + MS2ST(100));
 	}
 }
 
