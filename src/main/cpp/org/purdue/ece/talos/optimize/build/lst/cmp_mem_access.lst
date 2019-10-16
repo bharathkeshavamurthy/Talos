@@ -1,0 +1,395 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"cmp_mem_access.c"
+  14              		.section	.text.cmp_mem_reader,"ax",%progbits
+  15              		.align	1
+  16              		.syntax unified
+  17              		.thumb
+  18              		.thumb_func
+  19              		.fpu fpv4-sp-d16
+  20              		.type	cmp_mem_reader, %function
+  21              	cmp_mem_reader:
+  22              		@ args = 0, pretend = 0, frame = 24
+  23              		@ frame_needed = 1, uses_anonymous_args = 0
+  24 0000 80B5     		push	{r7, lr}
+  25 0002 86B0     		sub	sp, sp, #24
+  26 0004 00AF     		add	r7, sp, #0
+  27 0006 F860     		str	r0, [r7, #12]
+  28 0008 B960     		str	r1, [r7, #8]
+  29 000a 7A60     		str	r2, [r7, #4]
+  30 000c FB68     		ldr	r3, [r7, #12]
+  31 000e 5B68     		ldr	r3, [r3, #4]
+  32 0010 7B61     		str	r3, [r7, #20]
+  33 0012 7B69     		ldr	r3, [r7, #20]
+  34 0014 5A68     		ldr	r2, [r3, #4]
+  35 0016 7B68     		ldr	r3, [r7, #4]
+  36 0018 1A44     		add	r2, r2, r3
+  37 001a 7B69     		ldr	r3, [r7, #20]
+  38 001c 9B68     		ldr	r3, [r3, #8]
+  39 001e 9A42     		cmp	r2, r3
+  40 0020 11D8     		bhi	.L2
+  41 0022 7B69     		ldr	r3, [r7, #20]
+  42 0024 1A68     		ldr	r2, [r3]
+  43 0026 7B69     		ldr	r3, [r7, #20]
+  44 0028 5B68     		ldr	r3, [r3, #4]
+  45 002a 1344     		add	r3, r3, r2
+  46 002c 7A68     		ldr	r2, [r7, #4]
+  47 002e 1946     		mov	r1, r3
+  48 0030 B868     		ldr	r0, [r7, #8]
+  49 0032 FFF7FEFF 		bl	memcpy
+  50 0036 7B69     		ldr	r3, [r7, #20]
+  51 0038 5A68     		ldr	r2, [r3, #4]
+  52 003a 7B68     		ldr	r3, [r7, #4]
+  53 003c 1A44     		add	r2, r2, r3
+  54 003e 7B69     		ldr	r3, [r7, #20]
+  55 0040 5A60     		str	r2, [r3, #4]
+  56 0042 0123     		movs	r3, #1
+  57 0044 00E0     		b	.L3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s 			page 2
+
+
+  58              	.L2:
+  59 0046 0023     		movs	r3, #0
+  60              	.L3:
+  61 0048 1846     		mov	r0, r3
+  62 004a 1837     		adds	r7, r7, #24
+  63 004c BD46     		mov	sp, r7
+  64              		@ sp needed
+  65 004e 80BD     		pop	{r7, pc}
+  66              		.size	cmp_mem_reader, .-cmp_mem_reader
+  67              		.section	.text.cmp_mem_writer,"ax",%progbits
+  68              		.align	1
+  69              		.syntax unified
+  70              		.thumb
+  71              		.thumb_func
+  72              		.fpu fpv4-sp-d16
+  73              		.type	cmp_mem_writer, %function
+  74              	cmp_mem_writer:
+  75              		@ args = 0, pretend = 0, frame = 24
+  76              		@ frame_needed = 1, uses_anonymous_args = 0
+  77 0000 80B5     		push	{r7, lr}
+  78 0002 86B0     		sub	sp, sp, #24
+  79 0004 00AF     		add	r7, sp, #0
+  80 0006 F860     		str	r0, [r7, #12]
+  81 0008 B960     		str	r1, [r7, #8]
+  82 000a 7A60     		str	r2, [r7, #4]
+  83 000c FB68     		ldr	r3, [r7, #12]
+  84 000e 5B68     		ldr	r3, [r3, #4]
+  85 0010 7B61     		str	r3, [r7, #20]
+  86 0012 7B69     		ldr	r3, [r7, #20]
+  87 0014 5A68     		ldr	r2, [r3, #4]
+  88 0016 7B68     		ldr	r3, [r7, #4]
+  89 0018 1A44     		add	r2, r2, r3
+  90 001a 7B69     		ldr	r3, [r7, #20]
+  91 001c 9B68     		ldr	r3, [r3, #8]
+  92 001e 9A42     		cmp	r2, r3
+  93 0020 11D8     		bhi	.L5
+  94 0022 7B69     		ldr	r3, [r7, #20]
+  95 0024 1A68     		ldr	r2, [r3]
+  96 0026 7B69     		ldr	r3, [r7, #20]
+  97 0028 5B68     		ldr	r3, [r3, #4]
+  98 002a 1344     		add	r3, r3, r2
+  99 002c 7A68     		ldr	r2, [r7, #4]
+ 100 002e B968     		ldr	r1, [r7, #8]
+ 101 0030 1846     		mov	r0, r3
+ 102 0032 FFF7FEFF 		bl	memcpy
+ 103 0036 7B69     		ldr	r3, [r7, #20]
+ 104 0038 5A68     		ldr	r2, [r3, #4]
+ 105 003a 7B68     		ldr	r3, [r7, #4]
+ 106 003c 1A44     		add	r2, r2, r3
+ 107 003e 7B69     		ldr	r3, [r7, #20]
+ 108 0040 5A60     		str	r2, [r3, #4]
+ 109 0042 7B68     		ldr	r3, [r7, #4]
+ 110 0044 00E0     		b	.L6
+ 111              	.L5:
+ 112 0046 0023     		movs	r3, #0
+ 113              	.L6:
+ 114 0048 1846     		mov	r0, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s 			page 3
+
+
+ 115 004a 1837     		adds	r7, r7, #24
+ 116 004c BD46     		mov	sp, r7
+ 117              		@ sp needed
+ 118 004e 80BD     		pop	{r7, pc}
+ 119              		.size	cmp_mem_writer, .-cmp_mem_writer
+ 120              		.section	.text.cmp_mem_writer_ro,"ax",%progbits
+ 121              		.align	1
+ 122              		.syntax unified
+ 123              		.thumb
+ 124              		.thumb_func
+ 125              		.fpu fpv4-sp-d16
+ 126              		.type	cmp_mem_writer_ro, %function
+ 127              	cmp_mem_writer_ro:
+ 128              		@ args = 0, pretend = 0, frame = 16
+ 129              		@ frame_needed = 1, uses_anonymous_args = 0
+ 130              		@ link register save eliminated.
+ 131 0000 80B4     		push	{r7}
+ 132 0002 85B0     		sub	sp, sp, #20
+ 133 0004 00AF     		add	r7, sp, #0
+ 134 0006 F860     		str	r0, [r7, #12]
+ 135 0008 B960     		str	r1, [r7, #8]
+ 136 000a 7A60     		str	r2, [r7, #4]
+ 137 000c 0023     		movs	r3, #0
+ 138 000e 1846     		mov	r0, r3
+ 139 0010 1437     		adds	r7, r7, #20
+ 140 0012 BD46     		mov	sp, r7
+ 141              		@ sp needed
+ 142 0014 5DF8047B 		ldr	r7, [sp], #4
+ 143 0018 7047     		bx	lr
+ 144              		.size	cmp_mem_writer_ro, .-cmp_mem_writer_ro
+ 145              		.section	.text.cmp_mem_access_init,"ax",%progbits
+ 146              		.align	1
+ 147              		.global	cmp_mem_access_init
+ 148              		.syntax unified
+ 149              		.thumb
+ 150              		.thumb_func
+ 151              		.fpu fpv4-sp-d16
+ 152              		.type	cmp_mem_access_init, %function
+ 153              	cmp_mem_access_init:
+ 154              		@ args = 0, pretend = 0, frame = 16
+ 155              		@ frame_needed = 1, uses_anonymous_args = 0
+ 156 0000 80B5     		push	{r7, lr}
+ 157 0002 84B0     		sub	sp, sp, #16
+ 158 0004 00AF     		add	r7, sp, #0
+ 159 0006 F860     		str	r0, [r7, #12]
+ 160 0008 B960     		str	r1, [r7, #8]
+ 161 000a 7A60     		str	r2, [r7, #4]
+ 162 000c 3B60     		str	r3, [r7]
+ 163 000e BB68     		ldr	r3, [r7, #8]
+ 164 0010 7A68     		ldr	r2, [r7, #4]
+ 165 0012 1A60     		str	r2, [r3]
+ 166 0014 BB68     		ldr	r3, [r7, #8]
+ 167 0016 3A68     		ldr	r2, [r7]
+ 168 0018 9A60     		str	r2, [r3, #8]
+ 169 001a BB68     		ldr	r3, [r7, #8]
+ 170 001c 0022     		movs	r2, #0
+ 171 001e 5A60     		str	r2, [r3, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s 			page 4
+
+
+ 172 0020 044B     		ldr	r3, .L10
+ 173 0022 054A     		ldr	r2, .L10+4
+ 174 0024 B968     		ldr	r1, [r7, #8]
+ 175 0026 F868     		ldr	r0, [r7, #12]
+ 176 0028 FFF7FEFF 		bl	cmp_init
+ 177 002c 00BF     		nop
+ 178 002e 1037     		adds	r7, r7, #16
+ 179 0030 BD46     		mov	sp, r7
+ 180              		@ sp needed
+ 181 0032 80BD     		pop	{r7, pc}
+ 182              	.L11:
+ 183              		.align	2
+ 184              	.L10:
+ 185 0034 00000000 		.word	cmp_mem_writer
+ 186 0038 00000000 		.word	cmp_mem_reader
+ 187              		.size	cmp_mem_access_init, .-cmp_mem_access_init
+ 188              		.section	.text.cmp_mem_access_ro_init,"ax",%progbits
+ 189              		.align	1
+ 190              		.global	cmp_mem_access_ro_init
+ 191              		.syntax unified
+ 192              		.thumb
+ 193              		.thumb_func
+ 194              		.fpu fpv4-sp-d16
+ 195              		.type	cmp_mem_access_ro_init, %function
+ 196              	cmp_mem_access_ro_init:
+ 197              		@ args = 0, pretend = 0, frame = 16
+ 198              		@ frame_needed = 1, uses_anonymous_args = 0
+ 199 0000 80B5     		push	{r7, lr}
+ 200 0002 84B0     		sub	sp, sp, #16
+ 201 0004 00AF     		add	r7, sp, #0
+ 202 0006 F860     		str	r0, [r7, #12]
+ 203 0008 B960     		str	r1, [r7, #8]
+ 204 000a 7A60     		str	r2, [r7, #4]
+ 205 000c 3B60     		str	r3, [r7]
+ 206 000e BB68     		ldr	r3, [r7, #8]
+ 207 0010 7A68     		ldr	r2, [r7, #4]
+ 208 0012 1A60     		str	r2, [r3]
+ 209 0014 BB68     		ldr	r3, [r7, #8]
+ 210 0016 3A68     		ldr	r2, [r7]
+ 211 0018 9A60     		str	r2, [r3, #8]
+ 212 001a BB68     		ldr	r3, [r7, #8]
+ 213 001c 0022     		movs	r2, #0
+ 214 001e 5A60     		str	r2, [r3, #4]
+ 215 0020 044B     		ldr	r3, .L13
+ 216 0022 054A     		ldr	r2, .L13+4
+ 217 0024 B968     		ldr	r1, [r7, #8]
+ 218 0026 F868     		ldr	r0, [r7, #12]
+ 219 0028 FFF7FEFF 		bl	cmp_init
+ 220 002c 00BF     		nop
+ 221 002e 1037     		adds	r7, r7, #16
+ 222 0030 BD46     		mov	sp, r7
+ 223              		@ sp needed
+ 224 0032 80BD     		pop	{r7, pc}
+ 225              	.L14:
+ 226              		.align	2
+ 227              	.L13:
+ 228 0034 00000000 		.word	cmp_mem_writer_ro
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s 			page 5
+
+
+ 229 0038 00000000 		.word	cmp_mem_reader
+ 230              		.size	cmp_mem_access_ro_init, .-cmp_mem_access_ro_init
+ 231              		.section	.text.cmp_mem_access_get_pos,"ax",%progbits
+ 232              		.align	1
+ 233              		.global	cmp_mem_access_get_pos
+ 234              		.syntax unified
+ 235              		.thumb
+ 236              		.thumb_func
+ 237              		.fpu fpv4-sp-d16
+ 238              		.type	cmp_mem_access_get_pos, %function
+ 239              	cmp_mem_access_get_pos:
+ 240              		@ args = 0, pretend = 0, frame = 8
+ 241              		@ frame_needed = 1, uses_anonymous_args = 0
+ 242              		@ link register save eliminated.
+ 243 0000 80B4     		push	{r7}
+ 244 0002 83B0     		sub	sp, sp, #12
+ 245 0004 00AF     		add	r7, sp, #0
+ 246 0006 7860     		str	r0, [r7, #4]
+ 247 0008 7B68     		ldr	r3, [r7, #4]
+ 248 000a 5B68     		ldr	r3, [r3, #4]
+ 249 000c 1846     		mov	r0, r3
+ 250 000e 0C37     		adds	r7, r7, #12
+ 251 0010 BD46     		mov	sp, r7
+ 252              		@ sp needed
+ 253 0012 5DF8047B 		ldr	r7, [sp], #4
+ 254 0016 7047     		bx	lr
+ 255              		.size	cmp_mem_access_get_pos, .-cmp_mem_access_get_pos
+ 256              		.section	.text.cmp_mem_access_set_pos,"ax",%progbits
+ 257              		.align	1
+ 258              		.global	cmp_mem_access_set_pos
+ 259              		.syntax unified
+ 260              		.thumb
+ 261              		.thumb_func
+ 262              		.fpu fpv4-sp-d16
+ 263              		.type	cmp_mem_access_set_pos, %function
+ 264              	cmp_mem_access_set_pos:
+ 265              		@ args = 0, pretend = 0, frame = 8
+ 266              		@ frame_needed = 1, uses_anonymous_args = 0
+ 267              		@ link register save eliminated.
+ 268 0000 80B4     		push	{r7}
+ 269 0002 83B0     		sub	sp, sp, #12
+ 270 0004 00AF     		add	r7, sp, #0
+ 271 0006 7860     		str	r0, [r7, #4]
+ 272 0008 3960     		str	r1, [r7]
+ 273 000a 7B68     		ldr	r3, [r7, #4]
+ 274 000c 3A68     		ldr	r2, [r7]
+ 275 000e 5A60     		str	r2, [r3, #4]
+ 276 0010 00BF     		nop
+ 277 0012 0C37     		adds	r7, r7, #12
+ 278 0014 BD46     		mov	sp, r7
+ 279              		@ sp needed
+ 280 0016 5DF8047B 		ldr	r7, [sp], #4
+ 281 001a 7047     		bx	lr
+ 282              		.size	cmp_mem_access_set_pos, .-cmp_mem_access_set_pos
+ 283              		.section	.text.cmp_mem_access_get_ptr_at_pos,"ax",%progbits
+ 284              		.align	1
+ 285              		.global	cmp_mem_access_get_ptr_at_pos
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s 			page 6
+
+
+ 286              		.syntax unified
+ 287              		.thumb
+ 288              		.thumb_func
+ 289              		.fpu fpv4-sp-d16
+ 290              		.type	cmp_mem_access_get_ptr_at_pos, %function
+ 291              	cmp_mem_access_get_ptr_at_pos:
+ 292              		@ args = 0, pretend = 0, frame = 8
+ 293              		@ frame_needed = 1, uses_anonymous_args = 0
+ 294              		@ link register save eliminated.
+ 295 0000 80B4     		push	{r7}
+ 296 0002 83B0     		sub	sp, sp, #12
+ 297 0004 00AF     		add	r7, sp, #0
+ 298 0006 7860     		str	r0, [r7, #4]
+ 299 0008 3960     		str	r1, [r7]
+ 300 000a 7B68     		ldr	r3, [r7, #4]
+ 301 000c 1A68     		ldr	r2, [r3]
+ 302 000e 3B68     		ldr	r3, [r7]
+ 303 0010 1344     		add	r3, r3, r2
+ 304 0012 1846     		mov	r0, r3
+ 305 0014 0C37     		adds	r7, r7, #12
+ 306 0016 BD46     		mov	sp, r7
+ 307              		@ sp needed
+ 308 0018 5DF8047B 		ldr	r7, [sp], #4
+ 309 001c 7047     		bx	lr
+ 310              		.size	cmp_mem_access_get_ptr_at_pos, .-cmp_mem_access_get_ptr_at_pos
+ 311              		.section	.text.cmp_mem_access_pos_is_valid,"ax",%progbits
+ 312              		.align	1
+ 313              		.global	cmp_mem_access_pos_is_valid
+ 314              		.syntax unified
+ 315              		.thumb
+ 316              		.thumb_func
+ 317              		.fpu fpv4-sp-d16
+ 318              		.type	cmp_mem_access_pos_is_valid, %function
+ 319              	cmp_mem_access_pos_is_valid:
+ 320              		@ args = 0, pretend = 0, frame = 8
+ 321              		@ frame_needed = 1, uses_anonymous_args = 0
+ 322              		@ link register save eliminated.
+ 323 0000 80B4     		push	{r7}
+ 324 0002 83B0     		sub	sp, sp, #12
+ 325 0004 00AF     		add	r7, sp, #0
+ 326 0006 7860     		str	r0, [r7, #4]
+ 327 0008 3960     		str	r1, [r7]
+ 328 000a 7B68     		ldr	r3, [r7, #4]
+ 329 000c 9B68     		ldr	r3, [r3, #8]
+ 330 000e 3A68     		ldr	r2, [r7]
+ 331 0010 9A42     		cmp	r2, r3
+ 332 0012 01D3     		bcc	.L21
+ 333 0014 0023     		movs	r3, #0
+ 334 0016 00E0     		b	.L22
+ 335              	.L21:
+ 336 0018 0123     		movs	r3, #1
+ 337              	.L22:
+ 338 001a 1846     		mov	r0, r3
+ 339 001c 0C37     		adds	r7, r7, #12
+ 340 001e BD46     		mov	sp, r7
+ 341              		@ sp needed
+ 342 0020 5DF8047B 		ldr	r7, [sp], #4
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s 			page 7
+
+
+ 343 0024 7047     		bx	lr
+ 344              		.size	cmp_mem_access_pos_is_valid, .-cmp_mem_access_pos_is_valid
+ 345              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 cmp_mem_access.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s:15     .text.cmp_mem_reader:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s:21     .text.cmp_mem_reader:0000000000000000 cmp_mem_reader
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s:68     .text.cmp_mem_writer:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s:74     .text.cmp_mem_writer:0000000000000000 cmp_mem_writer
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s:121    .text.cmp_mem_writer_ro:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s:127    .text.cmp_mem_writer_ro:0000000000000000 cmp_mem_writer_ro
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s:146    .text.cmp_mem_access_init:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s:153    .text.cmp_mem_access_init:0000000000000000 cmp_mem_access_init
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s:185    .text.cmp_mem_access_init:0000000000000034 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s:189    .text.cmp_mem_access_ro_init:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s:196    .text.cmp_mem_access_ro_init:0000000000000000 cmp_mem_access_ro_init
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s:228    .text.cmp_mem_access_ro_init:0000000000000034 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s:232    .text.cmp_mem_access_get_pos:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s:239    .text.cmp_mem_access_get_pos:0000000000000000 cmp_mem_access_get_pos
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s:257    .text.cmp_mem_access_set_pos:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s:264    .text.cmp_mem_access_set_pos:0000000000000000 cmp_mem_access_set_pos
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s:284    .text.cmp_mem_access_get_ptr_at_pos:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s:291    .text.cmp_mem_access_get_ptr_at_pos:0000000000000000 cmp_mem_access_get_ptr_at_pos
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s:312    .text.cmp_mem_access_pos_is_valid:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccfhfcKS.s:319    .text.cmp_mem_access_pos_is_valid:0000000000000000 cmp_mem_access_pos_is_valid
+
+UNDEFINED SYMBOLS
+memcpy
+cmp_init

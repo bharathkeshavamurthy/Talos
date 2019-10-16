@@ -1,0 +1,1388 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"stm32_dma.c"
+  14              		.global	_stm32_dma_streams
+  15              		.section	.rodata._stm32_dma_streams,"a",%progbits
+  16              		.align	2
+  17              		.type	_stm32_dma_streams, %object
+  18              		.size	_stm32_dma_streams, 192
+  19              	_stm32_dma_streams:
+  20 0000 10600240 		.word	1073897488
+  21 0004 08600240 		.word	1073897480
+  22 0008 00       		.byte	0
+  23 0009 00       		.byte	0
+  24 000a 0B       		.byte	11
+  25 000b 00       		.space	1
+  26 000c 28600240 		.word	1073897512
+  27 0010 08600240 		.word	1073897480
+  28 0014 06       		.byte	6
+  29 0015 01       		.byte	1
+  30 0016 0C       		.byte	12
+  31 0017 00       		.space	1
+  32 0018 40600240 		.word	1073897536
+  33 001c 08600240 		.word	1073897480
+  34 0020 10       		.byte	16
+  35 0021 02       		.byte	2
+  36 0022 0D       		.byte	13
+  37 0023 00       		.space	1
+  38 0024 58600240 		.word	1073897560
+  39 0028 08600240 		.word	1073897480
+  40 002c 16       		.byte	22
+  41 002d 03       		.byte	3
+  42 002e 0E       		.byte	14
+  43 002f 00       		.space	1
+  44 0030 70600240 		.word	1073897584
+  45 0034 0C600240 		.word	1073897484
+  46 0038 00       		.byte	0
+  47 0039 04       		.byte	4
+  48 003a 0F       		.byte	15
+  49 003b 00       		.space	1
+  50 003c 88600240 		.word	1073897608
+  51 0040 0C600240 		.word	1073897484
+  52 0044 06       		.byte	6
+  53 0045 05       		.byte	5
+  54 0046 10       		.byte	16
+  55 0047 00       		.space	1
+  56 0048 A0600240 		.word	1073897632
+  57 004c 0C600240 		.word	1073897484
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s 			page 2
+
+
+  58 0050 10       		.byte	16
+  59 0051 06       		.byte	6
+  60 0052 11       		.byte	17
+  61 0053 00       		.space	1
+  62 0054 B8600240 		.word	1073897656
+  63 0058 0C600240 		.word	1073897484
+  64 005c 16       		.byte	22
+  65 005d 07       		.byte	7
+  66 005e 2F       		.byte	47
+  67 005f 00       		.space	1
+  68 0060 10640240 		.word	1073898512
+  69 0064 08640240 		.word	1073898504
+  70 0068 00       		.byte	0
+  71 0069 08       		.byte	8
+  72 006a 38       		.byte	56
+  73 006b 00       		.space	1
+  74 006c 28640240 		.word	1073898536
+  75 0070 08640240 		.word	1073898504
+  76 0074 06       		.byte	6
+  77 0075 09       		.byte	9
+  78 0076 39       		.byte	57
+  79 0077 00       		.space	1
+  80 0078 40640240 		.word	1073898560
+  81 007c 08640240 		.word	1073898504
+  82 0080 10       		.byte	16
+  83 0081 0A       		.byte	10
+  84 0082 3A       		.byte	58
+  85 0083 00       		.space	1
+  86 0084 58640240 		.word	1073898584
+  87 0088 08640240 		.word	1073898504
+  88 008c 16       		.byte	22
+  89 008d 0B       		.byte	11
+  90 008e 3B       		.byte	59
+  91 008f 00       		.space	1
+  92 0090 70640240 		.word	1073898608
+  93 0094 0C640240 		.word	1073898508
+  94 0098 00       		.byte	0
+  95 0099 0C       		.byte	12
+  96 009a 3C       		.byte	60
+  97 009b 00       		.space	1
+  98 009c 88640240 		.word	1073898632
+  99 00a0 0C640240 		.word	1073898508
+ 100 00a4 06       		.byte	6
+ 101 00a5 0D       		.byte	13
+ 102 00a6 44       		.byte	68
+ 103 00a7 00       		.space	1
+ 104 00a8 A0640240 		.word	1073898656
+ 105 00ac 0C640240 		.word	1073898508
+ 106 00b0 10       		.byte	16
+ 107 00b1 0E       		.byte	14
+ 108 00b2 45       		.byte	69
+ 109 00b3 00       		.space	1
+ 110 00b4 B8640240 		.word	1073898680
+ 111 00b8 0C640240 		.word	1073898508
+ 112 00bc 16       		.byte	22
+ 113 00bd 0F       		.byte	15
+ 114 00be 46       		.byte	70
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s 			page 3
+
+
+ 115 00bf 00       		.space	1
+ 116              		.section	.bss.dma_streams_mask,"aw",%nobits
+ 117              		.align	2
+ 118              		.type	dma_streams_mask, %object
+ 119              		.size	dma_streams_mask, 4
+ 120              	dma_streams_mask:
+ 121 0000 00000000 		.space	4
+ 122              		.section	.bss.dma_isr_redir,"aw",%nobits
+ 123              		.align	2
+ 124              		.type	dma_isr_redir, %object
+ 125              		.size	dma_isr_redir, 128
+ 126              	dma_isr_redir:
+ 127 0000 00000000 		.space	128
+ 127      00000000 
+ 127      00000000 
+ 127      00000000 
+ 127      00000000 
+ 128              		.section	.text.Vector6C,"ax",%progbits
+ 129              		.align	1
+ 130              		.global	Vector6C
+ 131              		.syntax unified
+ 132              		.thumb
+ 133              		.thumb_func
+ 134              		.fpu fpv4-sp-d16
+ 135              		.type	Vector6C, %function
+ 136              	Vector6C:
+ 137              		@ args = 0, pretend = 0, frame = 8
+ 138              		@ frame_needed = 1, uses_anonymous_args = 0
+ 139 0000 80B5     		push	{r7, lr}
+ 140 0002 82B0     		sub	sp, sp, #8
+ 141 0004 00AF     		add	r7, sp, #0
+ 142 0006 FFF7FEFF 		bl	_stats_increase_irq
+ 143 000a FFF7FEFF 		bl	_dbg_check_enter_isr
+ 144 000e 0D4B     		ldr	r3, .L3
+ 145 0010 1B68     		ldr	r3, [r3]
+ 146 0012 03F03D03 		and	r3, r3, #61
+ 147 0016 7B60     		str	r3, [r7, #4]
+ 148 0018 0A4A     		ldr	r2, .L3
+ 149 001a 7B68     		ldr	r3, [r7, #4]
+ 150 001c 9360     		str	r3, [r2, #8]
+ 151 001e 0A4B     		ldr	r3, .L3+4
+ 152 0020 1B68     		ldr	r3, [r3]
+ 153 0022 002B     		cmp	r3, #0
+ 154 0024 06D0     		beq	.L2
+ 155 0026 084B     		ldr	r3, .L3+4
+ 156 0028 1B68     		ldr	r3, [r3]
+ 157 002a 074A     		ldr	r2, .L3+4
+ 158 002c 5268     		ldr	r2, [r2, #4]
+ 159 002e 7968     		ldr	r1, [r7, #4]
+ 160 0030 1046     		mov	r0, r2
+ 161 0032 9847     		blx	r3
+ 162              	.L2:
+ 163 0034 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 164 0038 FFF7FEFF 		bl	_port_irq_epilogue
+ 165 003c 00BF     		nop
+ 166 003e 0837     		adds	r7, r7, #8
+ 167 0040 BD46     		mov	sp, r7
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s 			page 4
+
+
+ 168              		@ sp needed
+ 169 0042 80BD     		pop	{r7, pc}
+ 170              	.L4:
+ 171              		.align	2
+ 172              	.L3:
+ 173 0044 00600240 		.word	1073897472
+ 174 0048 00000000 		.word	dma_isr_redir
+ 175              		.size	Vector6C, .-Vector6C
+ 176              		.section	.text.Vector70,"ax",%progbits
+ 177              		.align	1
+ 178              		.global	Vector70
+ 179              		.syntax unified
+ 180              		.thumb
+ 181              		.thumb_func
+ 182              		.fpu fpv4-sp-d16
+ 183              		.type	Vector70, %function
+ 184              	Vector70:
+ 185              		@ args = 0, pretend = 0, frame = 8
+ 186              		@ frame_needed = 1, uses_anonymous_args = 0
+ 187 0000 80B5     		push	{r7, lr}
+ 188 0002 82B0     		sub	sp, sp, #8
+ 189 0004 00AF     		add	r7, sp, #0
+ 190 0006 FFF7FEFF 		bl	_stats_increase_irq
+ 191 000a FFF7FEFF 		bl	_dbg_check_enter_isr
+ 192 000e 0E4B     		ldr	r3, .L7
+ 193 0010 1B68     		ldr	r3, [r3]
+ 194 0012 9B09     		lsrs	r3, r3, #6
+ 195 0014 03F03D03 		and	r3, r3, #61
+ 196 0018 7B60     		str	r3, [r7, #4]
+ 197 001a 0B4A     		ldr	r2, .L7
+ 198 001c 7B68     		ldr	r3, [r7, #4]
+ 199 001e 9B01     		lsls	r3, r3, #6
+ 200 0020 9360     		str	r3, [r2, #8]
+ 201 0022 0A4B     		ldr	r3, .L7+4
+ 202 0024 9B68     		ldr	r3, [r3, #8]
+ 203 0026 002B     		cmp	r3, #0
+ 204 0028 06D0     		beq	.L6
+ 205 002a 084B     		ldr	r3, .L7+4
+ 206 002c 9B68     		ldr	r3, [r3, #8]
+ 207 002e 074A     		ldr	r2, .L7+4
+ 208 0030 D268     		ldr	r2, [r2, #12]
+ 209 0032 7968     		ldr	r1, [r7, #4]
+ 210 0034 1046     		mov	r0, r2
+ 211 0036 9847     		blx	r3
+ 212              	.L6:
+ 213 0038 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 214 003c FFF7FEFF 		bl	_port_irq_epilogue
+ 215 0040 00BF     		nop
+ 216 0042 0837     		adds	r7, r7, #8
+ 217 0044 BD46     		mov	sp, r7
+ 218              		@ sp needed
+ 219 0046 80BD     		pop	{r7, pc}
+ 220              	.L8:
+ 221              		.align	2
+ 222              	.L7:
+ 223 0048 00600240 		.word	1073897472
+ 224 004c 00000000 		.word	dma_isr_redir
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s 			page 5
+
+
+ 225              		.size	Vector70, .-Vector70
+ 226              		.section	.text.Vector74,"ax",%progbits
+ 227              		.align	1
+ 228              		.global	Vector74
+ 229              		.syntax unified
+ 230              		.thumb
+ 231              		.thumb_func
+ 232              		.fpu fpv4-sp-d16
+ 233              		.type	Vector74, %function
+ 234              	Vector74:
+ 235              		@ args = 0, pretend = 0, frame = 8
+ 236              		@ frame_needed = 1, uses_anonymous_args = 0
+ 237 0000 80B5     		push	{r7, lr}
+ 238 0002 82B0     		sub	sp, sp, #8
+ 239 0004 00AF     		add	r7, sp, #0
+ 240 0006 FFF7FEFF 		bl	_stats_increase_irq
+ 241 000a FFF7FEFF 		bl	_dbg_check_enter_isr
+ 242 000e 0E4B     		ldr	r3, .L11
+ 243 0010 1B68     		ldr	r3, [r3]
+ 244 0012 1B0C     		lsrs	r3, r3, #16
+ 245 0014 03F03D03 		and	r3, r3, #61
+ 246 0018 7B60     		str	r3, [r7, #4]
+ 247 001a 0B4A     		ldr	r2, .L11
+ 248 001c 7B68     		ldr	r3, [r7, #4]
+ 249 001e 1B04     		lsls	r3, r3, #16
+ 250 0020 9360     		str	r3, [r2, #8]
+ 251 0022 0A4B     		ldr	r3, .L11+4
+ 252 0024 1B69     		ldr	r3, [r3, #16]
+ 253 0026 002B     		cmp	r3, #0
+ 254 0028 06D0     		beq	.L10
+ 255 002a 084B     		ldr	r3, .L11+4
+ 256 002c 1B69     		ldr	r3, [r3, #16]
+ 257 002e 074A     		ldr	r2, .L11+4
+ 258 0030 5269     		ldr	r2, [r2, #20]
+ 259 0032 7968     		ldr	r1, [r7, #4]
+ 260 0034 1046     		mov	r0, r2
+ 261 0036 9847     		blx	r3
+ 262              	.L10:
+ 263 0038 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 264 003c FFF7FEFF 		bl	_port_irq_epilogue
+ 265 0040 00BF     		nop
+ 266 0042 0837     		adds	r7, r7, #8
+ 267 0044 BD46     		mov	sp, r7
+ 268              		@ sp needed
+ 269 0046 80BD     		pop	{r7, pc}
+ 270              	.L12:
+ 271              		.align	2
+ 272              	.L11:
+ 273 0048 00600240 		.word	1073897472
+ 274 004c 00000000 		.word	dma_isr_redir
+ 275              		.size	Vector74, .-Vector74
+ 276              		.section	.text.Vector78,"ax",%progbits
+ 277              		.align	1
+ 278              		.global	Vector78
+ 279              		.syntax unified
+ 280              		.thumb
+ 281              		.thumb_func
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s 			page 6
+
+
+ 282              		.fpu fpv4-sp-d16
+ 283              		.type	Vector78, %function
+ 284              	Vector78:
+ 285              		@ args = 0, pretend = 0, frame = 8
+ 286              		@ frame_needed = 1, uses_anonymous_args = 0
+ 287 0000 80B5     		push	{r7, lr}
+ 288 0002 82B0     		sub	sp, sp, #8
+ 289 0004 00AF     		add	r7, sp, #0
+ 290 0006 FFF7FEFF 		bl	_stats_increase_irq
+ 291 000a FFF7FEFF 		bl	_dbg_check_enter_isr
+ 292 000e 0E4B     		ldr	r3, .L15
+ 293 0010 1B68     		ldr	r3, [r3]
+ 294 0012 9B0D     		lsrs	r3, r3, #22
+ 295 0014 03F03D03 		and	r3, r3, #61
+ 296 0018 7B60     		str	r3, [r7, #4]
+ 297 001a 0B4A     		ldr	r2, .L15
+ 298 001c 7B68     		ldr	r3, [r7, #4]
+ 299 001e 9B05     		lsls	r3, r3, #22
+ 300 0020 9360     		str	r3, [r2, #8]
+ 301 0022 0A4B     		ldr	r3, .L15+4
+ 302 0024 9B69     		ldr	r3, [r3, #24]
+ 303 0026 002B     		cmp	r3, #0
+ 304 0028 06D0     		beq	.L14
+ 305 002a 084B     		ldr	r3, .L15+4
+ 306 002c 9B69     		ldr	r3, [r3, #24]
+ 307 002e 074A     		ldr	r2, .L15+4
+ 308 0030 D269     		ldr	r2, [r2, #28]
+ 309 0032 7968     		ldr	r1, [r7, #4]
+ 310 0034 1046     		mov	r0, r2
+ 311 0036 9847     		blx	r3
+ 312              	.L14:
+ 313 0038 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 314 003c FFF7FEFF 		bl	_port_irq_epilogue
+ 315 0040 00BF     		nop
+ 316 0042 0837     		adds	r7, r7, #8
+ 317 0044 BD46     		mov	sp, r7
+ 318              		@ sp needed
+ 319 0046 80BD     		pop	{r7, pc}
+ 320              	.L16:
+ 321              		.align	2
+ 322              	.L15:
+ 323 0048 00600240 		.word	1073897472
+ 324 004c 00000000 		.word	dma_isr_redir
+ 325              		.size	Vector78, .-Vector78
+ 326              		.section	.text.Vector7C,"ax",%progbits
+ 327              		.align	1
+ 328              		.global	Vector7C
+ 329              		.syntax unified
+ 330              		.thumb
+ 331              		.thumb_func
+ 332              		.fpu fpv4-sp-d16
+ 333              		.type	Vector7C, %function
+ 334              	Vector7C:
+ 335              		@ args = 0, pretend = 0, frame = 8
+ 336              		@ frame_needed = 1, uses_anonymous_args = 0
+ 337 0000 80B5     		push	{r7, lr}
+ 338 0002 82B0     		sub	sp, sp, #8
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s 			page 7
+
+
+ 339 0004 00AF     		add	r7, sp, #0
+ 340 0006 FFF7FEFF 		bl	_stats_increase_irq
+ 341 000a FFF7FEFF 		bl	_dbg_check_enter_isr
+ 342 000e 0D4B     		ldr	r3, .L19
+ 343 0010 5B68     		ldr	r3, [r3, #4]
+ 344 0012 03F03D03 		and	r3, r3, #61
+ 345 0016 7B60     		str	r3, [r7, #4]
+ 346 0018 0A4A     		ldr	r2, .L19
+ 347 001a 7B68     		ldr	r3, [r7, #4]
+ 348 001c D360     		str	r3, [r2, #12]
+ 349 001e 0A4B     		ldr	r3, .L19+4
+ 350 0020 1B6A     		ldr	r3, [r3, #32]
+ 351 0022 002B     		cmp	r3, #0
+ 352 0024 06D0     		beq	.L18
+ 353 0026 084B     		ldr	r3, .L19+4
+ 354 0028 1B6A     		ldr	r3, [r3, #32]
+ 355 002a 074A     		ldr	r2, .L19+4
+ 356 002c 526A     		ldr	r2, [r2, #36]
+ 357 002e 7968     		ldr	r1, [r7, #4]
+ 358 0030 1046     		mov	r0, r2
+ 359 0032 9847     		blx	r3
+ 360              	.L18:
+ 361 0034 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 362 0038 FFF7FEFF 		bl	_port_irq_epilogue
+ 363 003c 00BF     		nop
+ 364 003e 0837     		adds	r7, r7, #8
+ 365 0040 BD46     		mov	sp, r7
+ 366              		@ sp needed
+ 367 0042 80BD     		pop	{r7, pc}
+ 368              	.L20:
+ 369              		.align	2
+ 370              	.L19:
+ 371 0044 00600240 		.word	1073897472
+ 372 0048 00000000 		.word	dma_isr_redir
+ 373              		.size	Vector7C, .-Vector7C
+ 374              		.section	.text.Vector80,"ax",%progbits
+ 375              		.align	1
+ 376              		.global	Vector80
+ 377              		.syntax unified
+ 378              		.thumb
+ 379              		.thumb_func
+ 380              		.fpu fpv4-sp-d16
+ 381              		.type	Vector80, %function
+ 382              	Vector80:
+ 383              		@ args = 0, pretend = 0, frame = 8
+ 384              		@ frame_needed = 1, uses_anonymous_args = 0
+ 385 0000 80B5     		push	{r7, lr}
+ 386 0002 82B0     		sub	sp, sp, #8
+ 387 0004 00AF     		add	r7, sp, #0
+ 388 0006 FFF7FEFF 		bl	_stats_increase_irq
+ 389 000a FFF7FEFF 		bl	_dbg_check_enter_isr
+ 390 000e 0E4B     		ldr	r3, .L23
+ 391 0010 5B68     		ldr	r3, [r3, #4]
+ 392 0012 9B09     		lsrs	r3, r3, #6
+ 393 0014 03F03D03 		and	r3, r3, #61
+ 394 0018 7B60     		str	r3, [r7, #4]
+ 395 001a 0B4A     		ldr	r2, .L23
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s 			page 8
+
+
+ 396 001c 7B68     		ldr	r3, [r7, #4]
+ 397 001e 9B01     		lsls	r3, r3, #6
+ 398 0020 D360     		str	r3, [r2, #12]
+ 399 0022 0A4B     		ldr	r3, .L23+4
+ 400 0024 9B6A     		ldr	r3, [r3, #40]
+ 401 0026 002B     		cmp	r3, #0
+ 402 0028 06D0     		beq	.L22
+ 403 002a 084B     		ldr	r3, .L23+4
+ 404 002c 9B6A     		ldr	r3, [r3, #40]
+ 405 002e 074A     		ldr	r2, .L23+4
+ 406 0030 D26A     		ldr	r2, [r2, #44]
+ 407 0032 7968     		ldr	r1, [r7, #4]
+ 408 0034 1046     		mov	r0, r2
+ 409 0036 9847     		blx	r3
+ 410              	.L22:
+ 411 0038 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 412 003c FFF7FEFF 		bl	_port_irq_epilogue
+ 413 0040 00BF     		nop
+ 414 0042 0837     		adds	r7, r7, #8
+ 415 0044 BD46     		mov	sp, r7
+ 416              		@ sp needed
+ 417 0046 80BD     		pop	{r7, pc}
+ 418              	.L24:
+ 419              		.align	2
+ 420              	.L23:
+ 421 0048 00600240 		.word	1073897472
+ 422 004c 00000000 		.word	dma_isr_redir
+ 423              		.size	Vector80, .-Vector80
+ 424              		.section	.text.Vector84,"ax",%progbits
+ 425              		.align	1
+ 426              		.global	Vector84
+ 427              		.syntax unified
+ 428              		.thumb
+ 429              		.thumb_func
+ 430              		.fpu fpv4-sp-d16
+ 431              		.type	Vector84, %function
+ 432              	Vector84:
+ 433              		@ args = 0, pretend = 0, frame = 8
+ 434              		@ frame_needed = 1, uses_anonymous_args = 0
+ 435 0000 80B5     		push	{r7, lr}
+ 436 0002 82B0     		sub	sp, sp, #8
+ 437 0004 00AF     		add	r7, sp, #0
+ 438 0006 FFF7FEFF 		bl	_stats_increase_irq
+ 439 000a FFF7FEFF 		bl	_dbg_check_enter_isr
+ 440 000e 0E4B     		ldr	r3, .L27
+ 441 0010 5B68     		ldr	r3, [r3, #4]
+ 442 0012 1B0C     		lsrs	r3, r3, #16
+ 443 0014 03F03D03 		and	r3, r3, #61
+ 444 0018 7B60     		str	r3, [r7, #4]
+ 445 001a 0B4A     		ldr	r2, .L27
+ 446 001c 7B68     		ldr	r3, [r7, #4]
+ 447 001e 1B04     		lsls	r3, r3, #16
+ 448 0020 D360     		str	r3, [r2, #12]
+ 449 0022 0A4B     		ldr	r3, .L27+4
+ 450 0024 1B6B     		ldr	r3, [r3, #48]
+ 451 0026 002B     		cmp	r3, #0
+ 452 0028 06D0     		beq	.L26
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s 			page 9
+
+
+ 453 002a 084B     		ldr	r3, .L27+4
+ 454 002c 1B6B     		ldr	r3, [r3, #48]
+ 455 002e 074A     		ldr	r2, .L27+4
+ 456 0030 526B     		ldr	r2, [r2, #52]
+ 457 0032 7968     		ldr	r1, [r7, #4]
+ 458 0034 1046     		mov	r0, r2
+ 459 0036 9847     		blx	r3
+ 460              	.L26:
+ 461 0038 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 462 003c FFF7FEFF 		bl	_port_irq_epilogue
+ 463 0040 00BF     		nop
+ 464 0042 0837     		adds	r7, r7, #8
+ 465 0044 BD46     		mov	sp, r7
+ 466              		@ sp needed
+ 467 0046 80BD     		pop	{r7, pc}
+ 468              	.L28:
+ 469              		.align	2
+ 470              	.L27:
+ 471 0048 00600240 		.word	1073897472
+ 472 004c 00000000 		.word	dma_isr_redir
+ 473              		.size	Vector84, .-Vector84
+ 474              		.section	.text.VectorFC,"ax",%progbits
+ 475              		.align	1
+ 476              		.global	VectorFC
+ 477              		.syntax unified
+ 478              		.thumb
+ 479              		.thumb_func
+ 480              		.fpu fpv4-sp-d16
+ 481              		.type	VectorFC, %function
+ 482              	VectorFC:
+ 483              		@ args = 0, pretend = 0, frame = 8
+ 484              		@ frame_needed = 1, uses_anonymous_args = 0
+ 485 0000 80B5     		push	{r7, lr}
+ 486 0002 82B0     		sub	sp, sp, #8
+ 487 0004 00AF     		add	r7, sp, #0
+ 488 0006 FFF7FEFF 		bl	_stats_increase_irq
+ 489 000a FFF7FEFF 		bl	_dbg_check_enter_isr
+ 490 000e 0E4B     		ldr	r3, .L31
+ 491 0010 5B68     		ldr	r3, [r3, #4]
+ 492 0012 9B0D     		lsrs	r3, r3, #22
+ 493 0014 03F03D03 		and	r3, r3, #61
+ 494 0018 7B60     		str	r3, [r7, #4]
+ 495 001a 0B4A     		ldr	r2, .L31
+ 496 001c 7B68     		ldr	r3, [r7, #4]
+ 497 001e 9B05     		lsls	r3, r3, #22
+ 498 0020 D360     		str	r3, [r2, #12]
+ 499 0022 0A4B     		ldr	r3, .L31+4
+ 500 0024 9B6B     		ldr	r3, [r3, #56]
+ 501 0026 002B     		cmp	r3, #0
+ 502 0028 06D0     		beq	.L30
+ 503 002a 084B     		ldr	r3, .L31+4
+ 504 002c 9B6B     		ldr	r3, [r3, #56]
+ 505 002e 074A     		ldr	r2, .L31+4
+ 506 0030 D26B     		ldr	r2, [r2, #60]
+ 507 0032 7968     		ldr	r1, [r7, #4]
+ 508 0034 1046     		mov	r0, r2
+ 509 0036 9847     		blx	r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s 			page 10
+
+
+ 510              	.L30:
+ 511 0038 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 512 003c FFF7FEFF 		bl	_port_irq_epilogue
+ 513 0040 00BF     		nop
+ 514 0042 0837     		adds	r7, r7, #8
+ 515 0044 BD46     		mov	sp, r7
+ 516              		@ sp needed
+ 517 0046 80BD     		pop	{r7, pc}
+ 518              	.L32:
+ 519              		.align	2
+ 520              	.L31:
+ 521 0048 00600240 		.word	1073897472
+ 522 004c 00000000 		.word	dma_isr_redir
+ 523              		.size	VectorFC, .-VectorFC
+ 524              		.section	.text.Vector120,"ax",%progbits
+ 525              		.align	1
+ 526              		.global	Vector120
+ 527              		.syntax unified
+ 528              		.thumb
+ 529              		.thumb_func
+ 530              		.fpu fpv4-sp-d16
+ 531              		.type	Vector120, %function
+ 532              	Vector120:
+ 533              		@ args = 0, pretend = 0, frame = 8
+ 534              		@ frame_needed = 1, uses_anonymous_args = 0
+ 535 0000 80B5     		push	{r7, lr}
+ 536 0002 82B0     		sub	sp, sp, #8
+ 537 0004 00AF     		add	r7, sp, #0
+ 538 0006 FFF7FEFF 		bl	_stats_increase_irq
+ 539 000a FFF7FEFF 		bl	_dbg_check_enter_isr
+ 540 000e 0D4B     		ldr	r3, .L35
+ 541 0010 1B68     		ldr	r3, [r3]
+ 542 0012 03F03D03 		and	r3, r3, #61
+ 543 0016 7B60     		str	r3, [r7, #4]
+ 544 0018 0A4A     		ldr	r2, .L35
+ 545 001a 7B68     		ldr	r3, [r7, #4]
+ 546 001c 9360     		str	r3, [r2, #8]
+ 547 001e 0A4B     		ldr	r3, .L35+4
+ 548 0020 1B6C     		ldr	r3, [r3, #64]
+ 549 0022 002B     		cmp	r3, #0
+ 550 0024 06D0     		beq	.L34
+ 551 0026 084B     		ldr	r3, .L35+4
+ 552 0028 1B6C     		ldr	r3, [r3, #64]
+ 553 002a 074A     		ldr	r2, .L35+4
+ 554 002c 526C     		ldr	r2, [r2, #68]
+ 555 002e 7968     		ldr	r1, [r7, #4]
+ 556 0030 1046     		mov	r0, r2
+ 557 0032 9847     		blx	r3
+ 558              	.L34:
+ 559 0034 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 560 0038 FFF7FEFF 		bl	_port_irq_epilogue
+ 561 003c 00BF     		nop
+ 562 003e 0837     		adds	r7, r7, #8
+ 563 0040 BD46     		mov	sp, r7
+ 564              		@ sp needed
+ 565 0042 80BD     		pop	{r7, pc}
+ 566              	.L36:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s 			page 11
+
+
+ 567              		.align	2
+ 568              	.L35:
+ 569 0044 00640240 		.word	1073898496
+ 570 0048 00000000 		.word	dma_isr_redir
+ 571              		.size	Vector120, .-Vector120
+ 572              		.section	.text.Vector124,"ax",%progbits
+ 573              		.align	1
+ 574              		.global	Vector124
+ 575              		.syntax unified
+ 576              		.thumb
+ 577              		.thumb_func
+ 578              		.fpu fpv4-sp-d16
+ 579              		.type	Vector124, %function
+ 580              	Vector124:
+ 581              		@ args = 0, pretend = 0, frame = 8
+ 582              		@ frame_needed = 1, uses_anonymous_args = 0
+ 583 0000 80B5     		push	{r7, lr}
+ 584 0002 82B0     		sub	sp, sp, #8
+ 585 0004 00AF     		add	r7, sp, #0
+ 586 0006 FFF7FEFF 		bl	_stats_increase_irq
+ 587 000a FFF7FEFF 		bl	_dbg_check_enter_isr
+ 588 000e 0E4B     		ldr	r3, .L39
+ 589 0010 1B68     		ldr	r3, [r3]
+ 590 0012 9B09     		lsrs	r3, r3, #6
+ 591 0014 03F03D03 		and	r3, r3, #61
+ 592 0018 7B60     		str	r3, [r7, #4]
+ 593 001a 0B4A     		ldr	r2, .L39
+ 594 001c 7B68     		ldr	r3, [r7, #4]
+ 595 001e 9B01     		lsls	r3, r3, #6
+ 596 0020 9360     		str	r3, [r2, #8]
+ 597 0022 0A4B     		ldr	r3, .L39+4
+ 598 0024 9B6C     		ldr	r3, [r3, #72]
+ 599 0026 002B     		cmp	r3, #0
+ 600 0028 06D0     		beq	.L38
+ 601 002a 084B     		ldr	r3, .L39+4
+ 602 002c 9B6C     		ldr	r3, [r3, #72]
+ 603 002e 074A     		ldr	r2, .L39+4
+ 604 0030 D26C     		ldr	r2, [r2, #76]
+ 605 0032 7968     		ldr	r1, [r7, #4]
+ 606 0034 1046     		mov	r0, r2
+ 607 0036 9847     		blx	r3
+ 608              	.L38:
+ 609 0038 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 610 003c FFF7FEFF 		bl	_port_irq_epilogue
+ 611 0040 00BF     		nop
+ 612 0042 0837     		adds	r7, r7, #8
+ 613 0044 BD46     		mov	sp, r7
+ 614              		@ sp needed
+ 615 0046 80BD     		pop	{r7, pc}
+ 616              	.L40:
+ 617              		.align	2
+ 618              	.L39:
+ 619 0048 00640240 		.word	1073898496
+ 620 004c 00000000 		.word	dma_isr_redir
+ 621              		.size	Vector124, .-Vector124
+ 622              		.section	.text.Vector128,"ax",%progbits
+ 623              		.align	1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s 			page 12
+
+
+ 624              		.global	Vector128
+ 625              		.syntax unified
+ 626              		.thumb
+ 627              		.thumb_func
+ 628              		.fpu fpv4-sp-d16
+ 629              		.type	Vector128, %function
+ 630              	Vector128:
+ 631              		@ args = 0, pretend = 0, frame = 8
+ 632              		@ frame_needed = 1, uses_anonymous_args = 0
+ 633 0000 80B5     		push	{r7, lr}
+ 634 0002 82B0     		sub	sp, sp, #8
+ 635 0004 00AF     		add	r7, sp, #0
+ 636 0006 FFF7FEFF 		bl	_stats_increase_irq
+ 637 000a FFF7FEFF 		bl	_dbg_check_enter_isr
+ 638 000e 0E4B     		ldr	r3, .L43
+ 639 0010 1B68     		ldr	r3, [r3]
+ 640 0012 1B0C     		lsrs	r3, r3, #16
+ 641 0014 03F03D03 		and	r3, r3, #61
+ 642 0018 7B60     		str	r3, [r7, #4]
+ 643 001a 0B4A     		ldr	r2, .L43
+ 644 001c 7B68     		ldr	r3, [r7, #4]
+ 645 001e 1B04     		lsls	r3, r3, #16
+ 646 0020 9360     		str	r3, [r2, #8]
+ 647 0022 0A4B     		ldr	r3, .L43+4
+ 648 0024 1B6D     		ldr	r3, [r3, #80]
+ 649 0026 002B     		cmp	r3, #0
+ 650 0028 06D0     		beq	.L42
+ 651 002a 084B     		ldr	r3, .L43+4
+ 652 002c 1B6D     		ldr	r3, [r3, #80]
+ 653 002e 074A     		ldr	r2, .L43+4
+ 654 0030 526D     		ldr	r2, [r2, #84]
+ 655 0032 7968     		ldr	r1, [r7, #4]
+ 656 0034 1046     		mov	r0, r2
+ 657 0036 9847     		blx	r3
+ 658              	.L42:
+ 659 0038 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 660 003c FFF7FEFF 		bl	_port_irq_epilogue
+ 661 0040 00BF     		nop
+ 662 0042 0837     		adds	r7, r7, #8
+ 663 0044 BD46     		mov	sp, r7
+ 664              		@ sp needed
+ 665 0046 80BD     		pop	{r7, pc}
+ 666              	.L44:
+ 667              		.align	2
+ 668              	.L43:
+ 669 0048 00640240 		.word	1073898496
+ 670 004c 00000000 		.word	dma_isr_redir
+ 671              		.size	Vector128, .-Vector128
+ 672              		.section	.text.Vector12C,"ax",%progbits
+ 673              		.align	1
+ 674              		.global	Vector12C
+ 675              		.syntax unified
+ 676              		.thumb
+ 677              		.thumb_func
+ 678              		.fpu fpv4-sp-d16
+ 679              		.type	Vector12C, %function
+ 680              	Vector12C:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s 			page 13
+
+
+ 681              		@ args = 0, pretend = 0, frame = 8
+ 682              		@ frame_needed = 1, uses_anonymous_args = 0
+ 683 0000 80B5     		push	{r7, lr}
+ 684 0002 82B0     		sub	sp, sp, #8
+ 685 0004 00AF     		add	r7, sp, #0
+ 686 0006 FFF7FEFF 		bl	_stats_increase_irq
+ 687 000a FFF7FEFF 		bl	_dbg_check_enter_isr
+ 688 000e 0E4B     		ldr	r3, .L47
+ 689 0010 1B68     		ldr	r3, [r3]
+ 690 0012 9B0D     		lsrs	r3, r3, #22
+ 691 0014 03F03D03 		and	r3, r3, #61
+ 692 0018 7B60     		str	r3, [r7, #4]
+ 693 001a 0B4A     		ldr	r2, .L47
+ 694 001c 7B68     		ldr	r3, [r7, #4]
+ 695 001e 9B05     		lsls	r3, r3, #22
+ 696 0020 9360     		str	r3, [r2, #8]
+ 697 0022 0A4B     		ldr	r3, .L47+4
+ 698 0024 9B6D     		ldr	r3, [r3, #88]
+ 699 0026 002B     		cmp	r3, #0
+ 700 0028 06D0     		beq	.L46
+ 701 002a 084B     		ldr	r3, .L47+4
+ 702 002c 9B6D     		ldr	r3, [r3, #88]
+ 703 002e 074A     		ldr	r2, .L47+4
+ 704 0030 D26D     		ldr	r2, [r2, #92]
+ 705 0032 7968     		ldr	r1, [r7, #4]
+ 706 0034 1046     		mov	r0, r2
+ 707 0036 9847     		blx	r3
+ 708              	.L46:
+ 709 0038 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 710 003c FFF7FEFF 		bl	_port_irq_epilogue
+ 711 0040 00BF     		nop
+ 712 0042 0837     		adds	r7, r7, #8
+ 713 0044 BD46     		mov	sp, r7
+ 714              		@ sp needed
+ 715 0046 80BD     		pop	{r7, pc}
+ 716              	.L48:
+ 717              		.align	2
+ 718              	.L47:
+ 719 0048 00640240 		.word	1073898496
+ 720 004c 00000000 		.word	dma_isr_redir
+ 721              		.size	Vector12C, .-Vector12C
+ 722              		.section	.text.Vector130,"ax",%progbits
+ 723              		.align	1
+ 724              		.global	Vector130
+ 725              		.syntax unified
+ 726              		.thumb
+ 727              		.thumb_func
+ 728              		.fpu fpv4-sp-d16
+ 729              		.type	Vector130, %function
+ 730              	Vector130:
+ 731              		@ args = 0, pretend = 0, frame = 8
+ 732              		@ frame_needed = 1, uses_anonymous_args = 0
+ 733 0000 80B5     		push	{r7, lr}
+ 734 0002 82B0     		sub	sp, sp, #8
+ 735 0004 00AF     		add	r7, sp, #0
+ 736 0006 FFF7FEFF 		bl	_stats_increase_irq
+ 737 000a FFF7FEFF 		bl	_dbg_check_enter_isr
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s 			page 14
+
+
+ 738 000e 0D4B     		ldr	r3, .L51
+ 739 0010 5B68     		ldr	r3, [r3, #4]
+ 740 0012 03F03D03 		and	r3, r3, #61
+ 741 0016 7B60     		str	r3, [r7, #4]
+ 742 0018 0A4A     		ldr	r2, .L51
+ 743 001a 7B68     		ldr	r3, [r7, #4]
+ 744 001c D360     		str	r3, [r2, #12]
+ 745 001e 0A4B     		ldr	r3, .L51+4
+ 746 0020 1B6E     		ldr	r3, [r3, #96]
+ 747 0022 002B     		cmp	r3, #0
+ 748 0024 06D0     		beq	.L50
+ 749 0026 084B     		ldr	r3, .L51+4
+ 750 0028 1B6E     		ldr	r3, [r3, #96]
+ 751 002a 074A     		ldr	r2, .L51+4
+ 752 002c 526E     		ldr	r2, [r2, #100]
+ 753 002e 7968     		ldr	r1, [r7, #4]
+ 754 0030 1046     		mov	r0, r2
+ 755 0032 9847     		blx	r3
+ 756              	.L50:
+ 757 0034 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 758 0038 FFF7FEFF 		bl	_port_irq_epilogue
+ 759 003c 00BF     		nop
+ 760 003e 0837     		adds	r7, r7, #8
+ 761 0040 BD46     		mov	sp, r7
+ 762              		@ sp needed
+ 763 0042 80BD     		pop	{r7, pc}
+ 764              	.L52:
+ 765              		.align	2
+ 766              	.L51:
+ 767 0044 00640240 		.word	1073898496
+ 768 0048 00000000 		.word	dma_isr_redir
+ 769              		.size	Vector130, .-Vector130
+ 770              		.section	.text.Vector150,"ax",%progbits
+ 771              		.align	1
+ 772              		.global	Vector150
+ 773              		.syntax unified
+ 774              		.thumb
+ 775              		.thumb_func
+ 776              		.fpu fpv4-sp-d16
+ 777              		.type	Vector150, %function
+ 778              	Vector150:
+ 779              		@ args = 0, pretend = 0, frame = 8
+ 780              		@ frame_needed = 1, uses_anonymous_args = 0
+ 781 0000 80B5     		push	{r7, lr}
+ 782 0002 82B0     		sub	sp, sp, #8
+ 783 0004 00AF     		add	r7, sp, #0
+ 784 0006 FFF7FEFF 		bl	_stats_increase_irq
+ 785 000a FFF7FEFF 		bl	_dbg_check_enter_isr
+ 786 000e 0E4B     		ldr	r3, .L55
+ 787 0010 5B68     		ldr	r3, [r3, #4]
+ 788 0012 9B09     		lsrs	r3, r3, #6
+ 789 0014 03F03D03 		and	r3, r3, #61
+ 790 0018 7B60     		str	r3, [r7, #4]
+ 791 001a 0B4A     		ldr	r2, .L55
+ 792 001c 7B68     		ldr	r3, [r7, #4]
+ 793 001e 9B01     		lsls	r3, r3, #6
+ 794 0020 D360     		str	r3, [r2, #12]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s 			page 15
+
+
+ 795 0022 0A4B     		ldr	r3, .L55+4
+ 796 0024 9B6E     		ldr	r3, [r3, #104]
+ 797 0026 002B     		cmp	r3, #0
+ 798 0028 06D0     		beq	.L54
+ 799 002a 084B     		ldr	r3, .L55+4
+ 800 002c 9B6E     		ldr	r3, [r3, #104]
+ 801 002e 074A     		ldr	r2, .L55+4
+ 802 0030 D26E     		ldr	r2, [r2, #108]
+ 803 0032 7968     		ldr	r1, [r7, #4]
+ 804 0034 1046     		mov	r0, r2
+ 805 0036 9847     		blx	r3
+ 806              	.L54:
+ 807 0038 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 808 003c FFF7FEFF 		bl	_port_irq_epilogue
+ 809 0040 00BF     		nop
+ 810 0042 0837     		adds	r7, r7, #8
+ 811 0044 BD46     		mov	sp, r7
+ 812              		@ sp needed
+ 813 0046 80BD     		pop	{r7, pc}
+ 814              	.L56:
+ 815              		.align	2
+ 816              	.L55:
+ 817 0048 00640240 		.word	1073898496
+ 818 004c 00000000 		.word	dma_isr_redir
+ 819              		.size	Vector150, .-Vector150
+ 820              		.section	.text.Vector154,"ax",%progbits
+ 821              		.align	1
+ 822              		.global	Vector154
+ 823              		.syntax unified
+ 824              		.thumb
+ 825              		.thumb_func
+ 826              		.fpu fpv4-sp-d16
+ 827              		.type	Vector154, %function
+ 828              	Vector154:
+ 829              		@ args = 0, pretend = 0, frame = 8
+ 830              		@ frame_needed = 1, uses_anonymous_args = 0
+ 831 0000 80B5     		push	{r7, lr}
+ 832 0002 82B0     		sub	sp, sp, #8
+ 833 0004 00AF     		add	r7, sp, #0
+ 834 0006 FFF7FEFF 		bl	_stats_increase_irq
+ 835 000a FFF7FEFF 		bl	_dbg_check_enter_isr
+ 836 000e 0E4B     		ldr	r3, .L59
+ 837 0010 5B68     		ldr	r3, [r3, #4]
+ 838 0012 1B0C     		lsrs	r3, r3, #16
+ 839 0014 03F03D03 		and	r3, r3, #61
+ 840 0018 7B60     		str	r3, [r7, #4]
+ 841 001a 0B4A     		ldr	r2, .L59
+ 842 001c 7B68     		ldr	r3, [r7, #4]
+ 843 001e 1B04     		lsls	r3, r3, #16
+ 844 0020 D360     		str	r3, [r2, #12]
+ 845 0022 0A4B     		ldr	r3, .L59+4
+ 846 0024 1B6F     		ldr	r3, [r3, #112]
+ 847 0026 002B     		cmp	r3, #0
+ 848 0028 06D0     		beq	.L58
+ 849 002a 084B     		ldr	r3, .L59+4
+ 850 002c 1B6F     		ldr	r3, [r3, #112]
+ 851 002e 074A     		ldr	r2, .L59+4
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s 			page 16
+
+
+ 852 0030 526F     		ldr	r2, [r2, #116]
+ 853 0032 7968     		ldr	r1, [r7, #4]
+ 854 0034 1046     		mov	r0, r2
+ 855 0036 9847     		blx	r3
+ 856              	.L58:
+ 857 0038 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 858 003c FFF7FEFF 		bl	_port_irq_epilogue
+ 859 0040 00BF     		nop
+ 860 0042 0837     		adds	r7, r7, #8
+ 861 0044 BD46     		mov	sp, r7
+ 862              		@ sp needed
+ 863 0046 80BD     		pop	{r7, pc}
+ 864              	.L60:
+ 865              		.align	2
+ 866              	.L59:
+ 867 0048 00640240 		.word	1073898496
+ 868 004c 00000000 		.word	dma_isr_redir
+ 869              		.size	Vector154, .-Vector154
+ 870              		.section	.text.Vector158,"ax",%progbits
+ 871              		.align	1
+ 872              		.global	Vector158
+ 873              		.syntax unified
+ 874              		.thumb
+ 875              		.thumb_func
+ 876              		.fpu fpv4-sp-d16
+ 877              		.type	Vector158, %function
+ 878              	Vector158:
+ 879              		@ args = 0, pretend = 0, frame = 8
+ 880              		@ frame_needed = 1, uses_anonymous_args = 0
+ 881 0000 80B5     		push	{r7, lr}
+ 882 0002 82B0     		sub	sp, sp, #8
+ 883 0004 00AF     		add	r7, sp, #0
+ 884 0006 FFF7FEFF 		bl	_stats_increase_irq
+ 885 000a FFF7FEFF 		bl	_dbg_check_enter_isr
+ 886 000e 0E4B     		ldr	r3, .L63
+ 887 0010 5B68     		ldr	r3, [r3, #4]
+ 888 0012 9B0D     		lsrs	r3, r3, #22
+ 889 0014 03F03D03 		and	r3, r3, #61
+ 890 0018 7B60     		str	r3, [r7, #4]
+ 891 001a 0B4A     		ldr	r2, .L63
+ 892 001c 7B68     		ldr	r3, [r7, #4]
+ 893 001e 9B05     		lsls	r3, r3, #22
+ 894 0020 D360     		str	r3, [r2, #12]
+ 895 0022 0A4B     		ldr	r3, .L63+4
+ 896 0024 9B6F     		ldr	r3, [r3, #120]
+ 897 0026 002B     		cmp	r3, #0
+ 898 0028 06D0     		beq	.L62
+ 899 002a 084B     		ldr	r3, .L63+4
+ 900 002c 9B6F     		ldr	r3, [r3, #120]
+ 901 002e 074A     		ldr	r2, .L63+4
+ 902 0030 D26F     		ldr	r2, [r2, #124]
+ 903 0032 7968     		ldr	r1, [r7, #4]
+ 904 0034 1046     		mov	r0, r2
+ 905 0036 9847     		blx	r3
+ 906              	.L62:
+ 907 0038 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 908 003c FFF7FEFF 		bl	_port_irq_epilogue
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s 			page 17
+
+
+ 909 0040 00BF     		nop
+ 910 0042 0837     		adds	r7, r7, #8
+ 911 0044 BD46     		mov	sp, r7
+ 912              		@ sp needed
+ 913 0046 80BD     		pop	{r7, pc}
+ 914              	.L64:
+ 915              		.align	2
+ 916              	.L63:
+ 917 0048 00640240 		.word	1073898496
+ 918 004c 00000000 		.word	dma_isr_redir
+ 919              		.size	Vector158, .-Vector158
+ 920              		.section	.text.dmaInit,"ax",%progbits
+ 921              		.align	1
+ 922              		.global	dmaInit
+ 923              		.syntax unified
+ 924              		.thumb
+ 925              		.thumb_func
+ 926              		.fpu fpv4-sp-d16
+ 927              		.type	dmaInit, %function
+ 928              	dmaInit:
+ 929              		@ args = 0, pretend = 0, frame = 8
+ 930              		@ frame_needed = 1, uses_anonymous_args = 0
+ 931              		@ link register save eliminated.
+ 932 0000 80B4     		push	{r7}
+ 933 0002 83B0     		sub	sp, sp, #12
+ 934 0004 00AF     		add	r7, sp, #0
+ 935 0006 184B     		ldr	r3, .L68
+ 936 0008 0022     		movs	r2, #0
+ 937 000a 1A60     		str	r2, [r3]
+ 938 000c 0023     		movs	r3, #0
+ 939 000e 7B60     		str	r3, [r7, #4]
+ 940 0010 11E0     		b	.L66
+ 941              	.L67:
+ 942 0012 1649     		ldr	r1, .L68+4
+ 943 0014 7A68     		ldr	r2, [r7, #4]
+ 944 0016 1346     		mov	r3, r2
+ 945 0018 5B00     		lsls	r3, r3, #1
+ 946 001a 1344     		add	r3, r3, r2
+ 947 001c 9B00     		lsls	r3, r3, #2
+ 948 001e 0B44     		add	r3, r3, r1
+ 949 0020 1B68     		ldr	r3, [r3]
+ 950 0022 0022     		movs	r2, #0
+ 951 0024 1A60     		str	r2, [r3]
+ 952 0026 124A     		ldr	r2, .L68+8
+ 953 0028 7B68     		ldr	r3, [r7, #4]
+ 954 002a 0021     		movs	r1, #0
+ 955 002c 42F83310 		str	r1, [r2, r3, lsl #3]
+ 956 0030 7B68     		ldr	r3, [r7, #4]
+ 957 0032 0133     		adds	r3, r3, #1
+ 958 0034 7B60     		str	r3, [r7, #4]
+ 959              	.L66:
+ 960 0036 7B68     		ldr	r3, [r7, #4]
+ 961 0038 0F2B     		cmp	r3, #15
+ 962 003a EADD     		ble	.L67
+ 963 003c 0D4B     		ldr	r3, .L68+12
+ 964 003e 4FF0FF32 		mov	r2, #-1
+ 965 0042 9A60     		str	r2, [r3, #8]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s 			page 18
+
+
+ 966 0044 0B4B     		ldr	r3, .L68+12
+ 967 0046 4FF0FF32 		mov	r2, #-1
+ 968 004a DA60     		str	r2, [r3, #12]
+ 969 004c 0A4B     		ldr	r3, .L68+16
+ 970 004e 4FF0FF32 		mov	r2, #-1
+ 971 0052 9A60     		str	r2, [r3, #8]
+ 972 0054 084B     		ldr	r3, .L68+16
+ 973 0056 4FF0FF32 		mov	r2, #-1
+ 974 005a DA60     		str	r2, [r3, #12]
+ 975 005c 00BF     		nop
+ 976 005e 0C37     		adds	r7, r7, #12
+ 977 0060 BD46     		mov	sp, r7
+ 978              		@ sp needed
+ 979 0062 5DF8047B 		ldr	r7, [sp], #4
+ 980 0066 7047     		bx	lr
+ 981              	.L69:
+ 982              		.align	2
+ 983              	.L68:
+ 984 0068 00000000 		.word	dma_streams_mask
+ 985 006c 00000000 		.word	_stm32_dma_streams
+ 986 0070 00000000 		.word	dma_isr_redir
+ 987 0074 00600240 		.word	1073897472
+ 988 0078 00640240 		.word	1073898496
+ 989              		.size	dmaInit, .-dmaInit
+ 990              		.section	.text.dmaStreamAllocate,"ax",%progbits
+ 991              		.align	1
+ 992              		.global	dmaStreamAllocate
+ 993              		.syntax unified
+ 994              		.thumb
+ 995              		.thumb_func
+ 996              		.fpu fpv4-sp-d16
+ 997              		.type	dmaStreamAllocate, %function
+ 998              	dmaStreamAllocate:
+ 999              		@ args = 0, pretend = 0, frame = 16
+ 1000              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1001 0000 80B5     		push	{r7, lr}
+ 1002 0002 84B0     		sub	sp, sp, #16
+ 1003 0004 00AF     		add	r7, sp, #0
+ 1004 0006 F860     		str	r0, [r7, #12]
+ 1005 0008 B960     		str	r1, [r7, #8]
+ 1006 000a 7A60     		str	r2, [r7, #4]
+ 1007 000c 3B60     		str	r3, [r7]
+ 1008 000e FB68     		ldr	r3, [r7, #12]
+ 1009 0010 002B     		cmp	r3, #0
+ 1010 0012 02D1     		bne	.L71
+ 1011 0014 3748     		ldr	r0, .L78
+ 1012 0016 FFF7FEFF 		bl	chSysHalt
+ 1013              	.L71:
+ 1014 001a FB68     		ldr	r3, [r7, #12]
+ 1015 001c 5B7A     		ldrb	r3, [r3, #9]	@ zero_extendqisi2
+ 1016 001e 1A46     		mov	r2, r3
+ 1017 0020 0123     		movs	r3, #1
+ 1018 0022 9340     		lsls	r3, r3, r2
+ 1019 0024 1A46     		mov	r2, r3
+ 1020 0026 344B     		ldr	r3, .L78+4
+ 1021 0028 1B68     		ldr	r3, [r3]
+ 1022 002a 1340     		ands	r3, r3, r2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s 			page 19
+
+
+ 1023 002c 002B     		cmp	r3, #0
+ 1024 002e 01D0     		beq	.L72
+ 1025 0030 0123     		movs	r3, #1
+ 1026 0032 5AE0     		b	.L73
+ 1027              	.L72:
+ 1028 0034 FB68     		ldr	r3, [r7, #12]
+ 1029 0036 5B7A     		ldrb	r3, [r3, #9]	@ zero_extendqisi2
+ 1030 0038 1946     		mov	r1, r3
+ 1031 003a 304A     		ldr	r2, .L78+8
+ 1032 003c 7B68     		ldr	r3, [r7, #4]
+ 1033 003e 42F83130 		str	r3, [r2, r1, lsl #3]
+ 1034 0042 FB68     		ldr	r3, [r7, #12]
+ 1035 0044 5B7A     		ldrb	r3, [r3, #9]	@ zero_extendqisi2
+ 1036 0046 2D4A     		ldr	r2, .L78+8
+ 1037 0048 DB00     		lsls	r3, r3, #3
+ 1038 004a 1344     		add	r3, r3, r2
+ 1039 004c 3A68     		ldr	r2, [r7]
+ 1040 004e 5A60     		str	r2, [r3, #4]
+ 1041 0050 FB68     		ldr	r3, [r7, #12]
+ 1042 0052 5B7A     		ldrb	r3, [r3, #9]	@ zero_extendqisi2
+ 1043 0054 1A46     		mov	r2, r3
+ 1044 0056 0123     		movs	r3, #1
+ 1045 0058 9340     		lsls	r3, r3, r2
+ 1046 005a 1A46     		mov	r2, r3
+ 1047 005c 264B     		ldr	r3, .L78+4
+ 1048 005e 1B68     		ldr	r3, [r3]
+ 1049 0060 1343     		orrs	r3, r3, r2
+ 1050 0062 254A     		ldr	r2, .L78+4
+ 1051 0064 1360     		str	r3, [r2]
+ 1052 0066 244B     		ldr	r3, .L78+4
+ 1053 0068 1B68     		ldr	r3, [r3]
+ 1054 006a DBB2     		uxtb	r3, r3
+ 1055 006c 002B     		cmp	r3, #0
+ 1056 006e 05D0     		beq	.L74
+ 1057 0070 234B     		ldr	r3, .L78+12
+ 1058 0072 1B6B     		ldr	r3, [r3, #48]
+ 1059 0074 224A     		ldr	r2, .L78+12
+ 1060 0076 43F40013 		orr	r3, r3, #2097152
+ 1061 007a 1363     		str	r3, [r2, #48]
+ 1062              	.L74:
+ 1063 007c 1E4B     		ldr	r3, .L78+4
+ 1064 007e 1B68     		ldr	r3, [r3]
+ 1065 0080 03F47F43 		and	r3, r3, #65280
+ 1066 0084 002B     		cmp	r3, #0
+ 1067 0086 05D0     		beq	.L75
+ 1068 0088 1D4B     		ldr	r3, .L78+12
+ 1069 008a 1B6B     		ldr	r3, [r3, #48]
+ 1070 008c 1C4A     		ldr	r2, .L78+12
+ 1071 008e 43F48003 		orr	r3, r3, #4194304
+ 1072 0092 1363     		str	r3, [r2, #48]
+ 1073              	.L75:
+ 1074 0094 FB68     		ldr	r3, [r7, #12]
+ 1075 0096 1B68     		ldr	r3, [r3]
+ 1076 0098 1A68     		ldr	r2, [r3]
+ 1077 009a FB68     		ldr	r3, [r7, #12]
+ 1078 009c 1B68     		ldr	r3, [r3]
+ 1079 009e 22F01F02 		bic	r2, r2, #31
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s 			page 20
+
+
+ 1080 00a2 1A60     		str	r2, [r3]
+ 1081 00a4 00BF     		nop
+ 1082              	.L76:
+ 1083 00a6 FB68     		ldr	r3, [r7, #12]
+ 1084 00a8 1B68     		ldr	r3, [r3]
+ 1085 00aa 1B68     		ldr	r3, [r3]
+ 1086 00ac 03F00103 		and	r3, r3, #1
+ 1087 00b0 002B     		cmp	r3, #0
+ 1088 00b2 F8D1     		bne	.L76
+ 1089 00b4 FB68     		ldr	r3, [r7, #12]
+ 1090 00b6 1B7A     		ldrb	r3, [r3, #8]	@ zero_extendqisi2
+ 1091 00b8 1A46     		mov	r2, r3
+ 1092 00ba 3D23     		movs	r3, #61
+ 1093 00bc 03FA02F2 		lsl	r2, r3, r2
+ 1094 00c0 FB68     		ldr	r3, [r7, #12]
+ 1095 00c2 5B68     		ldr	r3, [r3, #4]
+ 1096 00c4 1A60     		str	r2, [r3]
+ 1097 00c6 FB68     		ldr	r3, [r7, #12]
+ 1098 00c8 1B68     		ldr	r3, [r3]
+ 1099 00ca 0022     		movs	r2, #0
+ 1100 00cc 1A60     		str	r2, [r3]
+ 1101 00ce FB68     		ldr	r3, [r7, #12]
+ 1102 00d0 1B68     		ldr	r3, [r3]
+ 1103 00d2 2122     		movs	r2, #33
+ 1104 00d4 5A61     		str	r2, [r3, #20]
+ 1105 00d6 7B68     		ldr	r3, [r7, #4]
+ 1106 00d8 002B     		cmp	r3, #0
+ 1107 00da 05D0     		beq	.L77
+ 1108 00dc FB68     		ldr	r3, [r7, #12]
+ 1109 00de 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2
+ 1110 00e0 B968     		ldr	r1, [r7, #8]
+ 1111 00e2 1846     		mov	r0, r3
+ 1112 00e4 FFF7FEFF 		bl	nvicEnableVector
+ 1113              	.L77:
+ 1114 00e8 0023     		movs	r3, #0
+ 1115              	.L73:
+ 1116 00ea 1846     		mov	r0, r3
+ 1117 00ec 1037     		adds	r7, r7, #16
+ 1118 00ee BD46     		mov	sp, r7
+ 1119              		@ sp needed
+ 1120 00f0 80BD     		pop	{r7, pc}
+ 1121              	.L79:
+ 1122 00f2 00BF     		.align	2
+ 1123              	.L78:
+ 1124 00f4 00000000 		.word	__func__.9922
+ 1125 00f8 00000000 		.word	dma_streams_mask
+ 1126 00fc 00000000 		.word	dma_isr_redir
+ 1127 0100 00380240 		.word	1073887232
+ 1128              		.size	dmaStreamAllocate, .-dmaStreamAllocate
+ 1129              		.section	.text.dmaStreamRelease,"ax",%progbits
+ 1130              		.align	1
+ 1131              		.global	dmaStreamRelease
+ 1132              		.syntax unified
+ 1133              		.thumb
+ 1134              		.thumb_func
+ 1135              		.fpu fpv4-sp-d16
+ 1136              		.type	dmaStreamRelease, %function
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s 			page 21
+
+
+ 1137              	dmaStreamRelease:
+ 1138              		@ args = 0, pretend = 0, frame = 8
+ 1139              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1140 0000 80B5     		push	{r7, lr}
+ 1141 0002 82B0     		sub	sp, sp, #8
+ 1142 0004 00AF     		add	r7, sp, #0
+ 1143 0006 7860     		str	r0, [r7, #4]
+ 1144 0008 7B68     		ldr	r3, [r7, #4]
+ 1145 000a 002B     		cmp	r3, #0
+ 1146 000c 02D1     		bne	.L85
+ 1147 000e 1E48     		ldr	r0, .L87
+ 1148 0010 FFF7FEFF 		bl	chSysHalt
+ 1149              	.L85:
+ 1150 0014 7B68     		ldr	r3, [r7, #4]
+ 1151 0016 5B7A     		ldrb	r3, [r3, #9]	@ zero_extendqisi2
+ 1152 0018 1A46     		mov	r2, r3
+ 1153 001a 0123     		movs	r3, #1
+ 1154 001c 9340     		lsls	r3, r3, r2
+ 1155 001e 1A46     		mov	r2, r3
+ 1156 0020 1A4B     		ldr	r3, .L87+4
+ 1157 0022 1B68     		ldr	r3, [r3]
+ 1158 0024 1340     		ands	r3, r3, r2
+ 1159 0026 002B     		cmp	r3, #0
+ 1160 0028 02D1     		bne	.L82
+ 1161 002a 1748     		ldr	r0, .L87
+ 1162 002c FFF7FEFF 		bl	chSysHalt
+ 1163              	.L82:
+ 1164 0030 7B68     		ldr	r3, [r7, #4]
+ 1165 0032 9B7A     		ldrb	r3, [r3, #10]	@ zero_extendqisi2
+ 1166 0034 1846     		mov	r0, r3
+ 1167 0036 FFF7FEFF 		bl	nvicDisableVector
+ 1168 003a 7B68     		ldr	r3, [r7, #4]
+ 1169 003c 5B7A     		ldrb	r3, [r3, #9]	@ zero_extendqisi2
+ 1170 003e 1A46     		mov	r2, r3
+ 1171 0040 0123     		movs	r3, #1
+ 1172 0042 9340     		lsls	r3, r3, r2
+ 1173 0044 DB43     		mvns	r3, r3
+ 1174 0046 1A46     		mov	r2, r3
+ 1175 0048 104B     		ldr	r3, .L87+4
+ 1176 004a 1B68     		ldr	r3, [r3]
+ 1177 004c 1340     		ands	r3, r3, r2
+ 1178 004e 0F4A     		ldr	r2, .L87+4
+ 1179 0050 1360     		str	r3, [r2]
+ 1180 0052 0E4B     		ldr	r3, .L87+4
+ 1181 0054 1B68     		ldr	r3, [r3]
+ 1182 0056 DBB2     		uxtb	r3, r3
+ 1183 0058 002B     		cmp	r3, #0
+ 1184 005a 05D1     		bne	.L83
+ 1185 005c 0C4B     		ldr	r3, .L87+8
+ 1186 005e 1B6B     		ldr	r3, [r3, #48]
+ 1187 0060 0B4A     		ldr	r2, .L87+8
+ 1188 0062 23F40013 		bic	r3, r3, #2097152
+ 1189 0066 1363     		str	r3, [r2, #48]
+ 1190              	.L83:
+ 1191 0068 084B     		ldr	r3, .L87+4
+ 1192 006a 1B68     		ldr	r3, [r3]
+ 1193 006c 03F47F43 		and	r3, r3, #65280
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s 			page 22
+
+
+ 1194 0070 002B     		cmp	r3, #0
+ 1195 0072 05D1     		bne	.L86
+ 1196 0074 064B     		ldr	r3, .L87+8
+ 1197 0076 1B6B     		ldr	r3, [r3, #48]
+ 1198 0078 054A     		ldr	r2, .L87+8
+ 1199 007a 23F48003 		bic	r3, r3, #4194304
+ 1200 007e 1363     		str	r3, [r2, #48]
+ 1201              	.L86:
+ 1202 0080 00BF     		nop
+ 1203 0082 0837     		adds	r7, r7, #8
+ 1204 0084 BD46     		mov	sp, r7
+ 1205              		@ sp needed
+ 1206 0086 80BD     		pop	{r7, pc}
+ 1207              	.L88:
+ 1208              		.align	2
+ 1209              	.L87:
+ 1210 0088 00000000 		.word	__func__.9929
+ 1211 008c 00000000 		.word	dma_streams_mask
+ 1212 0090 00380240 		.word	1073887232
+ 1213              		.size	dmaStreamRelease, .-dmaStreamRelease
+ 1214              		.section	.rodata.__func__.9922,"a",%progbits
+ 1215              		.align	2
+ 1216              		.type	__func__.9922, %object
+ 1217              		.size	__func__.9922, 18
+ 1218              	__func__.9922:
+ 1219 0000 646D6153 		.ascii	"dmaStreamAllocate\000"
+ 1219      74726561 
+ 1219      6D416C6C 
+ 1219      6F636174 
+ 1219      6500
+ 1220              		.section	.rodata.__func__.9929,"a",%progbits
+ 1221              		.align	2
+ 1222              		.type	__func__.9929, %object
+ 1223              		.size	__func__.9929, 17
+ 1224              	__func__.9929:
+ 1225 0000 646D6153 		.ascii	"dmaStreamRelease\000"
+ 1225      74726561 
+ 1225      6D52656C 
+ 1225      65617365 
+ 1225      00
+ 1226              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s 			page 23
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 stm32_dma.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:19     .rodata._stm32_dma_streams:0000000000000000 _stm32_dma_streams
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:16     .rodata._stm32_dma_streams:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:117    .bss.dma_streams_mask:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:120    .bss.dma_streams_mask:0000000000000000 dma_streams_mask
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:123    .bss.dma_isr_redir:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:126    .bss.dma_isr_redir:0000000000000000 dma_isr_redir
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:129    .text.Vector6C:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:136    .text.Vector6C:0000000000000000 Vector6C
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:173    .text.Vector6C:0000000000000044 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:177    .text.Vector70:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:184    .text.Vector70:0000000000000000 Vector70
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:223    .text.Vector70:0000000000000048 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:227    .text.Vector74:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:234    .text.Vector74:0000000000000000 Vector74
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:273    .text.Vector74:0000000000000048 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:277    .text.Vector78:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:284    .text.Vector78:0000000000000000 Vector78
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:323    .text.Vector78:0000000000000048 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:327    .text.Vector7C:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:334    .text.Vector7C:0000000000000000 Vector7C
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:371    .text.Vector7C:0000000000000044 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:375    .text.Vector80:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:382    .text.Vector80:0000000000000000 Vector80
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:421    .text.Vector80:0000000000000048 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:425    .text.Vector84:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:432    .text.Vector84:0000000000000000 Vector84
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:471    .text.Vector84:0000000000000048 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:475    .text.VectorFC:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:482    .text.VectorFC:0000000000000000 VectorFC
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:521    .text.VectorFC:0000000000000048 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:525    .text.Vector120:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:532    .text.Vector120:0000000000000000 Vector120
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:569    .text.Vector120:0000000000000044 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:573    .text.Vector124:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:580    .text.Vector124:0000000000000000 Vector124
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:619    .text.Vector124:0000000000000048 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:623    .text.Vector128:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:630    .text.Vector128:0000000000000000 Vector128
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:669    .text.Vector128:0000000000000048 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:673    .text.Vector12C:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:680    .text.Vector12C:0000000000000000 Vector12C
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:719    .text.Vector12C:0000000000000048 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:723    .text.Vector130:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:730    .text.Vector130:0000000000000000 Vector130
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:767    .text.Vector130:0000000000000044 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:771    .text.Vector150:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:778    .text.Vector150:0000000000000000 Vector150
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:817    .text.Vector150:0000000000000048 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:821    .text.Vector154:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:828    .text.Vector154:0000000000000000 Vector154
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:867    .text.Vector154:0000000000000048 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:871    .text.Vector158:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:878    .text.Vector158:0000000000000000 Vector158
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:917    .text.Vector158:0000000000000048 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:921    .text.dmaInit:0000000000000000 $t
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s 			page 24
+
+
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:928    .text.dmaInit:0000000000000000 dmaInit
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:984    .text.dmaInit:0000000000000068 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:991    .text.dmaStreamAllocate:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:998    .text.dmaStreamAllocate:0000000000000000 dmaStreamAllocate
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:1124   .text.dmaStreamAllocate:00000000000000f4 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:1218   .rodata.__func__.9922:0000000000000000 __func__.9922
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:1130   .text.dmaStreamRelease:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:1137   .text.dmaStreamRelease:0000000000000000 dmaStreamRelease
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:1210   .text.dmaStreamRelease:0000000000000088 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:1224   .rodata.__func__.9929:0000000000000000 __func__.9929
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:1215   .rodata.__func__.9922:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccmzhjdr.s:1221   .rodata.__func__.9929:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+_stats_increase_irq
+_dbg_check_enter_isr
+_dbg_check_leave_isr
+_port_irq_epilogue
+chSysHalt
+nvicEnableVector
+nvicDisableVector

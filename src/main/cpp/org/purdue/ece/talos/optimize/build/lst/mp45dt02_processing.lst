@@ -1,0 +1,1523 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"mp45dt02_processing.c"
+  14              		.section	.text.port_lock,"ax",%progbits
+  15              		.align	1
+  16              		.syntax unified
+  17              		.thumb
+  18              		.thumb_func
+  19              		.fpu fpv4-sp-d16
+  20              		.type	port_lock, %function
+  21              	port_lock:
+  22              		@ args = 0, pretend = 0, frame = 8
+  23              		@ frame_needed = 1, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 80B4     		push	{r7}
+  26 0002 83B0     		sub	sp, sp, #12
+  27 0004 00AF     		add	r7, sp, #0
+  28 0006 2023     		movs	r3, #32
+  29 0008 7B60     		str	r3, [r7, #4]
+  30 000a 7B68     		ldr	r3, [r7, #4]
+  31              		.syntax unified
+  32              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  33 000c 83F31188 		MSR basepri, r3
+  34              	@ 0 "" 2
+  35              		.thumb
+  36              		.syntax unified
+  37 0010 00BF     		nop
+  38 0012 0C37     		adds	r7, r7, #12
+  39 0014 BD46     		mov	sp, r7
+  40              		@ sp needed
+  41 0016 5DF8047B 		ldr	r7, [sp], #4
+  42 001a 7047     		bx	lr
+  43              		.size	port_lock, .-port_lock
+  44              		.section	.text.port_unlock,"ax",%progbits
+  45              		.align	1
+  46              		.syntax unified
+  47              		.thumb
+  48              		.thumb_func
+  49              		.fpu fpv4-sp-d16
+  50              		.type	port_unlock, %function
+  51              	port_unlock:
+  52              		@ args = 0, pretend = 0, frame = 8
+  53              		@ frame_needed = 1, uses_anonymous_args = 0
+  54              		@ link register save eliminated.
+  55 0000 80B4     		push	{r7}
+  56 0002 83B0     		sub	sp, sp, #12
+  57 0004 00AF     		add	r7, sp, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 2
+
+
+  58 0006 0023     		movs	r3, #0
+  59 0008 7B60     		str	r3, [r7, #4]
+  60 000a 7B68     		ldr	r3, [r7, #4]
+  61              		.syntax unified
+  62              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  63 000c 83F31188 		MSR basepri, r3
+  64              	@ 0 "" 2
+  65              		.thumb
+  66              		.syntax unified
+  67 0010 00BF     		nop
+  68 0012 0C37     		adds	r7, r7, #12
+  69 0014 BD46     		mov	sp, r7
+  70              		@ sp needed
+  71 0016 5DF8047B 		ldr	r7, [sp], #4
+  72 001a 7047     		bx	lr
+  73              		.size	port_unlock, .-port_unlock
+  74              		.section	.text.port_lock_from_isr,"ax",%progbits
+  75              		.align	1
+  76              		.syntax unified
+  77              		.thumb
+  78              		.thumb_func
+  79              		.fpu fpv4-sp-d16
+  80              		.type	port_lock_from_isr, %function
+  81              	port_lock_from_isr:
+  82              		@ args = 0, pretend = 0, frame = 0
+  83              		@ frame_needed = 1, uses_anonymous_args = 0
+  84 0000 80B5     		push	{r7, lr}
+  85 0002 00AF     		add	r7, sp, #0
+  86 0004 FFF7FEFF 		bl	port_lock
+  87 0008 00BF     		nop
+  88 000a 80BD     		pop	{r7, pc}
+  89              		.size	port_lock_from_isr, .-port_lock_from_isr
+  90              		.section	.text.port_unlock_from_isr,"ax",%progbits
+  91              		.align	1
+  92              		.syntax unified
+  93              		.thumb
+  94              		.thumb_func
+  95              		.fpu fpv4-sp-d16
+  96              		.type	port_unlock_from_isr, %function
+  97              	port_unlock_from_isr:
+  98              		@ args = 0, pretend = 0, frame = 0
+  99              		@ frame_needed = 1, uses_anonymous_args = 0
+ 100 0000 80B5     		push	{r7, lr}
+ 101 0002 00AF     		add	r7, sp, #0
+ 102 0004 FFF7FEFF 		bl	port_unlock
+ 103 0008 00BF     		nop
+ 104 000a 80BD     		pop	{r7, pc}
+ 105              		.size	port_unlock_from_isr, .-port_unlock_from_isr
+ 106              		.section	.text.chSysLockFromISR,"ax",%progbits
+ 107              		.align	1
+ 108              		.syntax unified
+ 109              		.thumb
+ 110              		.thumb_func
+ 111              		.fpu fpv4-sp-d16
+ 112              		.type	chSysLockFromISR, %function
+ 113              	chSysLockFromISR:
+ 114              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 3
+
+
+ 115              		@ frame_needed = 1, uses_anonymous_args = 0
+ 116 0000 80B5     		push	{r7, lr}
+ 117 0002 00AF     		add	r7, sp, #0
+ 118 0004 FFF7FEFF 		bl	port_lock_from_isr
+ 119 0008 FFF7FEFF 		bl	_stats_start_measure_crit_isr
+ 120 000c FFF7FEFF 		bl	_dbg_check_lock_from_isr
+ 121 0010 00BF     		nop
+ 122 0012 80BD     		pop	{r7, pc}
+ 123              		.size	chSysLockFromISR, .-chSysLockFromISR
+ 124              		.section	.text.chSysUnlockFromISR,"ax",%progbits
+ 125              		.align	1
+ 126              		.syntax unified
+ 127              		.thumb
+ 128              		.thumb_func
+ 129              		.fpu fpv4-sp-d16
+ 130              		.type	chSysUnlockFromISR, %function
+ 131              	chSysUnlockFromISR:
+ 132              		@ args = 0, pretend = 0, frame = 0
+ 133              		@ frame_needed = 1, uses_anonymous_args = 0
+ 134 0000 80B5     		push	{r7, lr}
+ 135 0002 00AF     		add	r7, sp, #0
+ 136 0004 FFF7FEFF 		bl	_dbg_check_unlock_from_isr
+ 137 0008 FFF7FEFF 		bl	_stats_stop_measure_crit_isr
+ 138 000c FFF7FEFF 		bl	port_unlock_from_isr
+ 139 0010 00BF     		nop
+ 140 0012 80BD     		pop	{r7, pc}
+ 141              		.size	chSysUnlockFromISR, .-chSysUnlockFromISR
+ 142              		.section	.text.chThdGetSelfX,"ax",%progbits
+ 143              		.align	1
+ 144              		.syntax unified
+ 145              		.thumb
+ 146              		.thumb_func
+ 147              		.fpu fpv4-sp-d16
+ 148              		.type	chThdGetSelfX, %function
+ 149              	chThdGetSelfX:
+ 150              		@ args = 0, pretend = 0, frame = 0
+ 151              		@ frame_needed = 1, uses_anonymous_args = 0
+ 152              		@ link register save eliminated.
+ 153 0000 80B4     		push	{r7}
+ 154 0002 00AF     		add	r7, sp, #0
+ 155 0004 034B     		ldr	r3, .L9
+ 156 0006 9B69     		ldr	r3, [r3, #24]
+ 157 0008 1846     		mov	r0, r3
+ 158 000a BD46     		mov	sp, r7
+ 159              		@ sp needed
+ 160 000c 5DF8047B 		ldr	r7, [sp], #4
+ 161 0010 7047     		bx	lr
+ 162              	.L10:
+ 163 0012 00BF     		.align	2
+ 164              	.L9:
+ 165 0014 00000000 		.word	ch
+ 166              		.size	chThdGetSelfX, .-chThdGetSelfX
+ 167              		.section	.text.chThdShouldTerminateX,"ax",%progbits
+ 168              		.align	1
+ 169              		.syntax unified
+ 170              		.thumb
+ 171              		.thumb_func
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 4
+
+
+ 172              		.fpu fpv4-sp-d16
+ 173              		.type	chThdShouldTerminateX, %function
+ 174              	chThdShouldTerminateX:
+ 175              		@ args = 0, pretend = 0, frame = 0
+ 176              		@ frame_needed = 1, uses_anonymous_args = 0
+ 177 0000 80B5     		push	{r7, lr}
+ 178 0002 00AF     		add	r7, sp, #0
+ 179 0004 FFF7FEFF 		bl	chThdGetSelfX
+ 180 0008 0346     		mov	r3, r0
+ 181 000a 93F82130 		ldrb	r3, [r3, #33]	@ zero_extendqisi2
+ 182 000e 03F00403 		and	r3, r3, #4
+ 183 0012 002B     		cmp	r3, #0
+ 184 0014 14BF     		ite	ne
+ 185 0016 0123     		movne	r3, #1
+ 186 0018 0023     		moveq	r3, #0
+ 187 001a DBB2     		uxtb	r3, r3
+ 188 001c 1846     		mov	r0, r3
+ 189 001e 80BD     		pop	{r7, pc}
+ 190              		.size	chThdShouldTerminateX, .-chThdShouldTerminateX
+ 191              		.section	.text.chRegSetThreadName,"ax",%progbits
+ 192              		.align	1
+ 193              		.syntax unified
+ 194              		.thumb
+ 195              		.thumb_func
+ 196              		.fpu fpv4-sp-d16
+ 197              		.type	chRegSetThreadName, %function
+ 198              	chRegSetThreadName:
+ 199              		@ args = 0, pretend = 0, frame = 8
+ 200              		@ frame_needed = 1, uses_anonymous_args = 0
+ 201              		@ link register save eliminated.
+ 202 0000 80B4     		push	{r7}
+ 203 0002 83B0     		sub	sp, sp, #12
+ 204 0004 00AF     		add	r7, sp, #0
+ 205 0006 7860     		str	r0, [r7, #4]
+ 206 0008 044B     		ldr	r3, .L14
+ 207 000a 9B69     		ldr	r3, [r3, #24]
+ 208 000c 7A68     		ldr	r2, [r7, #4]
+ 209 000e 9A61     		str	r2, [r3, #24]
+ 210 0010 00BF     		nop
+ 211 0012 0C37     		adds	r7, r7, #12
+ 212 0014 BD46     		mov	sp, r7
+ 213              		@ sp needed
+ 214 0016 5DF8047B 		ldr	r7, [sp], #4
+ 215 001a 7047     		bx	lr
+ 216              	.L15:
+ 217              		.align	2
+ 218              	.L14:
+ 219 001c 00000000 		.word	ch
+ 220              		.size	chRegSetThreadName, .-chRegSetThreadName
+ 221              		.global	Channel_Demux
+ 222              		.section	.data.Channel_Demux,"aw",%progbits
+ 223              		.align	2
+ 224              		.type	Channel_Demux, %object
+ 225              		.size	Channel_Demux, 128
+ 226              	Channel_Demux:
+ 227 0000 00       		.byte	0
+ 228 0001 01       		.byte	1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 5
+
+
+ 229 0002 00       		.byte	0
+ 230 0003 01       		.byte	1
+ 231 0004 02       		.byte	2
+ 232 0005 03       		.byte	3
+ 233 0006 02       		.byte	2
+ 234 0007 03       		.byte	3
+ 235 0008 00       		.byte	0
+ 236 0009 01       		.byte	1
+ 237 000a 00       		.byte	0
+ 238 000b 01       		.byte	1
+ 239 000c 02       		.byte	2
+ 240 000d 03       		.byte	3
+ 241 000e 02       		.byte	2
+ 242 000f 03       		.byte	3
+ 243 0010 04       		.byte	4
+ 244 0011 05       		.byte	5
+ 245 0012 04       		.byte	4
+ 246 0013 05       		.byte	5
+ 247 0014 06       		.byte	6
+ 248 0015 07       		.byte	7
+ 249 0016 06       		.byte	6
+ 250 0017 07       		.byte	7
+ 251 0018 04       		.byte	4
+ 252 0019 05       		.byte	5
+ 253 001a 04       		.byte	4
+ 254 001b 05       		.byte	5
+ 255 001c 06       		.byte	6
+ 256 001d 07       		.byte	7
+ 257 001e 06       		.byte	6
+ 258 001f 07       		.byte	7
+ 259 0020 00       		.byte	0
+ 260 0021 01       		.byte	1
+ 261 0022 00       		.byte	0
+ 262 0023 01       		.byte	1
+ 263 0024 02       		.byte	2
+ 264 0025 03       		.byte	3
+ 265 0026 02       		.byte	2
+ 266 0027 03       		.byte	3
+ 267 0028 00       		.byte	0
+ 268 0029 01       		.byte	1
+ 269 002a 00       		.byte	0
+ 270 002b 01       		.byte	1
+ 271 002c 02       		.byte	2
+ 272 002d 03       		.byte	3
+ 273 002e 02       		.byte	2
+ 274 002f 03       		.byte	3
+ 275 0030 04       		.byte	4
+ 276 0031 05       		.byte	5
+ 277 0032 04       		.byte	4
+ 278 0033 05       		.byte	5
+ 279 0034 06       		.byte	6
+ 280 0035 07       		.byte	7
+ 281 0036 06       		.byte	6
+ 282 0037 07       		.byte	7
+ 283 0038 04       		.byte	4
+ 284 0039 05       		.byte	5
+ 285 003a 04       		.byte	4
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 6
+
+
+ 286 003b 05       		.byte	5
+ 287 003c 06       		.byte	6
+ 288 003d 07       		.byte	7
+ 289 003e 06       		.byte	6
+ 290 003f 07       		.byte	7
+ 291 0040 08       		.byte	8
+ 292 0041 09       		.byte	9
+ 293 0042 08       		.byte	8
+ 294 0043 09       		.byte	9
+ 295 0044 0A       		.byte	10
+ 296 0045 0B       		.byte	11
+ 297 0046 0A       		.byte	10
+ 298 0047 0B       		.byte	11
+ 299 0048 08       		.byte	8
+ 300 0049 09       		.byte	9
+ 301 004a 08       		.byte	8
+ 302 004b 09       		.byte	9
+ 303 004c 0A       		.byte	10
+ 304 004d 0B       		.byte	11
+ 305 004e 0A       		.byte	10
+ 306 004f 0B       		.byte	11
+ 307 0050 0C       		.byte	12
+ 308 0051 0D       		.byte	13
+ 309 0052 0C       		.byte	12
+ 310 0053 0D       		.byte	13
+ 311 0054 0E       		.byte	14
+ 312 0055 0F       		.byte	15
+ 313 0056 0E       		.byte	14
+ 314 0057 0F       		.byte	15
+ 315 0058 0C       		.byte	12
+ 316 0059 0D       		.byte	13
+ 317 005a 0C       		.byte	12
+ 318 005b 0D       		.byte	13
+ 319 005c 0E       		.byte	14
+ 320 005d 0F       		.byte	15
+ 321 005e 0E       		.byte	14
+ 322 005f 0F       		.byte	15
+ 323 0060 08       		.byte	8
+ 324 0061 09       		.byte	9
+ 325 0062 08       		.byte	8
+ 326 0063 09       		.byte	9
+ 327 0064 0A       		.byte	10
+ 328 0065 0B       		.byte	11
+ 329 0066 0A       		.byte	10
+ 330 0067 0B       		.byte	11
+ 331 0068 08       		.byte	8
+ 332 0069 09       		.byte	9
+ 333 006a 08       		.byte	8
+ 334 006b 09       		.byte	9
+ 335 006c 0A       		.byte	10
+ 336 006d 0B       		.byte	11
+ 337 006e 0A       		.byte	10
+ 338 006f 0B       		.byte	11
+ 339 0070 0C       		.byte	12
+ 340 0071 0D       		.byte	13
+ 341 0072 0C       		.byte	12
+ 342 0073 0D       		.byte	13
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 7
+
+
+ 343 0074 0E       		.byte	14
+ 344 0075 0F       		.byte	15
+ 345 0076 0E       		.byte	14
+ 346 0077 0F       		.byte	15
+ 347 0078 0C       		.byte	12
+ 348 0079 0D       		.byte	13
+ 349 007a 0C       		.byte	12
+ 350 007b 0D       		.byte	13
+ 351 007c 0E       		.byte	14
+ 352 007d 0F       		.byte	15
+ 353 007e 0E       		.byte	14
+ 354 007f 0F       		.byte	15
+ 355              		.section	.bss.mp45dt02I2sData,"aw",%nobits
+ 356              		.align	2
+ 357              		.type	mp45dt02I2sData, %object
+ 358              		.size	mp45dt02I2sData, 524
+ 359              	mp45dt02I2sData:
+ 360 0000 00000000 		.space	524
+ 360      00000000 
+ 360      00000000 
+ 360      00000000 
+ 360      00000000 
+ 361              		.section	.bss.mp45dt02SPIData,"aw",%nobits
+ 362              		.align	2
+ 363              		.type	mp45dt02SPIData, %object
+ 364              		.size	mp45dt02SPIData, 1036
+ 365              	mp45dt02SPIData:
+ 366 0000 00000000 		.space	1036
+ 366      00000000 
+ 366      00000000 
+ 366      00000000 
+ 366      00000000 
+ 367              		.section	.bss.I2S_PDM_samples,"aw",%nobits
+ 368              		.align	2
+ 369              		.type	I2S_PDM_samples, %object
+ 370              		.size	I2S_PDM_samples, 256
+ 371              	I2S_PDM_samples:
+ 372 0000 00000000 		.space	256
+ 372      00000000 
+ 372      00000000 
+ 372      00000000 
+ 372      00000000 
+ 373              		.section	.bss.I2S_PCM_samples,"aw",%nobits
+ 374              		.align	2
+ 375              		.type	I2S_PCM_samples, %object
+ 376              		.size	I2S_PCM_samples, 64
+ 377              	I2S_PCM_samples:
+ 378 0000 00000000 		.space	64
+ 378      00000000 
+ 378      00000000 
+ 378      00000000 
+ 378      00000000 
+ 379              		.section	.bss.SPI_PDM_samples,"aw",%nobits
+ 380              		.align	2
+ 381              		.type	SPI_PDM_samples, %object
+ 382              		.size	SPI_PDM_samples, 256
+ 383              	SPI_PDM_samples:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 8
+
+
+ 384 0000 00000000 		.space	256
+ 384      00000000 
+ 384      00000000 
+ 384      00000000 
+ 384      00000000 
+ 385              		.section	.bss.SPI_PCM_samples,"aw",%nobits
+ 386              		.align	2
+ 387              		.type	SPI_PCM_samples, %object
+ 388              		.size	SPI_PCM_samples, 64
+ 389              	SPI_PCM_samples:
+ 390 0000 00000000 		.space	64
+ 390      00000000 
+ 390      00000000 
+ 390      00000000 
+ 390      00000000 
+ 391              		.section	.bss.PCM_buffer1,"aw",%nobits
+ 392              		.align	2
+ 393              		.type	PCM_buffer1, %object
+ 394              		.size	PCM_buffer1, 1280
+ 395              	PCM_buffer1:
+ 396 0000 00000000 		.space	1280
+ 396      00000000 
+ 396      00000000 
+ 396      00000000 
+ 396      00000000 
+ 397              		.section	.bss.PCM_buffer2,"aw",%nobits
+ 398              		.align	2
+ 399              		.type	PCM_buffer2, %object
+ 400              		.size	PCM_buffer2, 1280
+ 401              	PCM_buffer2:
+ 402 0000 00000000 		.space	1280
+ 402      00000000 
+ 402      00000000 
+ 402      00000000 
+ 402      00000000 
+ 403              		.section	.bss.PCM_buffer_index,"aw",%nobits
+ 404              		.type	PCM_buffer_index, %object
+ 405              		.size	PCM_buffer_index, 1
+ 406              	PCM_buffer_index:
+ 407 0000 00       		.space	1
+ 408              		.section	.data.PCM_buffer_ptr_curr,"aw",%progbits
+ 409              		.align	2
+ 410              		.type	PCM_buffer_ptr_curr, %object
+ 411              		.size	PCM_buffer_ptr_curr, 4
+ 412              	PCM_buffer_ptr_curr:
+ 413 0000 00000000 		.word	PCM_buffer1
+ 414              		.section	.data.PCM_buffer_ptr_last,"aw",%progbits
+ 415              		.align	2
+ 416              		.type	PCM_buffer_ptr_last, %object
+ 417              		.size	PCM_buffer_ptr_last, 4
+ 418              	PCM_buffer_ptr_last:
+ 419 0000 00000000 		.word	PCM_buffer2
+ 420              		.section	.bss.DataProcessingThd,"aw",%nobits
+ 421              		.align	2
+ 422              		.type	DataProcessingThd, %object
+ 423              		.size	DataProcessingThd, 4
+ 424              	DataProcessingThd:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 9
+
+
+ 425 0000 00000000 		.space	4
+ 426              		.section	.bss.DataProcessingThdWA,"aw",%nobits
+ 427              		.align	3
+ 428              		.type	DataProcessingThdWA, %object
+ 429              		.size	DataProcessingThdWA, 1400
+ 430              	DataProcessingThdWA:
+ 431 0000 00000000 		.space	1400
+ 431      00000000 
+ 431      00000000 
+ 431      00000000 
+ 431      00000000 
+ 432              		.section	.bss.DataProcessingSem,"aw",%nobits
+ 433              		.align	2
+ 434              		.type	DataProcessingSem, %object
+ 435              		.size	DataProcessingSem, 12
+ 436              	DataProcessingSem:
+ 437 0000 00000000 		.space	12
+ 437      00000000 
+ 437      00000000 
+ 438              		.section	.bss.mp45dt02I2SConfig,"aw",%nobits
+ 439              		.align	2
+ 440              		.type	mp45dt02I2SConfig, %object
+ 441              		.size	mp45dt02I2SConfig, 20
+ 442              	mp45dt02I2SConfig:
+ 443 0000 00000000 		.space	20
+ 443      00000000 
+ 443      00000000 
+ 443      00000000 
+ 443      00000000 
+ 444              		.section	.bss.mp45dt02SPIConfig,"aw",%nobits
+ 445              		.align	2
+ 446              		.type	mp45dt02SPIConfig, %object
+ 447              		.size	mp45dt02SPIConfig, 16
+ 448              	mp45dt02SPIConfig:
+ 449 0000 00000000 		.space	16
+ 449      00000000 
+ 449      00000000 
+ 449      00000000 
+ 450              		.section	.bss.initConfig,"aw",%nobits
+ 451              		.align	2
+ 452              		.type	initConfig, %object
+ 453              		.size	initConfig, 4
+ 454              	initConfig:
+ 455 0000 00000000 		.space	4
+ 456              		.global	PDM_filter_I2S
+ 457              		.section	.bss.PDM_filter_I2S,"aw",%nobits
+ 458              		.align	2
+ 459              		.type	PDM_filter_I2S, %object
+ 460              		.size	PDM_filter_I2S, 104
+ 461              	PDM_filter_I2S:
+ 462 0000 00000000 		.space	104
+ 462      00000000 
+ 462      00000000 
+ 462      00000000 
+ 462      00000000 
+ 463              		.global	PDM_filter_SPI
+ 464              		.section	.bss.PDM_filter_SPI,"aw",%nobits
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 10
+
+
+ 465              		.align	2
+ 466              		.type	PDM_filter_SPI, %object
+ 467              		.size	PDM_filter_SPI, 104
+ 468              	PDM_filter_SPI:
+ 469 0000 00000000 		.space	104
+ 469      00000000 
+ 469      00000000 
+ 469      00000000 
+ 469      00000000 
+ 470              		.section	.text.PDMDecoder_Init,"ax",%progbits
+ 471              		.align	1
+ 472              		.syntax unified
+ 473              		.thumb
+ 474              		.thumb_func
+ 475              		.fpu fpv4-sp-d16
+ 476              		.type	PDMDecoder_Init, %function
+ 477              	PDMDecoder_Init:
+ 478              		@ args = 0, pretend = 0, frame = 8
+ 479              		@ frame_needed = 1, uses_anonymous_args = 0
+ 480 0000 80B5     		push	{r7, lr}
+ 481 0002 82B0     		sub	sp, sp, #8
+ 482 0004 00AF     		add	r7, sp, #0
+ 483 0006 0023     		movs	r3, #0
+ 484 0008 FB71     		strb	r3, [r7, #7]
+ 485 000a 3F4B     		ldr	r3, .L19
+ 486 000c 1B6B     		ldr	r3, [r3, #48]
+ 487 000e 3E4A     		ldr	r2, .L19
+ 488 0010 43F48053 		orr	r3, r3, #4096
+ 489 0014 1363     		str	r3, [r2, #48]
+ 490 0016 0023     		movs	r3, #0
+ 491 0018 FB71     		strb	r3, [r7, #7]
+ 492 001a 6EE0     		b	.L17
+ 493              	.L18:
+ 494 001c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 495 001e 3B4A     		ldr	r2, .L19+4
+ 496 0020 3421     		movs	r1, #52
+ 497 0022 01FB03F3 		mul	r3, r1, r3
+ 498 0026 1344     		add	r3, r3, r2
+ 499 0028 0433     		adds	r3, r3, #4
+ 500 002a 394A     		ldr	r2, .L19+8
+ 501 002c 1A60     		str	r2, [r3]	@ float
+ 502 002e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 503 0030 364A     		ldr	r2, .L19+4
+ 504 0032 3421     		movs	r1, #52
+ 505 0034 01FB03F3 		mul	r3, r1, r3
+ 506 0038 1344     		add	r3, r3, r2
+ 507 003a 0833     		adds	r3, r3, #8
+ 508 003c 354A     		ldr	r2, .L19+12
+ 509 003e 1A60     		str	r2, [r3]	@ float
+ 510 0040 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 511 0042 324A     		ldr	r2, .L19+4
+ 512 0044 3421     		movs	r1, #52
+ 513 0046 01FB03F3 		mul	r3, r1, r3
+ 514 004a 1344     		add	r3, r3, r2
+ 515 004c 4FF47A52 		mov	r2, #16000
+ 516 0050 1A80     		strh	r2, [r3]	@ movhi
+ 517 0052 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 11
+
+
+ 518 0054 2D4A     		ldr	r2, .L19+4
+ 519 0056 3421     		movs	r1, #52
+ 520 0058 01FB03F3 		mul	r3, r1, r3
+ 521 005c 1344     		add	r3, r3, r2
+ 522 005e 0E33     		adds	r3, r3, #14
+ 523 0060 0222     		movs	r2, #2
+ 524 0062 1A80     		strh	r2, [r3]	@ movhi
+ 525 0064 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 526 0066 294A     		ldr	r2, .L19+4
+ 527 0068 3421     		movs	r1, #52
+ 528 006a 01FB03F3 		mul	r3, r1, r3
+ 529 006e 1344     		add	r3, r3, r2
+ 530 0070 0C33     		adds	r3, r3, #12
+ 531 0072 0222     		movs	r2, #2
+ 532 0074 1A80     		strh	r2, [r3]	@ movhi
+ 533 0076 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 534 0078 3422     		movs	r2, #52
+ 535 007a 02FB03F3 		mul	r3, r2, r3
+ 536 007e 234A     		ldr	r2, .L19+4
+ 537 0080 1344     		add	r3, r3, r2
+ 538 0082 1846     		mov	r0, r3
+ 539 0084 FFF7FEFF 		bl	PDM_Filter_Init
+ 540 0088 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 541 008a 234A     		ldr	r2, .L19+16
+ 542 008c 3421     		movs	r1, #52
+ 543 008e 01FB03F3 		mul	r3, r1, r3
+ 544 0092 1344     		add	r3, r3, r2
+ 545 0094 0433     		adds	r3, r3, #4
+ 546 0096 1E4A     		ldr	r2, .L19+8
+ 547 0098 1A60     		str	r2, [r3]	@ float
+ 548 009a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 549 009c 1E4A     		ldr	r2, .L19+16
+ 550 009e 3421     		movs	r1, #52
+ 551 00a0 01FB03F3 		mul	r3, r1, r3
+ 552 00a4 1344     		add	r3, r3, r2
+ 553 00a6 0833     		adds	r3, r3, #8
+ 554 00a8 1A4A     		ldr	r2, .L19+12
+ 555 00aa 1A60     		str	r2, [r3]	@ float
+ 556 00ac FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 557 00ae 1A4A     		ldr	r2, .L19+16
+ 558 00b0 3421     		movs	r1, #52
+ 559 00b2 01FB03F3 		mul	r3, r1, r3
+ 560 00b6 1344     		add	r3, r3, r2
+ 561 00b8 4FF47A52 		mov	r2, #16000
+ 562 00bc 1A80     		strh	r2, [r3]	@ movhi
+ 563 00be FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 564 00c0 154A     		ldr	r2, .L19+16
+ 565 00c2 3421     		movs	r1, #52
+ 566 00c4 01FB03F3 		mul	r3, r1, r3
+ 567 00c8 1344     		add	r3, r3, r2
+ 568 00ca 0E33     		adds	r3, r3, #14
+ 569 00cc 0222     		movs	r2, #2
+ 570 00ce 1A80     		strh	r2, [r3]	@ movhi
+ 571 00d0 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 572 00d2 114A     		ldr	r2, .L19+16
+ 573 00d4 3421     		movs	r1, #52
+ 574 00d6 01FB03F3 		mul	r3, r1, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 12
+
+
+ 575 00da 1344     		add	r3, r3, r2
+ 576 00dc 0C33     		adds	r3, r3, #12
+ 577 00de 0222     		movs	r2, #2
+ 578 00e0 1A80     		strh	r2, [r3]	@ movhi
+ 579 00e2 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 580 00e4 3422     		movs	r2, #52
+ 581 00e6 02FB03F3 		mul	r3, r2, r3
+ 582 00ea 0B4A     		ldr	r2, .L19+16
+ 583 00ec 1344     		add	r3, r3, r2
+ 584 00ee 1846     		mov	r0, r3
+ 585 00f0 FFF7FEFF 		bl	PDM_Filter_Init
+ 586 00f4 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 587 00f6 0133     		adds	r3, r3, #1
+ 588 00f8 FB71     		strb	r3, [r7, #7]
+ 589              	.L17:
+ 590 00fa FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 591 00fc 012B     		cmp	r3, #1
+ 592 00fe 8DD9     		bls	.L18
+ 593 0100 00BF     		nop
+ 594 0102 0837     		adds	r7, r7, #8
+ 595 0104 BD46     		mov	sp, r7
+ 596              		@ sp needed
+ 597 0106 80BD     		pop	{r7, pc}
+ 598              	.L20:
+ 599              		.align	2
+ 600              	.L19:
+ 601 0108 00380240 		.word	1073887232
+ 602 010c 00000000 		.word	PDM_filter_I2S
+ 603 0110 0000FA45 		.word	1174011904
+ 604 0114 00002041 		.word	1092616192
+ 605 0118 00000000 		.word	PDM_filter_SPI
+ 606              		.size	PDMDecoder_Init, .-PDMDecoder_Init
+ 607              		.section	.text.DataProcessing,"ax",%progbits
+ 608              		.align	1
+ 609              		.syntax unified
+ 610              		.thumb
+ 611              		.thumb_func
+ 612              		.fpu fpv4-sp-d16
+ 613              		.type	DataProcessing, %function
+ 614              	DataProcessing:
+ 615              		@ args = 0, pretend = 0, frame = 32
+ 616              		@ frame_needed = 1, uses_anonymous_args = 0
+ 617 0000 80B5     		push	{r7, lr}
+ 618 0002 88B0     		sub	sp, sp, #32
+ 619 0004 00AF     		add	r7, sp, #0
+ 620 0006 7860     		str	r0, [r7, #4]
+ 621 0008 A848     		ldr	r0, .L36
+ 622 000a FFF7FEFF 		bl	chRegSetThreadName
+ 623 000e 0023     		movs	r3, #0
+ 624 0010 FB61     		str	r3, [r7, #28]
+ 625 0012 0023     		movs	r3, #0
+ 626 0014 FB76     		strb	r3, [r7, #27]
+ 627 0016 3EE1     		b	.L22
+ 628              	.L34:
+ 629 0018 A548     		ldr	r0, .L36+4
+ 630 001a FFF7FEFF 		bl	chSemWait
+ 631 001e A448     		ldr	r0, .L36+4
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 13
+
+
+ 632 0020 FFF7FEFF 		bl	chSemWait
+ 633 0024 FFF7FEFF 		bl	chThdShouldTerminateX
+ 634 0028 0346     		mov	r3, r0
+ 635 002a 002B     		cmp	r3, #0
+ 636 002c 40F06081 		bne	.L35
+ 637 0030 A04B     		ldr	r3, .L36+8
+ 638 0032 1B68     		ldr	r3, [r3]
+ 639 0034 5B00     		lsls	r3, r3, #1
+ 640 0036 0433     		adds	r3, r3, #4
+ 641 0038 5B00     		lsls	r3, r3, #1
+ 642 003a 9E4A     		ldr	r2, .L36+8
+ 643 003c 1344     		add	r3, r3, r2
+ 644 003e 7B61     		str	r3, [r7, #20]
+ 645 0040 9D4B     		ldr	r3, .L36+12
+ 646 0042 1B68     		ldr	r3, [r3]
+ 647 0044 5B00     		lsls	r3, r3, #1
+ 648 0046 03F58273 		add	r3, r3, #260
+ 649 004a 5B00     		lsls	r3, r3, #1
+ 650 004c 9A4A     		ldr	r2, .L36+12
+ 651 004e 1344     		add	r3, r3, r2
+ 652 0050 3B61     		str	r3, [r7, #16]
+ 653 0052 0023     		movs	r3, #0
+ 654 0054 FB61     		str	r3, [r7, #28]
+ 655 0056 7AE0     		b	.L25
+ 656              	.L26:
+ 657 0058 FB69     		ldr	r3, [r7, #28]
+ 658 005a 5B00     		lsls	r3, r3, #1
+ 659 005c 7A69     		ldr	r2, [r7, #20]
+ 660 005e 1344     		add	r3, r3, r2
+ 661 0060 1B78     		ldrb	r3, [r3]
+ 662 0062 FB73     		strb	r3, [r7, #15]
+ 663 0064 FB69     		ldr	r3, [r7, #28]
+ 664 0066 5B00     		lsls	r3, r3, #1
+ 665 0068 0133     		adds	r3, r3, #1
+ 666 006a 7A69     		ldr	r2, [r7, #20]
+ 667 006c 1344     		add	r3, r3, r2
+ 668 006e 1B78     		ldrb	r3, [r3]
+ 669 0070 FB76     		strb	r3, [r7, #27]
+ 670 0072 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 671 0074 03F05503 		and	r3, r3, #85
+ 672 0078 904A     		ldr	r2, .L36+16
+ 673 007a D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 674 007c 5AB2     		sxtb	r2, r3
+ 675 007e FB7E     		ldrb	r3, [r7, #27]	@ zero_extendqisi2
+ 676 0080 03F05503 		and	r3, r3, #85
+ 677 0084 8D49     		ldr	r1, .L36+16
+ 678 0086 CB5C     		ldrb	r3, [r1, r3]	@ zero_extendqisi2
+ 679 0088 1B01     		lsls	r3, r3, #4
+ 680 008a 5BB2     		sxtb	r3, r3
+ 681 008c 1343     		orrs	r3, r3, r2
+ 682 008e 59B2     		sxtb	r1, r3
+ 683 0090 FB69     		ldr	r3, [r7, #28]
+ 684 0092 5B00     		lsls	r3, r3, #1
+ 685 0094 8A4A     		ldr	r2, .L36+20
+ 686 0096 1344     		add	r3, r3, r2
+ 687 0098 CAB2     		uxtb	r2, r1
+ 688 009a 1A70     		strb	r2, [r3]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 14
+
+
+ 689 009c FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 690 009e 5B08     		lsrs	r3, r3, #1
+ 691 00a0 DBB2     		uxtb	r3, r3
+ 692 00a2 03F05503 		and	r3, r3, #85
+ 693 00a6 854A     		ldr	r2, .L36+16
+ 694 00a8 D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 695 00aa 5AB2     		sxtb	r2, r3
+ 696 00ac FB7E     		ldrb	r3, [r7, #27]	@ zero_extendqisi2
+ 697 00ae 5B08     		lsrs	r3, r3, #1
+ 698 00b0 DBB2     		uxtb	r3, r3
+ 699 00b2 03F05503 		and	r3, r3, #85
+ 700 00b6 8149     		ldr	r1, .L36+16
+ 701 00b8 CB5C     		ldrb	r3, [r1, r3]	@ zero_extendqisi2
+ 702 00ba 1B01     		lsls	r3, r3, #4
+ 703 00bc 5BB2     		sxtb	r3, r3
+ 704 00be 1343     		orrs	r3, r3, r2
+ 705 00c0 59B2     		sxtb	r1, r3
+ 706 00c2 FB69     		ldr	r3, [r7, #28]
+ 707 00c4 5B00     		lsls	r3, r3, #1
+ 708 00c6 0133     		adds	r3, r3, #1
+ 709 00c8 7D4A     		ldr	r2, .L36+20
+ 710 00ca 1344     		add	r3, r3, r2
+ 711 00cc CAB2     		uxtb	r2, r1
+ 712 00ce 1A70     		strb	r2, [r3]
+ 713 00d0 FB69     		ldr	r3, [r7, #28]
+ 714 00d2 5B00     		lsls	r3, r3, #1
+ 715 00d4 3A69     		ldr	r2, [r7, #16]
+ 716 00d6 1344     		add	r3, r3, r2
+ 717 00d8 1B78     		ldrb	r3, [r3]
+ 718 00da FB73     		strb	r3, [r7, #15]
+ 719 00dc FB69     		ldr	r3, [r7, #28]
+ 720 00de 5B00     		lsls	r3, r3, #1
+ 721 00e0 0133     		adds	r3, r3, #1
+ 722 00e2 3A69     		ldr	r2, [r7, #16]
+ 723 00e4 1344     		add	r3, r3, r2
+ 724 00e6 1B78     		ldrb	r3, [r3]
+ 725 00e8 FB76     		strb	r3, [r7, #27]
+ 726 00ea FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 727 00ec 03F05503 		and	r3, r3, #85
+ 728 00f0 724A     		ldr	r2, .L36+16
+ 729 00f2 D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 730 00f4 5AB2     		sxtb	r2, r3
+ 731 00f6 FB7E     		ldrb	r3, [r7, #27]	@ zero_extendqisi2
+ 732 00f8 03F05503 		and	r3, r3, #85
+ 733 00fc 6F49     		ldr	r1, .L36+16
+ 734 00fe CB5C     		ldrb	r3, [r1, r3]	@ zero_extendqisi2
+ 735 0100 1B01     		lsls	r3, r3, #4
+ 736 0102 5BB2     		sxtb	r3, r3
+ 737 0104 1343     		orrs	r3, r3, r2
+ 738 0106 59B2     		sxtb	r1, r3
+ 739 0108 FB69     		ldr	r3, [r7, #28]
+ 740 010a 5B00     		lsls	r3, r3, #1
+ 741 010c 6D4A     		ldr	r2, .L36+24
+ 742 010e 1344     		add	r3, r3, r2
+ 743 0110 CAB2     		uxtb	r2, r1
+ 744 0112 1A70     		strb	r2, [r3]
+ 745 0114 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 15
+
+
+ 746 0116 5B08     		lsrs	r3, r3, #1
+ 747 0118 DBB2     		uxtb	r3, r3
+ 748 011a 03F05503 		and	r3, r3, #85
+ 749 011e 674A     		ldr	r2, .L36+16
+ 750 0120 D35C     		ldrb	r3, [r2, r3]	@ zero_extendqisi2
+ 751 0122 5AB2     		sxtb	r2, r3
+ 752 0124 FB7E     		ldrb	r3, [r7, #27]	@ zero_extendqisi2
+ 753 0126 5B08     		lsrs	r3, r3, #1
+ 754 0128 DBB2     		uxtb	r3, r3
+ 755 012a 03F05503 		and	r3, r3, #85
+ 756 012e 6349     		ldr	r1, .L36+16
+ 757 0130 CB5C     		ldrb	r3, [r1, r3]	@ zero_extendqisi2
+ 758 0132 1B01     		lsls	r3, r3, #4
+ 759 0134 5BB2     		sxtb	r3, r3
+ 760 0136 1343     		orrs	r3, r3, r2
+ 761 0138 59B2     		sxtb	r1, r3
+ 762 013a FB69     		ldr	r3, [r7, #28]
+ 763 013c 5B00     		lsls	r3, r3, #1
+ 764 013e 0133     		adds	r3, r3, #1
+ 765 0140 604A     		ldr	r2, .L36+24
+ 766 0142 1344     		add	r3, r3, r2
+ 767 0144 CAB2     		uxtb	r2, r1
+ 768 0146 1A70     		strb	r2, [r3]
+ 769 0148 FB69     		ldr	r3, [r7, #28]
+ 770 014a 0133     		adds	r3, r3, #1
+ 771 014c FB61     		str	r3, [r7, #28]
+ 772              	.L25:
+ 773 014e 594B     		ldr	r3, .L36+8
+ 774 0150 5B68     		ldr	r3, [r3, #4]
+ 775 0152 5B00     		lsls	r3, r3, #1
+ 776 0154 FA69     		ldr	r2, [r7, #28]
+ 777 0156 9A42     		cmp	r2, r3
+ 778 0158 FFF47EAF 		bcc	.L26
+ 779 015c 0023     		movs	r3, #0
+ 780 015e FB61     		str	r3, [r7, #28]
+ 781 0160 22E0     		b	.L27
+ 782              	.L28:
+ 783 0162 FB69     		ldr	r3, [r7, #28]
+ 784 0164 564A     		ldr	r2, .L36+20
+ 785 0166 9818     		adds	r0, r3, r2
+ 786 0168 FB69     		ldr	r3, [r7, #28]
+ 787 016a 5B00     		lsls	r3, r3, #1
+ 788 016c 564A     		ldr	r2, .L36+28
+ 789 016e 9918     		adds	r1, r3, r2
+ 790 0170 FB69     		ldr	r3, [r7, #28]
+ 791 0172 3422     		movs	r2, #52
+ 792 0174 02FB03F3 		mul	r3, r2, r3
+ 793 0178 544A     		ldr	r2, .L36+32
+ 794 017a 1344     		add	r3, r3, r2
+ 795 017c 0422     		movs	r2, #4
+ 796 017e FFF7FEFF 		bl	PDM_Filter_64_LSB
+ 797 0182 FB69     		ldr	r3, [r7, #28]
+ 798 0184 4F4A     		ldr	r2, .L36+24
+ 799 0186 9818     		adds	r0, r3, r2
+ 800 0188 FB69     		ldr	r3, [r7, #28]
+ 801 018a 5B00     		lsls	r3, r3, #1
+ 802 018c 504A     		ldr	r2, .L36+36
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 16
+
+
+ 803 018e 9918     		adds	r1, r3, r2
+ 804 0190 FB69     		ldr	r3, [r7, #28]
+ 805 0192 3422     		movs	r2, #52
+ 806 0194 02FB03F3 		mul	r3, r2, r3
+ 807 0198 4E4A     		ldr	r2, .L36+40
+ 808 019a 1344     		add	r3, r3, r2
+ 809 019c 0422     		movs	r2, #4
+ 810 019e FFF7FEFF 		bl	PDM_Filter_64_LSB
+ 811 01a2 FB69     		ldr	r3, [r7, #28]
+ 812 01a4 0133     		adds	r3, r3, #1
+ 813 01a6 FB61     		str	r3, [r7, #28]
+ 814              	.L27:
+ 815 01a8 FB69     		ldr	r3, [r7, #28]
+ 816 01aa 012B     		cmp	r3, #1
+ 817 01ac D9D9     		bls	.L28
+ 818 01ae 0023     		movs	r3, #0
+ 819 01b0 FB61     		str	r3, [r7, #28]
+ 820 01b2 47E0     		b	.L29
+ 821              	.L30:
+ 822 01b4 FB69     		ldr	r3, [r7, #28]
+ 823 01b6 5B00     		lsls	r3, r3, #1
+ 824 01b8 434A     		ldr	r2, .L36+28
+ 825 01ba 32F81300 		ldrh	r0, [r2, r3, lsl #1]
+ 826 01be 464B     		ldr	r3, .L36+44
+ 827 01c0 1A68     		ldr	r2, [r3]
+ 828 01c2 464B     		ldr	r3, .L36+48
+ 829 01c4 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 830 01c6 1901     		lsls	r1, r3, #4
+ 831 01c8 FB69     		ldr	r3, [r7, #28]
+ 832 01ca 0B44     		add	r3, r3, r1
+ 833 01cc DB00     		lsls	r3, r3, #3
+ 834 01ce 1344     		add	r3, r3, r2
+ 835 01d0 02B2     		sxth	r2, r0
+ 836 01d2 1A80     		strh	r2, [r3]	@ movhi
+ 837 01d4 FB69     		ldr	r3, [r7, #28]
+ 838 01d6 5B00     		lsls	r3, r3, #1
+ 839 01d8 0133     		adds	r3, r3, #1
+ 840 01da 3B4A     		ldr	r2, .L36+28
+ 841 01dc 32F81300 		ldrh	r0, [r2, r3, lsl #1]
+ 842 01e0 3D4B     		ldr	r3, .L36+44
+ 843 01e2 1A68     		ldr	r2, [r3]
+ 844 01e4 3D4B     		ldr	r3, .L36+48
+ 845 01e6 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 846 01e8 1901     		lsls	r1, r3, #4
+ 847 01ea FB69     		ldr	r3, [r7, #28]
+ 848 01ec 0B44     		add	r3, r3, r1
+ 849 01ee DB00     		lsls	r3, r3, #3
+ 850 01f0 0233     		adds	r3, r3, #2
+ 851 01f2 1344     		add	r3, r3, r2
+ 852 01f4 02B2     		sxth	r2, r0
+ 853 01f6 1A80     		strh	r2, [r3]	@ movhi
+ 854 01f8 FB69     		ldr	r3, [r7, #28]
+ 855 01fa 5B00     		lsls	r3, r3, #1
+ 856 01fc 0133     		adds	r3, r3, #1
+ 857 01fe 344A     		ldr	r2, .L36+36
+ 858 0200 32F81300 		ldrh	r0, [r2, r3, lsl #1]
+ 859 0204 344B     		ldr	r3, .L36+44
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 17
+
+
+ 860 0206 1A68     		ldr	r2, [r3]
+ 861 0208 344B     		ldr	r3, .L36+48
+ 862 020a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 863 020c 1901     		lsls	r1, r3, #4
+ 864 020e FB69     		ldr	r3, [r7, #28]
+ 865 0210 0B44     		add	r3, r3, r1
+ 866 0212 DB00     		lsls	r3, r3, #3
+ 867 0214 0433     		adds	r3, r3, #4
+ 868 0216 1344     		add	r3, r3, r2
+ 869 0218 02B2     		sxth	r2, r0
+ 870 021a 1A80     		strh	r2, [r3]	@ movhi
+ 871 021c FB69     		ldr	r3, [r7, #28]
+ 872 021e 5B00     		lsls	r3, r3, #1
+ 873 0220 2B4A     		ldr	r2, .L36+36
+ 874 0222 32F81300 		ldrh	r0, [r2, r3, lsl #1]
+ 875 0226 2C4B     		ldr	r3, .L36+44
+ 876 0228 1A68     		ldr	r2, [r3]
+ 877 022a 2C4B     		ldr	r3, .L36+48
+ 878 022c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 879 022e 1901     		lsls	r1, r3, #4
+ 880 0230 FB69     		ldr	r3, [r7, #28]
+ 881 0232 0B44     		add	r3, r3, r1
+ 882 0234 DB00     		lsls	r3, r3, #3
+ 883 0236 0633     		adds	r3, r3, #6
+ 884 0238 1344     		add	r3, r3, r2
+ 885 023a 02B2     		sxth	r2, r0
+ 886 023c 1A80     		strh	r2, [r3]	@ movhi
+ 887 023e FB69     		ldr	r3, [r7, #28]
+ 888 0240 0133     		adds	r3, r3, #1
+ 889 0242 FB61     		str	r3, [r7, #28]
+ 890              	.L29:
+ 891 0244 FB69     		ldr	r3, [r7, #28]
+ 892 0246 0F2B     		cmp	r3, #15
+ 893 0248 B4D9     		bls	.L30
+ 894 024a 244B     		ldr	r3, .L36+48
+ 895 024c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 896 024e 092B     		cmp	r3, #9
+ 897 0250 1BD1     		bne	.L31
+ 898 0252 224B     		ldr	r3, .L36+48
+ 899 0254 0022     		movs	r2, #0
+ 900 0256 1A70     		strb	r2, [r3]
+ 901 0258 214B     		ldr	r3, .L36+52
+ 902 025a 1B68     		ldr	r3, [r3]
+ 903 025c 1E4A     		ldr	r2, .L36+44
+ 904 025e 1268     		ldr	r2, [r2]
+ 905 0260 4FF42071 		mov	r1, #640
+ 906 0264 1046     		mov	r0, r2
+ 907 0266 9847     		blx	r3
+ 908 0268 1B4B     		ldr	r3, .L36+44
+ 909 026a 1B68     		ldr	r3, [r3]
+ 910 026c 1D4A     		ldr	r2, .L36+56
+ 911 026e 1360     		str	r3, [r2]
+ 912 0270 194B     		ldr	r3, .L36+44
+ 913 0272 1B68     		ldr	r3, [r3]
+ 914 0274 1C4A     		ldr	r2, .L36+60
+ 915 0276 9342     		cmp	r3, r2
+ 916 0278 03D1     		bne	.L32
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 18
+
+
+ 917 027a 174B     		ldr	r3, .L36+44
+ 918 027c 1B4A     		ldr	r2, .L36+64
+ 919 027e 1A60     		str	r2, [r3]
+ 920 0280 09E0     		b	.L22
+ 921              	.L32:
+ 922 0282 154B     		ldr	r3, .L36+44
+ 923 0284 184A     		ldr	r2, .L36+60
+ 924 0286 1A60     		str	r2, [r3]
+ 925 0288 05E0     		b	.L22
+ 926              	.L31:
+ 927 028a 144B     		ldr	r3, .L36+48
+ 928 028c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 929 028e 0133     		adds	r3, r3, #1
+ 930 0290 DAB2     		uxtb	r2, r3
+ 931 0292 124B     		ldr	r3, .L36+48
+ 932 0294 1A70     		strb	r2, [r3]
+ 933              	.L22:
+ 934 0296 FFF7FEFF 		bl	chThdShouldTerminateX
+ 935 029a 0346     		mov	r3, r0
+ 936 029c 83F00103 		eor	r3, r3, #1
+ 937 02a0 DBB2     		uxtb	r3, r3
+ 938 02a2 002B     		cmp	r3, #0
+ 939 02a4 7FF4B8AE 		bne	.L34
+ 940 02a8 23E0     		b	.L24
+ 941              	.L37:
+ 942 02aa 00BF     		.align	2
+ 943              	.L36:
+ 944 02ac 00000000 		.word	__FUNCTION__.10409
+ 945 02b0 00000000 		.word	DataProcessingSem
+ 946 02b4 00000000 		.word	mp45dt02I2sData
+ 947 02b8 00000000 		.word	mp45dt02SPIData
+ 948 02bc 00000000 		.word	Channel_Demux
+ 949 02c0 00000000 		.word	I2S_PDM_samples
+ 950 02c4 00000000 		.word	SPI_PDM_samples
+ 951 02c8 00000000 		.word	I2S_PCM_samples
+ 952 02cc 00000000 		.word	PDM_filter_I2S
+ 953 02d0 00000000 		.word	SPI_PCM_samples
+ 954 02d4 00000000 		.word	PDM_filter_SPI
+ 955 02d8 00000000 		.word	PCM_buffer_ptr_curr
+ 956 02dc 00000000 		.word	PCM_buffer_index
+ 957 02e0 00000000 		.word	initConfig
+ 958 02e4 00000000 		.word	PCM_buffer_ptr_last
+ 959 02e8 00000000 		.word	PCM_buffer1
+ 960 02ec 00000000 		.word	PCM_buffer2
+ 961              	.L35:
+ 962 02f0 00BF     		nop
+ 963              	.L24:
+ 964 02f2 00BF     		nop
+ 965 02f4 2037     		adds	r7, r7, #32
+ 966 02f6 BD46     		mov	sp, r7
+ 967              		@ sp needed
+ 968 02f8 80BD     		pop	{r7, pc}
+ 969              		.size	DataProcessing, .-DataProcessing
+ 970 02fa 00BF     		.section	.text.mp45dt02I2SCb,"ax",%progbits
+ 971              		.align	1
+ 972              		.syntax unified
+ 973              		.thumb
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 19
+
+
+ 974              		.thumb_func
+ 975              		.fpu fpv4-sp-d16
+ 976              		.type	mp45dt02I2SCb, %function
+ 977              	mp45dt02I2SCb:
+ 978              		@ args = 0, pretend = 0, frame = 16
+ 979              		@ frame_needed = 1, uses_anonymous_args = 0
+ 980 0000 80B5     		push	{r7, lr}
+ 981 0002 84B0     		sub	sp, sp, #16
+ 982 0004 00AF     		add	r7, sp, #0
+ 983 0006 F860     		str	r0, [r7, #12]
+ 984 0008 B960     		str	r1, [r7, #8]
+ 985 000a 7A60     		str	r2, [r7, #4]
+ 986 000c FFF7FEFF 		bl	chSysLockFromISR
+ 987 0010 074A     		ldr	r2, .L39
+ 988 0012 BB68     		ldr	r3, [r7, #8]
+ 989 0014 1360     		str	r3, [r2]
+ 990 0016 064A     		ldr	r2, .L39
+ 991 0018 7B68     		ldr	r3, [r7, #4]
+ 992 001a 5360     		str	r3, [r2, #4]
+ 993 001c 0548     		ldr	r0, .L39+4
+ 994 001e FFF7FEFF 		bl	chSemSignalI
+ 995 0022 FFF7FEFF 		bl	chSysUnlockFromISR
+ 996 0026 00BF     		nop
+ 997 0028 1037     		adds	r7, r7, #16
+ 998 002a BD46     		mov	sp, r7
+ 999              		@ sp needed
+ 1000 002c 80BD     		pop	{r7, pc}
+ 1001              	.L40:
+ 1002 002e 00BF     		.align	2
+ 1003              	.L39:
+ 1004 0030 00000000 		.word	mp45dt02I2sData
+ 1005 0034 00000000 		.word	DataProcessingSem
+ 1006              		.size	mp45dt02I2SCb, .-mp45dt02I2SCb
+ 1007              		.section	.text.mp45dt02SPICb,"ax",%progbits
+ 1008              		.align	1
+ 1009              		.global	mp45dt02SPICb
+ 1010              		.syntax unified
+ 1011              		.thumb
+ 1012              		.thumb_func
+ 1013              		.fpu fpv4-sp-d16
+ 1014              		.type	mp45dt02SPICb, %function
+ 1015              	mp45dt02SPICb:
+ 1016              		@ args = 0, pretend = 0, frame = 16
+ 1017              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1018 0000 80B5     		push	{r7, lr}
+ 1019 0002 84B0     		sub	sp, sp, #16
+ 1020 0004 00AF     		add	r7, sp, #0
+ 1021 0006 F860     		str	r0, [r7, #12]
+ 1022 0008 B960     		str	r1, [r7, #8]
+ 1023 000a 7A60     		str	r2, [r7, #4]
+ 1024 000c FFF7FEFF 		bl	chSysLockFromISR
+ 1025 0010 074A     		ldr	r2, .L42
+ 1026 0012 BB68     		ldr	r3, [r7, #8]
+ 1027 0014 1360     		str	r3, [r2]
+ 1028 0016 064A     		ldr	r2, .L42
+ 1029 0018 7B68     		ldr	r3, [r7, #4]
+ 1030 001a 5360     		str	r3, [r2, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 20
+
+
+ 1031 001c 0548     		ldr	r0, .L42+4
+ 1032 001e FFF7FEFF 		bl	chSemSignalI
+ 1033 0022 FFF7FEFF 		bl	chSysUnlockFromISR
+ 1034 0026 00BF     		nop
+ 1035 0028 1037     		adds	r7, r7, #16
+ 1036 002a BD46     		mov	sp, r7
+ 1037              		@ sp needed
+ 1038 002c 80BD     		pop	{r7, pc}
+ 1039              	.L43:
+ 1040 002e 00BF     		.align	2
+ 1041              	.L42:
+ 1042 0030 00000000 		.word	mp45dt02SPIData
+ 1043 0034 00000000 		.word	DataProcessingSem
+ 1044              		.size	mp45dt02SPICb, .-mp45dt02SPICb
+ 1045              		.section	.text.dspInit,"ax",%progbits
+ 1046              		.align	1
+ 1047              		.syntax unified
+ 1048              		.thumb
+ 1049              		.thumb_func
+ 1050              		.fpu fpv4-sp-d16
+ 1051              		.type	dspInit, %function
+ 1052              	dspInit:
+ 1053              		@ args = 0, pretend = 0, frame = 0
+ 1054              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1055              		@ link register save eliminated.
+ 1056 0000 80B4     		push	{r7}
+ 1057 0002 00AF     		add	r7, sp, #0
+ 1058 0004 00BF     		nop
+ 1059 0006 BD46     		mov	sp, r7
+ 1060              		@ sp needed
+ 1061 0008 5DF8047B 		ldr	r7, [sp], #4
+ 1062 000c 7047     		bx	lr
+ 1063              		.size	dspInit, .-dspInit
+ 1064              		.section	.text.mp45dt02Init,"ax",%progbits
+ 1065              		.align	1
+ 1066              		.global	mp45dt02Init
+ 1067              		.syntax unified
+ 1068              		.thumb
+ 1069              		.thumb_func
+ 1070              		.fpu fpv4-sp-d16
+ 1071              		.type	mp45dt02Init, %function
+ 1072              	mp45dt02Init:
+ 1073              		@ args = 0, pretend = 0, frame = 8
+ 1074              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1075 0000 80B5     		push	{r7, lr}
+ 1076 0002 84B0     		sub	sp, sp, #16
+ 1077 0004 02AF     		add	r7, sp, #8
+ 1078 0006 7860     		str	r0, [r7, #4]
+ 1079 0008 384A     		ldr	r2, .L46
+ 1080 000a 7B68     		ldr	r3, [r7, #4]
+ 1081 000c 1B68     		ldr	r3, [r3]
+ 1082 000e 1360     		str	r3, [r2]
+ 1083 0010 0021     		movs	r1, #0
+ 1084 0012 3748     		ldr	r0, .L46+4
+ 1085 0014 FFF7FEFF 		bl	chSemObjectInit
+ 1086 0018 0023     		movs	r3, #0
+ 1087 001a 0093     		str	r3, [sp]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 21
+
+
+ 1088 001c 354B     		ldr	r3, .L46+8
+ 1089 001e 4122     		movs	r2, #65
+ 1090 0020 4FF4AF61 		mov	r1, #1400
+ 1091 0024 3448     		ldr	r0, .L46+12
+ 1092 0026 FFF7FEFF 		bl	chThdCreateStatic
+ 1093 002a 0246     		mov	r2, r0
+ 1094 002c 334B     		ldr	r3, .L46+16
+ 1095 002e 1A60     		str	r2, [r3]
+ 1096 0030 FFF7FEFF 		bl	dspInit
+ 1097 0034 FFF7FEFF 		bl	PDMDecoder_Init
+ 1098 0038 40F20C42 		movw	r2, #1036
+ 1099 003c 0021     		movs	r1, #0
+ 1100 003e 3048     		ldr	r0, .L46+20
+ 1101 0040 FFF7FEFF 		bl	memset
+ 1102 0044 2E4B     		ldr	r3, .L46+20
+ 1103 0046 2F4A     		ldr	r2, .L46+24
+ 1104 0048 C3F80824 		str	r2, [r3, #1032]
+ 1105 004c 1022     		movs	r2, #16
+ 1106 004e 0021     		movs	r1, #0
+ 1107 0050 2D48     		ldr	r0, .L46+28
+ 1108 0052 FFF7FEFF 		bl	memset
+ 1109 0056 2C4B     		ldr	r3, .L46+28
+ 1110 0058 2C4A     		ldr	r2, .L46+32
+ 1111 005a 1A60     		str	r2, [r3]
+ 1112 005c 2A4B     		ldr	r3, .L46+28
+ 1113 005e 0022     		movs	r2, #0
+ 1114 0060 5A60     		str	r2, [r3, #4]
+ 1115 0062 294B     		ldr	r3, .L46+28
+ 1116 0064 0022     		movs	r2, #0
+ 1117 0066 1A81     		strh	r2, [r3, #8]	@ movhi
+ 1118 0068 274B     		ldr	r3, .L46+28
+ 1119 006a 8022     		movs	r2, #128
+ 1120 006c DA60     		str	r2, [r3, #12]
+ 1121 006e 264B     		ldr	r3, .L46+28
+ 1122 0070 4FF40062 		mov	r2, #2048
+ 1123 0074 5A81     		strh	r2, [r3, #10]	@ movhi
+ 1124 0076 FFF7FEFF 		bl	spi3SlaveInit
+ 1125 007a 2349     		ldr	r1, .L46+28
+ 1126 007c 2448     		ldr	r0, .L46+36
+ 1127 007e FFF7FEFF 		bl	spi3SlaveStart
+ 1128 0082 244B     		ldr	r3, .L46+40
+ 1129 0084 244A     		ldr	r2, .L46+44
+ 1130 0086 4FF48071 		mov	r1, #256
+ 1131 008a 2148     		ldr	r0, .L46+36
+ 1132 008c FFF7FEFF 		bl	spi3SlaveStartExchange
+ 1133 0090 4FF40372 		mov	r2, #524
+ 1134 0094 0021     		movs	r1, #0
+ 1135 0096 2148     		ldr	r0, .L46+48
+ 1136 0098 FFF7FEFF 		bl	memset
+ 1137 009c 1F4B     		ldr	r3, .L46+48
+ 1138 009e 194A     		ldr	r2, .L46+24
+ 1139 00a0 C3F80822 		str	r2, [r3, #520]
+ 1140 00a4 1422     		movs	r2, #20
+ 1141 00a6 0021     		movs	r1, #0
+ 1142 00a8 1D48     		ldr	r0, .L46+52
+ 1143 00aa FFF7FEFF 		bl	memset
+ 1144 00ae 1C4B     		ldr	r3, .L46+52
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 22
+
+
+ 1145 00b0 0022     		movs	r2, #0
+ 1146 00b2 1A60     		str	r2, [r3]
+ 1147 00b4 1A4B     		ldr	r3, .L46+52
+ 1148 00b6 1B4A     		ldr	r2, .L46+56
+ 1149 00b8 5A60     		str	r2, [r3, #4]
+ 1150 00ba 194B     		ldr	r3, .L46+52
+ 1151 00bc 8022     		movs	r2, #128
+ 1152 00be 9A60     		str	r2, [r3, #8]
+ 1153 00c0 174B     		ldr	r3, .L46+52
+ 1154 00c2 194A     		ldr	r2, .L46+60
+ 1155 00c4 DA60     		str	r2, [r3, #12]
+ 1156 00c6 164B     		ldr	r3, .L46+52
+ 1157 00c8 4FF44B72 		mov	r2, #812
+ 1158 00cc 1A82     		strh	r2, [r3, #16]	@ movhi
+ 1159 00ce 144B     		ldr	r3, .L46+52
+ 1160 00d0 0822     		movs	r2, #8
+ 1161 00d2 5A82     		strh	r2, [r3, #18]	@ movhi
+ 1162 00d4 1249     		ldr	r1, .L46+52
+ 1163 00d6 1548     		ldr	r0, .L46+64
+ 1164 00d8 FFF7FEFF 		bl	i2sStart
+ 1165 00dc 1348     		ldr	r0, .L46+64
+ 1166 00de FFF7FEFF 		bl	i2sStartExchange
+ 1167 00e2 00BF     		nop
+ 1168 00e4 0837     		adds	r7, r7, #8
+ 1169 00e6 BD46     		mov	sp, r7
+ 1170              		@ sp needed
+ 1171 00e8 80BD     		pop	{r7, pc}
+ 1172              	.L47:
+ 1173 00ea 00BF     		.align	2
+ 1174              	.L46:
+ 1175 00ec 00000000 		.word	initConfig
+ 1176 00f0 00000000 		.word	DataProcessingSem
+ 1177 00f4 00000000 		.word	DataProcessing
+ 1178 00f8 00000000 		.word	DataProcessingThdWA
+ 1179 00fc 00000000 		.word	DataProcessingThd
+ 1180 0100 00000000 		.word	mp45dt02SPIData
+ 1181 0104 EFBEADDE 		.word	-559038737
+ 1182 0108 00000000 		.word	mp45dt02SPIConfig
+ 1183 010c 00000000 		.word	mp45dt02SPICb
+ 1184 0110 00000000 		.word	SPISLAVED3
+ 1185 0114 08020000 		.word	mp45dt02SPIData+520
+ 1186 0118 08000000 		.word	mp45dt02SPIData+8
+ 1187 011c 00000000 		.word	mp45dt02I2sData
+ 1188 0120 00000000 		.word	mp45dt02I2SConfig
+ 1189 0124 08000000 		.word	mp45dt02I2sData+8
+ 1190 0128 00000000 		.word	mp45dt02I2SCb
+ 1191 012c 00000000 		.word	I2SD2
+ 1192              		.size	mp45dt02Init, .-mp45dt02Init
+ 1193              		.section	.text.mp45dt02Shutdown,"ax",%progbits
+ 1194              		.align	1
+ 1195              		.global	mp45dt02Shutdown
+ 1196              		.syntax unified
+ 1197              		.thumb
+ 1198              		.thumb_func
+ 1199              		.fpu fpv4-sp-d16
+ 1200              		.type	mp45dt02Shutdown, %function
+ 1201              	mp45dt02Shutdown:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 23
+
+
+ 1202              		@ args = 0, pretend = 0, frame = 0
+ 1203              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1204 0000 80B5     		push	{r7, lr}
+ 1205 0002 00AF     		add	r7, sp, #0
+ 1206 0004 0F48     		ldr	r0, .L49
+ 1207 0006 FFF7FEFF 		bl	i2sStopExchange
+ 1208 000a 0E48     		ldr	r0, .L49
+ 1209 000c FFF7FEFF 		bl	i2sStop
+ 1210 0010 0D48     		ldr	r0, .L49+4
+ 1211 0012 FFF7FEFF 		bl	spi3SlaveStopExchange
+ 1212 0016 0C48     		ldr	r0, .L49+4
+ 1213 0018 FFF7FEFF 		bl	spi3SlaveStop
+ 1214 001c 0B4B     		ldr	r3, .L49+8
+ 1215 001e 1B68     		ldr	r3, [r3]
+ 1216 0020 1846     		mov	r0, r3
+ 1217 0022 FFF7FEFF 		bl	chThdTerminate
+ 1218 0026 0021     		movs	r1, #0
+ 1219 0028 0948     		ldr	r0, .L49+12
+ 1220 002a FFF7FEFF 		bl	chSemReset
+ 1221 002e 074B     		ldr	r3, .L49+8
+ 1222 0030 1B68     		ldr	r3, [r3]
+ 1223 0032 1846     		mov	r0, r3
+ 1224 0034 FFF7FEFF 		bl	chThdWait
+ 1225 0038 044B     		ldr	r3, .L49+8
+ 1226 003a 0022     		movs	r2, #0
+ 1227 003c 1A60     		str	r2, [r3]
+ 1228 003e 00BF     		nop
+ 1229 0040 80BD     		pop	{r7, pc}
+ 1230              	.L50:
+ 1231 0042 00BF     		.align	2
+ 1232              	.L49:
+ 1233 0044 00000000 		.word	I2SD2
+ 1234 0048 00000000 		.word	SPISLAVED3
+ 1235 004c 00000000 		.word	DataProcessingThd
+ 1236 0050 00000000 		.word	DataProcessingSem
+ 1237              		.size	mp45dt02Shutdown, .-mp45dt02Shutdown
+ 1238              		.section	.text.mp45dt02BufferPtr,"ax",%progbits
+ 1239              		.align	1
+ 1240              		.global	mp45dt02BufferPtr
+ 1241              		.syntax unified
+ 1242              		.thumb
+ 1243              		.thumb_func
+ 1244              		.fpu fpv4-sp-d16
+ 1245              		.type	mp45dt02BufferPtr, %function
+ 1246              	mp45dt02BufferPtr:
+ 1247              		@ args = 0, pretend = 0, frame = 0
+ 1248              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1249              		@ link register save eliminated.
+ 1250 0000 80B4     		push	{r7}
+ 1251 0002 00AF     		add	r7, sp, #0
+ 1252 0004 034B     		ldr	r3, .L53
+ 1253 0006 1B68     		ldr	r3, [r3]
+ 1254 0008 1846     		mov	r0, r3
+ 1255 000a BD46     		mov	sp, r7
+ 1256              		@ sp needed
+ 1257 000c 5DF8047B 		ldr	r7, [sp], #4
+ 1258 0010 7047     		bx	lr
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 24
+
+
+ 1259              	.L54:
+ 1260 0012 00BF     		.align	2
+ 1261              	.L53:
+ 1262 0014 00000000 		.word	PCM_buffer_ptr_last
+ 1263              		.size	mp45dt02BufferPtr, .-mp45dt02BufferPtr
+ 1264              		.section	.rodata.__FUNCTION__.10409,"a",%progbits
+ 1265              		.align	2
+ 1266              		.type	__FUNCTION__.10409, %object
+ 1267              		.size	__FUNCTION__.10409, 15
+ 1268              	__FUNCTION__.10409:
+ 1269 0000 44617461 		.ascii	"DataProcessing\000"
+ 1269      50726F63 
+ 1269      65737369 
+ 1269      6E6700
+ 1270              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 25
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 mp45dt02_processing.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:15     .text.port_lock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:21     .text.port_lock:0000000000000000 port_lock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:45     .text.port_unlock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:51     .text.port_unlock:0000000000000000 port_unlock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:75     .text.port_lock_from_isr:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:81     .text.port_lock_from_isr:0000000000000000 port_lock_from_isr
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:91     .text.port_unlock_from_isr:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:97     .text.port_unlock_from_isr:0000000000000000 port_unlock_from_isr
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:107    .text.chSysLockFromISR:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:113    .text.chSysLockFromISR:0000000000000000 chSysLockFromISR
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:125    .text.chSysUnlockFromISR:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:131    .text.chSysUnlockFromISR:0000000000000000 chSysUnlockFromISR
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:143    .text.chThdGetSelfX:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:149    .text.chThdGetSelfX:0000000000000000 chThdGetSelfX
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:165    .text.chThdGetSelfX:0000000000000014 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:168    .text.chThdShouldTerminateX:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:174    .text.chThdShouldTerminateX:0000000000000000 chThdShouldTerminateX
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:192    .text.chRegSetThreadName:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:198    .text.chRegSetThreadName:0000000000000000 chRegSetThreadName
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:219    .text.chRegSetThreadName:000000000000001c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:226    .data.Channel_Demux:0000000000000000 Channel_Demux
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:223    .data.Channel_Demux:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:356    .bss.mp45dt02I2sData:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:359    .bss.mp45dt02I2sData:0000000000000000 mp45dt02I2sData
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:362    .bss.mp45dt02SPIData:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:365    .bss.mp45dt02SPIData:0000000000000000 mp45dt02SPIData
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:368    .bss.I2S_PDM_samples:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:371    .bss.I2S_PDM_samples:0000000000000000 I2S_PDM_samples
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:374    .bss.I2S_PCM_samples:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:377    .bss.I2S_PCM_samples:0000000000000000 I2S_PCM_samples
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:380    .bss.SPI_PDM_samples:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:383    .bss.SPI_PDM_samples:0000000000000000 SPI_PDM_samples
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:386    .bss.SPI_PCM_samples:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:389    .bss.SPI_PCM_samples:0000000000000000 SPI_PCM_samples
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:392    .bss.PCM_buffer1:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:395    .bss.PCM_buffer1:0000000000000000 PCM_buffer1
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:398    .bss.PCM_buffer2:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:401    .bss.PCM_buffer2:0000000000000000 PCM_buffer2
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:406    .bss.PCM_buffer_index:0000000000000000 PCM_buffer_index
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:407    .bss.PCM_buffer_index:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:409    .data.PCM_buffer_ptr_curr:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:412    .data.PCM_buffer_ptr_curr:0000000000000000 PCM_buffer_ptr_curr
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:415    .data.PCM_buffer_ptr_last:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:418    .data.PCM_buffer_ptr_last:0000000000000000 PCM_buffer_ptr_last
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:421    .bss.DataProcessingThd:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:424    .bss.DataProcessingThd:0000000000000000 DataProcessingThd
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:427    .bss.DataProcessingThdWA:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:430    .bss.DataProcessingThdWA:0000000000000000 DataProcessingThdWA
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:433    .bss.DataProcessingSem:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:436    .bss.DataProcessingSem:0000000000000000 DataProcessingSem
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:439    .bss.mp45dt02I2SConfig:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:442    .bss.mp45dt02I2SConfig:0000000000000000 mp45dt02I2SConfig
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:445    .bss.mp45dt02SPIConfig:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:448    .bss.mp45dt02SPIConfig:0000000000000000 mp45dt02SPIConfig
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:451    .bss.initConfig:0000000000000000 $d
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 26
+
+
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:454    .bss.initConfig:0000000000000000 initConfig
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:461    .bss.PDM_filter_I2S:0000000000000000 PDM_filter_I2S
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:458    .bss.PDM_filter_I2S:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:468    .bss.PDM_filter_SPI:0000000000000000 PDM_filter_SPI
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:465    .bss.PDM_filter_SPI:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:471    .text.PDMDecoder_Init:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:477    .text.PDMDecoder_Init:0000000000000000 PDMDecoder_Init
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:601    .text.PDMDecoder_Init:0000000000000108 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:608    .text.DataProcessing:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:614    .text.DataProcessing:0000000000000000 DataProcessing
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:944    .text.DataProcessing:00000000000002ac $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:1268   .rodata.__FUNCTION__.10409:0000000000000000 __FUNCTION__.10409
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:962    .text.DataProcessing:00000000000002f0 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:971    .text.mp45dt02I2SCb:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:977    .text.mp45dt02I2SCb:0000000000000000 mp45dt02I2SCb
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:1004   .text.mp45dt02I2SCb:0000000000000030 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:1008   .text.mp45dt02SPICb:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:1015   .text.mp45dt02SPICb:0000000000000000 mp45dt02SPICb
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:1042   .text.mp45dt02SPICb:0000000000000030 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:1046   .text.dspInit:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:1052   .text.dspInit:0000000000000000 dspInit
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:1065   .text.mp45dt02Init:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:1072   .text.mp45dt02Init:0000000000000000 mp45dt02Init
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:1175   .text.mp45dt02Init:00000000000000ec $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:1194   .text.mp45dt02Shutdown:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:1201   .text.mp45dt02Shutdown:0000000000000000 mp45dt02Shutdown
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:1233   .text.mp45dt02Shutdown:0000000000000044 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:1239   .text.mp45dt02BufferPtr:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:1246   .text.mp45dt02BufferPtr:0000000000000000 mp45dt02BufferPtr
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:1262   .text.mp45dt02BufferPtr:0000000000000014 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s:1265   .rodata.__FUNCTION__.10409:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+_stats_start_measure_crit_isr
+_dbg_check_lock_from_isr
+_dbg_check_unlock_from_isr
+_stats_stop_measure_crit_isr
+ch
+PDM_Filter_Init
+chSemWait
+PDM_Filter_64_LSB
+chSemSignalI
+chSemObjectInit
+chThdCreateStatic
+memset
+spi3SlaveInit
+spi3SlaveStart
+spi3SlaveStartExchange
+i2sStart
+i2sStartExchange
+SPISLAVED3
+I2SD2
+i2sStopExchange
+i2sStop
+spi3SlaveStopExchange
+spi3SlaveStop
+chThdTerminate
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccdnfL7v.s 			page 27
+
+
+chSemReset
+chThdWait

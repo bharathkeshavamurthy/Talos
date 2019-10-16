@@ -1,0 +1,384 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"fatfs_diskio.c"
+  14              		.section	.text.disk_initialize,"ax",%progbits
+  15              		.align	1
+  16              		.global	disk_initialize
+  17              		.syntax unified
+  18              		.thumb
+  19              		.thumb_func
+  20              		.fpu fpv4-sp-d16
+  21              		.type	disk_initialize, %function
+  22              	disk_initialize:
+  23              		@ args = 0, pretend = 0, frame = 16
+  24              		@ frame_needed = 1, uses_anonymous_args = 0
+  25 0000 80B5     		push	{r7, lr}
+  26 0002 84B0     		sub	sp, sp, #16
+  27 0004 00AF     		add	r7, sp, #0
+  28 0006 0346     		mov	r3, r0
+  29 0008 FB71     		strb	r3, [r7, #7]
+  30 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+  31 000c 002B     		cmp	r3, #0
+  32 000e 15D1     		bne	.L7
+  33 0010 0023     		movs	r3, #0
+  34 0012 FB73     		strb	r3, [r7, #15]
+  35 0014 0C4B     		ldr	r3, .L8
+  36 0016 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+  37 0018 052B     		cmp	r3, #5
+  38 001a 03D0     		beq	.L4
+  39 001c FB7B     		ldrb	r3, [r7, #15]
+  40 001e 43F00103 		orr	r3, r3, #1
+  41 0022 FB73     		strb	r3, [r7, #15]
+  42              	.L4:
+  43 0024 0848     		ldr	r0, .L8
+  44 0026 FFF7FEFF 		bl	sdc_lld_is_write_protected
+  45 002a 0346     		mov	r3, r0
+  46 002c 002B     		cmp	r3, #0
+  47 002e 03D0     		beq	.L5
+  48 0030 FB7B     		ldrb	r3, [r7, #15]
+  49 0032 43F00403 		orr	r3, r3, #4
+  50 0036 FB73     		strb	r3, [r7, #15]
+  51              	.L5:
+  52 0038 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+  53 003a 00E0     		b	.L6
+  54              	.L7:
+  55 003c 0123     		movs	r3, #1
+  56              	.L6:
+  57 003e 1846     		mov	r0, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s 			page 2
+
+
+  58 0040 1037     		adds	r7, r7, #16
+  59 0042 BD46     		mov	sp, r7
+  60              		@ sp needed
+  61 0044 80BD     		pop	{r7, pc}
+  62              	.L9:
+  63 0046 00BF     		.align	2
+  64              	.L8:
+  65 0048 00000000 		.word	SDCD1
+  66              		.size	disk_initialize, .-disk_initialize
+  67              		.section	.text.disk_status,"ax",%progbits
+  68              		.align	1
+  69              		.global	disk_status
+  70              		.syntax unified
+  71              		.thumb
+  72              		.thumb_func
+  73              		.fpu fpv4-sp-d16
+  74              		.type	disk_status, %function
+  75              	disk_status:
+  76              		@ args = 0, pretend = 0, frame = 16
+  77              		@ frame_needed = 1, uses_anonymous_args = 0
+  78 0000 80B5     		push	{r7, lr}
+  79 0002 84B0     		sub	sp, sp, #16
+  80 0004 00AF     		add	r7, sp, #0
+  81 0006 0346     		mov	r3, r0
+  82 0008 FB71     		strb	r3, [r7, #7]
+  83 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+  84 000c 002B     		cmp	r3, #0
+  85 000e 15D1     		bne	.L16
+  86 0010 0023     		movs	r3, #0
+  87 0012 FB73     		strb	r3, [r7, #15]
+  88 0014 0C4B     		ldr	r3, .L17
+  89 0016 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+  90 0018 052B     		cmp	r3, #5
+  91 001a 03D0     		beq	.L13
+  92 001c FB7B     		ldrb	r3, [r7, #15]
+  93 001e 43F00103 		orr	r3, r3, #1
+  94 0022 FB73     		strb	r3, [r7, #15]
+  95              	.L13:
+  96 0024 0848     		ldr	r0, .L17
+  97 0026 FFF7FEFF 		bl	sdc_lld_is_write_protected
+  98 002a 0346     		mov	r3, r0
+  99 002c 002B     		cmp	r3, #0
+ 100 002e 03D0     		beq	.L14
+ 101 0030 FB7B     		ldrb	r3, [r7, #15]
+ 102 0032 43F00403 		orr	r3, r3, #4
+ 103 0036 FB73     		strb	r3, [r7, #15]
+ 104              	.L14:
+ 105 0038 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 106 003a 00E0     		b	.L15
+ 107              	.L16:
+ 108 003c 0123     		movs	r3, #1
+ 109              	.L15:
+ 110 003e 1846     		mov	r0, r3
+ 111 0040 1037     		adds	r7, r7, #16
+ 112 0042 BD46     		mov	sp, r7
+ 113              		@ sp needed
+ 114 0044 80BD     		pop	{r7, pc}
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s 			page 3
+
+
+ 115              	.L18:
+ 116 0046 00BF     		.align	2
+ 117              	.L17:
+ 118 0048 00000000 		.word	SDCD1
+ 119              		.size	disk_status, .-disk_status
+ 120              		.section	.text.disk_read,"ax",%progbits
+ 121              		.align	1
+ 122              		.global	disk_read
+ 123              		.syntax unified
+ 124              		.thumb
+ 125              		.thumb_func
+ 126              		.fpu fpv4-sp-d16
+ 127              		.type	disk_read, %function
+ 128              	disk_read:
+ 129              		@ args = 0, pretend = 0, frame = 16
+ 130              		@ frame_needed = 1, uses_anonymous_args = 0
+ 131 0000 80B5     		push	{r7, lr}
+ 132 0002 84B0     		sub	sp, sp, #16
+ 133 0004 00AF     		add	r7, sp, #0
+ 134 0006 B960     		str	r1, [r7, #8]
+ 135 0008 7A60     		str	r2, [r7, #4]
+ 136 000a 3B60     		str	r3, [r7]
+ 137 000c 0346     		mov	r3, r0
+ 138 000e FB73     		strb	r3, [r7, #15]
+ 139 0010 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 140 0012 002B     		cmp	r3, #0
+ 141 0014 12D1     		bne	.L25
+ 142 0016 0C4B     		ldr	r3, .L26
+ 143 0018 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 144 001a 052B     		cmp	r3, #5
+ 145 001c 01D0     		beq	.L22
+ 146 001e 0323     		movs	r3, #3
+ 147 0020 0DE0     		b	.L23
+ 148              	.L22:
+ 149 0022 3B68     		ldr	r3, [r7]
+ 150 0024 BA68     		ldr	r2, [r7, #8]
+ 151 0026 7968     		ldr	r1, [r7, #4]
+ 152 0028 0748     		ldr	r0, .L26
+ 153 002a FFF7FEFF 		bl	sdcRead
+ 154 002e 0346     		mov	r3, r0
+ 155 0030 002B     		cmp	r3, #0
+ 156 0032 01D0     		beq	.L24
+ 157 0034 0123     		movs	r3, #1
+ 158 0036 02E0     		b	.L23
+ 159              	.L24:
+ 160 0038 0023     		movs	r3, #0
+ 161 003a 00E0     		b	.L23
+ 162              	.L25:
+ 163 003c 0423     		movs	r3, #4
+ 164              	.L23:
+ 165 003e 1846     		mov	r0, r3
+ 166 0040 1037     		adds	r7, r7, #16
+ 167 0042 BD46     		mov	sp, r7
+ 168              		@ sp needed
+ 169 0044 80BD     		pop	{r7, pc}
+ 170              	.L27:
+ 171 0046 00BF     		.align	2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s 			page 4
+
+
+ 172              	.L26:
+ 173 0048 00000000 		.word	SDCD1
+ 174              		.size	disk_read, .-disk_read
+ 175              		.section	.text.disk_write,"ax",%progbits
+ 176              		.align	1
+ 177              		.global	disk_write
+ 178              		.syntax unified
+ 179              		.thumb
+ 180              		.thumb_func
+ 181              		.fpu fpv4-sp-d16
+ 182              		.type	disk_write, %function
+ 183              	disk_write:
+ 184              		@ args = 0, pretend = 0, frame = 16
+ 185              		@ frame_needed = 1, uses_anonymous_args = 0
+ 186 0000 80B5     		push	{r7, lr}
+ 187 0002 84B0     		sub	sp, sp, #16
+ 188 0004 00AF     		add	r7, sp, #0
+ 189 0006 B960     		str	r1, [r7, #8]
+ 190 0008 7A60     		str	r2, [r7, #4]
+ 191 000a 3B60     		str	r3, [r7]
+ 192 000c 0346     		mov	r3, r0
+ 193 000e FB73     		strb	r3, [r7, #15]
+ 194 0010 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 195 0012 002B     		cmp	r3, #0
+ 196 0014 12D1     		bne	.L34
+ 197 0016 0C4B     		ldr	r3, .L35
+ 198 0018 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 199 001a 052B     		cmp	r3, #5
+ 200 001c 01D0     		beq	.L31
+ 201 001e 0323     		movs	r3, #3
+ 202 0020 0DE0     		b	.L32
+ 203              	.L31:
+ 204 0022 3B68     		ldr	r3, [r7]
+ 205 0024 BA68     		ldr	r2, [r7, #8]
+ 206 0026 7968     		ldr	r1, [r7, #4]
+ 207 0028 0748     		ldr	r0, .L35
+ 208 002a FFF7FEFF 		bl	sdcWrite
+ 209 002e 0346     		mov	r3, r0
+ 210 0030 002B     		cmp	r3, #0
+ 211 0032 01D0     		beq	.L33
+ 212 0034 0123     		movs	r3, #1
+ 213 0036 02E0     		b	.L32
+ 214              	.L33:
+ 215 0038 0023     		movs	r3, #0
+ 216 003a 00E0     		b	.L32
+ 217              	.L34:
+ 218 003c 0423     		movs	r3, #4
+ 219              	.L32:
+ 220 003e 1846     		mov	r0, r3
+ 221 0040 1037     		adds	r7, r7, #16
+ 222 0042 BD46     		mov	sp, r7
+ 223              		@ sp needed
+ 224 0044 80BD     		pop	{r7, pc}
+ 225              	.L36:
+ 226 0046 00BF     		.align	2
+ 227              	.L35:
+ 228 0048 00000000 		.word	SDCD1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s 			page 5
+
+
+ 229              		.size	disk_write, .-disk_write
+ 230              		.section	.text.disk_ioctl,"ax",%progbits
+ 231              		.align	1
+ 232              		.global	disk_ioctl
+ 233              		.syntax unified
+ 234              		.thumb
+ 235              		.thumb_func
+ 236              		.fpu fpv4-sp-d16
+ 237              		.type	disk_ioctl, %function
+ 238              	disk_ioctl:
+ 239              		@ args = 0, pretend = 0, frame = 8
+ 240              		@ frame_needed = 1, uses_anonymous_args = 0
+ 241 0000 80B5     		push	{r7, lr}
+ 242 0002 82B0     		sub	sp, sp, #8
+ 243 0004 00AF     		add	r7, sp, #0
+ 244 0006 0346     		mov	r3, r0
+ 245 0008 3A60     		str	r2, [r7]
+ 246 000a FB71     		strb	r3, [r7, #7]
+ 247 000c 0B46     		mov	r3, r1
+ 248 000e BB71     		strb	r3, [r7, #6]
+ 249 0010 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 250 0012 002B     		cmp	r3, #0
+ 251 0014 31D1     		bne	.L48
+ 252 0016 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 253 0018 042B     		cmp	r3, #4
+ 254 001a 2CD8     		bhi	.L40
+ 255 001c 01A2     		adr	r2, .L42
+ 256 001e 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 257 0022 00BF     		.p2align 2
+ 258              	.L42:
+ 259 0024 39000000 		.word	.L41+1
+ 260 0028 3D000000 		.word	.L43+1
+ 261 002c 49000000 		.word	.L44+1
+ 262 0030 55000000 		.word	.L45+1
+ 263 0034 61000000 		.word	.L46+1
+ 264              		.p2align 1
+ 265              	.L41:
+ 266 0038 0023     		movs	r3, #0
+ 267 003a 1FE0     		b	.L47
+ 268              	.L43:
+ 269 003c 114B     		ldr	r3, .L49
+ 270 003e 9A6A     		ldr	r2, [r3, #40]
+ 271 0040 3B68     		ldr	r3, [r7]
+ 272 0042 1A60     		str	r2, [r3]
+ 273 0044 0023     		movs	r3, #0
+ 274 0046 19E0     		b	.L47
+ 275              	.L44:
+ 276 0048 3B68     		ldr	r3, [r7]
+ 277 004a 4FF40072 		mov	r2, #512
+ 278 004e 1A80     		strh	r2, [r3]	@ movhi
+ 279 0050 0023     		movs	r3, #0
+ 280 0052 13E0     		b	.L47
+ 281              	.L45:
+ 282 0054 3B68     		ldr	r3, [r7]
+ 283 0056 4FF48072 		mov	r2, #256
+ 284 005a 1A60     		str	r2, [r3]
+ 285 005c 0023     		movs	r3, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s 			page 6
+
+
+ 286 005e 0DE0     		b	.L47
+ 287              	.L46:
+ 288 0060 3B68     		ldr	r3, [r7]
+ 289 0062 1968     		ldr	r1, [r3]
+ 290 0064 3B68     		ldr	r3, [r7]
+ 291 0066 0433     		adds	r3, r3, #4
+ 292 0068 1B68     		ldr	r3, [r3]
+ 293 006a 1A46     		mov	r2, r3
+ 294 006c 0548     		ldr	r0, .L49
+ 295 006e FFF7FEFF 		bl	sdcErase
+ 296 0072 0023     		movs	r3, #0
+ 297 0074 02E0     		b	.L47
+ 298              	.L40:
+ 299 0076 0423     		movs	r3, #4
+ 300 0078 00E0     		b	.L47
+ 301              	.L48:
+ 302 007a 0423     		movs	r3, #4
+ 303              	.L47:
+ 304 007c 1846     		mov	r0, r3
+ 305 007e 0837     		adds	r7, r7, #8
+ 306 0080 BD46     		mov	sp, r7
+ 307              		@ sp needed
+ 308 0082 80BD     		pop	{r7, pc}
+ 309              	.L50:
+ 310              		.align	2
+ 311              	.L49:
+ 312 0084 00000000 		.word	SDCD1
+ 313              		.size	disk_ioctl, .-disk_ioctl
+ 314              		.section	.text.get_fattime,"ax",%progbits
+ 315              		.align	1
+ 316              		.global	get_fattime
+ 317              		.syntax unified
+ 318              		.thumb
+ 319              		.thumb_func
+ 320              		.fpu fpv4-sp-d16
+ 321              		.type	get_fattime, %function
+ 322              	get_fattime:
+ 323              		@ args = 0, pretend = 0, frame = 0
+ 324              		@ frame_needed = 1, uses_anonymous_args = 0
+ 325              		@ link register save eliminated.
+ 326 0000 80B4     		push	{r7}
+ 327 0002 00AF     		add	r7, sp, #0
+ 328 0004 4FF40413 		mov	r3, #2162688
+ 329 0008 1846     		mov	r0, r3
+ 330 000a BD46     		mov	sp, r7
+ 331              		@ sp needed
+ 332 000c 5DF8047B 		ldr	r7, [sp], #4
+ 333 0010 7047     		bx	lr
+ 334              		.size	get_fattime, .-get_fattime
+ 335              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 fatfs_diskio.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s:15     .text.disk_initialize:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s:22     .text.disk_initialize:0000000000000000 disk_initialize
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s:65     .text.disk_initialize:0000000000000048 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s:68     .text.disk_status:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s:75     .text.disk_status:0000000000000000 disk_status
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s:118    .text.disk_status:0000000000000048 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s:121    .text.disk_read:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s:128    .text.disk_read:0000000000000000 disk_read
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s:173    .text.disk_read:0000000000000048 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s:176    .text.disk_write:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s:183    .text.disk_write:0000000000000000 disk_write
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s:228    .text.disk_write:0000000000000048 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s:231    .text.disk_ioctl:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s:238    .text.disk_ioctl:0000000000000000 disk_ioctl
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s:259    .text.disk_ioctl:0000000000000024 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s:264    .text.disk_ioctl:0000000000000038 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s:312    .text.disk_ioctl:0000000000000084 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s:315    .text.get_fattime:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cccc7PGC.s:322    .text.get_fattime:0000000000000000 get_fattime
+
+UNDEFINED SYMBOLS
+sdc_lld_is_write_protected
+SDCD1
+sdcRead
+sdcWrite
+sdcErase

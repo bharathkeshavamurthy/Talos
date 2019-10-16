@@ -1,0 +1,224 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cca3RfBQ.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"pal.c"
+  14              		.section	.text.palReadBus,"ax",%progbits
+  15              		.align	1
+  16              		.global	palReadBus
+  17              		.syntax unified
+  18              		.thumb
+  19              		.thumb_func
+  20              		.fpu fpv4-sp-d16
+  21              		.type	palReadBus, %function
+  22              	palReadBus:
+  23              		@ args = 0, pretend = 0, frame = 8
+  24              		@ frame_needed = 1, uses_anonymous_args = 0
+  25 0000 80B5     		push	{r7, lr}
+  26 0002 82B0     		sub	sp, sp, #8
+  27 0004 00AF     		add	r7, sp, #0
+  28 0006 7860     		str	r0, [r7, #4]
+  29 0008 7B68     		ldr	r3, [r7, #4]
+  30 000a 002B     		cmp	r3, #0
+  31 000c 03D0     		beq	.L2
+  32 000e 7B68     		ldr	r3, [r7, #4]
+  33 0010 9B68     		ldr	r3, [r3, #8]
+  34 0012 0F2B     		cmp	r3, #15
+  35 0014 02D9     		bls	.L3
+  36              	.L2:
+  37 0016 0848     		ldr	r0, .L5
+  38 0018 FFF7FEFF 		bl	chSysHalt
+  39              	.L3:
+  40 001c 7B68     		ldr	r3, [r7, #4]
+  41 001e 1B68     		ldr	r3, [r3]
+  42 0020 1A69     		ldr	r2, [r3, #16]
+  43 0022 7B68     		ldr	r3, [r7, #4]
+  44 0024 9B68     		ldr	r3, [r3, #8]
+  45 0026 DA40     		lsrs	r2, r2, r3
+  46 0028 7B68     		ldr	r3, [r7, #4]
+  47 002a 5B68     		ldr	r3, [r3, #4]
+  48 002c 1340     		ands	r3, r3, r2
+  49 002e 1846     		mov	r0, r3
+  50 0030 0837     		adds	r7, r7, #8
+  51 0032 BD46     		mov	sp, r7
+  52              		@ sp needed
+  53 0034 80BD     		pop	{r7, pc}
+  54              	.L6:
+  55 0036 00BF     		.align	2
+  56              	.L5:
+  57 0038 00000000 		.word	__func__.9841
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cca3RfBQ.s 			page 2
+
+
+  58              		.size	palReadBus, .-palReadBus
+  59              		.section	.text.palWriteBus,"ax",%progbits
+  60              		.align	1
+  61              		.global	palWriteBus
+  62              		.syntax unified
+  63              		.thumb
+  64              		.thumb_func
+  65              		.fpu fpv4-sp-d16
+  66              		.type	palWriteBus, %function
+  67              	palWriteBus:
+  68              		@ args = 0, pretend = 0, frame = 8
+  69              		@ frame_needed = 1, uses_anonymous_args = 0
+  70 0000 80B5     		push	{r7, lr}
+  71 0002 82B0     		sub	sp, sp, #8
+  72 0004 00AF     		add	r7, sp, #0
+  73 0006 7860     		str	r0, [r7, #4]
+  74 0008 3960     		str	r1, [r7]
+  75 000a 7B68     		ldr	r3, [r7, #4]
+  76 000c 002B     		cmp	r3, #0
+  77 000e 03D0     		beq	.L8
+  78 0010 7B68     		ldr	r3, [r7, #4]
+  79 0012 9B68     		ldr	r3, [r3, #8]
+  80 0014 0F2B     		cmp	r3, #15
+  81 0016 02D9     		bls	.L9
+  82              	.L8:
+  83 0018 0D48     		ldr	r0, .L10
+  84 001a FFF7FEFF 		bl	chSysHalt
+  85              	.L9:
+  86 001e 3B68     		ldr	r3, [r7]
+  87 0020 DA43     		mvns	r2, r3
+  88 0022 7B68     		ldr	r3, [r7, #4]
+  89 0024 5B68     		ldr	r3, [r3, #4]
+  90 0026 1A40     		ands	r2, r2, r3
+  91 0028 7B68     		ldr	r3, [r7, #4]
+  92 002a 9B68     		ldr	r3, [r3, #8]
+  93 002c 1033     		adds	r3, r3, #16
+  94 002e 02FA03F1 		lsl	r1, r2, r3
+  95 0032 7B68     		ldr	r3, [r7, #4]
+  96 0034 5A68     		ldr	r2, [r3, #4]
+  97 0036 3B68     		ldr	r3, [r7]
+  98 0038 1A40     		ands	r2, r2, r3
+  99 003a 7B68     		ldr	r3, [r7, #4]
+ 100 003c 9B68     		ldr	r3, [r3, #8]
+ 101 003e 9A40     		lsls	r2, r2, r3
+ 102 0040 7B68     		ldr	r3, [r7, #4]
+ 103 0042 1B68     		ldr	r3, [r3]
+ 104 0044 0A43     		orrs	r2, r2, r1
+ 105 0046 9A61     		str	r2, [r3, #24]
+ 106 0048 00BF     		nop
+ 107 004a 0837     		adds	r7, r7, #8
+ 108 004c BD46     		mov	sp, r7
+ 109              		@ sp needed
+ 110 004e 80BD     		pop	{r7, pc}
+ 111              	.L11:
+ 112              		.align	2
+ 113              	.L10:
+ 114 0050 00000000 		.word	__func__.9846
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cca3RfBQ.s 			page 3
+
+
+ 115              		.size	palWriteBus, .-palWriteBus
+ 116              		.section	.text.palSetBusMode,"ax",%progbits
+ 117              		.align	1
+ 118              		.global	palSetBusMode
+ 119              		.syntax unified
+ 120              		.thumb
+ 121              		.thumb_func
+ 122              		.fpu fpv4-sp-d16
+ 123              		.type	palSetBusMode, %function
+ 124              	palSetBusMode:
+ 125              		@ args = 0, pretend = 0, frame = 8
+ 126              		@ frame_needed = 1, uses_anonymous_args = 0
+ 127 0000 80B5     		push	{r7, lr}
+ 128 0002 82B0     		sub	sp, sp, #8
+ 129 0004 00AF     		add	r7, sp, #0
+ 130 0006 7860     		str	r0, [r7, #4]
+ 131 0008 3960     		str	r1, [r7]
+ 132 000a 7B68     		ldr	r3, [r7, #4]
+ 133 000c 002B     		cmp	r3, #0
+ 134 000e 03D0     		beq	.L13
+ 135 0010 7B68     		ldr	r3, [r7, #4]
+ 136 0012 9B68     		ldr	r3, [r3, #8]
+ 137 0014 0F2B     		cmp	r3, #15
+ 138 0016 02D9     		bls	.L14
+ 139              	.L13:
+ 140 0018 0948     		ldr	r0, .L15
+ 141 001a FFF7FEFF 		bl	chSysHalt
+ 142              	.L14:
+ 143 001e 7B68     		ldr	r3, [r7, #4]
+ 144 0020 1868     		ldr	r0, [r3]
+ 145 0022 7B68     		ldr	r3, [r7, #4]
+ 146 0024 5A68     		ldr	r2, [r3, #4]
+ 147 0026 7B68     		ldr	r3, [r7, #4]
+ 148 0028 9B68     		ldr	r3, [r3, #8]
+ 149 002a 02FA03F3 		lsl	r3, r2, r3
+ 150 002e 3A68     		ldr	r2, [r7]
+ 151 0030 1946     		mov	r1, r3
+ 152 0032 FFF7FEFF 		bl	_pal_lld_setgroupmode
+ 153 0036 00BF     		nop
+ 154 0038 0837     		adds	r7, r7, #8
+ 155 003a BD46     		mov	sp, r7
+ 156              		@ sp needed
+ 157 003c 80BD     		pop	{r7, pc}
+ 158              	.L16:
+ 159 003e 00BF     		.align	2
+ 160              	.L15:
+ 161 0040 00000000 		.word	__func__.9851
+ 162              		.size	palSetBusMode, .-palSetBusMode
+ 163              		.section	.rodata.__func__.9841,"a",%progbits
+ 164              		.align	2
+ 165              		.type	__func__.9841, %object
+ 166              		.size	__func__.9841, 11
+ 167              	__func__.9841:
+ 168 0000 70616C52 		.ascii	"palReadBus\000"
+ 168      65616442 
+ 168      757300
+ 169              		.section	.rodata.__func__.9846,"a",%progbits
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cca3RfBQ.s 			page 4
+
+
+ 170              		.align	2
+ 171              		.type	__func__.9846, %object
+ 172              		.size	__func__.9846, 12
+ 173              	__func__.9846:
+ 174 0000 70616C57 		.ascii	"palWriteBus\000"
+ 174      72697465 
+ 174      42757300 
+ 175              		.section	.rodata.__func__.9851,"a",%progbits
+ 176              		.align	2
+ 177              		.type	__func__.9851, %object
+ 178              		.size	__func__.9851, 14
+ 179              	__func__.9851:
+ 180 0000 70616C53 		.ascii	"palSetBusMode\000"
+ 180      65744275 
+ 180      734D6F64 
+ 180      6500
+ 181              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cca3RfBQ.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 pal.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cca3RfBQ.s:15     .text.palReadBus:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cca3RfBQ.s:22     .text.palReadBus:0000000000000000 palReadBus
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cca3RfBQ.s:57     .text.palReadBus:0000000000000038 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cca3RfBQ.s:167    .rodata.__func__.9841:0000000000000000 __func__.9841
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cca3RfBQ.s:60     .text.palWriteBus:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cca3RfBQ.s:67     .text.palWriteBus:0000000000000000 palWriteBus
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cca3RfBQ.s:114    .text.palWriteBus:0000000000000050 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cca3RfBQ.s:173    .rodata.__func__.9846:0000000000000000 __func__.9846
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cca3RfBQ.s:117    .text.palSetBusMode:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cca3RfBQ.s:124    .text.palSetBusMode:0000000000000000 palSetBusMode
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cca3RfBQ.s:161    .text.palSetBusMode:0000000000000040 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cca3RfBQ.s:179    .rodata.__func__.9851:0000000000000000 __func__.9851
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cca3RfBQ.s:164    .rodata.__func__.9841:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cca3RfBQ.s:170    .rodata.__func__.9846:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cca3RfBQ.s:176    .rodata.__func__.9851:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+chSysHalt
+_pal_lld_setgroupmode

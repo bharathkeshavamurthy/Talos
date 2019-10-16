@@ -1,0 +1,3370 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"po8030.c"
+  14              		.section	.bss.po8030_conf,"aw",%nobits
+  15              		.align	2
+  16              		.type	po8030_conf, %object
+  17              		.size	po8030_conf, 8
+  18              	po8030_conf:
+  19 0000 00000000 		.space	8
+  19      00000000 
+  20              		.section	.bss.cam_configured,"aw",%nobits
+  21              		.type	cam_configured, %object
+  22              		.size	cam_configured, 1
+  23              	cam_configured:
+  24 0000 00       		.space	1
+  25              		.section	.text.po8030_read_id,"ax",%progbits
+  26              		.align	1
+  27              		.global	po8030_read_id
+  28              		.syntax unified
+  29              		.thumb
+  30              		.thumb_func
+  31              		.fpu fpv4-sp-d16
+  32              		.type	po8030_read_id, %function
+  33              	po8030_read_id:
+  34              		@ args = 0, pretend = 0, frame = 16
+  35              		@ frame_needed = 1, uses_anonymous_args = 0
+  36 0000 80B5     		push	{r7, lr}
+  37 0002 84B0     		sub	sp, sp, #16
+  38 0004 00AF     		add	r7, sp, #0
+  39 0006 7860     		str	r0, [r7, #4]
+  40 0008 0023     		movs	r3, #0
+  41 000a BB81     		strh	r3, [r7, #12]	@ movhi
+  42 000c 0023     		movs	r3, #0
+  43 000e FB73     		strb	r3, [r7, #15]
+  44 0010 07F10C03 		add	r3, r7, #12
+  45 0014 1A46     		mov	r2, r3
+  46 0016 0021     		movs	r1, #0
+  47 0018 6E20     		movs	r0, #110
+  48 001a FFF7FEFF 		bl	read_reg
+  49 001e 0346     		mov	r3, r0
+  50 0020 FB73     		strb	r3, [r7, #15]
+  51 0022 97F90F30 		ldrsb	r3, [r7, #15]
+  52 0026 002B     		cmp	r3, #0
+  53 0028 02D0     		beq	.L2
+  54 002a 97F90F30 		ldrsb	r3, [r7, #15]
+  55 002e 1BE0     		b	.L5
+  56              	.L2:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 2
+
+
+  57 0030 07F10C03 		add	r3, r7, #12
+  58 0034 0133     		adds	r3, r3, #1
+  59 0036 1A46     		mov	r2, r3
+  60 0038 0121     		movs	r1, #1
+  61 003a 6E20     		movs	r0, #110
+  62 003c FFF7FEFF 		bl	read_reg
+  63 0040 0346     		mov	r3, r0
+  64 0042 FB73     		strb	r3, [r7, #15]
+  65 0044 97F90F30 		ldrsb	r3, [r7, #15]
+  66 0048 002B     		cmp	r3, #0
+  67 004a 02D0     		beq	.L4
+  68 004c 97F90F30 		ldrsb	r3, [r7, #15]
+  69 0050 0AE0     		b	.L5
+  70              	.L4:
+  71 0052 3B7B     		ldrb	r3, [r7, #12]	@ zero_extendqisi2
+  72 0054 1B02     		lsls	r3, r3, #8
+  73 0056 1AB2     		sxth	r2, r3
+  74 0058 7B7B     		ldrb	r3, [r7, #13]	@ zero_extendqisi2
+  75 005a 1BB2     		sxth	r3, r3
+  76 005c 1343     		orrs	r3, r3, r2
+  77 005e 1BB2     		sxth	r3, r3
+  78 0060 9AB2     		uxth	r2, r3
+  79 0062 7B68     		ldr	r3, [r7, #4]
+  80 0064 1A80     		strh	r2, [r3]	@ movhi
+  81 0066 0023     		movs	r3, #0
+  82              	.L5:
+  83 0068 1846     		mov	r0, r3
+  84 006a 1037     		adds	r7, r7, #16
+  85 006c BD46     		mov	sp, r7
+  86              		@ sp needed
+  87 006e 80BD     		pop	{r7, pc}
+  88              		.size	po8030_read_id, .-po8030_read_id
+  89              		.section	.text.po8030_set_bank,"ax",%progbits
+  90              		.align	1
+  91              		.global	po8030_set_bank
+  92              		.syntax unified
+  93              		.thumb
+  94              		.thumb_func
+  95              		.fpu fpv4-sp-d16
+  96              		.type	po8030_set_bank, %function
+  97              	po8030_set_bank:
+  98              		@ args = 0, pretend = 0, frame = 8
+  99              		@ frame_needed = 1, uses_anonymous_args = 0
+ 100 0000 80B5     		push	{r7, lr}
+ 101 0002 82B0     		sub	sp, sp, #8
+ 102 0004 00AF     		add	r7, sp, #0
+ 103 0006 0346     		mov	r3, r0
+ 104 0008 FB71     		strb	r3, [r7, #7]
+ 105 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 106 000c 1A46     		mov	r2, r3
+ 107 000e 0321     		movs	r1, #3
+ 108 0010 6E20     		movs	r0, #110
+ 109 0012 FFF7FEFF 		bl	write_reg
+ 110 0016 0346     		mov	r3, r0
+ 111 0018 1846     		mov	r0, r3
+ 112 001a 0837     		adds	r7, r7, #8
+ 113 001c BD46     		mov	sp, r7
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 3
+
+
+ 114              		@ sp needed
+ 115 001e 80BD     		pop	{r7, pc}
+ 116              		.size	po8030_set_bank, .-po8030_set_bank
+ 117              		.section	.text.po8030_set_format,"ax",%progbits
+ 118              		.align	1
+ 119              		.global	po8030_set_format
+ 120              		.syntax unified
+ 121              		.thumb
+ 122              		.thumb_func
+ 123              		.fpu fpv4-sp-d16
+ 124              		.type	po8030_set_format, %function
+ 125              	po8030_set_format:
+ 126              		@ args = 0, pretend = 0, frame = 16
+ 127              		@ frame_needed = 1, uses_anonymous_args = 0
+ 128 0000 80B5     		push	{r7, lr}
+ 129 0002 84B0     		sub	sp, sp, #16
+ 130 0004 00AF     		add	r7, sp, #0
+ 131 0006 0346     		mov	r3, r0
+ 132 0008 FB71     		strb	r3, [r7, #7]
+ 133 000a 0023     		movs	r3, #0
+ 134 000c FB73     		strb	r3, [r7, #15]
+ 135 000e 0120     		movs	r0, #1
+ 136 0010 FFF7FEFF 		bl	po8030_set_bank
+ 137 0014 0346     		mov	r3, r0
+ 138 0016 FB73     		strb	r3, [r7, #15]
+ 139 0018 97F90F30 		ldrsb	r3, [r7, #15]
+ 140 001c 002B     		cmp	r3, #0
+ 141 001e 02D0     		beq	.L9
+ 142 0020 97F90F30 		ldrsb	r3, [r7, #15]
+ 143 0024 65E0     		b	.L10
+ 144              	.L9:
+ 145 0026 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 146 0028 1A46     		mov	r2, r3
+ 147 002a 4E21     		movs	r1, #78
+ 148 002c 6E20     		movs	r0, #110
+ 149 002e FFF7FEFF 		bl	write_reg
+ 150 0032 0346     		mov	r3, r0
+ 151 0034 FB73     		strb	r3, [r7, #15]
+ 152 0036 97F90F30 		ldrsb	r3, [r7, #15]
+ 153 003a 002B     		cmp	r3, #0
+ 154 003c 02D0     		beq	.L11
+ 155 003e 97F90F30 		ldrsb	r3, [r7, #15]
+ 156 0042 56E0     		b	.L10
+ 157              	.L11:
+ 158 0044 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 159 0046 442B     		cmp	r3, #68
+ 160 0048 27D1     		bne	.L12
+ 161 004a 0122     		movs	r2, #1
+ 162 004c B721     		movs	r1, #183
+ 163 004e 6E20     		movs	r0, #110
+ 164 0050 FFF7FEFF 		bl	write_reg
+ 165 0054 0346     		mov	r3, r0
+ 166 0056 FB73     		strb	r3, [r7, #15]
+ 167 0058 97F90F30 		ldrsb	r3, [r7, #15]
+ 168 005c 002B     		cmp	r3, #0
+ 169 005e 02D0     		beq	.L13
+ 170 0060 97F90F30 		ldrsb	r3, [r7, #15]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 4
+
+
+ 171 0064 45E0     		b	.L10
+ 172              	.L13:
+ 173 0066 0020     		movs	r0, #0
+ 174 0068 FFF7FEFF 		bl	po8030_set_bank
+ 175 006c 0346     		mov	r3, r0
+ 176 006e FB73     		strb	r3, [r7, #15]
+ 177 0070 97F90F30 		ldrsb	r3, [r7, #15]
+ 178 0074 002B     		cmp	r3, #0
+ 179 0076 02D0     		beq	.L14
+ 180 0078 97F90F30 		ldrsb	r3, [r7, #15]
+ 181 007c 39E0     		b	.L10
+ 182              	.L14:
+ 183 007e 0322     		movs	r2, #3
+ 184 0080 1121     		movs	r1, #17
+ 185 0082 6E20     		movs	r0, #110
+ 186 0084 FFF7FEFF 		bl	write_reg
+ 187 0088 0346     		mov	r3, r0
+ 188 008a FB73     		strb	r3, [r7, #15]
+ 189 008c 97F90F30 		ldrsb	r3, [r7, #15]
+ 190 0090 002B     		cmp	r3, #0
+ 191 0092 2AD0     		beq	.L15
+ 192 0094 97F90F30 		ldrsb	r3, [r7, #15]
+ 193 0098 2BE0     		b	.L10
+ 194              	.L12:
+ 195 009a 0022     		movs	r2, #0
+ 196 009c B721     		movs	r1, #183
+ 197 009e 6E20     		movs	r0, #110
+ 198 00a0 FFF7FEFF 		bl	write_reg
+ 199 00a4 0346     		mov	r3, r0
+ 200 00a6 FB73     		strb	r3, [r7, #15]
+ 201 00a8 97F90F30 		ldrsb	r3, [r7, #15]
+ 202 00ac 002B     		cmp	r3, #0
+ 203 00ae 02D0     		beq	.L16
+ 204 00b0 97F90F30 		ldrsb	r3, [r7, #15]
+ 205 00b4 1DE0     		b	.L10
+ 206              	.L16:
+ 207 00b6 0020     		movs	r0, #0
+ 208 00b8 FFF7FEFF 		bl	po8030_set_bank
+ 209 00bc 0346     		mov	r3, r0
+ 210 00be FB73     		strb	r3, [r7, #15]
+ 211 00c0 97F90F30 		ldrsb	r3, [r7, #15]
+ 212 00c4 002B     		cmp	r3, #0
+ 213 00c6 02D0     		beq	.L17
+ 214 00c8 97F90F30 		ldrsb	r3, [r7, #15]
+ 215 00cc 11E0     		b	.L10
+ 216              	.L17:
+ 217 00ce 0A22     		movs	r2, #10
+ 218 00d0 1121     		movs	r1, #17
+ 219 00d2 6E20     		movs	r0, #110
+ 220 00d4 FFF7FEFF 		bl	write_reg
+ 221 00d8 0346     		mov	r3, r0
+ 222 00da FB73     		strb	r3, [r7, #15]
+ 223 00dc 97F90F30 		ldrsb	r3, [r7, #15]
+ 224 00e0 002B     		cmp	r3, #0
+ 225 00e2 02D0     		beq	.L15
+ 226 00e4 97F90F30 		ldrsb	r3, [r7, #15]
+ 227 00e8 03E0     		b	.L10
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 5
+
+
+ 228              	.L15:
+ 229 00ea 044A     		ldr	r2, .L18
+ 230 00ec FB79     		ldrb	r3, [r7, #7]
+ 231 00ee 1371     		strb	r3, [r2, #4]
+ 232 00f0 0023     		movs	r3, #0
+ 233              	.L10:
+ 234 00f2 1846     		mov	r0, r3
+ 235 00f4 1037     		adds	r7, r7, #16
+ 236 00f6 BD46     		mov	sp, r7
+ 237              		@ sp needed
+ 238 00f8 80BD     		pop	{r7, pc}
+ 239              	.L19:
+ 240 00fa 00BF     		.align	2
+ 241              	.L18:
+ 242 00fc 00000000 		.word	po8030_conf
+ 243              		.size	po8030_set_format, .-po8030_set_format
+ 244              		.section	.text.po8030_set_vga,"ax",%progbits
+ 245              		.align	1
+ 246              		.global	po8030_set_vga
+ 247              		.syntax unified
+ 248              		.thumb
+ 249              		.thumb_func
+ 250              		.fpu fpv4-sp-d16
+ 251              		.type	po8030_set_vga, %function
+ 252              	po8030_set_vga:
+ 253              		@ args = 0, pretend = 0, frame = 8
+ 254              		@ frame_needed = 1, uses_anonymous_args = 0
+ 255 0000 80B5     		push	{r7, lr}
+ 256 0002 82B0     		sub	sp, sp, #8
+ 257 0004 00AF     		add	r7, sp, #0
+ 258 0006 0023     		movs	r3, #0
+ 259 0008 FB71     		strb	r3, [r7, #7]
+ 260 000a 0020     		movs	r0, #0
+ 261 000c FFF7FEFF 		bl	po8030_set_bank
+ 262 0010 0346     		mov	r3, r0
+ 263 0012 FB71     		strb	r3, [r7, #7]
+ 264 0014 97F90730 		ldrsb	r3, [r7, #7]
+ 265 0018 002B     		cmp	r3, #0
+ 266 001a 02D0     		beq	.L21
+ 267 001c 97F90730 		ldrsb	r3, [r7, #7]
+ 268 0020 86E1     		b	.L22
+ 269              	.L21:
+ 270 0022 0022     		movs	r2, #0
+ 271 0024 0821     		movs	r1, #8
+ 272 0026 6E20     		movs	r0, #110
+ 273 0028 FFF7FEFF 		bl	write_reg
+ 274 002c 0346     		mov	r3, r0
+ 275 002e FB71     		strb	r3, [r7, #7]
+ 276 0030 97F90730 		ldrsb	r3, [r7, #7]
+ 277 0034 002B     		cmp	r3, #0
+ 278 0036 02D0     		beq	.L23
+ 279 0038 97F90730 		ldrsb	r3, [r7, #7]
+ 280 003c 78E1     		b	.L22
+ 281              	.L23:
+ 282 003e 0122     		movs	r2, #1
+ 283 0040 0921     		movs	r1, #9
+ 284 0042 6E20     		movs	r0, #110
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 6
+
+
+ 285 0044 FFF7FEFF 		bl	write_reg
+ 286 0048 0346     		mov	r3, r0
+ 287 004a FB71     		strb	r3, [r7, #7]
+ 288 004c 97F90730 		ldrsb	r3, [r7, #7]
+ 289 0050 002B     		cmp	r3, #0
+ 290 0052 02D0     		beq	.L24
+ 291 0054 97F90730 		ldrsb	r3, [r7, #7]
+ 292 0058 6AE1     		b	.L22
+ 293              	.L24:
+ 294 005a 0022     		movs	r2, #0
+ 295 005c 0A21     		movs	r1, #10
+ 296 005e 6E20     		movs	r0, #110
+ 297 0060 FFF7FEFF 		bl	write_reg
+ 298 0064 0346     		mov	r3, r0
+ 299 0066 FB71     		strb	r3, [r7, #7]
+ 300 0068 97F90730 		ldrsb	r3, [r7, #7]
+ 301 006c 002B     		cmp	r3, #0
+ 302 006e 02D0     		beq	.L25
+ 303 0070 97F90730 		ldrsb	r3, [r7, #7]
+ 304 0074 5CE1     		b	.L22
+ 305              	.L25:
+ 306 0076 0122     		movs	r2, #1
+ 307 0078 0B21     		movs	r1, #11
+ 308 007a 6E20     		movs	r0, #110
+ 309 007c FFF7FEFF 		bl	write_reg
+ 310 0080 0346     		mov	r3, r0
+ 311 0082 FB71     		strb	r3, [r7, #7]
+ 312 0084 97F90730 		ldrsb	r3, [r7, #7]
+ 313 0088 002B     		cmp	r3, #0
+ 314 008a 02D0     		beq	.L26
+ 315 008c 97F90730 		ldrsb	r3, [r7, #7]
+ 316 0090 4EE1     		b	.L22
+ 317              	.L26:
+ 318 0092 0222     		movs	r2, #2
+ 319 0094 0C21     		movs	r1, #12
+ 320 0096 6E20     		movs	r0, #110
+ 321 0098 FFF7FEFF 		bl	write_reg
+ 322 009c 0346     		mov	r3, r0
+ 323 009e FB71     		strb	r3, [r7, #7]
+ 324 00a0 97F90730 		ldrsb	r3, [r7, #7]
+ 325 00a4 002B     		cmp	r3, #0
+ 326 00a6 02D0     		beq	.L27
+ 327 00a8 97F90730 		ldrsb	r3, [r7, #7]
+ 328 00ac 40E1     		b	.L22
+ 329              	.L27:
+ 330 00ae 8022     		movs	r2, #128
+ 331 00b0 0D21     		movs	r1, #13
+ 332 00b2 6E20     		movs	r0, #110
+ 333 00b4 FFF7FEFF 		bl	write_reg
+ 334 00b8 0346     		mov	r3, r0
+ 335 00ba FB71     		strb	r3, [r7, #7]
+ 336 00bc 97F90730 		ldrsb	r3, [r7, #7]
+ 337 00c0 002B     		cmp	r3, #0
+ 338 00c2 02D0     		beq	.L28
+ 339 00c4 97F90730 		ldrsb	r3, [r7, #7]
+ 340 00c8 32E1     		b	.L22
+ 341              	.L28:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 7
+
+
+ 342 00ca 0122     		movs	r2, #1
+ 343 00cc 0E21     		movs	r1, #14
+ 344 00ce 6E20     		movs	r0, #110
+ 345 00d0 FFF7FEFF 		bl	write_reg
+ 346 00d4 0346     		mov	r3, r0
+ 347 00d6 FB71     		strb	r3, [r7, #7]
+ 348 00d8 97F90730 		ldrsb	r3, [r7, #7]
+ 349 00dc 002B     		cmp	r3, #0
+ 350 00de 02D0     		beq	.L29
+ 351 00e0 97F90730 		ldrsb	r3, [r7, #7]
+ 352 00e4 24E1     		b	.L22
+ 353              	.L29:
+ 354 00e6 E022     		movs	r2, #224
+ 355 00e8 0F21     		movs	r1, #15
+ 356 00ea 6E20     		movs	r0, #110
+ 357 00ec FFF7FEFF 		bl	write_reg
+ 358 00f0 0346     		mov	r3, r0
+ 359 00f2 FB71     		strb	r3, [r7, #7]
+ 360 00f4 97F90730 		ldrsb	r3, [r7, #7]
+ 361 00f8 002B     		cmp	r3, #0
+ 362 00fa 02D0     		beq	.L30
+ 363 00fc 97F90730 		ldrsb	r3, [r7, #7]
+ 364 0100 16E1     		b	.L22
+ 365              	.L30:
+ 366 0102 0022     		movs	r2, #0
+ 367 0104 3521     		movs	r1, #53
+ 368 0106 6E20     		movs	r0, #110
+ 369 0108 FFF7FEFF 		bl	write_reg
+ 370 010c 0346     		mov	r3, r0
+ 371 010e FB71     		strb	r3, [r7, #7]
+ 372 0110 97F90730 		ldrsb	r3, [r7, #7]
+ 373 0114 002B     		cmp	r3, #0
+ 374 0116 02D0     		beq	.L31
+ 375 0118 97F90730 		ldrsb	r3, [r7, #7]
+ 376 011c 08E1     		b	.L22
+ 377              	.L31:
+ 378 011e 0122     		movs	r2, #1
+ 379 0120 3621     		movs	r1, #54
+ 380 0122 6E20     		movs	r0, #110
+ 381 0124 FFF7FEFF 		bl	write_reg
+ 382 0128 0346     		mov	r3, r0
+ 383 012a FB71     		strb	r3, [r7, #7]
+ 384 012c 97F90730 		ldrsb	r3, [r7, #7]
+ 385 0130 002B     		cmp	r3, #0
+ 386 0132 02D0     		beq	.L32
+ 387 0134 97F90730 		ldrsb	r3, [r7, #7]
+ 388 0138 FAE0     		b	.L22
+ 389              	.L32:
+ 390 013a 0222     		movs	r2, #2
+ 391 013c 3721     		movs	r1, #55
+ 392 013e 6E20     		movs	r0, #110
+ 393 0140 FFF7FEFF 		bl	write_reg
+ 394 0144 0346     		mov	r3, r0
+ 395 0146 FB71     		strb	r3, [r7, #7]
+ 396 0148 97F90730 		ldrsb	r3, [r7, #7]
+ 397 014c 002B     		cmp	r3, #0
+ 398 014e 02D0     		beq	.L33
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 8
+
+
+ 399 0150 97F90730 		ldrsb	r3, [r7, #7]
+ 400 0154 ECE0     		b	.L22
+ 401              	.L33:
+ 402 0156 8022     		movs	r2, #128
+ 403 0158 3821     		movs	r1, #56
+ 404 015a 6E20     		movs	r0, #110
+ 405 015c FFF7FEFF 		bl	write_reg
+ 406 0160 0346     		mov	r3, r0
+ 407 0162 FB71     		strb	r3, [r7, #7]
+ 408 0164 97F90730 		ldrsb	r3, [r7, #7]
+ 409 0168 002B     		cmp	r3, #0
+ 410 016a 02D0     		beq	.L34
+ 411 016c 97F90730 		ldrsb	r3, [r7, #7]
+ 412 0170 DEE0     		b	.L22
+ 413              	.L34:
+ 414 0172 0022     		movs	r2, #0
+ 415 0174 3921     		movs	r1, #57
+ 416 0176 6E20     		movs	r0, #110
+ 417 0178 FFF7FEFF 		bl	write_reg
+ 418 017c 0346     		mov	r3, r0
+ 419 017e FB71     		strb	r3, [r7, #7]
+ 420 0180 97F90730 		ldrsb	r3, [r7, #7]
+ 421 0184 002B     		cmp	r3, #0
+ 422 0186 02D0     		beq	.L35
+ 423 0188 97F90730 		ldrsb	r3, [r7, #7]
+ 424 018c D0E0     		b	.L22
+ 425              	.L35:
+ 426 018e 0122     		movs	r2, #1
+ 427 0190 3A21     		movs	r1, #58
+ 428 0192 6E20     		movs	r0, #110
+ 429 0194 FFF7FEFF 		bl	write_reg
+ 430 0198 0346     		mov	r3, r0
+ 431 019a FB71     		strb	r3, [r7, #7]
+ 432 019c 97F90730 		ldrsb	r3, [r7, #7]
+ 433 01a0 002B     		cmp	r3, #0
+ 434 01a2 02D0     		beq	.L36
+ 435 01a4 97F90730 		ldrsb	r3, [r7, #7]
+ 436 01a8 C2E0     		b	.L22
+ 437              	.L36:
+ 438 01aa 0122     		movs	r2, #1
+ 439 01ac 3B21     		movs	r1, #59
+ 440 01ae 6E20     		movs	r0, #110
+ 441 01b0 FFF7FEFF 		bl	write_reg
+ 442 01b4 0346     		mov	r3, r0
+ 443 01b6 FB71     		strb	r3, [r7, #7]
+ 444 01b8 97F90730 		ldrsb	r3, [r7, #7]
+ 445 01bc 002B     		cmp	r3, #0
+ 446 01be 02D0     		beq	.L37
+ 447 01c0 97F90730 		ldrsb	r3, [r7, #7]
+ 448 01c4 B4E0     		b	.L22
+ 449              	.L37:
+ 450 01c6 E022     		movs	r2, #224
+ 451 01c8 3C21     		movs	r1, #60
+ 452 01ca 6E20     		movs	r0, #110
+ 453 01cc FFF7FEFF 		bl	write_reg
+ 454 01d0 0346     		mov	r3, r0
+ 455 01d2 FB71     		strb	r3, [r7, #7]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 9
+
+
+ 456 01d4 97F90730 		ldrsb	r3, [r7, #7]
+ 457 01d8 002B     		cmp	r3, #0
+ 458 01da 02D0     		beq	.L38
+ 459 01dc 97F90730 		ldrsb	r3, [r7, #7]
+ 460 01e0 A6E0     		b	.L22
+ 461              	.L38:
+ 462 01e2 0022     		movs	r2, #0
+ 463 01e4 3D21     		movs	r1, #61
+ 464 01e6 6E20     		movs	r0, #110
+ 465 01e8 FFF7FEFF 		bl	write_reg
+ 466 01ec 0346     		mov	r3, r0
+ 467 01ee FB71     		strb	r3, [r7, #7]
+ 468 01f0 97F90730 		ldrsb	r3, [r7, #7]
+ 469 01f4 002B     		cmp	r3, #0
+ 470 01f6 02D0     		beq	.L39
+ 471 01f8 97F90730 		ldrsb	r3, [r7, #7]
+ 472 01fc 98E0     		b	.L22
+ 473              	.L39:
+ 474 01fe D622     		movs	r2, #214
+ 475 0200 3E21     		movs	r1, #62
+ 476 0202 6E20     		movs	r0, #110
+ 477 0204 FFF7FEFF 		bl	write_reg
+ 478 0208 0346     		mov	r3, r0
+ 479 020a FB71     		strb	r3, [r7, #7]
+ 480 020c 97F90730 		ldrsb	r3, [r7, #7]
+ 481 0210 002B     		cmp	r3, #0
+ 482 0212 02D0     		beq	.L40
+ 483 0214 97F90730 		ldrsb	r3, [r7, #7]
+ 484 0218 8AE0     		b	.L22
+ 485              	.L40:
+ 486 021a 0122     		movs	r2, #1
+ 487 021c 3F21     		movs	r1, #63
+ 488 021e 6E20     		movs	r0, #110
+ 489 0220 FFF7FEFF 		bl	write_reg
+ 490 0224 0346     		mov	r3, r0
+ 491 0226 FB71     		strb	r3, [r7, #7]
+ 492 0228 97F90730 		ldrsb	r3, [r7, #7]
+ 493 022c 002B     		cmp	r3, #0
+ 494 022e 02D0     		beq	.L41
+ 495 0230 97F90730 		ldrsb	r3, [r7, #7]
+ 496 0234 7CE0     		b	.L22
+ 497              	.L41:
+ 498 0236 AB22     		movs	r2, #171
+ 499 0238 4021     		movs	r1, #64
+ 500 023a 6E20     		movs	r0, #110
+ 501 023c FFF7FEFF 		bl	write_reg
+ 502 0240 0346     		mov	r3, r0
+ 503 0242 FB71     		strb	r3, [r7, #7]
+ 504 0244 97F90730 		ldrsb	r3, [r7, #7]
+ 505 0248 002B     		cmp	r3, #0
+ 506 024a 02D0     		beq	.L42
+ 507 024c 97F90730 		ldrsb	r3, [r7, #7]
+ 508 0250 6EE0     		b	.L22
+ 509              	.L42:
+ 510 0252 0022     		movs	r2, #0
+ 511 0254 4121     		movs	r1, #65
+ 512 0256 6E20     		movs	r0, #110
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 10
+
+
+ 513 0258 FFF7FEFF 		bl	write_reg
+ 514 025c 0346     		mov	r3, r0
+ 515 025e FB71     		strb	r3, [r7, #7]
+ 516 0260 97F90730 		ldrsb	r3, [r7, #7]
+ 517 0264 002B     		cmp	r3, #0
+ 518 0266 02D0     		beq	.L43
+ 519 0268 97F90730 		ldrsb	r3, [r7, #7]
+ 520 026c 60E0     		b	.L22
+ 521              	.L43:
+ 522 026e A122     		movs	r2, #161
+ 523 0270 4221     		movs	r1, #66
+ 524 0272 6E20     		movs	r0, #110
+ 525 0274 FFF7FEFF 		bl	write_reg
+ 526 0278 0346     		mov	r3, r0
+ 527 027a FB71     		strb	r3, [r7, #7]
+ 528 027c 97F90730 		ldrsb	r3, [r7, #7]
+ 529 0280 002B     		cmp	r3, #0
+ 530 0282 02D0     		beq	.L44
+ 531 0284 97F90730 		ldrsb	r3, [r7, #7]
+ 532 0288 52E0     		b	.L22
+ 533              	.L44:
+ 534 028a 0122     		movs	r2, #1
+ 535 028c 4321     		movs	r1, #67
+ 536 028e 6E20     		movs	r0, #110
+ 537 0290 FFF7FEFF 		bl	write_reg
+ 538 0294 0346     		mov	r3, r0
+ 539 0296 FB71     		strb	r3, [r7, #7]
+ 540 0298 97F90730 		ldrsb	r3, [r7, #7]
+ 541 029c 002B     		cmp	r3, #0
+ 542 029e 02D0     		beq	.L45
+ 543 02a0 97F90730 		ldrsb	r3, [r7, #7]
+ 544 02a4 44E0     		b	.L22
+ 545              	.L45:
+ 546 02a6 4022     		movs	r2, #64
+ 547 02a8 4421     		movs	r1, #68
+ 548 02aa 6E20     		movs	r0, #110
+ 549 02ac FFF7FEFF 		bl	write_reg
+ 550 02b0 0346     		mov	r3, r0
+ 551 02b2 FB71     		strb	r3, [r7, #7]
+ 552 02b4 97F90730 		ldrsb	r3, [r7, #7]
+ 553 02b8 002B     		cmp	r3, #0
+ 554 02ba 02D0     		beq	.L46
+ 555 02bc 97F90730 		ldrsb	r3, [r7, #7]
+ 556 02c0 36E0     		b	.L22
+ 557              	.L46:
+ 558 02c2 0120     		movs	r0, #1
+ 559 02c4 FFF7FEFF 		bl	po8030_set_bank
+ 560 02c8 0346     		mov	r3, r0
+ 561 02ca FB71     		strb	r3, [r7, #7]
+ 562 02cc 97F90730 		ldrsb	r3, [r7, #7]
+ 563 02d0 002B     		cmp	r3, #0
+ 564 02d2 02D0     		beq	.L47
+ 565 02d4 97F90730 		ldrsb	r3, [r7, #7]
+ 566 02d8 2AE0     		b	.L22
+ 567              	.L47:
+ 568 02da 2022     		movs	r2, #32
+ 569 02dc 9321     		movs	r1, #147
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 11
+
+
+ 570 02de 6E20     		movs	r0, #110
+ 571 02e0 FFF7FEFF 		bl	write_reg
+ 572 02e4 0346     		mov	r3, r0
+ 573 02e6 FB71     		strb	r3, [r7, #7]
+ 574 02e8 97F90730 		ldrsb	r3, [r7, #7]
+ 575 02ec 002B     		cmp	r3, #0
+ 576 02ee 02D0     		beq	.L48
+ 577 02f0 97F90730 		ldrsb	r3, [r7, #7]
+ 578 02f4 1CE0     		b	.L22
+ 579              	.L48:
+ 580 02f6 2022     		movs	r2, #32
+ 581 02f8 9421     		movs	r1, #148
+ 582 02fa 6E20     		movs	r0, #110
+ 583 02fc FFF7FEFF 		bl	write_reg
+ 584 0300 0346     		mov	r3, r0
+ 585 0302 FB71     		strb	r3, [r7, #7]
+ 586 0304 97F90730 		ldrsb	r3, [r7, #7]
+ 587 0308 002B     		cmp	r3, #0
+ 588 030a 02D0     		beq	.L49
+ 589 030c 97F90730 		ldrsb	r3, [r7, #7]
+ 590 0310 0EE0     		b	.L22
+ 591              	.L49:
+ 592 0312 094B     		ldr	r3, .L50
+ 593 0314 4FF42072 		mov	r2, #640
+ 594 0318 1A80     		strh	r2, [r3]	@ movhi
+ 595 031a 074B     		ldr	r3, .L50
+ 596 031c 4FF4F072 		mov	r2, #480
+ 597 0320 5A80     		strh	r2, [r3, #2]	@ movhi
+ 598 0322 054B     		ldr	r3, .L50
+ 599 0324 2022     		movs	r2, #32
+ 600 0326 5A71     		strb	r2, [r3, #5]
+ 601 0328 034B     		ldr	r3, .L50
+ 602 032a 2022     		movs	r2, #32
+ 603 032c 9A71     		strb	r2, [r3, #6]
+ 604 032e 0023     		movs	r3, #0
+ 605              	.L22:
+ 606 0330 1846     		mov	r0, r3
+ 607 0332 0837     		adds	r7, r7, #8
+ 608 0334 BD46     		mov	sp, r7
+ 609              		@ sp needed
+ 610 0336 80BD     		pop	{r7, pc}
+ 611              	.L51:
+ 612              		.align	2
+ 613              	.L50:
+ 614 0338 00000000 		.word	po8030_conf
+ 615              		.size	po8030_set_vga, .-po8030_set_vga
+ 616              		.section	.text.po8030_set_qvga,"ax",%progbits
+ 617              		.align	1
+ 618              		.global	po8030_set_qvga
+ 619              		.syntax unified
+ 620              		.thumb
+ 621              		.thumb_func
+ 622              		.fpu fpv4-sp-d16
+ 623              		.type	po8030_set_qvga, %function
+ 624              	po8030_set_qvga:
+ 625              		@ args = 0, pretend = 0, frame = 8
+ 626              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 12
+
+
+ 627 0000 80B5     		push	{r7, lr}
+ 628 0002 82B0     		sub	sp, sp, #8
+ 629 0004 00AF     		add	r7, sp, #0
+ 630 0006 0023     		movs	r3, #0
+ 631 0008 FB71     		strb	r3, [r7, #7]
+ 632 000a 0020     		movs	r0, #0
+ 633 000c FFF7FEFF 		bl	po8030_set_bank
+ 634 0010 0346     		mov	r3, r0
+ 635 0012 FB71     		strb	r3, [r7, #7]
+ 636 0014 97F90730 		ldrsb	r3, [r7, #7]
+ 637 0018 002B     		cmp	r3, #0
+ 638 001a 02D0     		beq	.L53
+ 639 001c 97F90730 		ldrsb	r3, [r7, #7]
+ 640 0020 85E1     		b	.L54
+ 641              	.L53:
+ 642 0022 0022     		movs	r2, #0
+ 643 0024 0821     		movs	r1, #8
+ 644 0026 6E20     		movs	r0, #110
+ 645 0028 FFF7FEFF 		bl	write_reg
+ 646 002c 0346     		mov	r3, r0
+ 647 002e FB71     		strb	r3, [r7, #7]
+ 648 0030 97F90730 		ldrsb	r3, [r7, #7]
+ 649 0034 002B     		cmp	r3, #0
+ 650 0036 02D0     		beq	.L55
+ 651 0038 97F90730 		ldrsb	r3, [r7, #7]
+ 652 003c 77E1     		b	.L54
+ 653              	.L55:
+ 654 003e 0122     		movs	r2, #1
+ 655 0040 0921     		movs	r1, #9
+ 656 0042 6E20     		movs	r0, #110
+ 657 0044 FFF7FEFF 		bl	write_reg
+ 658 0048 0346     		mov	r3, r0
+ 659 004a FB71     		strb	r3, [r7, #7]
+ 660 004c 97F90730 		ldrsb	r3, [r7, #7]
+ 661 0050 002B     		cmp	r3, #0
+ 662 0052 02D0     		beq	.L56
+ 663 0054 97F90730 		ldrsb	r3, [r7, #7]
+ 664 0058 69E1     		b	.L54
+ 665              	.L56:
+ 666 005a 0022     		movs	r2, #0
+ 667 005c 0A21     		movs	r1, #10
+ 668 005e 6E20     		movs	r0, #110
+ 669 0060 FFF7FEFF 		bl	write_reg
+ 670 0064 0346     		mov	r3, r0
+ 671 0066 FB71     		strb	r3, [r7, #7]
+ 672 0068 97F90730 		ldrsb	r3, [r7, #7]
+ 673 006c 002B     		cmp	r3, #0
+ 674 006e 02D0     		beq	.L57
+ 675 0070 97F90730 		ldrsb	r3, [r7, #7]
+ 676 0074 5BE1     		b	.L54
+ 677              	.L57:
+ 678 0076 0122     		movs	r2, #1
+ 679 0078 0B21     		movs	r1, #11
+ 680 007a 6E20     		movs	r0, #110
+ 681 007c FFF7FEFF 		bl	write_reg
+ 682 0080 0346     		mov	r3, r0
+ 683 0082 FB71     		strb	r3, [r7, #7]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 13
+
+
+ 684 0084 97F90730 		ldrsb	r3, [r7, #7]
+ 685 0088 002B     		cmp	r3, #0
+ 686 008a 02D0     		beq	.L58
+ 687 008c 97F90730 		ldrsb	r3, [r7, #7]
+ 688 0090 4DE1     		b	.L54
+ 689              	.L58:
+ 690 0092 0122     		movs	r2, #1
+ 691 0094 0C21     		movs	r1, #12
+ 692 0096 6E20     		movs	r0, #110
+ 693 0098 FFF7FEFF 		bl	write_reg
+ 694 009c 0346     		mov	r3, r0
+ 695 009e FB71     		strb	r3, [r7, #7]
+ 696 00a0 97F90730 		ldrsb	r3, [r7, #7]
+ 697 00a4 002B     		cmp	r3, #0
+ 698 00a6 02D0     		beq	.L59
+ 699 00a8 97F90730 		ldrsb	r3, [r7, #7]
+ 700 00ac 3FE1     		b	.L54
+ 701              	.L59:
+ 702 00ae 4022     		movs	r2, #64
+ 703 00b0 0D21     		movs	r1, #13
+ 704 00b2 6E20     		movs	r0, #110
+ 705 00b4 FFF7FEFF 		bl	write_reg
+ 706 00b8 0346     		mov	r3, r0
+ 707 00ba FB71     		strb	r3, [r7, #7]
+ 708 00bc 97F90730 		ldrsb	r3, [r7, #7]
+ 709 00c0 002B     		cmp	r3, #0
+ 710 00c2 02D0     		beq	.L60
+ 711 00c4 97F90730 		ldrsb	r3, [r7, #7]
+ 712 00c8 31E1     		b	.L54
+ 713              	.L60:
+ 714 00ca 0022     		movs	r2, #0
+ 715 00cc 0E21     		movs	r1, #14
+ 716 00ce 6E20     		movs	r0, #110
+ 717 00d0 FFF7FEFF 		bl	write_reg
+ 718 00d4 0346     		mov	r3, r0
+ 719 00d6 FB71     		strb	r3, [r7, #7]
+ 720 00d8 97F90730 		ldrsb	r3, [r7, #7]
+ 721 00dc 002B     		cmp	r3, #0
+ 722 00de 02D0     		beq	.L61
+ 723 00e0 97F90730 		ldrsb	r3, [r7, #7]
+ 724 00e4 23E1     		b	.L54
+ 725              	.L61:
+ 726 00e6 F022     		movs	r2, #240
+ 727 00e8 0F21     		movs	r1, #15
+ 728 00ea 6E20     		movs	r0, #110
+ 729 00ec FFF7FEFF 		bl	write_reg
+ 730 00f0 0346     		mov	r3, r0
+ 731 00f2 FB71     		strb	r3, [r7, #7]
+ 732 00f4 97F90730 		ldrsb	r3, [r7, #7]
+ 733 00f8 002B     		cmp	r3, #0
+ 734 00fa 02D0     		beq	.L62
+ 735 00fc 97F90730 		ldrsb	r3, [r7, #7]
+ 736 0100 15E1     		b	.L54
+ 737              	.L62:
+ 738 0102 0022     		movs	r2, #0
+ 739 0104 3521     		movs	r1, #53
+ 740 0106 6E20     		movs	r0, #110
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 14
+
+
+ 741 0108 FFF7FEFF 		bl	write_reg
+ 742 010c 0346     		mov	r3, r0
+ 743 010e FB71     		strb	r3, [r7, #7]
+ 744 0110 97F90730 		ldrsb	r3, [r7, #7]
+ 745 0114 002B     		cmp	r3, #0
+ 746 0116 02D0     		beq	.L63
+ 747 0118 97F90730 		ldrsb	r3, [r7, #7]
+ 748 011c 07E1     		b	.L54
+ 749              	.L63:
+ 750 011e 0122     		movs	r2, #1
+ 751 0120 3621     		movs	r1, #54
+ 752 0122 6E20     		movs	r0, #110
+ 753 0124 FFF7FEFF 		bl	write_reg
+ 754 0128 0346     		mov	r3, r0
+ 755 012a FB71     		strb	r3, [r7, #7]
+ 756 012c 97F90730 		ldrsb	r3, [r7, #7]
+ 757 0130 002B     		cmp	r3, #0
+ 758 0132 02D0     		beq	.L64
+ 759 0134 97F90730 		ldrsb	r3, [r7, #7]
+ 760 0138 F9E0     		b	.L54
+ 761              	.L64:
+ 762 013a 0122     		movs	r2, #1
+ 763 013c 3721     		movs	r1, #55
+ 764 013e 6E20     		movs	r0, #110
+ 765 0140 FFF7FEFF 		bl	write_reg
+ 766 0144 0346     		mov	r3, r0
+ 767 0146 FB71     		strb	r3, [r7, #7]
+ 768 0148 97F90730 		ldrsb	r3, [r7, #7]
+ 769 014c 002B     		cmp	r3, #0
+ 770 014e 02D0     		beq	.L65
+ 771 0150 97F90730 		ldrsb	r3, [r7, #7]
+ 772 0154 EBE0     		b	.L54
+ 773              	.L65:
+ 774 0156 4022     		movs	r2, #64
+ 775 0158 3821     		movs	r1, #56
+ 776 015a 6E20     		movs	r0, #110
+ 777 015c FFF7FEFF 		bl	write_reg
+ 778 0160 0346     		mov	r3, r0
+ 779 0162 FB71     		strb	r3, [r7, #7]
+ 780 0164 97F90730 		ldrsb	r3, [r7, #7]
+ 781 0168 002B     		cmp	r3, #0
+ 782 016a 02D0     		beq	.L66
+ 783 016c 97F90730 		ldrsb	r3, [r7, #7]
+ 784 0170 DDE0     		b	.L54
+ 785              	.L66:
+ 786 0172 0022     		movs	r2, #0
+ 787 0174 3921     		movs	r1, #57
+ 788 0176 6E20     		movs	r0, #110
+ 789 0178 FFF7FEFF 		bl	write_reg
+ 790 017c 0346     		mov	r3, r0
+ 791 017e FB71     		strb	r3, [r7, #7]
+ 792 0180 97F90730 		ldrsb	r3, [r7, #7]
+ 793 0184 002B     		cmp	r3, #0
+ 794 0186 02D0     		beq	.L67
+ 795 0188 97F90730 		ldrsb	r3, [r7, #7]
+ 796 018c CFE0     		b	.L54
+ 797              	.L67:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 15
+
+
+ 798 018e 0122     		movs	r2, #1
+ 799 0190 3A21     		movs	r1, #58
+ 800 0192 6E20     		movs	r0, #110
+ 801 0194 FFF7FEFF 		bl	write_reg
+ 802 0198 0346     		mov	r3, r0
+ 803 019a FB71     		strb	r3, [r7, #7]
+ 804 019c 97F90730 		ldrsb	r3, [r7, #7]
+ 805 01a0 002B     		cmp	r3, #0
+ 806 01a2 02D0     		beq	.L68
+ 807 01a4 97F90730 		ldrsb	r3, [r7, #7]
+ 808 01a8 C1E0     		b	.L54
+ 809              	.L68:
+ 810 01aa 0022     		movs	r2, #0
+ 811 01ac 3B21     		movs	r1, #59
+ 812 01ae 6E20     		movs	r0, #110
+ 813 01b0 FFF7FEFF 		bl	write_reg
+ 814 01b4 0346     		mov	r3, r0
+ 815 01b6 FB71     		strb	r3, [r7, #7]
+ 816 01b8 97F90730 		ldrsb	r3, [r7, #7]
+ 817 01bc 002B     		cmp	r3, #0
+ 818 01be 02D0     		beq	.L69
+ 819 01c0 97F90730 		ldrsb	r3, [r7, #7]
+ 820 01c4 B3E0     		b	.L54
+ 821              	.L69:
+ 822 01c6 F022     		movs	r2, #240
+ 823 01c8 3C21     		movs	r1, #60
+ 824 01ca 6E20     		movs	r0, #110
+ 825 01cc FFF7FEFF 		bl	write_reg
+ 826 01d0 0346     		mov	r3, r0
+ 827 01d2 FB71     		strb	r3, [r7, #7]
+ 828 01d4 97F90730 		ldrsb	r3, [r7, #7]
+ 829 01d8 002B     		cmp	r3, #0
+ 830 01da 02D0     		beq	.L70
+ 831 01dc 97F90730 		ldrsb	r3, [r7, #7]
+ 832 01e0 A5E0     		b	.L54
+ 833              	.L70:
+ 834 01e2 0022     		movs	r2, #0
+ 835 01e4 3D21     		movs	r1, #61
+ 836 01e6 6E20     		movs	r0, #110
+ 837 01e8 FFF7FEFF 		bl	write_reg
+ 838 01ec 0346     		mov	r3, r0
+ 839 01ee FB71     		strb	r3, [r7, #7]
+ 840 01f0 97F90730 		ldrsb	r3, [r7, #7]
+ 841 01f4 002B     		cmp	r3, #0
+ 842 01f6 02D0     		beq	.L71
+ 843 01f8 97F90730 		ldrsb	r3, [r7, #7]
+ 844 01fc 97E0     		b	.L54
+ 845              	.L71:
+ 846 01fe 6B22     		movs	r2, #107
+ 847 0200 3E21     		movs	r1, #62
+ 848 0202 6E20     		movs	r0, #110
+ 849 0204 FFF7FEFF 		bl	write_reg
+ 850 0208 0346     		mov	r3, r0
+ 851 020a FB71     		strb	r3, [r7, #7]
+ 852 020c 97F90730 		ldrsb	r3, [r7, #7]
+ 853 0210 002B     		cmp	r3, #0
+ 854 0212 02D0     		beq	.L72
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 16
+
+
+ 855 0214 97F90730 		ldrsb	r3, [r7, #7]
+ 856 0218 89E0     		b	.L54
+ 857              	.L72:
+ 858 021a 0022     		movs	r2, #0
+ 859 021c 3F21     		movs	r1, #63
+ 860 021e 6E20     		movs	r0, #110
+ 861 0220 FFF7FEFF 		bl	write_reg
+ 862 0224 0346     		mov	r3, r0
+ 863 0226 FB71     		strb	r3, [r7, #7]
+ 864 0228 97F90730 		ldrsb	r3, [r7, #7]
+ 865 022c 002B     		cmp	r3, #0
+ 866 022e 02D0     		beq	.L73
+ 867 0230 97F90730 		ldrsb	r3, [r7, #7]
+ 868 0234 7BE0     		b	.L54
+ 869              	.L73:
+ 870 0236 D622     		movs	r2, #214
+ 871 0238 4021     		movs	r1, #64
+ 872 023a 6E20     		movs	r0, #110
+ 873 023c FFF7FEFF 		bl	write_reg
+ 874 0240 0346     		mov	r3, r0
+ 875 0242 FB71     		strb	r3, [r7, #7]
+ 876 0244 97F90730 		ldrsb	r3, [r7, #7]
+ 877 0248 002B     		cmp	r3, #0
+ 878 024a 02D0     		beq	.L74
+ 879 024c 97F90730 		ldrsb	r3, [r7, #7]
+ 880 0250 6DE0     		b	.L54
+ 881              	.L74:
+ 882 0252 0022     		movs	r2, #0
+ 883 0254 4121     		movs	r1, #65
+ 884 0256 6E20     		movs	r0, #110
+ 885 0258 FFF7FEFF 		bl	write_reg
+ 886 025c 0346     		mov	r3, r0
+ 887 025e FB71     		strb	r3, [r7, #7]
+ 888 0260 97F90730 		ldrsb	r3, [r7, #7]
+ 889 0264 002B     		cmp	r3, #0
+ 890 0266 02D0     		beq	.L75
+ 891 0268 97F90730 		ldrsb	r3, [r7, #7]
+ 892 026c 5FE0     		b	.L54
+ 893              	.L75:
+ 894 026e 5022     		movs	r2, #80
+ 895 0270 4221     		movs	r1, #66
+ 896 0272 6E20     		movs	r0, #110
+ 897 0274 FFF7FEFF 		bl	write_reg
+ 898 0278 0346     		mov	r3, r0
+ 899 027a FB71     		strb	r3, [r7, #7]
+ 900 027c 97F90730 		ldrsb	r3, [r7, #7]
+ 901 0280 002B     		cmp	r3, #0
+ 902 0282 02D0     		beq	.L76
+ 903 0284 97F90730 		ldrsb	r3, [r7, #7]
+ 904 0288 51E0     		b	.L54
+ 905              	.L76:
+ 906 028a 0022     		movs	r2, #0
+ 907 028c 4321     		movs	r1, #67
+ 908 028e 6E20     		movs	r0, #110
+ 909 0290 FFF7FEFF 		bl	write_reg
+ 910 0294 0346     		mov	r3, r0
+ 911 0296 FB71     		strb	r3, [r7, #7]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 17
+
+
+ 912 0298 97F90730 		ldrsb	r3, [r7, #7]
+ 913 029c 002B     		cmp	r3, #0
+ 914 029e 02D0     		beq	.L77
+ 915 02a0 97F90730 		ldrsb	r3, [r7, #7]
+ 916 02a4 43E0     		b	.L54
+ 917              	.L77:
+ 918 02a6 A022     		movs	r2, #160
+ 919 02a8 4421     		movs	r1, #68
+ 920 02aa 6E20     		movs	r0, #110
+ 921 02ac FFF7FEFF 		bl	write_reg
+ 922 02b0 0346     		mov	r3, r0
+ 923 02b2 FB71     		strb	r3, [r7, #7]
+ 924 02b4 97F90730 		ldrsb	r3, [r7, #7]
+ 925 02b8 002B     		cmp	r3, #0
+ 926 02ba 02D0     		beq	.L78
+ 927 02bc 97F90730 		ldrsb	r3, [r7, #7]
+ 928 02c0 35E0     		b	.L54
+ 929              	.L78:
+ 930 02c2 0120     		movs	r0, #1
+ 931 02c4 FFF7FEFF 		bl	po8030_set_bank
+ 932 02c8 0346     		mov	r3, r0
+ 933 02ca FB71     		strb	r3, [r7, #7]
+ 934 02cc 97F90730 		ldrsb	r3, [r7, #7]
+ 935 02d0 002B     		cmp	r3, #0
+ 936 02d2 02D0     		beq	.L79
+ 937 02d4 97F90730 		ldrsb	r3, [r7, #7]
+ 938 02d8 29E0     		b	.L54
+ 939              	.L79:
+ 940 02da 4022     		movs	r2, #64
+ 941 02dc 9321     		movs	r1, #147
+ 942 02de 6E20     		movs	r0, #110
+ 943 02e0 FFF7FEFF 		bl	write_reg
+ 944 02e4 0346     		mov	r3, r0
+ 945 02e6 FB71     		strb	r3, [r7, #7]
+ 946 02e8 97F90730 		ldrsb	r3, [r7, #7]
+ 947 02ec 002B     		cmp	r3, #0
+ 948 02ee 02D0     		beq	.L80
+ 949 02f0 97F90730 		ldrsb	r3, [r7, #7]
+ 950 02f4 1BE0     		b	.L54
+ 951              	.L80:
+ 952 02f6 4022     		movs	r2, #64
+ 953 02f8 9421     		movs	r1, #148
+ 954 02fa 6E20     		movs	r0, #110
+ 955 02fc FFF7FEFF 		bl	write_reg
+ 956 0300 0346     		mov	r3, r0
+ 957 0302 FB71     		strb	r3, [r7, #7]
+ 958 0304 97F90730 		ldrsb	r3, [r7, #7]
+ 959 0308 002B     		cmp	r3, #0
+ 960 030a 02D0     		beq	.L81
+ 961 030c 97F90730 		ldrsb	r3, [r7, #7]
+ 962 0310 0DE0     		b	.L54
+ 963              	.L81:
+ 964 0312 094B     		ldr	r3, .L82
+ 965 0314 4FF4A072 		mov	r2, #320
+ 966 0318 1A80     		strh	r2, [r3]	@ movhi
+ 967 031a 074B     		ldr	r3, .L82
+ 968 031c F022     		movs	r2, #240
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 18
+
+
+ 969 031e 5A80     		strh	r2, [r3, #2]	@ movhi
+ 970 0320 054B     		ldr	r3, .L82
+ 971 0322 4022     		movs	r2, #64
+ 972 0324 5A71     		strb	r2, [r3, #5]
+ 973 0326 044B     		ldr	r3, .L82
+ 974 0328 4022     		movs	r2, #64
+ 975 032a 9A71     		strb	r2, [r3, #6]
+ 976 032c 0023     		movs	r3, #0
+ 977              	.L54:
+ 978 032e 1846     		mov	r0, r3
+ 979 0330 0837     		adds	r7, r7, #8
+ 980 0332 BD46     		mov	sp, r7
+ 981              		@ sp needed
+ 982 0334 80BD     		pop	{r7, pc}
+ 983              	.L83:
+ 984 0336 00BF     		.align	2
+ 985              	.L82:
+ 986 0338 00000000 		.word	po8030_conf
+ 987              		.size	po8030_set_qvga, .-po8030_set_qvga
+ 988              		.section	.text.po8030_set_qqvga,"ax",%progbits
+ 989              		.align	1
+ 990              		.global	po8030_set_qqvga
+ 991              		.syntax unified
+ 992              		.thumb
+ 993              		.thumb_func
+ 994              		.fpu fpv4-sp-d16
+ 995              		.type	po8030_set_qqvga, %function
+ 996              	po8030_set_qqvga:
+ 997              		@ args = 0, pretend = 0, frame = 8
+ 998              		@ frame_needed = 1, uses_anonymous_args = 0
+ 999 0000 80B5     		push	{r7, lr}
+ 1000 0002 82B0     		sub	sp, sp, #8
+ 1001 0004 00AF     		add	r7, sp, #0
+ 1002 0006 0023     		movs	r3, #0
+ 1003 0008 FB71     		strb	r3, [r7, #7]
+ 1004 000a 0020     		movs	r0, #0
+ 1005 000c FFF7FEFF 		bl	po8030_set_bank
+ 1006 0010 0346     		mov	r3, r0
+ 1007 0012 FB71     		strb	r3, [r7, #7]
+ 1008 0014 97F90730 		ldrsb	r3, [r7, #7]
+ 1009 0018 002B     		cmp	r3, #0
+ 1010 001a 02D0     		beq	.L85
+ 1011 001c 97F90730 		ldrsb	r3, [r7, #7]
+ 1012 0020 84E1     		b	.L86
+ 1013              	.L85:
+ 1014 0022 0022     		movs	r2, #0
+ 1015 0024 0821     		movs	r1, #8
+ 1016 0026 6E20     		movs	r0, #110
+ 1017 0028 FFF7FEFF 		bl	write_reg
+ 1018 002c 0346     		mov	r3, r0
+ 1019 002e FB71     		strb	r3, [r7, #7]
+ 1020 0030 97F90730 		ldrsb	r3, [r7, #7]
+ 1021 0034 002B     		cmp	r3, #0
+ 1022 0036 02D0     		beq	.L87
+ 1023 0038 97F90730 		ldrsb	r3, [r7, #7]
+ 1024 003c 76E1     		b	.L86
+ 1025              	.L87:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 19
+
+
+ 1026 003e 0122     		movs	r2, #1
+ 1027 0040 0921     		movs	r1, #9
+ 1028 0042 6E20     		movs	r0, #110
+ 1029 0044 FFF7FEFF 		bl	write_reg
+ 1030 0048 0346     		mov	r3, r0
+ 1031 004a FB71     		strb	r3, [r7, #7]
+ 1032 004c 97F90730 		ldrsb	r3, [r7, #7]
+ 1033 0050 002B     		cmp	r3, #0
+ 1034 0052 02D0     		beq	.L88
+ 1035 0054 97F90730 		ldrsb	r3, [r7, #7]
+ 1036 0058 68E1     		b	.L86
+ 1037              	.L88:
+ 1038 005a 0022     		movs	r2, #0
+ 1039 005c 0A21     		movs	r1, #10
+ 1040 005e 6E20     		movs	r0, #110
+ 1041 0060 FFF7FEFF 		bl	write_reg
+ 1042 0064 0346     		mov	r3, r0
+ 1043 0066 FB71     		strb	r3, [r7, #7]
+ 1044 0068 97F90730 		ldrsb	r3, [r7, #7]
+ 1045 006c 002B     		cmp	r3, #0
+ 1046 006e 02D0     		beq	.L89
+ 1047 0070 97F90730 		ldrsb	r3, [r7, #7]
+ 1048 0074 5AE1     		b	.L86
+ 1049              	.L89:
+ 1050 0076 0122     		movs	r2, #1
+ 1051 0078 0B21     		movs	r1, #11
+ 1052 007a 6E20     		movs	r0, #110
+ 1053 007c FFF7FEFF 		bl	write_reg
+ 1054 0080 0346     		mov	r3, r0
+ 1055 0082 FB71     		strb	r3, [r7, #7]
+ 1056 0084 97F90730 		ldrsb	r3, [r7, #7]
+ 1057 0088 002B     		cmp	r3, #0
+ 1058 008a 02D0     		beq	.L90
+ 1059 008c 97F90730 		ldrsb	r3, [r7, #7]
+ 1060 0090 4CE1     		b	.L86
+ 1061              	.L90:
+ 1062 0092 0022     		movs	r2, #0
+ 1063 0094 0C21     		movs	r1, #12
+ 1064 0096 6E20     		movs	r0, #110
+ 1065 0098 FFF7FEFF 		bl	write_reg
+ 1066 009c 0346     		mov	r3, r0
+ 1067 009e FB71     		strb	r3, [r7, #7]
+ 1068 00a0 97F90730 		ldrsb	r3, [r7, #7]
+ 1069 00a4 002B     		cmp	r3, #0
+ 1070 00a6 02D0     		beq	.L91
+ 1071 00a8 97F90730 		ldrsb	r3, [r7, #7]
+ 1072 00ac 3EE1     		b	.L86
+ 1073              	.L91:
+ 1074 00ae A022     		movs	r2, #160
+ 1075 00b0 0D21     		movs	r1, #13
+ 1076 00b2 6E20     		movs	r0, #110
+ 1077 00b4 FFF7FEFF 		bl	write_reg
+ 1078 00b8 0346     		mov	r3, r0
+ 1079 00ba FB71     		strb	r3, [r7, #7]
+ 1080 00bc 97F90730 		ldrsb	r3, [r7, #7]
+ 1081 00c0 002B     		cmp	r3, #0
+ 1082 00c2 02D0     		beq	.L92
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 20
+
+
+ 1083 00c4 97F90730 		ldrsb	r3, [r7, #7]
+ 1084 00c8 30E1     		b	.L86
+ 1085              	.L92:
+ 1086 00ca 0022     		movs	r2, #0
+ 1087 00cc 0E21     		movs	r1, #14
+ 1088 00ce 6E20     		movs	r0, #110
+ 1089 00d0 FFF7FEFF 		bl	write_reg
+ 1090 00d4 0346     		mov	r3, r0
+ 1091 00d6 FB71     		strb	r3, [r7, #7]
+ 1092 00d8 97F90730 		ldrsb	r3, [r7, #7]
+ 1093 00dc 002B     		cmp	r3, #0
+ 1094 00de 02D0     		beq	.L93
+ 1095 00e0 97F90730 		ldrsb	r3, [r7, #7]
+ 1096 00e4 22E1     		b	.L86
+ 1097              	.L93:
+ 1098 00e6 7822     		movs	r2, #120
+ 1099 00e8 0F21     		movs	r1, #15
+ 1100 00ea 6E20     		movs	r0, #110
+ 1101 00ec FFF7FEFF 		bl	write_reg
+ 1102 00f0 0346     		mov	r3, r0
+ 1103 00f2 FB71     		strb	r3, [r7, #7]
+ 1104 00f4 97F90730 		ldrsb	r3, [r7, #7]
+ 1105 00f8 002B     		cmp	r3, #0
+ 1106 00fa 02D0     		beq	.L94
+ 1107 00fc 97F90730 		ldrsb	r3, [r7, #7]
+ 1108 0100 14E1     		b	.L86
+ 1109              	.L94:
+ 1110 0102 0022     		movs	r2, #0
+ 1111 0104 3521     		movs	r1, #53
+ 1112 0106 6E20     		movs	r0, #110
+ 1113 0108 FFF7FEFF 		bl	write_reg
+ 1114 010c 0346     		mov	r3, r0
+ 1115 010e FB71     		strb	r3, [r7, #7]
+ 1116 0110 97F90730 		ldrsb	r3, [r7, #7]
+ 1117 0114 002B     		cmp	r3, #0
+ 1118 0116 02D0     		beq	.L95
+ 1119 0118 97F90730 		ldrsb	r3, [r7, #7]
+ 1120 011c 06E1     		b	.L86
+ 1121              	.L95:
+ 1122 011e 0122     		movs	r2, #1
+ 1123 0120 3621     		movs	r1, #54
+ 1124 0122 6E20     		movs	r0, #110
+ 1125 0124 FFF7FEFF 		bl	write_reg
+ 1126 0128 0346     		mov	r3, r0
+ 1127 012a FB71     		strb	r3, [r7, #7]
+ 1128 012c 97F90730 		ldrsb	r3, [r7, #7]
+ 1129 0130 002B     		cmp	r3, #0
+ 1130 0132 02D0     		beq	.L96
+ 1131 0134 97F90730 		ldrsb	r3, [r7, #7]
+ 1132 0138 F8E0     		b	.L86
+ 1133              	.L96:
+ 1134 013a 0022     		movs	r2, #0
+ 1135 013c 3721     		movs	r1, #55
+ 1136 013e 6E20     		movs	r0, #110
+ 1137 0140 FFF7FEFF 		bl	write_reg
+ 1138 0144 0346     		mov	r3, r0
+ 1139 0146 FB71     		strb	r3, [r7, #7]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 21
+
+
+ 1140 0148 97F90730 		ldrsb	r3, [r7, #7]
+ 1141 014c 002B     		cmp	r3, #0
+ 1142 014e 02D0     		beq	.L97
+ 1143 0150 97F90730 		ldrsb	r3, [r7, #7]
+ 1144 0154 EAE0     		b	.L86
+ 1145              	.L97:
+ 1146 0156 A022     		movs	r2, #160
+ 1147 0158 3821     		movs	r1, #56
+ 1148 015a 6E20     		movs	r0, #110
+ 1149 015c FFF7FEFF 		bl	write_reg
+ 1150 0160 0346     		mov	r3, r0
+ 1151 0162 FB71     		strb	r3, [r7, #7]
+ 1152 0164 97F90730 		ldrsb	r3, [r7, #7]
+ 1153 0168 002B     		cmp	r3, #0
+ 1154 016a 02D0     		beq	.L98
+ 1155 016c 97F90730 		ldrsb	r3, [r7, #7]
+ 1156 0170 DCE0     		b	.L86
+ 1157              	.L98:
+ 1158 0172 0022     		movs	r2, #0
+ 1159 0174 3921     		movs	r1, #57
+ 1160 0176 6E20     		movs	r0, #110
+ 1161 0178 FFF7FEFF 		bl	write_reg
+ 1162 017c 0346     		mov	r3, r0
+ 1163 017e FB71     		strb	r3, [r7, #7]
+ 1164 0180 97F90730 		ldrsb	r3, [r7, #7]
+ 1165 0184 002B     		cmp	r3, #0
+ 1166 0186 02D0     		beq	.L99
+ 1167 0188 97F90730 		ldrsb	r3, [r7, #7]
+ 1168 018c CEE0     		b	.L86
+ 1169              	.L99:
+ 1170 018e 0122     		movs	r2, #1
+ 1171 0190 3A21     		movs	r1, #58
+ 1172 0192 6E20     		movs	r0, #110
+ 1173 0194 FFF7FEFF 		bl	write_reg
+ 1174 0198 0346     		mov	r3, r0
+ 1175 019a FB71     		strb	r3, [r7, #7]
+ 1176 019c 97F90730 		ldrsb	r3, [r7, #7]
+ 1177 01a0 002B     		cmp	r3, #0
+ 1178 01a2 02D0     		beq	.L100
+ 1179 01a4 97F90730 		ldrsb	r3, [r7, #7]
+ 1180 01a8 C0E0     		b	.L86
+ 1181              	.L100:
+ 1182 01aa 0022     		movs	r2, #0
+ 1183 01ac 3B21     		movs	r1, #59
+ 1184 01ae 6E20     		movs	r0, #110
+ 1185 01b0 FFF7FEFF 		bl	write_reg
+ 1186 01b4 0346     		mov	r3, r0
+ 1187 01b6 FB71     		strb	r3, [r7, #7]
+ 1188 01b8 97F90730 		ldrsb	r3, [r7, #7]
+ 1189 01bc 002B     		cmp	r3, #0
+ 1190 01be 02D0     		beq	.L101
+ 1191 01c0 97F90730 		ldrsb	r3, [r7, #7]
+ 1192 01c4 B2E0     		b	.L86
+ 1193              	.L101:
+ 1194 01c6 7822     		movs	r2, #120
+ 1195 01c8 3C21     		movs	r1, #60
+ 1196 01ca 6E20     		movs	r0, #110
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 22
+
+
+ 1197 01cc FFF7FEFF 		bl	write_reg
+ 1198 01d0 0346     		mov	r3, r0
+ 1199 01d2 FB71     		strb	r3, [r7, #7]
+ 1200 01d4 97F90730 		ldrsb	r3, [r7, #7]
+ 1201 01d8 002B     		cmp	r3, #0
+ 1202 01da 02D0     		beq	.L102
+ 1203 01dc 97F90730 		ldrsb	r3, [r7, #7]
+ 1204 01e0 A4E0     		b	.L86
+ 1205              	.L102:
+ 1206 01e2 0022     		movs	r2, #0
+ 1207 01e4 3D21     		movs	r1, #61
+ 1208 01e6 6E20     		movs	r0, #110
+ 1209 01e8 FFF7FEFF 		bl	write_reg
+ 1210 01ec 0346     		mov	r3, r0
+ 1211 01ee FB71     		strb	r3, [r7, #7]
+ 1212 01f0 97F90730 		ldrsb	r3, [r7, #7]
+ 1213 01f4 002B     		cmp	r3, #0
+ 1214 01f6 02D0     		beq	.L103
+ 1215 01f8 97F90730 		ldrsb	r3, [r7, #7]
+ 1216 01fc 96E0     		b	.L86
+ 1217              	.L103:
+ 1218 01fe 3622     		movs	r2, #54
+ 1219 0200 3E21     		movs	r1, #62
+ 1220 0202 6E20     		movs	r0, #110
+ 1221 0204 FFF7FEFF 		bl	write_reg
+ 1222 0208 0346     		mov	r3, r0
+ 1223 020a FB71     		strb	r3, [r7, #7]
+ 1224 020c 97F90730 		ldrsb	r3, [r7, #7]
+ 1225 0210 002B     		cmp	r3, #0
+ 1226 0212 02D0     		beq	.L104
+ 1227 0214 97F90730 		ldrsb	r3, [r7, #7]
+ 1228 0218 88E0     		b	.L86
+ 1229              	.L104:
+ 1230 021a 0022     		movs	r2, #0
+ 1231 021c 3F21     		movs	r1, #63
+ 1232 021e 6E20     		movs	r0, #110
+ 1233 0220 FFF7FEFF 		bl	write_reg
+ 1234 0224 0346     		mov	r3, r0
+ 1235 0226 FB71     		strb	r3, [r7, #7]
+ 1236 0228 97F90730 		ldrsb	r3, [r7, #7]
+ 1237 022c 002B     		cmp	r3, #0
+ 1238 022e 02D0     		beq	.L105
+ 1239 0230 97F90730 		ldrsb	r3, [r7, #7]
+ 1240 0234 7AE0     		b	.L86
+ 1241              	.L105:
+ 1242 0236 6B22     		movs	r2, #107
+ 1243 0238 4021     		movs	r1, #64
+ 1244 023a 6E20     		movs	r0, #110
+ 1245 023c FFF7FEFF 		bl	write_reg
+ 1246 0240 0346     		mov	r3, r0
+ 1247 0242 FB71     		strb	r3, [r7, #7]
+ 1248 0244 97F90730 		ldrsb	r3, [r7, #7]
+ 1249 0248 002B     		cmp	r3, #0
+ 1250 024a 02D0     		beq	.L106
+ 1251 024c 97F90730 		ldrsb	r3, [r7, #7]
+ 1252 0250 6CE0     		b	.L86
+ 1253              	.L106:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 23
+
+
+ 1254 0252 0022     		movs	r2, #0
+ 1255 0254 4121     		movs	r1, #65
+ 1256 0256 6E20     		movs	r0, #110
+ 1257 0258 FFF7FEFF 		bl	write_reg
+ 1258 025c 0346     		mov	r3, r0
+ 1259 025e FB71     		strb	r3, [r7, #7]
+ 1260 0260 97F90730 		ldrsb	r3, [r7, #7]
+ 1261 0264 002B     		cmp	r3, #0
+ 1262 0266 02D0     		beq	.L107
+ 1263 0268 97F90730 		ldrsb	r3, [r7, #7]
+ 1264 026c 5EE0     		b	.L86
+ 1265              	.L107:
+ 1266 026e 2922     		movs	r2, #41
+ 1267 0270 4221     		movs	r1, #66
+ 1268 0272 6E20     		movs	r0, #110
+ 1269 0274 FFF7FEFF 		bl	write_reg
+ 1270 0278 0346     		mov	r3, r0
+ 1271 027a FB71     		strb	r3, [r7, #7]
+ 1272 027c 97F90730 		ldrsb	r3, [r7, #7]
+ 1273 0280 002B     		cmp	r3, #0
+ 1274 0282 02D0     		beq	.L108
+ 1275 0284 97F90730 		ldrsb	r3, [r7, #7]
+ 1276 0288 50E0     		b	.L86
+ 1277              	.L108:
+ 1278 028a 0022     		movs	r2, #0
+ 1279 028c 4321     		movs	r1, #67
+ 1280 028e 6E20     		movs	r0, #110
+ 1281 0290 FFF7FEFF 		bl	write_reg
+ 1282 0294 0346     		mov	r3, r0
+ 1283 0296 FB71     		strb	r3, [r7, #7]
+ 1284 0298 97F90730 		ldrsb	r3, [r7, #7]
+ 1285 029c 002B     		cmp	r3, #0
+ 1286 029e 02D0     		beq	.L109
+ 1287 02a0 97F90730 		ldrsb	r3, [r7, #7]
+ 1288 02a4 42E0     		b	.L86
+ 1289              	.L109:
+ 1290 02a6 5022     		movs	r2, #80
+ 1291 02a8 4421     		movs	r1, #68
+ 1292 02aa 6E20     		movs	r0, #110
+ 1293 02ac FFF7FEFF 		bl	write_reg
+ 1294 02b0 0346     		mov	r3, r0
+ 1295 02b2 FB71     		strb	r3, [r7, #7]
+ 1296 02b4 97F90730 		ldrsb	r3, [r7, #7]
+ 1297 02b8 002B     		cmp	r3, #0
+ 1298 02ba 02D0     		beq	.L110
+ 1299 02bc 97F90730 		ldrsb	r3, [r7, #7]
+ 1300 02c0 34E0     		b	.L86
+ 1301              	.L110:
+ 1302 02c2 0120     		movs	r0, #1
+ 1303 02c4 FFF7FEFF 		bl	po8030_set_bank
+ 1304 02c8 0346     		mov	r3, r0
+ 1305 02ca FB71     		strb	r3, [r7, #7]
+ 1306 02cc 97F90730 		ldrsb	r3, [r7, #7]
+ 1307 02d0 002B     		cmp	r3, #0
+ 1308 02d2 02D0     		beq	.L111
+ 1309 02d4 97F90730 		ldrsb	r3, [r7, #7]
+ 1310 02d8 28E0     		b	.L86
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 24
+
+
+ 1311              	.L111:
+ 1312 02da 8022     		movs	r2, #128
+ 1313 02dc 9321     		movs	r1, #147
+ 1314 02de 6E20     		movs	r0, #110
+ 1315 02e0 FFF7FEFF 		bl	write_reg
+ 1316 02e4 0346     		mov	r3, r0
+ 1317 02e6 FB71     		strb	r3, [r7, #7]
+ 1318 02e8 97F90730 		ldrsb	r3, [r7, #7]
+ 1319 02ec 002B     		cmp	r3, #0
+ 1320 02ee 02D0     		beq	.L112
+ 1321 02f0 97F90730 		ldrsb	r3, [r7, #7]
+ 1322 02f4 1AE0     		b	.L86
+ 1323              	.L112:
+ 1324 02f6 8022     		movs	r2, #128
+ 1325 02f8 9421     		movs	r1, #148
+ 1326 02fa 6E20     		movs	r0, #110
+ 1327 02fc FFF7FEFF 		bl	write_reg
+ 1328 0300 0346     		mov	r3, r0
+ 1329 0302 FB71     		strb	r3, [r7, #7]
+ 1330 0304 97F90730 		ldrsb	r3, [r7, #7]
+ 1331 0308 002B     		cmp	r3, #0
+ 1332 030a 02D0     		beq	.L113
+ 1333 030c 97F90730 		ldrsb	r3, [r7, #7]
+ 1334 0310 0CE0     		b	.L86
+ 1335              	.L113:
+ 1336 0312 084B     		ldr	r3, .L114
+ 1337 0314 A022     		movs	r2, #160
+ 1338 0316 1A80     		strh	r2, [r3]	@ movhi
+ 1339 0318 064B     		ldr	r3, .L114
+ 1340 031a 7822     		movs	r2, #120
+ 1341 031c 5A80     		strh	r2, [r3, #2]	@ movhi
+ 1342 031e 054B     		ldr	r3, .L114
+ 1343 0320 8022     		movs	r2, #128
+ 1344 0322 5A71     		strb	r2, [r3, #5]
+ 1345 0324 034B     		ldr	r3, .L114
+ 1346 0326 8022     		movs	r2, #128
+ 1347 0328 9A71     		strb	r2, [r3, #6]
+ 1348 032a 0023     		movs	r3, #0
+ 1349              	.L86:
+ 1350 032c 1846     		mov	r0, r3
+ 1351 032e 0837     		adds	r7, r7, #8
+ 1352 0330 BD46     		mov	sp, r7
+ 1353              		@ sp needed
+ 1354 0332 80BD     		pop	{r7, pc}
+ 1355              	.L115:
+ 1356              		.align	2
+ 1357              	.L114:
+ 1358 0334 00000000 		.word	po8030_conf
+ 1359              		.size	po8030_set_qqvga, .-po8030_set_qqvga
+ 1360              		.section	.text.po8030_set_size,"ax",%progbits
+ 1361              		.align	1
+ 1362              		.global	po8030_set_size
+ 1363              		.syntax unified
+ 1364              		.thumb
+ 1365              		.thumb_func
+ 1366              		.fpu fpv4-sp-d16
+ 1367              		.type	po8030_set_size, %function
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 25
+
+
+ 1368              	po8030_set_size:
+ 1369              		@ args = 0, pretend = 0, frame = 8
+ 1370              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1371 0000 80B5     		push	{r7, lr}
+ 1372 0002 82B0     		sub	sp, sp, #8
+ 1373 0004 00AF     		add	r7, sp, #0
+ 1374 0006 0346     		mov	r3, r0
+ 1375 0008 FB71     		strb	r3, [r7, #7]
+ 1376 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1377 000c 002B     		cmp	r3, #0
+ 1378 000e 03D1     		bne	.L117
+ 1379 0010 FFF7FEFF 		bl	po8030_set_vga
+ 1380 0014 0346     		mov	r3, r0
+ 1381 0016 0FE0     		b	.L118
+ 1382              	.L117:
+ 1383 0018 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1384 001a 012B     		cmp	r3, #1
+ 1385 001c 03D1     		bne	.L119
+ 1386 001e FFF7FEFF 		bl	po8030_set_qvga
+ 1387 0022 0346     		mov	r3, r0
+ 1388 0024 08E0     		b	.L118
+ 1389              	.L119:
+ 1390 0026 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1391 0028 022B     		cmp	r3, #2
+ 1392 002a 03D1     		bne	.L120
+ 1393 002c FFF7FEFF 		bl	po8030_set_qqvga
+ 1394 0030 0346     		mov	r3, r0
+ 1395 0032 01E0     		b	.L118
+ 1396              	.L120:
+ 1397 0034 4FF0FF33 		mov	r3, #-1
+ 1398              	.L118:
+ 1399 0038 1846     		mov	r0, r3
+ 1400 003a 0837     		adds	r7, r7, #8
+ 1401 003c BD46     		mov	sp, r7
+ 1402              		@ sp needed
+ 1403 003e 80BD     		pop	{r7, pc}
+ 1404              		.size	po8030_set_size, .-po8030_set_size
+ 1405              		.section	.text.po8030_set_scale_buffer_size,"ax",%progbits
+ 1406              		.align	1
+ 1407              		.global	po8030_set_scale_buffer_size
+ 1408              		.syntax unified
+ 1409              		.thumb
+ 1410              		.thumb_func
+ 1411              		.fpu fpv4-sp-d16
+ 1412              		.type	po8030_set_scale_buffer_size, %function
+ 1413              	po8030_set_scale_buffer_size:
+ 1414              		@ args = 0, pretend = 0, frame = 16
+ 1415              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1416 0000 80B5     		push	{r7, lr}
+ 1417 0002 84B0     		sub	sp, sp, #16
+ 1418 0004 00AF     		add	r7, sp, #0
+ 1419 0006 0346     		mov	r3, r0
+ 1420 0008 0A46     		mov	r2, r1
+ 1421 000a FB71     		strb	r3, [r7, #7]
+ 1422 000c 1346     		mov	r3, r2
+ 1423 000e BB71     		strb	r3, [r7, #6]
+ 1424 0010 0023     		movs	r3, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 26
+
+
+ 1425 0012 FB73     		strb	r3, [r7, #15]
+ 1426 0014 0120     		movs	r0, #1
+ 1427 0016 FFF7FEFF 		bl	po8030_set_bank
+ 1428 001a 0346     		mov	r3, r0
+ 1429 001c FB73     		strb	r3, [r7, #15]
+ 1430 001e 97F90F30 		ldrsb	r3, [r7, #15]
+ 1431 0022 002B     		cmp	r3, #0
+ 1432 0024 02D0     		beq	.L122
+ 1433 0026 97F90F30 		ldrsb	r3, [r7, #15]
+ 1434 002a C6E0     		b	.L123
+ 1435              	.L122:
+ 1436 002c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1437 002e 442B     		cmp	r3, #68
+ 1438 0030 5CD1     		bne	.L124
+ 1439 0032 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 1440 0034 012B     		cmp	r3, #1
+ 1441 0036 21D0     		beq	.L126
+ 1442 0038 022B     		cmp	r3, #2
+ 1443 003a 3BD0     		beq	.L127
+ 1444 003c 002B     		cmp	r3, #0
+ 1445 003e 40F0BB80 		bne	.L135
+ 1446 0042 0022     		movs	r2, #0
+ 1447 0044 9521     		movs	r1, #149
+ 1448 0046 6E20     		movs	r0, #110
+ 1449 0048 FFF7FEFF 		bl	write_reg
+ 1450 004c 0346     		mov	r3, r0
+ 1451 004e FB73     		strb	r3, [r7, #15]
+ 1452 0050 97F90F30 		ldrsb	r3, [r7, #15]
+ 1453 0054 002B     		cmp	r3, #0
+ 1454 0056 02D0     		beq	.L129
+ 1455 0058 97F90F30 		ldrsb	r3, [r7, #15]
+ 1456 005c ADE0     		b	.L123
+ 1457              	.L129:
+ 1458 005e 0822     		movs	r2, #8
+ 1459 0060 9621     		movs	r1, #150
+ 1460 0062 6E20     		movs	r0, #110
+ 1461 0064 FFF7FEFF 		bl	write_reg
+ 1462 0068 0346     		mov	r3, r0
+ 1463 006a FB73     		strb	r3, [r7, #15]
+ 1464 006c 97F90F30 		ldrsb	r3, [r7, #15]
+ 1465 0070 002B     		cmp	r3, #0
+ 1466 0072 00F09680 		beq	.L145
+ 1467 0076 97F90F30 		ldrsb	r3, [r7, #15]
+ 1468 007a 9EE0     		b	.L123
+ 1469              	.L126:
+ 1470 007c 0022     		movs	r2, #0
+ 1471 007e 9521     		movs	r1, #149
+ 1472 0080 6E20     		movs	r0, #110
+ 1473 0082 FFF7FEFF 		bl	write_reg
+ 1474 0086 0346     		mov	r3, r0
+ 1475 0088 FB73     		strb	r3, [r7, #15]
+ 1476 008a 97F90F30 		ldrsb	r3, [r7, #15]
+ 1477 008e 002B     		cmp	r3, #0
+ 1478 0090 02D0     		beq	.L131
+ 1479 0092 97F90F30 		ldrsb	r3, [r7, #15]
+ 1480 0096 90E0     		b	.L123
+ 1481              	.L131:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 27
+
+
+ 1482 0098 A422     		movs	r2, #164
+ 1483 009a 9621     		movs	r1, #150
+ 1484 009c 6E20     		movs	r0, #110
+ 1485 009e FFF7FEFF 		bl	write_reg
+ 1486 00a2 0346     		mov	r3, r0
+ 1487 00a4 FB73     		strb	r3, [r7, #15]
+ 1488 00a6 97F90F30 		ldrsb	r3, [r7, #15]
+ 1489 00aa 002B     		cmp	r3, #0
+ 1490 00ac 7BD0     		beq	.L146
+ 1491 00ae 97F90F30 		ldrsb	r3, [r7, #15]
+ 1492 00b2 82E0     		b	.L123
+ 1493              	.L127:
+ 1494 00b4 0022     		movs	r2, #0
+ 1495 00b6 9521     		movs	r1, #149
+ 1496 00b8 6E20     		movs	r0, #110
+ 1497 00ba FFF7FEFF 		bl	write_reg
+ 1498 00be 0346     		mov	r3, r0
+ 1499 00c0 FB73     		strb	r3, [r7, #15]
+ 1500 00c2 97F90F30 		ldrsb	r3, [r7, #15]
+ 1501 00c6 002B     		cmp	r3, #0
+ 1502 00c8 02D0     		beq	.L133
+ 1503 00ca 97F90F30 		ldrsb	r3, [r7, #15]
+ 1504 00ce 74E0     		b	.L123
+ 1505              	.L133:
+ 1506 00d0 7C22     		movs	r2, #124
+ 1507 00d2 9621     		movs	r1, #150
+ 1508 00d4 6E20     		movs	r0, #110
+ 1509 00d6 FFF7FEFF 		bl	write_reg
+ 1510 00da 0346     		mov	r3, r0
+ 1511 00dc FB73     		strb	r3, [r7, #15]
+ 1512 00de 97F90F30 		ldrsb	r3, [r7, #15]
+ 1513 00e2 002B     		cmp	r3, #0
+ 1514 00e4 61D0     		beq	.L147
+ 1515 00e6 97F90F30 		ldrsb	r3, [r7, #15]
+ 1516 00ea 66E0     		b	.L123
+ 1517              	.L124:
+ 1518 00ec BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 1519 00ee 012B     		cmp	r3, #1
+ 1520 00f0 1FD0     		beq	.L136
+ 1521 00f2 022B     		cmp	r3, #2
+ 1522 00f4 39D0     		beq	.L137
+ 1523 00f6 002B     		cmp	r3, #0
+ 1524 00f8 5ED1     		bne	.L135
+ 1525 00fa 0022     		movs	r2, #0
+ 1526 00fc 9521     		movs	r1, #149
+ 1527 00fe 6E20     		movs	r0, #110
+ 1528 0100 FFF7FEFF 		bl	write_reg
+ 1529 0104 0346     		mov	r3, r0
+ 1530 0106 FB73     		strb	r3, [r7, #15]
+ 1531 0108 97F90F30 		ldrsb	r3, [r7, #15]
+ 1532 010c 002B     		cmp	r3, #0
+ 1533 010e 02D0     		beq	.L139
+ 1534 0110 97F90F30 		ldrsb	r3, [r7, #15]
+ 1535 0114 51E0     		b	.L123
+ 1536              	.L139:
+ 1537 0116 0A22     		movs	r2, #10
+ 1538 0118 9621     		movs	r1, #150
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 28
+
+
+ 1539 011a 6E20     		movs	r0, #110
+ 1540 011c FFF7FEFF 		bl	write_reg
+ 1541 0120 0346     		mov	r3, r0
+ 1542 0122 FB73     		strb	r3, [r7, #15]
+ 1543 0124 97F90F30 		ldrsb	r3, [r7, #15]
+ 1544 0128 002B     		cmp	r3, #0
+ 1545 012a 40D0     		beq	.L148
+ 1546 012c 97F90F30 		ldrsb	r3, [r7, #15]
+ 1547 0130 43E0     		b	.L123
+ 1548              	.L136:
+ 1549 0132 0122     		movs	r2, #1
+ 1550 0134 9521     		movs	r1, #149
+ 1551 0136 6E20     		movs	r0, #110
+ 1552 0138 FFF7FEFF 		bl	write_reg
+ 1553 013c 0346     		mov	r3, r0
+ 1554 013e FB73     		strb	r3, [r7, #15]
+ 1555 0140 97F90F30 		ldrsb	r3, [r7, #15]
+ 1556 0144 002B     		cmp	r3, #0
+ 1557 0146 02D0     		beq	.L141
+ 1558 0148 97F90F30 		ldrsb	r3, [r7, #15]
+ 1559 014c 35E0     		b	.L123
+ 1560              	.L141:
+ 1561 014e 4622     		movs	r2, #70
+ 1562 0150 9621     		movs	r1, #150
+ 1563 0152 6E20     		movs	r0, #110
+ 1564 0154 FFF7FEFF 		bl	write_reg
+ 1565 0158 0346     		mov	r3, r0
+ 1566 015a FB73     		strb	r3, [r7, #15]
+ 1567 015c 97F90F30 		ldrsb	r3, [r7, #15]
+ 1568 0160 002B     		cmp	r3, #0
+ 1569 0162 26D0     		beq	.L149
+ 1570 0164 97F90F30 		ldrsb	r3, [r7, #15]
+ 1571 0168 27E0     		b	.L123
+ 1572              	.L137:
+ 1573 016a 0022     		movs	r2, #0
+ 1574 016c 9521     		movs	r1, #149
+ 1575 016e 6E20     		movs	r0, #110
+ 1576 0170 FFF7FEFF 		bl	write_reg
+ 1577 0174 0346     		mov	r3, r0
+ 1578 0176 FB73     		strb	r3, [r7, #15]
+ 1579 0178 97F90F30 		ldrsb	r3, [r7, #15]
+ 1580 017c 002B     		cmp	r3, #0
+ 1581 017e 02D0     		beq	.L143
+ 1582 0180 97F90F30 		ldrsb	r3, [r7, #15]
+ 1583 0184 19E0     		b	.L123
+ 1584              	.L143:
+ 1585 0186 F522     		movs	r2, #245
+ 1586 0188 9621     		movs	r1, #150
+ 1587 018a 6E20     		movs	r0, #110
+ 1588 018c FFF7FEFF 		bl	write_reg
+ 1589 0190 0346     		mov	r3, r0
+ 1590 0192 FB73     		strb	r3, [r7, #15]
+ 1591 0194 97F90F30 		ldrsb	r3, [r7, #15]
+ 1592 0198 002B     		cmp	r3, #0
+ 1593 019a 0CD0     		beq	.L150
+ 1594 019c 97F90F30 		ldrsb	r3, [r7, #15]
+ 1595 01a0 0BE0     		b	.L123
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 29
+
+
+ 1596              	.L145:
+ 1597 01a2 00BF     		nop
+ 1598 01a4 08E0     		b	.L135
+ 1599              	.L146:
+ 1600 01a6 00BF     		nop
+ 1601 01a8 06E0     		b	.L135
+ 1602              	.L147:
+ 1603 01aa 00BF     		nop
+ 1604 01ac 04E0     		b	.L135
+ 1605              	.L148:
+ 1606 01ae 00BF     		nop
+ 1607 01b0 02E0     		b	.L135
+ 1608              	.L149:
+ 1609 01b2 00BF     		nop
+ 1610 01b4 00E0     		b	.L135
+ 1611              	.L150:
+ 1612 01b6 00BF     		nop
+ 1613              	.L135:
+ 1614 01b8 0023     		movs	r3, #0
+ 1615              	.L123:
+ 1616 01ba 1846     		mov	r0, r3
+ 1617 01bc 1037     		adds	r7, r7, #16
+ 1618 01be BD46     		mov	sp, r7
+ 1619              		@ sp needed
+ 1620 01c0 80BD     		pop	{r7, pc}
+ 1621              		.size	po8030_set_scale_buffer_size, .-po8030_set_scale_buffer_size
+ 1622              		.section	.text.po8030_start,"ax",%progbits
+ 1623              		.align	1
+ 1624              		.global	po8030_start
+ 1625              		.syntax unified
+ 1626              		.thumb
+ 1627              		.thumb_func
+ 1628              		.fpu fpv4-sp-d16
+ 1629              		.type	po8030_start, %function
+ 1630              	po8030_start:
+ 1631              		@ args = 0, pretend = 0, frame = 0
+ 1632              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1633 0000 80B5     		push	{r7, lr}
+ 1634 0002 84B0     		sub	sp, sp, #16
+ 1635 0004 04AF     		add	r7, sp, #16
+ 1636 0006 2023     		movs	r3, #32
+ 1637 0008 0293     		str	r3, [sp, #8]
+ 1638 000a 2023     		movs	r3, #32
+ 1639 000c 0193     		str	r3, [sp, #4]
+ 1640 000e 7823     		movs	r3, #120
+ 1641 0010 0093     		str	r3, [sp]
+ 1642 0012 A023     		movs	r3, #160
+ 1643 0014 B422     		movs	r2, #180
+ 1644 0016 F021     		movs	r1, #240
+ 1645 0018 0220     		movs	r0, #2
+ 1646 001a FFF7FEFF 		bl	po8030_advanced_config
+ 1647 001e 0020     		movs	r0, #0
+ 1648 0020 FFF7FEFF 		bl	po8030_set_awb
+ 1649 0024 5022     		movs	r2, #80
+ 1650 0026 4021     		movs	r1, #64
+ 1651 0028 4620     		movs	r0, #70
+ 1652 002a FFF7FEFF 		bl	po8030_set_rgb_gain
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 30
+
+
+ 1653 002e 0120     		movs	r0, #1
+ 1654 0030 FFF7FEFF 		bl	po8030_set_ae
+ 1655 0034 00BF     		nop
+ 1656 0036 BD46     		mov	sp, r7
+ 1657              		@ sp needed
+ 1658 0038 80BD     		pop	{r7, pc}
+ 1659              		.size	po8030_start, .-po8030_start
+ 1660              		.section	.text.po8030_config,"ax",%progbits
+ 1661              		.align	1
+ 1662              		.global	po8030_config
+ 1663              		.syntax unified
+ 1664              		.thumb
+ 1665              		.thumb_func
+ 1666              		.fpu fpv4-sp-d16
+ 1667              		.type	po8030_config, %function
+ 1668              	po8030_config:
+ 1669              		@ args = 0, pretend = 0, frame = 16
+ 1670              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1671 0000 80B5     		push	{r7, lr}
+ 1672 0002 84B0     		sub	sp, sp, #16
+ 1673 0004 00AF     		add	r7, sp, #0
+ 1674 0006 0346     		mov	r3, r0
+ 1675 0008 0A46     		mov	r2, r1
+ 1676 000a FB71     		strb	r3, [r7, #7]
+ 1677 000c 1346     		mov	r3, r2
+ 1678 000e BB71     		strb	r3, [r7, #6]
+ 1679 0010 0023     		movs	r3, #0
+ 1680 0012 FB73     		strb	r3, [r7, #15]
+ 1681 0014 0020     		movs	r0, #0
+ 1682 0016 FFF7FEFF 		bl	po8030_set_bank
+ 1683 001a 0346     		mov	r3, r0
+ 1684 001c FB73     		strb	r3, [r7, #15]
+ 1685 001e 97F90F30 		ldrsb	r3, [r7, #15]
+ 1686 0022 002B     		cmp	r3, #0
+ 1687 0024 02D0     		beq	.L153
+ 1688 0026 97F90F30 		ldrsb	r3, [r7, #15]
+ 1689 002a 37E0     		b	.L154
+ 1690              	.L153:
+ 1691 002c 0022     		movs	r2, #0
+ 1692 002e 5B21     		movs	r1, #91
+ 1693 0030 6E20     		movs	r0, #110
+ 1694 0032 FFF7FEFF 		bl	write_reg
+ 1695 0036 0346     		mov	r3, r0
+ 1696 0038 FB73     		strb	r3, [r7, #15]
+ 1697 003a 97F90F30 		ldrsb	r3, [r7, #15]
+ 1698 003e 002B     		cmp	r3, #0
+ 1699 0040 02D0     		beq	.L155
+ 1700 0042 97F90F30 		ldrsb	r3, [r7, #15]
+ 1701 0046 29E0     		b	.L154
+ 1702              	.L155:
+ 1703 0048 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1704 004a 1846     		mov	r0, r3
+ 1705 004c FFF7FEFF 		bl	po8030_set_format
+ 1706 0050 0346     		mov	r3, r0
+ 1707 0052 FB73     		strb	r3, [r7, #15]
+ 1708 0054 97F90F30 		ldrsb	r3, [r7, #15]
+ 1709 0058 002B     		cmp	r3, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 31
+
+
+ 1710 005a 02D0     		beq	.L156
+ 1711 005c 97F90F30 		ldrsb	r3, [r7, #15]
+ 1712 0060 1CE0     		b	.L154
+ 1713              	.L156:
+ 1714 0062 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 1715 0064 1846     		mov	r0, r3
+ 1716 0066 FFF7FEFF 		bl	po8030_set_size
+ 1717 006a 0346     		mov	r3, r0
+ 1718 006c FB73     		strb	r3, [r7, #15]
+ 1719 006e 97F90F30 		ldrsb	r3, [r7, #15]
+ 1720 0072 002B     		cmp	r3, #0
+ 1721 0074 02D0     		beq	.L157
+ 1722 0076 97F90F30 		ldrsb	r3, [r7, #15]
+ 1723 007a 0FE0     		b	.L154
+ 1724              	.L157:
+ 1725 007c BA79     		ldrb	r2, [r7, #6]	@ zero_extendqisi2
+ 1726 007e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1727 0080 1146     		mov	r1, r2
+ 1728 0082 1846     		mov	r0, r3
+ 1729 0084 FFF7FEFF 		bl	po8030_set_scale_buffer_size
+ 1730 0088 0346     		mov	r3, r0
+ 1731 008a FB73     		strb	r3, [r7, #15]
+ 1732 008c 97F90F30 		ldrsb	r3, [r7, #15]
+ 1733 0090 002B     		cmp	r3, #0
+ 1734 0092 02D0     		beq	.L158
+ 1735 0094 97F90F30 		ldrsb	r3, [r7, #15]
+ 1736 0098 00E0     		b	.L154
+ 1737              	.L158:
+ 1738 009a 0023     		movs	r3, #0
+ 1739              	.L154:
+ 1740 009c 1846     		mov	r0, r3
+ 1741 009e 1037     		adds	r7, r7, #16
+ 1742 00a0 BD46     		mov	sp, r7
+ 1743              		@ sp needed
+ 1744 00a2 80BD     		pop	{r7, pc}
+ 1745              		.size	po8030_config, .-po8030_config
+ 1746              		.section	.text.po8030_advanced_config,"ax",%progbits
+ 1747              		.align	1
+ 1748              		.global	po8030_advanced_config
+ 1749              		.syntax unified
+ 1750              		.thumb
+ 1751              		.thumb_func
+ 1752              		.fpu fpv4-sp-d16
+ 1753              		.type	po8030_advanced_config, %function
+ 1754              	po8030_advanced_config:
+ 1755              		@ args = 12, pretend = 0, frame = 56
+ 1756              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1757 0000 80B5     		push	{r7, lr}
+ 1758 0002 8EB0     		sub	sp, sp, #56
+ 1759 0004 00AF     		add	r7, sp, #0
+ 1760 0006 B960     		str	r1, [r7, #8]
+ 1761 0008 7A60     		str	r2, [r7, #4]
+ 1762 000a 3B60     		str	r3, [r7]
+ 1763 000c 0346     		mov	r3, r0
+ 1764 000e FB73     		strb	r3, [r7, #15]
+ 1765 0010 0023     		movs	r3, #0
+ 1766 0012 FB76     		strb	r3, [r7, #27]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 32
+
+
+ 1767 0014 BA68     		ldr	r2, [r7, #8]
+ 1768 0016 3B68     		ldr	r3, [r7]
+ 1769 0018 1344     		add	r3, r3, r2
+ 1770 001a 013B     		subs	r3, r3, #1
+ 1771 001c 7B63     		str	r3, [r7, #52]
+ 1772 001e 7A68     		ldr	r2, [r7, #4]
+ 1773 0020 3B6C     		ldr	r3, [r7, #64]
+ 1774 0022 1344     		add	r3, r3, r2
+ 1775 0024 013B     		subs	r3, r3, #1
+ 1776 0026 3B63     		str	r3, [r7, #48]
+ 1777 0028 0023     		movs	r3, #0
+ 1778 002a FB62     		str	r3, [r7, #44]
+ 1779 002c 0023     		movs	r3, #0
+ 1780 002e BB62     		str	r3, [r7, #40]
+ 1781 0030 0023     		movs	r3, #0
+ 1782 0032 7B62     		str	r3, [r7, #36]
+ 1783 0034 0023     		movs	r3, #0
+ 1784 0036 3B62     		str	r3, [r7, #32]
+ 1785 0038 3B68     		ldr	r3, [r7]
+ 1786 003a B3F5207F 		cmp	r3, #640
+ 1787 003e 03D8     		bhi	.L160
+ 1788 0040 3B6C     		ldr	r3, [r7, #64]
+ 1789 0042 B3F5F07F 		cmp	r3, #480
+ 1790 0046 02D9     		bls	.L161
+ 1791              	.L160:
+ 1792 0048 6FF00703 		mvn	r3, #7
+ 1793 004c 84E3     		b	.L162
+ 1794              	.L161:
+ 1795 004e BB68     		ldr	r3, [r7, #8]
+ 1796 0050 B3F5207F 		cmp	r3, #640
+ 1797 0054 02D9     		bls	.L163
+ 1798 0056 6FF00103 		mvn	r3, #1
+ 1799 005a 7DE3     		b	.L162
+ 1800              	.L163:
+ 1801 005c 7B68     		ldr	r3, [r7, #4]
+ 1802 005e B3F5F07F 		cmp	r3, #480
+ 1803 0062 02D9     		bls	.L164
+ 1804 0064 6FF00203 		mvn	r3, #2
+ 1805 0068 76E3     		b	.L162
+ 1806              	.L164:
+ 1807 006a 7A6B     		ldr	r2, [r7, #52]
+ 1808 006c BB68     		ldr	r3, [r7, #8]
+ 1809 006e 9A42     		cmp	r2, r3
+ 1810 0070 03D9     		bls	.L165
+ 1811 0072 7B6B     		ldr	r3, [r7, #52]
+ 1812 0074 B3F5207F 		cmp	r3, #640
+ 1813 0078 02D9     		bls	.L166
+ 1814              	.L165:
+ 1815 007a 6FF00303 		mvn	r3, #3
+ 1816 007e 6BE3     		b	.L162
+ 1817              	.L166:
+ 1818 0080 3A6B     		ldr	r2, [r7, #48]
+ 1819 0082 7B68     		ldr	r3, [r7, #4]
+ 1820 0084 9A42     		cmp	r2, r3
+ 1821 0086 03D9     		bls	.L167
+ 1822 0088 3B6B     		ldr	r3, [r7, #48]
+ 1823 008a B3F5F07F 		cmp	r3, #480
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 33
+
+
+ 1824 008e 02D9     		bls	.L168
+ 1825              	.L167:
+ 1826 0090 6FF00403 		mvn	r3, #4
+ 1827 0094 60E3     		b	.L162
+ 1828              	.L168:
+ 1829 0096 97F84430 		ldrb	r3, [r7, #68]	@ zero_extendqisi2
+ 1830 009a 402B     		cmp	r3, #64
+ 1831 009c 15D0     		beq	.L170
+ 1832 009e 802B     		cmp	r3, #128
+ 1833 00a0 37D0     		beq	.L171
+ 1834 00a2 202B     		cmp	r3, #32
+ 1835 00a4 59D1     		bne	.L169
+ 1836 00a6 3B68     		ldr	r3, [r7]
+ 1837 00a8 B84A     		ldr	r2, .L218
+ 1838 00aa A2FB0323 		umull	r2, r3, r2, r3
+ 1839 00ae 5B08     		lsrs	r3, r3, #1
+ 1840 00b0 BA68     		ldr	r2, [r7, #8]
+ 1841 00b2 1344     		add	r3, r3, r2
+ 1842 00b4 FB62     		str	r3, [r7, #44]
+ 1843 00b6 3B68     		ldr	r3, [r7]
+ 1844 00b8 5B00     		lsls	r3, r3, #1
+ 1845 00ba B44A     		ldr	r2, .L218
+ 1846 00bc A2FB0323 		umull	r2, r3, r2, r3
+ 1847 00c0 5B08     		lsrs	r3, r3, #1
+ 1848 00c2 BA68     		ldr	r2, [r7, #8]
+ 1849 00c4 1344     		add	r3, r3, r2
+ 1850 00c6 BB62     		str	r3, [r7, #40]
+ 1851 00c8 47E0     		b	.L169
+ 1852              	.L170:
+ 1853 00ca 3B68     		ldr	r3, [r7]
+ 1854 00cc 03F00103 		and	r3, r3, #1
+ 1855 00d0 002B     		cmp	r3, #0
+ 1856 00d2 02D0     		beq	.L173
+ 1857 00d4 6FF00503 		mvn	r3, #5
+ 1858 00d8 3EE3     		b	.L162
+ 1859              	.L173:
+ 1860 00da BB68     		ldr	r3, [r7, #8]
+ 1861 00dc 5B08     		lsrs	r3, r3, #1
+ 1862 00de 0133     		adds	r3, r3, #1
+ 1863 00e0 BB60     		str	r3, [r7, #8]
+ 1864 00e2 3B68     		ldr	r3, [r7]
+ 1865 00e4 5A08     		lsrs	r2, r3, #1
+ 1866 00e6 BB68     		ldr	r3, [r7, #8]
+ 1867 00e8 1344     		add	r3, r3, r2
+ 1868 00ea 013B     		subs	r3, r3, #1
+ 1869 00ec 7B63     		str	r3, [r7, #52]
+ 1870 00ee 3B68     		ldr	r3, [r7]
+ 1871 00f0 A64A     		ldr	r2, .L218
+ 1872 00f2 A2FB0323 		umull	r2, r3, r2, r3
+ 1873 00f6 9B08     		lsrs	r3, r3, #2
+ 1874 00f8 BA68     		ldr	r2, [r7, #8]
+ 1875 00fa 1344     		add	r3, r3, r2
+ 1876 00fc FB62     		str	r3, [r7, #44]
+ 1877 00fe 3B68     		ldr	r3, [r7]
+ 1878 0100 5B00     		lsls	r3, r3, #1
+ 1879 0102 A24A     		ldr	r2, .L218
+ 1880 0104 A2FB0323 		umull	r2, r3, r2, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 34
+
+
+ 1881 0108 9B08     		lsrs	r3, r3, #2
+ 1882 010a BA68     		ldr	r2, [r7, #8]
+ 1883 010c 1344     		add	r3, r3, r2
+ 1884 010e BB62     		str	r3, [r7, #40]
+ 1885 0110 23E0     		b	.L169
+ 1886              	.L171:
+ 1887 0112 3B68     		ldr	r3, [r7]
+ 1888 0114 03F00303 		and	r3, r3, #3
+ 1889 0118 002B     		cmp	r3, #0
+ 1890 011a 02D0     		beq	.L174
+ 1891 011c 6FF00503 		mvn	r3, #5
+ 1892 0120 1AE3     		b	.L162
+ 1893              	.L174:
+ 1894 0122 BB68     		ldr	r3, [r7, #8]
+ 1895 0124 9B08     		lsrs	r3, r3, #2
+ 1896 0126 0133     		adds	r3, r3, #1
+ 1897 0128 BB60     		str	r3, [r7, #8]
+ 1898 012a 3B68     		ldr	r3, [r7]
+ 1899 012c 9A08     		lsrs	r2, r3, #2
+ 1900 012e BB68     		ldr	r3, [r7, #8]
+ 1901 0130 1344     		add	r3, r3, r2
+ 1902 0132 013B     		subs	r3, r3, #1
+ 1903 0134 7B63     		str	r3, [r7, #52]
+ 1904 0136 3B68     		ldr	r3, [r7]
+ 1905 0138 944A     		ldr	r2, .L218
+ 1906 013a A2FB0323 		umull	r2, r3, r2, r3
+ 1907 013e DB08     		lsrs	r3, r3, #3
+ 1908 0140 BA68     		ldr	r2, [r7, #8]
+ 1909 0142 1344     		add	r3, r3, r2
+ 1910 0144 FB62     		str	r3, [r7, #44]
+ 1911 0146 3B68     		ldr	r3, [r7]
+ 1912 0148 5B00     		lsls	r3, r3, #1
+ 1913 014a 904A     		ldr	r2, .L218
+ 1914 014c A2FB0323 		umull	r2, r3, r2, r3
+ 1915 0150 DB08     		lsrs	r3, r3, #3
+ 1916 0152 BA68     		ldr	r2, [r7, #8]
+ 1917 0154 1344     		add	r3, r3, r2
+ 1918 0156 BB62     		str	r3, [r7, #40]
+ 1919 0158 00BF     		nop
+ 1920              	.L169:
+ 1921 015a 97F84830 		ldrb	r3, [r7, #72]	@ zero_extendqisi2
+ 1922 015e 402B     		cmp	r3, #64
+ 1923 0160 15D0     		beq	.L176
+ 1924 0162 802B     		cmp	r3, #128
+ 1925 0164 37D0     		beq	.L177
+ 1926 0166 202B     		cmp	r3, #32
+ 1927 0168 59D1     		bne	.L175
+ 1928 016a 3B6C     		ldr	r3, [r7, #64]
+ 1929 016c 874A     		ldr	r2, .L218
+ 1930 016e A2FB0323 		umull	r2, r3, r2, r3
+ 1931 0172 5B08     		lsrs	r3, r3, #1
+ 1932 0174 7A68     		ldr	r2, [r7, #4]
+ 1933 0176 1344     		add	r3, r3, r2
+ 1934 0178 7B62     		str	r3, [r7, #36]
+ 1935 017a 3B6C     		ldr	r3, [r7, #64]
+ 1936 017c 5B00     		lsls	r3, r3, #1
+ 1937 017e 834A     		ldr	r2, .L218
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 35
+
+
+ 1938 0180 A2FB0323 		umull	r2, r3, r2, r3
+ 1939 0184 5B08     		lsrs	r3, r3, #1
+ 1940 0186 7A68     		ldr	r2, [r7, #4]
+ 1941 0188 1344     		add	r3, r3, r2
+ 1942 018a 3B62     		str	r3, [r7, #32]
+ 1943 018c 47E0     		b	.L175
+ 1944              	.L176:
+ 1945 018e 3B6C     		ldr	r3, [r7, #64]
+ 1946 0190 03F00103 		and	r3, r3, #1
+ 1947 0194 002B     		cmp	r3, #0
+ 1948 0196 02D0     		beq	.L179
+ 1949 0198 6FF00603 		mvn	r3, #6
+ 1950 019c DCE2     		b	.L162
+ 1951              	.L179:
+ 1952 019e 7B68     		ldr	r3, [r7, #4]
+ 1953 01a0 5B08     		lsrs	r3, r3, #1
+ 1954 01a2 0133     		adds	r3, r3, #1
+ 1955 01a4 7B60     		str	r3, [r7, #4]
+ 1956 01a6 3B6C     		ldr	r3, [r7, #64]
+ 1957 01a8 5A08     		lsrs	r2, r3, #1
+ 1958 01aa 7B68     		ldr	r3, [r7, #4]
+ 1959 01ac 1344     		add	r3, r3, r2
+ 1960 01ae 013B     		subs	r3, r3, #1
+ 1961 01b0 3B63     		str	r3, [r7, #48]
+ 1962 01b2 3B6C     		ldr	r3, [r7, #64]
+ 1963 01b4 754A     		ldr	r2, .L218
+ 1964 01b6 A2FB0323 		umull	r2, r3, r2, r3
+ 1965 01ba 9B08     		lsrs	r3, r3, #2
+ 1966 01bc 7A68     		ldr	r2, [r7, #4]
+ 1967 01be 1344     		add	r3, r3, r2
+ 1968 01c0 7B62     		str	r3, [r7, #36]
+ 1969 01c2 3B6C     		ldr	r3, [r7, #64]
+ 1970 01c4 5B00     		lsls	r3, r3, #1
+ 1971 01c6 714A     		ldr	r2, .L218
+ 1972 01c8 A2FB0323 		umull	r2, r3, r2, r3
+ 1973 01cc 9B08     		lsrs	r3, r3, #2
+ 1974 01ce 7A68     		ldr	r2, [r7, #4]
+ 1975 01d0 1344     		add	r3, r3, r2
+ 1976 01d2 3B62     		str	r3, [r7, #32]
+ 1977 01d4 23E0     		b	.L175
+ 1978              	.L177:
+ 1979 01d6 3B6C     		ldr	r3, [r7, #64]
+ 1980 01d8 03F00303 		and	r3, r3, #3
+ 1981 01dc 002B     		cmp	r3, #0
+ 1982 01de 02D0     		beq	.L180
+ 1983 01e0 6FF00603 		mvn	r3, #6
+ 1984 01e4 B8E2     		b	.L162
+ 1985              	.L180:
+ 1986 01e6 7B68     		ldr	r3, [r7, #4]
+ 1987 01e8 9B08     		lsrs	r3, r3, #2
+ 1988 01ea 0133     		adds	r3, r3, #1
+ 1989 01ec 7B60     		str	r3, [r7, #4]
+ 1990 01ee 3B6C     		ldr	r3, [r7, #64]
+ 1991 01f0 9A08     		lsrs	r2, r3, #2
+ 1992 01f2 7B68     		ldr	r3, [r7, #4]
+ 1993 01f4 1344     		add	r3, r3, r2
+ 1994 01f6 013B     		subs	r3, r3, #1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 36
+
+
+ 1995 01f8 3B63     		str	r3, [r7, #48]
+ 1996 01fa 3B6C     		ldr	r3, [r7, #64]
+ 1997 01fc 634A     		ldr	r2, .L218
+ 1998 01fe A2FB0323 		umull	r2, r3, r2, r3
+ 1999 0202 DB08     		lsrs	r3, r3, #3
+ 2000 0204 7A68     		ldr	r2, [r7, #4]
+ 2001 0206 1344     		add	r3, r3, r2
+ 2002 0208 7B62     		str	r3, [r7, #36]
+ 2003 020a 3B6C     		ldr	r3, [r7, #64]
+ 2004 020c 5B00     		lsls	r3, r3, #1
+ 2005 020e 5F4A     		ldr	r2, .L218
+ 2006 0210 A2FB0323 		umull	r2, r3, r2, r3
+ 2007 0214 DB08     		lsrs	r3, r3, #3
+ 2008 0216 7A68     		ldr	r2, [r7, #4]
+ 2009 0218 1344     		add	r3, r3, r2
+ 2010 021a 3B62     		str	r3, [r7, #32]
+ 2011 021c 00BF     		nop
+ 2012              	.L175:
+ 2013 021e 0020     		movs	r0, #0
+ 2014 0220 FFF7FEFF 		bl	po8030_set_bank
+ 2015 0224 0346     		mov	r3, r0
+ 2016 0226 FB76     		strb	r3, [r7, #27]
+ 2017 0228 97F91B30 		ldrsb	r3, [r7, #27]
+ 2018 022c 002B     		cmp	r3, #0
+ 2019 022e 02D0     		beq	.L181
+ 2020 0230 97F91B30 		ldrsb	r3, [r7, #27]
+ 2021 0234 90E2     		b	.L162
+ 2022              	.L181:
+ 2023 0236 0022     		movs	r2, #0
+ 2024 0238 5B21     		movs	r1, #91
+ 2025 023a 6E20     		movs	r0, #110
+ 2026 023c FFF7FEFF 		bl	write_reg
+ 2027 0240 0346     		mov	r3, r0
+ 2028 0242 FB76     		strb	r3, [r7, #27]
+ 2029 0244 97F91B30 		ldrsb	r3, [r7, #27]
+ 2030 0248 002B     		cmp	r3, #0
+ 2031 024a 02D0     		beq	.L182
+ 2032 024c 97F91B30 		ldrsb	r3, [r7, #27]
+ 2033 0250 82E2     		b	.L162
+ 2034              	.L182:
+ 2035 0252 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 2036 0254 1846     		mov	r0, r3
+ 2037 0256 FFF7FEFF 		bl	po8030_set_format
+ 2038 025a 0346     		mov	r3, r0
+ 2039 025c FB76     		strb	r3, [r7, #27]
+ 2040 025e 97F91B30 		ldrsb	r3, [r7, #27]
+ 2041 0262 002B     		cmp	r3, #0
+ 2042 0264 02D0     		beq	.L183
+ 2043 0266 97F91B30 		ldrsb	r3, [r7, #27]
+ 2044 026a 75E2     		b	.L162
+ 2045              	.L183:
+ 2046 026c 0020     		movs	r0, #0
+ 2047 026e FFF7FEFF 		bl	po8030_set_bank
+ 2048 0272 0346     		mov	r3, r0
+ 2049 0274 FB76     		strb	r3, [r7, #27]
+ 2050 0276 97F91B30 		ldrsb	r3, [r7, #27]
+ 2051 027a 002B     		cmp	r3, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 37
+
+
+ 2052 027c 02D0     		beq	.L184
+ 2053 027e 97F91B30 		ldrsb	r3, [r7, #27]
+ 2054 0282 69E2     		b	.L162
+ 2055              	.L184:
+ 2056 0284 BB68     		ldr	r3, [r7, #8]
+ 2057 0286 1B0A     		lsrs	r3, r3, #8
+ 2058 0288 DBB2     		uxtb	r3, r3
+ 2059 028a 1A46     		mov	r2, r3
+ 2060 028c 0821     		movs	r1, #8
+ 2061 028e 6E20     		movs	r0, #110
+ 2062 0290 FFF7FEFF 		bl	write_reg
+ 2063 0294 0346     		mov	r3, r0
+ 2064 0296 FB76     		strb	r3, [r7, #27]
+ 2065 0298 97F91B30 		ldrsb	r3, [r7, #27]
+ 2066 029c 002B     		cmp	r3, #0
+ 2067 029e 02D0     		beq	.L185
+ 2068 02a0 97F91B30 		ldrsb	r3, [r7, #27]
+ 2069 02a4 58E2     		b	.L162
+ 2070              	.L185:
+ 2071 02a6 BB68     		ldr	r3, [r7, #8]
+ 2072 02a8 DBB2     		uxtb	r3, r3
+ 2073 02aa 1A46     		mov	r2, r3
+ 2074 02ac 0921     		movs	r1, #9
+ 2075 02ae 6E20     		movs	r0, #110
+ 2076 02b0 FFF7FEFF 		bl	write_reg
+ 2077 02b4 0346     		mov	r3, r0
+ 2078 02b6 FB76     		strb	r3, [r7, #27]
+ 2079 02b8 97F91B30 		ldrsb	r3, [r7, #27]
+ 2080 02bc 002B     		cmp	r3, #0
+ 2081 02be 02D0     		beq	.L186
+ 2082 02c0 97F91B30 		ldrsb	r3, [r7, #27]
+ 2083 02c4 48E2     		b	.L162
+ 2084              	.L186:
+ 2085 02c6 7B68     		ldr	r3, [r7, #4]
+ 2086 02c8 1B0A     		lsrs	r3, r3, #8
+ 2087 02ca DBB2     		uxtb	r3, r3
+ 2088 02cc 1A46     		mov	r2, r3
+ 2089 02ce 0A21     		movs	r1, #10
+ 2090 02d0 6E20     		movs	r0, #110
+ 2091 02d2 FFF7FEFF 		bl	write_reg
+ 2092 02d6 0346     		mov	r3, r0
+ 2093 02d8 FB76     		strb	r3, [r7, #27]
+ 2094 02da 97F91B30 		ldrsb	r3, [r7, #27]
+ 2095 02de 002B     		cmp	r3, #0
+ 2096 02e0 02D0     		beq	.L187
+ 2097 02e2 97F91B30 		ldrsb	r3, [r7, #27]
+ 2098 02e6 37E2     		b	.L162
+ 2099              	.L187:
+ 2100 02e8 7B68     		ldr	r3, [r7, #4]
+ 2101 02ea DBB2     		uxtb	r3, r3
+ 2102 02ec 1A46     		mov	r2, r3
+ 2103 02ee 0B21     		movs	r1, #11
+ 2104 02f0 6E20     		movs	r0, #110
+ 2105 02f2 FFF7FEFF 		bl	write_reg
+ 2106 02f6 0346     		mov	r3, r0
+ 2107 02f8 FB76     		strb	r3, [r7, #27]
+ 2108 02fa 97F91B30 		ldrsb	r3, [r7, #27]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 38
+
+
+ 2109 02fe 002B     		cmp	r3, #0
+ 2110 0300 02D0     		beq	.L188
+ 2111 0302 97F91B30 		ldrsb	r3, [r7, #27]
+ 2112 0306 27E2     		b	.L162
+ 2113              	.L188:
+ 2114 0308 7B6B     		ldr	r3, [r7, #52]
+ 2115 030a 1B0A     		lsrs	r3, r3, #8
+ 2116 030c DBB2     		uxtb	r3, r3
+ 2117 030e 1A46     		mov	r2, r3
+ 2118 0310 0C21     		movs	r1, #12
+ 2119 0312 6E20     		movs	r0, #110
+ 2120 0314 FFF7FEFF 		bl	write_reg
+ 2121 0318 0346     		mov	r3, r0
+ 2122 031a FB76     		strb	r3, [r7, #27]
+ 2123 031c 97F91B30 		ldrsb	r3, [r7, #27]
+ 2124 0320 002B     		cmp	r3, #0
+ 2125 0322 02D0     		beq	.L189
+ 2126 0324 97F91B30 		ldrsb	r3, [r7, #27]
+ 2127 0328 16E2     		b	.L162
+ 2128              	.L189:
+ 2129 032a 7B6B     		ldr	r3, [r7, #52]
+ 2130 032c DBB2     		uxtb	r3, r3
+ 2131 032e 1A46     		mov	r2, r3
+ 2132 0330 0D21     		movs	r1, #13
+ 2133 0332 6E20     		movs	r0, #110
+ 2134 0334 FFF7FEFF 		bl	write_reg
+ 2135 0338 0346     		mov	r3, r0
+ 2136 033a FB76     		strb	r3, [r7, #27]
+ 2137 033c 97F91B30 		ldrsb	r3, [r7, #27]
+ 2138 0340 002B     		cmp	r3, #0
+ 2139 0342 02D0     		beq	.L190
+ 2140 0344 97F91B30 		ldrsb	r3, [r7, #27]
+ 2141 0348 06E2     		b	.L162
+ 2142              	.L190:
+ 2143 034a 3B6B     		ldr	r3, [r7, #48]
+ 2144 034c 1B0A     		lsrs	r3, r3, #8
+ 2145 034e DBB2     		uxtb	r3, r3
+ 2146 0350 1A46     		mov	r2, r3
+ 2147 0352 0E21     		movs	r1, #14
+ 2148 0354 6E20     		movs	r0, #110
+ 2149 0356 FFF7FEFF 		bl	write_reg
+ 2150 035a 0346     		mov	r3, r0
+ 2151 035c FB76     		strb	r3, [r7, #27]
+ 2152 035e 97F91B30 		ldrsb	r3, [r7, #27]
+ 2153 0362 002B     		cmp	r3, #0
+ 2154 0364 02D0     		beq	.L191
+ 2155 0366 97F91B30 		ldrsb	r3, [r7, #27]
+ 2156 036a F5E1     		b	.L162
+ 2157              	.L191:
+ 2158 036c 3B6B     		ldr	r3, [r7, #48]
+ 2159 036e DBB2     		uxtb	r3, r3
+ 2160 0370 1A46     		mov	r2, r3
+ 2161 0372 0F21     		movs	r1, #15
+ 2162 0374 6E20     		movs	r0, #110
+ 2163 0376 FFF7FEFF 		bl	write_reg
+ 2164 037a 0346     		mov	r3, r0
+ 2165 037c FB76     		strb	r3, [r7, #27]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 39
+
+
+ 2166 037e 97F91B30 		ldrsb	r3, [r7, #27]
+ 2167 0382 002B     		cmp	r3, #0
+ 2168 0384 0AD0     		beq	.L192
+ 2169 0386 97F91B30 		ldrsb	r3, [r7, #27]
+ 2170 038a E5E1     		b	.L162
+ 2171              	.L219:
+ 2172              		.align	2
+ 2173              	.L218:
+ 2174 038c ABAAAAAA 		.word	-1431655765
+ 2175 0390 00002444 		.word	1143209984
+ 2176 0394 00002244 		.word	1143078912
+ 2177 0398 0000A344 		.word	1151533056
+ 2178              	.L192:
+ 2179 039c BB68     		ldr	r3, [r7, #8]
+ 2180 039e 1B0A     		lsrs	r3, r3, #8
+ 2181 03a0 DBB2     		uxtb	r3, r3
+ 2182 03a2 1A46     		mov	r2, r3
+ 2183 03a4 3521     		movs	r1, #53
+ 2184 03a6 6E20     		movs	r0, #110
+ 2185 03a8 FFF7FEFF 		bl	write_reg
+ 2186 03ac 0346     		mov	r3, r0
+ 2187 03ae FB76     		strb	r3, [r7, #27]
+ 2188 03b0 97F91B30 		ldrsb	r3, [r7, #27]
+ 2189 03b4 002B     		cmp	r3, #0
+ 2190 03b6 02D0     		beq	.L193
+ 2191 03b8 97F91B30 		ldrsb	r3, [r7, #27]
+ 2192 03bc CCE1     		b	.L162
+ 2193              	.L193:
+ 2194 03be BB68     		ldr	r3, [r7, #8]
+ 2195 03c0 DBB2     		uxtb	r3, r3
+ 2196 03c2 1A46     		mov	r2, r3
+ 2197 03c4 3621     		movs	r1, #54
+ 2198 03c6 6E20     		movs	r0, #110
+ 2199 03c8 FFF7FEFF 		bl	write_reg
+ 2200 03cc 0346     		mov	r3, r0
+ 2201 03ce FB76     		strb	r3, [r7, #27]
+ 2202 03d0 97F91B30 		ldrsb	r3, [r7, #27]
+ 2203 03d4 002B     		cmp	r3, #0
+ 2204 03d6 02D0     		beq	.L194
+ 2205 03d8 97F91B30 		ldrsb	r3, [r7, #27]
+ 2206 03dc BCE1     		b	.L162
+ 2207              	.L194:
+ 2208 03de 7B6B     		ldr	r3, [r7, #52]
+ 2209 03e0 1B0A     		lsrs	r3, r3, #8
+ 2210 03e2 DBB2     		uxtb	r3, r3
+ 2211 03e4 1A46     		mov	r2, r3
+ 2212 03e6 3721     		movs	r1, #55
+ 2213 03e8 6E20     		movs	r0, #110
+ 2214 03ea FFF7FEFF 		bl	write_reg
+ 2215 03ee 0346     		mov	r3, r0
+ 2216 03f0 FB76     		strb	r3, [r7, #27]
+ 2217 03f2 97F91B30 		ldrsb	r3, [r7, #27]
+ 2218 03f6 002B     		cmp	r3, #0
+ 2219 03f8 02D0     		beq	.L195
+ 2220 03fa 97F91B30 		ldrsb	r3, [r7, #27]
+ 2221 03fe ABE1     		b	.L162
+ 2222              	.L195:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 40
+
+
+ 2223 0400 7B6B     		ldr	r3, [r7, #52]
+ 2224 0402 DBB2     		uxtb	r3, r3
+ 2225 0404 1A46     		mov	r2, r3
+ 2226 0406 3821     		movs	r1, #56
+ 2227 0408 6E20     		movs	r0, #110
+ 2228 040a FFF7FEFF 		bl	write_reg
+ 2229 040e 0346     		mov	r3, r0
+ 2230 0410 FB76     		strb	r3, [r7, #27]
+ 2231 0412 97F91B30 		ldrsb	r3, [r7, #27]
+ 2232 0416 002B     		cmp	r3, #0
+ 2233 0418 02D0     		beq	.L196
+ 2234 041a 97F91B30 		ldrsb	r3, [r7, #27]
+ 2235 041e 9BE1     		b	.L162
+ 2236              	.L196:
+ 2237 0420 7B68     		ldr	r3, [r7, #4]
+ 2238 0422 1B0A     		lsrs	r3, r3, #8
+ 2239 0424 DBB2     		uxtb	r3, r3
+ 2240 0426 1A46     		mov	r2, r3
+ 2241 0428 3921     		movs	r1, #57
+ 2242 042a 6E20     		movs	r0, #110
+ 2243 042c FFF7FEFF 		bl	write_reg
+ 2244 0430 0346     		mov	r3, r0
+ 2245 0432 FB76     		strb	r3, [r7, #27]
+ 2246 0434 97F91B30 		ldrsb	r3, [r7, #27]
+ 2247 0438 002B     		cmp	r3, #0
+ 2248 043a 02D0     		beq	.L197
+ 2249 043c 97F91B30 		ldrsb	r3, [r7, #27]
+ 2250 0440 8AE1     		b	.L162
+ 2251              	.L197:
+ 2252 0442 7B68     		ldr	r3, [r7, #4]
+ 2253 0444 DBB2     		uxtb	r3, r3
+ 2254 0446 1A46     		mov	r2, r3
+ 2255 0448 3A21     		movs	r1, #58
+ 2256 044a 6E20     		movs	r0, #110
+ 2257 044c FFF7FEFF 		bl	write_reg
+ 2258 0450 0346     		mov	r3, r0
+ 2259 0452 FB76     		strb	r3, [r7, #27]
+ 2260 0454 97F91B30 		ldrsb	r3, [r7, #27]
+ 2261 0458 002B     		cmp	r3, #0
+ 2262 045a 02D0     		beq	.L198
+ 2263 045c 97F91B30 		ldrsb	r3, [r7, #27]
+ 2264 0460 7AE1     		b	.L162
+ 2265              	.L198:
+ 2266 0462 3B6B     		ldr	r3, [r7, #48]
+ 2267 0464 1B0A     		lsrs	r3, r3, #8
+ 2268 0466 DBB2     		uxtb	r3, r3
+ 2269 0468 1A46     		mov	r2, r3
+ 2270 046a 3B21     		movs	r1, #59
+ 2271 046c 6E20     		movs	r0, #110
+ 2272 046e FFF7FEFF 		bl	write_reg
+ 2273 0472 0346     		mov	r3, r0
+ 2274 0474 FB76     		strb	r3, [r7, #27]
+ 2275 0476 97F91B30 		ldrsb	r3, [r7, #27]
+ 2276 047a 002B     		cmp	r3, #0
+ 2277 047c 02D0     		beq	.L199
+ 2278 047e 97F91B30 		ldrsb	r3, [r7, #27]
+ 2279 0482 69E1     		b	.L162
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 41
+
+
+ 2280              	.L199:
+ 2281 0484 3B6B     		ldr	r3, [r7, #48]
+ 2282 0486 DBB2     		uxtb	r3, r3
+ 2283 0488 1A46     		mov	r2, r3
+ 2284 048a 3C21     		movs	r1, #60
+ 2285 048c 6E20     		movs	r0, #110
+ 2286 048e FFF7FEFF 		bl	write_reg
+ 2287 0492 0346     		mov	r3, r0
+ 2288 0494 FB76     		strb	r3, [r7, #27]
+ 2289 0496 97F91B30 		ldrsb	r3, [r7, #27]
+ 2290 049a 002B     		cmp	r3, #0
+ 2291 049c 02D0     		beq	.L200
+ 2292 049e 97F91B30 		ldrsb	r3, [r7, #27]
+ 2293 04a2 59E1     		b	.L162
+ 2294              	.L200:
+ 2295 04a4 FB6A     		ldr	r3, [r7, #44]
+ 2296 04a6 1B0A     		lsrs	r3, r3, #8
+ 2297 04a8 DBB2     		uxtb	r3, r3
+ 2298 04aa 1A46     		mov	r2, r3
+ 2299 04ac 3D21     		movs	r1, #61
+ 2300 04ae 6E20     		movs	r0, #110
+ 2301 04b0 FFF7FEFF 		bl	write_reg
+ 2302 04b4 0346     		mov	r3, r0
+ 2303 04b6 FB76     		strb	r3, [r7, #27]
+ 2304 04b8 97F91B30 		ldrsb	r3, [r7, #27]
+ 2305 04bc 002B     		cmp	r3, #0
+ 2306 04be 02D0     		beq	.L201
+ 2307 04c0 97F91B30 		ldrsb	r3, [r7, #27]
+ 2308 04c4 48E1     		b	.L162
+ 2309              	.L201:
+ 2310 04c6 FB6A     		ldr	r3, [r7, #44]
+ 2311 04c8 DBB2     		uxtb	r3, r3
+ 2312 04ca 1A46     		mov	r2, r3
+ 2313 04cc 3E21     		movs	r1, #62
+ 2314 04ce 6E20     		movs	r0, #110
+ 2315 04d0 FFF7FEFF 		bl	write_reg
+ 2316 04d4 0346     		mov	r3, r0
+ 2317 04d6 FB76     		strb	r3, [r7, #27]
+ 2318 04d8 97F91B30 		ldrsb	r3, [r7, #27]
+ 2319 04dc 002B     		cmp	r3, #0
+ 2320 04de 02D0     		beq	.L202
+ 2321 04e0 97F91B30 		ldrsb	r3, [r7, #27]
+ 2322 04e4 38E1     		b	.L162
+ 2323              	.L202:
+ 2324 04e6 BB6A     		ldr	r3, [r7, #40]
+ 2325 04e8 1B0A     		lsrs	r3, r3, #8
+ 2326 04ea DBB2     		uxtb	r3, r3
+ 2327 04ec 1A46     		mov	r2, r3
+ 2328 04ee 3F21     		movs	r1, #63
+ 2329 04f0 6E20     		movs	r0, #110
+ 2330 04f2 FFF7FEFF 		bl	write_reg
+ 2331 04f6 0346     		mov	r3, r0
+ 2332 04f8 FB76     		strb	r3, [r7, #27]
+ 2333 04fa 97F91B30 		ldrsb	r3, [r7, #27]
+ 2334 04fe 002B     		cmp	r3, #0
+ 2335 0500 02D0     		beq	.L203
+ 2336 0502 97F91B30 		ldrsb	r3, [r7, #27]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 42
+
+
+ 2337 0506 27E1     		b	.L162
+ 2338              	.L203:
+ 2339 0508 BB6A     		ldr	r3, [r7, #40]
+ 2340 050a DBB2     		uxtb	r3, r3
+ 2341 050c 1A46     		mov	r2, r3
+ 2342 050e 4021     		movs	r1, #64
+ 2343 0510 6E20     		movs	r0, #110
+ 2344 0512 FFF7FEFF 		bl	write_reg
+ 2345 0516 0346     		mov	r3, r0
+ 2346 0518 FB76     		strb	r3, [r7, #27]
+ 2347 051a 97F91B30 		ldrsb	r3, [r7, #27]
+ 2348 051e 002B     		cmp	r3, #0
+ 2349 0520 02D0     		beq	.L204
+ 2350 0522 97F91B30 		ldrsb	r3, [r7, #27]
+ 2351 0526 17E1     		b	.L162
+ 2352              	.L204:
+ 2353 0528 7B6A     		ldr	r3, [r7, #36]
+ 2354 052a 1B0A     		lsrs	r3, r3, #8
+ 2355 052c DBB2     		uxtb	r3, r3
+ 2356 052e 1A46     		mov	r2, r3
+ 2357 0530 4121     		movs	r1, #65
+ 2358 0532 6E20     		movs	r0, #110
+ 2359 0534 FFF7FEFF 		bl	write_reg
+ 2360 0538 0346     		mov	r3, r0
+ 2361 053a FB76     		strb	r3, [r7, #27]
+ 2362 053c 97F91B30 		ldrsb	r3, [r7, #27]
+ 2363 0540 002B     		cmp	r3, #0
+ 2364 0542 02D0     		beq	.L205
+ 2365 0544 97F91B30 		ldrsb	r3, [r7, #27]
+ 2366 0548 06E1     		b	.L162
+ 2367              	.L205:
+ 2368 054a 7B6A     		ldr	r3, [r7, #36]
+ 2369 054c DBB2     		uxtb	r3, r3
+ 2370 054e 1A46     		mov	r2, r3
+ 2371 0550 4221     		movs	r1, #66
+ 2372 0552 6E20     		movs	r0, #110
+ 2373 0554 FFF7FEFF 		bl	write_reg
+ 2374 0558 0346     		mov	r3, r0
+ 2375 055a FB76     		strb	r3, [r7, #27]
+ 2376 055c 97F91B30 		ldrsb	r3, [r7, #27]
+ 2377 0560 002B     		cmp	r3, #0
+ 2378 0562 02D0     		beq	.L206
+ 2379 0564 97F91B30 		ldrsb	r3, [r7, #27]
+ 2380 0568 F6E0     		b	.L162
+ 2381              	.L206:
+ 2382 056a 3B6A     		ldr	r3, [r7, #32]
+ 2383 056c 1B0A     		lsrs	r3, r3, #8
+ 2384 056e DBB2     		uxtb	r3, r3
+ 2385 0570 1A46     		mov	r2, r3
+ 2386 0572 4321     		movs	r1, #67
+ 2387 0574 6E20     		movs	r0, #110
+ 2388 0576 FFF7FEFF 		bl	write_reg
+ 2389 057a 0346     		mov	r3, r0
+ 2390 057c FB76     		strb	r3, [r7, #27]
+ 2391 057e 97F91B30 		ldrsb	r3, [r7, #27]
+ 2392 0582 002B     		cmp	r3, #0
+ 2393 0584 02D0     		beq	.L207
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 43
+
+
+ 2394 0586 97F91B30 		ldrsb	r3, [r7, #27]
+ 2395 058a E5E0     		b	.L162
+ 2396              	.L207:
+ 2397 058c 3B6A     		ldr	r3, [r7, #32]
+ 2398 058e DBB2     		uxtb	r3, r3
+ 2399 0590 1A46     		mov	r2, r3
+ 2400 0592 4421     		movs	r1, #68
+ 2401 0594 6E20     		movs	r0, #110
+ 2402 0596 FFF7FEFF 		bl	write_reg
+ 2403 059a 0346     		mov	r3, r0
+ 2404 059c FB76     		strb	r3, [r7, #27]
+ 2405 059e 97F91B30 		ldrsb	r3, [r7, #27]
+ 2406 05a2 002B     		cmp	r3, #0
+ 2407 05a4 02D0     		beq	.L208
+ 2408 05a6 97F91B30 		ldrsb	r3, [r7, #27]
+ 2409 05aa D5E0     		b	.L162
+ 2410              	.L208:
+ 2411 05ac 0120     		movs	r0, #1
+ 2412 05ae FFF7FEFF 		bl	po8030_set_bank
+ 2413 05b2 0346     		mov	r3, r0
+ 2414 05b4 FB76     		strb	r3, [r7, #27]
+ 2415 05b6 97F91B30 		ldrsb	r3, [r7, #27]
+ 2416 05ba 002B     		cmp	r3, #0
+ 2417 05bc 02D0     		beq	.L209
+ 2418 05be 97F91B30 		ldrsb	r3, [r7, #27]
+ 2419 05c2 C9E0     		b	.L162
+ 2420              	.L209:
+ 2421 05c4 97F84430 		ldrb	r3, [r7, #68]	@ zero_extendqisi2
+ 2422 05c8 1A46     		mov	r2, r3
+ 2423 05ca 9321     		movs	r1, #147
+ 2424 05cc 6E20     		movs	r0, #110
+ 2425 05ce FFF7FEFF 		bl	write_reg
+ 2426 05d2 0346     		mov	r3, r0
+ 2427 05d4 FB76     		strb	r3, [r7, #27]
+ 2428 05d6 97F91B30 		ldrsb	r3, [r7, #27]
+ 2429 05da 002B     		cmp	r3, #0
+ 2430 05dc 02D0     		beq	.L210
+ 2431 05de 97F91B30 		ldrsb	r3, [r7, #27]
+ 2432 05e2 B9E0     		b	.L162
+ 2433              	.L210:
+ 2434 05e4 97F84830 		ldrb	r3, [r7, #72]	@ zero_extendqisi2
+ 2435 05e8 1A46     		mov	r2, r3
+ 2436 05ea 9421     		movs	r1, #148
+ 2437 05ec 6E20     		movs	r0, #110
+ 2438 05ee FFF7FEFF 		bl	write_reg
+ 2439 05f2 0346     		mov	r3, r0
+ 2440 05f4 FB76     		strb	r3, [r7, #27]
+ 2441 05f6 97F91B30 		ldrsb	r3, [r7, #27]
+ 2442 05fa 002B     		cmp	r3, #0
+ 2443 05fc 02D0     		beq	.L211
+ 2444 05fe 97F91B30 		ldrsb	r3, [r7, #27]
+ 2445 0602 A9E0     		b	.L162
+ 2446              	.L211:
+ 2447 0604 0120     		movs	r0, #1
+ 2448 0606 FFF7FEFF 		bl	po8030_set_bank
+ 2449 060a 0346     		mov	r3, r0
+ 2450 060c FB76     		strb	r3, [r7, #27]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 44
+
+
+ 2451 060e 97F91B30 		ldrsb	r3, [r7, #27]
+ 2452 0612 002B     		cmp	r3, #0
+ 2453 0614 02D0     		beq	.L212
+ 2454 0616 97F91B30 		ldrsb	r3, [r7, #27]
+ 2455 061a 9DE0     		b	.L162
+ 2456              	.L212:
+ 2457 061c FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 2458 061e 442B     		cmp	r3, #68
+ 2459 0620 27D1     		bne	.L213
+ 2460 0622 7A6B     		ldr	r2, [r7, #52]
+ 2461 0624 BB68     		ldr	r3, [r7, #8]
+ 2462 0626 D31A     		subs	r3, r2, r3
+ 2463 0628 0133     		adds	r3, r3, #1
+ 2464 062a 07EE903A 		vmov	s15, r3	@ int
+ 2465 062e F8EE677A 		vcvt.f32.u32	s15, s15
+ 2466 0632 1FEDA87A 		vldr.32	s14, .L218+8
+ 2467 0636 37EE677A 		vsub.f32	s14, s14, s15
+ 2468 063a 7A6B     		ldr	r2, [r7, #52]
+ 2469 063c BB68     		ldr	r3, [r7, #8]
+ 2470 063e D31A     		subs	r3, r2, r3
+ 2471 0640 0133     		adds	r3, r3, #1
+ 2472 0642 07EE903A 		vmov	s15, r3	@ int
+ 2473 0646 F8EE677A 		vcvt.f32.u32	s15, s15
+ 2474 064a F2EE006A 		vmov.f32	s13, #8.0e+0
+ 2475 064e 77EEA67A 		vadd.f32	s15, s15, s13
+ 2476 0652 27EE277A 		vmul.f32	s14, s14, s15
+ 2477 0656 5FEDB26A 		vldr.32	s13, .L218+4
+ 2478 065a C7EE267A 		vdiv.f32	s15, s14, s13
+ 2479 065e C7ED057A 		vstr.32	s15, [r7, #20]
+ 2480 0662 D7ED057A 		vldr.32	s15, [r7, #20]
+ 2481 0666 FCEEE77A 		vcvt.u32.f32	s15, s15
+ 2482 066a 17EE903A 		vmov	r3, s15	@ int
+ 2483 066e FB61     		str	r3, [r7, #28]
+ 2484 0670 2AE0     		b	.L214
+ 2485              	.L213:
+ 2486 0672 7A6B     		ldr	r2, [r7, #52]
+ 2487 0674 BB68     		ldr	r3, [r7, #8]
+ 2488 0676 D31A     		subs	r3, r2, r3
+ 2489 0678 0133     		adds	r3, r3, #1
+ 2490 067a 07EE903A 		vmov	s15, r3	@ int
+ 2491 067e F8EE677A 		vcvt.f32.u32	s15, s15
+ 2492 0682 1FEDBC7A 		vldr.32	s14, .L218+8
+ 2493 0686 77EE677A 		vsub.f32	s15, s14, s15
+ 2494 068a 37EEA77A 		vadd.f32	s14, s15, s15
+ 2495 068e 7A6B     		ldr	r2, [r7, #52]
+ 2496 0690 BB68     		ldr	r3, [r7, #8]
+ 2497 0692 D31A     		subs	r3, r2, r3
+ 2498 0694 0133     		adds	r3, r3, #1
+ 2499 0696 07EE903A 		vmov	s15, r3	@ int
+ 2500 069a F8EE677A 		vcvt.f32.u32	s15, s15
+ 2501 069e 77EEA77A 		vadd.f32	s15, s15, s15
+ 2502 06a2 F2EE006A 		vmov.f32	s13, #8.0e+0
+ 2503 06a6 77EEA67A 		vadd.f32	s15, s15, s13
+ 2504 06aa 27EE277A 		vmul.f32	s14, s14, s15
+ 2505 06ae 5FEDC66A 		vldr.32	s13, .L218+12
+ 2506 06b2 C7EE267A 		vdiv.f32	s15, s14, s13
+ 2507 06b6 C7ED057A 		vstr.32	s15, [r7, #20]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 45
+
+
+ 2508 06ba D7ED057A 		vldr.32	s15, [r7, #20]
+ 2509 06be FCEEE77A 		vcvt.u32.f32	s15, s15
+ 2510 06c2 17EE903A 		vmov	r3, s15	@ int
+ 2511 06c6 FB61     		str	r3, [r7, #28]
+ 2512              	.L214:
+ 2513 06c8 FB69     		ldr	r3, [r7, #28]
+ 2514 06ca 1B0A     		lsrs	r3, r3, #8
+ 2515 06cc DBB2     		uxtb	r3, r3
+ 2516 06ce 1A46     		mov	r2, r3
+ 2517 06d0 9521     		movs	r1, #149
+ 2518 06d2 6E20     		movs	r0, #110
+ 2519 06d4 FFF7FEFF 		bl	write_reg
+ 2520 06d8 0346     		mov	r3, r0
+ 2521 06da FB76     		strb	r3, [r7, #27]
+ 2522 06dc 97F91B30 		ldrsb	r3, [r7, #27]
+ 2523 06e0 002B     		cmp	r3, #0
+ 2524 06e2 02D0     		beq	.L215
+ 2525 06e4 97F91B30 		ldrsb	r3, [r7, #27]
+ 2526 06e8 36E0     		b	.L162
+ 2527              	.L215:
+ 2528 06ea FB69     		ldr	r3, [r7, #28]
+ 2529 06ec DBB2     		uxtb	r3, r3
+ 2530 06ee 1A46     		mov	r2, r3
+ 2531 06f0 9621     		movs	r1, #150
+ 2532 06f2 6E20     		movs	r0, #110
+ 2533 06f4 FFF7FEFF 		bl	write_reg
+ 2534 06f8 0346     		mov	r3, r0
+ 2535 06fa FB76     		strb	r3, [r7, #27]
+ 2536 06fc 97F91B30 		ldrsb	r3, [r7, #27]
+ 2537 0700 002B     		cmp	r3, #0
+ 2538 0702 02D0     		beq	.L216
+ 2539 0704 97F91B30 		ldrsb	r3, [r7, #27]
+ 2540 0708 26E0     		b	.L162
+ 2541              	.L216:
+ 2542 070a 7B6B     		ldr	r3, [r7, #52]
+ 2543 070c 9AB2     		uxth	r2, r3
+ 2544 070e BB68     		ldr	r3, [r7, #8]
+ 2545 0710 9BB2     		uxth	r3, r3
+ 2546 0712 D31A     		subs	r3, r2, r3
+ 2547 0714 9BB2     		uxth	r3, r3
+ 2548 0716 0133     		adds	r3, r3, #1
+ 2549 0718 9AB2     		uxth	r2, r3
+ 2550 071a 114B     		ldr	r3, .L220
+ 2551 071c 1A80     		strh	r2, [r3]	@ movhi
+ 2552 071e 3B6B     		ldr	r3, [r7, #48]
+ 2553 0720 9AB2     		uxth	r2, r3
+ 2554 0722 7B68     		ldr	r3, [r7, #4]
+ 2555 0724 9BB2     		uxth	r3, r3
+ 2556 0726 D31A     		subs	r3, r2, r3
+ 2557 0728 9BB2     		uxth	r3, r3
+ 2558 072a 0133     		adds	r3, r3, #1
+ 2559 072c 9AB2     		uxth	r2, r3
+ 2560 072e 0C4B     		ldr	r3, .L220
+ 2561 0730 5A80     		strh	r2, [r3, #2]	@ movhi
+ 2562 0732 0B4A     		ldr	r2, .L220
+ 2563 0734 FB7B     		ldrb	r3, [r7, #15]
+ 2564 0736 1371     		strb	r3, [r2, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 46
+
+
+ 2565 0738 094A     		ldr	r2, .L220
+ 2566 073a 97F84430 		ldrb	r3, [r7, #68]
+ 2567 073e 5371     		strb	r3, [r2, #5]
+ 2568 0740 074A     		ldr	r2, .L220
+ 2569 0742 97F84830 		ldrb	r3, [r7, #72]
+ 2570 0746 9371     		strb	r3, [r2, #6]
+ 2571 0748 97F91B30 		ldrsb	r3, [r7, #27]
+ 2572 074c 002B     		cmp	r3, #0
+ 2573 074e 02D1     		bne	.L217
+ 2574 0750 044B     		ldr	r3, .L220+4
+ 2575 0752 0122     		movs	r2, #1
+ 2576 0754 1A70     		strb	r2, [r3]
+ 2577              	.L217:
+ 2578 0756 0023     		movs	r3, #0
+ 2579              	.L162:
+ 2580 0758 1846     		mov	r0, r3
+ 2581 075a 3837     		adds	r7, r7, #56
+ 2582 075c BD46     		mov	sp, r7
+ 2583              		@ sp needed
+ 2584 075e 80BD     		pop	{r7, pc}
+ 2585              	.L221:
+ 2586              		.align	2
+ 2587              	.L220:
+ 2588 0760 00000000 		.word	po8030_conf
+ 2589 0764 00000000 		.word	cam_configured
+ 2590              		.size	po8030_advanced_config, .-po8030_advanced_config
+ 2591              		.section	.text.po8030_set_brightness,"ax",%progbits
+ 2592              		.align	1
+ 2593              		.global	po8030_set_brightness
+ 2594              		.syntax unified
+ 2595              		.thumb
+ 2596              		.thumb_func
+ 2597              		.fpu fpv4-sp-d16
+ 2598              		.type	po8030_set_brightness, %function
+ 2599              	po8030_set_brightness:
+ 2600              		@ args = 0, pretend = 0, frame = 16
+ 2601              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2602 0000 80B5     		push	{r7, lr}
+ 2603 0002 84B0     		sub	sp, sp, #16
+ 2604 0004 00AF     		add	r7, sp, #0
+ 2605 0006 0346     		mov	r3, r0
+ 2606 0008 FB71     		strb	r3, [r7, #7]
+ 2607 000a 0023     		movs	r3, #0
+ 2608 000c FB73     		strb	r3, [r7, #15]
+ 2609 000e 0120     		movs	r0, #1
+ 2610 0010 FFF7FEFF 		bl	po8030_set_bank
+ 2611 0014 0346     		mov	r3, r0
+ 2612 0016 FB73     		strb	r3, [r7, #15]
+ 2613 0018 97F90F30 		ldrsb	r3, [r7, #15]
+ 2614 001c 002B     		cmp	r3, #0
+ 2615 001e 02D0     		beq	.L223
+ 2616 0020 97F90F30 		ldrsb	r3, [r7, #15]
+ 2617 0024 06E0     		b	.L224
+ 2618              	.L223:
+ 2619 0026 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 2620 0028 1A46     		mov	r2, r3
+ 2621 002a 9E21     		movs	r1, #158
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 47
+
+
+ 2622 002c 6E20     		movs	r0, #110
+ 2623 002e FFF7FEFF 		bl	write_reg
+ 2624 0032 0346     		mov	r3, r0
+ 2625              	.L224:
+ 2626 0034 1846     		mov	r0, r3
+ 2627 0036 1037     		adds	r7, r7, #16
+ 2628 0038 BD46     		mov	sp, r7
+ 2629              		@ sp needed
+ 2630 003a 80BD     		pop	{r7, pc}
+ 2631              		.size	po8030_set_brightness, .-po8030_set_brightness
+ 2632              		.section	.text.po8030_set_contrast,"ax",%progbits
+ 2633              		.align	1
+ 2634              		.global	po8030_set_contrast
+ 2635              		.syntax unified
+ 2636              		.thumb
+ 2637              		.thumb_func
+ 2638              		.fpu fpv4-sp-d16
+ 2639              		.type	po8030_set_contrast, %function
+ 2640              	po8030_set_contrast:
+ 2641              		@ args = 0, pretend = 0, frame = 16
+ 2642              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2643 0000 80B5     		push	{r7, lr}
+ 2644 0002 84B0     		sub	sp, sp, #16
+ 2645 0004 00AF     		add	r7, sp, #0
+ 2646 0006 0346     		mov	r3, r0
+ 2647 0008 FB71     		strb	r3, [r7, #7]
+ 2648 000a 0023     		movs	r3, #0
+ 2649 000c FB73     		strb	r3, [r7, #15]
+ 2650 000e 0120     		movs	r0, #1
+ 2651 0010 FFF7FEFF 		bl	po8030_set_bank
+ 2652 0014 0346     		mov	r3, r0
+ 2653 0016 FB73     		strb	r3, [r7, #15]
+ 2654 0018 97F90F30 		ldrsb	r3, [r7, #15]
+ 2655 001c 002B     		cmp	r3, #0
+ 2656 001e 02D0     		beq	.L226
+ 2657 0020 97F90F30 		ldrsb	r3, [r7, #15]
+ 2658 0024 06E0     		b	.L227
+ 2659              	.L226:
+ 2660 0026 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 2661 0028 1A46     		mov	r2, r3
+ 2662 002a 9D21     		movs	r1, #157
+ 2663 002c 6E20     		movs	r0, #110
+ 2664 002e FFF7FEFF 		bl	write_reg
+ 2665 0032 0346     		mov	r3, r0
+ 2666              	.L227:
+ 2667 0034 1846     		mov	r0, r3
+ 2668 0036 1037     		adds	r7, r7, #16
+ 2669 0038 BD46     		mov	sp, r7
+ 2670              		@ sp needed
+ 2671 003a 80BD     		pop	{r7, pc}
+ 2672              		.size	po8030_set_contrast, .-po8030_set_contrast
+ 2673              		.section	.text.po8030_set_mirror,"ax",%progbits
+ 2674              		.align	1
+ 2675              		.global	po8030_set_mirror
+ 2676              		.syntax unified
+ 2677              		.thumb
+ 2678              		.thumb_func
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 48
+
+
+ 2679              		.fpu fpv4-sp-d16
+ 2680              		.type	po8030_set_mirror, %function
+ 2681              	po8030_set_mirror:
+ 2682              		@ args = 0, pretend = 0, frame = 16
+ 2683              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2684 0000 80B5     		push	{r7, lr}
+ 2685 0002 84B0     		sub	sp, sp, #16
+ 2686 0004 00AF     		add	r7, sp, #0
+ 2687 0006 0346     		mov	r3, r0
+ 2688 0008 0A46     		mov	r2, r1
+ 2689 000a FB71     		strb	r3, [r7, #7]
+ 2690 000c 1346     		mov	r3, r2
+ 2691 000e BB71     		strb	r3, [r7, #6]
+ 2692 0010 0023     		movs	r3, #0
+ 2693 0012 BB73     		strb	r3, [r7, #14]
+ 2694 0014 0023     		movs	r3, #0
+ 2695 0016 FB73     		strb	r3, [r7, #15]
+ 2696 0018 0020     		movs	r0, #0
+ 2697 001a FFF7FEFF 		bl	po8030_set_bank
+ 2698 001e 0346     		mov	r3, r0
+ 2699 0020 BB73     		strb	r3, [r7, #14]
+ 2700 0022 97F90E30 		ldrsb	r3, [r7, #14]
+ 2701 0026 002B     		cmp	r3, #0
+ 2702 0028 02D0     		beq	.L229
+ 2703 002a 97F90E30 		ldrsb	r3, [r7, #14]
+ 2704 002e 14E0     		b	.L230
+ 2705              	.L229:
+ 2706 0030 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 2707 0032 012B     		cmp	r3, #1
+ 2708 0034 03D1     		bne	.L231
+ 2709 0036 FB7B     		ldrb	r3, [r7, #15]
+ 2710 0038 63F07F03 		orn	r3, r3, #127
+ 2711 003c FB73     		strb	r3, [r7, #15]
+ 2712              	.L231:
+ 2713 003e BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 2714 0040 012B     		cmp	r3, #1
+ 2715 0042 03D1     		bne	.L232
+ 2716 0044 FB7B     		ldrb	r3, [r7, #15]
+ 2717 0046 43F04003 		orr	r3, r3, #64
+ 2718 004a FB73     		strb	r3, [r7, #15]
+ 2719              	.L232:
+ 2720 004c FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 2721 004e 1A46     		mov	r2, r3
+ 2722 0050 6C21     		movs	r1, #108
+ 2723 0052 6E20     		movs	r0, #110
+ 2724 0054 FFF7FEFF 		bl	write_reg
+ 2725 0058 0346     		mov	r3, r0
+ 2726              	.L230:
+ 2727 005a 1846     		mov	r0, r3
+ 2728 005c 1037     		adds	r7, r7, #16
+ 2729 005e BD46     		mov	sp, r7
+ 2730              		@ sp needed
+ 2731 0060 80BD     		pop	{r7, pc}
+ 2732              		.size	po8030_set_mirror, .-po8030_set_mirror
+ 2733              		.section	.text.po8030_set_awb,"ax",%progbits
+ 2734              		.align	1
+ 2735              		.global	po8030_set_awb
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 49
+
+
+ 2736              		.syntax unified
+ 2737              		.thumb
+ 2738              		.thumb_func
+ 2739              		.fpu fpv4-sp-d16
+ 2740              		.type	po8030_set_awb, %function
+ 2741              	po8030_set_awb:
+ 2742              		@ args = 0, pretend = 0, frame = 16
+ 2743              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2744 0000 80B5     		push	{r7, lr}
+ 2745 0002 84B0     		sub	sp, sp, #16
+ 2746 0004 00AF     		add	r7, sp, #0
+ 2747 0006 0346     		mov	r3, r0
+ 2748 0008 FB71     		strb	r3, [r7, #7]
+ 2749 000a 0023     		movs	r3, #0
+ 2750 000c FB73     		strb	r3, [r7, #15]
+ 2751 000e 0023     		movs	r3, #0
+ 2752 0010 BB73     		strb	r3, [r7, #14]
+ 2753 0012 0220     		movs	r0, #2
+ 2754 0014 FFF7FEFF 		bl	po8030_set_bank
+ 2755 0018 0346     		mov	r3, r0
+ 2756 001a FB73     		strb	r3, [r7, #15]
+ 2757 001c 97F90F30 		ldrsb	r3, [r7, #15]
+ 2758 0020 002B     		cmp	r3, #0
+ 2759 0022 02D0     		beq	.L234
+ 2760 0024 97F90F30 		ldrsb	r3, [r7, #15]
+ 2761 0028 24E0     		b	.L239
+ 2762              	.L234:
+ 2763 002a 07F10E03 		add	r3, r7, #14
+ 2764 002e 1A46     		mov	r2, r3
+ 2765 0030 0421     		movs	r1, #4
+ 2766 0032 6E20     		movs	r0, #110
+ 2767 0034 FFF7FEFF 		bl	read_reg
+ 2768 0038 0346     		mov	r3, r0
+ 2769 003a FB73     		strb	r3, [r7, #15]
+ 2770 003c 97F90F30 		ldrsb	r3, [r7, #15]
+ 2771 0040 002B     		cmp	r3, #0
+ 2772 0042 02D0     		beq	.L236
+ 2773 0044 97F90F30 		ldrsb	r3, [r7, #15]
+ 2774 0048 14E0     		b	.L239
+ 2775              	.L236:
+ 2776 004a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 2777 004c 012B     		cmp	r3, #1
+ 2778 004e 05D1     		bne	.L237
+ 2779 0050 BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 2780 0052 23F00403 		bic	r3, r3, #4
+ 2781 0056 DBB2     		uxtb	r3, r3
+ 2782 0058 BB73     		strb	r3, [r7, #14]
+ 2783 005a 04E0     		b	.L238
+ 2784              	.L237:
+ 2785 005c BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 2786 005e 43F00403 		orr	r3, r3, #4
+ 2787 0062 DBB2     		uxtb	r3, r3
+ 2788 0064 BB73     		strb	r3, [r7, #14]
+ 2789              	.L238:
+ 2790 0066 BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 2791 0068 1A46     		mov	r2, r3
+ 2792 006a 0421     		movs	r1, #4
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 50
+
+
+ 2793 006c 6E20     		movs	r0, #110
+ 2794 006e FFF7FEFF 		bl	write_reg
+ 2795 0072 0346     		mov	r3, r0
+ 2796              	.L239:
+ 2797 0074 1846     		mov	r0, r3
+ 2798 0076 1037     		adds	r7, r7, #16
+ 2799 0078 BD46     		mov	sp, r7
+ 2800              		@ sp needed
+ 2801 007a 80BD     		pop	{r7, pc}
+ 2802              		.size	po8030_set_awb, .-po8030_set_awb
+ 2803              		.section	.text.po8030_set_rgb_gain,"ax",%progbits
+ 2804              		.align	1
+ 2805              		.global	po8030_set_rgb_gain
+ 2806              		.syntax unified
+ 2807              		.thumb
+ 2808              		.thumb_func
+ 2809              		.fpu fpv4-sp-d16
+ 2810              		.type	po8030_set_rgb_gain, %function
+ 2811              	po8030_set_rgb_gain:
+ 2812              		@ args = 0, pretend = 0, frame = 16
+ 2813              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2814 0000 80B5     		push	{r7, lr}
+ 2815 0002 84B0     		sub	sp, sp, #16
+ 2816 0004 00AF     		add	r7, sp, #0
+ 2817 0006 0346     		mov	r3, r0
+ 2818 0008 FB71     		strb	r3, [r7, #7]
+ 2819 000a 0B46     		mov	r3, r1
+ 2820 000c BB71     		strb	r3, [r7, #6]
+ 2821 000e 1346     		mov	r3, r2
+ 2822 0010 7B71     		strb	r3, [r7, #5]
+ 2823 0012 0023     		movs	r3, #0
+ 2824 0014 FB73     		strb	r3, [r7, #15]
+ 2825 0016 0020     		movs	r0, #0
+ 2826 0018 FFF7FEFF 		bl	po8030_set_awb
+ 2827 001c 0346     		mov	r3, r0
+ 2828 001e FB73     		strb	r3, [r7, #15]
+ 2829 0020 97F90F30 		ldrsb	r3, [r7, #15]
+ 2830 0024 002B     		cmp	r3, #0
+ 2831 0026 02D0     		beq	.L241
+ 2832 0028 97F90F30 		ldrsb	r3, [r7, #15]
+ 2833 002c 39E0     		b	.L242
+ 2834              	.L241:
+ 2835 002e 0020     		movs	r0, #0
+ 2836 0030 FFF7FEFF 		bl	po8030_set_bank
+ 2837 0034 0346     		mov	r3, r0
+ 2838 0036 FB73     		strb	r3, [r7, #15]
+ 2839 0038 97F90F30 		ldrsb	r3, [r7, #15]
+ 2840 003c 002B     		cmp	r3, #0
+ 2841 003e 02D0     		beq	.L243
+ 2842 0040 97F90F30 		ldrsb	r3, [r7, #15]
+ 2843 0044 2DE0     		b	.L242
+ 2844              	.L243:
+ 2845 0046 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 2846 0048 1A46     		mov	r2, r3
+ 2847 004a 2321     		movs	r1, #35
+ 2848 004c 6E20     		movs	r0, #110
+ 2849 004e FFF7FEFF 		bl	write_reg
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 51
+
+
+ 2850 0052 0346     		mov	r3, r0
+ 2851 0054 FB73     		strb	r3, [r7, #15]
+ 2852 0056 97F90F30 		ldrsb	r3, [r7, #15]
+ 2853 005a 002B     		cmp	r3, #0
+ 2854 005c 02D0     		beq	.L244
+ 2855 005e 97F90F30 		ldrsb	r3, [r7, #15]
+ 2856 0062 1EE0     		b	.L242
+ 2857              	.L244:
+ 2858 0064 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 2859 0066 1A46     		mov	r2, r3
+ 2860 0068 2421     		movs	r1, #36
+ 2861 006a 6E20     		movs	r0, #110
+ 2862 006c FFF7FEFF 		bl	write_reg
+ 2863 0070 0346     		mov	r3, r0
+ 2864 0072 FB73     		strb	r3, [r7, #15]
+ 2865 0074 97F90F30 		ldrsb	r3, [r7, #15]
+ 2866 0078 002B     		cmp	r3, #0
+ 2867 007a 02D0     		beq	.L245
+ 2868 007c 97F90F30 		ldrsb	r3, [r7, #15]
+ 2869 0080 0FE0     		b	.L242
+ 2870              	.L245:
+ 2871 0082 7B79     		ldrb	r3, [r7, #5]	@ zero_extendqisi2
+ 2872 0084 1A46     		mov	r2, r3
+ 2873 0086 2521     		movs	r1, #37
+ 2874 0088 6E20     		movs	r0, #110
+ 2875 008a FFF7FEFF 		bl	write_reg
+ 2876 008e 0346     		mov	r3, r0
+ 2877 0090 FB73     		strb	r3, [r7, #15]
+ 2878 0092 97F90F30 		ldrsb	r3, [r7, #15]
+ 2879 0096 002B     		cmp	r3, #0
+ 2880 0098 02D0     		beq	.L246
+ 2881 009a 97F90F30 		ldrsb	r3, [r7, #15]
+ 2882 009e 00E0     		b	.L242
+ 2883              	.L246:
+ 2884 00a0 0023     		movs	r3, #0
+ 2885              	.L242:
+ 2886 00a2 1846     		mov	r0, r3
+ 2887 00a4 1037     		adds	r7, r7, #16
+ 2888 00a6 BD46     		mov	sp, r7
+ 2889              		@ sp needed
+ 2890 00a8 80BD     		pop	{r7, pc}
+ 2891              		.size	po8030_set_rgb_gain, .-po8030_set_rgb_gain
+ 2892              		.section	.text.po8030_set_ae,"ax",%progbits
+ 2893              		.align	1
+ 2894              		.global	po8030_set_ae
+ 2895              		.syntax unified
+ 2896              		.thumb
+ 2897              		.thumb_func
+ 2898              		.fpu fpv4-sp-d16
+ 2899              		.type	po8030_set_ae, %function
+ 2900              	po8030_set_ae:
+ 2901              		@ args = 0, pretend = 0, frame = 16
+ 2902              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2903 0000 80B5     		push	{r7, lr}
+ 2904 0002 84B0     		sub	sp, sp, #16
+ 2905 0004 00AF     		add	r7, sp, #0
+ 2906 0006 0346     		mov	r3, r0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 52
+
+
+ 2907 0008 FB71     		strb	r3, [r7, #7]
+ 2908 000a 0023     		movs	r3, #0
+ 2909 000c FB73     		strb	r3, [r7, #15]
+ 2910 000e 0023     		movs	r3, #0
+ 2911 0010 BB73     		strb	r3, [r7, #14]
+ 2912 0012 0220     		movs	r0, #2
+ 2913 0014 FFF7FEFF 		bl	po8030_set_bank
+ 2914 0018 0346     		mov	r3, r0
+ 2915 001a FB73     		strb	r3, [r7, #15]
+ 2916 001c 97F90F30 		ldrsb	r3, [r7, #15]
+ 2917 0020 002B     		cmp	r3, #0
+ 2918 0022 02D0     		beq	.L248
+ 2919 0024 97F90F30 		ldrsb	r3, [r7, #15]
+ 2920 0028 24E0     		b	.L253
+ 2921              	.L248:
+ 2922 002a 07F10E03 		add	r3, r7, #14
+ 2923 002e 1A46     		mov	r2, r3
+ 2924 0030 0421     		movs	r1, #4
+ 2925 0032 6E20     		movs	r0, #110
+ 2926 0034 FFF7FEFF 		bl	read_reg
+ 2927 0038 0346     		mov	r3, r0
+ 2928 003a FB73     		strb	r3, [r7, #15]
+ 2929 003c 97F90F30 		ldrsb	r3, [r7, #15]
+ 2930 0040 002B     		cmp	r3, #0
+ 2931 0042 02D0     		beq	.L250
+ 2932 0044 97F90F30 		ldrsb	r3, [r7, #15]
+ 2933 0048 14E0     		b	.L253
+ 2934              	.L250:
+ 2935 004a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 2936 004c 012B     		cmp	r3, #1
+ 2937 004e 05D1     		bne	.L251
+ 2938 0050 BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 2939 0052 23F00303 		bic	r3, r3, #3
+ 2940 0056 DBB2     		uxtb	r3, r3
+ 2941 0058 BB73     		strb	r3, [r7, #14]
+ 2942 005a 04E0     		b	.L252
+ 2943              	.L251:
+ 2944 005c BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 2945 005e 43F00303 		orr	r3, r3, #3
+ 2946 0062 DBB2     		uxtb	r3, r3
+ 2947 0064 BB73     		strb	r3, [r7, #14]
+ 2948              	.L252:
+ 2949 0066 BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 2950 0068 1A46     		mov	r2, r3
+ 2951 006a 0421     		movs	r1, #4
+ 2952 006c 6E20     		movs	r0, #110
+ 2953 006e FFF7FEFF 		bl	write_reg
+ 2954 0072 0346     		mov	r3, r0
+ 2955              	.L253:
+ 2956 0074 1846     		mov	r0, r3
+ 2957 0076 1037     		adds	r7, r7, #16
+ 2958 0078 BD46     		mov	sp, r7
+ 2959              		@ sp needed
+ 2960 007a 80BD     		pop	{r7, pc}
+ 2961              		.size	po8030_set_ae, .-po8030_set_ae
+ 2962              		.section	.text.po8030_set_exposure,"ax",%progbits
+ 2963              		.align	1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 53
+
+
+ 2964              		.global	po8030_set_exposure
+ 2965              		.syntax unified
+ 2966              		.thumb
+ 2967              		.thumb_func
+ 2968              		.fpu fpv4-sp-d16
+ 2969              		.type	po8030_set_exposure, %function
+ 2970              	po8030_set_exposure:
+ 2971              		@ args = 0, pretend = 0, frame = 16
+ 2972              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2973 0000 80B5     		push	{r7, lr}
+ 2974 0002 84B0     		sub	sp, sp, #16
+ 2975 0004 00AF     		add	r7, sp, #0
+ 2976 0006 0346     		mov	r3, r0
+ 2977 0008 0A46     		mov	r2, r1
+ 2978 000a FB80     		strh	r3, [r7, #6]	@ movhi
+ 2979 000c 1346     		mov	r3, r2
+ 2980 000e 7B71     		strb	r3, [r7, #5]
+ 2981 0010 0023     		movs	r3, #0
+ 2982 0012 FB73     		strb	r3, [r7, #15]
+ 2983 0014 0020     		movs	r0, #0
+ 2984 0016 FFF7FEFF 		bl	po8030_set_ae
+ 2985 001a 0346     		mov	r3, r0
+ 2986 001c FB73     		strb	r3, [r7, #15]
+ 2987 001e 97F90F30 		ldrsb	r3, [r7, #15]
+ 2988 0022 002B     		cmp	r3, #0
+ 2989 0024 02D0     		beq	.L255
+ 2990 0026 97F90F30 		ldrsb	r3, [r7, #15]
+ 2991 002a 3DE0     		b	.L256
+ 2992              	.L255:
+ 2993 002c 0020     		movs	r0, #0
+ 2994 002e FFF7FEFF 		bl	po8030_set_bank
+ 2995 0032 0346     		mov	r3, r0
+ 2996 0034 FB73     		strb	r3, [r7, #15]
+ 2997 0036 97F90F30 		ldrsb	r3, [r7, #15]
+ 2998 003a 002B     		cmp	r3, #0
+ 2999 003c 02D0     		beq	.L257
+ 3000 003e 97F90F30 		ldrsb	r3, [r7, #15]
+ 3001 0042 31E0     		b	.L256
+ 3002              	.L257:
+ 3003 0044 FB88     		ldrh	r3, [r7, #6]
+ 3004 0046 1B0A     		lsrs	r3, r3, #8
+ 3005 0048 9BB2     		uxth	r3, r3
+ 3006 004a DBB2     		uxtb	r3, r3
+ 3007 004c 1A46     		mov	r2, r3
+ 3008 004e 1721     		movs	r1, #23
+ 3009 0050 6E20     		movs	r0, #110
+ 3010 0052 FFF7FEFF 		bl	write_reg
+ 3011 0056 0346     		mov	r3, r0
+ 3012 0058 FB73     		strb	r3, [r7, #15]
+ 3013 005a 97F90F30 		ldrsb	r3, [r7, #15]
+ 3014 005e 002B     		cmp	r3, #0
+ 3015 0060 02D0     		beq	.L258
+ 3016 0062 97F90F30 		ldrsb	r3, [r7, #15]
+ 3017 0066 1FE0     		b	.L256
+ 3018              	.L258:
+ 3019 0068 FB88     		ldrh	r3, [r7, #6]	@ movhi
+ 3020 006a DBB2     		uxtb	r3, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 54
+
+
+ 3021 006c 1A46     		mov	r2, r3
+ 3022 006e 1821     		movs	r1, #24
+ 3023 0070 6E20     		movs	r0, #110
+ 3024 0072 FFF7FEFF 		bl	write_reg
+ 3025 0076 0346     		mov	r3, r0
+ 3026 0078 FB73     		strb	r3, [r7, #15]
+ 3027 007a 97F90F30 		ldrsb	r3, [r7, #15]
+ 3028 007e 002B     		cmp	r3, #0
+ 3029 0080 02D0     		beq	.L259
+ 3030 0082 97F90F30 		ldrsb	r3, [r7, #15]
+ 3031 0086 0FE0     		b	.L256
+ 3032              	.L259:
+ 3033 0088 7B79     		ldrb	r3, [r7, #5]	@ zero_extendqisi2
+ 3034 008a 1A46     		mov	r2, r3
+ 3035 008c 1921     		movs	r1, #25
+ 3036 008e 6E20     		movs	r0, #110
+ 3037 0090 FFF7FEFF 		bl	write_reg
+ 3038 0094 0346     		mov	r3, r0
+ 3039 0096 FB73     		strb	r3, [r7, #15]
+ 3040 0098 97F90F30 		ldrsb	r3, [r7, #15]
+ 3041 009c 002B     		cmp	r3, #0
+ 3042 009e 02D0     		beq	.L260
+ 3043 00a0 97F90F30 		ldrsb	r3, [r7, #15]
+ 3044 00a4 00E0     		b	.L256
+ 3045              	.L260:
+ 3046 00a6 0023     		movs	r3, #0
+ 3047              	.L256:
+ 3048 00a8 1846     		mov	r0, r3
+ 3049 00aa 1037     		adds	r7, r7, #16
+ 3050 00ac BD46     		mov	sp, r7
+ 3051              		@ sp needed
+ 3052 00ae 80BD     		pop	{r7, pc}
+ 3053              		.size	po8030_set_exposure, .-po8030_set_exposure
+ 3054              		.section	.text.po8030_get_image_size,"ax",%progbits
+ 3055              		.align	1
+ 3056              		.global	po8030_get_image_size
+ 3057              		.syntax unified
+ 3058              		.thumb
+ 3059              		.thumb_func
+ 3060              		.fpu fpv4-sp-d16
+ 3061              		.type	po8030_get_image_size, %function
+ 3062              	po8030_get_image_size:
+ 3063              		@ args = 0, pretend = 0, frame = 0
+ 3064              		@ frame_needed = 1, uses_anonymous_args = 0
+ 3065              		@ link register save eliminated.
+ 3066 0000 80B4     		push	{r7}
+ 3067 0002 00AF     		add	r7, sp, #0
+ 3068 0004 0C4B     		ldr	r3, .L264
+ 3069 0006 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 3070 0008 442B     		cmp	r3, #68
+ 3071 000a 07D1     		bne	.L262
+ 3072 000c 0A4B     		ldr	r3, .L264
+ 3073 000e 1B88     		ldrh	r3, [r3]
+ 3074 0010 1A46     		mov	r2, r3
+ 3075 0012 094B     		ldr	r3, .L264
+ 3076 0014 5B88     		ldrh	r3, [r3, #2]
+ 3077 0016 03FB02F3 		mul	r3, r3, r2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 55
+
+
+ 3078 001a 07E0     		b	.L263
+ 3079              	.L262:
+ 3080 001c 064B     		ldr	r3, .L264
+ 3081 001e 1B88     		ldrh	r3, [r3]
+ 3082 0020 1A46     		mov	r2, r3
+ 3083 0022 054B     		ldr	r3, .L264
+ 3084 0024 5B88     		ldrh	r3, [r3, #2]
+ 3085 0026 03FB02F3 		mul	r3, r3, r2
+ 3086 002a 5B00     		lsls	r3, r3, #1
+ 3087              	.L263:
+ 3088 002c 1846     		mov	r0, r3
+ 3089 002e BD46     		mov	sp, r7
+ 3090              		@ sp needed
+ 3091 0030 5DF8047B 		ldr	r7, [sp], #4
+ 3092 0034 7047     		bx	lr
+ 3093              	.L265:
+ 3094 0036 00BF     		.align	2
+ 3095              	.L264:
+ 3096 0038 00000000 		.word	po8030_conf
+ 3097              		.size	po8030_get_image_size, .-po8030_get_image_size
+ 3098              		.section	.text.po8030_is_connected,"ax",%progbits
+ 3099              		.align	1
+ 3100              		.global	po8030_is_connected
+ 3101              		.syntax unified
+ 3102              		.thumb
+ 3103              		.thumb_func
+ 3104              		.fpu fpv4-sp-d16
+ 3105              		.type	po8030_is_connected, %function
+ 3106              	po8030_is_connected:
+ 3107              		@ args = 0, pretend = 0, frame = 8
+ 3108              		@ frame_needed = 1, uses_anonymous_args = 0
+ 3109 0000 80B5     		push	{r7, lr}
+ 3110 0002 82B0     		sub	sp, sp, #8
+ 3111 0004 00AF     		add	r7, sp, #0
+ 3112 0006 0023     		movs	r3, #0
+ 3113 0008 BB80     		strh	r3, [r7, #4]	@ movhi
+ 3114 000a 3B1D     		adds	r3, r7, #4
+ 3115 000c 1846     		mov	r0, r3
+ 3116 000e FFF7FEFF 		bl	po8030_read_id
+ 3117 0012 0346     		mov	r3, r0
+ 3118 0014 FB71     		strb	r3, [r7, #7]
+ 3119 0016 97F90730 		ldrsb	r3, [r7, #7]
+ 3120 001a 002B     		cmp	r3, #0
+ 3121 001c 06D1     		bne	.L267
+ 3122 001e BB88     		ldrh	r3, [r7, #4]
+ 3123 0020 48F23002 		movw	r2, #32816
+ 3124 0024 9342     		cmp	r3, r2
+ 3125 0026 01D1     		bne	.L267
+ 3126 0028 0123     		movs	r3, #1
+ 3127 002a 00E0     		b	.L269
+ 3128              	.L267:
+ 3129 002c 0023     		movs	r3, #0
+ 3130              	.L269:
+ 3131 002e 1846     		mov	r0, r3
+ 3132 0030 0837     		adds	r7, r7, #8
+ 3133 0032 BD46     		mov	sp, r7
+ 3134              		@ sp needed
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 56
+
+
+ 3135 0034 80BD     		pop	{r7, pc}
+ 3136              		.size	po8030_is_connected, .-po8030_is_connected
+ 3137              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 57
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 po8030.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:15     .bss.po8030_conf:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:18     .bss.po8030_conf:0000000000000000 po8030_conf
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:23     .bss.cam_configured:0000000000000000 cam_configured
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:24     .bss.cam_configured:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:26     .text.po8030_read_id:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:33     .text.po8030_read_id:0000000000000000 po8030_read_id
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:90     .text.po8030_set_bank:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:97     .text.po8030_set_bank:0000000000000000 po8030_set_bank
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:118    .text.po8030_set_format:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:125    .text.po8030_set_format:0000000000000000 po8030_set_format
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:242    .text.po8030_set_format:00000000000000fc $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:245    .text.po8030_set_vga:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:252    .text.po8030_set_vga:0000000000000000 po8030_set_vga
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:614    .text.po8030_set_vga:0000000000000338 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:617    .text.po8030_set_qvga:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:624    .text.po8030_set_qvga:0000000000000000 po8030_set_qvga
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:986    .text.po8030_set_qvga:0000000000000338 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:989    .text.po8030_set_qqvga:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:996    .text.po8030_set_qqvga:0000000000000000 po8030_set_qqvga
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:1358   .text.po8030_set_qqvga:0000000000000334 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:1361   .text.po8030_set_size:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:1368   .text.po8030_set_size:0000000000000000 po8030_set_size
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:1406   .text.po8030_set_scale_buffer_size:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:1413   .text.po8030_set_scale_buffer_size:0000000000000000 po8030_set_scale_buffer_size
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:1623   .text.po8030_start:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:1630   .text.po8030_start:0000000000000000 po8030_start
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:1754   .text.po8030_advanced_config:0000000000000000 po8030_advanced_config
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:2741   .text.po8030_set_awb:0000000000000000 po8030_set_awb
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:2811   .text.po8030_set_rgb_gain:0000000000000000 po8030_set_rgb_gain
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:2900   .text.po8030_set_ae:0000000000000000 po8030_set_ae
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:1661   .text.po8030_config:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:1668   .text.po8030_config:0000000000000000 po8030_config
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:1747   .text.po8030_advanced_config:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:2174   .text.po8030_advanced_config:000000000000038c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:2179   .text.po8030_advanced_config:000000000000039c $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:2588   .text.po8030_advanced_config:0000000000000760 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:2592   .text.po8030_set_brightness:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:2599   .text.po8030_set_brightness:0000000000000000 po8030_set_brightness
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:2633   .text.po8030_set_contrast:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:2640   .text.po8030_set_contrast:0000000000000000 po8030_set_contrast
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:2674   .text.po8030_set_mirror:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:2681   .text.po8030_set_mirror:0000000000000000 po8030_set_mirror
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:2734   .text.po8030_set_awb:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:2804   .text.po8030_set_rgb_gain:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:2893   .text.po8030_set_ae:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:2963   .text.po8030_set_exposure:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:2970   .text.po8030_set_exposure:0000000000000000 po8030_set_exposure
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:3055   .text.po8030_get_image_size:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:3062   .text.po8030_get_image_size:0000000000000000 po8030_get_image_size
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:3096   .text.po8030_get_image_size:0000000000000038 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:3099   .text.po8030_is_connected:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s:3106   .text.po8030_is_connected:0000000000000000 po8030_is_connected
+
+UNDEFINED SYMBOLS
+read_reg
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccwbixtl.s 			page 58
+
+
+write_reg

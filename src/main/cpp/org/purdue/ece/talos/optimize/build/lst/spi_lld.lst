@@ -1,0 +1,1217 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"spi_lld.c"
+  14              		.section	.text.port_lock,"ax",%progbits
+  15              		.align	1
+  16              		.syntax unified
+  17              		.thumb
+  18              		.thumb_func
+  19              		.fpu fpv4-sp-d16
+  20              		.type	port_lock, %function
+  21              	port_lock:
+  22              		@ args = 0, pretend = 0, frame = 8
+  23              		@ frame_needed = 1, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 80B4     		push	{r7}
+  26 0002 83B0     		sub	sp, sp, #12
+  27 0004 00AF     		add	r7, sp, #0
+  28 0006 2023     		movs	r3, #32
+  29 0008 7B60     		str	r3, [r7, #4]
+  30 000a 7B68     		ldr	r3, [r7, #4]
+  31              		.syntax unified
+  32              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  33 000c 83F31188 		MSR basepri, r3
+  34              	@ 0 "" 2
+  35              		.thumb
+  36              		.syntax unified
+  37 0010 00BF     		nop
+  38 0012 0C37     		adds	r7, r7, #12
+  39 0014 BD46     		mov	sp, r7
+  40              		@ sp needed
+  41 0016 5DF8047B 		ldr	r7, [sp], #4
+  42 001a 7047     		bx	lr
+  43              		.size	port_lock, .-port_lock
+  44              		.section	.text.port_unlock,"ax",%progbits
+  45              		.align	1
+  46              		.syntax unified
+  47              		.thumb
+  48              		.thumb_func
+  49              		.fpu fpv4-sp-d16
+  50              		.type	port_unlock, %function
+  51              	port_unlock:
+  52              		@ args = 0, pretend = 0, frame = 8
+  53              		@ frame_needed = 1, uses_anonymous_args = 0
+  54              		@ link register save eliminated.
+  55 0000 80B4     		push	{r7}
+  56 0002 83B0     		sub	sp, sp, #12
+  57 0004 00AF     		add	r7, sp, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s 			page 2
+
+
+  58 0006 0023     		movs	r3, #0
+  59 0008 7B60     		str	r3, [r7, #4]
+  60 000a 7B68     		ldr	r3, [r7, #4]
+  61              		.syntax unified
+  62              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  63 000c 83F31188 		MSR basepri, r3
+  64              	@ 0 "" 2
+  65              		.thumb
+  66              		.syntax unified
+  67 0010 00BF     		nop
+  68 0012 0C37     		adds	r7, r7, #12
+  69 0014 BD46     		mov	sp, r7
+  70              		@ sp needed
+  71 0016 5DF8047B 		ldr	r7, [sp], #4
+  72 001a 7047     		bx	lr
+  73              		.size	port_unlock, .-port_unlock
+  74              		.section	.text.port_lock_from_isr,"ax",%progbits
+  75              		.align	1
+  76              		.syntax unified
+  77              		.thumb
+  78              		.thumb_func
+  79              		.fpu fpv4-sp-d16
+  80              		.type	port_lock_from_isr, %function
+  81              	port_lock_from_isr:
+  82              		@ args = 0, pretend = 0, frame = 0
+  83              		@ frame_needed = 1, uses_anonymous_args = 0
+  84 0000 80B5     		push	{r7, lr}
+  85 0002 00AF     		add	r7, sp, #0
+  86 0004 FFF7FEFF 		bl	port_lock
+  87 0008 00BF     		nop
+  88 000a 80BD     		pop	{r7, pc}
+  89              		.size	port_lock_from_isr, .-port_lock_from_isr
+  90              		.section	.text.port_unlock_from_isr,"ax",%progbits
+  91              		.align	1
+  92              		.syntax unified
+  93              		.thumb
+  94              		.thumb_func
+  95              		.fpu fpv4-sp-d16
+  96              		.type	port_unlock_from_isr, %function
+  97              	port_unlock_from_isr:
+  98              		@ args = 0, pretend = 0, frame = 0
+  99              		@ frame_needed = 1, uses_anonymous_args = 0
+ 100 0000 80B5     		push	{r7, lr}
+ 101 0002 00AF     		add	r7, sp, #0
+ 102 0004 FFF7FEFF 		bl	port_unlock
+ 103 0008 00BF     		nop
+ 104 000a 80BD     		pop	{r7, pc}
+ 105              		.size	port_unlock_from_isr, .-port_unlock_from_isr
+ 106              		.section	.text.chSysLockFromISR,"ax",%progbits
+ 107              		.align	1
+ 108              		.syntax unified
+ 109              		.thumb
+ 110              		.thumb_func
+ 111              		.fpu fpv4-sp-d16
+ 112              		.type	chSysLockFromISR, %function
+ 113              	chSysLockFromISR:
+ 114              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s 			page 3
+
+
+ 115              		@ frame_needed = 1, uses_anonymous_args = 0
+ 116 0000 80B5     		push	{r7, lr}
+ 117 0002 00AF     		add	r7, sp, #0
+ 118 0004 FFF7FEFF 		bl	port_lock_from_isr
+ 119 0008 FFF7FEFF 		bl	_stats_start_measure_crit_isr
+ 120 000c FFF7FEFF 		bl	_dbg_check_lock_from_isr
+ 121 0010 00BF     		nop
+ 122 0012 80BD     		pop	{r7, pc}
+ 123              		.size	chSysLockFromISR, .-chSysLockFromISR
+ 124              		.section	.text.chSysUnlockFromISR,"ax",%progbits
+ 125              		.align	1
+ 126              		.syntax unified
+ 127              		.thumb
+ 128              		.thumb_func
+ 129              		.fpu fpv4-sp-d16
+ 130              		.type	chSysUnlockFromISR, %function
+ 131              	chSysUnlockFromISR:
+ 132              		@ args = 0, pretend = 0, frame = 0
+ 133              		@ frame_needed = 1, uses_anonymous_args = 0
+ 134 0000 80B5     		push	{r7, lr}
+ 135 0002 00AF     		add	r7, sp, #0
+ 136 0004 FFF7FEFF 		bl	_dbg_check_unlock_from_isr
+ 137 0008 FFF7FEFF 		bl	_stats_stop_measure_crit_isr
+ 138 000c FFF7FEFF 		bl	port_unlock_from_isr
+ 139 0010 00BF     		nop
+ 140 0012 80BD     		pop	{r7, pc}
+ 141              		.size	chSysUnlockFromISR, .-chSysUnlockFromISR
+ 142              		.section	.text.osalSysHalt,"ax",%progbits
+ 143              		.align	1
+ 144              		.syntax unified
+ 145              		.thumb
+ 146              		.thumb_func
+ 147              		.fpu fpv4-sp-d16
+ 148              		.type	osalSysHalt, %function
+ 149              	osalSysHalt:
+ 150              		@ args = 0, pretend = 0, frame = 8
+ 151              		@ frame_needed = 1, uses_anonymous_args = 0
+ 152 0000 80B5     		push	{r7, lr}
+ 153 0002 82B0     		sub	sp, sp, #8
+ 154 0004 00AF     		add	r7, sp, #0
+ 155 0006 7860     		str	r0, [r7, #4]
+ 156 0008 7868     		ldr	r0, [r7, #4]
+ 157 000a FFF7FEFF 		bl	chSysHalt
+ 158 000e 00BF     		nop
+ 159 0010 0837     		adds	r7, r7, #8
+ 160 0012 BD46     		mov	sp, r7
+ 161              		@ sp needed
+ 162 0014 80BD     		pop	{r7, pc}
+ 163              		.size	osalSysHalt, .-osalSysHalt
+ 164              		.section	.text.osalSysLockFromISR,"ax",%progbits
+ 165              		.align	1
+ 166              		.syntax unified
+ 167              		.thumb
+ 168              		.thumb_func
+ 169              		.fpu fpv4-sp-d16
+ 170              		.type	osalSysLockFromISR, %function
+ 171              	osalSysLockFromISR:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s 			page 4
+
+
+ 172              		@ args = 0, pretend = 0, frame = 0
+ 173              		@ frame_needed = 1, uses_anonymous_args = 0
+ 174 0000 80B5     		push	{r7, lr}
+ 175 0002 00AF     		add	r7, sp, #0
+ 176 0004 FFF7FEFF 		bl	chSysLockFromISR
+ 177 0008 00BF     		nop
+ 178 000a 80BD     		pop	{r7, pc}
+ 179              		.size	osalSysLockFromISR, .-osalSysLockFromISR
+ 180              		.section	.text.osalSysUnlockFromISR,"ax",%progbits
+ 181              		.align	1
+ 182              		.syntax unified
+ 183              		.thumb
+ 184              		.thumb_func
+ 185              		.fpu fpv4-sp-d16
+ 186              		.type	osalSysUnlockFromISR, %function
+ 187              	osalSysUnlockFromISR:
+ 188              		@ args = 0, pretend = 0, frame = 0
+ 189              		@ frame_needed = 1, uses_anonymous_args = 0
+ 190 0000 80B5     		push	{r7, lr}
+ 191 0002 00AF     		add	r7, sp, #0
+ 192 0004 FFF7FEFF 		bl	chSysUnlockFromISR
+ 193 0008 00BF     		nop
+ 194 000a 80BD     		pop	{r7, pc}
+ 195              		.size	osalSysUnlockFromISR, .-osalSysUnlockFromISR
+ 196              		.section	.text.osalThreadResumeI,"ax",%progbits
+ 197              		.align	1
+ 198              		.syntax unified
+ 199              		.thumb
+ 200              		.thumb_func
+ 201              		.fpu fpv4-sp-d16
+ 202              		.type	osalThreadResumeI, %function
+ 203              	osalThreadResumeI:
+ 204              		@ args = 0, pretend = 0, frame = 8
+ 205              		@ frame_needed = 1, uses_anonymous_args = 0
+ 206 0000 80B5     		push	{r7, lr}
+ 207 0002 82B0     		sub	sp, sp, #8
+ 208 0004 00AF     		add	r7, sp, #0
+ 209 0006 7860     		str	r0, [r7, #4]
+ 210 0008 3960     		str	r1, [r7]
+ 211 000a 3968     		ldr	r1, [r7]
+ 212 000c 7868     		ldr	r0, [r7, #4]
+ 213 000e FFF7FEFF 		bl	chThdResumeI
+ 214 0012 00BF     		nop
+ 215 0014 0837     		adds	r7, r7, #8
+ 216 0016 BD46     		mov	sp, r7
+ 217              		@ sp needed
+ 218 0018 80BD     		pop	{r7, pc}
+ 219              		.size	osalThreadResumeI, .-osalThreadResumeI
+ 220              		.global	SPID1
+ 221              		.section	.bss.SPID1,"aw",%nobits
+ 222              		.align	2
+ 223              		.type	SPID1, %object
+ 224              		.size	SPID1, 52
+ 225              	SPID1:
+ 226 0000 00000000 		.space	52
+ 226      00000000 
+ 226      00000000 
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s 			page 5
+
+
+ 226      00000000 
+ 226      00000000 
+ 227              		.section	.bss.dummytx,"aw",%nobits
+ 228              		.align	1
+ 229              		.type	dummytx, %object
+ 230              		.size	dummytx, 2
+ 231              	dummytx:
+ 232 0000 0000     		.space	2
+ 233              		.section	.bss.dummyrx,"aw",%nobits
+ 234              		.align	1
+ 235              		.type	dummyrx, %object
+ 236              		.size	dummyrx, 2
+ 237              	dummyrx:
+ 238 0000 0000     		.space	2
+ 239              		.section	.rodata
+ 240              		.align	2
+ 241              	.LC0:
+ 242 0000 444D4120 		.ascii	"DMA failure\000"
+ 242      6661696C 
+ 242      75726500 
+ 243              		.section	.text.spi_lld_serve_rx_interrupt,"ax",%progbits
+ 244              		.align	1
+ 245              		.syntax unified
+ 246              		.thumb
+ 247              		.thumb_func
+ 248              		.fpu fpv4-sp-d16
+ 249              		.type	spi_lld_serve_rx_interrupt, %function
+ 250              	spi_lld_serve_rx_interrupt:
+ 251              		@ args = 0, pretend = 0, frame = 8
+ 252              		@ frame_needed = 1, uses_anonymous_args = 0
+ 253 0000 80B5     		push	{r7, lr}
+ 254 0002 82B0     		sub	sp, sp, #8
+ 255 0004 00AF     		add	r7, sp, #0
+ 256 0006 7860     		str	r0, [r7, #4]
+ 257 0008 3960     		str	r1, [r7]
+ 258 000a 3B68     		ldr	r3, [r7]
+ 259 000c 03F00C03 		and	r3, r3, #12
+ 260 0010 002B     		cmp	r3, #0
+ 261 0012 02D0     		beq	.L12
+ 262 0014 3248     		ldr	r0, .L18
+ 263 0016 FFF7FEFF 		bl	osalSysHalt
+ 264              	.L12:
+ 265 001a 7B68     		ldr	r3, [r7, #4]
+ 266 001c 9B6A     		ldr	r3, [r3, #40]
+ 267 001e 1B68     		ldr	r3, [r3]
+ 268 0020 1A68     		ldr	r2, [r3]
+ 269 0022 7B68     		ldr	r3, [r7, #4]
+ 270 0024 9B6A     		ldr	r3, [r3, #40]
+ 271 0026 1B68     		ldr	r3, [r3]
+ 272 0028 22F01F02 		bic	r2, r2, #31
+ 273 002c 1A60     		str	r2, [r3]
+ 274 002e 00BF     		nop
+ 275              	.L13:
+ 276 0030 7B68     		ldr	r3, [r7, #4]
+ 277 0032 9B6A     		ldr	r3, [r3, #40]
+ 278 0034 1B68     		ldr	r3, [r3]
+ 279 0036 1B68     		ldr	r3, [r3]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s 			page 6
+
+
+ 280 0038 03F00103 		and	r3, r3, #1
+ 281 003c 002B     		cmp	r3, #0
+ 282 003e F7D1     		bne	.L13
+ 283 0040 7B68     		ldr	r3, [r7, #4]
+ 284 0042 9B6A     		ldr	r3, [r3, #40]
+ 285 0044 1B7A     		ldrb	r3, [r3, #8]	@ zero_extendqisi2
+ 286 0046 1A46     		mov	r2, r3
+ 287 0048 3D23     		movs	r3, #61
+ 288 004a 03FA02F2 		lsl	r2, r3, r2
+ 289 004e 7B68     		ldr	r3, [r7, #4]
+ 290 0050 9B6A     		ldr	r3, [r3, #40]
+ 291 0052 5B68     		ldr	r3, [r3, #4]
+ 292 0054 1A60     		str	r2, [r3]
+ 293 0056 7B68     		ldr	r3, [r7, #4]
+ 294 0058 5B6A     		ldr	r3, [r3, #36]
+ 295 005a 1B68     		ldr	r3, [r3]
+ 296 005c 1A68     		ldr	r2, [r3]
+ 297 005e 7B68     		ldr	r3, [r7, #4]
+ 298 0060 5B6A     		ldr	r3, [r3, #36]
+ 299 0062 1B68     		ldr	r3, [r3]
+ 300 0064 22F01F02 		bic	r2, r2, #31
+ 301 0068 1A60     		str	r2, [r3]
+ 302 006a 00BF     		nop
+ 303              	.L14:
+ 304 006c 7B68     		ldr	r3, [r7, #4]
+ 305 006e 5B6A     		ldr	r3, [r3, #36]
+ 306 0070 1B68     		ldr	r3, [r3]
+ 307 0072 1B68     		ldr	r3, [r3]
+ 308 0074 03F00103 		and	r3, r3, #1
+ 309 0078 002B     		cmp	r3, #0
+ 310 007a F7D1     		bne	.L14
+ 311 007c 7B68     		ldr	r3, [r7, #4]
+ 312 007e 5B6A     		ldr	r3, [r3, #36]
+ 313 0080 1B7A     		ldrb	r3, [r3, #8]	@ zero_extendqisi2
+ 314 0082 1A46     		mov	r2, r3
+ 315 0084 3D23     		movs	r3, #61
+ 316 0086 03FA02F2 		lsl	r2, r3, r2
+ 317 008a 7B68     		ldr	r3, [r7, #4]
+ 318 008c 5B6A     		ldr	r3, [r3, #36]
+ 319 008e 5B68     		ldr	r3, [r3, #4]
+ 320 0090 1A60     		str	r2, [r3]
+ 321 0092 7B68     		ldr	r3, [r7, #4]
+ 322 0094 5B68     		ldr	r3, [r3, #4]
+ 323 0096 1B68     		ldr	r3, [r3]
+ 324 0098 002B     		cmp	r3, #0
+ 325 009a 0FD0     		beq	.L15
+ 326 009c 7B68     		ldr	r3, [r7, #4]
+ 327 009e 0422     		movs	r2, #4
+ 328 00a0 1A70     		strb	r2, [r3]
+ 329 00a2 7B68     		ldr	r3, [r7, #4]
+ 330 00a4 5B68     		ldr	r3, [r3, #4]
+ 331 00a6 1B68     		ldr	r3, [r3]
+ 332 00a8 7868     		ldr	r0, [r7, #4]
+ 333 00aa 9847     		blx	r3
+ 334 00ac 7B68     		ldr	r3, [r7, #4]
+ 335 00ae 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 336 00b0 042B     		cmp	r3, #4
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s 			page 7
+
+
+ 337 00b2 06D1     		bne	.L17
+ 338 00b4 7B68     		ldr	r3, [r7, #4]
+ 339 00b6 0222     		movs	r2, #2
+ 340 00b8 1A70     		strb	r2, [r3]
+ 341 00ba 02E0     		b	.L17
+ 342              	.L15:
+ 343 00bc 7B68     		ldr	r3, [r7, #4]
+ 344 00be 0222     		movs	r2, #2
+ 345 00c0 1A70     		strb	r2, [r3]
+ 346              	.L17:
+ 347 00c2 FFF7FEFF 		bl	osalSysLockFromISR
+ 348 00c6 7B68     		ldr	r3, [r7, #4]
+ 349 00c8 0833     		adds	r3, r3, #8
+ 350 00ca 0021     		movs	r1, #0
+ 351 00cc 1846     		mov	r0, r3
+ 352 00ce FFF7FEFF 		bl	osalThreadResumeI
+ 353 00d2 FFF7FEFF 		bl	osalSysUnlockFromISR
+ 354 00d6 00BF     		nop
+ 355 00d8 0837     		adds	r7, r7, #8
+ 356 00da BD46     		mov	sp, r7
+ 357              		@ sp needed
+ 358 00dc 80BD     		pop	{r7, pc}
+ 359              	.L19:
+ 360 00de 00BF     		.align	2
+ 361              	.L18:
+ 362 00e0 00000000 		.word	.LC0
+ 363              		.size	spi_lld_serve_rx_interrupt, .-spi_lld_serve_rx_interrupt
+ 364              		.section	.text.spi_lld_serve_tx_interrupt,"ax",%progbits
+ 365              		.align	1
+ 366              		.syntax unified
+ 367              		.thumb
+ 368              		.thumb_func
+ 369              		.fpu fpv4-sp-d16
+ 370              		.type	spi_lld_serve_tx_interrupt, %function
+ 371              	spi_lld_serve_tx_interrupt:
+ 372              		@ args = 0, pretend = 0, frame = 8
+ 373              		@ frame_needed = 1, uses_anonymous_args = 0
+ 374 0000 80B5     		push	{r7, lr}
+ 375 0002 82B0     		sub	sp, sp, #8
+ 376 0004 00AF     		add	r7, sp, #0
+ 377 0006 7860     		str	r0, [r7, #4]
+ 378 0008 3960     		str	r1, [r7]
+ 379 000a 3B68     		ldr	r3, [r7]
+ 380 000c 03F00C03 		and	r3, r3, #12
+ 381 0010 002B     		cmp	r3, #0
+ 382 0012 02D0     		beq	.L22
+ 383 0014 0348     		ldr	r0, .L23
+ 384 0016 FFF7FEFF 		bl	osalSysHalt
+ 385              	.L22:
+ 386 001a 00BF     		nop
+ 387 001c 0837     		adds	r7, r7, #8
+ 388 001e BD46     		mov	sp, r7
+ 389              		@ sp needed
+ 390 0020 80BD     		pop	{r7, pc}
+ 391              	.L24:
+ 392 0022 00BF     		.align	2
+ 393              	.L23:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s 			page 8
+
+
+ 394 0024 00000000 		.word	.LC0
+ 395              		.size	spi_lld_serve_tx_interrupt, .-spi_lld_serve_tx_interrupt
+ 396              		.section	.text.spi_lld_init,"ax",%progbits
+ 397              		.align	1
+ 398              		.global	spi_lld_init
+ 399              		.syntax unified
+ 400              		.thumb
+ 401              		.thumb_func
+ 402              		.fpu fpv4-sp-d16
+ 403              		.type	spi_lld_init, %function
+ 404              	spi_lld_init:
+ 405              		@ args = 0, pretend = 0, frame = 0
+ 406              		@ frame_needed = 1, uses_anonymous_args = 0
+ 407 0000 80B5     		push	{r7, lr}
+ 408 0002 00AF     		add	r7, sp, #0
+ 409 0004 0B4B     		ldr	r3, .L26
+ 410 0006 4FF6FF72 		movw	r2, #65535
+ 411 000a 1A80     		strh	r2, [r3]	@ movhi
+ 412 000c 0A48     		ldr	r0, .L26+4
+ 413 000e FFF7FEFF 		bl	spiObjectInit
+ 414 0012 094B     		ldr	r3, .L26+4
+ 415 0014 094A     		ldr	r2, .L26+8
+ 416 0016 1A62     		str	r2, [r3, #32]
+ 417 0018 074B     		ldr	r3, .L26+4
+ 418 001a 094A     		ldr	r2, .L26+12
+ 419 001c 5A62     		str	r2, [r3, #36]
+ 420 001e 064B     		ldr	r3, .L26+4
+ 421 0020 084A     		ldr	r2, .L26+16
+ 422 0022 9A62     		str	r2, [r3, #40]
+ 423 0024 044B     		ldr	r3, .L26+4
+ 424 0026 084A     		ldr	r2, .L26+20
+ 425 0028 DA62     		str	r2, [r3, #44]
+ 426 002a 034B     		ldr	r3, .L26+4
+ 427 002c 074A     		ldr	r2, .L26+24
+ 428 002e 1A63     		str	r2, [r3, #48]
+ 429 0030 00BF     		nop
+ 430 0032 80BD     		pop	{r7, pc}
+ 431              	.L27:
+ 432              		.align	2
+ 433              	.L26:
+ 434 0034 00000000 		.word	dummytx
+ 435 0038 00000000 		.word	SPID1
+ 436 003c 00300140 		.word	1073819648
+ 437 0040 60000000 		.word	_stm32_dma_streams+96
+ 438 0044 9C000000 		.word	_stm32_dma_streams+156
+ 439 0048 16000106 		.word	100728854
+ 440 004c 46000106 		.word	100728902
+ 441              		.size	spi_lld_init, .-spi_lld_init
+ 442              		.section	.text.spi_lld_start,"ax",%progbits
+ 443              		.align	1
+ 444              		.global	spi_lld_start
+ 445              		.syntax unified
+ 446              		.thumb
+ 447              		.thumb_func
+ 448              		.fpu fpv4-sp-d16
+ 449              		.type	spi_lld_start, %function
+ 450              	spi_lld_start:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s 			page 9
+
+
+ 451              		@ args = 0, pretend = 0, frame = 16
+ 452              		@ frame_needed = 1, uses_anonymous_args = 0
+ 453 0000 80B5     		push	{r7, lr}
+ 454 0002 84B0     		sub	sp, sp, #16
+ 455 0004 00AF     		add	r7, sp, #0
+ 456 0006 7860     		str	r0, [r7, #4]
+ 457 0008 7B68     		ldr	r3, [r7, #4]
+ 458 000a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 459 000c 012B     		cmp	r3, #1
+ 460 000e 37D1     		bne	.L29
+ 461 0010 7B68     		ldr	r3, [r7, #4]
+ 462 0012 3C4A     		ldr	r2, .L35
+ 463 0014 9342     		cmp	r3, r2
+ 464 0016 23D1     		bne	.L30
+ 465 0018 7B68     		ldr	r3, [r7, #4]
+ 466 001a 586A     		ldr	r0, [r3, #36]
+ 467 001c 7B68     		ldr	r3, [r7, #4]
+ 468 001e 3A4A     		ldr	r2, .L35+4
+ 469 0020 0A21     		movs	r1, #10
+ 470 0022 FFF7FEFF 		bl	dmaStreamAllocate
+ 471 0026 0346     		mov	r3, r0
+ 472 0028 FB73     		strb	r3, [r7, #15]
+ 473 002a FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 474 002c 002B     		cmp	r3, #0
+ 475 002e 02D0     		beq	.L31
+ 476 0030 3648     		ldr	r0, .L35+8
+ 477 0032 FFF7FEFF 		bl	chSysHalt
+ 478              	.L31:
+ 479 0036 7B68     		ldr	r3, [r7, #4]
+ 480 0038 986A     		ldr	r0, [r3, #40]
+ 481 003a 7B68     		ldr	r3, [r7, #4]
+ 482 003c 344A     		ldr	r2, .L35+12
+ 483 003e 0A21     		movs	r1, #10
+ 484 0040 FFF7FEFF 		bl	dmaStreamAllocate
+ 485 0044 0346     		mov	r3, r0
+ 486 0046 FB73     		strb	r3, [r7, #15]
+ 487 0048 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 488 004a 002B     		cmp	r3, #0
+ 489 004c 02D0     		beq	.L32
+ 490 004e 2F48     		ldr	r0, .L35+8
+ 491 0050 FFF7FEFF 		bl	chSysHalt
+ 492              	.L32:
+ 493 0054 2F4B     		ldr	r3, .L35+16
+ 494 0056 5B6C     		ldr	r3, [r3, #68]
+ 495 0058 2E4A     		ldr	r2, .L35+16
+ 496 005a 43F48053 		orr	r3, r3, #4096
+ 497 005e 5364     		str	r3, [r2, #68]
+ 498              	.L30:
+ 499 0060 7B68     		ldr	r3, [r7, #4]
+ 500 0062 1B6A     		ldr	r3, [r3, #32]
+ 501 0064 03F10C02 		add	r2, r3, #12
+ 502 0068 7B68     		ldr	r3, [r7, #4]
+ 503 006a 5B6A     		ldr	r3, [r3, #36]
+ 504 006c 1B68     		ldr	r3, [r3]
+ 505 006e 9A60     		str	r2, [r3, #8]
+ 506 0070 7B68     		ldr	r3, [r7, #4]
+ 507 0072 1B6A     		ldr	r3, [r3, #32]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s 			page 10
+
+
+ 508 0074 03F10C02 		add	r2, r3, #12
+ 509 0078 7B68     		ldr	r3, [r7, #4]
+ 510 007a 9B6A     		ldr	r3, [r3, #40]
+ 511 007c 1B68     		ldr	r3, [r3]
+ 512 007e 9A60     		str	r2, [r3, #8]
+ 513              	.L29:
+ 514 0080 7B68     		ldr	r3, [r7, #4]
+ 515 0082 5B68     		ldr	r3, [r3, #4]
+ 516 0084 5B89     		ldrh	r3, [r3, #10]
+ 517 0086 03F40063 		and	r3, r3, #2048
+ 518 008a 002B     		cmp	r3, #0
+ 519 008c 0CD1     		bne	.L33
+ 520 008e 7B68     		ldr	r3, [r7, #4]
+ 521 0090 DB6A     		ldr	r3, [r3, #44]
+ 522 0092 23F4F042 		bic	r2, r3, #30720
+ 523 0096 7B68     		ldr	r3, [r7, #4]
+ 524 0098 DA62     		str	r2, [r3, #44]
+ 525 009a 7B68     		ldr	r3, [r7, #4]
+ 526 009c 1B6B     		ldr	r3, [r3, #48]
+ 527 009e 23F4F042 		bic	r2, r3, #30720
+ 528 00a2 7B68     		ldr	r3, [r7, #4]
+ 529 00a4 1A63     		str	r2, [r3, #48]
+ 530 00a6 0FE0     		b	.L34
+ 531              	.L33:
+ 532 00a8 7B68     		ldr	r3, [r7, #4]
+ 533 00aa DB6A     		ldr	r3, [r3, #44]
+ 534 00ac 23F4F043 		bic	r3, r3, #30720
+ 535 00b0 43F42052 		orr	r2, r3, #10240
+ 536 00b4 7B68     		ldr	r3, [r7, #4]
+ 537 00b6 DA62     		str	r2, [r3, #44]
+ 538 00b8 7B68     		ldr	r3, [r7, #4]
+ 539 00ba 1B6B     		ldr	r3, [r3, #48]
+ 540 00bc 23F4F043 		bic	r3, r3, #30720
+ 541 00c0 43F42052 		orr	r2, r3, #10240
+ 542 00c4 7B68     		ldr	r3, [r7, #4]
+ 543 00c6 1A63     		str	r2, [r3, #48]
+ 544              	.L34:
+ 545 00c8 7B68     		ldr	r3, [r7, #4]
+ 546 00ca 1B6A     		ldr	r3, [r3, #32]
+ 547 00cc 0022     		movs	r2, #0
+ 548 00ce 1A60     		str	r2, [r3]
+ 549 00d0 7B68     		ldr	r3, [r7, #4]
+ 550 00d2 5B68     		ldr	r3, [r3, #4]
+ 551 00d4 5B89     		ldrh	r3, [r3, #10]
+ 552 00d6 43F44173 		orr	r3, r3, #772
+ 553 00da 9AB2     		uxth	r2, r3
+ 554 00dc 7B68     		ldr	r3, [r7, #4]
+ 555 00de 1B6A     		ldr	r3, [r3, #32]
+ 556 00e0 1A60     		str	r2, [r3]
+ 557 00e2 7B68     		ldr	r3, [r7, #4]
+ 558 00e4 1B6A     		ldr	r3, [r3, #32]
+ 559 00e6 0722     		movs	r2, #7
+ 560 00e8 5A60     		str	r2, [r3, #4]
+ 561 00ea 7B68     		ldr	r3, [r7, #4]
+ 562 00ec 1B6A     		ldr	r3, [r3, #32]
+ 563 00ee 1A68     		ldr	r2, [r3]
+ 564 00f0 7B68     		ldr	r3, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s 			page 11
+
+
+ 565 00f2 1B6A     		ldr	r3, [r3, #32]
+ 566 00f4 42F04002 		orr	r2, r2, #64
+ 567 00f8 1A60     		str	r2, [r3]
+ 568 00fa 00BF     		nop
+ 569 00fc 1037     		adds	r7, r7, #16
+ 570 00fe BD46     		mov	sp, r7
+ 571              		@ sp needed
+ 572 0100 80BD     		pop	{r7, pc}
+ 573              	.L36:
+ 574 0102 00BF     		.align	2
+ 575              	.L35:
+ 576 0104 00000000 		.word	SPID1
+ 577 0108 00000000 		.word	spi_lld_serve_rx_interrupt
+ 578 010c 00000000 		.word	__func__.9862
+ 579 0110 00000000 		.word	spi_lld_serve_tx_interrupt
+ 580 0114 00380240 		.word	1073887232
+ 581              		.size	spi_lld_start, .-spi_lld_start
+ 582              		.section	.text.spi_lld_stop,"ax",%progbits
+ 583              		.align	1
+ 584              		.global	spi_lld_stop
+ 585              		.syntax unified
+ 586              		.thumb
+ 587              		.thumb_func
+ 588              		.fpu fpv4-sp-d16
+ 589              		.type	spi_lld_stop, %function
+ 590              	spi_lld_stop:
+ 591              		@ args = 0, pretend = 0, frame = 8
+ 592              		@ frame_needed = 1, uses_anonymous_args = 0
+ 593 0000 80B5     		push	{r7, lr}
+ 594 0002 82B0     		sub	sp, sp, #8
+ 595 0004 00AF     		add	r7, sp, #0
+ 596 0006 7860     		str	r0, [r7, #4]
+ 597 0008 7B68     		ldr	r3, [r7, #4]
+ 598 000a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 599 000c 022B     		cmp	r3, #2
+ 600 000e 1BD1     		bne	.L39
+ 601 0010 7B68     		ldr	r3, [r7, #4]
+ 602 0012 1B6A     		ldr	r3, [r3, #32]
+ 603 0014 0022     		movs	r2, #0
+ 604 0016 1A60     		str	r2, [r3]
+ 605 0018 7B68     		ldr	r3, [r7, #4]
+ 606 001a 1B6A     		ldr	r3, [r3, #32]
+ 607 001c 0022     		movs	r2, #0
+ 608 001e 5A60     		str	r2, [r3, #4]
+ 609 0020 7B68     		ldr	r3, [r7, #4]
+ 610 0022 5B6A     		ldr	r3, [r3, #36]
+ 611 0024 1846     		mov	r0, r3
+ 612 0026 FFF7FEFF 		bl	dmaStreamRelease
+ 613 002a 7B68     		ldr	r3, [r7, #4]
+ 614 002c 9B6A     		ldr	r3, [r3, #40]
+ 615 002e 1846     		mov	r0, r3
+ 616 0030 FFF7FEFF 		bl	dmaStreamRelease
+ 617 0034 7B68     		ldr	r3, [r7, #4]
+ 618 0036 064A     		ldr	r2, .L40
+ 619 0038 9342     		cmp	r3, r2
+ 620 003a 05D1     		bne	.L39
+ 621 003c 054B     		ldr	r3, .L40+4
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s 			page 12
+
+
+ 622 003e 5B6C     		ldr	r3, [r3, #68]
+ 623 0040 044A     		ldr	r2, .L40+4
+ 624 0042 23F48053 		bic	r3, r3, #4096
+ 625 0046 5364     		str	r3, [r2, #68]
+ 626              	.L39:
+ 627 0048 00BF     		nop
+ 628 004a 0837     		adds	r7, r7, #8
+ 629 004c BD46     		mov	sp, r7
+ 630              		@ sp needed
+ 631 004e 80BD     		pop	{r7, pc}
+ 632              	.L41:
+ 633              		.align	2
+ 634              	.L40:
+ 635 0050 00000000 		.word	SPID1
+ 636 0054 00380240 		.word	1073887232
+ 637              		.size	spi_lld_stop, .-spi_lld_stop
+ 638              		.section	.text.spi_lld_select,"ax",%progbits
+ 639              		.align	1
+ 640              		.global	spi_lld_select
+ 641              		.syntax unified
+ 642              		.thumb
+ 643              		.thumb_func
+ 644              		.fpu fpv4-sp-d16
+ 645              		.type	spi_lld_select, %function
+ 646              	spi_lld_select:
+ 647              		@ args = 0, pretend = 0, frame = 8
+ 648              		@ frame_needed = 1, uses_anonymous_args = 0
+ 649              		@ link register save eliminated.
+ 650 0000 80B4     		push	{r7}
+ 651 0002 83B0     		sub	sp, sp, #12
+ 652 0004 00AF     		add	r7, sp, #0
+ 653 0006 7860     		str	r0, [r7, #4]
+ 654 0008 7B68     		ldr	r3, [r7, #4]
+ 655 000a 5B68     		ldr	r3, [r3, #4]
+ 656 000c 1B89     		ldrh	r3, [r3, #8]
+ 657 000e 1A46     		mov	r2, r3
+ 658 0010 0123     		movs	r3, #1
+ 659 0012 03FA02F2 		lsl	r2, r3, r2
+ 660 0016 7B68     		ldr	r3, [r7, #4]
+ 661 0018 5B68     		ldr	r3, [r3, #4]
+ 662 001a 5B68     		ldr	r3, [r3, #4]
+ 663 001c 92B2     		uxth	r2, r2
+ 664 001e 5A83     		strh	r2, [r3, #26]	@ movhi
+ 665 0020 00BF     		nop
+ 666 0022 0C37     		adds	r7, r7, #12
+ 667 0024 BD46     		mov	sp, r7
+ 668              		@ sp needed
+ 669 0026 5DF8047B 		ldr	r7, [sp], #4
+ 670 002a 7047     		bx	lr
+ 671              		.size	spi_lld_select, .-spi_lld_select
+ 672              		.section	.text.spi_lld_unselect,"ax",%progbits
+ 673              		.align	1
+ 674              		.global	spi_lld_unselect
+ 675              		.syntax unified
+ 676              		.thumb
+ 677              		.thumb_func
+ 678              		.fpu fpv4-sp-d16
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s 			page 13
+
+
+ 679              		.type	spi_lld_unselect, %function
+ 680              	spi_lld_unselect:
+ 681              		@ args = 0, pretend = 0, frame = 8
+ 682              		@ frame_needed = 1, uses_anonymous_args = 0
+ 683              		@ link register save eliminated.
+ 684 0000 80B4     		push	{r7}
+ 685 0002 83B0     		sub	sp, sp, #12
+ 686 0004 00AF     		add	r7, sp, #0
+ 687 0006 7860     		str	r0, [r7, #4]
+ 688 0008 7B68     		ldr	r3, [r7, #4]
+ 689 000a 5B68     		ldr	r3, [r3, #4]
+ 690 000c 1B89     		ldrh	r3, [r3, #8]
+ 691 000e 1A46     		mov	r2, r3
+ 692 0010 0123     		movs	r3, #1
+ 693 0012 03FA02F2 		lsl	r2, r3, r2
+ 694 0016 7B68     		ldr	r3, [r7, #4]
+ 695 0018 5B68     		ldr	r3, [r3, #4]
+ 696 001a 5B68     		ldr	r3, [r3, #4]
+ 697 001c 92B2     		uxth	r2, r2
+ 698 001e 1A83     		strh	r2, [r3, #24]	@ movhi
+ 699 0020 00BF     		nop
+ 700 0022 0C37     		adds	r7, r7, #12
+ 701 0024 BD46     		mov	sp, r7
+ 702              		@ sp needed
+ 703 0026 5DF8047B 		ldr	r7, [sp], #4
+ 704 002a 7047     		bx	lr
+ 705              		.size	spi_lld_unselect, .-spi_lld_unselect
+ 706              		.section	.text.spi_lld_ignore,"ax",%progbits
+ 707              		.align	1
+ 708              		.global	spi_lld_ignore
+ 709              		.syntax unified
+ 710              		.thumb
+ 711              		.thumb_func
+ 712              		.fpu fpv4-sp-d16
+ 713              		.type	spi_lld_ignore, %function
+ 714              	spi_lld_ignore:
+ 715              		@ args = 0, pretend = 0, frame = 8
+ 716              		@ frame_needed = 1, uses_anonymous_args = 0
+ 717              		@ link register save eliminated.
+ 718 0000 80B4     		push	{r7}
+ 719 0002 83B0     		sub	sp, sp, #12
+ 720 0004 00AF     		add	r7, sp, #0
+ 721 0006 7860     		str	r0, [r7, #4]
+ 722 0008 3960     		str	r1, [r7]
+ 723 000a 7B68     		ldr	r3, [r7, #4]
+ 724 000c 5B6A     		ldr	r3, [r3, #36]
+ 725 000e 1B68     		ldr	r3, [r3]
+ 726 0010 1B4A     		ldr	r2, .L45
+ 727 0012 DA60     		str	r2, [r3, #12]
+ 728 0014 7B68     		ldr	r3, [r7, #4]
+ 729 0016 5B6A     		ldr	r3, [r3, #36]
+ 730 0018 1B68     		ldr	r3, [r3]
+ 731 001a 3A68     		ldr	r2, [r7]
+ 732 001c 5A60     		str	r2, [r3, #4]
+ 733 001e 7B68     		ldr	r3, [r7, #4]
+ 734 0020 5B6A     		ldr	r3, [r3, #36]
+ 735 0022 1B68     		ldr	r3, [r3]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s 			page 14
+
+
+ 736 0024 7A68     		ldr	r2, [r7, #4]
+ 737 0026 D26A     		ldr	r2, [r2, #44]
+ 738 0028 1A60     		str	r2, [r3]
+ 739 002a 7B68     		ldr	r3, [r7, #4]
+ 740 002c 9B6A     		ldr	r3, [r3, #40]
+ 741 002e 1B68     		ldr	r3, [r3]
+ 742 0030 144A     		ldr	r2, .L45+4
+ 743 0032 DA60     		str	r2, [r3, #12]
+ 744 0034 7B68     		ldr	r3, [r7, #4]
+ 745 0036 9B6A     		ldr	r3, [r3, #40]
+ 746 0038 1B68     		ldr	r3, [r3]
+ 747 003a 3A68     		ldr	r2, [r7]
+ 748 003c 5A60     		str	r2, [r3, #4]
+ 749 003e 7B68     		ldr	r3, [r7, #4]
+ 750 0040 9B6A     		ldr	r3, [r3, #40]
+ 751 0042 1B68     		ldr	r3, [r3]
+ 752 0044 7A68     		ldr	r2, [r7, #4]
+ 753 0046 126B     		ldr	r2, [r2, #48]
+ 754 0048 1A60     		str	r2, [r3]
+ 755 004a 7B68     		ldr	r3, [r7, #4]
+ 756 004c 5B6A     		ldr	r3, [r3, #36]
+ 757 004e 1B68     		ldr	r3, [r3]
+ 758 0050 1A68     		ldr	r2, [r3]
+ 759 0052 7B68     		ldr	r3, [r7, #4]
+ 760 0054 5B6A     		ldr	r3, [r3, #36]
+ 761 0056 1B68     		ldr	r3, [r3]
+ 762 0058 42F00102 		orr	r2, r2, #1
+ 763 005c 1A60     		str	r2, [r3]
+ 764 005e 7B68     		ldr	r3, [r7, #4]
+ 765 0060 9B6A     		ldr	r3, [r3, #40]
+ 766 0062 1B68     		ldr	r3, [r3]
+ 767 0064 1A68     		ldr	r2, [r3]
+ 768 0066 7B68     		ldr	r3, [r7, #4]
+ 769 0068 9B6A     		ldr	r3, [r3, #40]
+ 770 006a 1B68     		ldr	r3, [r3]
+ 771 006c 42F00102 		orr	r2, r2, #1
+ 772 0070 1A60     		str	r2, [r3]
+ 773 0072 00BF     		nop
+ 774 0074 0C37     		adds	r7, r7, #12
+ 775 0076 BD46     		mov	sp, r7
+ 776              		@ sp needed
+ 777 0078 5DF8047B 		ldr	r7, [sp], #4
+ 778 007c 7047     		bx	lr
+ 779              	.L46:
+ 780 007e 00BF     		.align	2
+ 781              	.L45:
+ 782 0080 00000000 		.word	dummyrx
+ 783 0084 00000000 		.word	dummytx
+ 784              		.size	spi_lld_ignore, .-spi_lld_ignore
+ 785              		.section	.text.spi_lld_exchange,"ax",%progbits
+ 786              		.align	1
+ 787              		.global	spi_lld_exchange
+ 788              		.syntax unified
+ 789              		.thumb
+ 790              		.thumb_func
+ 791              		.fpu fpv4-sp-d16
+ 792              		.type	spi_lld_exchange, %function
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s 			page 15
+
+
+ 793              	spi_lld_exchange:
+ 794              		@ args = 0, pretend = 0, frame = 16
+ 795              		@ frame_needed = 1, uses_anonymous_args = 0
+ 796              		@ link register save eliminated.
+ 797 0000 80B4     		push	{r7}
+ 798 0002 85B0     		sub	sp, sp, #20
+ 799 0004 00AF     		add	r7, sp, #0
+ 800 0006 F860     		str	r0, [r7, #12]
+ 801 0008 B960     		str	r1, [r7, #8]
+ 802 000a 7A60     		str	r2, [r7, #4]
+ 803 000c 3B60     		str	r3, [r7]
+ 804 000e FB68     		ldr	r3, [r7, #12]
+ 805 0010 5B6A     		ldr	r3, [r3, #36]
+ 806 0012 1B68     		ldr	r3, [r3]
+ 807 0014 3A68     		ldr	r2, [r7]
+ 808 0016 DA60     		str	r2, [r3, #12]
+ 809 0018 FB68     		ldr	r3, [r7, #12]
+ 810 001a 5B6A     		ldr	r3, [r3, #36]
+ 811 001c 1B68     		ldr	r3, [r3]
+ 812 001e BA68     		ldr	r2, [r7, #8]
+ 813 0020 5A60     		str	r2, [r3, #4]
+ 814 0022 FB68     		ldr	r3, [r7, #12]
+ 815 0024 DA6A     		ldr	r2, [r3, #44]
+ 816 0026 FB68     		ldr	r3, [r7, #12]
+ 817 0028 5B6A     		ldr	r3, [r3, #36]
+ 818 002a 1B68     		ldr	r3, [r3]
+ 819 002c 42F48062 		orr	r2, r2, #1024
+ 820 0030 1A60     		str	r2, [r3]
+ 821 0032 FB68     		ldr	r3, [r7, #12]
+ 822 0034 9B6A     		ldr	r3, [r3, #40]
+ 823 0036 1B68     		ldr	r3, [r3]
+ 824 0038 7A68     		ldr	r2, [r7, #4]
+ 825 003a DA60     		str	r2, [r3, #12]
+ 826 003c FB68     		ldr	r3, [r7, #12]
+ 827 003e 9B6A     		ldr	r3, [r3, #40]
+ 828 0040 1B68     		ldr	r3, [r3]
+ 829 0042 BA68     		ldr	r2, [r7, #8]
+ 830 0044 5A60     		str	r2, [r3, #4]
+ 831 0046 FB68     		ldr	r3, [r7, #12]
+ 832 0048 1A6B     		ldr	r2, [r3, #48]
+ 833 004a FB68     		ldr	r3, [r7, #12]
+ 834 004c 9B6A     		ldr	r3, [r3, #40]
+ 835 004e 1B68     		ldr	r3, [r3]
+ 836 0050 42F48062 		orr	r2, r2, #1024
+ 837 0054 1A60     		str	r2, [r3]
+ 838 0056 FB68     		ldr	r3, [r7, #12]
+ 839 0058 5B6A     		ldr	r3, [r3, #36]
+ 840 005a 1B68     		ldr	r3, [r3]
+ 841 005c 1A68     		ldr	r2, [r3]
+ 842 005e FB68     		ldr	r3, [r7, #12]
+ 843 0060 5B6A     		ldr	r3, [r3, #36]
+ 844 0062 1B68     		ldr	r3, [r3]
+ 845 0064 42F00102 		orr	r2, r2, #1
+ 846 0068 1A60     		str	r2, [r3]
+ 847 006a FB68     		ldr	r3, [r7, #12]
+ 848 006c 9B6A     		ldr	r3, [r3, #40]
+ 849 006e 1B68     		ldr	r3, [r3]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s 			page 16
+
+
+ 850 0070 1A68     		ldr	r2, [r3]
+ 851 0072 FB68     		ldr	r3, [r7, #12]
+ 852 0074 9B6A     		ldr	r3, [r3, #40]
+ 853 0076 1B68     		ldr	r3, [r3]
+ 854 0078 42F00102 		orr	r2, r2, #1
+ 855 007c 1A60     		str	r2, [r3]
+ 856 007e 00BF     		nop
+ 857 0080 1437     		adds	r7, r7, #20
+ 858 0082 BD46     		mov	sp, r7
+ 859              		@ sp needed
+ 860 0084 5DF8047B 		ldr	r7, [sp], #4
+ 861 0088 7047     		bx	lr
+ 862              		.size	spi_lld_exchange, .-spi_lld_exchange
+ 863              		.section	.text.spi_lld_send,"ax",%progbits
+ 864              		.align	1
+ 865              		.global	spi_lld_send
+ 866              		.syntax unified
+ 867              		.thumb
+ 868              		.thumb_func
+ 869              		.fpu fpv4-sp-d16
+ 870              		.type	spi_lld_send, %function
+ 871              	spi_lld_send:
+ 872              		@ args = 0, pretend = 0, frame = 16
+ 873              		@ frame_needed = 1, uses_anonymous_args = 0
+ 874              		@ link register save eliminated.
+ 875 0000 80B4     		push	{r7}
+ 876 0002 85B0     		sub	sp, sp, #20
+ 877 0004 00AF     		add	r7, sp, #0
+ 878 0006 F860     		str	r0, [r7, #12]
+ 879 0008 B960     		str	r1, [r7, #8]
+ 880 000a 7A60     		str	r2, [r7, #4]
+ 881 000c FB68     		ldr	r3, [r7, #12]
+ 882 000e 5B6A     		ldr	r3, [r3, #36]
+ 883 0010 1B68     		ldr	r3, [r3]
+ 884 0012 1C4A     		ldr	r2, .L49
+ 885 0014 DA60     		str	r2, [r3, #12]
+ 886 0016 FB68     		ldr	r3, [r7, #12]
+ 887 0018 5B6A     		ldr	r3, [r3, #36]
+ 888 001a 1B68     		ldr	r3, [r3]
+ 889 001c BA68     		ldr	r2, [r7, #8]
+ 890 001e 5A60     		str	r2, [r3, #4]
+ 891 0020 FB68     		ldr	r3, [r7, #12]
+ 892 0022 5B6A     		ldr	r3, [r3, #36]
+ 893 0024 1B68     		ldr	r3, [r3]
+ 894 0026 FA68     		ldr	r2, [r7, #12]
+ 895 0028 D26A     		ldr	r2, [r2, #44]
+ 896 002a 1A60     		str	r2, [r3]
+ 897 002c FB68     		ldr	r3, [r7, #12]
+ 898 002e 9B6A     		ldr	r3, [r3, #40]
+ 899 0030 1B68     		ldr	r3, [r3]
+ 900 0032 7A68     		ldr	r2, [r7, #4]
+ 901 0034 DA60     		str	r2, [r3, #12]
+ 902 0036 FB68     		ldr	r3, [r7, #12]
+ 903 0038 9B6A     		ldr	r3, [r3, #40]
+ 904 003a 1B68     		ldr	r3, [r3]
+ 905 003c BA68     		ldr	r2, [r7, #8]
+ 906 003e 5A60     		str	r2, [r3, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s 			page 17
+
+
+ 907 0040 FB68     		ldr	r3, [r7, #12]
+ 908 0042 1A6B     		ldr	r2, [r3, #48]
+ 909 0044 FB68     		ldr	r3, [r7, #12]
+ 910 0046 9B6A     		ldr	r3, [r3, #40]
+ 911 0048 1B68     		ldr	r3, [r3]
+ 912 004a 42F48062 		orr	r2, r2, #1024
+ 913 004e 1A60     		str	r2, [r3]
+ 914 0050 FB68     		ldr	r3, [r7, #12]
+ 915 0052 5B6A     		ldr	r3, [r3, #36]
+ 916 0054 1B68     		ldr	r3, [r3]
+ 917 0056 1A68     		ldr	r2, [r3]
+ 918 0058 FB68     		ldr	r3, [r7, #12]
+ 919 005a 5B6A     		ldr	r3, [r3, #36]
+ 920 005c 1B68     		ldr	r3, [r3]
+ 921 005e 42F00102 		orr	r2, r2, #1
+ 922 0062 1A60     		str	r2, [r3]
+ 923 0064 FB68     		ldr	r3, [r7, #12]
+ 924 0066 9B6A     		ldr	r3, [r3, #40]
+ 925 0068 1B68     		ldr	r3, [r3]
+ 926 006a 1A68     		ldr	r2, [r3]
+ 927 006c FB68     		ldr	r3, [r7, #12]
+ 928 006e 9B6A     		ldr	r3, [r3, #40]
+ 929 0070 1B68     		ldr	r3, [r3]
+ 930 0072 42F00102 		orr	r2, r2, #1
+ 931 0076 1A60     		str	r2, [r3]
+ 932 0078 00BF     		nop
+ 933 007a 1437     		adds	r7, r7, #20
+ 934 007c BD46     		mov	sp, r7
+ 935              		@ sp needed
+ 936 007e 5DF8047B 		ldr	r7, [sp], #4
+ 937 0082 7047     		bx	lr
+ 938              	.L50:
+ 939              		.align	2
+ 940              	.L49:
+ 941 0084 00000000 		.word	dummyrx
+ 942              		.size	spi_lld_send, .-spi_lld_send
+ 943              		.section	.text.spi_lld_receive,"ax",%progbits
+ 944              		.align	1
+ 945              		.global	spi_lld_receive
+ 946              		.syntax unified
+ 947              		.thumb
+ 948              		.thumb_func
+ 949              		.fpu fpv4-sp-d16
+ 950              		.type	spi_lld_receive, %function
+ 951              	spi_lld_receive:
+ 952              		@ args = 0, pretend = 0, frame = 16
+ 953              		@ frame_needed = 1, uses_anonymous_args = 0
+ 954              		@ link register save eliminated.
+ 955 0000 80B4     		push	{r7}
+ 956 0002 85B0     		sub	sp, sp, #20
+ 957 0004 00AF     		add	r7, sp, #0
+ 958 0006 F860     		str	r0, [r7, #12]
+ 959 0008 B960     		str	r1, [r7, #8]
+ 960 000a 7A60     		str	r2, [r7, #4]
+ 961 000c FB68     		ldr	r3, [r7, #12]
+ 962 000e 5B6A     		ldr	r3, [r3, #36]
+ 963 0010 1B68     		ldr	r3, [r3]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s 			page 18
+
+
+ 964 0012 7A68     		ldr	r2, [r7, #4]
+ 965 0014 DA60     		str	r2, [r3, #12]
+ 966 0016 FB68     		ldr	r3, [r7, #12]
+ 967 0018 5B6A     		ldr	r3, [r3, #36]
+ 968 001a 1B68     		ldr	r3, [r3]
+ 969 001c BA68     		ldr	r2, [r7, #8]
+ 970 001e 5A60     		str	r2, [r3, #4]
+ 971 0020 FB68     		ldr	r3, [r7, #12]
+ 972 0022 DA6A     		ldr	r2, [r3, #44]
+ 973 0024 FB68     		ldr	r3, [r7, #12]
+ 974 0026 5B6A     		ldr	r3, [r3, #36]
+ 975 0028 1B68     		ldr	r3, [r3]
+ 976 002a 42F48062 		orr	r2, r2, #1024
+ 977 002e 1A60     		str	r2, [r3]
+ 978 0030 FB68     		ldr	r3, [r7, #12]
+ 979 0032 9B6A     		ldr	r3, [r3, #40]
+ 980 0034 1B68     		ldr	r3, [r3]
+ 981 0036 134A     		ldr	r2, .L52
+ 982 0038 DA60     		str	r2, [r3, #12]
+ 983 003a FB68     		ldr	r3, [r7, #12]
+ 984 003c 9B6A     		ldr	r3, [r3, #40]
+ 985 003e 1B68     		ldr	r3, [r3]
+ 986 0040 BA68     		ldr	r2, [r7, #8]
+ 987 0042 5A60     		str	r2, [r3, #4]
+ 988 0044 FB68     		ldr	r3, [r7, #12]
+ 989 0046 9B6A     		ldr	r3, [r3, #40]
+ 990 0048 1B68     		ldr	r3, [r3]
+ 991 004a FA68     		ldr	r2, [r7, #12]
+ 992 004c 126B     		ldr	r2, [r2, #48]
+ 993 004e 1A60     		str	r2, [r3]
+ 994 0050 FB68     		ldr	r3, [r7, #12]
+ 995 0052 5B6A     		ldr	r3, [r3, #36]
+ 996 0054 1B68     		ldr	r3, [r3]
+ 997 0056 1A68     		ldr	r2, [r3]
+ 998 0058 FB68     		ldr	r3, [r7, #12]
+ 999 005a 5B6A     		ldr	r3, [r3, #36]
+ 1000 005c 1B68     		ldr	r3, [r3]
+ 1001 005e 42F00102 		orr	r2, r2, #1
+ 1002 0062 1A60     		str	r2, [r3]
+ 1003 0064 FB68     		ldr	r3, [r7, #12]
+ 1004 0066 9B6A     		ldr	r3, [r3, #40]
+ 1005 0068 1B68     		ldr	r3, [r3]
+ 1006 006a 1A68     		ldr	r2, [r3]
+ 1007 006c FB68     		ldr	r3, [r7, #12]
+ 1008 006e 9B6A     		ldr	r3, [r3, #40]
+ 1009 0070 1B68     		ldr	r3, [r3]
+ 1010 0072 42F00102 		orr	r2, r2, #1
+ 1011 0076 1A60     		str	r2, [r3]
+ 1012 0078 00BF     		nop
+ 1013 007a 1437     		adds	r7, r7, #20
+ 1014 007c BD46     		mov	sp, r7
+ 1015              		@ sp needed
+ 1016 007e 5DF8047B 		ldr	r7, [sp], #4
+ 1017 0082 7047     		bx	lr
+ 1018              	.L53:
+ 1019              		.align	2
+ 1020              	.L52:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s 			page 19
+
+
+ 1021 0084 00000000 		.word	dummytx
+ 1022              		.size	spi_lld_receive, .-spi_lld_receive
+ 1023              		.section	.text.spi_lld_polled_exchange,"ax",%progbits
+ 1024              		.align	1
+ 1025              		.global	spi_lld_polled_exchange
+ 1026              		.syntax unified
+ 1027              		.thumb
+ 1028              		.thumb_func
+ 1029              		.fpu fpv4-sp-d16
+ 1030              		.type	spi_lld_polled_exchange, %function
+ 1031              	spi_lld_polled_exchange:
+ 1032              		@ args = 0, pretend = 0, frame = 8
+ 1033              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1034              		@ link register save eliminated.
+ 1035 0000 80B4     		push	{r7}
+ 1036 0002 83B0     		sub	sp, sp, #12
+ 1037 0004 00AF     		add	r7, sp, #0
+ 1038 0006 7860     		str	r0, [r7, #4]
+ 1039 0008 0B46     		mov	r3, r1
+ 1040 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+ 1041 000c 7B68     		ldr	r3, [r7, #4]
+ 1042 000e 1B6A     		ldr	r3, [r3, #32]
+ 1043 0010 7A88     		ldrh	r2, [r7, #2]
+ 1044 0012 DA60     		str	r2, [r3, #12]
+ 1045 0014 00BF     		nop
+ 1046              	.L55:
+ 1047 0016 7B68     		ldr	r3, [r7, #4]
+ 1048 0018 1B6A     		ldr	r3, [r3, #32]
+ 1049 001a 9B68     		ldr	r3, [r3, #8]
+ 1050 001c 03F00103 		and	r3, r3, #1
+ 1051 0020 002B     		cmp	r3, #0
+ 1052 0022 F8D0     		beq	.L55
+ 1053 0024 7B68     		ldr	r3, [r7, #4]
+ 1054 0026 1B6A     		ldr	r3, [r3, #32]
+ 1055 0028 DB68     		ldr	r3, [r3, #12]
+ 1056 002a 9BB2     		uxth	r3, r3
+ 1057 002c 1846     		mov	r0, r3
+ 1058 002e 0C37     		adds	r7, r7, #12
+ 1059 0030 BD46     		mov	sp, r7
+ 1060              		@ sp needed
+ 1061 0032 5DF8047B 		ldr	r7, [sp], #4
+ 1062 0036 7047     		bx	lr
+ 1063              		.size	spi_lld_polled_exchange, .-spi_lld_polled_exchange
+ 1064              		.section	.rodata.__func__.9862,"a",%progbits
+ 1065              		.align	2
+ 1066              		.type	__func__.9862, %object
+ 1067              		.size	__func__.9862, 14
+ 1068              	__func__.9862:
+ 1069 0000 7370695F 		.ascii	"spi_lld_start\000"
+ 1069      6C6C645F 
+ 1069      73746172 
+ 1069      7400
+ 1070              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s 			page 20
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 spi_lld.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:15     .text.port_lock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:21     .text.port_lock:0000000000000000 port_lock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:45     .text.port_unlock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:51     .text.port_unlock:0000000000000000 port_unlock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:75     .text.port_lock_from_isr:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:81     .text.port_lock_from_isr:0000000000000000 port_lock_from_isr
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:91     .text.port_unlock_from_isr:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:97     .text.port_unlock_from_isr:0000000000000000 port_unlock_from_isr
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:107    .text.chSysLockFromISR:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:113    .text.chSysLockFromISR:0000000000000000 chSysLockFromISR
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:125    .text.chSysUnlockFromISR:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:131    .text.chSysUnlockFromISR:0000000000000000 chSysUnlockFromISR
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:143    .text.osalSysHalt:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:149    .text.osalSysHalt:0000000000000000 osalSysHalt
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:165    .text.osalSysLockFromISR:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:171    .text.osalSysLockFromISR:0000000000000000 osalSysLockFromISR
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:181    .text.osalSysUnlockFromISR:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:187    .text.osalSysUnlockFromISR:0000000000000000 osalSysUnlockFromISR
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:197    .text.osalThreadResumeI:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:203    .text.osalThreadResumeI:0000000000000000 osalThreadResumeI
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:225    .bss.SPID1:0000000000000000 SPID1
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:222    .bss.SPID1:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:228    .bss.dummytx:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:231    .bss.dummytx:0000000000000000 dummytx
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:234    .bss.dummyrx:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:237    .bss.dummyrx:0000000000000000 dummyrx
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:240    .rodata:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:244    .text.spi_lld_serve_rx_interrupt:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:250    .text.spi_lld_serve_rx_interrupt:0000000000000000 spi_lld_serve_rx_interrupt
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:362    .text.spi_lld_serve_rx_interrupt:00000000000000e0 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:365    .text.spi_lld_serve_tx_interrupt:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:371    .text.spi_lld_serve_tx_interrupt:0000000000000000 spi_lld_serve_tx_interrupt
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:394    .text.spi_lld_serve_tx_interrupt:0000000000000024 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:397    .text.spi_lld_init:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:404    .text.spi_lld_init:0000000000000000 spi_lld_init
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:434    .text.spi_lld_init:0000000000000034 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:443    .text.spi_lld_start:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:450    .text.spi_lld_start:0000000000000000 spi_lld_start
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:576    .text.spi_lld_start:0000000000000104 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:1068   .rodata.__func__.9862:0000000000000000 __func__.9862
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:583    .text.spi_lld_stop:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:590    .text.spi_lld_stop:0000000000000000 spi_lld_stop
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:635    .text.spi_lld_stop:0000000000000050 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:639    .text.spi_lld_select:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:646    .text.spi_lld_select:0000000000000000 spi_lld_select
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:673    .text.spi_lld_unselect:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:680    .text.spi_lld_unselect:0000000000000000 spi_lld_unselect
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:707    .text.spi_lld_ignore:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:714    .text.spi_lld_ignore:0000000000000000 spi_lld_ignore
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:782    .text.spi_lld_ignore:0000000000000080 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:786    .text.spi_lld_exchange:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:793    .text.spi_lld_exchange:0000000000000000 spi_lld_exchange
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:864    .text.spi_lld_send:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:871    .text.spi_lld_send:0000000000000000 spi_lld_send
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:941    .text.spi_lld_send:0000000000000084 $d
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s 			page 21
+
+
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:944    .text.spi_lld_receive:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:951    .text.spi_lld_receive:0000000000000000 spi_lld_receive
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:1021   .text.spi_lld_receive:0000000000000084 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:1024   .text.spi_lld_polled_exchange:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:1031   .text.spi_lld_polled_exchange:0000000000000000 spi_lld_polled_exchange
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc12ZWFP.s:1065   .rodata.__func__.9862:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+_stats_start_measure_crit_isr
+_dbg_check_lock_from_isr
+_dbg_check_unlock_from_isr
+_stats_stop_measure_crit_isr
+chSysHalt
+chThdResumeI
+spiObjectInit
+_stm32_dma_streams
+dmaStreamAllocate
+dmaStreamRelease

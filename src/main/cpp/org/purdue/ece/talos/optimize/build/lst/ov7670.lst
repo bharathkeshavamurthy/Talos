@@ -1,0 +1,1771 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"ov7670.c"
+  14              		.section	.bss.ov7670_conf,"aw",%nobits
+  15              		.align	2
+  16              		.type	ov7670_conf, %object
+  17              		.size	ov7670_conf, 8
+  18              	ov7670_conf:
+  19 0000 00000000 		.space	8
+  19      00000000 
+  20              		.section	.bss.cam_configured,"aw",%nobits
+  21              		.type	cam_configured, %object
+  22              		.size	cam_configured, 1
+  23              	cam_configured:
+  24 0000 00       		.space	1
+  25              		.section	.text.ov7670_write_reg,"ax",%progbits
+  26              		.align	1
+  27              		.global	ov7670_write_reg
+  28              		.syntax unified
+  29              		.thumb
+  30              		.thumb_func
+  31              		.fpu fpv4-sp-d16
+  32              		.type	ov7670_write_reg, %function
+  33              	ov7670_write_reg:
+  34              		@ args = 0, pretend = 0, frame = 16
+  35              		@ frame_needed = 1, uses_anonymous_args = 0
+  36 0000 80B5     		push	{r7, lr}
+  37 0002 88B0     		sub	sp, sp, #32
+  38 0004 04AF     		add	r7, sp, #16
+  39 0006 0346     		mov	r3, r0
+  40 0008 FB71     		strb	r3, [r7, #7]
+  41 000a 0B46     		mov	r3, r1
+  42 000c BB71     		strb	r3, [r7, #6]
+  43 000e 1346     		mov	r3, r2
+  44 0010 7B71     		strb	r3, [r7, #5]
+  45 0012 BB79     		ldrb	r3, [r7, #6]
+  46 0014 3B72     		strb	r3, [r7, #8]
+  47 0016 7B79     		ldrb	r3, [r7, #5]
+  48 0018 7B72     		strb	r3, [r7, #9]
+  49 001a 1848     		ldr	r0, .L6
+  50 001c FFF7FEFF 		bl	i2cAcquireBus
+  51 0020 164B     		ldr	r3, .L6
+  52 0022 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  53 0024 012B     		cmp	r3, #1
+  54 0026 21D0     		beq	.L2
+  55 0028 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+  56 002a 99B2     		uxth	r1, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 2
+
+
+  57 002c 07F10802 		add	r2, r7, #8
+  58 0030 3223     		movs	r3, #50
+  59 0032 0293     		str	r3, [sp, #8]
+  60 0034 0023     		movs	r3, #0
+  61 0036 0193     		str	r3, [sp, #4]
+  62 0038 0023     		movs	r3, #0
+  63 003a 0093     		str	r3, [sp]
+  64 003c 0223     		movs	r3, #2
+  65 003e 0F48     		ldr	r0, .L6
+  66 0040 FFF7FEFF 		bl	i2cMasterTransmitTimeout
+  67 0044 F860     		str	r0, [r7, #12]
+  68 0046 FB68     		ldr	r3, [r7, #12]
+  69 0048 002B     		cmp	r3, #0
+  70 004a 0FD0     		beq	.L2
+  71 004c FFF7FEFF 		bl	i2c_update_last_error
+  72 0050 0A4B     		ldr	r3, .L6
+  73 0052 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  74 0054 052B     		cmp	r3, #5
+  75 0056 03D1     		bne	.L3
+  76 0058 FFF7FEFF 		bl	i2c_stop
+  77 005c FFF7FEFF 		bl	i2c_start
+  78              	.L3:
+  79 0060 0648     		ldr	r0, .L6
+  80 0062 FFF7FEFF 		bl	i2cReleaseBus
+  81 0066 FB68     		ldr	r3, [r7, #12]
+  82 0068 1BB2     		sxth	r3, r3
+  83 006a 03E0     		b	.L5
+  84              	.L2:
+  85 006c 0348     		ldr	r0, .L6
+  86 006e FFF7FEFF 		bl	i2cReleaseBus
+  87 0072 0023     		movs	r3, #0
+  88              	.L5:
+  89 0074 1846     		mov	r0, r3
+  90 0076 1037     		adds	r7, r7, #16
+  91 0078 BD46     		mov	sp, r7
+  92              		@ sp needed
+  93 007a 80BD     		pop	{r7, pc}
+  94              	.L7:
+  95              		.align	2
+  96              	.L6:
+  97 007c 00000000 		.word	I2CD1
+  98              		.size	ov7670_write_reg, .-ov7670_write_reg
+  99              		.section	.text.ov7670_read_reg,"ax",%progbits
+ 100              		.align	1
+ 101              		.global	ov7670_read_reg
+ 102              		.syntax unified
+ 103              		.thumb
+ 104              		.thumb_func
+ 105              		.fpu fpv4-sp-d16
+ 106              		.type	ov7670_read_reg, %function
+ 107              	ov7670_read_reg:
+ 108              		@ args = 0, pretend = 0, frame = 16
+ 109              		@ frame_needed = 1, uses_anonymous_args = 0
+ 110 0000 80B5     		push	{r7, lr}
+ 111 0002 88B0     		sub	sp, sp, #32
+ 112 0004 04AF     		add	r7, sp, #16
+ 113 0006 0346     		mov	r3, r0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 3
+
+
+ 114 0008 3A60     		str	r2, [r7]
+ 115 000a FB71     		strb	r3, [r7, #7]
+ 116 000c 0B46     		mov	r3, r1
+ 117 000e BB71     		strb	r3, [r7, #6]
+ 118 0010 BB79     		ldrb	r3, [r7, #6]
+ 119 0012 3B72     		strb	r3, [r7, #8]
+ 120 0014 2648     		ldr	r0, .L15
+ 121 0016 FFF7FEFF 		bl	i2cAcquireBus
+ 122 001a 254B     		ldr	r3, .L15
+ 123 001c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 124 001e 012B     		cmp	r3, #1
+ 125 0020 3ED0     		beq	.L9
+ 126 0022 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 127 0024 99B2     		uxth	r1, r3
+ 128 0026 07F10802 		add	r2, r7, #8
+ 129 002a 3223     		movs	r3, #50
+ 130 002c 0293     		str	r3, [sp, #8]
+ 131 002e 0023     		movs	r3, #0
+ 132 0030 0193     		str	r3, [sp, #4]
+ 133 0032 0023     		movs	r3, #0
+ 134 0034 0093     		str	r3, [sp]
+ 135 0036 0123     		movs	r3, #1
+ 136 0038 1D48     		ldr	r0, .L15
+ 137 003a FFF7FEFF 		bl	i2cMasterTransmitTimeout
+ 138 003e F860     		str	r0, [r7, #12]
+ 139 0040 FB68     		ldr	r3, [r7, #12]
+ 140 0042 002B     		cmp	r3, #0
+ 141 0044 0FD0     		beq	.L10
+ 142 0046 FFF7FEFF 		bl	i2c_update_last_error
+ 143 004a 194B     		ldr	r3, .L15
+ 144 004c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 145 004e 052B     		cmp	r3, #5
+ 146 0050 03D1     		bne	.L11
+ 147 0052 FFF7FEFF 		bl	i2c_stop
+ 148 0056 FFF7FEFF 		bl	i2c_start
+ 149              	.L11:
+ 150 005a 1548     		ldr	r0, .L15
+ 151 005c FFF7FEFF 		bl	i2cReleaseBus
+ 152 0060 FB68     		ldr	r3, [r7, #12]
+ 153 0062 5BB2     		sxtb	r3, r3
+ 154 0064 20E0     		b	.L14
+ 155              	.L10:
+ 156 0066 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 157 0068 99B2     		uxth	r1, r3
+ 158 006a 3223     		movs	r3, #50
+ 159 006c 0093     		str	r3, [sp]
+ 160 006e 0123     		movs	r3, #1
+ 161 0070 3A68     		ldr	r2, [r7]
+ 162 0072 0F48     		ldr	r0, .L15
+ 163 0074 FFF7FEFF 		bl	i2cMasterReceiveTimeout
+ 164 0078 F860     		str	r0, [r7, #12]
+ 165 007a FB68     		ldr	r3, [r7, #12]
+ 166 007c 002B     		cmp	r3, #0
+ 167 007e 0FD0     		beq	.L9
+ 168 0080 FFF7FEFF 		bl	i2c_update_last_error
+ 169 0084 0A4B     		ldr	r3, .L15
+ 170 0086 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 4
+
+
+ 171 0088 052B     		cmp	r3, #5
+ 172 008a 03D1     		bne	.L13
+ 173 008c FFF7FEFF 		bl	i2c_stop
+ 174 0090 FFF7FEFF 		bl	i2c_start
+ 175              	.L13:
+ 176 0094 0648     		ldr	r0, .L15
+ 177 0096 FFF7FEFF 		bl	i2cReleaseBus
+ 178 009a FB68     		ldr	r3, [r7, #12]
+ 179 009c 5BB2     		sxtb	r3, r3
+ 180 009e 03E0     		b	.L14
+ 181              	.L9:
+ 182 00a0 0348     		ldr	r0, .L15
+ 183 00a2 FFF7FEFF 		bl	i2cReleaseBus
+ 184 00a6 0023     		movs	r3, #0
+ 185              	.L14:
+ 186 00a8 1846     		mov	r0, r3
+ 187 00aa 1037     		adds	r7, r7, #16
+ 188 00ac BD46     		mov	sp, r7
+ 189              		@ sp needed
+ 190 00ae 80BD     		pop	{r7, pc}
+ 191              	.L16:
+ 192              		.align	2
+ 193              	.L15:
+ 194 00b0 00000000 		.word	I2CD1
+ 195              		.size	ov7670_read_reg, .-ov7670_read_reg
+ 196              		.section	.text.ov7670_read_id,"ax",%progbits
+ 197              		.align	1
+ 198              		.global	ov7670_read_id
+ 199              		.syntax unified
+ 200              		.thumb
+ 201              		.thumb_func
+ 202              		.fpu fpv4-sp-d16
+ 203              		.type	ov7670_read_id, %function
+ 204              	ov7670_read_id:
+ 205              		@ args = 0, pretend = 0, frame = 16
+ 206              		@ frame_needed = 1, uses_anonymous_args = 0
+ 207 0000 80B5     		push	{r7, lr}
+ 208 0002 84B0     		sub	sp, sp, #16
+ 209 0004 00AF     		add	r7, sp, #0
+ 210 0006 7860     		str	r0, [r7, #4]
+ 211 0008 0023     		movs	r3, #0
+ 212 000a BB81     		strh	r3, [r7, #12]	@ movhi
+ 213 000c 0023     		movs	r3, #0
+ 214 000e FB73     		strb	r3, [r7, #15]
+ 215 0010 07F10C03 		add	r3, r7, #12
+ 216 0014 1A46     		mov	r2, r3
+ 217 0016 0A21     		movs	r1, #10
+ 218 0018 2120     		movs	r0, #33
+ 219 001a FFF7FEFF 		bl	ov7670_read_reg
+ 220 001e 0346     		mov	r3, r0
+ 221 0020 FB73     		strb	r3, [r7, #15]
+ 222 0022 97F90F30 		ldrsb	r3, [r7, #15]
+ 223 0026 002B     		cmp	r3, #0
+ 224 0028 02D0     		beq	.L18
+ 225 002a 97F90F30 		ldrsb	r3, [r7, #15]
+ 226 002e 1BE0     		b	.L21
+ 227              	.L18:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 5
+
+
+ 228 0030 07F10C03 		add	r3, r7, #12
+ 229 0034 0133     		adds	r3, r3, #1
+ 230 0036 1A46     		mov	r2, r3
+ 231 0038 0B21     		movs	r1, #11
+ 232 003a 2120     		movs	r0, #33
+ 233 003c FFF7FEFF 		bl	ov7670_read_reg
+ 234 0040 0346     		mov	r3, r0
+ 235 0042 FB73     		strb	r3, [r7, #15]
+ 236 0044 97F90F30 		ldrsb	r3, [r7, #15]
+ 237 0048 002B     		cmp	r3, #0
+ 238 004a 02D0     		beq	.L20
+ 239 004c 97F90F30 		ldrsb	r3, [r7, #15]
+ 240 0050 0AE0     		b	.L21
+ 241              	.L20:
+ 242 0052 3B7B     		ldrb	r3, [r7, #12]	@ zero_extendqisi2
+ 243 0054 1B02     		lsls	r3, r3, #8
+ 244 0056 1AB2     		sxth	r2, r3
+ 245 0058 7B7B     		ldrb	r3, [r7, #13]	@ zero_extendqisi2
+ 246 005a 1BB2     		sxth	r3, r3
+ 247 005c 1343     		orrs	r3, r3, r2
+ 248 005e 1BB2     		sxth	r3, r3
+ 249 0060 9AB2     		uxth	r2, r3
+ 250 0062 7B68     		ldr	r3, [r7, #4]
+ 251 0064 1A80     		strh	r2, [r3]	@ movhi
+ 252 0066 0023     		movs	r3, #0
+ 253              	.L21:
+ 254 0068 1846     		mov	r0, r3
+ 255 006a 1037     		adds	r7, r7, #16
+ 256 006c BD46     		mov	sp, r7
+ 257              		@ sp needed
+ 258 006e 80BD     		pop	{r7, pc}
+ 259              		.size	ov7670_read_id, .-ov7670_read_id
+ 260              		.section	.text.ov7670_set_vga,"ax",%progbits
+ 261              		.align	1
+ 262              		.global	ov7670_set_vga
+ 263              		.syntax unified
+ 264              		.thumb
+ 265              		.thumb_func
+ 266              		.fpu fpv4-sp-d16
+ 267              		.type	ov7670_set_vga, %function
+ 268              	ov7670_set_vga:
+ 269              		@ args = 0, pretend = 0, frame = 0
+ 270              		@ frame_needed = 1, uses_anonymous_args = 0
+ 271              		@ link register save eliminated.
+ 272 0000 80B4     		push	{r7}
+ 273 0002 00AF     		add	r7, sp, #0
+ 274 0004 4FF0FF33 		mov	r3, #-1
+ 275 0008 1846     		mov	r0, r3
+ 276 000a BD46     		mov	sp, r7
+ 277              		@ sp needed
+ 278 000c 5DF8047B 		ldr	r7, [sp], #4
+ 279 0010 7047     		bx	lr
+ 280              		.size	ov7670_set_vga, .-ov7670_set_vga
+ 281              		.section	.text.ov7670_set_qvga,"ax",%progbits
+ 282              		.align	1
+ 283              		.global	ov7670_set_qvga
+ 284              		.syntax unified
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 6
+
+
+ 285              		.thumb
+ 286              		.thumb_func
+ 287              		.fpu fpv4-sp-d16
+ 288              		.type	ov7670_set_qvga, %function
+ 289              	ov7670_set_qvga:
+ 290              		@ args = 0, pretend = 0, frame = 0
+ 291              		@ frame_needed = 1, uses_anonymous_args = 0
+ 292              		@ link register save eliminated.
+ 293 0000 80B4     		push	{r7}
+ 294 0002 00AF     		add	r7, sp, #0
+ 295 0004 4FF0FF33 		mov	r3, #-1
+ 296 0008 1846     		mov	r0, r3
+ 297 000a BD46     		mov	sp, r7
+ 298              		@ sp needed
+ 299 000c 5DF8047B 		ldr	r7, [sp], #4
+ 300 0010 7047     		bx	lr
+ 301              		.size	ov7670_set_qvga, .-ov7670_set_qvga
+ 302              		.section	.text.ov7670_set_qqvga,"ax",%progbits
+ 303              		.align	1
+ 304              		.global	ov7670_set_qqvga
+ 305              		.syntax unified
+ 306              		.thumb
+ 307              		.thumb_func
+ 308              		.fpu fpv4-sp-d16
+ 309              		.type	ov7670_set_qqvga, %function
+ 310              	ov7670_set_qqvga:
+ 311              		@ args = 0, pretend = 0, frame = 8
+ 312              		@ frame_needed = 1, uses_anonymous_args = 0
+ 313 0000 80B5     		push	{r7, lr}
+ 314 0002 82B0     		sub	sp, sp, #8
+ 315 0004 00AF     		add	r7, sp, #0
+ 316 0006 0023     		movs	r3, #0
+ 317 0008 FB71     		strb	r3, [r7, #7]
+ 318 000a 1622     		movs	r2, #22
+ 319 000c 1721     		movs	r1, #23
+ 320 000e 2120     		movs	r0, #33
+ 321 0010 FFF7FEFF 		bl	ov7670_write_reg
+ 322 0014 0346     		mov	r3, r0
+ 323 0016 FB71     		strb	r3, [r7, #7]
+ 324 0018 97F90730 		ldrsb	r3, [r7, #7]
+ 325 001c 002B     		cmp	r3, #0
+ 326 001e 02D0     		beq	.L27
+ 327 0020 97F90730 		ldrsb	r3, [r7, #7]
+ 328 0024 8AE0     		b	.L28
+ 329              	.L27:
+ 330 0026 0422     		movs	r2, #4
+ 331 0028 1821     		movs	r1, #24
+ 332 002a 2120     		movs	r0, #33
+ 333 002c FFF7FEFF 		bl	ov7670_write_reg
+ 334 0030 0346     		mov	r3, r0
+ 335 0032 FB71     		strb	r3, [r7, #7]
+ 336 0034 97F90730 		ldrsb	r3, [r7, #7]
+ 337 0038 002B     		cmp	r3, #0
+ 338 003a 02D0     		beq	.L29
+ 339 003c 97F90730 		ldrsb	r3, [r7, #7]
+ 340 0040 7CE0     		b	.L28
+ 341              	.L29:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 7
+
+
+ 342 0042 2422     		movs	r2, #36
+ 343 0044 3221     		movs	r1, #50
+ 344 0046 2120     		movs	r0, #33
+ 345 0048 FFF7FEFF 		bl	ov7670_write_reg
+ 346 004c 0346     		mov	r3, r0
+ 347 004e FB71     		strb	r3, [r7, #7]
+ 348 0050 97F90730 		ldrsb	r3, [r7, #7]
+ 349 0054 002B     		cmp	r3, #0
+ 350 0056 02D0     		beq	.L30
+ 351 0058 97F90730 		ldrsb	r3, [r7, #7]
+ 352 005c 6EE0     		b	.L28
+ 353              	.L30:
+ 354 005e 0222     		movs	r2, #2
+ 355 0060 1921     		movs	r1, #25
+ 356 0062 2120     		movs	r0, #33
+ 357 0064 FFF7FEFF 		bl	ov7670_write_reg
+ 358 0068 0346     		mov	r3, r0
+ 359 006a FB71     		strb	r3, [r7, #7]
+ 360 006c 97F90730 		ldrsb	r3, [r7, #7]
+ 361 0070 002B     		cmp	r3, #0
+ 362 0072 02D0     		beq	.L31
+ 363 0074 97F90730 		ldrsb	r3, [r7, #7]
+ 364 0078 60E0     		b	.L28
+ 365              	.L31:
+ 366 007a 7A22     		movs	r2, #122
+ 367 007c 1A21     		movs	r1, #26
+ 368 007e 2120     		movs	r0, #33
+ 369 0080 FFF7FEFF 		bl	ov7670_write_reg
+ 370 0084 0346     		mov	r3, r0
+ 371 0086 FB71     		strb	r3, [r7, #7]
+ 372 0088 97F90730 		ldrsb	r3, [r7, #7]
+ 373 008c 002B     		cmp	r3, #0
+ 374 008e 02D0     		beq	.L32
+ 375 0090 97F90730 		ldrsb	r3, [r7, #7]
+ 376 0094 52E0     		b	.L28
+ 377              	.L32:
+ 378 0096 0A22     		movs	r2, #10
+ 379 0098 0321     		movs	r1, #3
+ 380 009a 2120     		movs	r0, #33
+ 381 009c FFF7FEFF 		bl	ov7670_write_reg
+ 382 00a0 0346     		mov	r3, r0
+ 383 00a2 FB71     		strb	r3, [r7, #7]
+ 384 00a4 97F90730 		ldrsb	r3, [r7, #7]
+ 385 00a8 002B     		cmp	r3, #0
+ 386 00aa 02D0     		beq	.L33
+ 387 00ac 97F90730 		ldrsb	r3, [r7, #7]
+ 388 00b0 44E0     		b	.L28
+ 389              	.L33:
+ 390 00b2 0422     		movs	r2, #4
+ 391 00b4 0C21     		movs	r1, #12
+ 392 00b6 2120     		movs	r0, #33
+ 393 00b8 FFF7FEFF 		bl	ov7670_write_reg
+ 394 00bc 0346     		mov	r3, r0
+ 395 00be FB71     		strb	r3, [r7, #7]
+ 396 00c0 97F90730 		ldrsb	r3, [r7, #7]
+ 397 00c4 002B     		cmp	r3, #0
+ 398 00c6 02D0     		beq	.L34
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 8
+
+
+ 399 00c8 97F90730 		ldrsb	r3, [r7, #7]
+ 400 00cc 36E0     		b	.L28
+ 401              	.L34:
+ 402 00ce 1A22     		movs	r2, #26
+ 403 00d0 3E21     		movs	r1, #62
+ 404 00d2 2120     		movs	r0, #33
+ 405 00d4 FFF7FEFF 		bl	ov7670_write_reg
+ 406 00d8 0346     		mov	r3, r0
+ 407 00da FB71     		strb	r3, [r7, #7]
+ 408 00dc 97F90730 		ldrsb	r3, [r7, #7]
+ 409 00e0 002B     		cmp	r3, #0
+ 410 00e2 02D0     		beq	.L35
+ 411 00e4 97F90730 		ldrsb	r3, [r7, #7]
+ 412 00e8 28E0     		b	.L28
+ 413              	.L35:
+ 414 00ea 2222     		movs	r2, #34
+ 415 00ec 7221     		movs	r1, #114
+ 416 00ee 2120     		movs	r0, #33
+ 417 00f0 FFF7FEFF 		bl	ov7670_write_reg
+ 418 00f4 0346     		mov	r3, r0
+ 419 00f6 FB71     		strb	r3, [r7, #7]
+ 420 00f8 97F90730 		ldrsb	r3, [r7, #7]
+ 421 00fc 002B     		cmp	r3, #0
+ 422 00fe 02D0     		beq	.L36
+ 423 0100 97F90730 		ldrsb	r3, [r7, #7]
+ 424 0104 1AE0     		b	.L28
+ 425              	.L36:
+ 426 0106 F222     		movs	r2, #242
+ 427 0108 7321     		movs	r1, #115
+ 428 010a 2120     		movs	r0, #33
+ 429 010c FFF7FEFF 		bl	ov7670_write_reg
+ 430 0110 0346     		mov	r3, r0
+ 431 0112 FB71     		strb	r3, [r7, #7]
+ 432 0114 97F90730 		ldrsb	r3, [r7, #7]
+ 433 0118 002B     		cmp	r3, #0
+ 434 011a 02D0     		beq	.L37
+ 435 011c 97F90730 		ldrsb	r3, [r7, #7]
+ 436 0120 0CE0     		b	.L28
+ 437              	.L37:
+ 438 0122 084B     		ldr	r3, .L38
+ 439 0124 A022     		movs	r2, #160
+ 440 0126 1A80     		strh	r2, [r3]	@ movhi
+ 441 0128 064B     		ldr	r3, .L38
+ 442 012a 7822     		movs	r2, #120
+ 443 012c 5A80     		strh	r2, [r3, #2]	@ movhi
+ 444 012e 054B     		ldr	r3, .L38
+ 445 0130 8022     		movs	r2, #128
+ 446 0132 5A71     		strb	r2, [r3, #5]
+ 447 0134 034B     		ldr	r3, .L38
+ 448 0136 8022     		movs	r2, #128
+ 449 0138 9A71     		strb	r2, [r3, #6]
+ 450 013a 0023     		movs	r3, #0
+ 451              	.L28:
+ 452 013c 1846     		mov	r0, r3
+ 453 013e 0837     		adds	r7, r7, #8
+ 454 0140 BD46     		mov	sp, r7
+ 455              		@ sp needed
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 9
+
+
+ 456 0142 80BD     		pop	{r7, pc}
+ 457              	.L39:
+ 458              		.align	2
+ 459              	.L38:
+ 460 0144 00000000 		.word	ov7670_conf
+ 461              		.size	ov7670_set_qqvga, .-ov7670_set_qqvga
+ 462              		.section	.text.ov7670_set_size,"ax",%progbits
+ 463              		.align	1
+ 464              		.global	ov7670_set_size
+ 465              		.syntax unified
+ 466              		.thumb
+ 467              		.thumb_func
+ 468              		.fpu fpv4-sp-d16
+ 469              		.type	ov7670_set_size, %function
+ 470              	ov7670_set_size:
+ 471              		@ args = 0, pretend = 0, frame = 8
+ 472              		@ frame_needed = 1, uses_anonymous_args = 0
+ 473 0000 80B5     		push	{r7, lr}
+ 474 0002 82B0     		sub	sp, sp, #8
+ 475 0004 00AF     		add	r7, sp, #0
+ 476 0006 0346     		mov	r3, r0
+ 477 0008 FB71     		strb	r3, [r7, #7]
+ 478 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 479 000c 002B     		cmp	r3, #0
+ 480 000e 03D1     		bne	.L41
+ 481 0010 FFF7FEFF 		bl	ov7670_set_vga
+ 482 0014 0346     		mov	r3, r0
+ 483 0016 0FE0     		b	.L42
+ 484              	.L41:
+ 485 0018 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 486 001a 012B     		cmp	r3, #1
+ 487 001c 03D1     		bne	.L43
+ 488 001e FFF7FEFF 		bl	ov7670_set_qvga
+ 489 0022 0346     		mov	r3, r0
+ 490 0024 08E0     		b	.L42
+ 491              	.L43:
+ 492 0026 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 493 0028 022B     		cmp	r3, #2
+ 494 002a 03D1     		bne	.L44
+ 495 002c FFF7FEFF 		bl	ov7670_set_qqvga
+ 496 0030 0346     		mov	r3, r0
+ 497 0032 01E0     		b	.L42
+ 498              	.L44:
+ 499 0034 4FF0FF33 		mov	r3, #-1
+ 500              	.L42:
+ 501 0038 1846     		mov	r0, r3
+ 502 003a 0837     		adds	r7, r7, #8
+ 503 003c BD46     		mov	sp, r7
+ 504              		@ sp needed
+ 505 003e 80BD     		pop	{r7, pc}
+ 506              		.size	ov7670_set_size, .-ov7670_set_size
+ 507              		.section	.text.ov7670_start,"ax",%progbits
+ 508              		.align	1
+ 509              		.global	ov7670_start
+ 510              		.syntax unified
+ 511              		.thumb
+ 512              		.thumb_func
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 10
+
+
+ 513              		.fpu fpv4-sp-d16
+ 514              		.type	ov7670_start, %function
+ 515              	ov7670_start:
+ 516              		@ args = 0, pretend = 0, frame = 0
+ 517              		@ frame_needed = 1, uses_anonymous_args = 0
+ 518 0000 80B5     		push	{r7, lr}
+ 519 0002 84B0     		sub	sp, sp, #16
+ 520 0004 04AF     		add	r7, sp, #16
+ 521 0006 8022     		movs	r2, #128
+ 522 0008 1221     		movs	r1, #18
+ 523 000a 2120     		movs	r0, #33
+ 524 000c FFF7FEFF 		bl	ov7670_write_reg
+ 525 0010 0A20     		movs	r0, #10
+ 526 0012 FFF7FEFF 		bl	chThdSleep
+ 527 0016 8022     		movs	r2, #128
+ 528 0018 1121     		movs	r1, #17
+ 529 001a 2120     		movs	r0, #33
+ 530 001c FFF7FEFF 		bl	ov7670_write_reg
+ 531 0020 0422     		movs	r2, #4
+ 532 0022 3A21     		movs	r1, #58
+ 533 0024 2120     		movs	r0, #33
+ 534 0026 FFF7FEFF 		bl	ov7670_write_reg
+ 535 002a 0422     		movs	r2, #4
+ 536 002c 1221     		movs	r1, #18
+ 537 002e 2120     		movs	r0, #33
+ 538 0030 FFF7FEFF 		bl	ov7670_write_reg
+ 539 0034 D022     		movs	r2, #208
+ 540 0036 4021     		movs	r1, #64
+ 541 0038 2120     		movs	r0, #33
+ 542 003a FFF7FEFF 		bl	ov7670_write_reg
+ 543 003e 0222     		movs	r2, #2
+ 544 0040 1521     		movs	r1, #21
+ 545 0042 2120     		movs	r0, #33
+ 546 0044 FFF7FEFF 		bl	ov7670_write_reg
+ 547 0048 8422     		movs	r2, #132
+ 548 004a B021     		movs	r1, #176
+ 549 004c 2120     		movs	r0, #33
+ 550 004e FFF7FEFF 		bl	ov7670_write_reg
+ 551 0052 2023     		movs	r3, #32
+ 552 0054 0293     		str	r3, [sp, #8]
+ 553 0056 2023     		movs	r3, #32
+ 554 0058 0193     		str	r3, [sp, #4]
+ 555 005a 7823     		movs	r3, #120
+ 556 005c 0093     		str	r3, [sp]
+ 557 005e A023     		movs	r3, #160
+ 558 0060 B422     		movs	r2, #180
+ 559 0062 F021     		movs	r1, #240
+ 560 0064 0120     		movs	r0, #1
+ 561 0066 FFF7FEFF 		bl	ov7670_advanced_config
+ 562 006a 00BF     		nop
+ 563 006c BD46     		mov	sp, r7
+ 564              		@ sp needed
+ 565 006e 80BD     		pop	{r7, pc}
+ 566              		.size	ov7670_start, .-ov7670_start
+ 567              		.section	.text.ov7670_config,"ax",%progbits
+ 568              		.align	1
+ 569              		.global	ov7670_config
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 11
+
+
+ 570              		.syntax unified
+ 571              		.thumb
+ 572              		.thumb_func
+ 573              		.fpu fpv4-sp-d16
+ 574              		.type	ov7670_config, %function
+ 575              	ov7670_config:
+ 576              		@ args = 0, pretend = 0, frame = 16
+ 577              		@ frame_needed = 1, uses_anonymous_args = 0
+ 578 0000 80B5     		push	{r7, lr}
+ 579 0002 84B0     		sub	sp, sp, #16
+ 580 0004 00AF     		add	r7, sp, #0
+ 581 0006 0346     		mov	r3, r0
+ 582 0008 0A46     		mov	r2, r1
+ 583 000a FB71     		strb	r3, [r7, #7]
+ 584 000c 1346     		mov	r3, r2
+ 585 000e BB71     		strb	r3, [r7, #6]
+ 586 0010 0023     		movs	r3, #0
+ 587 0012 FB73     		strb	r3, [r7, #15]
+ 588 0014 0A4A     		ldr	r2, .L49
+ 589 0016 FB79     		ldrb	r3, [r7, #7]
+ 590 0018 1371     		strb	r3, [r2, #4]
+ 591 001a BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 592 001c 1846     		mov	r0, r3
+ 593 001e FFF7FEFF 		bl	ov7670_set_size
+ 594 0022 0346     		mov	r3, r0
+ 595 0024 FB73     		strb	r3, [r7, #15]
+ 596 0026 97F90F30 		ldrsb	r3, [r7, #15]
+ 597 002a 002B     		cmp	r3, #0
+ 598 002c 02D0     		beq	.L47
+ 599 002e 97F90F30 		ldrsb	r3, [r7, #15]
+ 600 0032 00E0     		b	.L48
+ 601              	.L47:
+ 602 0034 0023     		movs	r3, #0
+ 603              	.L48:
+ 604 0036 1846     		mov	r0, r3
+ 605 0038 1037     		adds	r7, r7, #16
+ 606 003a BD46     		mov	sp, r7
+ 607              		@ sp needed
+ 608 003c 80BD     		pop	{r7, pc}
+ 609              	.L50:
+ 610 003e 00BF     		.align	2
+ 611              	.L49:
+ 612 0040 00000000 		.word	ov7670_conf
+ 613              		.size	ov7670_config, .-ov7670_config
+ 614              		.section	.text.ov7670_advanced_config,"ax",%progbits
+ 615              		.align	1
+ 616              		.global	ov7670_advanced_config
+ 617              		.syntax unified
+ 618              		.thumb
+ 619              		.thumb_func
+ 620              		.fpu fpv4-sp-d16
+ 621              		.type	ov7670_advanced_config, %function
+ 622              	ov7670_advanced_config:
+ 623              		@ args = 12, pretend = 0, frame = 32
+ 624              		@ frame_needed = 1, uses_anonymous_args = 0
+ 625 0000 80B5     		push	{r7, lr}
+ 626 0002 88B0     		sub	sp, sp, #32
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 12
+
+
+ 627 0004 00AF     		add	r7, sp, #0
+ 628 0006 B960     		str	r1, [r7, #8]
+ 629 0008 7A60     		str	r2, [r7, #4]
+ 630 000a 3B60     		str	r3, [r7]
+ 631 000c 0346     		mov	r3, r0
+ 632 000e FB73     		strb	r3, [r7, #15]
+ 633 0010 0023     		movs	r3, #0
+ 634 0012 FB76     		strb	r3, [r7, #27]
+ 635 0014 BB68     		ldr	r3, [r7, #8]
+ 636 0016 B733     		adds	r3, r3, #183
+ 637 0018 BB60     		str	r3, [r7, #8]
+ 638 001a 7B68     		ldr	r3, [r7, #4]
+ 639 001c 0A33     		adds	r3, r3, #10
+ 640 001e 7B60     		str	r3, [r7, #4]
+ 641 0020 BA68     		ldr	r2, [r7, #8]
+ 642 0022 3B68     		ldr	r3, [r7]
+ 643 0024 1344     		add	r3, r3, r2
+ 644 0026 FB61     		str	r3, [r7, #28]
+ 645 0028 7A68     		ldr	r2, [r7, #4]
+ 646 002a BB6A     		ldr	r3, [r7, #40]
+ 647 002c 1344     		add	r3, r3, r2
+ 648 002e 7B61     		str	r3, [r7, #20]
+ 649 0030 07F11003 		add	r3, r7, #16
+ 650 0034 0021     		movs	r1, #0
+ 651 0036 0A46     		mov	r2, r1	@ movhi
+ 652 0038 1A80     		strh	r2, [r3]	@ movhi
+ 653 003a 0A46     		mov	r2, r1
+ 654 003c 9A70     		strb	r2, [r3, #2]
+ 655 003e FB69     		ldr	r3, [r7, #28]
+ 656 0040 B3F5447F 		cmp	r3, #784
+ 657 0044 03D3     		bcc	.L52
+ 658 0046 FB69     		ldr	r3, [r7, #28]
+ 659 0048 A3F54473 		sub	r3, r3, #784
+ 660 004c FB61     		str	r3, [r7, #28]
+ 661              	.L52:
+ 662 004e 3B68     		ldr	r3, [r7]
+ 663 0050 B3F5207F 		cmp	r3, #640
+ 664 0054 03D8     		bhi	.L53
+ 665 0056 BB6A     		ldr	r3, [r7, #40]
+ 666 0058 B3F5F07F 		cmp	r3, #480
+ 667 005c 02D9     		bls	.L54
+ 668              	.L53:
+ 669 005e 6FF00703 		mvn	r3, #7
+ 670 0062 D1E1     		b	.L92
+ 671              	.L54:
+ 672 0064 BB68     		ldr	r3, [r7, #8]
+ 673 0066 B3F5207F 		cmp	r3, #640
+ 674 006a 02D9     		bls	.L56
+ 675 006c 6FF00103 		mvn	r3, #1
+ 676 0070 CAE1     		b	.L92
+ 677              	.L56:
+ 678 0072 7B68     		ldr	r3, [r7, #4]
+ 679 0074 B3F5F07F 		cmp	r3, #480
+ 680 0078 02D9     		bls	.L57
+ 681 007a 6FF00203 		mvn	r3, #2
+ 682 007e C3E1     		b	.L92
+ 683              	.L57:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 13
+
+
+ 684 0080 97F83020 		ldrb	r2, [r7, #48]	@ zero_extendqisi2
+ 685 0084 97F82C30 		ldrb	r3, [r7, #44]	@ zero_extendqisi2
+ 686 0088 9A42     		cmp	r2, r3
+ 687 008a 02D9     		bls	.L58
+ 688 008c 6FF00303 		mvn	r3, #3
+ 689 0090 BAE1     		b	.L92
+ 690              	.L58:
+ 691 0092 07F11003 		add	r3, r7, #16
+ 692 0096 1A46     		mov	r2, r3
+ 693 0098 7221     		movs	r1, #114
+ 694 009a 2120     		movs	r0, #33
+ 695 009c FFF7FEFF 		bl	ov7670_read_reg
+ 696 00a0 0346     		mov	r3, r0
+ 697 00a2 FB76     		strb	r3, [r7, #27]
+ 698 00a4 97F91B30 		ldrsb	r3, [r7, #27]
+ 699 00a8 002B     		cmp	r3, #0
+ 700 00aa 02D0     		beq	.L59
+ 701 00ac 97F91B30 		ldrsb	r3, [r7, #27]
+ 702 00b0 AAE1     		b	.L92
+ 703              	.L59:
+ 704 00b2 3B7C     		ldrb	r3, [r7, #16]	@ zero_extendqisi2
+ 705 00b4 23F03303 		bic	r3, r3, #51
+ 706 00b8 DBB2     		uxtb	r3, r3
+ 707 00ba 3B74     		strb	r3, [r7, #16]
+ 708 00bc 97F82C30 		ldrb	r3, [r7, #44]	@ zero_extendqisi2
+ 709 00c0 402B     		cmp	r3, #64
+ 710 00c2 08D0     		beq	.L61
+ 711 00c4 802B     		cmp	r3, #128
+ 712 00c6 19D0     		beq	.L62
+ 713 00c8 202B     		cmp	r3, #32
+ 714 00ca 2AD1     		bne	.L60
+ 715 00cc 3B68     		ldr	r3, [r7]
+ 716 00ce 9AB2     		uxth	r2, r3
+ 717 00d0 BB4B     		ldr	r3, .L93
+ 718 00d2 1A80     		strh	r2, [r3]	@ movhi
+ 719 00d4 25E0     		b	.L60
+ 720              	.L61:
+ 721 00d6 3B68     		ldr	r3, [r7]
+ 722 00d8 03F00103 		and	r3, r3, #1
+ 723 00dc 002B     		cmp	r3, #0
+ 724 00de 02D0     		beq	.L64
+ 725 00e0 6FF00503 		mvn	r3, #5
+ 726 00e4 90E1     		b	.L92
+ 727              	.L64:
+ 728 00e6 3B7C     		ldrb	r3, [r7, #16]	@ zero_extendqisi2
+ 729 00e8 43F00103 		orr	r3, r3, #1
+ 730 00ec DBB2     		uxtb	r3, r3
+ 731 00ee 3B74     		strb	r3, [r7, #16]
+ 732 00f0 3B68     		ldr	r3, [r7]
+ 733 00f2 5B08     		lsrs	r3, r3, #1
+ 734 00f4 9AB2     		uxth	r2, r3
+ 735 00f6 B24B     		ldr	r3, .L93
+ 736 00f8 1A80     		strh	r2, [r3]	@ movhi
+ 737 00fa 12E0     		b	.L60
+ 738              	.L62:
+ 739 00fc 3B68     		ldr	r3, [r7]
+ 740 00fe 03F00303 		and	r3, r3, #3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 14
+
+
+ 741 0102 002B     		cmp	r3, #0
+ 742 0104 02D0     		beq	.L65
+ 743 0106 6FF00503 		mvn	r3, #5
+ 744 010a 7DE1     		b	.L92
+ 745              	.L65:
+ 746 010c 3B7C     		ldrb	r3, [r7, #16]	@ zero_extendqisi2
+ 747 010e 43F00203 		orr	r3, r3, #2
+ 748 0112 DBB2     		uxtb	r3, r3
+ 749 0114 3B74     		strb	r3, [r7, #16]
+ 750 0116 3B68     		ldr	r3, [r7]
+ 751 0118 9B08     		lsrs	r3, r3, #2
+ 752 011a 9AB2     		uxth	r2, r3
+ 753 011c A84B     		ldr	r3, .L93
+ 754 011e 1A80     		strh	r2, [r3]	@ movhi
+ 755 0120 00BF     		nop
+ 756              	.L60:
+ 757 0122 97F83030 		ldrb	r3, [r7, #48]	@ zero_extendqisi2
+ 758 0126 402B     		cmp	r3, #64
+ 759 0128 08D0     		beq	.L67
+ 760 012a 802B     		cmp	r3, #128
+ 761 012c 19D0     		beq	.L68
+ 762 012e 202B     		cmp	r3, #32
+ 763 0130 2AD1     		bne	.L66
+ 764 0132 BB6A     		ldr	r3, [r7, #40]
+ 765 0134 9AB2     		uxth	r2, r3
+ 766 0136 A24B     		ldr	r3, .L93
+ 767 0138 5A80     		strh	r2, [r3, #2]	@ movhi
+ 768 013a 25E0     		b	.L66
+ 769              	.L67:
+ 770 013c BB6A     		ldr	r3, [r7, #40]
+ 771 013e 03F00103 		and	r3, r3, #1
+ 772 0142 002B     		cmp	r3, #0
+ 773 0144 02D0     		beq	.L70
+ 774 0146 6FF00603 		mvn	r3, #6
+ 775 014a 5DE1     		b	.L92
+ 776              	.L70:
+ 777 014c 3B7C     		ldrb	r3, [r7, #16]	@ zero_extendqisi2
+ 778 014e 43F01003 		orr	r3, r3, #16
+ 779 0152 DBB2     		uxtb	r3, r3
+ 780 0154 3B74     		strb	r3, [r7, #16]
+ 781 0156 BB6A     		ldr	r3, [r7, #40]
+ 782 0158 5B08     		lsrs	r3, r3, #1
+ 783 015a 9AB2     		uxth	r2, r3
+ 784 015c 984B     		ldr	r3, .L93
+ 785 015e 5A80     		strh	r2, [r3, #2]	@ movhi
+ 786 0160 12E0     		b	.L66
+ 787              	.L68:
+ 788 0162 BB6A     		ldr	r3, [r7, #40]
+ 789 0164 03F00303 		and	r3, r3, #3
+ 790 0168 002B     		cmp	r3, #0
+ 791 016a 02D0     		beq	.L71
+ 792 016c 6FF00603 		mvn	r3, #6
+ 793 0170 4AE1     		b	.L92
+ 794              	.L71:
+ 795 0172 3B7C     		ldrb	r3, [r7, #16]	@ zero_extendqisi2
+ 796 0174 43F02003 		orr	r3, r3, #32
+ 797 0178 DBB2     		uxtb	r3, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 15
+
+
+ 798 017a 3B74     		strb	r3, [r7, #16]
+ 799 017c BB6A     		ldr	r3, [r7, #40]
+ 800 017e 9B08     		lsrs	r3, r3, #2
+ 801 0180 9AB2     		uxth	r2, r3
+ 802 0182 8F4B     		ldr	r3, .L93
+ 803 0184 5A80     		strh	r2, [r3, #2]	@ movhi
+ 804 0186 00BF     		nop
+ 805              	.L66:
+ 806 0188 BB68     		ldr	r3, [r7, #8]
+ 807 018a DB08     		lsrs	r3, r3, #3
+ 808 018c DBB2     		uxtb	r3, r3
+ 809 018e 1A46     		mov	r2, r3
+ 810 0190 1721     		movs	r1, #23
+ 811 0192 2120     		movs	r0, #33
+ 812 0194 FFF7FEFF 		bl	ov7670_write_reg
+ 813 0198 0346     		mov	r3, r0
+ 814 019a FB76     		strb	r3, [r7, #27]
+ 815 019c 97F91B30 		ldrsb	r3, [r7, #27]
+ 816 01a0 002B     		cmp	r3, #0
+ 817 01a2 02D0     		beq	.L72
+ 818 01a4 97F91B30 		ldrsb	r3, [r7, #27]
+ 819 01a8 2EE1     		b	.L92
+ 820              	.L72:
+ 821 01aa FB69     		ldr	r3, [r7, #28]
+ 822 01ac DB08     		lsrs	r3, r3, #3
+ 823 01ae DBB2     		uxtb	r3, r3
+ 824 01b0 1A46     		mov	r2, r3
+ 825 01b2 1821     		movs	r1, #24
+ 826 01b4 2120     		movs	r0, #33
+ 827 01b6 FFF7FEFF 		bl	ov7670_write_reg
+ 828 01ba 0346     		mov	r3, r0
+ 829 01bc FB76     		strb	r3, [r7, #27]
+ 830 01be 97F91B30 		ldrsb	r3, [r7, #27]
+ 831 01c2 002B     		cmp	r3, #0
+ 832 01c4 02D0     		beq	.L73
+ 833 01c6 97F91B30 		ldrsb	r3, [r7, #27]
+ 834 01ca 1DE1     		b	.L92
+ 835              	.L73:
+ 836 01cc BB68     		ldr	r3, [r7, #8]
+ 837 01ce DBB2     		uxtb	r3, r3
+ 838 01d0 03F00703 		and	r3, r3, #7
+ 839 01d4 DAB2     		uxtb	r2, r3
+ 840 01d6 FB69     		ldr	r3, [r7, #28]
+ 841 01d8 DBB2     		uxtb	r3, r3
+ 842 01da DB00     		lsls	r3, r3, #3
+ 843 01dc DBB2     		uxtb	r3, r3
+ 844 01de 03F03803 		and	r3, r3, #56
+ 845 01e2 DBB2     		uxtb	r3, r3
+ 846 01e4 1343     		orrs	r3, r3, r2
+ 847 01e6 DBB2     		uxtb	r3, r3
+ 848 01e8 1A46     		mov	r2, r3
+ 849 01ea 3221     		movs	r1, #50
+ 850 01ec 2120     		movs	r0, #33
+ 851 01ee FFF7FEFF 		bl	ov7670_write_reg
+ 852 01f2 0346     		mov	r3, r0
+ 853 01f4 FB76     		strb	r3, [r7, #27]
+ 854 01f6 97F91B30 		ldrsb	r3, [r7, #27]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 16
+
+
+ 855 01fa 002B     		cmp	r3, #0
+ 856 01fc 02D0     		beq	.L74
+ 857 01fe 97F91B30 		ldrsb	r3, [r7, #27]
+ 858 0202 01E1     		b	.L92
+ 859              	.L74:
+ 860 0204 7B68     		ldr	r3, [r7, #4]
+ 861 0206 9B08     		lsrs	r3, r3, #2
+ 862 0208 DBB2     		uxtb	r3, r3
+ 863 020a 1A46     		mov	r2, r3
+ 864 020c 1921     		movs	r1, #25
+ 865 020e 2120     		movs	r0, #33
+ 866 0210 FFF7FEFF 		bl	ov7670_write_reg
+ 867 0214 0346     		mov	r3, r0
+ 868 0216 FB76     		strb	r3, [r7, #27]
+ 869 0218 97F91B30 		ldrsb	r3, [r7, #27]
+ 870 021c 002B     		cmp	r3, #0
+ 871 021e 02D0     		beq	.L75
+ 872 0220 97F91B30 		ldrsb	r3, [r7, #27]
+ 873 0224 F0E0     		b	.L92
+ 874              	.L75:
+ 875 0226 7B69     		ldr	r3, [r7, #20]
+ 876 0228 9B08     		lsrs	r3, r3, #2
+ 877 022a DBB2     		uxtb	r3, r3
+ 878 022c 1A46     		mov	r2, r3
+ 879 022e 1A21     		movs	r1, #26
+ 880 0230 2120     		movs	r0, #33
+ 881 0232 FFF7FEFF 		bl	ov7670_write_reg
+ 882 0236 0346     		mov	r3, r0
+ 883 0238 FB76     		strb	r3, [r7, #27]
+ 884 023a 97F91B30 		ldrsb	r3, [r7, #27]
+ 885 023e 002B     		cmp	r3, #0
+ 886 0240 02D0     		beq	.L76
+ 887 0242 97F91B30 		ldrsb	r3, [r7, #27]
+ 888 0246 DFE0     		b	.L92
+ 889              	.L76:
+ 890 0248 7B68     		ldr	r3, [r7, #4]
+ 891 024a DBB2     		uxtb	r3, r3
+ 892 024c 03F00303 		and	r3, r3, #3
+ 893 0250 DAB2     		uxtb	r2, r3
+ 894 0252 7B69     		ldr	r3, [r7, #20]
+ 895 0254 DBB2     		uxtb	r3, r3
+ 896 0256 9B00     		lsls	r3, r3, #2
+ 897 0258 DBB2     		uxtb	r3, r3
+ 898 025a 03F00C03 		and	r3, r3, #12
+ 899 025e DBB2     		uxtb	r3, r3
+ 900 0260 1343     		orrs	r3, r3, r2
+ 901 0262 DBB2     		uxtb	r3, r3
+ 902 0264 1A46     		mov	r2, r3
+ 903 0266 0321     		movs	r1, #3
+ 904 0268 2120     		movs	r0, #33
+ 905 026a FFF7FEFF 		bl	ov7670_write_reg
+ 906 026e 0346     		mov	r3, r0
+ 907 0270 FB76     		strb	r3, [r7, #27]
+ 908 0272 97F91B30 		ldrsb	r3, [r7, #27]
+ 909 0276 002B     		cmp	r3, #0
+ 910 0278 02D0     		beq	.L77
+ 911 027a 97F91B30 		ldrsb	r3, [r7, #27]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 17
+
+
+ 912 027e C3E0     		b	.L92
+ 913              	.L77:
+ 914 0280 07F11003 		add	r3, r7, #16
+ 915 0284 0133     		adds	r3, r3, #1
+ 916 0286 1A46     		mov	r2, r3
+ 917 0288 3E21     		movs	r1, #62
+ 918 028a 2120     		movs	r0, #33
+ 919 028c FFF7FEFF 		bl	ov7670_read_reg
+ 920 0290 0346     		mov	r3, r0
+ 921 0292 FB76     		strb	r3, [r7, #27]
+ 922 0294 97F91B30 		ldrsb	r3, [r7, #27]
+ 923 0298 002B     		cmp	r3, #0
+ 924 029a 02D0     		beq	.L78
+ 925 029c 97F91B30 		ldrsb	r3, [r7, #27]
+ 926 02a0 B2E0     		b	.L92
+ 927              	.L78:
+ 928 02a2 7B7C     		ldrb	r3, [r7, #17]	@ zero_extendqisi2
+ 929 02a4 23F00703 		bic	r3, r3, #7
+ 930 02a8 DBB2     		uxtb	r3, r3
+ 931 02aa 7B74     		strb	r3, [r7, #17]
+ 932 02ac 7B7C     		ldrb	r3, [r7, #17]	@ zero_extendqisi2
+ 933 02ae 43F00803 		orr	r3, r3, #8
+ 934 02b2 DBB2     		uxtb	r3, r3
+ 935 02b4 7B74     		strb	r3, [r7, #17]
+ 936 02b6 07F11003 		add	r3, r7, #16
+ 937 02ba 0233     		adds	r3, r3, #2
+ 938 02bc 1A46     		mov	r2, r3
+ 939 02be 7321     		movs	r1, #115
+ 940 02c0 2120     		movs	r0, #33
+ 941 02c2 FFF7FEFF 		bl	ov7670_read_reg
+ 942 02c6 0346     		mov	r3, r0
+ 943 02c8 FB76     		strb	r3, [r7, #27]
+ 944 02ca 97F91B30 		ldrsb	r3, [r7, #27]
+ 945 02ce 002B     		cmp	r3, #0
+ 946 02d0 02D0     		beq	.L79
+ 947 02d2 97F91B30 		ldrsb	r3, [r7, #27]
+ 948 02d6 97E0     		b	.L92
+ 949              	.L79:
+ 950 02d8 BB7C     		ldrb	r3, [r7, #18]	@ zero_extendqisi2
+ 951 02da 23F00703 		bic	r3, r3, #7
+ 952 02de DBB2     		uxtb	r3, r3
+ 953 02e0 BB74     		strb	r3, [r7, #18]
+ 954 02e2 BB7C     		ldrb	r3, [r7, #18]	@ zero_extendqisi2
+ 955 02e4 63F00F03 		orn	r3, r3, #15
+ 956 02e8 DBB2     		uxtb	r3, r3
+ 957 02ea BB74     		strb	r3, [r7, #18]
+ 958 02ec 97F82C20 		ldrb	r2, [r7, #44]	@ zero_extendqisi2
+ 959 02f0 97F83030 		ldrb	r3, [r7, #48]	@ zero_extendqisi2
+ 960 02f4 9A42     		cmp	r2, r3
+ 961 02f6 1DD3     		bcc	.L80
+ 962 02f8 97F82C30 		ldrb	r3, [r7, #44]	@ zero_extendqisi2
+ 963 02fc 402B     		cmp	r3, #64
+ 964 02fe 03D0     		beq	.L82
+ 965 0300 802B     		cmp	r3, #128
+ 966 0302 0CD0     		beq	.L83
+ 967 0304 202B     		cmp	r3, #32
+ 968 0306 15E0     		b	.L80
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 18
+
+
+ 969              	.L82:
+ 970 0308 7B7C     		ldrb	r3, [r7, #17]	@ zero_extendqisi2
+ 971 030a 43F00103 		orr	r3, r3, #1
+ 972 030e DBB2     		uxtb	r3, r3
+ 973 0310 7B74     		strb	r3, [r7, #17]
+ 974 0312 BB7C     		ldrb	r3, [r7, #18]	@ zero_extendqisi2
+ 975 0314 43F00103 		orr	r3, r3, #1
+ 976 0318 DBB2     		uxtb	r3, r3
+ 977 031a BB74     		strb	r3, [r7, #18]
+ 978 031c 0AE0     		b	.L80
+ 979              	.L83:
+ 980 031e 7B7C     		ldrb	r3, [r7, #17]	@ zero_extendqisi2
+ 981 0320 43F00203 		orr	r3, r3, #2
+ 982 0324 DBB2     		uxtb	r3, r3
+ 983 0326 7B74     		strb	r3, [r7, #17]
+ 984 0328 BB7C     		ldrb	r3, [r7, #18]	@ zero_extendqisi2
+ 985 032a 43F00203 		orr	r3, r3, #2
+ 986 032e DBB2     		uxtb	r3, r3
+ 987 0330 BB74     		strb	r3, [r7, #18]
+ 988 0332 00BF     		nop
+ 989              	.L80:
+ 990 0334 97F82C30 		ldrb	r3, [r7, #44]	@ zero_extendqisi2
+ 991 0338 202B     		cmp	r3, #32
+ 992 033a 11D1     		bne	.L85
+ 993 033c 97F83030 		ldrb	r3, [r7, #48]	@ zero_extendqisi2
+ 994 0340 202B     		cmp	r3, #32
+ 995 0342 0DD1     		bne	.L85
+ 996 0344 0022     		movs	r2, #0
+ 997 0346 0C21     		movs	r1, #12
+ 998 0348 2120     		movs	r0, #33
+ 999 034a FFF7FEFF 		bl	ov7670_write_reg
+ 1000 034e 0346     		mov	r3, r0
+ 1001 0350 FB76     		strb	r3, [r7, #27]
+ 1002 0352 97F91B30 		ldrsb	r3, [r7, #27]
+ 1003 0356 002B     		cmp	r3, #0
+ 1004 0358 10D0     		beq	.L87
+ 1005 035a 97F91B30 		ldrsb	r3, [r7, #27]
+ 1006 035e 53E0     		b	.L92
+ 1007              	.L85:
+ 1008 0360 0422     		movs	r2, #4
+ 1009 0362 0C21     		movs	r1, #12
+ 1010 0364 2120     		movs	r0, #33
+ 1011 0366 FFF7FEFF 		bl	ov7670_write_reg
+ 1012 036a 0346     		mov	r3, r0
+ 1013 036c FB76     		strb	r3, [r7, #27]
+ 1014 036e 97F91B30 		ldrsb	r3, [r7, #27]
+ 1015 0372 002B     		cmp	r3, #0
+ 1016 0374 02D0     		beq	.L87
+ 1017 0376 97F91B30 		ldrsb	r3, [r7, #27]
+ 1018 037a 45E0     		b	.L92
+ 1019              	.L87:
+ 1020 037c 7B7C     		ldrb	r3, [r7, #17]	@ zero_extendqisi2
+ 1021 037e 43F01003 		orr	r3, r3, #16
+ 1022 0382 DBB2     		uxtb	r3, r3
+ 1023 0384 1A46     		mov	r2, r3
+ 1024 0386 3E21     		movs	r1, #62
+ 1025 0388 2120     		movs	r0, #33
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 19
+
+
+ 1026 038a FFF7FEFF 		bl	ov7670_write_reg
+ 1027 038e 0346     		mov	r3, r0
+ 1028 0390 FB76     		strb	r3, [r7, #27]
+ 1029 0392 97F91B30 		ldrsb	r3, [r7, #27]
+ 1030 0396 002B     		cmp	r3, #0
+ 1031 0398 02D0     		beq	.L88
+ 1032 039a 97F91B30 		ldrsb	r3, [r7, #27]
+ 1033 039e 33E0     		b	.L92
+ 1034              	.L88:
+ 1035 03a0 3B7C     		ldrb	r3, [r7, #16]	@ zero_extendqisi2
+ 1036 03a2 1A46     		mov	r2, r3
+ 1037 03a4 7221     		movs	r1, #114
+ 1038 03a6 2120     		movs	r0, #33
+ 1039 03a8 FFF7FEFF 		bl	ov7670_write_reg
+ 1040 03ac 0346     		mov	r3, r0
+ 1041 03ae FB76     		strb	r3, [r7, #27]
+ 1042 03b0 97F91B30 		ldrsb	r3, [r7, #27]
+ 1043 03b4 002B     		cmp	r3, #0
+ 1044 03b6 05D0     		beq	.L89
+ 1045 03b8 97F91B30 		ldrsb	r3, [r7, #27]
+ 1046 03bc 24E0     		b	.L92
+ 1047              	.L94:
+ 1048 03be 00BF     		.align	2
+ 1049              	.L93:
+ 1050 03c0 00000000 		.word	ov7670_conf
+ 1051              	.L89:
+ 1052 03c4 BB7C     		ldrb	r3, [r7, #18]	@ zero_extendqisi2
+ 1053 03c6 1A46     		mov	r2, r3
+ 1054 03c8 7321     		movs	r1, #115
+ 1055 03ca 2120     		movs	r0, #33
+ 1056 03cc FFF7FEFF 		bl	ov7670_write_reg
+ 1057 03d0 0346     		mov	r3, r0
+ 1058 03d2 FB76     		strb	r3, [r7, #27]
+ 1059 03d4 97F91B30 		ldrsb	r3, [r7, #27]
+ 1060 03d8 002B     		cmp	r3, #0
+ 1061 03da 02D0     		beq	.L90
+ 1062 03dc 97F91B30 		ldrsb	r3, [r7, #27]
+ 1063 03e0 12E0     		b	.L92
+ 1064              	.L90:
+ 1065 03e2 0B4A     		ldr	r2, .L95
+ 1066 03e4 FB7B     		ldrb	r3, [r7, #15]
+ 1067 03e6 1371     		strb	r3, [r2, #4]
+ 1068 03e8 094A     		ldr	r2, .L95
+ 1069 03ea 97F82C30 		ldrb	r3, [r7, #44]
+ 1070 03ee 5371     		strb	r3, [r2, #5]
+ 1071 03f0 074A     		ldr	r2, .L95
+ 1072 03f2 97F83030 		ldrb	r3, [r7, #48]
+ 1073 03f6 9371     		strb	r3, [r2, #6]
+ 1074 03f8 97F91B30 		ldrsb	r3, [r7, #27]
+ 1075 03fc 002B     		cmp	r3, #0
+ 1076 03fe 02D1     		bne	.L91
+ 1077 0400 044B     		ldr	r3, .L95+4
+ 1078 0402 0122     		movs	r2, #1
+ 1079 0404 1A70     		strb	r2, [r3]
+ 1080              	.L91:
+ 1081 0406 0023     		movs	r3, #0
+ 1082              	.L92:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 20
+
+
+ 1083 0408 1846     		mov	r0, r3
+ 1084 040a 2037     		adds	r7, r7, #32
+ 1085 040c BD46     		mov	sp, r7
+ 1086              		@ sp needed
+ 1087 040e 80BD     		pop	{r7, pc}
+ 1088              	.L96:
+ 1089              		.align	2
+ 1090              	.L95:
+ 1091 0410 00000000 		.word	ov7670_conf
+ 1092 0414 00000000 		.word	cam_configured
+ 1093              		.size	ov7670_advanced_config, .-ov7670_advanced_config
+ 1094              		.section	.text.ov7670_set_brightness,"ax",%progbits
+ 1095              		.align	1
+ 1096              		.global	ov7670_set_brightness
+ 1097              		.syntax unified
+ 1098              		.thumb
+ 1099              		.thumb_func
+ 1100              		.fpu fpv4-sp-d16
+ 1101              		.type	ov7670_set_brightness, %function
+ 1102              	ov7670_set_brightness:
+ 1103              		@ args = 0, pretend = 0, frame = 8
+ 1104              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1105 0000 80B5     		push	{r7, lr}
+ 1106 0002 82B0     		sub	sp, sp, #8
+ 1107 0004 00AF     		add	r7, sp, #0
+ 1108 0006 0346     		mov	r3, r0
+ 1109 0008 FB71     		strb	r3, [r7, #7]
+ 1110 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1111 000c 1A46     		mov	r2, r3
+ 1112 000e 5521     		movs	r1, #85
+ 1113 0010 2120     		movs	r0, #33
+ 1114 0012 FFF7FEFF 		bl	ov7670_write_reg
+ 1115 0016 0346     		mov	r3, r0
+ 1116 0018 5BB2     		sxtb	r3, r3
+ 1117 001a 1846     		mov	r0, r3
+ 1118 001c 0837     		adds	r7, r7, #8
+ 1119 001e BD46     		mov	sp, r7
+ 1120              		@ sp needed
+ 1121 0020 80BD     		pop	{r7, pc}
+ 1122              		.size	ov7670_set_brightness, .-ov7670_set_brightness
+ 1123              		.section	.text.ov7670_set_contrast,"ax",%progbits
+ 1124              		.align	1
+ 1125              		.global	ov7670_set_contrast
+ 1126              		.syntax unified
+ 1127              		.thumb
+ 1128              		.thumb_func
+ 1129              		.fpu fpv4-sp-d16
+ 1130              		.type	ov7670_set_contrast, %function
+ 1131              	ov7670_set_contrast:
+ 1132              		@ args = 0, pretend = 0, frame = 8
+ 1133              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1134 0000 80B5     		push	{r7, lr}
+ 1135 0002 82B0     		sub	sp, sp, #8
+ 1136 0004 00AF     		add	r7, sp, #0
+ 1137 0006 0346     		mov	r3, r0
+ 1138 0008 FB71     		strb	r3, [r7, #7]
+ 1139 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 21
+
+
+ 1140 000c 1A46     		mov	r2, r3
+ 1141 000e 5621     		movs	r1, #86
+ 1142 0010 2120     		movs	r0, #33
+ 1143 0012 FFF7FEFF 		bl	ov7670_write_reg
+ 1144 0016 0346     		mov	r3, r0
+ 1145 0018 5BB2     		sxtb	r3, r3
+ 1146 001a 1846     		mov	r0, r3
+ 1147 001c 0837     		adds	r7, r7, #8
+ 1148 001e BD46     		mov	sp, r7
+ 1149              		@ sp needed
+ 1150 0020 80BD     		pop	{r7, pc}
+ 1151              		.size	ov7670_set_contrast, .-ov7670_set_contrast
+ 1152              		.section	.text.ov7670_set_mirror,"ax",%progbits
+ 1153              		.align	1
+ 1154              		.global	ov7670_set_mirror
+ 1155              		.syntax unified
+ 1156              		.thumb
+ 1157              		.thumb_func
+ 1158              		.fpu fpv4-sp-d16
+ 1159              		.type	ov7670_set_mirror, %function
+ 1160              	ov7670_set_mirror:
+ 1161              		@ args = 0, pretend = 0, frame = 16
+ 1162              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1163 0000 80B5     		push	{r7, lr}
+ 1164 0002 84B0     		sub	sp, sp, #16
+ 1165 0004 00AF     		add	r7, sp, #0
+ 1166 0006 0346     		mov	r3, r0
+ 1167 0008 0A46     		mov	r2, r1
+ 1168 000a FB71     		strb	r3, [r7, #7]
+ 1169 000c 1346     		mov	r3, r2
+ 1170 000e BB71     		strb	r3, [r7, #6]
+ 1171 0010 0023     		movs	r3, #0
+ 1172 0012 FB73     		strb	r3, [r7, #15]
+ 1173 0014 0023     		movs	r3, #0
+ 1174 0016 BB73     		strb	r3, [r7, #14]
+ 1175 0018 07F10E03 		add	r3, r7, #14
+ 1176 001c 1A46     		mov	r2, r3
+ 1177 001e 1E21     		movs	r1, #30
+ 1178 0020 2120     		movs	r0, #33
+ 1179 0022 FFF7FEFF 		bl	ov7670_read_reg
+ 1180 0026 0346     		mov	r3, r0
+ 1181 0028 FB73     		strb	r3, [r7, #15]
+ 1182 002a 97F90F30 		ldrsb	r3, [r7, #15]
+ 1183 002e 002B     		cmp	r3, #0
+ 1184 0030 02D0     		beq	.L102
+ 1185 0032 97F90F30 		ldrsb	r3, [r7, #15]
+ 1186 0036 23E0     		b	.L108
+ 1187              	.L102:
+ 1188 0038 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1189 003a 012B     		cmp	r3, #1
+ 1190 003c 05D1     		bne	.L104
+ 1191 003e BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 1192 0040 43F01003 		orr	r3, r3, #16
+ 1193 0044 DBB2     		uxtb	r3, r3
+ 1194 0046 BB73     		strb	r3, [r7, #14]
+ 1195 0048 04E0     		b	.L105
+ 1196              	.L104:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 22
+
+
+ 1197 004a BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 1198 004c 23F01003 		bic	r3, r3, #16
+ 1199 0050 DBB2     		uxtb	r3, r3
+ 1200 0052 BB73     		strb	r3, [r7, #14]
+ 1201              	.L105:
+ 1202 0054 BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 1203 0056 012B     		cmp	r3, #1
+ 1204 0058 05D1     		bne	.L106
+ 1205 005a BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 1206 005c 43F02003 		orr	r3, r3, #32
+ 1207 0060 DBB2     		uxtb	r3, r3
+ 1208 0062 BB73     		strb	r3, [r7, #14]
+ 1209 0064 04E0     		b	.L107
+ 1210              	.L106:
+ 1211 0066 BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 1212 0068 23F02003 		bic	r3, r3, #32
+ 1213 006c DBB2     		uxtb	r3, r3
+ 1214 006e BB73     		strb	r3, [r7, #14]
+ 1215              	.L107:
+ 1216 0070 BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 1217 0072 1A46     		mov	r2, r3
+ 1218 0074 1E21     		movs	r1, #30
+ 1219 0076 2120     		movs	r0, #33
+ 1220 0078 FFF7FEFF 		bl	ov7670_write_reg
+ 1221 007c 0346     		mov	r3, r0
+ 1222 007e 5BB2     		sxtb	r3, r3
+ 1223              	.L108:
+ 1224 0080 1846     		mov	r0, r3
+ 1225 0082 1037     		adds	r7, r7, #16
+ 1226 0084 BD46     		mov	sp, r7
+ 1227              		@ sp needed
+ 1228 0086 80BD     		pop	{r7, pc}
+ 1229              		.size	ov7670_set_mirror, .-ov7670_set_mirror
+ 1230              		.section	.text.ov7670_set_awb,"ax",%progbits
+ 1231              		.align	1
+ 1232              		.global	ov7670_set_awb
+ 1233              		.syntax unified
+ 1234              		.thumb
+ 1235              		.thumb_func
+ 1236              		.fpu fpv4-sp-d16
+ 1237              		.type	ov7670_set_awb, %function
+ 1238              	ov7670_set_awb:
+ 1239              		@ args = 0, pretend = 0, frame = 16
+ 1240              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1241 0000 80B5     		push	{r7, lr}
+ 1242 0002 84B0     		sub	sp, sp, #16
+ 1243 0004 00AF     		add	r7, sp, #0
+ 1244 0006 0346     		mov	r3, r0
+ 1245 0008 FB71     		strb	r3, [r7, #7]
+ 1246 000a 0023     		movs	r3, #0
+ 1247 000c FB73     		strb	r3, [r7, #15]
+ 1248 000e 0023     		movs	r3, #0
+ 1249 0010 BB73     		strb	r3, [r7, #14]
+ 1250 0012 07F10E03 		add	r3, r7, #14
+ 1251 0016 1A46     		mov	r2, r3
+ 1252 0018 1321     		movs	r1, #19
+ 1253 001a 2120     		movs	r0, #33
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 23
+
+
+ 1254 001c FFF7FEFF 		bl	ov7670_read_reg
+ 1255 0020 0346     		mov	r3, r0
+ 1256 0022 FB73     		strb	r3, [r7, #15]
+ 1257 0024 97F90F30 		ldrsb	r3, [r7, #15]
+ 1258 0028 002B     		cmp	r3, #0
+ 1259 002a 02D0     		beq	.L110
+ 1260 002c 97F90F30 		ldrsb	r3, [r7, #15]
+ 1261 0030 1DE0     		b	.L115
+ 1262              	.L110:
+ 1263 0032 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1264 0034 012B     		cmp	r3, #1
+ 1265 0036 05D1     		bne	.L112
+ 1266 0038 BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 1267 003a 43F00203 		orr	r3, r3, #2
+ 1268 003e DBB2     		uxtb	r3, r3
+ 1269 0040 BB73     		strb	r3, [r7, #14]
+ 1270 0042 04E0     		b	.L113
+ 1271              	.L112:
+ 1272 0044 BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 1273 0046 23F00203 		bic	r3, r3, #2
+ 1274 004a DBB2     		uxtb	r3, r3
+ 1275 004c BB73     		strb	r3, [r7, #14]
+ 1276              	.L113:
+ 1277 004e BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 1278 0050 1A46     		mov	r2, r3
+ 1279 0052 1321     		movs	r1, #19
+ 1280 0054 2120     		movs	r0, #33
+ 1281 0056 FFF7FEFF 		bl	ov7670_write_reg
+ 1282 005a 0346     		mov	r3, r0
+ 1283 005c FB73     		strb	r3, [r7, #15]
+ 1284 005e 97F90F30 		ldrsb	r3, [r7, #15]
+ 1285 0062 002B     		cmp	r3, #0
+ 1286 0064 02D0     		beq	.L114
+ 1287 0066 97F90F30 		ldrsb	r3, [r7, #15]
+ 1288 006a 00E0     		b	.L115
+ 1289              	.L114:
+ 1290 006c 0023     		movs	r3, #0
+ 1291              	.L115:
+ 1292 006e 1846     		mov	r0, r3
+ 1293 0070 1037     		adds	r7, r7, #16
+ 1294 0072 BD46     		mov	sp, r7
+ 1295              		@ sp needed
+ 1296 0074 80BD     		pop	{r7, pc}
+ 1297              		.size	ov7670_set_awb, .-ov7670_set_awb
+ 1298              		.section	.text.ov7670_set_rgb_gain,"ax",%progbits
+ 1299              		.align	1
+ 1300              		.global	ov7670_set_rgb_gain
+ 1301              		.syntax unified
+ 1302              		.thumb
+ 1303              		.thumb_func
+ 1304              		.fpu fpv4-sp-d16
+ 1305              		.type	ov7670_set_rgb_gain, %function
+ 1306              	ov7670_set_rgb_gain:
+ 1307              		@ args = 0, pretend = 0, frame = 16
+ 1308              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1309 0000 80B5     		push	{r7, lr}
+ 1310 0002 84B0     		sub	sp, sp, #16
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 24
+
+
+ 1311 0004 00AF     		add	r7, sp, #0
+ 1312 0006 0346     		mov	r3, r0
+ 1313 0008 FB71     		strb	r3, [r7, #7]
+ 1314 000a 0B46     		mov	r3, r1
+ 1315 000c BB71     		strb	r3, [r7, #6]
+ 1316 000e 1346     		mov	r3, r2
+ 1317 0010 7B71     		strb	r3, [r7, #5]
+ 1318 0012 0023     		movs	r3, #0
+ 1319 0014 FB73     		strb	r3, [r7, #15]
+ 1320 0016 0020     		movs	r0, #0
+ 1321 0018 FFF7FEFF 		bl	ov7670_set_awb
+ 1322 001c 0346     		mov	r3, r0
+ 1323 001e FB73     		strb	r3, [r7, #15]
+ 1324 0020 97F90F30 		ldrsb	r3, [r7, #15]
+ 1325 0024 002B     		cmp	r3, #0
+ 1326 0026 02D0     		beq	.L117
+ 1327 0028 97F90F30 		ldrsb	r3, [r7, #15]
+ 1328 002c 2DE0     		b	.L118
+ 1329              	.L117:
+ 1330 002e FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1331 0030 1A46     		mov	r2, r3
+ 1332 0032 0221     		movs	r1, #2
+ 1333 0034 2120     		movs	r0, #33
+ 1334 0036 FFF7FEFF 		bl	ov7670_write_reg
+ 1335 003a 0346     		mov	r3, r0
+ 1336 003c FB73     		strb	r3, [r7, #15]
+ 1337 003e 97F90F30 		ldrsb	r3, [r7, #15]
+ 1338 0042 002B     		cmp	r3, #0
+ 1339 0044 02D0     		beq	.L119
+ 1340 0046 97F90F30 		ldrsb	r3, [r7, #15]
+ 1341 004a 1EE0     		b	.L118
+ 1342              	.L119:
+ 1343 004c BB79     		ldrb	r3, [r7, #6]	@ zero_extendqisi2
+ 1344 004e 1A46     		mov	r2, r3
+ 1345 0050 6A21     		movs	r1, #106
+ 1346 0052 2120     		movs	r0, #33
+ 1347 0054 FFF7FEFF 		bl	ov7670_write_reg
+ 1348 0058 0346     		mov	r3, r0
+ 1349 005a FB73     		strb	r3, [r7, #15]
+ 1350 005c 97F90F30 		ldrsb	r3, [r7, #15]
+ 1351 0060 002B     		cmp	r3, #0
+ 1352 0062 02D0     		beq	.L120
+ 1353 0064 97F90F30 		ldrsb	r3, [r7, #15]
+ 1354 0068 0FE0     		b	.L118
+ 1355              	.L120:
+ 1356 006a 7B79     		ldrb	r3, [r7, #5]	@ zero_extendqisi2
+ 1357 006c 1A46     		mov	r2, r3
+ 1358 006e 0121     		movs	r1, #1
+ 1359 0070 2120     		movs	r0, #33
+ 1360 0072 FFF7FEFF 		bl	ov7670_write_reg
+ 1361 0076 0346     		mov	r3, r0
+ 1362 0078 FB73     		strb	r3, [r7, #15]
+ 1363 007a 97F90F30 		ldrsb	r3, [r7, #15]
+ 1364 007e 002B     		cmp	r3, #0
+ 1365 0080 02D0     		beq	.L121
+ 1366 0082 97F90F30 		ldrsb	r3, [r7, #15]
+ 1367 0086 00E0     		b	.L118
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 25
+
+
+ 1368              	.L121:
+ 1369 0088 0023     		movs	r3, #0
+ 1370              	.L118:
+ 1371 008a 1846     		mov	r0, r3
+ 1372 008c 1037     		adds	r7, r7, #16
+ 1373 008e BD46     		mov	sp, r7
+ 1374              		@ sp needed
+ 1375 0090 80BD     		pop	{r7, pc}
+ 1376              		.size	ov7670_set_rgb_gain, .-ov7670_set_rgb_gain
+ 1377              		.section	.text.ov7670_set_ae,"ax",%progbits
+ 1378              		.align	1
+ 1379              		.global	ov7670_set_ae
+ 1380              		.syntax unified
+ 1381              		.thumb
+ 1382              		.thumb_func
+ 1383              		.fpu fpv4-sp-d16
+ 1384              		.type	ov7670_set_ae, %function
+ 1385              	ov7670_set_ae:
+ 1386              		@ args = 0, pretend = 0, frame = 16
+ 1387              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1388 0000 80B5     		push	{r7, lr}
+ 1389 0002 84B0     		sub	sp, sp, #16
+ 1390 0004 00AF     		add	r7, sp, #0
+ 1391 0006 0346     		mov	r3, r0
+ 1392 0008 FB71     		strb	r3, [r7, #7]
+ 1393 000a 0023     		movs	r3, #0
+ 1394 000c FB73     		strb	r3, [r7, #15]
+ 1395 000e 0023     		movs	r3, #0
+ 1396 0010 BB73     		strb	r3, [r7, #14]
+ 1397 0012 07F10E03 		add	r3, r7, #14
+ 1398 0016 1A46     		mov	r2, r3
+ 1399 0018 1321     		movs	r1, #19
+ 1400 001a 2120     		movs	r0, #33
+ 1401 001c FFF7FEFF 		bl	ov7670_read_reg
+ 1402 0020 0346     		mov	r3, r0
+ 1403 0022 FB73     		strb	r3, [r7, #15]
+ 1404 0024 97F90F30 		ldrsb	r3, [r7, #15]
+ 1405 0028 002B     		cmp	r3, #0
+ 1406 002a 02D0     		beq	.L123
+ 1407 002c 97F90F30 		ldrsb	r3, [r7, #15]
+ 1408 0030 1DE0     		b	.L128
+ 1409              	.L123:
+ 1410 0032 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1411 0034 012B     		cmp	r3, #1
+ 1412 0036 05D1     		bne	.L125
+ 1413 0038 BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 1414 003a 43F00103 		orr	r3, r3, #1
+ 1415 003e DBB2     		uxtb	r3, r3
+ 1416 0040 BB73     		strb	r3, [r7, #14]
+ 1417 0042 04E0     		b	.L126
+ 1418              	.L125:
+ 1419 0044 BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 1420 0046 23F00103 		bic	r3, r3, #1
+ 1421 004a DBB2     		uxtb	r3, r3
+ 1422 004c BB73     		strb	r3, [r7, #14]
+ 1423              	.L126:
+ 1424 004e BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 26
+
+
+ 1425 0050 1A46     		mov	r2, r3
+ 1426 0052 1321     		movs	r1, #19
+ 1427 0054 2120     		movs	r0, #33
+ 1428 0056 FFF7FEFF 		bl	ov7670_write_reg
+ 1429 005a 0346     		mov	r3, r0
+ 1430 005c FB73     		strb	r3, [r7, #15]
+ 1431 005e 97F90F30 		ldrsb	r3, [r7, #15]
+ 1432 0062 002B     		cmp	r3, #0
+ 1433 0064 02D0     		beq	.L127
+ 1434 0066 97F90F30 		ldrsb	r3, [r7, #15]
+ 1435 006a 00E0     		b	.L128
+ 1436              	.L127:
+ 1437 006c 0023     		movs	r3, #0
+ 1438              	.L128:
+ 1439 006e 1846     		mov	r0, r3
+ 1440 0070 1037     		adds	r7, r7, #16
+ 1441 0072 BD46     		mov	sp, r7
+ 1442              		@ sp needed
+ 1443 0074 80BD     		pop	{r7, pc}
+ 1444              		.size	ov7670_set_ae, .-ov7670_set_ae
+ 1445              		.section	.text.ov7670_set_exposure,"ax",%progbits
+ 1446              		.align	1
+ 1447              		.global	ov7670_set_exposure
+ 1448              		.syntax unified
+ 1449              		.thumb
+ 1450              		.thumb_func
+ 1451              		.fpu fpv4-sp-d16
+ 1452              		.type	ov7670_set_exposure, %function
+ 1453              	ov7670_set_exposure:
+ 1454              		@ args = 0, pretend = 0, frame = 16
+ 1455              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1456 0000 80B5     		push	{r7, lr}
+ 1457 0002 84B0     		sub	sp, sp, #16
+ 1458 0004 00AF     		add	r7, sp, #0
+ 1459 0006 0346     		mov	r3, r0
+ 1460 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 1461 000a 0023     		movs	r3, #0
+ 1462 000c FB73     		strb	r3, [r7, #15]
+ 1463 000e 0020     		movs	r0, #0
+ 1464 0010 FFF7FEFF 		bl	ov7670_set_ae
+ 1465 0014 0346     		mov	r3, r0
+ 1466 0016 FB73     		strb	r3, [r7, #15]
+ 1467 0018 97F90F30 		ldrsb	r3, [r7, #15]
+ 1468 001c 002B     		cmp	r3, #0
+ 1469 001e 02D0     		beq	.L130
+ 1470 0020 97F90F30 		ldrsb	r3, [r7, #15]
+ 1471 0024 3AE0     		b	.L131
+ 1472              	.L130:
+ 1473 0026 FB88     		ldrh	r3, [r7, #6]
+ 1474 0028 9B0A     		lsrs	r3, r3, #10
+ 1475 002a 9BB2     		uxth	r3, r3
+ 1476 002c DBB2     		uxtb	r3, r3
+ 1477 002e 03F01F03 		and	r3, r3, #31
+ 1478 0032 DBB2     		uxtb	r3, r3
+ 1479 0034 1A46     		mov	r2, r3
+ 1480 0036 0721     		movs	r1, #7
+ 1481 0038 2120     		movs	r0, #33
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 27
+
+
+ 1482 003a FFF7FEFF 		bl	ov7670_write_reg
+ 1483 003e 0346     		mov	r3, r0
+ 1484 0040 FB73     		strb	r3, [r7, #15]
+ 1485 0042 97F90F30 		ldrsb	r3, [r7, #15]
+ 1486 0046 002B     		cmp	r3, #0
+ 1487 0048 02D0     		beq	.L132
+ 1488 004a 97F90F30 		ldrsb	r3, [r7, #15]
+ 1489 004e 25E0     		b	.L131
+ 1490              	.L132:
+ 1491 0050 FB88     		ldrh	r3, [r7, #6]
+ 1492 0052 9B08     		lsrs	r3, r3, #2
+ 1493 0054 9BB2     		uxth	r3, r3
+ 1494 0056 DBB2     		uxtb	r3, r3
+ 1495 0058 1A46     		mov	r2, r3
+ 1496 005a 1021     		movs	r1, #16
+ 1497 005c 2120     		movs	r0, #33
+ 1498 005e FFF7FEFF 		bl	ov7670_write_reg
+ 1499 0062 0346     		mov	r3, r0
+ 1500 0064 FB73     		strb	r3, [r7, #15]
+ 1501 0066 97F90F30 		ldrsb	r3, [r7, #15]
+ 1502 006a 002B     		cmp	r3, #0
+ 1503 006c 02D0     		beq	.L133
+ 1504 006e 97F90F30 		ldrsb	r3, [r7, #15]
+ 1505 0072 13E0     		b	.L131
+ 1506              	.L133:
+ 1507 0074 FB88     		ldrh	r3, [r7, #6]	@ movhi
+ 1508 0076 DBB2     		uxtb	r3, r3
+ 1509 0078 03F00303 		and	r3, r3, #3
+ 1510 007c DBB2     		uxtb	r3, r3
+ 1511 007e 1A46     		mov	r2, r3
+ 1512 0080 0421     		movs	r1, #4
+ 1513 0082 2120     		movs	r0, #33
+ 1514 0084 FFF7FEFF 		bl	ov7670_write_reg
+ 1515 0088 0346     		mov	r3, r0
+ 1516 008a FB73     		strb	r3, [r7, #15]
+ 1517 008c 97F90F30 		ldrsb	r3, [r7, #15]
+ 1518 0090 002B     		cmp	r3, #0
+ 1519 0092 02D0     		beq	.L134
+ 1520 0094 97F90F30 		ldrsb	r3, [r7, #15]
+ 1521 0098 00E0     		b	.L131
+ 1522              	.L134:
+ 1523 009a 0023     		movs	r3, #0
+ 1524              	.L131:
+ 1525 009c 1846     		mov	r0, r3
+ 1526 009e 1037     		adds	r7, r7, #16
+ 1527 00a0 BD46     		mov	sp, r7
+ 1528              		@ sp needed
+ 1529 00a2 80BD     		pop	{r7, pc}
+ 1530              		.size	ov7670_set_exposure, .-ov7670_set_exposure
+ 1531              		.section	.text.ov7670_get_image_size,"ax",%progbits
+ 1532              		.align	1
+ 1533              		.global	ov7670_get_image_size
+ 1534              		.syntax unified
+ 1535              		.thumb
+ 1536              		.thumb_func
+ 1537              		.fpu fpv4-sp-d16
+ 1538              		.type	ov7670_get_image_size, %function
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 28
+
+
+ 1539              	ov7670_get_image_size:
+ 1540              		@ args = 0, pretend = 0, frame = 0
+ 1541              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1542              		@ link register save eliminated.
+ 1543 0000 80B4     		push	{r7}
+ 1544 0002 00AF     		add	r7, sp, #0
+ 1545 0004 0C4B     		ldr	r3, .L138
+ 1546 0006 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 1547 0008 022B     		cmp	r3, #2
+ 1548 000a 07D1     		bne	.L136
+ 1549 000c 0A4B     		ldr	r3, .L138
+ 1550 000e 1B88     		ldrh	r3, [r3]
+ 1551 0010 1A46     		mov	r2, r3
+ 1552 0012 094B     		ldr	r3, .L138
+ 1553 0014 5B88     		ldrh	r3, [r3, #2]
+ 1554 0016 03FB02F3 		mul	r3, r3, r2
+ 1555 001a 07E0     		b	.L137
+ 1556              	.L136:
+ 1557 001c 064B     		ldr	r3, .L138
+ 1558 001e 1B88     		ldrh	r3, [r3]
+ 1559 0020 1A46     		mov	r2, r3
+ 1560 0022 054B     		ldr	r3, .L138
+ 1561 0024 5B88     		ldrh	r3, [r3, #2]
+ 1562 0026 03FB02F3 		mul	r3, r3, r2
+ 1563 002a 5B00     		lsls	r3, r3, #1
+ 1564              	.L137:
+ 1565 002c 1846     		mov	r0, r3
+ 1566 002e BD46     		mov	sp, r7
+ 1567              		@ sp needed
+ 1568 0030 5DF8047B 		ldr	r7, [sp], #4
+ 1569 0034 7047     		bx	lr
+ 1570              	.L139:
+ 1571 0036 00BF     		.align	2
+ 1572              	.L138:
+ 1573 0038 00000000 		.word	ov7670_conf
+ 1574              		.size	ov7670_get_image_size, .-ov7670_get_image_size
+ 1575              		.section	.text.ov7670_is_connected,"ax",%progbits
+ 1576              		.align	1
+ 1577              		.global	ov7670_is_connected
+ 1578              		.syntax unified
+ 1579              		.thumb
+ 1580              		.thumb_func
+ 1581              		.fpu fpv4-sp-d16
+ 1582              		.type	ov7670_is_connected, %function
+ 1583              	ov7670_is_connected:
+ 1584              		@ args = 0, pretend = 0, frame = 8
+ 1585              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1586 0000 80B5     		push	{r7, lr}
+ 1587 0002 82B0     		sub	sp, sp, #8
+ 1588 0004 00AF     		add	r7, sp, #0
+ 1589 0006 0023     		movs	r3, #0
+ 1590 0008 BB80     		strh	r3, [r7, #4]	@ movhi
+ 1591 000a 3B1D     		adds	r3, r7, #4
+ 1592 000c 1846     		mov	r0, r3
+ 1593 000e FFF7FEFF 		bl	ov7670_read_id
+ 1594 0012 0346     		mov	r3, r0
+ 1595 0014 FB71     		strb	r3, [r7, #7]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 29
+
+
+ 1596 0016 97F90730 		ldrsb	r3, [r7, #7]
+ 1597 001a 002B     		cmp	r3, #0
+ 1598 001c 06D1     		bne	.L141
+ 1599 001e BB88     		ldrh	r3, [r7, #4]
+ 1600 0020 47F27362 		movw	r2, #30323
+ 1601 0024 9342     		cmp	r3, r2
+ 1602 0026 01D1     		bne	.L141
+ 1603 0028 0123     		movs	r3, #1
+ 1604 002a 00E0     		b	.L143
+ 1605              	.L141:
+ 1606 002c 0023     		movs	r3, #0
+ 1607              	.L143:
+ 1608 002e 1846     		mov	r0, r3
+ 1609 0030 0837     		adds	r7, r7, #8
+ 1610 0032 BD46     		mov	sp, r7
+ 1611              		@ sp needed
+ 1612 0034 80BD     		pop	{r7, pc}
+ 1613              		.size	ov7670_is_connected, .-ov7670_is_connected
+ 1614              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 30
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 ov7670.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:15     .bss.ov7670_conf:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:18     .bss.ov7670_conf:0000000000000000 ov7670_conf
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:23     .bss.cam_configured:0000000000000000 cam_configured
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:24     .bss.cam_configured:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:26     .text.ov7670_write_reg:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:33     .text.ov7670_write_reg:0000000000000000 ov7670_write_reg
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:97     .text.ov7670_write_reg:000000000000007c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:100    .text.ov7670_read_reg:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:107    .text.ov7670_read_reg:0000000000000000 ov7670_read_reg
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:194    .text.ov7670_read_reg:00000000000000b0 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:197    .text.ov7670_read_id:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:204    .text.ov7670_read_id:0000000000000000 ov7670_read_id
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:261    .text.ov7670_set_vga:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:268    .text.ov7670_set_vga:0000000000000000 ov7670_set_vga
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:282    .text.ov7670_set_qvga:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:289    .text.ov7670_set_qvga:0000000000000000 ov7670_set_qvga
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:303    .text.ov7670_set_qqvga:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:310    .text.ov7670_set_qqvga:0000000000000000 ov7670_set_qqvga
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:460    .text.ov7670_set_qqvga:0000000000000144 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:463    .text.ov7670_set_size:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:470    .text.ov7670_set_size:0000000000000000 ov7670_set_size
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:508    .text.ov7670_start:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:515    .text.ov7670_start:0000000000000000 ov7670_start
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:622    .text.ov7670_advanced_config:0000000000000000 ov7670_advanced_config
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:568    .text.ov7670_config:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:575    .text.ov7670_config:0000000000000000 ov7670_config
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:612    .text.ov7670_config:0000000000000040 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:615    .text.ov7670_advanced_config:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:1050   .text.ov7670_advanced_config:00000000000003c0 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:1052   .text.ov7670_advanced_config:00000000000003c4 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:1091   .text.ov7670_advanced_config:0000000000000410 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:1095   .text.ov7670_set_brightness:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:1102   .text.ov7670_set_brightness:0000000000000000 ov7670_set_brightness
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:1124   .text.ov7670_set_contrast:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:1131   .text.ov7670_set_contrast:0000000000000000 ov7670_set_contrast
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:1153   .text.ov7670_set_mirror:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:1160   .text.ov7670_set_mirror:0000000000000000 ov7670_set_mirror
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:1231   .text.ov7670_set_awb:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:1238   .text.ov7670_set_awb:0000000000000000 ov7670_set_awb
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:1299   .text.ov7670_set_rgb_gain:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:1306   .text.ov7670_set_rgb_gain:0000000000000000 ov7670_set_rgb_gain
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:1378   .text.ov7670_set_ae:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:1385   .text.ov7670_set_ae:0000000000000000 ov7670_set_ae
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:1446   .text.ov7670_set_exposure:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:1453   .text.ov7670_set_exposure:0000000000000000 ov7670_set_exposure
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:1532   .text.ov7670_get_image_size:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:1539   .text.ov7670_get_image_size:0000000000000000 ov7670_get_image_size
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:1573   .text.ov7670_get_image_size:0000000000000038 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:1576   .text.ov7670_is_connected:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s:1583   .text.ov7670_is_connected:0000000000000000 ov7670_is_connected
+
+UNDEFINED SYMBOLS
+i2cAcquireBus
+i2cMasterTransmitTimeout
+i2c_update_last_error
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Fghmf.s 			page 31
+
+
+i2c_stop
+i2c_start
+i2cReleaseBus
+I2CD1
+i2cMasterReceiveTimeout
+chThdSleep

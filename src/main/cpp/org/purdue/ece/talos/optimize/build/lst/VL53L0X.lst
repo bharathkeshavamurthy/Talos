@@ -1,0 +1,806 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"VL53L0X.c"
+  14              		.section	.text.chThdGetSelfX,"ax",%progbits
+  15              		.align	1
+  16              		.syntax unified
+  17              		.thumb
+  18              		.thumb_func
+  19              		.fpu fpv4-sp-d16
+  20              		.type	chThdGetSelfX, %function
+  21              	chThdGetSelfX:
+  22              		@ args = 0, pretend = 0, frame = 0
+  23              		@ frame_needed = 1, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 80B4     		push	{r7}
+  26 0002 00AF     		add	r7, sp, #0
+  27 0004 034B     		ldr	r3, .L3
+  28 0006 9B69     		ldr	r3, [r3, #24]
+  29 0008 1846     		mov	r0, r3
+  30 000a BD46     		mov	sp, r7
+  31              		@ sp needed
+  32 000c 5DF8047B 		ldr	r7, [sp], #4
+  33 0010 7047     		bx	lr
+  34              	.L4:
+  35 0012 00BF     		.align	2
+  36              	.L3:
+  37 0014 00000000 		.word	ch
+  38              		.size	chThdGetSelfX, .-chThdGetSelfX
+  39              		.section	.text.chThdShouldTerminateX,"ax",%progbits
+  40              		.align	1
+  41              		.syntax unified
+  42              		.thumb
+  43              		.thumb_func
+  44              		.fpu fpv4-sp-d16
+  45              		.type	chThdShouldTerminateX, %function
+  46              	chThdShouldTerminateX:
+  47              		@ args = 0, pretend = 0, frame = 0
+  48              		@ frame_needed = 1, uses_anonymous_args = 0
+  49 0000 80B5     		push	{r7, lr}
+  50 0002 00AF     		add	r7, sp, #0
+  51 0004 FFF7FEFF 		bl	chThdGetSelfX
+  52 0008 0346     		mov	r3, r0
+  53 000a 93F82130 		ldrb	r3, [r3, #33]	@ zero_extendqisi2
+  54 000e 03F00403 		and	r3, r3, #4
+  55 0012 002B     		cmp	r3, #0
+  56 0014 14BF     		ite	ne
+  57 0016 0123     		movne	r3, #1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s 			page 2
+
+
+  58 0018 0023     		moveq	r3, #0
+  59 001a DBB2     		uxtb	r3, r3
+  60 001c 1846     		mov	r0, r3
+  61 001e 80BD     		pop	{r7, pc}
+  62              		.size	chThdShouldTerminateX, .-chThdShouldTerminateX
+  63              		.section	.text.chRegSetThreadName,"ax",%progbits
+  64              		.align	1
+  65              		.syntax unified
+  66              		.thumb
+  67              		.thumb_func
+  68              		.fpu fpv4-sp-d16
+  69              		.type	chRegSetThreadName, %function
+  70              	chRegSetThreadName:
+  71              		@ args = 0, pretend = 0, frame = 8
+  72              		@ frame_needed = 1, uses_anonymous_args = 0
+  73              		@ link register save eliminated.
+  74 0000 80B4     		push	{r7}
+  75 0002 83B0     		sub	sp, sp, #12
+  76 0004 00AF     		add	r7, sp, #0
+  77 0006 7860     		str	r0, [r7, #4]
+  78 0008 044B     		ldr	r3, .L8
+  79 000a 9B69     		ldr	r3, [r3, #24]
+  80 000c 7A68     		ldr	r2, [r7, #4]
+  81 000e 9A61     		str	r2, [r3, #24]
+  82 0010 00BF     		nop
+  83 0012 0C37     		adds	r7, r7, #12
+  84 0014 BD46     		mov	sp, r7
+  85              		@ sp needed
+  86 0016 5DF8047B 		ldr	r7, [sp], #4
+  87 001a 7047     		bx	lr
+  88              	.L9:
+  89              		.align	2
+  90              	.L8:
+  91 001c 00000000 		.word	ch
+  92              		.size	chRegSetThreadName, .-chRegSetThreadName
+  93              		.section	.bss.dist_mm,"aw",%nobits
+  94              		.align	1
+  95              		.type	dist_mm, %object
+  96              		.size	dist_mm, 2
+  97              	dist_mm:
+  98 0000 0000     		.space	2
+  99              		.section	.bss.distThd,"aw",%nobits
+ 100              		.align	2
+ 101              		.type	distThd, %object
+ 102              		.size	distThd, 4
+ 103              	distThd:
+ 104 0000 00000000 		.space	4
+ 105              		.section	.bss.VL53L0X_configured,"aw",%nobits
+ 106              		.type	VL53L0X_configured, %object
+ 107              		.size	VL53L0X_configured, 1
+ 108              	VL53L0X_configured:
+ 109 0000 00       		.space	1
+ 110              		.section	.bss.waVL53L0XThd,"aw",%nobits
+ 111              		.align	3
+ 112              		.type	waVL53L0XThd, %object
+ 113              		.size	waVL53L0XThd, 888
+ 114              	waVL53L0XThd:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s 			page 3
+
+
+ 115 0000 00000000 		.space	888
+ 115      00000000 
+ 115      00000000 
+ 115      00000000 
+ 115      00000000 
+ 116              		.section	.rodata
+ 117              		.align	2
+ 118              	.LC0:
+ 119 0000 564C3533 		.ascii	"VL53L0x Thd\000"
+ 119      4C307820 
+ 119      54686400 
+ 120              		.section	.text.VL53L0XThd,"ax",%progbits
+ 121              		.align	1
+ 122              		.syntax unified
+ 123              		.thumb
+ 124              		.thumb_func
+ 125              		.fpu fpv4-sp-d16
+ 126              		.type	VL53L0XThd, %function
+ 127              	VL53L0XThd:
+ 128              		@ args = 0, pretend = 0, frame = 16
+ 129              		@ frame_needed = 1, uses_anonymous_args = 0
+ 130 0000 80B5     		push	{r7, lr}
+ 131 0002 84B0     		sub	sp, sp, #16
+ 132 0004 00AF     		add	r7, sp, #0
+ 133 0006 7860     		str	r0, [r7, #4]
+ 134 0008 2048     		ldr	r0, .L17
+ 135 000a FFF7FEFF 		bl	chRegSetThreadName
+ 136 000e 0023     		movs	r3, #0
+ 137 0010 FB73     		strb	r3, [r7, #15]
+ 138 0012 1F4B     		ldr	r3, .L17+4
+ 139 0014 5222     		movs	r2, #82
+ 140 0016 83F8BF21 		strb	r2, [r3, #447]
+ 141 001a 1D48     		ldr	r0, .L17+4
+ 142 001c FFF7FEFF 		bl	VL53L0X_init
+ 143 0020 0346     		mov	r3, r0
+ 144 0022 FB73     		strb	r3, [r7, #15]
+ 145 0024 97F90F30 		ldrsb	r3, [r7, #15]
+ 146 0028 002B     		cmp	r3, #0
+ 147 002a 03D1     		bne	.L11
+ 148 002c 0221     		movs	r1, #2
+ 149 002e 1848     		ldr	r0, .L17+4
+ 150 0030 FFF7FEFF 		bl	VL53L0X_configAccuracy
+ 151              	.L11:
+ 152 0034 97F90F30 		ldrsb	r3, [r7, #15]
+ 153 0038 002B     		cmp	r3, #0
+ 154 003a 03D1     		bne	.L12
+ 155 003c 0121     		movs	r1, #1
+ 156 003e 1448     		ldr	r0, .L17+4
+ 157 0040 FFF7FEFF 		bl	VL53L0X_startMeasure
+ 158              	.L12:
+ 159 0044 97F90F30 		ldrsb	r3, [r7, #15]
+ 160 0048 002B     		cmp	r3, #0
+ 161 004a 12D1     		bne	.L14
+ 162 004c 114B     		ldr	r3, .L17+8
+ 163 004e 0122     		movs	r2, #1
+ 164 0050 1A70     		strb	r2, [r3]
+ 165 0052 0EE0     		b	.L14
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s 			page 4
+
+
+ 166              	.L16:
+ 167 0054 0F4B     		ldr	r3, .L17+8
+ 168 0056 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 169 0058 002B     		cmp	r3, #0
+ 170 005a 07D0     		beq	.L15
+ 171 005c 0C48     		ldr	r0, .L17+4
+ 172 005e FFF7FEFF 		bl	VL53L0X_getLastMeasure
+ 173 0062 0B4B     		ldr	r3, .L17+4
+ 174 0064 B3F85820 		ldrh	r2, [r3, #88]
+ 175 0068 0B4B     		ldr	r3, .L17+12
+ 176 006a 1A80     		strh	r2, [r3]	@ movhi
+ 177              	.L15:
+ 178 006c 6420     		movs	r0, #100
+ 179 006e FFF7FEFF 		bl	chThdSleep
+ 180              	.L14:
+ 181 0072 FFF7FEFF 		bl	chThdShouldTerminateX
+ 182 0076 0346     		mov	r3, r0
+ 183 0078 83F00103 		eor	r3, r3, #1
+ 184 007c DBB2     		uxtb	r3, r3
+ 185 007e 002B     		cmp	r3, #0
+ 186 0080 E8D1     		bne	.L16
+ 187 0082 00BF     		nop
+ 188 0084 1037     		adds	r7, r7, #16
+ 189 0086 BD46     		mov	sp, r7
+ 190              		@ sp needed
+ 191 0088 80BD     		pop	{r7, pc}
+ 192              	.L18:
+ 193 008a 00BF     		.align	2
+ 194              	.L17:
+ 195 008c 00000000 		.word	.LC0
+ 196 0090 00000000 		.word	device.11724
+ 197 0094 00000000 		.word	VL53L0X_configured
+ 198 0098 00000000 		.word	dist_mm
+ 199              		.size	VL53L0XThd, .-VL53L0XThd
+ 200              		.section	.text.VL53L0X_init,"ax",%progbits
+ 201              		.align	1
+ 202              		.global	VL53L0X_init
+ 203              		.syntax unified
+ 204              		.thumb
+ 205              		.thumb_func
+ 206              		.fpu fpv4-sp-d16
+ 207              		.type	VL53L0X_init, %function
+ 208              	VL53L0X_init:
+ 209              		@ args = 0, pretend = 0, frame = 24
+ 210              		@ frame_needed = 1, uses_anonymous_args = 0
+ 211 0000 80B5     		push	{r7, lr}
+ 212 0002 86B0     		sub	sp, sp, #24
+ 213 0004 00AF     		add	r7, sp, #0
+ 214 0006 7860     		str	r0, [r7, #4]
+ 215 0008 0023     		movs	r3, #0
+ 216 000a FB75     		strb	r3, [r7, #23]
+ 217 000c 97F91730 		ldrsb	r3, [r7, #23]
+ 218 0010 002B     		cmp	r3, #0
+ 219 0012 04D1     		bne	.L20
+ 220 0014 7868     		ldr	r0, [r7, #4]
+ 221 0016 FFF7FEFF 		bl	VL53L0X_DataInit
+ 222 001a 0346     		mov	r3, r0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s 			page 5
+
+
+ 223 001c FB75     		strb	r3, [r7, #23]
+ 224              	.L20:
+ 225 001e 97F91730 		ldrsb	r3, [r7, #23]
+ 226 0022 002B     		cmp	r3, #0
+ 227 0024 08D1     		bne	.L21
+ 228 0026 7B68     		ldr	r3, [r7, #4]
+ 229 0028 03F5AE73 		add	r3, r3, #348
+ 230 002c 1946     		mov	r1, r3
+ 231 002e 7868     		ldr	r0, [r7, #4]
+ 232 0030 FFF7FEFF 		bl	VL53L0X_GetDeviceInfo
+ 233 0034 0346     		mov	r3, r0
+ 234 0036 FB75     		strb	r3, [r7, #23]
+ 235              	.L21:
+ 236 0038 97F91730 		ldrsb	r3, [r7, #23]
+ 237 003c 002B     		cmp	r3, #0
+ 238 003e 04D1     		bne	.L22
+ 239 0040 7868     		ldr	r0, [r7, #4]
+ 240 0042 FFF7FEFF 		bl	VL53L0X_StaticInit
+ 241 0046 0346     		mov	r3, r0
+ 242 0048 FB75     		strb	r3, [r7, #23]
+ 243              	.L22:
+ 244 004a 97F91730 		ldrsb	r3, [r7, #23]
+ 245 004e 002B     		cmp	r3, #0
+ 246 0050 09D1     		bne	.L23
+ 247 0052 07F10F02 		add	r2, r7, #15
+ 248 0056 07F11003 		add	r3, r7, #16
+ 249 005a 1946     		mov	r1, r3
+ 250 005c 7868     		ldr	r0, [r7, #4]
+ 251 005e FFF7FEFF 		bl	VL53L0X_PerformRefSpadManagement
+ 252 0062 0346     		mov	r3, r0
+ 253 0064 FB75     		strb	r3, [r7, #23]
+ 254              	.L23:
+ 255 0066 97F91730 		ldrsb	r3, [r7, #23]
+ 256 006a 002B     		cmp	r3, #0
+ 257 006c 09D1     		bne	.L24
+ 258 006e 07F11502 		add	r2, r7, #21
+ 259 0072 07F11603 		add	r3, r7, #22
+ 260 0076 1946     		mov	r1, r3
+ 261 0078 7868     		ldr	r0, [r7, #4]
+ 262 007a FFF7FEFF 		bl	VL53L0X_PerformRefCalibration
+ 263 007e 0346     		mov	r3, r0
+ 264 0080 FB75     		strb	r3, [r7, #23]
+ 265              	.L24:
+ 266 0082 97F91730 		ldrsb	r3, [r7, #23]
+ 267 0086 1846     		mov	r0, r3
+ 268 0088 1837     		adds	r7, r7, #24
+ 269 008a BD46     		mov	sp, r7
+ 270              		@ sp needed
+ 271 008c 80BD     		pop	{r7, pc}
+ 272              		.size	VL53L0X_init, .-VL53L0X_init
+ 273              		.section	.text.VL53L0X_configAccuracy,"ax",%progbits
+ 274              		.align	1
+ 275              		.global	VL53L0X_configAccuracy
+ 276              		.syntax unified
+ 277              		.thumb
+ 278              		.thumb_func
+ 279              		.fpu fpv4-sp-d16
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s 			page 6
+
+
+ 280              		.type	VL53L0X_configAccuracy, %function
+ 281              	VL53L0X_configAccuracy:
+ 282              		@ args = 0, pretend = 0, frame = 16
+ 283              		@ frame_needed = 1, uses_anonymous_args = 0
+ 284 0000 80B5     		push	{r7, lr}
+ 285 0002 84B0     		sub	sp, sp, #16
+ 286 0004 00AF     		add	r7, sp, #0
+ 287 0006 7860     		str	r0, [r7, #4]
+ 288 0008 0B46     		mov	r3, r1
+ 289 000a FB70     		strb	r3, [r7, #3]
+ 290 000c 0023     		movs	r3, #0
+ 291 000e FB73     		strb	r3, [r7, #15]
+ 292 0010 97F90F30 		ldrsb	r3, [r7, #15]
+ 293 0014 002B     		cmp	r3, #0
+ 294 0016 06D1     		bne	.L27
+ 295 0018 0122     		movs	r2, #1
+ 296 001a 0021     		movs	r1, #0
+ 297 001c 7868     		ldr	r0, [r7, #4]
+ 298 001e FFF7FEFF 		bl	VL53L0X_SetLimitCheckEnable
+ 299 0022 0346     		mov	r3, r0
+ 300 0024 FB73     		strb	r3, [r7, #15]
+ 301              	.L27:
+ 302 0026 97F90F30 		ldrsb	r3, [r7, #15]
+ 303 002a 002B     		cmp	r3, #0
+ 304 002c 06D1     		bne	.L28
+ 305 002e 0122     		movs	r2, #1
+ 306 0030 0121     		movs	r1, #1
+ 307 0032 7868     		ldr	r0, [r7, #4]
+ 308 0034 FFF7FEFF 		bl	VL53L0X_SetLimitCheckEnable
+ 309 0038 0346     		mov	r3, r0
+ 310 003a FB73     		strb	r3, [r7, #15]
+ 311              	.L28:
+ 312 003c FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 313 003e 032B     		cmp	r3, #3
+ 314 0040 00F2A680 		bhi	.L29
+ 315 0044 01A2     		adr	r2, .L31
+ 316 0046 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 317 004a 00BF     		.p2align 2
+ 318              	.L31:
+ 319 004c 5D000000 		.word	.L30+1
+ 320 0050 8F000000 		.word	.L32+1
+ 321 0054 D5000000 		.word	.L33+1
+ 322 0058 49010000 		.word	.L34+1
+ 323              		.p2align 1
+ 324              	.L30:
+ 325 005c 97F90F30 		ldrsb	r3, [r7, #15]
+ 326 0060 002B     		cmp	r3, #0
+ 327 0062 06D1     		bne	.L35
+ 328 0064 0122     		movs	r2, #1
+ 329 0066 0321     		movs	r1, #3
+ 330 0068 7868     		ldr	r0, [r7, #4]
+ 331 006a FFF7FEFF 		bl	VL53L0X_SetLimitCheckEnable
+ 332 006e 0346     		mov	r3, r0
+ 333 0070 FB73     		strb	r3, [r7, #15]
+ 334              	.L35:
+ 335 0072 97F90F30 		ldrsb	r3, [r7, #15]
+ 336 0076 002B     		cmp	r3, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s 			page 7
+
+
+ 337 0078 40F08D80 		bne	.L50
+ 338 007c 40F6D402 		movw	r2, #2260
+ 339 0080 0321     		movs	r1, #3
+ 340 0082 7868     		ldr	r0, [r7, #4]
+ 341 0084 FFF7FEFF 		bl	VL53L0X_SetLimitCheckValue
+ 342 0088 0346     		mov	r3, r0
+ 343 008a FB73     		strb	r3, [r7, #15]
+ 344 008c 83E0     		b	.L50
+ 345              	.L32:
+ 346 008e 97F90F30 		ldrsb	r3, [r7, #15]
+ 347 0092 002B     		cmp	r3, #0
+ 348 0094 07D1     		bne	.L38
+ 349 0096 4FF48042 		mov	r2, #16384
+ 350 009a 0121     		movs	r1, #1
+ 351 009c 7868     		ldr	r0, [r7, #4]
+ 352 009e FFF7FEFF 		bl	VL53L0X_SetLimitCheckValue
+ 353 00a2 0346     		mov	r3, r0
+ 354 00a4 FB73     		strb	r3, [r7, #15]
+ 355              	.L38:
+ 356 00a6 97F90F30 		ldrsb	r3, [r7, #15]
+ 357 00aa 002B     		cmp	r3, #0
+ 358 00ac 07D1     		bne	.L39
+ 359 00ae 4FF49012 		mov	r2, #1179648
+ 360 00b2 0021     		movs	r1, #0
+ 361 00b4 7868     		ldr	r0, [r7, #4]
+ 362 00b6 FFF7FEFF 		bl	VL53L0X_SetLimitCheckValue
+ 363 00ba 0346     		mov	r3, r0
+ 364 00bc FB73     		strb	r3, [r7, #15]
+ 365              	.L39:
+ 366 00be 97F90F30 		ldrsb	r3, [r7, #15]
+ 367 00c2 002B     		cmp	r3, #0
+ 368 00c4 69D1     		bne	.L51
+ 369 00c6 3A49     		ldr	r1, .L54
+ 370 00c8 7868     		ldr	r0, [r7, #4]
+ 371 00ca FFF7FEFF 		bl	VL53L0X_SetMeasurementTimingBudgetMicroSeconds
+ 372 00ce 0346     		mov	r3, r0
+ 373 00d0 FB73     		strb	r3, [r7, #15]
+ 374 00d2 62E0     		b	.L51
+ 375              	.L33:
+ 376 00d4 97F90F30 		ldrsb	r3, [r7, #15]
+ 377 00d8 002B     		cmp	r3, #0
+ 378 00da 07D1     		bne	.L41
+ 379 00dc 41F69912 		movw	r2, #6553
+ 380 00e0 0121     		movs	r1, #1
+ 381 00e2 7868     		ldr	r0, [r7, #4]
+ 382 00e4 FFF7FEFF 		bl	VL53L0X_SetLimitCheckValue
+ 383 00e8 0346     		mov	r3, r0
+ 384 00ea FB73     		strb	r3, [r7, #15]
+ 385              	.L41:
+ 386 00ec 97F90F30 		ldrsb	r3, [r7, #15]
+ 387 00f0 002B     		cmp	r3, #0
+ 388 00f2 07D1     		bne	.L42
+ 389 00f4 4FF47012 		mov	r2, #3932160
+ 390 00f8 0021     		movs	r1, #0
+ 391 00fa 7868     		ldr	r0, [r7, #4]
+ 392 00fc FFF7FEFF 		bl	VL53L0X_SetLimitCheckValue
+ 393 0100 0346     		mov	r3, r0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s 			page 8
+
+
+ 394 0102 FB73     		strb	r3, [r7, #15]
+ 395              	.L42:
+ 396 0104 97F90F30 		ldrsb	r3, [r7, #15]
+ 397 0108 002B     		cmp	r3, #0
+ 398 010a 06D1     		bne	.L43
+ 399 010c 48F2E801 		movw	r1, #33000
+ 400 0110 7868     		ldr	r0, [r7, #4]
+ 401 0112 FFF7FEFF 		bl	VL53L0X_SetMeasurementTimingBudgetMicroSeconds
+ 402 0116 0346     		mov	r3, r0
+ 403 0118 FB73     		strb	r3, [r7, #15]
+ 404              	.L43:
+ 405 011a 97F90F30 		ldrsb	r3, [r7, #15]
+ 406 011e 002B     		cmp	r3, #0
+ 407 0120 06D1     		bne	.L44
+ 408 0122 1222     		movs	r2, #18
+ 409 0124 0021     		movs	r1, #0
+ 410 0126 7868     		ldr	r0, [r7, #4]
+ 411 0128 FFF7FEFF 		bl	VL53L0X_SetVcselPulsePeriod
+ 412 012c 0346     		mov	r3, r0
+ 413 012e FB73     		strb	r3, [r7, #15]
+ 414              	.L44:
+ 415 0130 97F90F30 		ldrsb	r3, [r7, #15]
+ 416 0134 002B     		cmp	r3, #0
+ 417 0136 32D1     		bne	.L52
+ 418 0138 0E22     		movs	r2, #14
+ 419 013a 0121     		movs	r1, #1
+ 420 013c 7868     		ldr	r0, [r7, #4]
+ 421 013e FFF7FEFF 		bl	VL53L0X_SetVcselPulsePeriod
+ 422 0142 0346     		mov	r3, r0
+ 423 0144 FB73     		strb	r3, [r7, #15]
+ 424 0146 2AE0     		b	.L52
+ 425              	.L34:
+ 426 0148 97F90F30 		ldrsb	r3, [r7, #15]
+ 427 014c 002B     		cmp	r3, #0
+ 428 014e 07D1     		bne	.L46
+ 429 0150 4FF48042 		mov	r2, #16384
+ 430 0154 0121     		movs	r1, #1
+ 431 0156 7868     		ldr	r0, [r7, #4]
+ 432 0158 FFF7FEFF 		bl	VL53L0X_SetLimitCheckValue
+ 433 015c 0346     		mov	r3, r0
+ 434 015e FB73     		strb	r3, [r7, #15]
+ 435              	.L46:
+ 436 0160 97F90F30 		ldrsb	r3, [r7, #15]
+ 437 0164 002B     		cmp	r3, #0
+ 438 0166 07D1     		bne	.L47
+ 439 0168 4FF40012 		mov	r2, #2097152
+ 440 016c 0021     		movs	r1, #0
+ 441 016e 7868     		ldr	r0, [r7, #4]
+ 442 0170 FFF7FEFF 		bl	VL53L0X_SetLimitCheckValue
+ 443 0174 0346     		mov	r3, r0
+ 444 0176 FB73     		strb	r3, [r7, #15]
+ 445              	.L47:
+ 446 0178 97F90F30 		ldrsb	r3, [r7, #15]
+ 447 017c 002B     		cmp	r3, #0
+ 448 017e 10D1     		bne	.L53
+ 449 0180 47F23051 		movw	r1, #30000
+ 450 0184 7868     		ldr	r0, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s 			page 9
+
+
+ 451 0186 FFF7FEFF 		bl	VL53L0X_SetMeasurementTimingBudgetMicroSeconds
+ 452 018a 0346     		mov	r3, r0
+ 453 018c FB73     		strb	r3, [r7, #15]
+ 454 018e 08E0     		b	.L53
+ 455              	.L29:
+ 456 0190 FC23     		movs	r3, #252
+ 457 0192 FB73     		strb	r3, [r7, #15]
+ 458 0194 06E0     		b	.L37
+ 459              	.L50:
+ 460 0196 00BF     		nop
+ 461 0198 04E0     		b	.L37
+ 462              	.L51:
+ 463 019a 00BF     		nop
+ 464 019c 02E0     		b	.L37
+ 465              	.L52:
+ 466 019e 00BF     		nop
+ 467 01a0 00E0     		b	.L37
+ 468              	.L53:
+ 469 01a2 00BF     		nop
+ 470              	.L37:
+ 471 01a4 97F90F30 		ldrsb	r3, [r7, #15]
+ 472 01a8 1846     		mov	r0, r3
+ 473 01aa 1037     		adds	r7, r7, #16
+ 474 01ac BD46     		mov	sp, r7
+ 475              		@ sp needed
+ 476 01ae 80BD     		pop	{r7, pc}
+ 477              	.L55:
+ 478              		.align	2
+ 479              	.L54:
+ 480 01b0 400D0300 		.word	200000
+ 481              		.size	VL53L0X_configAccuracy, .-VL53L0X_configAccuracy
+ 482              		.section	.text.VL53L0X_startMeasure,"ax",%progbits
+ 483              		.align	1
+ 484              		.global	VL53L0X_startMeasure
+ 485              		.syntax unified
+ 486              		.thumb
+ 487              		.thumb_func
+ 488              		.fpu fpv4-sp-d16
+ 489              		.type	VL53L0X_startMeasure, %function
+ 490              	VL53L0X_startMeasure:
+ 491              		@ args = 0, pretend = 0, frame = 16
+ 492              		@ frame_needed = 1, uses_anonymous_args = 0
+ 493 0000 80B5     		push	{r7, lr}
+ 494 0002 84B0     		sub	sp, sp, #16
+ 495 0004 00AF     		add	r7, sp, #0
+ 496 0006 7860     		str	r0, [r7, #4]
+ 497 0008 0B46     		mov	r3, r1
+ 498 000a FB70     		strb	r3, [r7, #3]
+ 499 000c 0023     		movs	r3, #0
+ 500 000e FB73     		strb	r3, [r7, #15]
+ 501 0010 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 502 0012 1946     		mov	r1, r3
+ 503 0014 7868     		ldr	r0, [r7, #4]
+ 504 0016 FFF7FEFF 		bl	VL53L0X_SetDeviceMode
+ 505 001a 0346     		mov	r3, r0
+ 506 001c FB73     		strb	r3, [r7, #15]
+ 507 001e 97F90F30 		ldrsb	r3, [r7, #15]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s 			page 10
+
+
+ 508 0022 002B     		cmp	r3, #0
+ 509 0024 04D1     		bne	.L57
+ 510 0026 7868     		ldr	r0, [r7, #4]
+ 511 0028 FFF7FEFF 		bl	VL53L0X_StartMeasurement
+ 512 002c 0346     		mov	r3, r0
+ 513 002e FB73     		strb	r3, [r7, #15]
+ 514              	.L57:
+ 515 0030 97F90F30 		ldrsb	r3, [r7, #15]
+ 516 0034 1846     		mov	r0, r3
+ 517 0036 1037     		adds	r7, r7, #16
+ 518 0038 BD46     		mov	sp, r7
+ 519              		@ sp needed
+ 520 003a 80BD     		pop	{r7, pc}
+ 521              		.size	VL53L0X_startMeasure, .-VL53L0X_startMeasure
+ 522              		.section	.text.VL53L0X_getLastMeasure,"ax",%progbits
+ 523              		.align	1
+ 524              		.global	VL53L0X_getLastMeasure
+ 525              		.syntax unified
+ 526              		.thumb
+ 527              		.thumb_func
+ 528              		.fpu fpv4-sp-d16
+ 529              		.type	VL53L0X_getLastMeasure, %function
+ 530              	VL53L0X_getLastMeasure:
+ 531              		@ args = 0, pretend = 0, frame = 8
+ 532              		@ frame_needed = 1, uses_anonymous_args = 0
+ 533 0000 80B5     		push	{r7, lr}
+ 534 0002 82B0     		sub	sp, sp, #8
+ 535 0004 00AF     		add	r7, sp, #0
+ 536 0006 7860     		str	r0, [r7, #4]
+ 537 0008 7B68     		ldr	r3, [r7, #4]
+ 538 000a 5033     		adds	r3, r3, #80
+ 539 000c 1946     		mov	r1, r3
+ 540 000e 7868     		ldr	r0, [r7, #4]
+ 541 0010 FFF7FEFF 		bl	VL53L0X_GetRangingMeasurementData
+ 542 0014 0346     		mov	r3, r0
+ 543 0016 1846     		mov	r0, r3
+ 544 0018 0837     		adds	r7, r7, #8
+ 545 001a BD46     		mov	sp, r7
+ 546              		@ sp needed
+ 547 001c 80BD     		pop	{r7, pc}
+ 548              		.size	VL53L0X_getLastMeasure, .-VL53L0X_getLastMeasure
+ 549              		.section	.text.VL53L0X_stopMeasure,"ax",%progbits
+ 550              		.align	1
+ 551              		.global	VL53L0X_stopMeasure
+ 552              		.syntax unified
+ 553              		.thumb
+ 554              		.thumb_func
+ 555              		.fpu fpv4-sp-d16
+ 556              		.type	VL53L0X_stopMeasure, %function
+ 557              	VL53L0X_stopMeasure:
+ 558              		@ args = 0, pretend = 0, frame = 8
+ 559              		@ frame_needed = 1, uses_anonymous_args = 0
+ 560 0000 80B5     		push	{r7, lr}
+ 561 0002 82B0     		sub	sp, sp, #8
+ 562 0004 00AF     		add	r7, sp, #0
+ 563 0006 7860     		str	r0, [r7, #4]
+ 564 0008 7868     		ldr	r0, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s 			page 11
+
+
+ 565 000a FFF7FEFF 		bl	VL53L0X_StopMeasurement
+ 566 000e 0346     		mov	r3, r0
+ 567 0010 1846     		mov	r0, r3
+ 568 0012 0837     		adds	r7, r7, #8
+ 569 0014 BD46     		mov	sp, r7
+ 570              		@ sp needed
+ 571 0016 80BD     		pop	{r7, pc}
+ 572              		.size	VL53L0X_stopMeasure, .-VL53L0X_stopMeasure
+ 573              		.section	.text.VL53L0X_start,"ax",%progbits
+ 574              		.align	1
+ 575              		.global	VL53L0X_start
+ 576              		.syntax unified
+ 577              		.thumb
+ 578              		.thumb_func
+ 579              		.fpu fpv4-sp-d16
+ 580              		.type	VL53L0X_start, %function
+ 581              	VL53L0X_start:
+ 582              		@ args = 0, pretend = 0, frame = 0
+ 583              		@ frame_needed = 1, uses_anonymous_args = 0
+ 584 0000 80B5     		push	{r7, lr}
+ 585 0002 82B0     		sub	sp, sp, #8
+ 586 0004 02AF     		add	r7, sp, #8
+ 587 0006 0B4B     		ldr	r3, .L67
+ 588 0008 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 589 000a 002B     		cmp	r3, #0
+ 590 000c 0ED1     		bne	.L66
+ 591 000e FFF7FEFF 		bl	i2c_start
+ 592 0012 0023     		movs	r3, #0
+ 593 0014 0093     		str	r3, [sp]
+ 594 0016 084B     		ldr	r3, .L67+4
+ 595 0018 4A22     		movs	r2, #74
+ 596 001a 4FF45E71 		mov	r1, #888
+ 597 001e 0748     		ldr	r0, .L67+8
+ 598 0020 FFF7FEFF 		bl	chThdCreateStatic
+ 599 0024 0246     		mov	r2, r0
+ 600 0026 064B     		ldr	r3, .L67+12
+ 601 0028 1A60     		str	r2, [r3]
+ 602 002a 00E0     		b	.L63
+ 603              	.L66:
+ 604 002c 00BF     		nop
+ 605              	.L63:
+ 606 002e BD46     		mov	sp, r7
+ 607              		@ sp needed
+ 608 0030 80BD     		pop	{r7, pc}
+ 609              	.L68:
+ 610 0032 00BF     		.align	2
+ 611              	.L67:
+ 612 0034 00000000 		.word	VL53L0X_configured
+ 613 0038 00000000 		.word	VL53L0XThd
+ 614 003c 00000000 		.word	waVL53L0XThd
+ 615 0040 00000000 		.word	distThd
+ 616              		.size	VL53L0X_start, .-VL53L0X_start
+ 617              		.section	.text.VL53L0X_stop,"ax",%progbits
+ 618              		.align	1
+ 619              		.global	VL53L0X_stop
+ 620              		.syntax unified
+ 621              		.thumb
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s 			page 12
+
+
+ 622              		.thumb_func
+ 623              		.fpu fpv4-sp-d16
+ 624              		.type	VL53L0X_stop, %function
+ 625              	VL53L0X_stop:
+ 626              		@ args = 0, pretend = 0, frame = 0
+ 627              		@ frame_needed = 1, uses_anonymous_args = 0
+ 628 0000 80B5     		push	{r7, lr}
+ 629 0002 00AF     		add	r7, sp, #0
+ 630 0004 084B     		ldr	r3, .L70
+ 631 0006 1B68     		ldr	r3, [r3]
+ 632 0008 1846     		mov	r0, r3
+ 633 000a FFF7FEFF 		bl	chThdTerminate
+ 634 000e 064B     		ldr	r3, .L70
+ 635 0010 1B68     		ldr	r3, [r3]
+ 636 0012 1846     		mov	r0, r3
+ 637 0014 FFF7FEFF 		bl	chThdWait
+ 638 0018 034B     		ldr	r3, .L70
+ 639 001a 0022     		movs	r2, #0
+ 640 001c 1A60     		str	r2, [r3]
+ 641 001e 034B     		ldr	r3, .L70+4
+ 642 0020 0022     		movs	r2, #0
+ 643 0022 1A70     		strb	r2, [r3]
+ 644 0024 00BF     		nop
+ 645 0026 80BD     		pop	{r7, pc}
+ 646              	.L71:
+ 647              		.align	2
+ 648              	.L70:
+ 649 0028 00000000 		.word	distThd
+ 650 002c 00000000 		.word	VL53L0X_configured
+ 651              		.size	VL53L0X_stop, .-VL53L0X_stop
+ 652              		.section	.text.VL53L0X_get_dist_mm,"ax",%progbits
+ 653              		.align	1
+ 654              		.global	VL53L0X_get_dist_mm
+ 655              		.syntax unified
+ 656              		.thumb
+ 657              		.thumb_func
+ 658              		.fpu fpv4-sp-d16
+ 659              		.type	VL53L0X_get_dist_mm, %function
+ 660              	VL53L0X_get_dist_mm:
+ 661              		@ args = 0, pretend = 0, frame = 0
+ 662              		@ frame_needed = 1, uses_anonymous_args = 0
+ 663              		@ link register save eliminated.
+ 664 0000 80B4     		push	{r7}
+ 665 0002 00AF     		add	r7, sp, #0
+ 666 0004 034B     		ldr	r3, .L74
+ 667 0006 1B88     		ldrh	r3, [r3]
+ 668 0008 1846     		mov	r0, r3
+ 669 000a BD46     		mov	sp, r7
+ 670              		@ sp needed
+ 671 000c 5DF8047B 		ldr	r7, [sp], #4
+ 672 0010 7047     		bx	lr
+ 673              	.L75:
+ 674 0012 00BF     		.align	2
+ 675              	.L74:
+ 676 0014 00000000 		.word	dist_mm
+ 677              		.size	VL53L0X_get_dist_mm, .-VL53L0X_get_dist_mm
+ 678              		.section	.bss.device.11724,"aw",%nobits
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s 			page 13
+
+
+ 679              		.align	2
+ 680              		.type	device.11724, %object
+ 681              		.size	device.11724, 448
+ 682              	device.11724:
+ 683 0000 00000000 		.space	448
+ 683      00000000 
+ 683      00000000 
+ 683      00000000 
+ 683      00000000 
+ 684              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s 			page 14
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 VL53L0X.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:15     .text.chThdGetSelfX:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:21     .text.chThdGetSelfX:0000000000000000 chThdGetSelfX
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:37     .text.chThdGetSelfX:0000000000000014 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:40     .text.chThdShouldTerminateX:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:46     .text.chThdShouldTerminateX:0000000000000000 chThdShouldTerminateX
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:64     .text.chRegSetThreadName:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:70     .text.chRegSetThreadName:0000000000000000 chRegSetThreadName
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:91     .text.chRegSetThreadName:000000000000001c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:94     .bss.dist_mm:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:97     .bss.dist_mm:0000000000000000 dist_mm
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:100    .bss.distThd:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:103    .bss.distThd:0000000000000000 distThd
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:108    .bss.VL53L0X_configured:0000000000000000 VL53L0X_configured
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:109    .bss.VL53L0X_configured:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:111    .bss.waVL53L0XThd:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:114    .bss.waVL53L0XThd:0000000000000000 waVL53L0XThd
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:117    .rodata:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:121    .text.VL53L0XThd:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:127    .text.VL53L0XThd:0000000000000000 VL53L0XThd
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:208    .text.VL53L0X_init:0000000000000000 VL53L0X_init
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:281    .text.VL53L0X_configAccuracy:0000000000000000 VL53L0X_configAccuracy
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:490    .text.VL53L0X_startMeasure:0000000000000000 VL53L0X_startMeasure
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:530    .text.VL53L0X_getLastMeasure:0000000000000000 VL53L0X_getLastMeasure
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:195    .text.VL53L0XThd:000000000000008c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:682    .bss.device.11724:0000000000000000 device.11724
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:201    .text.VL53L0X_init:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:274    .text.VL53L0X_configAccuracy:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:319    .text.VL53L0X_configAccuracy:000000000000004c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:323    .text.VL53L0X_configAccuracy:000000000000005c $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:480    .text.VL53L0X_configAccuracy:00000000000001b0 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:483    .text.VL53L0X_startMeasure:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:523    .text.VL53L0X_getLastMeasure:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:550    .text.VL53L0X_stopMeasure:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:557    .text.VL53L0X_stopMeasure:0000000000000000 VL53L0X_stopMeasure
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:574    .text.VL53L0X_start:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:581    .text.VL53L0X_start:0000000000000000 VL53L0X_start
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:612    .text.VL53L0X_start:0000000000000034 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:618    .text.VL53L0X_stop:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:625    .text.VL53L0X_stop:0000000000000000 VL53L0X_stop
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:649    .text.VL53L0X_stop:0000000000000028 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:653    .text.VL53L0X_get_dist_mm:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:660    .text.VL53L0X_get_dist_mm:0000000000000000 VL53L0X_get_dist_mm
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:676    .text.VL53L0X_get_dist_mm:0000000000000014 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s:679    .bss.device.11724:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+ch
+chThdSleep
+VL53L0X_DataInit
+VL53L0X_GetDeviceInfo
+VL53L0X_StaticInit
+VL53L0X_PerformRefSpadManagement
+VL53L0X_PerformRefCalibration
+VL53L0X_SetLimitCheckEnable
+VL53L0X_SetLimitCheckValue
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQ2ZTbc.s 			page 15
+
+
+VL53L0X_SetMeasurementTimingBudgetMicroSeconds
+VL53L0X_SetVcselPulsePeriod
+VL53L0X_SetDeviceMode
+VL53L0X_StartMeasurement
+VL53L0X_GetRangingMeasurementData
+VL53L0X_StopMeasurement
+i2c_start
+chThdCreateStatic
+chThdTerminate
+chThdWait

@@ -1,0 +1,1033 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"testthd.c"
+  14              		.section	.text.port_lock,"ax",%progbits
+  15              		.align	1
+  16              		.syntax unified
+  17              		.thumb
+  18              		.thumb_func
+  19              		.fpu fpv4-sp-d16
+  20              		.type	port_lock, %function
+  21              	port_lock:
+  22              		@ args = 0, pretend = 0, frame = 8
+  23              		@ frame_needed = 1, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 80B4     		push	{r7}
+  26 0002 83B0     		sub	sp, sp, #12
+  27 0004 00AF     		add	r7, sp, #0
+  28 0006 2023     		movs	r3, #32
+  29 0008 7B60     		str	r3, [r7, #4]
+  30 000a 7B68     		ldr	r3, [r7, #4]
+  31              		.syntax unified
+  32              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  33 000c 83F31188 		MSR basepri, r3
+  34              	@ 0 "" 2
+  35              		.thumb
+  36              		.syntax unified
+  37 0010 00BF     		nop
+  38 0012 0C37     		adds	r7, r7, #12
+  39 0014 BD46     		mov	sp, r7
+  40              		@ sp needed
+  41 0016 5DF8047B 		ldr	r7, [sp], #4
+  42 001a 7047     		bx	lr
+  43              		.size	port_lock, .-port_lock
+  44              		.section	.text.port_unlock,"ax",%progbits
+  45              		.align	1
+  46              		.syntax unified
+  47              		.thumb
+  48              		.thumb_func
+  49              		.fpu fpv4-sp-d16
+  50              		.type	port_unlock, %function
+  51              	port_unlock:
+  52              		@ args = 0, pretend = 0, frame = 8
+  53              		@ frame_needed = 1, uses_anonymous_args = 0
+  54              		@ link register save eliminated.
+  55 0000 80B4     		push	{r7}
+  56 0002 83B0     		sub	sp, sp, #12
+  57 0004 00AF     		add	r7, sp, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s 			page 2
+
+
+  58 0006 0023     		movs	r3, #0
+  59 0008 7B60     		str	r3, [r7, #4]
+  60 000a 7B68     		ldr	r3, [r7, #4]
+  61              		.syntax unified
+  62              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  63 000c 83F31188 		MSR basepri, r3
+  64              	@ 0 "" 2
+  65              		.thumb
+  66              		.syntax unified
+  67 0010 00BF     		nop
+  68 0012 0C37     		adds	r7, r7, #12
+  69 0014 BD46     		mov	sp, r7
+  70              		@ sp needed
+  71 0016 5DF8047B 		ldr	r7, [sp], #4
+  72 001a 7047     		bx	lr
+  73              		.size	port_unlock, .-port_unlock
+  74              		.section	.text.chSysLock,"ax",%progbits
+  75              		.align	1
+  76              		.syntax unified
+  77              		.thumb
+  78              		.thumb_func
+  79              		.fpu fpv4-sp-d16
+  80              		.type	chSysLock, %function
+  81              	chSysLock:
+  82              		@ args = 0, pretend = 0, frame = 0
+  83              		@ frame_needed = 1, uses_anonymous_args = 0
+  84 0000 80B5     		push	{r7, lr}
+  85 0002 00AF     		add	r7, sp, #0
+  86 0004 FFF7FEFF 		bl	port_lock
+  87 0008 FFF7FEFF 		bl	_stats_start_measure_crit_thd
+  88 000c FFF7FEFF 		bl	_dbg_check_lock
+  89 0010 00BF     		nop
+  90 0012 80BD     		pop	{r7, pc}
+  91              		.size	chSysLock, .-chSysLock
+  92              		.section	.text.chSysUnlock,"ax",%progbits
+  93              		.align	1
+  94              		.syntax unified
+  95              		.thumb
+  96              		.thumb_func
+  97              		.fpu fpv4-sp-d16
+  98              		.type	chSysUnlock, %function
+  99              	chSysUnlock:
+ 100              		@ args = 0, pretend = 0, frame = 0
+ 101              		@ frame_needed = 1, uses_anonymous_args = 0
+ 102 0000 80B5     		push	{r7, lr}
+ 103 0002 00AF     		add	r7, sp, #0
+ 104 0004 FFF7FEFF 		bl	_dbg_check_unlock
+ 105 0008 FFF7FEFF 		bl	_stats_stop_measure_crit_thd
+ 106 000c 094B     		ldr	r3, .L6
+ 107 000e 1B68     		ldr	r3, [r3]
+ 108 0010 084A     		ldr	r2, .L6
+ 109 0012 9342     		cmp	r3, r2
+ 110 0014 0AD0     		beq	.L5
+ 111 0016 074B     		ldr	r3, .L6
+ 112 0018 9B69     		ldr	r3, [r3, #24]
+ 113 001a 9A68     		ldr	r2, [r3, #8]
+ 114 001c 054B     		ldr	r3, .L6
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s 			page 3
+
+
+ 115 001e 1B68     		ldr	r3, [r3]
+ 116 0020 9B68     		ldr	r3, [r3, #8]
+ 117 0022 9A42     		cmp	r2, r3
+ 118 0024 02D2     		bcs	.L5
+ 119 0026 0448     		ldr	r0, .L6+4
+ 120 0028 FFF7FEFF 		bl	chSysHalt
+ 121              	.L5:
+ 122 002c FFF7FEFF 		bl	port_unlock
+ 123 0030 00BF     		nop
+ 124 0032 80BD     		pop	{r7, pc}
+ 125              	.L7:
+ 126              		.align	2
+ 127              	.L6:
+ 128 0034 00000000 		.word	ch
+ 129 0038 00000000 		.word	__func__.7153
+ 130              		.size	chSysUnlock, .-chSysUnlock
+ 131              		.section	.text.chVTGetSystemTimeX,"ax",%progbits
+ 132              		.align	1
+ 133              		.syntax unified
+ 134              		.thumb
+ 135              		.thumb_func
+ 136              		.fpu fpv4-sp-d16
+ 137              		.type	chVTGetSystemTimeX, %function
+ 138              	chVTGetSystemTimeX:
+ 139              		@ args = 0, pretend = 0, frame = 0
+ 140              		@ frame_needed = 1, uses_anonymous_args = 0
+ 141              		@ link register save eliminated.
+ 142 0000 80B4     		push	{r7}
+ 143 0002 00AF     		add	r7, sp, #0
+ 144 0004 034B     		ldr	r3, .L10
+ 145 0006 9B6A     		ldr	r3, [r3, #40]
+ 146 0008 1846     		mov	r0, r3
+ 147 000a BD46     		mov	sp, r7
+ 148              		@ sp needed
+ 149 000c 5DF8047B 		ldr	r7, [sp], #4
+ 150 0010 7047     		bx	lr
+ 151              	.L11:
+ 152 0012 00BF     		.align	2
+ 153              	.L10:
+ 154 0014 00000000 		.word	ch
+ 155              		.size	chVTGetSystemTimeX, .-chVTGetSystemTimeX
+ 156              		.section	.text.chVTGetSystemTime,"ax",%progbits
+ 157              		.align	1
+ 158              		.syntax unified
+ 159              		.thumb
+ 160              		.thumb_func
+ 161              		.fpu fpv4-sp-d16
+ 162              		.type	chVTGetSystemTime, %function
+ 163              	chVTGetSystemTime:
+ 164              		@ args = 0, pretend = 0, frame = 8
+ 165              		@ frame_needed = 1, uses_anonymous_args = 0
+ 166 0000 80B5     		push	{r7, lr}
+ 167 0002 82B0     		sub	sp, sp, #8
+ 168 0004 00AF     		add	r7, sp, #0
+ 169 0006 FFF7FEFF 		bl	chSysLock
+ 170 000a FFF7FEFF 		bl	chVTGetSystemTimeX
+ 171 000e 7860     		str	r0, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s 			page 4
+
+
+ 172 0010 FFF7FEFF 		bl	chSysUnlock
+ 173 0014 7B68     		ldr	r3, [r7, #4]
+ 174 0016 1846     		mov	r0, r3
+ 175 0018 0837     		adds	r7, r7, #8
+ 176 001a BD46     		mov	sp, r7
+ 177              		@ sp needed
+ 178 001c 80BD     		pop	{r7, pc}
+ 179              		.size	chVTGetSystemTime, .-chVTGetSystemTime
+ 180              		.section	.text.chThdGetSelfX,"ax",%progbits
+ 181              		.align	1
+ 182              		.syntax unified
+ 183              		.thumb
+ 184              		.thumb_func
+ 185              		.fpu fpv4-sp-d16
+ 186              		.type	chThdGetSelfX, %function
+ 187              	chThdGetSelfX:
+ 188              		@ args = 0, pretend = 0, frame = 0
+ 189              		@ frame_needed = 1, uses_anonymous_args = 0
+ 190              		@ link register save eliminated.
+ 191 0000 80B4     		push	{r7}
+ 192 0002 00AF     		add	r7, sp, #0
+ 193 0004 034B     		ldr	r3, .L16
+ 194 0006 9B69     		ldr	r3, [r3, #24]
+ 195 0008 1846     		mov	r0, r3
+ 196 000a BD46     		mov	sp, r7
+ 197              		@ sp needed
+ 198 000c 5DF8047B 		ldr	r7, [sp], #4
+ 199 0010 7047     		bx	lr
+ 200              	.L17:
+ 201 0012 00BF     		.align	2
+ 202              	.L16:
+ 203 0014 00000000 		.word	ch
+ 204              		.size	chThdGetSelfX, .-chThdGetSelfX
+ 205              		.section	.text.chThdGetPriorityX,"ax",%progbits
+ 206              		.align	1
+ 207              		.syntax unified
+ 208              		.thumb
+ 209              		.thumb_func
+ 210              		.fpu fpv4-sp-d16
+ 211              		.type	chThdGetPriorityX, %function
+ 212              	chThdGetPriorityX:
+ 213              		@ args = 0, pretend = 0, frame = 0
+ 214              		@ frame_needed = 1, uses_anonymous_args = 0
+ 215 0000 80B5     		push	{r7, lr}
+ 216 0002 00AF     		add	r7, sp, #0
+ 217 0004 FFF7FEFF 		bl	chThdGetSelfX
+ 218 0008 0346     		mov	r3, r0
+ 219 000a 9B68     		ldr	r3, [r3, #8]
+ 220 000c 1846     		mov	r0, r3
+ 221 000e 80BD     		pop	{r7, pc}
+ 222              		.size	chThdGetPriorityX, .-chThdGetPriorityX
+ 223              		.section	.text.thread,"ax",%progbits
+ 224              		.align	1
+ 225              		.syntax unified
+ 226              		.thumb
+ 227              		.thumb_func
+ 228              		.fpu fpv4-sp-d16
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s 			page 5
+
+
+ 229              		.type	thread, %function
+ 230              	thread:
+ 231              		@ args = 0, pretend = 0, frame = 8
+ 232              		@ frame_needed = 1, uses_anonymous_args = 0
+ 233 0000 80B5     		push	{r7, lr}
+ 234 0002 82B0     		sub	sp, sp, #8
+ 235 0004 00AF     		add	r7, sp, #0
+ 236 0006 7860     		str	r0, [r7, #4]
+ 237 0008 7B68     		ldr	r3, [r7, #4]
+ 238 000a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 239 000c 1846     		mov	r0, r3
+ 240 000e FFF7FEFF 		bl	test_emit_token
+ 241 0012 00BF     		nop
+ 242 0014 0837     		adds	r7, r7, #8
+ 243 0016 BD46     		mov	sp, r7
+ 244              		@ sp needed
+ 245 0018 80BD     		pop	{r7, pc}
+ 246              		.size	thread, .-thread
+ 247              		.section	.rodata
+ 248              		.align	2
+ 249              	.LC0:
+ 250 0000 4500     		.ascii	"E\000"
+ 251 0002 0000     		.align	2
+ 252              	.LC1:
+ 253 0004 4400     		.ascii	"D\000"
+ 254 0006 0000     		.align	2
+ 255              	.LC2:
+ 256 0008 4300     		.ascii	"C\000"
+ 257 000a 0000     		.align	2
+ 258              	.LC3:
+ 259 000c 4200     		.ascii	"B\000"
+ 260 000e 0000     		.align	2
+ 261              	.LC4:
+ 262 0010 4100     		.ascii	"A\000"
+ 263 0012 0000     		.align	2
+ 264              	.LC5:
+ 265 0014 41424344 		.ascii	"ABCDE\000"
+ 265      4500
+ 266              		.section	.text.thd1_execute,"ax",%progbits
+ 267              		.align	1
+ 268              		.syntax unified
+ 269              		.thumb
+ 270              		.thumb_func
+ 271              		.fpu fpv4-sp-d16
+ 272              		.type	thd1_execute, %function
+ 273              	thd1_execute:
+ 274              		@ args = 0, pretend = 0, frame = 0
+ 275              		@ frame_needed = 1, uses_anonymous_args = 0
+ 276 0000 90B5     		push	{r4, r7, lr}
+ 277 0002 83B0     		sub	sp, sp, #12
+ 278 0004 02AF     		add	r7, sp, #8
+ 279 0006 304B     		ldr	r3, .L23
+ 280 0008 1C68     		ldr	r4, [r3]
+ 281 000a FFF7FEFF 		bl	chThdGetPriorityX
+ 282 000e 0346     		mov	r3, r0
+ 283 0010 5A1F     		subs	r2, r3, #5
+ 284 0012 2E4B     		ldr	r3, .L23+4
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s 			page 6
+
+
+ 285 0014 0093     		str	r3, [sp]
+ 286 0016 2E4B     		ldr	r3, .L23+8
+ 287 0018 4FF4FC71 		mov	r1, #504
+ 288 001c 2046     		mov	r0, r4
+ 289 001e FFF7FEFF 		bl	chThdCreateStatic
+ 290 0022 0246     		mov	r2, r0
+ 291 0024 2B4B     		ldr	r3, .L23+12
+ 292 0026 1A60     		str	r2, [r3]
+ 293 0028 274B     		ldr	r3, .L23
+ 294 002a 5C68     		ldr	r4, [r3, #4]
+ 295 002c FFF7FEFF 		bl	chThdGetPriorityX
+ 296 0030 0346     		mov	r3, r0
+ 297 0032 1A1F     		subs	r2, r3, #4
+ 298 0034 284B     		ldr	r3, .L23+16
+ 299 0036 0093     		str	r3, [sp]
+ 300 0038 254B     		ldr	r3, .L23+8
+ 301 003a 4FF4FC71 		mov	r1, #504
+ 302 003e 2046     		mov	r0, r4
+ 303 0040 FFF7FEFF 		bl	chThdCreateStatic
+ 304 0044 0246     		mov	r2, r0
+ 305 0046 234B     		ldr	r3, .L23+12
+ 306 0048 5A60     		str	r2, [r3, #4]
+ 307 004a 1F4B     		ldr	r3, .L23
+ 308 004c 9C68     		ldr	r4, [r3, #8]
+ 309 004e FFF7FEFF 		bl	chThdGetPriorityX
+ 310 0052 0346     		mov	r3, r0
+ 311 0054 DA1E     		subs	r2, r3, #3
+ 312 0056 214B     		ldr	r3, .L23+20
+ 313 0058 0093     		str	r3, [sp]
+ 314 005a 1D4B     		ldr	r3, .L23+8
+ 315 005c 4FF4FC71 		mov	r1, #504
+ 316 0060 2046     		mov	r0, r4
+ 317 0062 FFF7FEFF 		bl	chThdCreateStatic
+ 318 0066 0246     		mov	r2, r0
+ 319 0068 1A4B     		ldr	r3, .L23+12
+ 320 006a 9A60     		str	r2, [r3, #8]
+ 321 006c 164B     		ldr	r3, .L23
+ 322 006e DC68     		ldr	r4, [r3, #12]
+ 323 0070 FFF7FEFF 		bl	chThdGetPriorityX
+ 324 0074 0346     		mov	r3, r0
+ 325 0076 9A1E     		subs	r2, r3, #2
+ 326 0078 194B     		ldr	r3, .L23+24
+ 327 007a 0093     		str	r3, [sp]
+ 328 007c 144B     		ldr	r3, .L23+8
+ 329 007e 4FF4FC71 		mov	r1, #504
+ 330 0082 2046     		mov	r0, r4
+ 331 0084 FFF7FEFF 		bl	chThdCreateStatic
+ 332 0088 0246     		mov	r2, r0
+ 333 008a 124B     		ldr	r3, .L23+12
+ 334 008c DA60     		str	r2, [r3, #12]
+ 335 008e 0E4B     		ldr	r3, .L23
+ 336 0090 1C69     		ldr	r4, [r3, #16]
+ 337 0092 FFF7FEFF 		bl	chThdGetPriorityX
+ 338 0096 0346     		mov	r3, r0
+ 339 0098 5A1E     		subs	r2, r3, #1
+ 340 009a 124B     		ldr	r3, .L23+28
+ 341 009c 0093     		str	r3, [sp]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s 			page 7
+
+
+ 342 009e 0C4B     		ldr	r3, .L23+8
+ 343 00a0 4FF4FC71 		mov	r1, #504
+ 344 00a4 2046     		mov	r0, r4
+ 345 00a6 FFF7FEFF 		bl	chThdCreateStatic
+ 346 00aa 0246     		mov	r2, r0
+ 347 00ac 094B     		ldr	r3, .L23+12
+ 348 00ae 1A61     		str	r2, [r3, #16]
+ 349 00b0 FFF7FEFF 		bl	test_wait_threads
+ 350 00b4 0C49     		ldr	r1, .L23+32
+ 351 00b6 0120     		movs	r0, #1
+ 352 00b8 FFF7FEFF 		bl	_test_assert_sequence
+ 353 00bc 0346     		mov	r3, r0
+ 354 00be 002B     		cmp	r3, #0
+ 355 00c0 0437     		adds	r7, r7, #4
+ 356 00c2 BD46     		mov	sp, r7
+ 357              		@ sp needed
+ 358 00c4 90BD     		pop	{r4, r7, pc}
+ 359              	.L24:
+ 360 00c6 00BF     		.align	2
+ 361              	.L23:
+ 362 00c8 00000000 		.word	wa
+ 363 00cc 00000000 		.word	.LC0
+ 364 00d0 00000000 		.word	thread
+ 365 00d4 00000000 		.word	threads
+ 366 00d8 04000000 		.word	.LC1
+ 367 00dc 08000000 		.word	.LC2
+ 368 00e0 0C000000 		.word	.LC3
+ 369 00e4 10000000 		.word	.LC4
+ 370 00e8 14000000 		.word	.LC5
+ 371              		.size	thd1_execute, .-thd1_execute
+ 372              		.global	testthd1
+ 373              		.section	.rodata
+ 374 001a 0000     		.align	2
+ 375              	.LC6:
+ 376 001c 54687265 		.ascii	"Threads, enqueuing test #1\000"
+ 376      6164732C 
+ 376      20656E71 
+ 376      75657569 
+ 376      6E672074 
+ 377              		.section	.rodata.testthd1,"a",%progbits
+ 378              		.align	2
+ 379              		.type	testthd1, %object
+ 380              		.size	testthd1, 16
+ 381              	testthd1:
+ 382 0000 1C000000 		.word	.LC6
+ 383 0004 00000000 		.word	0
+ 384 0008 00000000 		.word	0
+ 385 000c 00000000 		.word	thd1_execute
+ 386              		.section	.text.thd2_execute,"ax",%progbits
+ 387              		.align	1
+ 388              		.syntax unified
+ 389              		.thumb
+ 390              		.thumb_func
+ 391              		.fpu fpv4-sp-d16
+ 392              		.type	thd2_execute, %function
+ 393              	thd2_execute:
+ 394              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s 			page 8
+
+
+ 395              		@ frame_needed = 1, uses_anonymous_args = 0
+ 396 0000 90B5     		push	{r4, r7, lr}
+ 397 0002 83B0     		sub	sp, sp, #12
+ 398 0004 02AF     		add	r7, sp, #8
+ 399 0006 344B     		ldr	r3, .L27
+ 400 0008 5C68     		ldr	r4, [r3, #4]
+ 401 000a FFF7FEFF 		bl	chThdGetPriorityX
+ 402 000e 0346     		mov	r3, r0
+ 403 0010 1A1F     		subs	r2, r3, #4
+ 404 0012 324B     		ldr	r3, .L27+4
+ 405 0014 0093     		str	r3, [sp]
+ 406 0016 324B     		ldr	r3, .L27+8
+ 407 0018 4FF4FC71 		mov	r1, #504
+ 408 001c 2046     		mov	r0, r4
+ 409 001e FFF7FEFF 		bl	chThdCreateStatic
+ 410 0022 0246     		mov	r2, r0
+ 411 0024 2F4B     		ldr	r3, .L27+12
+ 412 0026 5A60     		str	r2, [r3, #4]
+ 413 0028 2B4B     		ldr	r3, .L27
+ 414 002a 1C68     		ldr	r4, [r3]
+ 415 002c FFF7FEFF 		bl	chThdGetPriorityX
+ 416 0030 0346     		mov	r3, r0
+ 417 0032 5A1F     		subs	r2, r3, #5
+ 418 0034 2C4B     		ldr	r3, .L27+16
+ 419 0036 0093     		str	r3, [sp]
+ 420 0038 294B     		ldr	r3, .L27+8
+ 421 003a 4FF4FC71 		mov	r1, #504
+ 422 003e 2046     		mov	r0, r4
+ 423 0040 FFF7FEFF 		bl	chThdCreateStatic
+ 424 0044 0246     		mov	r2, r0
+ 425 0046 274B     		ldr	r3, .L27+12
+ 426 0048 1A60     		str	r2, [r3]
+ 427 004a 234B     		ldr	r3, .L27
+ 428 004c 1C69     		ldr	r4, [r3, #16]
+ 429 004e FFF7FEFF 		bl	chThdGetPriorityX
+ 430 0052 0346     		mov	r3, r0
+ 431 0054 5A1E     		subs	r2, r3, #1
+ 432 0056 254B     		ldr	r3, .L27+20
+ 433 0058 0093     		str	r3, [sp]
+ 434 005a 214B     		ldr	r3, .L27+8
+ 435 005c 4FF4FC71 		mov	r1, #504
+ 436 0060 2046     		mov	r0, r4
+ 437 0062 FFF7FEFF 		bl	chThdCreateStatic
+ 438 0066 0246     		mov	r2, r0
+ 439 0068 1E4B     		ldr	r3, .L27+12
+ 440 006a 1A61     		str	r2, [r3, #16]
+ 441 006c 1A4B     		ldr	r3, .L27
+ 442 006e DC68     		ldr	r4, [r3, #12]
+ 443 0070 FFF7FEFF 		bl	chThdGetPriorityX
+ 444 0074 0346     		mov	r3, r0
+ 445 0076 9A1E     		subs	r2, r3, #2
+ 446 0078 1D4B     		ldr	r3, .L27+24
+ 447 007a 0093     		str	r3, [sp]
+ 448 007c 184B     		ldr	r3, .L27+8
+ 449 007e 4FF4FC71 		mov	r1, #504
+ 450 0082 2046     		mov	r0, r4
+ 451 0084 FFF7FEFF 		bl	chThdCreateStatic
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s 			page 9
+
+
+ 452 0088 0246     		mov	r2, r0
+ 453 008a 164B     		ldr	r3, .L27+12
+ 454 008c DA60     		str	r2, [r3, #12]
+ 455 008e FFF7FEFF 		bl	chSysLock
+ 456 0092 114B     		ldr	r3, .L27
+ 457 0094 9C68     		ldr	r4, [r3, #8]
+ 458 0096 FFF7FEFF 		bl	chThdGetPriorityX
+ 459 009a 0346     		mov	r3, r0
+ 460 009c DA1E     		subs	r2, r3, #3
+ 461 009e 154B     		ldr	r3, .L27+28
+ 462 00a0 0093     		str	r3, [sp]
+ 463 00a2 0F4B     		ldr	r3, .L27+8
+ 464 00a4 4FF4FC71 		mov	r1, #504
+ 465 00a8 2046     		mov	r0, r4
+ 466 00aa FFF7FEFF 		bl	chThdCreateI
+ 467 00ae 0246     		mov	r2, r0
+ 468 00b0 0C4B     		ldr	r3, .L27+12
+ 469 00b2 9A60     		str	r2, [r3, #8]
+ 470 00b4 FFF7FEFF 		bl	chSysUnlock
+ 471 00b8 0A4B     		ldr	r3, .L27+12
+ 472 00ba 9B68     		ldr	r3, [r3, #8]
+ 473 00bc 1846     		mov	r0, r3
+ 474 00be FFF7FEFF 		bl	chThdStart
+ 475 00c2 FFF7FEFF 		bl	test_wait_threads
+ 476 00c6 0C49     		ldr	r1, .L27+32
+ 477 00c8 0120     		movs	r0, #1
+ 478 00ca FFF7FEFF 		bl	_test_assert_sequence
+ 479 00ce 0346     		mov	r3, r0
+ 480 00d0 002B     		cmp	r3, #0
+ 481 00d2 0437     		adds	r7, r7, #4
+ 482 00d4 BD46     		mov	sp, r7
+ 483              		@ sp needed
+ 484 00d6 90BD     		pop	{r4, r7, pc}
+ 485              	.L28:
+ 486              		.align	2
+ 487              	.L27:
+ 488 00d8 00000000 		.word	wa
+ 489 00dc 04000000 		.word	.LC1
+ 490 00e0 00000000 		.word	thread
+ 491 00e4 00000000 		.word	threads
+ 492 00e8 00000000 		.word	.LC0
+ 493 00ec 10000000 		.word	.LC4
+ 494 00f0 0C000000 		.word	.LC3
+ 495 00f4 08000000 		.word	.LC2
+ 496 00f8 14000000 		.word	.LC5
+ 497              		.size	thd2_execute, .-thd2_execute
+ 498              		.global	testthd2
+ 499              		.section	.rodata
+ 500 0037 00       		.align	2
+ 501              	.LC7:
+ 502 0038 54687265 		.ascii	"Threads, enqueuing test #2\000"
+ 502      6164732C 
+ 502      20656E71 
+ 502      75657569 
+ 502      6E672074 
+ 503              		.section	.rodata.testthd2,"a",%progbits
+ 504              		.align	2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s 			page 10
+
+
+ 505              		.type	testthd2, %object
+ 506              		.size	testthd2, 16
+ 507              	testthd2:
+ 508 0000 38000000 		.word	.LC7
+ 509 0004 00000000 		.word	0
+ 510 0008 00000000 		.word	0
+ 511 000c 00000000 		.word	thd2_execute
+ 512              		.section	.text.thd3_execute,"ax",%progbits
+ 513              		.align	1
+ 514              		.syntax unified
+ 515              		.thumb
+ 516              		.thumb_func
+ 517              		.fpu fpv4-sp-d16
+ 518              		.type	thd3_execute, %function
+ 519              	thd3_execute:
+ 520              		@ args = 0, pretend = 0, frame = 8
+ 521              		@ frame_needed = 1, uses_anonymous_args = 0
+ 522 0000 80B5     		push	{r7, lr}
+ 523 0002 82B0     		sub	sp, sp, #8
+ 524 0004 00AF     		add	r7, sp, #0
+ 525 0006 FFF7FEFF 		bl	chThdGetPriorityX
+ 526 000a 7860     		str	r0, [r7, #4]
+ 527 000c 7B68     		ldr	r3, [r7, #4]
+ 528 000e 0133     		adds	r3, r3, #1
+ 529 0010 1846     		mov	r0, r3
+ 530 0012 FFF7FEFF 		bl	chThdSetPriority
+ 531 0016 3860     		str	r0, [r7]
+ 532 0018 3A68     		ldr	r2, [r7]
+ 533 001a 7B68     		ldr	r3, [r7, #4]
+ 534 001c 9A42     		cmp	r2, r3
+ 535 001e 0CBF     		ite	eq
+ 536 0020 0123     		moveq	r3, #1
+ 537 0022 0023     		movne	r3, #0
+ 538 0024 DBB2     		uxtb	r3, r3
+ 539 0026 1946     		mov	r1, r3
+ 540 0028 0120     		movs	r0, #1
+ 541 002a FFF7FEFF 		bl	_test_assert
+ 542 002e 0346     		mov	r3, r0
+ 543 0030 002B     		cmp	r3, #0
+ 544 0032 40F0D380 		bne	.L42
+ 545 0036 FFF7FEFF 		bl	chThdGetPriorityX
+ 546 003a 0246     		mov	r2, r0
+ 547 003c 7B68     		ldr	r3, [r7, #4]
+ 548 003e 0133     		adds	r3, r3, #1
+ 549 0040 9A42     		cmp	r2, r3
+ 550 0042 0CBF     		ite	eq
+ 551 0044 0123     		moveq	r3, #1
+ 552 0046 0023     		movne	r3, #0
+ 553 0048 DBB2     		uxtb	r3, r3
+ 554 004a 1946     		mov	r1, r3
+ 555 004c 0220     		movs	r0, #2
+ 556 004e FFF7FEFF 		bl	_test_assert
+ 557 0052 0346     		mov	r3, r0
+ 558 0054 002B     		cmp	r3, #0
+ 559 0056 40F0C380 		bne	.L43
+ 560 005a 3868     		ldr	r0, [r7]
+ 561 005c FFF7FEFF 		bl	chThdSetPriority
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s 			page 11
+
+
+ 562 0060 3860     		str	r0, [r7]
+ 563 0062 7B68     		ldr	r3, [r7, #4]
+ 564 0064 0133     		adds	r3, r3, #1
+ 565 0066 3A68     		ldr	r2, [r7]
+ 566 0068 9A42     		cmp	r2, r3
+ 567 006a 0CBF     		ite	eq
+ 568 006c 0123     		moveq	r3, #1
+ 569 006e 0023     		movne	r3, #0
+ 570 0070 DBB2     		uxtb	r3, r3
+ 571 0072 1946     		mov	r1, r3
+ 572 0074 0320     		movs	r0, #3
+ 573 0076 FFF7FEFF 		bl	_test_assert
+ 574 007a 0346     		mov	r3, r0
+ 575 007c 002B     		cmp	r3, #0
+ 576 007e 40F0B180 		bne	.L44
+ 577 0082 FFF7FEFF 		bl	chThdGetPriorityX
+ 578 0086 0246     		mov	r2, r0
+ 579 0088 7B68     		ldr	r3, [r7, #4]
+ 580 008a 9342     		cmp	r3, r2
+ 581 008c 0CBF     		ite	eq
+ 582 008e 0123     		moveq	r3, #1
+ 583 0090 0023     		movne	r3, #0
+ 584 0092 DBB2     		uxtb	r3, r3
+ 585 0094 1946     		mov	r1, r3
+ 586 0096 0420     		movs	r0, #4
+ 587 0098 FFF7FEFF 		bl	_test_assert
+ 588 009c 0346     		mov	r3, r0
+ 589 009e 002B     		cmp	r3, #0
+ 590 00a0 40F0A280 		bne	.L45
+ 591 00a4 FFF7FEFF 		bl	chSysLock
+ 592 00a8 FFF7FEFF 		bl	chThdGetSelfX
+ 593 00ac 0346     		mov	r3, r0
+ 594 00ae 9A68     		ldr	r2, [r3, #8]
+ 595 00b0 0232     		adds	r2, r2, #2
+ 596 00b2 9A60     		str	r2, [r3, #8]
+ 597 00b4 FFF7FEFF 		bl	chSysUnlock
+ 598 00b8 FFF7FEFF 		bl	chThdGetPriorityX
+ 599 00bc 0246     		mov	r2, r0
+ 600 00be 7B68     		ldr	r3, [r7, #4]
+ 601 00c0 0233     		adds	r3, r3, #2
+ 602 00c2 9A42     		cmp	r2, r3
+ 603 00c4 0CBF     		ite	eq
+ 604 00c6 0123     		moveq	r3, #1
+ 605 00c8 0023     		movne	r3, #0
+ 606 00ca DBB2     		uxtb	r3, r3
+ 607 00cc 1946     		mov	r1, r3
+ 608 00ce 0520     		movs	r0, #5
+ 609 00d0 FFF7FEFF 		bl	_test_assert
+ 610 00d4 0346     		mov	r3, r0
+ 611 00d6 002B     		cmp	r3, #0
+ 612 00d8 40F08880 		bne	.L46
+ 613 00dc 7B68     		ldr	r3, [r7, #4]
+ 614 00de 0133     		adds	r3, r3, #1
+ 615 00e0 1846     		mov	r0, r3
+ 616 00e2 FFF7FEFF 		bl	chThdSetPriority
+ 617 00e6 3860     		str	r0, [r7]
+ 618 00e8 3A68     		ldr	r2, [r7]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s 			page 12
+
+
+ 619 00ea 7B68     		ldr	r3, [r7, #4]
+ 620 00ec 9A42     		cmp	r2, r3
+ 621 00ee 0CBF     		ite	eq
+ 622 00f0 0123     		moveq	r3, #1
+ 623 00f2 0023     		movne	r3, #0
+ 624 00f4 DBB2     		uxtb	r3, r3
+ 625 00f6 1946     		mov	r1, r3
+ 626 00f8 0620     		movs	r0, #6
+ 627 00fa FFF7FEFF 		bl	_test_assert
+ 628 00fe 0346     		mov	r3, r0
+ 629 0100 002B     		cmp	r3, #0
+ 630 0102 75D1     		bne	.L47
+ 631 0104 FFF7FEFF 		bl	chThdGetSelfX
+ 632 0108 0346     		mov	r3, r0
+ 633 010a 9A68     		ldr	r2, [r3, #8]
+ 634 010c 7B68     		ldr	r3, [r7, #4]
+ 635 010e 0233     		adds	r3, r3, #2
+ 636 0110 9A42     		cmp	r2, r3
+ 637 0112 0CBF     		ite	eq
+ 638 0114 0123     		moveq	r3, #1
+ 639 0116 0023     		movne	r3, #0
+ 640 0118 DBB2     		uxtb	r3, r3
+ 641 011a 1946     		mov	r1, r3
+ 642 011c 0720     		movs	r0, #7
+ 643 011e FFF7FEFF 		bl	_test_assert
+ 644 0122 0346     		mov	r3, r0
+ 645 0124 002B     		cmp	r3, #0
+ 646 0126 65D1     		bne	.L48
+ 647 0128 FFF7FEFF 		bl	chThdGetSelfX
+ 648 012c 0346     		mov	r3, r0
+ 649 012e 5A6C     		ldr	r2, [r3, #68]
+ 650 0130 7B68     		ldr	r3, [r7, #4]
+ 651 0132 0133     		adds	r3, r3, #1
+ 652 0134 9A42     		cmp	r2, r3
+ 653 0136 0CBF     		ite	eq
+ 654 0138 0123     		moveq	r3, #1
+ 655 013a 0023     		movne	r3, #0
+ 656 013c DBB2     		uxtb	r3, r3
+ 657 013e 1946     		mov	r1, r3
+ 658 0140 0820     		movs	r0, #8
+ 659 0142 FFF7FEFF 		bl	_test_assert
+ 660 0146 0346     		mov	r3, r0
+ 661 0148 002B     		cmp	r3, #0
+ 662 014a 55D1     		bne	.L49
+ 663 014c 7B68     		ldr	r3, [r7, #4]
+ 664 014e 0333     		adds	r3, r3, #3
+ 665 0150 1846     		mov	r0, r3
+ 666 0152 FFF7FEFF 		bl	chThdSetPriority
+ 667 0156 3860     		str	r0, [r7]
+ 668 0158 7B68     		ldr	r3, [r7, #4]
+ 669 015a 0133     		adds	r3, r3, #1
+ 670 015c 3A68     		ldr	r2, [r7]
+ 671 015e 9A42     		cmp	r2, r3
+ 672 0160 0CBF     		ite	eq
+ 673 0162 0123     		moveq	r3, #1
+ 674 0164 0023     		movne	r3, #0
+ 675 0166 DBB2     		uxtb	r3, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s 			page 13
+
+
+ 676 0168 1946     		mov	r1, r3
+ 677 016a 0920     		movs	r0, #9
+ 678 016c FFF7FEFF 		bl	_test_assert
+ 679 0170 0346     		mov	r3, r0
+ 680 0172 002B     		cmp	r3, #0
+ 681 0174 42D1     		bne	.L50
+ 682 0176 FFF7FEFF 		bl	chThdGetSelfX
+ 683 017a 0346     		mov	r3, r0
+ 684 017c 9A68     		ldr	r2, [r3, #8]
+ 685 017e 7B68     		ldr	r3, [r7, #4]
+ 686 0180 0333     		adds	r3, r3, #3
+ 687 0182 9A42     		cmp	r2, r3
+ 688 0184 0CBF     		ite	eq
+ 689 0186 0123     		moveq	r3, #1
+ 690 0188 0023     		movne	r3, #0
+ 691 018a DBB2     		uxtb	r3, r3
+ 692 018c 1946     		mov	r1, r3
+ 693 018e 0A20     		movs	r0, #10
+ 694 0190 FFF7FEFF 		bl	_test_assert
+ 695 0194 0346     		mov	r3, r0
+ 696 0196 002B     		cmp	r3, #0
+ 697 0198 32D1     		bne	.L51
+ 698 019a FFF7FEFF 		bl	chThdGetSelfX
+ 699 019e 0346     		mov	r3, r0
+ 700 01a0 5A6C     		ldr	r2, [r3, #68]
+ 701 01a2 7B68     		ldr	r3, [r7, #4]
+ 702 01a4 0333     		adds	r3, r3, #3
+ 703 01a6 9A42     		cmp	r2, r3
+ 704 01a8 0CBF     		ite	eq
+ 705 01aa 0123     		moveq	r3, #1
+ 706 01ac 0023     		movne	r3, #0
+ 707 01ae DBB2     		uxtb	r3, r3
+ 708 01b0 1946     		mov	r1, r3
+ 709 01b2 0B20     		movs	r0, #11
+ 710 01b4 FFF7FEFF 		bl	_test_assert
+ 711 01b8 0346     		mov	r3, r0
+ 712 01ba 002B     		cmp	r3, #0
+ 713 01bc 22D1     		bne	.L52
+ 714 01be FFF7FEFF 		bl	chSysLock
+ 715 01c2 FFF7FEFF 		bl	chThdGetSelfX
+ 716 01c6 0246     		mov	r2, r0
+ 717 01c8 7B68     		ldr	r3, [r7, #4]
+ 718 01ca 9360     		str	r3, [r2, #8]
+ 719 01cc FFF7FEFF 		bl	chThdGetSelfX
+ 720 01d0 0246     		mov	r2, r0
+ 721 01d2 7B68     		ldr	r3, [r7, #4]
+ 722 01d4 5364     		str	r3, [r2, #68]
+ 723 01d6 FFF7FEFF 		bl	chSysUnlock
+ 724 01da 14E0     		b	.L29
+ 725              	.L42:
+ 726 01dc 00BF     		nop
+ 727 01de 12E0     		b	.L29
+ 728              	.L43:
+ 729 01e0 00BF     		nop
+ 730 01e2 10E0     		b	.L29
+ 731              	.L44:
+ 732 01e4 00BF     		nop
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s 			page 14
+
+
+ 733 01e6 0EE0     		b	.L29
+ 734              	.L45:
+ 735 01e8 00BF     		nop
+ 736 01ea 0CE0     		b	.L29
+ 737              	.L46:
+ 738 01ec 00BF     		nop
+ 739 01ee 0AE0     		b	.L29
+ 740              	.L47:
+ 741 01f0 00BF     		nop
+ 742 01f2 08E0     		b	.L29
+ 743              	.L48:
+ 744 01f4 00BF     		nop
+ 745 01f6 06E0     		b	.L29
+ 746              	.L49:
+ 747 01f8 00BF     		nop
+ 748 01fa 04E0     		b	.L29
+ 749              	.L50:
+ 750 01fc 00BF     		nop
+ 751 01fe 02E0     		b	.L29
+ 752              	.L51:
+ 753 0200 00BF     		nop
+ 754 0202 00E0     		b	.L29
+ 755              	.L52:
+ 756 0204 00BF     		nop
+ 757              	.L29:
+ 758 0206 0837     		adds	r7, r7, #8
+ 759 0208 BD46     		mov	sp, r7
+ 760              		@ sp needed
+ 761 020a 80BD     		pop	{r7, pc}
+ 762              		.size	thd3_execute, .-thd3_execute
+ 763              		.global	testthd3
+ 764              		.section	.rodata
+ 765 0053 00       		.align	2
+ 766              	.LC8:
+ 767 0054 54687265 		.ascii	"Threads, priority change\000"
+ 767      6164732C 
+ 767      20707269 
+ 767      6F726974 
+ 767      79206368 
+ 768              		.section	.rodata.testthd3,"a",%progbits
+ 769              		.align	2
+ 770              		.type	testthd3, %object
+ 771              		.size	testthd3, 16
+ 772              	testthd3:
+ 773 0000 54000000 		.word	.LC8
+ 774 0004 00000000 		.word	0
+ 775 0008 00000000 		.word	0
+ 776 000c 00000000 		.word	thd3_execute
+ 777              		.section	.text.thd4_execute,"ax",%progbits
+ 778              		.align	1
+ 779              		.syntax unified
+ 780              		.thumb
+ 781              		.thumb_func
+ 782              		.fpu fpv4-sp-d16
+ 783              		.type	thd4_execute, %function
+ 784              	thd4_execute:
+ 785              		@ args = 0, pretend = 0, frame = 8
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s 			page 15
+
+
+ 786              		@ frame_needed = 1, uses_anonymous_args = 0
+ 787 0000 80B5     		push	{r7, lr}
+ 788 0002 82B0     		sub	sp, sp, #8
+ 789 0004 00AF     		add	r7, sp, #0
+ 790 0006 FFF7FEFF 		bl	test_wait_tick
+ 791 000a FFF7FEFF 		bl	chVTGetSystemTime
+ 792 000e 7860     		str	r0, [r7, #4]
+ 793 0010 6420     		movs	r0, #100
+ 794 0012 FFF7FEFF 		bl	chThdSleep
+ 795 0016 7B68     		ldr	r3, [r7, #4]
+ 796 0018 03F16401 		add	r1, r3, #100
+ 797 001c 7B68     		ldr	r3, [r7, #4]
+ 798 001e 6533     		adds	r3, r3, #101
+ 799 0020 1A46     		mov	r2, r3
+ 800 0022 0120     		movs	r0, #1
+ 801 0024 FFF7FEFF 		bl	_test_assert_time_window
+ 802 0028 0346     		mov	r3, r0
+ 803 002a 002B     		cmp	r3, #0
+ 804 002c 37D1     		bne	.L58
+ 805 002e FFF7FEFF 		bl	chVTGetSystemTime
+ 806 0032 7860     		str	r0, [r7, #4]
+ 807 0034 6420     		movs	r0, #100
+ 808 0036 FFF7FEFF 		bl	chThdSleep
+ 809 003a 7B68     		ldr	r3, [r7, #4]
+ 810 003c 03F16401 		add	r1, r3, #100
+ 811 0040 7B68     		ldr	r3, [r7, #4]
+ 812 0042 6533     		adds	r3, r3, #101
+ 813 0044 1A46     		mov	r2, r3
+ 814 0046 0220     		movs	r0, #2
+ 815 0048 FFF7FEFF 		bl	_test_assert_time_window
+ 816 004c 0346     		mov	r3, r0
+ 817 004e 002B     		cmp	r3, #0
+ 818 0050 27D1     		bne	.L59
+ 819 0052 FFF7FEFF 		bl	chVTGetSystemTime
+ 820 0056 7860     		str	r0, [r7, #4]
+ 821 0058 4FF47A70 		mov	r0, #1000
+ 822 005c FFF7FEFF 		bl	chThdSleep
+ 823 0060 7B68     		ldr	r3, [r7, #4]
+ 824 0062 03F57A71 		add	r1, r3, #1000
+ 825 0066 7B68     		ldr	r3, [r7, #4]
+ 826 0068 03F2E933 		addw	r3, r3, #1001
+ 827 006c 1A46     		mov	r2, r3
+ 828 006e 0320     		movs	r0, #3
+ 829 0070 FFF7FEFF 		bl	_test_assert_time_window
+ 830 0074 0346     		mov	r3, r0
+ 831 0076 002B     		cmp	r3, #0
+ 832 0078 15D1     		bne	.L60
+ 833 007a FFF7FEFF 		bl	chVTGetSystemTime
+ 834 007e 0346     		mov	r3, r0
+ 835 0080 6433     		adds	r3, r3, #100
+ 836 0082 7B60     		str	r3, [r7, #4]
+ 837 0084 7868     		ldr	r0, [r7, #4]
+ 838 0086 FFF7FEFF 		bl	chThdSleepUntil
+ 839 008a 7B68     		ldr	r3, [r7, #4]
+ 840 008c 0133     		adds	r3, r3, #1
+ 841 008e 1A46     		mov	r2, r3
+ 842 0090 7968     		ldr	r1, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s 			page 16
+
+
+ 843 0092 0420     		movs	r0, #4
+ 844 0094 FFF7FEFF 		bl	_test_assert_time_window
+ 845 0098 0346     		mov	r3, r0
+ 846 009a 002B     		cmp	r3, #0
+ 847 009c 04E0     		b	.L53
+ 848              	.L58:
+ 849 009e 00BF     		nop
+ 850 00a0 02E0     		b	.L53
+ 851              	.L59:
+ 852 00a2 00BF     		nop
+ 853 00a4 00E0     		b	.L53
+ 854              	.L60:
+ 855 00a6 00BF     		nop
+ 856              	.L53:
+ 857 00a8 0837     		adds	r7, r7, #8
+ 858 00aa BD46     		mov	sp, r7
+ 859              		@ sp needed
+ 860 00ac 80BD     		pop	{r7, pc}
+ 861              		.size	thd4_execute, .-thd4_execute
+ 862              		.global	testthd4
+ 863              		.section	.rodata
+ 864 006d 000000   		.align	2
+ 865              	.LC9:
+ 866 0070 54687265 		.ascii	"Threads, delays\000"
+ 866      6164732C 
+ 866      2064656C 
+ 866      61797300 
+ 867              		.section	.rodata.testthd4,"a",%progbits
+ 868              		.align	2
+ 869              		.type	testthd4, %object
+ 870              		.size	testthd4, 16
+ 871              	testthd4:
+ 872 0000 70000000 		.word	.LC9
+ 873 0004 00000000 		.word	0
+ 874 0008 00000000 		.word	0
+ 875 000c 00000000 		.word	thd4_execute
+ 876              		.global	patternthd
+ 877              		.section	.rodata.patternthd,"a",%progbits
+ 878              		.align	2
+ 879              		.type	patternthd, %object
+ 880              		.size	patternthd, 20
+ 881              	patternthd:
+ 882 0000 00000000 		.word	testthd1
+ 883 0004 00000000 		.word	testthd2
+ 884 0008 00000000 		.word	testthd3
+ 885 000c 00000000 		.word	testthd4
+ 886 0010 00000000 		.word	0
+ 887              		.section	.rodata.__func__.7153,"a",%progbits
+ 888              		.align	2
+ 889              		.type	__func__.7153, %object
+ 890              		.size	__func__.7153, 12
+ 891              	__func__.7153:
+ 892 0000 63685379 		.ascii	"chSysUnlock\000"
+ 892      73556E6C 
+ 892      6F636B00 
+ 893              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s 			page 17
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 testthd.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:15     .text.port_lock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:21     .text.port_lock:0000000000000000 port_lock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:45     .text.port_unlock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:51     .text.port_unlock:0000000000000000 port_unlock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:75     .text.chSysLock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:81     .text.chSysLock:0000000000000000 chSysLock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:93     .text.chSysUnlock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:99     .text.chSysUnlock:0000000000000000 chSysUnlock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:128    .text.chSysUnlock:0000000000000034 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:891    .rodata.__func__.7153:0000000000000000 __func__.7153
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:132    .text.chVTGetSystemTimeX:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:138    .text.chVTGetSystemTimeX:0000000000000000 chVTGetSystemTimeX
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:154    .text.chVTGetSystemTimeX:0000000000000014 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:157    .text.chVTGetSystemTime:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:163    .text.chVTGetSystemTime:0000000000000000 chVTGetSystemTime
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:181    .text.chThdGetSelfX:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:187    .text.chThdGetSelfX:0000000000000000 chThdGetSelfX
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:203    .text.chThdGetSelfX:0000000000000014 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:206    .text.chThdGetPriorityX:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:212    .text.chThdGetPriorityX:0000000000000000 chThdGetPriorityX
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:224    .text.thread:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:230    .text.thread:0000000000000000 thread
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:248    .rodata:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:267    .text.thd1_execute:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:273    .text.thd1_execute:0000000000000000 thd1_execute
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:362    .text.thd1_execute:00000000000000c8 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:381    .rodata.testthd1:0000000000000000 testthd1
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:378    .rodata.testthd1:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:387    .text.thd2_execute:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:393    .text.thd2_execute:0000000000000000 thd2_execute
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:488    .text.thd2_execute:00000000000000d8 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:507    .rodata.testthd2:0000000000000000 testthd2
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:504    .rodata.testthd2:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:513    .text.thd3_execute:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:519    .text.thd3_execute:0000000000000000 thd3_execute
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:772    .rodata.testthd3:0000000000000000 testthd3
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:769    .rodata.testthd3:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:778    .text.thd4_execute:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:784    .text.thd4_execute:0000000000000000 thd4_execute
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:871    .rodata.testthd4:0000000000000000 testthd4
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:868    .rodata.testthd4:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:881    .rodata.patternthd:0000000000000000 patternthd
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:878    .rodata.patternthd:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s:888    .rodata.__func__.7153:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+_stats_start_measure_crit_thd
+_dbg_check_lock
+_dbg_check_unlock
+_stats_stop_measure_crit_thd
+chSysHalt
+ch
+test_emit_token
+chThdCreateStatic
+test_wait_threads
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccPd5T5E.s 			page 18
+
+
+_test_assert_sequence
+wa
+threads
+chThdCreateI
+chThdStart
+chThdSetPriority
+_test_assert
+test_wait_tick
+chThdSleep
+_test_assert_time_window
+chThdSleepUntil

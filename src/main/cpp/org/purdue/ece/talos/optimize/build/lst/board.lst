@@ -1,0 +1,211 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsin02d.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"board.c"
+  14              		.global	pal_default_config
+  15              		.section	.rodata.pal_default_config,"a",%progbits
+  16              		.align	2
+  17              		.type	pal_default_config, %object
+  18              		.size	pal_default_config, 252
+  19              	pal_default_config:
+  20 0000 AEAE806A 		.word	1786818222
+  21 0004 00000000 		.word	0
+  22 0008 FFFFFFFF 		.word	-1
+  23 000c 01110100 		.word	69889
+  24 0010 FFFF0000 		.word	65535
+  25 0014 02330D5D 		.word	1561146114
+  26 0018 00A00A00 		.word	696320
+  27 001c 9FAA1A99 		.word	-1726305633
+  28 0020 03030000 		.word	771
+  29 0024 FFFFFFFF 		.word	-1
+  30 0028 40554040 		.word	1077957952
+  31 002c F8AF0000 		.word	45048
+  32 0030 005065DD 		.word	-580562944
+  33 0034 44005050 		.word	1347420228
+  34 0038 FFAFAA02 		.word	44740607
+  35 003c 3F000000 		.word	63
+  36 0040 FFFFFFFF 		.word	-1
+  37 0044 005055A9 		.word	-1454026752
+  38 0048 C01F0000 		.word	8128
+  39 004c 000000DD 		.word	-587202560
+  40 0050 CCC60C00 		.word	837324
+  41 0054 2A545A11 		.word	291132458
+  42 0058 00000000 		.word	0
+  43 005c FFFFFFFF 		.word	-1
+  44 0060 55420504 		.word	67453525
+  45 0064 6FBF0000 		.word	49007
+  46 0068 990C0000 		.word	3225
+  47 006c 77000000 		.word	119
+  48 0070 5A2A5555 		.word	1431644762
+  49 0074 00000000 		.word	0
+  50 0078 FFFFFFFF 		.word	-1
+  51 007c 05150000 		.word	5381
+  52 0080 F3000000 		.word	243
+  53 0084 DD00DD0D 		.word	232587485
+  54 0088 00000000 		.word	0
+  55 008c 00000000 		.word	0
+  56 0090 00000000 		.word	0
+  57 0094 FFFFFFFF 		.word	-1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsin02d.s 			page 2
+
+
+  58 0098 00000000 		.word	0
+  59 009c FFFF0000 		.word	65535
+  60 00a0 00000000 		.word	0
+  61 00a4 00000000 		.word	0
+  62 00a8 00000000 		.word	0
+  63 00ac 00000000 		.word	0
+  64 00b0 FFFFFFFF 		.word	-1
+  65 00b4 00000000 		.word	0
+  66 00b8 FFFF0000 		.word	65535
+  67 00bc 00000000 		.word	0
+  68 00c0 00000000 		.word	0
+  69 00c4 00000000 		.word	0
+  70 00c8 00000000 		.word	0
+  71 00cc FFFFFFFF 		.word	-1
+  72 00d0 00000000 		.word	0
+  73 00d4 FFFF0000 		.word	65535
+  74 00d8 00000000 		.word	0
+  75 00dc 00000000 		.word	0
+  76 00e0 00000000 		.word	0
+  77 00e4 00000000 		.word	0
+  78 00e8 FFFFFFFF 		.word	-1
+  79 00ec 00000000 		.word	0
+  80 00f0 FFFF0000 		.word	65535
+  81 00f4 00000000 		.word	0
+  82 00f8 00000000 		.word	0
+  83              		.section	.text.__early_init,"ax",%progbits
+  84              		.align	1
+  85              		.global	__early_init
+  86              		.syntax unified
+  87              		.thumb
+  88              		.thumb_func
+  89              		.fpu fpv4-sp-d16
+  90              		.type	__early_init, %function
+  91              	__early_init:
+  92              		@ args = 0, pretend = 0, frame = 0
+  93              		@ frame_needed = 1, uses_anonymous_args = 0
+  94 0000 80B5     		push	{r7, lr}
+  95 0002 00AF     		add	r7, sp, #0
+  96 0004 FFF7FEFF 		bl	stm32_clock_init
+  97 0008 00BF     		nop
+  98 000a 80BD     		pop	{r7, pc}
+  99              		.size	__early_init, .-__early_init
+ 100              		.section	.text.sdc_lld_is_card_inserted,"ax",%progbits
+ 101              		.align	1
+ 102              		.global	sdc_lld_is_card_inserted
+ 103              		.syntax unified
+ 104              		.thumb
+ 105              		.thumb_func
+ 106              		.fpu fpv4-sp-d16
+ 107              		.type	sdc_lld_is_card_inserted, %function
+ 108              	sdc_lld_is_card_inserted:
+ 109              		@ args = 0, pretend = 0, frame = 8
+ 110              		@ frame_needed = 1, uses_anonymous_args = 0
+ 111              		@ link register save eliminated.
+ 112 0000 80B4     		push	{r7}
+ 113 0002 83B0     		sub	sp, sp, #12
+ 114 0004 00AF     		add	r7, sp, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsin02d.s 			page 3
+
+
+ 115 0006 7860     		str	r0, [r7, #4]
+ 116 0008 074B     		ldr	r3, .L4
+ 117 000a 1B69     		ldr	r3, [r3, #16]
+ 118 000c DB09     		lsrs	r3, r3, #7
+ 119 000e 03F00103 		and	r3, r3, #1
+ 120 0012 002B     		cmp	r3, #0
+ 121 0014 0CBF     		ite	eq
+ 122 0016 0123     		moveq	r3, #1
+ 123 0018 0023     		movne	r3, #0
+ 124 001a DBB2     		uxtb	r3, r3
+ 125 001c 1846     		mov	r0, r3
+ 126 001e 0C37     		adds	r7, r7, #12
+ 127 0020 BD46     		mov	sp, r7
+ 128              		@ sp needed
+ 129 0022 5DF8047B 		ldr	r7, [sp], #4
+ 130 0026 7047     		bx	lr
+ 131              	.L5:
+ 132              		.align	2
+ 133              	.L4:
+ 134 0028 00100240 		.word	1073876992
+ 135              		.size	sdc_lld_is_card_inserted, .-sdc_lld_is_card_inserted
+ 136              		.section	.text.sdc_lld_is_write_protected,"ax",%progbits
+ 137              		.align	1
+ 138              		.global	sdc_lld_is_write_protected
+ 139              		.syntax unified
+ 140              		.thumb
+ 141              		.thumb_func
+ 142              		.fpu fpv4-sp-d16
+ 143              		.type	sdc_lld_is_write_protected, %function
+ 144              	sdc_lld_is_write_protected:
+ 145              		@ args = 0, pretend = 0, frame = 8
+ 146              		@ frame_needed = 1, uses_anonymous_args = 0
+ 147              		@ link register save eliminated.
+ 148 0000 80B4     		push	{r7}
+ 149 0002 83B0     		sub	sp, sp, #12
+ 150 0004 00AF     		add	r7, sp, #0
+ 151 0006 7860     		str	r0, [r7, #4]
+ 152 0008 0023     		movs	r3, #0
+ 153 000a 1846     		mov	r0, r3
+ 154 000c 0C37     		adds	r7, r7, #12
+ 155 000e BD46     		mov	sp, r7
+ 156              		@ sp needed
+ 157 0010 5DF8047B 		ldr	r7, [sp], #4
+ 158 0014 7047     		bx	lr
+ 159              		.size	sdc_lld_is_write_protected, .-sdc_lld_is_write_protected
+ 160              		.section	.text.boardInit,"ax",%progbits
+ 161              		.align	1
+ 162              		.global	boardInit
+ 163              		.syntax unified
+ 164              		.thumb
+ 165              		.thumb_func
+ 166              		.fpu fpv4-sp-d16
+ 167              		.type	boardInit, %function
+ 168              	boardInit:
+ 169              		@ args = 0, pretend = 0, frame = 0
+ 170              		@ frame_needed = 1, uses_anonymous_args = 0
+ 171              		@ link register save eliminated.
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsin02d.s 			page 4
+
+
+ 172 0000 80B4     		push	{r7}
+ 173 0002 00AF     		add	r7, sp, #0
+ 174 0004 00BF     		nop
+ 175 0006 BD46     		mov	sp, r7
+ 176              		@ sp needed
+ 177 0008 5DF8047B 		ldr	r7, [sp], #4
+ 178 000c 7047     		bx	lr
+ 179              		.size	boardInit, .-boardInit
+ 180              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsin02d.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 board.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsin02d.s:19     .rodata.pal_default_config:0000000000000000 pal_default_config
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsin02d.s:16     .rodata.pal_default_config:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsin02d.s:84     .text.__early_init:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsin02d.s:91     .text.__early_init:0000000000000000 __early_init
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsin02d.s:101    .text.sdc_lld_is_card_inserted:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsin02d.s:108    .text.sdc_lld_is_card_inserted:0000000000000000 sdc_lld_is_card_inserted
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsin02d.s:134    .text.sdc_lld_is_card_inserted:0000000000000028 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsin02d.s:137    .text.sdc_lld_is_write_protected:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsin02d.s:144    .text.sdc_lld_is_write_protected:0000000000000000 sdc_lld_is_write_protected
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsin02d.s:161    .text.boardInit:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsin02d.s:168    .text.boardInit:0000000000000000 boardInit
+
+UNDEFINED SYMBOLS
+stm32_clock_init

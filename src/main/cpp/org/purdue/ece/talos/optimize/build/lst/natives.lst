@@ -1,0 +1,4078 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"natives.c"
+  14              		.section	.text.AsebaNativePopArg,"ax",%progbits
+  15              		.align	1
+  16              		.syntax unified
+  17              		.thumb
+  18              		.thumb_func
+  19              		.fpu fpv4-sp-d16
+  20              		.type	AsebaNativePopArg, %function
+  21              	AsebaNativePopArg:
+  22              		@ args = 0, pretend = 0, frame = 8
+  23              		@ frame_needed = 1, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 80B4     		push	{r7}
+  26 0002 83B0     		sub	sp, sp, #12
+  27 0004 00AF     		add	r7, sp, #0
+  28 0006 7860     		str	r0, [r7, #4]
+  29 0008 7B68     		ldr	r3, [r7, #4]
+  30 000a 5A69     		ldr	r2, [r3, #20]
+  31 000c 7B68     		ldr	r3, [r7, #4]
+  32 000e B3F91C10 		ldrsh	r1, [r3, #28]
+  33 0012 8BB2     		uxth	r3, r1
+  34 0014 013B     		subs	r3, r3, #1
+  35 0016 9BB2     		uxth	r3, r3
+  36 0018 18B2     		sxth	r0, r3
+  37 001a 7B68     		ldr	r3, [r7, #4]
+  38 001c 9883     		strh	r0, [r3, #28]	@ movhi
+  39 001e 0B46     		mov	r3, r1
+  40 0020 5B00     		lsls	r3, r3, #1
+  41 0022 1344     		add	r3, r3, r2
+  42 0024 B3F90030 		ldrsh	r3, [r3]
+  43 0028 1846     		mov	r0, r3
+  44 002a 0C37     		adds	r7, r7, #12
+  45 002c BD46     		mov	sp, r7
+  46              		@ sp needed
+  47 002e 5DF8047B 		ldr	r7, [sp], #4
+  48 0032 7047     		bx	lr
+  49              		.size	AsebaNativePopArg, .-AsebaNativePopArg
+  50              		.section	.rodata.aseba_atan_table,"a",%progbits
+  51              		.align	2
+  52              		.type	aseba_atan_table, %object
+  53              		.size	aseba_atan_table, 322
+  54              	aseba_atan_table:
+  55 0000 8C02     		.short	652
+  56 0002 DF02     		.short	735
+  57 0004 3003     		.short	816
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 2
+
+
+  58 0006 8003     		.short	896
+  59 0008 D103     		.short	977
+  60 000a 2204     		.short	1058
+  61 000c 7304     		.short	1139
+  62 000e C204     		.short	1218
+  63 0010 1405     		.short	1300
+  64 0012 B305     		.short	1459
+  65 0014 5406     		.short	1620
+  66 0016 F106     		.short	1777
+  67 0018 8F07     		.short	1935
+  68 001a 2D08     		.short	2093
+  69 001c CA08     		.short	2250
+  70 001e 6309     		.short	2403
+  71 0020 FC09     		.short	2556
+  72 0022 340B     		.short	2868
+  73 0024 5C0C     		.short	3164
+  74 0026 820D     		.short	3458
+  75 0028 A40E     		.short	3748
+  76 002a BD0F     		.short	4029
+  77 002c D310     		.short	4307
+  78 002e E211     		.short	4578
+  79 0030 E712     		.short	4839
+  80 0032 EF14     		.short	5359
+  81 0034 CC16     		.short	5836
+  82 0036 9218     		.short	6290
+  83 0038 401A     		.short	6720
+  84 003a D61B     		.short	7126
+  85 003c 531D     		.short	7507
+  86 003e B51E     		.short	7861
+  87 0040 0B20     		.short	8203
+  88 0042 7922     		.short	8825
+  89 0044 8D24     		.short	9357
+  90 0046 6F26     		.short	9839
+  91 0048 1428     		.short	10260
+  92 004a 9029     		.short	10640
+  93 004c E02A     		.short	10976
+  94 004e 112C     		.short	11281
+  95 0050 252D     		.short	11557
+  96 0052 052F     		.short	12037
+  97 0054 8930     		.short	12425
+  98 0056 D331     		.short	12755
+  99 0058 EC32     		.short	13036
+ 100 005a DD33     		.short	13277
+ 101 005c AE34     		.short	13486
+ 102 005e 6735     		.short	13671
+ 103 0060 0D36     		.short	13837
+ 104 0062 2037     		.short	14112
+ 105 0064 FB37     		.short	14331
+ 106 0066 B238     		.short	14514
+ 107 0068 4A39     		.short	14666
+ 108 006a CC39     		.short	14796
+ 109 006c 3B3A     		.short	14907
+ 110 006e 9B3A     		.short	15003
+ 111 0070 F33A     		.short	15091
+ 112 0072 833B     		.short	15235
+ 113 0074 F43B     		.short	15348
+ 114 0076 513C     		.short	15441
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 3
+
+
+ 115 0078 9F3C     		.short	15519
+ 116 007a E13C     		.short	15585
+ 117 007c 1A3D     		.short	15642
+ 118 007e 4B3D     		.short	15691
+ 119 0080 783D     		.short	15736
+ 120 0082 C03D     		.short	15808
+ 121 0084 F93D     		.short	15865
+ 122 0086 283E     		.short	15912
+ 123 0088 4F3E     		.short	15951
+ 124 008a 703E     		.short	15984
+ 125 008c 8D3E     		.short	16013
+ 126 008e A53E     		.short	16037
+ 127 0090 BC3E     		.short	16060
+ 128 0092 E03E     		.short	16096
+ 129 0094 FD3E     		.short	16125
+ 130 0096 143F     		.short	16148
+ 131 0098 283F     		.short	16168
+ 132 009a 383F     		.short	16184
+ 133 009c 473F     		.short	16199
+ 134 009e 533F     		.short	16211
+ 135 00a0 5E3F     		.short	16222
+ 136 00a2 703F     		.short	16240
+ 137 00a4 7F3F     		.short	16255
+ 138 00a6 8A3F     		.short	16266
+ 139 00a8 943F     		.short	16276
+ 140 00aa 9C3F     		.short	16284
+ 141 00ac A43F     		.short	16292
+ 142 00ae AA3F     		.short	16298
+ 143 00b0 AF3F     		.short	16303
+ 144 00b2 B83F     		.short	16312
+ 145 00b4 C03F     		.short	16320
+ 146 00b6 C53F     		.short	16325
+ 147 00b8 CB3F     		.short	16331
+ 148 00ba CE3F     		.short	16334
+ 149 00bc D23F     		.short	16338
+ 150 00be D53F     		.short	16341
+ 151 00c0 D83F     		.short	16344
+ 152 00c2 DC3F     		.short	16348
+ 153 00c4 E03F     		.short	16352
+ 154 00c6 E33F     		.short	16355
+ 155 00c8 E53F     		.short	16357
+ 156 00ca E83F     		.short	16360
+ 157 00cc E93F     		.short	16361
+ 158 00ce EB3F     		.short	16363
+ 159 00d0 EC3F     		.short	16364
+ 160 00d2 EE3F     		.short	16366
+ 161 00d4 F13F     		.short	16369
+ 162 00d6 F13F     		.short	16369
+ 163 00d8 F33F     		.short	16371
+ 164 00da F43F     		.short	16372
+ 165 00dc F53F     		.short	16373
+ 166 00de F53F     		.short	16373
+ 167 00e0 F73F     		.short	16375
+ 168 00e2 F73F     		.short	16375
+ 169 00e4 F93F     		.short	16377
+ 170 00e6 F83F     		.short	16376
+ 171 00e8 FA3F     		.short	16378
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 4
+
+
+ 172 00ea FA3F     		.short	16378
+ 173 00ec FA3F     		.short	16378
+ 174 00ee FB3F     		.short	16379
+ 175 00f0 FB3F     		.short	16379
+ 176 00f2 FC3F     		.short	16380
+ 177 00f4 FC3F     		.short	16380
+ 178 00f6 FC3F     		.short	16380
+ 179 00f8 FE3F     		.short	16382
+ 180 00fa FD3F     		.short	16381
+ 181 00fc FD3F     		.short	16381
+ 182 00fe FD3F     		.short	16381
+ 183 0100 FE3F     		.short	16382
+ 184 0102 FE3F     		.short	16382
+ 185 0104 FE3F     		.short	16382
+ 186 0106 FE3F     		.short	16382
+ 187 0108 FE3F     		.short	16382
+ 188 010a FE3F     		.short	16382
+ 189 010c 0040     		.short	16384
+ 190 010e FF3F     		.short	16383
+ 191 0110 FF3F     		.short	16383
+ 192 0112 FF3F     		.short	16383
+ 193 0114 FF3F     		.short	16383
+ 194 0116 FF3F     		.short	16383
+ 195 0118 FF3F     		.short	16383
+ 196 011a FF3F     		.short	16383
+ 197 011c FF3F     		.short	16383
+ 198 011e FF3F     		.short	16383
+ 199 0120 FF3F     		.short	16383
+ 200 0122 FF3F     		.short	16383
+ 201 0124 0040     		.short	16384
+ 202 0126 0040     		.short	16384
+ 203 0128 0040     		.short	16384
+ 204 012a 0040     		.short	16384
+ 205 012c 0040     		.short	16384
+ 206 012e 0040     		.short	16384
+ 207 0130 0040     		.short	16384
+ 208 0132 0040     		.short	16384
+ 209 0134 0040     		.short	16384
+ 210 0136 0040     		.short	16384
+ 211 0138 0040     		.short	16384
+ 212 013a 0040     		.short	16384
+ 213 013c 0040     		.short	16384
+ 214 013e 0040     		.short	16384
+ 215 0140 0040     		.short	16384
+ 216              		.section	.text.aseba_atan2,"ax",%progbits
+ 217              		.align	1
+ 218              		.global	aseba_atan2
+ 219              		.syntax unified
+ 220              		.thumb
+ 221              		.thumb_func
+ 222              		.fpu fpv4-sp-d16
+ 223              		.type	aseba_atan2, %function
+ 224              	aseba_atan2:
+ 225              		@ args = 0, pretend = 0, frame = 40
+ 226              		@ frame_needed = 1, uses_anonymous_args = 0
+ 227              		@ link register save eliminated.
+ 228 0000 80B4     		push	{r7}
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 5
+
+
+ 229 0002 8BB0     		sub	sp, sp, #44
+ 230 0004 00AF     		add	r7, sp, #0
+ 231 0006 0346     		mov	r3, r0
+ 232 0008 0A46     		mov	r2, r1
+ 233 000a FB80     		strh	r3, [r7, #6]	@ movhi
+ 234 000c 1346     		mov	r3, r2	@ movhi
+ 235 000e BB80     		strh	r3, [r7, #4]	@ movhi
+ 236 0010 B7F90630 		ldrsh	r3, [r7, #6]
+ 237 0014 002B     		cmp	r3, #0
+ 238 0016 0BD1     		bne	.L4
+ 239 0018 B7F90430 		ldrsh	r3, [r7, #4]
+ 240 001c 002B     		cmp	r3, #0
+ 241 001e 01DB     		blt	.L5
+ 242 0020 0023     		movs	r3, #0
+ 243 0022 9AE0     		b	.L6
+ 244              	.L5:
+ 245 0024 B7F90430 		ldrsh	r3, [r7, #4]
+ 246 0028 002B     		cmp	r3, #0
+ 247 002a 01DA     		bge	.L4
+ 248 002c 4E4B     		ldr	r3, .L15
+ 249 002e 94E0     		b	.L6
+ 250              	.L4:
+ 251 0030 B7F90430 		ldrsh	r3, [r7, #4]
+ 252 0034 002B     		cmp	r3, #0
+ 253 0036 B8BF     		it	lt
+ 254 0038 5B42     		rsblt	r3, r3, #0
+ 255 003a 3B84     		strh	r3, [r7, #32]	@ movhi
+ 256 003c B7F90630 		ldrsh	r3, [r7, #6]
+ 257 0040 002B     		cmp	r3, #0
+ 258 0042 B8BF     		it	lt
+ 259 0044 5B42     		rsblt	r3, r3, #0
+ 260 0046 FB83     		strh	r3, [r7, #30]	@ movhi
+ 261 0048 B7F90430 		ldrsh	r3, [r7, #4]
+ 262 004c 002B     		cmp	r3, #0
+ 263 004e 03D1     		bne	.L7
+ 264 0050 4FF48043 		mov	r3, #16384
+ 265 0054 FB84     		strh	r3, [r7, #38]	@ movhi
+ 266 0056 75E0     		b	.L8
+ 267              	.L7:
+ 268 0058 B7F91E30 		ldrsh	r3, [r7, #30]
+ 269 005c 1A04     		lsls	r2, r3, #16
+ 270 005e B7F92030 		ldrsh	r3, [r7, #32]
+ 271 0062 92FBF3F3 		sdiv	r3, r2, r3
+ 272 0066 BB61     		str	r3, [r7, #24]
+ 273 0068 0023     		movs	r3, #0
+ 274 006a BB84     		strh	r3, [r7, #36]	@ movhi
+ 275 006c 0023     		movs	r3, #0
+ 276 006e 7B84     		strh	r3, [r7, #34]	@ movhi
+ 277 0070 0EE0     		b	.L9
+ 278              	.L11:
+ 279 0072 B7F92230 		ldrsh	r3, [r7, #34]
+ 280 0076 BA69     		ldr	r2, [r7, #24]
+ 281 0078 42FA03F3 		asr	r3, r2, r3
+ 282 007c 002B     		cmp	r3, #0
+ 283 007e 01D0     		beq	.L10
+ 284 0080 7B8C     		ldrh	r3, [r7, #34]	@ movhi
+ 285 0082 BB84     		strh	r3, [r7, #36]	@ movhi
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 6
+
+
+ 286              	.L10:
+ 287 0084 B7F92230 		ldrsh	r3, [r7, #34]
+ 288 0088 9BB2     		uxth	r3, r3
+ 289 008a 0133     		adds	r3, r3, #1
+ 290 008c 9BB2     		uxth	r3, r3
+ 291 008e 7B84     		strh	r3, [r7, #34]	@ movhi
+ 292              	.L9:
+ 293 0090 B7F92230 		ldrsh	r3, [r7, #34]
+ 294 0094 1F2B     		cmp	r3, #31
+ 295 0096 ECDD     		ble	.L11
+ 296 0098 BB8C     		ldrh	r3, [r7, #36]
+ 297 009a 0C3B     		subs	r3, r3, #12
+ 298 009c 9BB2     		uxth	r3, r3
+ 299 009e FB82     		strh	r3, [r7, #22]	@ movhi
+ 300 00a0 B7F91630 		ldrsh	r3, [r7, #22]
+ 301 00a4 002B     		cmp	r3, #0
+ 302 00a6 08DA     		bge	.L12
+ 303 00a8 4FF42373 		mov	r3, #652
+ 304 00ac 1A46     		mov	r2, r3
+ 305 00ae BB69     		ldr	r3, [r7, #24]
+ 306 00b0 03FB02F3 		mul	r3, r3, r2
+ 307 00b4 1B13     		asrs	r3, r3, #12
+ 308 00b6 FB84     		strh	r3, [r7, #38]	@ movhi
+ 309 00b8 3BE0     		b	.L13
+ 310              	.L12:
+ 311 00ba B7F92430 		ldrsh	r3, [r7, #36]
+ 312 00be 0122     		movs	r2, #1
+ 313 00c0 02FA03F3 		lsl	r3, r2, r3
+ 314 00c4 BA69     		ldr	r2, [r7, #24]
+ 315 00c6 D31A     		subs	r3, r2, r3
+ 316 00c8 3B61     		str	r3, [r7, #16]
+ 317 00ca BB8C     		ldrh	r3, [r7, #36]
+ 318 00cc 083B     		subs	r3, r3, #8
+ 319 00ce 9BB2     		uxth	r3, r3
+ 320 00d0 FB81     		strh	r3, [r7, #14]	@ movhi
+ 321 00d2 B7F90E30 		ldrsh	r3, [r7, #14]
+ 322 00d6 3A69     		ldr	r2, [r7, #16]
+ 323 00d8 42FA03F3 		asr	r3, r2, r3
+ 324 00dc BB81     		strh	r3, [r7, #12]	@ movhi
+ 325 00de B7F90C30 		ldrsh	r3, [r7, #12]
+ 326 00e2 5B11     		asrs	r3, r3, #5
+ 327 00e4 7B81     		strh	r3, [r7, #10]	@ movhi
+ 328 00e6 BB89     		ldrh	r3, [r7, #12]	@ movhi
+ 329 00e8 03F01F03 		and	r3, r3, #31
+ 330 00ec 3B81     		strh	r3, [r7, #8]	@ movhi
+ 331 00ee B7F91630 		ldrsh	r3, [r7, #22]
+ 332 00f2 DA00     		lsls	r2, r3, #3
+ 333 00f4 B7F90A30 		ldrsh	r3, [r7, #10]
+ 334 00f8 1344     		add	r3, r3, r2
+ 335 00fa 1C4A     		ldr	r2, .L15+4
+ 336 00fc 32F91330 		ldrsh	r3, [r2, r3, lsl #1]
+ 337 0100 1A46     		mov	r2, r3
+ 338 0102 B7F90830 		ldrsh	r3, [r7, #8]
+ 339 0106 C3F12003 		rsb	r3, r3, #32
+ 340 010a 03FB02F2 		mul	r2, r3, r2
+ 341 010e B7F91630 		ldrsh	r3, [r7, #22]
+ 342 0112 D900     		lsls	r1, r3, #3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 7
+
+
+ 343 0114 B7F90A30 		ldrsh	r3, [r7, #10]
+ 344 0118 0B44     		add	r3, r3, r1
+ 345 011a 0133     		adds	r3, r3, #1
+ 346 011c 1349     		ldr	r1, .L15+4
+ 347 011e 31F91330 		ldrsh	r3, [r1, r3, lsl #1]
+ 348 0122 1946     		mov	r1, r3
+ 349 0124 B7F90830 		ldrsh	r3, [r7, #8]
+ 350 0128 03FB01F3 		mul	r3, r3, r1
+ 351 012c 1344     		add	r3, r3, r2
+ 352 012e 5B11     		asrs	r3, r3, #5
+ 353 0130 FB84     		strh	r3, [r7, #38]	@ movhi
+ 354              	.L13:
+ 355 0132 B7F90430 		ldrsh	r3, [r7, #4]
+ 356 0136 002B     		cmp	r3, #0
+ 357 0138 04DA     		bge	.L8
+ 358 013a FA8C     		ldrh	r2, [r7, #38]
+ 359 013c 0A4B     		ldr	r3, .L15
+ 360 013e 9B1A     		subs	r3, r3, r2
+ 361 0140 9BB2     		uxth	r3, r3
+ 362 0142 FB84     		strh	r3, [r7, #38]	@ movhi
+ 363              	.L8:
+ 364 0144 B7F90630 		ldrsh	r3, [r7, #6]
+ 365 0148 002B     		cmp	r3, #0
+ 366 014a 02DD     		ble	.L14
+ 367 014c B7F92630 		ldrsh	r3, [r7, #38]
+ 368 0150 03E0     		b	.L6
+ 369              	.L14:
+ 370 0152 FB8C     		ldrh	r3, [r7, #38]
+ 371 0154 5B42     		negs	r3, r3
+ 372 0156 9BB2     		uxth	r3, r3
+ 373 0158 1BB2     		sxth	r3, r3
+ 374              	.L6:
+ 375 015a 1846     		mov	r0, r3
+ 376 015c 2C37     		adds	r7, r7, #44
+ 377 015e BD46     		mov	sp, r7
+ 378              		@ sp needed
+ 379 0160 5DF8047B 		ldr	r7, [sp], #4
+ 380 0164 7047     		bx	lr
+ 381              	.L16:
+ 382 0166 00BF     		.align	2
+ 383              	.L15:
+ 384 0168 0080FFFF 		.word	-32768
+ 385 016c 00000000 		.word	aseba_atan_table
+ 386              		.size	aseba_atan2, .-aseba_atan2
+ 387              		.section	.rodata.aseba_sin_table,"a",%progbits
+ 388              		.align	2
+ 389              		.type	aseba_sin_table, %object
+ 390              		.size	aseba_sin_table, 258
+ 391              	aseba_sin_table:
+ 392 0000 0000     		.short	0
+ 393 0002 9301     		.short	403
+ 394 0004 2403     		.short	804
+ 395 0006 B704     		.short	1207
+ 396 0008 4806     		.short	1608
+ 397 000a DA07     		.short	2010
+ 398 000c 6B09     		.short	2411
+ 399 000e FC0A     		.short	2812
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 8
+
+
+ 400 0010 8C0C     		.short	3212
+ 401 0012 1C0E     		.short	3612
+ 402 0014 AB0F     		.short	4011
+ 403 0016 3B11     		.short	4411
+ 404 0018 C812     		.short	4808
+ 405 001a 5614     		.short	5206
+ 406 001c E315     		.short	5603
+ 407 001e 6E17     		.short	5998
+ 408 0020 F918     		.short	6393
+ 409 0022 831A     		.short	6787
+ 410 0024 0C1C     		.short	7180
+ 411 0026 941D     		.short	7572
+ 412 0028 1A1F     		.short	7962
+ 413 002a A020     		.short	8352
+ 414 002c 2422     		.short	8740
+ 415 002e A723     		.short	9127
+ 416 0030 2925     		.short	9513
+ 417 0032 A826     		.short	9896
+ 418 0034 2728     		.short	10279
+ 419 0036 A429     		.short	10660
+ 420 0038 202B     		.short	11040
+ 421 003a 992C     		.short	11417
+ 422 003c 122E     		.short	11794
+ 423 003e 872F     		.short	12167
+ 424 0040 FC30     		.short	12540
+ 425 0042 6F32     		.short	12911
+ 426 0044 DF33     		.short	13279
+ 427 0046 4E35     		.short	13646
+ 428 0048 BA36     		.short	14010
+ 429 004a 2538     		.short	14373
+ 430 004c 8D39     		.short	14733
+ 431 004e F33A     		.short	15091
+ 432 0050 573C     		.short	15447
+ 433 0052 B93D     		.short	15801
+ 434 0054 173F     		.short	16151
+ 435 0056 7440     		.short	16500
+ 436 0058 CE41     		.short	16846
+ 437 005a 2643     		.short	17190
+ 438 005c 7B44     		.short	17531
+ 439 005e CD45     		.short	17869
+ 440 0060 1D47     		.short	18205
+ 441 0062 6A48     		.short	18538
+ 442 0064 B449     		.short	18868
+ 443 0066 FC4A     		.short	19196
+ 444 0068 404C     		.short	19520
+ 445 006a 824D     		.short	19842
+ 446 006c C04E     		.short	20160
+ 447 006e FC4F     		.short	20476
+ 448 0070 3451     		.short	20788
+ 449 0072 6952     		.short	21097
+ 450 0074 9B53     		.short	21403
+ 451 0076 CA54     		.short	21706
+ 452 0078 F655     		.short	22006
+ 453 007a 1E57     		.short	22302
+ 454 007c 4358     		.short	22595
+ 455 007e 6459     		.short	22884
+ 456 0080 835A     		.short	23171
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 9
+
+
+ 457 0082 9D5B     		.short	23453
+ 458 0084 B45C     		.short	23732
+ 459 0086 C85D     		.short	24008
+ 460 0088 D75E     		.short	24279
+ 461 008a E45F     		.short	24548
+ 462 008c EC60     		.short	24812
+ 463 008e F161     		.short	25073
+ 464 0090 F262     		.short	25330
+ 465 0092 EF63     		.short	25583
+ 466 0094 E964     		.short	25833
+ 467 0096 DE65     		.short	26078
+ 468 0098 D066     		.short	26320
+ 469 009a BD67     		.short	26557
+ 470 009c A768     		.short	26791
+ 471 009e 8C69     		.short	27020
+ 472 00a0 6E6A     		.short	27246
+ 473 00a2 4B6B     		.short	27467
+ 474 00a4 246C     		.short	27684
+ 475 00a6 F96C     		.short	27897
+ 476 00a8 CA6D     		.short	28106
+ 477 00aa 976E     		.short	28311
+ 478 00ac 5F6F     		.short	28511
+ 479 00ae 2370     		.short	28707
+ 480 00b0 E370     		.short	28899
+ 481 00b2 9E71     		.short	29086
+ 482 00b4 5572     		.short	29269
+ 483 00b6 0873     		.short	29448
+ 484 00b8 B673     		.short	29622
+ 485 00ba 6074     		.short	29792
+ 486 00bc 0575     		.short	29957
+ 487 00be A575     		.short	30117
+ 488 00c0 4276     		.short	30274
+ 489 00c2 D976     		.short	30425
+ 490 00c4 6C77     		.short	30572
+ 491 00c6 FB77     		.short	30715
+ 492 00c8 8478     		.short	30852
+ 493 00ca 0979     		.short	30985
+ 494 00cc 8A79     		.short	31114
+ 495 00ce 067A     		.short	31238
+ 496 00d0 7D7A     		.short	31357
+ 497 00d2 EF7A     		.short	31471
+ 498 00d4 5D7B     		.short	31581
+ 499 00d6 C67B     		.short	31686
+ 500 00d8 2A7C     		.short	31786
+ 501 00da 897C     		.short	31881
+ 502 00dc E47C     		.short	31972
+ 503 00de 397D     		.short	32057
+ 504 00e0 8A7D     		.short	32138
+ 505 00e2 D77D     		.short	32215
+ 506 00e4 1D7E     		.short	32285
+ 507 00e6 607E     		.short	32352
+ 508 00e8 9D7E     		.short	32413
+ 509 00ea D67E     		.short	32470
+ 510 00ec 097F     		.short	32521
+ 511 00ee 397F     		.short	32569
+ 512 00f0 627F     		.short	32610
+ 513 00f2 877F     		.short	32647
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 10
+
+
+ 514 00f4 A77F     		.short	32679
+ 515 00f6 C27F     		.short	32706
+ 516 00f8 D87F     		.short	32728
+ 517 00fa EA7F     		.short	32746
+ 518 00fc F67F     		.short	32758
+ 519 00fe FE7F     		.short	32766
+ 520 0100 FF7F     		.short	32767
+ 521              		.section	.text.aseba_sin,"ax",%progbits
+ 522              		.align	1
+ 523              		.global	aseba_sin
+ 524              		.syntax unified
+ 525              		.thumb
+ 526              		.thumb_func
+ 527              		.fpu fpv4-sp-d16
+ 528              		.type	aseba_sin, %function
+ 529              	aseba_sin:
+ 530              		@ args = 0, pretend = 0, frame = 24
+ 531              		@ frame_needed = 1, uses_anonymous_args = 0
+ 532              		@ link register save eliminated.
+ 533 0000 80B4     		push	{r7}
+ 534 0002 87B0     		sub	sp, sp, #28
+ 535 0004 00AF     		add	r7, sp, #0
+ 536 0006 0346     		mov	r3, r0
+ 537 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 538 000a B7F90630 		ldrsh	r3, [r7, #6]
+ 539 000e 002B     		cmp	r3, #0
+ 540 0010 19DA     		bge	.L18
+ 541 0012 B7F90630 		ldrsh	r3, [r7, #6]
+ 542 0016 13F5804F 		cmn	r3, #16384
+ 543 001a 05DA     		bge	.L19
+ 544 001c FB88     		ldrh	r3, [r7, #6]
+ 545 001e A3F50043 		sub	r3, r3, #32768
+ 546 0022 9BB2     		uxth	r3, r3
+ 547 0024 BB82     		strh	r3, [r7, #20]	@ movhi
+ 548 0026 0BE0     		b	.L20
+ 549              	.L19:
+ 550 0028 B7F90630 		ldrsh	r3, [r7, #6]
+ 551 002c 13F5804F 		cmn	r3, #16384
+ 552 0030 04DD     		ble	.L21
+ 553 0032 FB88     		ldrh	r3, [r7, #6]
+ 554 0034 5B42     		negs	r3, r3
+ 555 0036 9BB2     		uxth	r3, r3
+ 556 0038 BB82     		strh	r3, [r7, #20]	@ movhi
+ 557 003a 01E0     		b	.L20
+ 558              	.L21:
+ 559 003c 274B     		ldr	r3, .L28
+ 560 003e 47E0     		b	.L22
+ 561              	.L20:
+ 562 0040 0123     		movs	r3, #1
+ 563 0042 FB82     		strh	r3, [r7, #22]	@ movhi
+ 564 0044 17E0     		b	.L23
+ 565              	.L18:
+ 566 0046 B7F90630 		ldrsh	r3, [r7, #6]
+ 567 004a B3F5804F 		cmp	r3, #16384
+ 568 004e 05DD     		ble	.L24
+ 569 0050 FA88     		ldrh	r2, [r7, #6]
+ 570 0052 234B     		ldr	r3, .L28+4
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 11
+
+
+ 571 0054 9B1A     		subs	r3, r3, r2
+ 572 0056 9BB2     		uxth	r3, r3
+ 573 0058 BB82     		strh	r3, [r7, #20]	@ movhi
+ 574 005a 0AE0     		b	.L25
+ 575              	.L24:
+ 576 005c B7F90630 		ldrsh	r3, [r7, #6]
+ 577 0060 B3F5804F 		cmp	r3, #16384
+ 578 0064 02DA     		bge	.L26
+ 579 0066 FB88     		ldrh	r3, [r7, #6]	@ movhi
+ 580 0068 BB82     		strh	r3, [r7, #20]	@ movhi
+ 581 006a 02E0     		b	.L25
+ 582              	.L26:
+ 583 006c 47F6FF73 		movw	r3, #32767
+ 584 0070 2EE0     		b	.L22
+ 585              	.L25:
+ 586 0072 0023     		movs	r3, #0
+ 587 0074 FB82     		strh	r3, [r7, #22]	@ movhi
+ 588              	.L23:
+ 589 0076 B7F91430 		ldrsh	r3, [r7, #20]
+ 590 007a DB11     		asrs	r3, r3, #7
+ 591 007c 7B82     		strh	r3, [r7, #18]	@ movhi
+ 592 007e BB8A     		ldrh	r3, [r7, #20]	@ movhi
+ 593 0080 03F07F03 		and	r3, r3, #127
+ 594 0084 3B82     		strh	r3, [r7, #16]	@ movhi
+ 595 0086 B7F91230 		ldrsh	r3, [r7, #18]
+ 596 008a 164A     		ldr	r2, .L28+8
+ 597 008c 32F91330 		ldrsh	r3, [r2, r3, lsl #1]
+ 598 0090 1A46     		mov	r2, r3
+ 599 0092 B7F91030 		ldrsh	r3, [r7, #16]
+ 600 0096 C3F18003 		rsb	r3, r3, #128
+ 601 009a 03FB02F2 		mul	r2, r3, r2
+ 602 009e B7F91230 		ldrsh	r3, [r7, #18]
+ 603 00a2 0133     		adds	r3, r3, #1
+ 604 00a4 0F49     		ldr	r1, .L28+8
+ 605 00a6 31F91330 		ldrsh	r3, [r1, r3, lsl #1]
+ 606 00aa 1946     		mov	r1, r3
+ 607 00ac B7F91030 		ldrsh	r3, [r7, #16]
+ 608 00b0 03FB01F3 		mul	r3, r3, r1
+ 609 00b4 1344     		add	r3, r3, r2
+ 610 00b6 DB11     		asrs	r3, r3, #7
+ 611 00b8 FB81     		strh	r3, [r7, #14]	@ movhi
+ 612 00ba B7F91630 		ldrsh	r3, [r7, #22]
+ 613 00be 002B     		cmp	r3, #0
+ 614 00c0 04D0     		beq	.L27
+ 615 00c2 FB89     		ldrh	r3, [r7, #14]
+ 616 00c4 5B42     		negs	r3, r3
+ 617 00c6 9BB2     		uxth	r3, r3
+ 618 00c8 1BB2     		sxth	r3, r3
+ 619 00ca 01E0     		b	.L22
+ 620              	.L27:
+ 621 00cc B7F90E30 		ldrsh	r3, [r7, #14]
+ 622              	.L22:
+ 623 00d0 1846     		mov	r0, r3
+ 624 00d2 1C37     		adds	r7, r7, #28
+ 625 00d4 BD46     		mov	sp, r7
+ 626              		@ sp needed
+ 627 00d6 5DF8047B 		ldr	r7, [sp], #4
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 12
+
+
+ 628 00da 7047     		bx	lr
+ 629              	.L29:
+ 630              		.align	2
+ 631              	.L28:
+ 632 00dc 0180FFFF 		.word	-32767
+ 633 00e0 0080FFFF 		.word	-32768
+ 634 00e4 00000000 		.word	aseba_sin_table
+ 635              		.size	aseba_sin, .-aseba_sin
+ 636              		.section	.text.aseba_cos,"ax",%progbits
+ 637              		.align	1
+ 638              		.global	aseba_cos
+ 639              		.syntax unified
+ 640              		.thumb
+ 641              		.thumb_func
+ 642              		.fpu fpv4-sp-d16
+ 643              		.type	aseba_cos, %function
+ 644              	aseba_cos:
+ 645              		@ args = 0, pretend = 0, frame = 8
+ 646              		@ frame_needed = 1, uses_anonymous_args = 0
+ 647 0000 80B5     		push	{r7, lr}
+ 648 0002 82B0     		sub	sp, sp, #8
+ 649 0004 00AF     		add	r7, sp, #0
+ 650 0006 0346     		mov	r3, r0
+ 651 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 652 000a FB88     		ldrh	r3, [r7, #6]
+ 653 000c 03F58043 		add	r3, r3, #16384
+ 654 0010 9BB2     		uxth	r3, r3
+ 655 0012 1BB2     		sxth	r3, r3
+ 656 0014 1846     		mov	r0, r3
+ 657 0016 FFF7FEFF 		bl	aseba_sin
+ 658 001a 0346     		mov	r3, r0
+ 659 001c 1846     		mov	r0, r3
+ 660 001e 0837     		adds	r7, r7, #8
+ 661 0020 BD46     		mov	sp, r7
+ 662              		@ sp needed
+ 663 0022 80BD     		pop	{r7, pc}
+ 664              		.size	aseba_cos, .-aseba_cos
+ 665              		.section	.text.aseba_sqrt,"ax",%progbits
+ 666              		.align	1
+ 667              		.global	aseba_sqrt
+ 668              		.syntax unified
+ 669              		.thumb
+ 670              		.thumb_func
+ 671              		.fpu fpv4-sp-d16
+ 672              		.type	aseba_sqrt, %function
+ 673              	aseba_sqrt:
+ 674              		@ args = 0, pretend = 0, frame = 16
+ 675              		@ frame_needed = 1, uses_anonymous_args = 0
+ 676              		@ link register save eliminated.
+ 677 0000 80B4     		push	{r7}
+ 678 0002 85B0     		sub	sp, sp, #20
+ 679 0004 00AF     		add	r7, sp, #0
+ 680 0006 0346     		mov	r3, r0
+ 681 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 682 000a FB88     		ldrh	r3, [r7, #6]	@ movhi
+ 683 000c FB81     		strh	r3, [r7, #14]	@ movhi
+ 684 000e 0023     		movs	r3, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 13
+
+
+ 685 0010 BB81     		strh	r3, [r7, #12]	@ movhi
+ 686 0012 4FF48043 		mov	r3, #16384
+ 687 0016 7B81     		strh	r3, [r7, #10]	@ movhi
+ 688 0018 03E0     		b	.L33
+ 689              	.L34:
+ 690 001a B7F90A30 		ldrsh	r3, [r7, #10]
+ 691 001e 9B10     		asrs	r3, r3, #2
+ 692 0020 7B81     		strh	r3, [r7, #10]	@ movhi
+ 693              	.L33:
+ 694 0022 B7F90A20 		ldrsh	r2, [r7, #10]
+ 695 0026 B7F90E30 		ldrsh	r3, [r7, #14]
+ 696 002a 9A42     		cmp	r2, r3
+ 697 002c F5DC     		bgt	.L34
+ 698 002e 22E0     		b	.L35
+ 699              	.L38:
+ 700 0030 B7F90E20 		ldrsh	r2, [r7, #14]
+ 701 0034 B7F90C10 		ldrsh	r1, [r7, #12]
+ 702 0038 B7F90A30 		ldrsh	r3, [r7, #10]
+ 703 003c 0B44     		add	r3, r3, r1
+ 704 003e 9A42     		cmp	r2, r3
+ 705 0040 11DB     		blt	.L36
+ 706 0042 FA89     		ldrh	r2, [r7, #14]
+ 707 0044 B989     		ldrh	r1, [r7, #12]
+ 708 0046 7B89     		ldrh	r3, [r7, #10]
+ 709 0048 0B44     		add	r3, r3, r1
+ 710 004a 9BB2     		uxth	r3, r3
+ 711 004c D31A     		subs	r3, r2, r3
+ 712 004e 9BB2     		uxth	r3, r3
+ 713 0050 FB81     		strh	r3, [r7, #14]	@ movhi
+ 714 0052 B7F90C30 		ldrsh	r3, [r7, #12]
+ 715 0056 5B10     		asrs	r3, r3, #1
+ 716 0058 1BB2     		sxth	r3, r3
+ 717 005a 9AB2     		uxth	r2, r3
+ 718 005c 7B89     		ldrh	r3, [r7, #10]
+ 719 005e 1344     		add	r3, r3, r2
+ 720 0060 9BB2     		uxth	r3, r3
+ 721 0062 BB81     		strh	r3, [r7, #12]	@ movhi
+ 722 0064 03E0     		b	.L37
+ 723              	.L36:
+ 724 0066 B7F90C30 		ldrsh	r3, [r7, #12]
+ 725 006a 5B10     		asrs	r3, r3, #1
+ 726 006c BB81     		strh	r3, [r7, #12]	@ movhi
+ 727              	.L37:
+ 728 006e B7F90A30 		ldrsh	r3, [r7, #10]
+ 729 0072 9B10     		asrs	r3, r3, #2
+ 730 0074 7B81     		strh	r3, [r7, #10]	@ movhi
+ 731              	.L35:
+ 732 0076 B7F90A30 		ldrsh	r3, [r7, #10]
+ 733 007a 002B     		cmp	r3, #0
+ 734 007c D8D1     		bne	.L38
+ 735 007e B7F90C30 		ldrsh	r3, [r7, #12]
+ 736 0082 1846     		mov	r0, r3
+ 737 0084 1437     		adds	r7, r7, #20
+ 738 0086 BD46     		mov	sp, r7
+ 739              		@ sp needed
+ 740 0088 5DF8047B 		ldr	r7, [sp], #4
+ 741 008c 7047     		bx	lr
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 14
+
+
+ 742              		.size	aseba_sqrt, .-aseba_sqrt
+ 743              		.section	.text.aseba_comb_sort,"ax",%progbits
+ 744              		.align	1
+ 745              		.global	aseba_comb_sort
+ 746              		.syntax unified
+ 747              		.thumb
+ 748              		.thumb_func
+ 749              		.fpu fpv4-sp-d16
+ 750              		.type	aseba_comb_sort, %function
+ 751              	aseba_comb_sort:
+ 752              		@ args = 0, pretend = 0, frame = 16
+ 753              		@ frame_needed = 1, uses_anonymous_args = 0
+ 754              		@ link register save eliminated.
+ 755 0000 80B4     		push	{r7}
+ 756 0002 85B0     		sub	sp, sp, #20
+ 757 0004 00AF     		add	r7, sp, #0
+ 758 0006 7860     		str	r0, [r7, #4]
+ 759 0008 0B46     		mov	r3, r1
+ 760 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+ 761 000c 7B88     		ldrh	r3, [r7, #2]	@ movhi
+ 762 000e FB81     		strh	r3, [r7, #14]	@ movhi
+ 763 0010 0023     		movs	r3, #0
+ 764 0012 BB81     		strh	r3, [r7, #12]	@ movhi
+ 765 0014 46E0     		b	.L41
+ 766              	.L46:
+ 767 0016 FB89     		ldrh	r3, [r7, #14]
+ 768 0018 012B     		cmp	r3, #1
+ 769 001a 06D9     		bls	.L42
+ 770 001c FB89     		ldrh	r3, [r7, #14]
+ 771 001e 9B00     		lsls	r3, r3, #2
+ 772 0020 264A     		ldr	r2, .L47
+ 773 0022 A2FB0323 		umull	r2, r3, r2, r3
+ 774 0026 9B08     		lsrs	r3, r3, #2
+ 775 0028 FB81     		strh	r3, [r7, #14]	@ movhi
+ 776              	.L42:
+ 777 002a 0023     		movs	r3, #0
+ 778 002c BB81     		strh	r3, [r7, #12]	@ movhi
+ 779 002e 0023     		movs	r3, #0
+ 780 0030 7B81     		strh	r3, [r7, #10]	@ movhi
+ 781 0032 31E0     		b	.L43
+ 782              	.L45:
+ 783 0034 7B89     		ldrh	r3, [r7, #10]
+ 784 0036 5B00     		lsls	r3, r3, #1
+ 785 0038 7A68     		ldr	r2, [r7, #4]
+ 786 003a 1344     		add	r3, r3, r2
+ 787 003c B3F90030 		ldrsh	r3, [r3]
+ 788 0040 1946     		mov	r1, r3
+ 789 0042 7A89     		ldrh	r2, [r7, #10]
+ 790 0044 FB89     		ldrh	r3, [r7, #14]
+ 791 0046 1344     		add	r3, r3, r2
+ 792 0048 5B00     		lsls	r3, r3, #1
+ 793 004a 7A68     		ldr	r2, [r7, #4]
+ 794 004c 1344     		add	r3, r3, r2
+ 795 004e B3F90030 		ldrsh	r3, [r3]
+ 796 0052 CB1A     		subs	r3, r1, r3
+ 797 0054 002B     		cmp	r3, #0
+ 798 0056 1CDD     		ble	.L44
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 15
+
+
+ 799 0058 7B89     		ldrh	r3, [r7, #10]
+ 800 005a 5B00     		lsls	r3, r3, #1
+ 801 005c 7A68     		ldr	r2, [r7, #4]
+ 802 005e 1344     		add	r3, r3, r2
+ 803 0060 1B88     		ldrh	r3, [r3]	@ movhi
+ 804 0062 3B81     		strh	r3, [r7, #8]	@ movhi
+ 805 0064 7A89     		ldrh	r2, [r7, #10]
+ 806 0066 FB89     		ldrh	r3, [r7, #14]
+ 807 0068 1344     		add	r3, r3, r2
+ 808 006a 5B00     		lsls	r3, r3, #1
+ 809 006c 7A68     		ldr	r2, [r7, #4]
+ 810 006e 1A44     		add	r2, r2, r3
+ 811 0070 7B89     		ldrh	r3, [r7, #10]
+ 812 0072 5B00     		lsls	r3, r3, #1
+ 813 0074 7968     		ldr	r1, [r7, #4]
+ 814 0076 0B44     		add	r3, r3, r1
+ 815 0078 B2F90020 		ldrsh	r2, [r2]
+ 816 007c 1A80     		strh	r2, [r3]	@ movhi
+ 817 007e 7A89     		ldrh	r2, [r7, #10]
+ 818 0080 FB89     		ldrh	r3, [r7, #14]
+ 819 0082 1344     		add	r3, r3, r2
+ 820 0084 5B00     		lsls	r3, r3, #1
+ 821 0086 7A68     		ldr	r2, [r7, #4]
+ 822 0088 1344     		add	r3, r3, r2
+ 823 008a 3A89     		ldrh	r2, [r7, #8]	@ movhi
+ 824 008c 1A80     		strh	r2, [r3]	@ movhi
+ 825 008e 0123     		movs	r3, #1
+ 826 0090 BB81     		strh	r3, [r7, #12]	@ movhi
+ 827              	.L44:
+ 828 0092 7B89     		ldrh	r3, [r7, #10]
+ 829 0094 0133     		adds	r3, r3, #1
+ 830 0096 7B81     		strh	r3, [r7, #10]	@ movhi
+ 831              	.L43:
+ 832 0098 FA89     		ldrh	r2, [r7, #14]
+ 833 009a 7B89     		ldrh	r3, [r7, #10]
+ 834 009c 1A44     		add	r2, r2, r3
+ 835 009e 7B88     		ldrh	r3, [r7, #2]
+ 836 00a0 9A42     		cmp	r2, r3
+ 837 00a2 C7DB     		blt	.L45
+ 838              	.L41:
+ 839 00a4 FB89     		ldrh	r3, [r7, #14]
+ 840 00a6 012B     		cmp	r3, #1
+ 841 00a8 B5D8     		bhi	.L46
+ 842 00aa BB89     		ldrh	r3, [r7, #12]
+ 843 00ac 002B     		cmp	r3, #0
+ 844 00ae B2D1     		bne	.L46
+ 845 00b0 00BF     		nop
+ 846 00b2 1437     		adds	r7, r7, #20
+ 847 00b4 BD46     		mov	sp, r7
+ 848              		@ sp needed
+ 849 00b6 5DF8047B 		ldr	r7, [sp], #4
+ 850 00ba 7047     		bx	lr
+ 851              	.L48:
+ 852              		.align	2
+ 853              	.L47:
+ 854 00bc CDCCCCCC 		.word	-858993459
+ 855              		.size	aseba_comb_sort, .-aseba_comb_sort
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 16
+
+
+ 856              		.section	.text.AsebaNative_veccopy,"ax",%progbits
+ 857              		.align	1
+ 858              		.global	AsebaNative_veccopy
+ 859              		.syntax unified
+ 860              		.thumb
+ 861              		.thumb_func
+ 862              		.fpu fpv4-sp-d16
+ 863              		.type	AsebaNative_veccopy, %function
+ 864              	AsebaNative_veccopy:
+ 865              		@ args = 0, pretend = 0, frame = 16
+ 866              		@ frame_needed = 1, uses_anonymous_args = 0
+ 867 0000 80B5     		push	{r7, lr}
+ 868 0002 84B0     		sub	sp, sp, #16
+ 869 0004 00AF     		add	r7, sp, #0
+ 870 0006 7860     		str	r0, [r7, #4]
+ 871 0008 7868     		ldr	r0, [r7, #4]
+ 872 000a FFF7FEFF 		bl	AsebaNativePopArg
+ 873 000e 0346     		mov	r3, r0
+ 874 0010 FB81     		strh	r3, [r7, #14]	@ movhi
+ 875 0012 7868     		ldr	r0, [r7, #4]
+ 876 0014 FFF7FEFF 		bl	AsebaNativePopArg
+ 877 0018 0346     		mov	r3, r0
+ 878 001a BB81     		strh	r3, [r7, #12]	@ movhi
+ 879 001c 7868     		ldr	r0, [r7, #4]
+ 880 001e FFF7FEFF 		bl	AsebaNativePopArg
+ 881 0022 0346     		mov	r3, r0
+ 882 0024 3B81     		strh	r3, [r7, #8]	@ movhi
+ 883 0026 0023     		movs	r3, #0
+ 884 0028 7B81     		strh	r3, [r7, #10]	@ movhi
+ 885 002a 13E0     		b	.L50
+ 886              	.L51:
+ 887 002c 7B68     		ldr	r3, [r7, #4]
+ 888 002e DA68     		ldr	r2, [r3, #12]
+ 889 0030 BB89     		ldrh	r3, [r7, #12]
+ 890 0032 591C     		adds	r1, r3, #1
+ 891 0034 B981     		strh	r1, [r7, #12]	@ movhi
+ 892 0036 5B00     		lsls	r3, r3, #1
+ 893 0038 1A44     		add	r2, r2, r3
+ 894 003a 7B68     		ldr	r3, [r7, #4]
+ 895 003c D968     		ldr	r1, [r3, #12]
+ 896 003e FB89     		ldrh	r3, [r7, #14]
+ 897 0040 581C     		adds	r0, r3, #1
+ 898 0042 F881     		strh	r0, [r7, #14]	@ movhi
+ 899 0044 5B00     		lsls	r3, r3, #1
+ 900 0046 0B44     		add	r3, r3, r1
+ 901 0048 B2F90020 		ldrsh	r2, [r2]
+ 902 004c 1A80     		strh	r2, [r3]	@ movhi
+ 903 004e 7B89     		ldrh	r3, [r7, #10]
+ 904 0050 0133     		adds	r3, r3, #1
+ 905 0052 7B81     		strh	r3, [r7, #10]	@ movhi
+ 906              	.L50:
+ 907 0054 7A89     		ldrh	r2, [r7, #10]
+ 908 0056 3B89     		ldrh	r3, [r7, #8]
+ 909 0058 9A42     		cmp	r2, r3
+ 910 005a E7D3     		bcc	.L51
+ 911 005c 00BF     		nop
+ 912 005e 1037     		adds	r7, r7, #16
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 17
+
+
+ 913 0060 BD46     		mov	sp, r7
+ 914              		@ sp needed
+ 915 0062 80BD     		pop	{r7, pc}
+ 916              		.size	AsebaNative_veccopy, .-AsebaNative_veccopy
+ 917              		.global	AsebaNativeDescription_veccopy
+ 918              		.section	.rodata
+ 919              		.align	2
+ 920              	.LC0:
+ 921 0000 6D617468 		.ascii	"math.copy\000"
+ 921      2E636F70 
+ 921      7900
+ 922 000a 0000     		.align	2
+ 923              	.LC1:
+ 924 000c 636F7069 		.ascii	"copies src to dest element by element\000"
+ 924      65732073 
+ 924      72632074 
+ 924      6F206465 
+ 924      73742065 
+ 925 0032 0000     		.align	2
+ 926              	.LC2:
+ 927 0034 64657374 		.ascii	"dest\000"
+ 927      00
+ 928 0039 000000   		.align	2
+ 929              	.LC3:
+ 930 003c 73726300 		.ascii	"src\000"
+ 931              		.section	.rodata.AsebaNativeDescription_veccopy,"a",%progbits
+ 932              		.align	2
+ 933              		.type	AsebaNativeDescription_veccopy, %object
+ 934              		.size	AsebaNativeDescription_veccopy, 32
+ 935              	AsebaNativeDescription_veccopy:
+ 936 0000 00000000 		.word	.LC0
+ 937 0004 0C000000 		.word	.LC1
+ 938 0008 FFFF     		.short	-1
+ 939 000a 0000     		.space	2
+ 940 000c 34000000 		.word	.LC2
+ 941 0010 FFFF     		.short	-1
+ 942 0012 0000     		.space	2
+ 943 0014 3C000000 		.word	.LC3
+ 944 0018 0000     		.short	0
+ 945 001a 0000     		.space	2
+ 946 001c 00000000 		.word	0
+ 947              		.section	.text.AsebaNative_vecfill,"ax",%progbits
+ 948              		.align	1
+ 949              		.global	AsebaNative_vecfill
+ 950              		.syntax unified
+ 951              		.thumb
+ 952              		.thumb_func
+ 953              		.fpu fpv4-sp-d16
+ 954              		.type	AsebaNative_vecfill, %function
+ 955              	AsebaNative_vecfill:
+ 956              		@ args = 0, pretend = 0, frame = 16
+ 957              		@ frame_needed = 1, uses_anonymous_args = 0
+ 958 0000 80B5     		push	{r7, lr}
+ 959 0002 84B0     		sub	sp, sp, #16
+ 960 0004 00AF     		add	r7, sp, #0
+ 961 0006 7860     		str	r0, [r7, #4]
+ 962 0008 7868     		ldr	r0, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 18
+
+
+ 963 000a FFF7FEFF 		bl	AsebaNativePopArg
+ 964 000e 0346     		mov	r3, r0
+ 965 0010 FB81     		strh	r3, [r7, #14]	@ movhi
+ 966 0012 7868     		ldr	r0, [r7, #4]
+ 967 0014 FFF7FEFF 		bl	AsebaNativePopArg
+ 968 0018 0346     		mov	r3, r0
+ 969 001a 7B81     		strh	r3, [r7, #10]	@ movhi
+ 970 001c 7868     		ldr	r0, [r7, #4]
+ 971 001e FFF7FEFF 		bl	AsebaNativePopArg
+ 972 0022 0346     		mov	r3, r0
+ 973 0024 3B81     		strh	r3, [r7, #8]	@ movhi
+ 974 0026 0023     		movs	r3, #0
+ 975 0028 BB81     		strh	r3, [r7, #12]	@ movhi
+ 976 002a 11E0     		b	.L53
+ 977              	.L54:
+ 978 002c 7B68     		ldr	r3, [r7, #4]
+ 979 002e DA68     		ldr	r2, [r3, #12]
+ 980 0030 7B89     		ldrh	r3, [r7, #10]
+ 981 0032 5B00     		lsls	r3, r3, #1
+ 982 0034 1A44     		add	r2, r2, r3
+ 983 0036 7B68     		ldr	r3, [r7, #4]
+ 984 0038 D968     		ldr	r1, [r3, #12]
+ 985 003a FB89     		ldrh	r3, [r7, #14]
+ 986 003c 581C     		adds	r0, r3, #1
+ 987 003e F881     		strh	r0, [r7, #14]	@ movhi
+ 988 0040 5B00     		lsls	r3, r3, #1
+ 989 0042 0B44     		add	r3, r3, r1
+ 990 0044 B2F90020 		ldrsh	r2, [r2]
+ 991 0048 1A80     		strh	r2, [r3]	@ movhi
+ 992 004a BB89     		ldrh	r3, [r7, #12]
+ 993 004c 0133     		adds	r3, r3, #1
+ 994 004e BB81     		strh	r3, [r7, #12]	@ movhi
+ 995              	.L53:
+ 996 0050 BA89     		ldrh	r2, [r7, #12]
+ 997 0052 3B89     		ldrh	r3, [r7, #8]
+ 998 0054 9A42     		cmp	r2, r3
+ 999 0056 E9D3     		bcc	.L54
+ 1000 0058 00BF     		nop
+ 1001 005a 1037     		adds	r7, r7, #16
+ 1002 005c BD46     		mov	sp, r7
+ 1003              		@ sp needed
+ 1004 005e 80BD     		pop	{r7, pc}
+ 1005              		.size	AsebaNative_vecfill, .-AsebaNative_vecfill
+ 1006              		.global	AsebaNativeDescription_vecfill
+ 1007              		.section	.rodata
+ 1008              		.align	2
+ 1009              	.LC4:
+ 1010 0040 6D617468 		.ascii	"math.fill\000"
+ 1010      2E66696C 
+ 1010      6C00
+ 1011 004a 0000     		.align	2
+ 1012              	.LC5:
+ 1013 004c 66696C6C 		.ascii	"fills dest with constant value\000"
+ 1013      73206465 
+ 1013      73742077 
+ 1013      69746820 
+ 1013      636F6E73 
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 19
+
+
+ 1014 006b 00       		.align	2
+ 1015              	.LC6:
+ 1016 006c 76616C75 		.ascii	"value\000"
+ 1016      6500
+ 1017              		.section	.rodata.AsebaNativeDescription_vecfill,"a",%progbits
+ 1018              		.align	2
+ 1019              		.type	AsebaNativeDescription_vecfill, %object
+ 1020              		.size	AsebaNativeDescription_vecfill, 32
+ 1021              	AsebaNativeDescription_vecfill:
+ 1022 0000 40000000 		.word	.LC4
+ 1023 0004 4C000000 		.word	.LC5
+ 1024 0008 FFFF     		.short	-1
+ 1025 000a 0000     		.space	2
+ 1026 000c 34000000 		.word	.LC2
+ 1027 0010 0100     		.short	1
+ 1028 0012 0000     		.space	2
+ 1029 0014 6C000000 		.word	.LC6
+ 1030 0018 0000     		.short	0
+ 1031 001a 0000     		.space	2
+ 1032 001c 00000000 		.word	0
+ 1033              		.section	.text.AsebaNative_vecaddscalar,"ax",%progbits
+ 1034              		.align	1
+ 1035              		.global	AsebaNative_vecaddscalar
+ 1036              		.syntax unified
+ 1037              		.thumb
+ 1038              		.thumb_func
+ 1039              		.fpu fpv4-sp-d16
+ 1040              		.type	AsebaNative_vecaddscalar, %function
+ 1041              	AsebaNative_vecaddscalar:
+ 1042              		@ args = 0, pretend = 0, frame = 24
+ 1043              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1044 0000 80B5     		push	{r7, lr}
+ 1045 0002 86B0     		sub	sp, sp, #24
+ 1046 0004 00AF     		add	r7, sp, #0
+ 1047 0006 7860     		str	r0, [r7, #4]
+ 1048 0008 7868     		ldr	r0, [r7, #4]
+ 1049 000a FFF7FEFF 		bl	AsebaNativePopArg
+ 1050 000e 0346     		mov	r3, r0
+ 1051 0010 FB82     		strh	r3, [r7, #22]	@ movhi
+ 1052 0012 7868     		ldr	r0, [r7, #4]
+ 1053 0014 FFF7FEFF 		bl	AsebaNativePopArg
+ 1054 0018 0346     		mov	r3, r0
+ 1055 001a BB82     		strh	r3, [r7, #20]	@ movhi
+ 1056 001c 7868     		ldr	r0, [r7, #4]
+ 1057 001e FFF7FEFF 		bl	AsebaNativePopArg
+ 1058 0022 0346     		mov	r3, r0
+ 1059 0024 3B82     		strh	r3, [r7, #16]	@ movhi
+ 1060 0026 7868     		ldr	r0, [r7, #4]
+ 1061 0028 FFF7FEFF 		bl	AsebaNativePopArg
+ 1062 002c 0346     		mov	r3, r0
+ 1063 002e FB81     		strh	r3, [r7, #14]	@ movhi
+ 1064 0030 7B68     		ldr	r3, [r7, #4]
+ 1065 0032 DA68     		ldr	r2, [r3, #12]
+ 1066 0034 3B8A     		ldrh	r3, [r7, #16]
+ 1067 0036 5B00     		lsls	r3, r3, #1
+ 1068 0038 1344     		add	r3, r3, r2
+ 1069 003a 1B88     		ldrh	r3, [r3]	@ movhi
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 20
+
+
+ 1070 003c BB81     		strh	r3, [r7, #12]	@ movhi
+ 1071 003e 0023     		movs	r3, #0
+ 1072 0040 7B82     		strh	r3, [r7, #18]	@ movhi
+ 1073 0042 18E0     		b	.L56
+ 1074              	.L57:
+ 1075 0044 7B68     		ldr	r3, [r7, #4]
+ 1076 0046 DA68     		ldr	r2, [r3, #12]
+ 1077 0048 BB8A     		ldrh	r3, [r7, #20]
+ 1078 004a 591C     		adds	r1, r3, #1
+ 1079 004c B982     		strh	r1, [r7, #20]	@ movhi
+ 1080 004e 5B00     		lsls	r3, r3, #1
+ 1081 0050 1344     		add	r3, r3, r2
+ 1082 0052 B3F90030 		ldrsh	r3, [r3]
+ 1083 0056 9AB2     		uxth	r2, r3
+ 1084 0058 BB89     		ldrh	r3, [r7, #12]
+ 1085 005a 1344     		add	r3, r3, r2
+ 1086 005c 99B2     		uxth	r1, r3
+ 1087 005e 7B68     		ldr	r3, [r7, #4]
+ 1088 0060 DA68     		ldr	r2, [r3, #12]
+ 1089 0062 FB8A     		ldrh	r3, [r7, #22]
+ 1090 0064 581C     		adds	r0, r3, #1
+ 1091 0066 F882     		strh	r0, [r7, #22]	@ movhi
+ 1092 0068 5B00     		lsls	r3, r3, #1
+ 1093 006a 1344     		add	r3, r3, r2
+ 1094 006c 0AB2     		sxth	r2, r1
+ 1095 006e 1A80     		strh	r2, [r3]	@ movhi
+ 1096 0070 7B8A     		ldrh	r3, [r7, #18]
+ 1097 0072 0133     		adds	r3, r3, #1
+ 1098 0074 7B82     		strh	r3, [r7, #18]	@ movhi
+ 1099              	.L56:
+ 1100 0076 7A8A     		ldrh	r2, [r7, #18]
+ 1101 0078 FB89     		ldrh	r3, [r7, #14]
+ 1102 007a 9A42     		cmp	r2, r3
+ 1103 007c E2D3     		bcc	.L57
+ 1104 007e 00BF     		nop
+ 1105 0080 1837     		adds	r7, r7, #24
+ 1106 0082 BD46     		mov	sp, r7
+ 1107              		@ sp needed
+ 1108 0084 80BD     		pop	{r7, pc}
+ 1109              		.size	AsebaNative_vecaddscalar, .-AsebaNative_vecaddscalar
+ 1110              		.global	AsebaNativeDescription_vecaddscalar
+ 1111              		.section	.rodata
+ 1112 0072 0000     		.align	2
+ 1113              	.LC7:
+ 1114 0074 6D617468 		.ascii	"math.addscalar\000"
+ 1114      2E616464 
+ 1114      7363616C 
+ 1114      617200
+ 1115 0083 00       		.align	2
+ 1116              	.LC8:
+ 1117 0084 61646420 		.ascii	"add scalar to each element of src and store result "
+ 1117      7363616C 
+ 1117      61722074 
+ 1117      6F206561 
+ 1117      63682065 
+ 1118 00b7 746F2064 		.ascii	"to dest\000"
+ 1118      65737400 
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 21
+
+
+ 1119 00bf 00       		.align	2
+ 1120              	.LC9:
+ 1121 00c0 7363616C 		.ascii	"scalar\000"
+ 1121      617200
+ 1122              		.section	.rodata.AsebaNativeDescription_vecaddscalar,"a",%progbits
+ 1123              		.align	2
+ 1124              		.type	AsebaNativeDescription_vecaddscalar, %object
+ 1125              		.size	AsebaNativeDescription_vecaddscalar, 40
+ 1126              	AsebaNativeDescription_vecaddscalar:
+ 1127 0000 74000000 		.word	.LC7
+ 1128 0004 84000000 		.word	.LC8
+ 1129 0008 FFFF     		.short	-1
+ 1130 000a 0000     		.space	2
+ 1131 000c 34000000 		.word	.LC2
+ 1132 0010 FFFF     		.short	-1
+ 1133 0012 0000     		.space	2
+ 1134 0014 3C000000 		.word	.LC3
+ 1135 0018 0100     		.short	1
+ 1136 001a 0000     		.space	2
+ 1137 001c C0000000 		.word	.LC9
+ 1138 0020 0000     		.short	0
+ 1139 0022 0000     		.space	2
+ 1140 0024 00000000 		.word	0
+ 1141              		.section	.text.AsebaNative_vecadd,"ax",%progbits
+ 1142              		.align	1
+ 1143              		.global	AsebaNative_vecadd
+ 1144              		.syntax unified
+ 1145              		.thumb
+ 1146              		.thumb_func
+ 1147              		.fpu fpv4-sp-d16
+ 1148              		.type	AsebaNative_vecadd, %function
+ 1149              	AsebaNative_vecadd:
+ 1150              		@ args = 0, pretend = 0, frame = 24
+ 1151              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1152 0000 80B5     		push	{r7, lr}
+ 1153 0002 86B0     		sub	sp, sp, #24
+ 1154 0004 00AF     		add	r7, sp, #0
+ 1155 0006 7860     		str	r0, [r7, #4]
+ 1156 0008 7868     		ldr	r0, [r7, #4]
+ 1157 000a FFF7FEFF 		bl	AsebaNativePopArg
+ 1158 000e 0346     		mov	r3, r0
+ 1159 0010 FB82     		strh	r3, [r7, #22]	@ movhi
+ 1160 0012 7868     		ldr	r0, [r7, #4]
+ 1161 0014 FFF7FEFF 		bl	AsebaNativePopArg
+ 1162 0018 0346     		mov	r3, r0
+ 1163 001a BB82     		strh	r3, [r7, #20]	@ movhi
+ 1164 001c 7868     		ldr	r0, [r7, #4]
+ 1165 001e FFF7FEFF 		bl	AsebaNativePopArg
+ 1166 0022 0346     		mov	r3, r0
+ 1167 0024 7B82     		strh	r3, [r7, #18]	@ movhi
+ 1168 0026 7868     		ldr	r0, [r7, #4]
+ 1169 0028 FFF7FEFF 		bl	AsebaNativePopArg
+ 1170 002c 0346     		mov	r3, r0
+ 1171 002e FB81     		strh	r3, [r7, #14]	@ movhi
+ 1172 0030 0023     		movs	r3, #0
+ 1173 0032 3B82     		strh	r3, [r7, #16]	@ movhi
+ 1174 0034 21E0     		b	.L59
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 22
+
+
+ 1175              	.L60:
+ 1176 0036 7B68     		ldr	r3, [r7, #4]
+ 1177 0038 DA68     		ldr	r2, [r3, #12]
+ 1178 003a BB8A     		ldrh	r3, [r7, #20]
+ 1179 003c 591C     		adds	r1, r3, #1
+ 1180 003e B982     		strh	r1, [r7, #20]	@ movhi
+ 1181 0040 5B00     		lsls	r3, r3, #1
+ 1182 0042 1344     		add	r3, r3, r2
+ 1183 0044 B3F90030 		ldrsh	r3, [r3]
+ 1184 0048 9AB2     		uxth	r2, r3
+ 1185 004a 7B68     		ldr	r3, [r7, #4]
+ 1186 004c D968     		ldr	r1, [r3, #12]
+ 1187 004e 7B8A     		ldrh	r3, [r7, #18]
+ 1188 0050 581C     		adds	r0, r3, #1
+ 1189 0052 7882     		strh	r0, [r7, #18]	@ movhi
+ 1190 0054 5B00     		lsls	r3, r3, #1
+ 1191 0056 0B44     		add	r3, r3, r1
+ 1192 0058 B3F90030 		ldrsh	r3, [r3]
+ 1193 005c 9BB2     		uxth	r3, r3
+ 1194 005e 1344     		add	r3, r3, r2
+ 1195 0060 99B2     		uxth	r1, r3
+ 1196 0062 7B68     		ldr	r3, [r7, #4]
+ 1197 0064 DA68     		ldr	r2, [r3, #12]
+ 1198 0066 FB8A     		ldrh	r3, [r7, #22]
+ 1199 0068 581C     		adds	r0, r3, #1
+ 1200 006a F882     		strh	r0, [r7, #22]	@ movhi
+ 1201 006c 5B00     		lsls	r3, r3, #1
+ 1202 006e 1344     		add	r3, r3, r2
+ 1203 0070 0AB2     		sxth	r2, r1
+ 1204 0072 1A80     		strh	r2, [r3]	@ movhi
+ 1205 0074 3B8A     		ldrh	r3, [r7, #16]
+ 1206 0076 0133     		adds	r3, r3, #1
+ 1207 0078 3B82     		strh	r3, [r7, #16]	@ movhi
+ 1208              	.L59:
+ 1209 007a 3A8A     		ldrh	r2, [r7, #16]
+ 1210 007c FB89     		ldrh	r3, [r7, #14]
+ 1211 007e 9A42     		cmp	r2, r3
+ 1212 0080 D9D3     		bcc	.L60
+ 1213 0082 00BF     		nop
+ 1214 0084 1837     		adds	r7, r7, #24
+ 1215 0086 BD46     		mov	sp, r7
+ 1216              		@ sp needed
+ 1217 0088 80BD     		pop	{r7, pc}
+ 1218              		.size	AsebaNative_vecadd, .-AsebaNative_vecadd
+ 1219              		.global	AsebaNativeDescription_vecadd
+ 1220              		.section	.rodata
+ 1221 00c7 00       		.align	2
+ 1222              	.LC10:
+ 1223 00c8 6D617468 		.ascii	"math.add\000"
+ 1223      2E616464 
+ 1223      00
+ 1224 00d1 000000   		.align	2
+ 1225              	.LC11:
+ 1226 00d4 61646473 		.ascii	"adds src1 and src2 to dest, element by element\000"
+ 1226      20737263 
+ 1226      3120616E 
+ 1226      64207372 
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 23
+
+
+ 1226      63322074 
+ 1227 0103 00       		.align	2
+ 1228              	.LC12:
+ 1229 0104 73726331 		.ascii	"src1\000"
+ 1229      00
+ 1230 0109 000000   		.align	2
+ 1231              	.LC13:
+ 1232 010c 73726332 		.ascii	"src2\000"
+ 1232      00
+ 1233              		.section	.rodata.AsebaNativeDescription_vecadd,"a",%progbits
+ 1234              		.align	2
+ 1235              		.type	AsebaNativeDescription_vecadd, %object
+ 1236              		.size	AsebaNativeDescription_vecadd, 40
+ 1237              	AsebaNativeDescription_vecadd:
+ 1238 0000 C8000000 		.word	.LC10
+ 1239 0004 D4000000 		.word	.LC11
+ 1240 0008 FFFF     		.short	-1
+ 1241 000a 0000     		.space	2
+ 1242 000c 34000000 		.word	.LC2
+ 1243 0010 FFFF     		.short	-1
+ 1244 0012 0000     		.space	2
+ 1245 0014 04010000 		.word	.LC12
+ 1246 0018 FFFF     		.short	-1
+ 1247 001a 0000     		.space	2
+ 1248 001c 0C010000 		.word	.LC13
+ 1249 0020 0000     		.short	0
+ 1250 0022 0000     		.space	2
+ 1251 0024 00000000 		.word	0
+ 1252              		.section	.text.AsebaNative_vecsub,"ax",%progbits
+ 1253              		.align	1
+ 1254              		.global	AsebaNative_vecsub
+ 1255              		.syntax unified
+ 1256              		.thumb
+ 1257              		.thumb_func
+ 1258              		.fpu fpv4-sp-d16
+ 1259              		.type	AsebaNative_vecsub, %function
+ 1260              	AsebaNative_vecsub:
+ 1261              		@ args = 0, pretend = 0, frame = 24
+ 1262              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1263 0000 80B5     		push	{r7, lr}
+ 1264 0002 86B0     		sub	sp, sp, #24
+ 1265 0004 00AF     		add	r7, sp, #0
+ 1266 0006 7860     		str	r0, [r7, #4]
+ 1267 0008 7868     		ldr	r0, [r7, #4]
+ 1268 000a FFF7FEFF 		bl	AsebaNativePopArg
+ 1269 000e 0346     		mov	r3, r0
+ 1270 0010 FB82     		strh	r3, [r7, #22]	@ movhi
+ 1271 0012 7868     		ldr	r0, [r7, #4]
+ 1272 0014 FFF7FEFF 		bl	AsebaNativePopArg
+ 1273 0018 0346     		mov	r3, r0
+ 1274 001a BB82     		strh	r3, [r7, #20]	@ movhi
+ 1275 001c 7868     		ldr	r0, [r7, #4]
+ 1276 001e FFF7FEFF 		bl	AsebaNativePopArg
+ 1277 0022 0346     		mov	r3, r0
+ 1278 0024 7B82     		strh	r3, [r7, #18]	@ movhi
+ 1279 0026 7868     		ldr	r0, [r7, #4]
+ 1280 0028 FFF7FEFF 		bl	AsebaNativePopArg
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 24
+
+
+ 1281 002c 0346     		mov	r3, r0
+ 1282 002e FB81     		strh	r3, [r7, #14]	@ movhi
+ 1283 0030 0023     		movs	r3, #0
+ 1284 0032 3B82     		strh	r3, [r7, #16]	@ movhi
+ 1285 0034 21E0     		b	.L62
+ 1286              	.L63:
+ 1287 0036 7B68     		ldr	r3, [r7, #4]
+ 1288 0038 DA68     		ldr	r2, [r3, #12]
+ 1289 003a BB8A     		ldrh	r3, [r7, #20]
+ 1290 003c 591C     		adds	r1, r3, #1
+ 1291 003e B982     		strh	r1, [r7, #20]	@ movhi
+ 1292 0040 5B00     		lsls	r3, r3, #1
+ 1293 0042 1344     		add	r3, r3, r2
+ 1294 0044 B3F90030 		ldrsh	r3, [r3]
+ 1295 0048 9AB2     		uxth	r2, r3
+ 1296 004a 7B68     		ldr	r3, [r7, #4]
+ 1297 004c D968     		ldr	r1, [r3, #12]
+ 1298 004e 7B8A     		ldrh	r3, [r7, #18]
+ 1299 0050 581C     		adds	r0, r3, #1
+ 1300 0052 7882     		strh	r0, [r7, #18]	@ movhi
+ 1301 0054 5B00     		lsls	r3, r3, #1
+ 1302 0056 0B44     		add	r3, r3, r1
+ 1303 0058 B3F90030 		ldrsh	r3, [r3]
+ 1304 005c 9BB2     		uxth	r3, r3
+ 1305 005e D31A     		subs	r3, r2, r3
+ 1306 0060 99B2     		uxth	r1, r3
+ 1307 0062 7B68     		ldr	r3, [r7, #4]
+ 1308 0064 DA68     		ldr	r2, [r3, #12]
+ 1309 0066 FB8A     		ldrh	r3, [r7, #22]
+ 1310 0068 581C     		adds	r0, r3, #1
+ 1311 006a F882     		strh	r0, [r7, #22]	@ movhi
+ 1312 006c 5B00     		lsls	r3, r3, #1
+ 1313 006e 1344     		add	r3, r3, r2
+ 1314 0070 0AB2     		sxth	r2, r1
+ 1315 0072 1A80     		strh	r2, [r3]	@ movhi
+ 1316 0074 3B8A     		ldrh	r3, [r7, #16]
+ 1317 0076 0133     		adds	r3, r3, #1
+ 1318 0078 3B82     		strh	r3, [r7, #16]	@ movhi
+ 1319              	.L62:
+ 1320 007a 3A8A     		ldrh	r2, [r7, #16]
+ 1321 007c FB89     		ldrh	r3, [r7, #14]
+ 1322 007e 9A42     		cmp	r2, r3
+ 1323 0080 D9D3     		bcc	.L63
+ 1324 0082 00BF     		nop
+ 1325 0084 1837     		adds	r7, r7, #24
+ 1326 0086 BD46     		mov	sp, r7
+ 1327              		@ sp needed
+ 1328 0088 80BD     		pop	{r7, pc}
+ 1329              		.size	AsebaNative_vecsub, .-AsebaNative_vecsub
+ 1330              		.global	AsebaNativeDescription_vecsub
+ 1331              		.section	.rodata
+ 1332 0111 000000   		.align	2
+ 1333              	.LC14:
+ 1334 0114 6D617468 		.ascii	"math.sub\000"
+ 1334      2E737562 
+ 1334      00
+ 1335 011d 000000   		.align	2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 25
+
+
+ 1336              	.LC15:
+ 1337 0120 73756273 		.ascii	"substracts src2 from src1 to dest, element by eleme"
+ 1337      74726163 
+ 1337      74732073 
+ 1337      72633220 
+ 1337      66726F6D 
+ 1338 0153 6E7400   		.ascii	"nt\000"
+ 1339              		.section	.rodata.AsebaNativeDescription_vecsub,"a",%progbits
+ 1340              		.align	2
+ 1341              		.type	AsebaNativeDescription_vecsub, %object
+ 1342              		.size	AsebaNativeDescription_vecsub, 40
+ 1343              	AsebaNativeDescription_vecsub:
+ 1344 0000 14010000 		.word	.LC14
+ 1345 0004 20010000 		.word	.LC15
+ 1346 0008 FFFF     		.short	-1
+ 1347 000a 0000     		.space	2
+ 1348 000c 34000000 		.word	.LC2
+ 1349 0010 FFFF     		.short	-1
+ 1350 0012 0000     		.space	2
+ 1351 0014 04010000 		.word	.LC12
+ 1352 0018 FFFF     		.short	-1
+ 1353 001a 0000     		.space	2
+ 1354 001c 0C010000 		.word	.LC13
+ 1355 0020 0000     		.short	0
+ 1356 0022 0000     		.space	2
+ 1357 0024 00000000 		.word	0
+ 1358              		.section	.text.AsebaNative_vecmul,"ax",%progbits
+ 1359              		.align	1
+ 1360              		.global	AsebaNative_vecmul
+ 1361              		.syntax unified
+ 1362              		.thumb
+ 1363              		.thumb_func
+ 1364              		.fpu fpv4-sp-d16
+ 1365              		.type	AsebaNative_vecmul, %function
+ 1366              	AsebaNative_vecmul:
+ 1367              		@ args = 0, pretend = 0, frame = 24
+ 1368              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1369 0000 80B5     		push	{r7, lr}
+ 1370 0002 86B0     		sub	sp, sp, #24
+ 1371 0004 00AF     		add	r7, sp, #0
+ 1372 0006 7860     		str	r0, [r7, #4]
+ 1373 0008 7868     		ldr	r0, [r7, #4]
+ 1374 000a FFF7FEFF 		bl	AsebaNativePopArg
+ 1375 000e 0346     		mov	r3, r0
+ 1376 0010 FB82     		strh	r3, [r7, #22]	@ movhi
+ 1377 0012 7868     		ldr	r0, [r7, #4]
+ 1378 0014 FFF7FEFF 		bl	AsebaNativePopArg
+ 1379 0018 0346     		mov	r3, r0
+ 1380 001a BB82     		strh	r3, [r7, #20]	@ movhi
+ 1381 001c 7868     		ldr	r0, [r7, #4]
+ 1382 001e FFF7FEFF 		bl	AsebaNativePopArg
+ 1383 0022 0346     		mov	r3, r0
+ 1384 0024 7B82     		strh	r3, [r7, #18]	@ movhi
+ 1385 0026 7868     		ldr	r0, [r7, #4]
+ 1386 0028 FFF7FEFF 		bl	AsebaNativePopArg
+ 1387 002c 0346     		mov	r3, r0
+ 1388 002e FB81     		strh	r3, [r7, #14]	@ movhi
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 26
+
+
+ 1389 0030 0023     		movs	r3, #0
+ 1390 0032 3B82     		strh	r3, [r7, #16]	@ movhi
+ 1391 0034 22E0     		b	.L65
+ 1392              	.L66:
+ 1393 0036 7B68     		ldr	r3, [r7, #4]
+ 1394 0038 DA68     		ldr	r2, [r3, #12]
+ 1395 003a BB8A     		ldrh	r3, [r7, #20]
+ 1396 003c 591C     		adds	r1, r3, #1
+ 1397 003e B982     		strh	r1, [r7, #20]	@ movhi
+ 1398 0040 5B00     		lsls	r3, r3, #1
+ 1399 0042 1344     		add	r3, r3, r2
+ 1400 0044 B3F90030 		ldrsh	r3, [r3]
+ 1401 0048 9AB2     		uxth	r2, r3
+ 1402 004a 7B68     		ldr	r3, [r7, #4]
+ 1403 004c D968     		ldr	r1, [r3, #12]
+ 1404 004e 7B8A     		ldrh	r3, [r7, #18]
+ 1405 0050 581C     		adds	r0, r3, #1
+ 1406 0052 7882     		strh	r0, [r7, #18]	@ movhi
+ 1407 0054 5B00     		lsls	r3, r3, #1
+ 1408 0056 0B44     		add	r3, r3, r1
+ 1409 0058 B3F90030 		ldrsh	r3, [r3]
+ 1410 005c 9BB2     		uxth	r3, r3
+ 1411 005e 12FB03F3 		smulbb	r3, r2, r3
+ 1412 0062 99B2     		uxth	r1, r3
+ 1413 0064 7B68     		ldr	r3, [r7, #4]
+ 1414 0066 DA68     		ldr	r2, [r3, #12]
+ 1415 0068 FB8A     		ldrh	r3, [r7, #22]
+ 1416 006a 581C     		adds	r0, r3, #1
+ 1417 006c F882     		strh	r0, [r7, #22]	@ movhi
+ 1418 006e 5B00     		lsls	r3, r3, #1
+ 1419 0070 1344     		add	r3, r3, r2
+ 1420 0072 0AB2     		sxth	r2, r1
+ 1421 0074 1A80     		strh	r2, [r3]	@ movhi
+ 1422 0076 3B8A     		ldrh	r3, [r7, #16]
+ 1423 0078 0133     		adds	r3, r3, #1
+ 1424 007a 3B82     		strh	r3, [r7, #16]	@ movhi
+ 1425              	.L65:
+ 1426 007c 3A8A     		ldrh	r2, [r7, #16]
+ 1427 007e FB89     		ldrh	r3, [r7, #14]
+ 1428 0080 9A42     		cmp	r2, r3
+ 1429 0082 D8D3     		bcc	.L66
+ 1430 0084 00BF     		nop
+ 1431 0086 1837     		adds	r7, r7, #24
+ 1432 0088 BD46     		mov	sp, r7
+ 1433              		@ sp needed
+ 1434 008a 80BD     		pop	{r7, pc}
+ 1435              		.size	AsebaNative_vecmul, .-AsebaNative_vecmul
+ 1436              		.global	AsebaNativeDescription_vecmul
+ 1437              		.section	.rodata
+ 1438 0156 0000     		.align	2
+ 1439              	.LC16:
+ 1440 0158 6D617468 		.ascii	"math.mul\000"
+ 1440      2E6D756C 
+ 1440      00
+ 1441 0161 000000   		.align	2
+ 1442              	.LC17:
+ 1443 0164 6D756C74 		.ascii	"multiplies src1 and src2 to dest, element by elemen"
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 27
+
+
+ 1443      69706C69 
+ 1443      65732073 
+ 1443      72633120 
+ 1443      616E6420 
+ 1444 0197 7400     		.ascii	"t\000"
+ 1445              		.section	.rodata.AsebaNativeDescription_vecmul,"a",%progbits
+ 1446              		.align	2
+ 1447              		.type	AsebaNativeDescription_vecmul, %object
+ 1448              		.size	AsebaNativeDescription_vecmul, 40
+ 1449              	AsebaNativeDescription_vecmul:
+ 1450 0000 58010000 		.word	.LC16
+ 1451 0004 64010000 		.word	.LC17
+ 1452 0008 FFFF     		.short	-1
+ 1453 000a 0000     		.space	2
+ 1454 000c 34000000 		.word	.LC2
+ 1455 0010 FFFF     		.short	-1
+ 1456 0012 0000     		.space	2
+ 1457 0014 04010000 		.word	.LC12
+ 1458 0018 FFFF     		.short	-1
+ 1459 001a 0000     		.space	2
+ 1460 001c 0C010000 		.word	.LC13
+ 1461 0020 0000     		.short	0
+ 1462 0022 0000     		.space	2
+ 1463 0024 00000000 		.word	0
+ 1464              		.section	.text.AsebaNative_vecdiv,"ax",%progbits
+ 1465              		.align	1
+ 1466              		.global	AsebaNative_vecdiv
+ 1467              		.syntax unified
+ 1468              		.thumb
+ 1469              		.thumb_func
+ 1470              		.fpu fpv4-sp-d16
+ 1471              		.type	AsebaNative_vecdiv, %function
+ 1472              	AsebaNative_vecdiv:
+ 1473              		@ args = 0, pretend = 0, frame = 32
+ 1474              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1475 0000 80B5     		push	{r7, lr}
+ 1476 0002 88B0     		sub	sp, sp, #32
+ 1477 0004 00AF     		add	r7, sp, #0
+ 1478 0006 7860     		str	r0, [r7, #4]
+ 1479 0008 7868     		ldr	r0, [r7, #4]
+ 1480 000a FFF7FEFF 		bl	AsebaNativePopArg
+ 1481 000e 0346     		mov	r3, r0
+ 1482 0010 FB83     		strh	r3, [r7, #30]	@ movhi
+ 1483 0012 7868     		ldr	r0, [r7, #4]
+ 1484 0014 FFF7FEFF 		bl	AsebaNativePopArg
+ 1485 0018 0346     		mov	r3, r0
+ 1486 001a BB83     		strh	r3, [r7, #28]	@ movhi
+ 1487 001c 7868     		ldr	r0, [r7, #4]
+ 1488 001e FFF7FEFF 		bl	AsebaNativePopArg
+ 1489 0022 0346     		mov	r3, r0
+ 1490 0024 7B83     		strh	r3, [r7, #26]	@ movhi
+ 1491 0026 7868     		ldr	r0, [r7, #4]
+ 1492 0028 FFF7FEFF 		bl	AsebaNativePopArg
+ 1493 002c 0346     		mov	r3, r0
+ 1494 002e FB82     		strh	r3, [r7, #22]	@ movhi
+ 1495 0030 0023     		movs	r3, #0
+ 1496 0032 3B83     		strh	r3, [r7, #24]	@ movhi
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 28
+
+
+ 1497 0034 34E0     		b	.L68
+ 1498              	.L72:
+ 1499 0036 7B68     		ldr	r3, [r7, #4]
+ 1500 0038 DA68     		ldr	r2, [r3, #12]
+ 1501 003a BB8B     		ldrh	r3, [r7, #28]
+ 1502 003c 591C     		adds	r1, r3, #1
+ 1503 003e B983     		strh	r1, [r7, #28]	@ movhi
+ 1504 0040 5B00     		lsls	r3, r3, #1
+ 1505 0042 1344     		add	r3, r3, r2
+ 1506 0044 B3F90030 		ldrsh	r3, [r3]
+ 1507 0048 3B61     		str	r3, [r7, #16]
+ 1508 004a 7B68     		ldr	r3, [r7, #4]
+ 1509 004c DA68     		ldr	r2, [r3, #12]
+ 1510 004e 7B8B     		ldrh	r3, [r7, #26]
+ 1511 0050 591C     		adds	r1, r3, #1
+ 1512 0052 7983     		strh	r1, [r7, #26]	@ movhi
+ 1513 0054 5B00     		lsls	r3, r3, #1
+ 1514 0056 1344     		add	r3, r3, r2
+ 1515 0058 B3F90030 		ldrsh	r3, [r3]
+ 1516 005c FB60     		str	r3, [r7, #12]
+ 1517 005e FB68     		ldr	r3, [r7, #12]
+ 1518 0060 002B     		cmp	r3, #0
+ 1519 0062 0DD0     		beq	.L69
+ 1520 0064 3A69     		ldr	r2, [r7, #16]
+ 1521 0066 FB68     		ldr	r3, [r7, #12]
+ 1522 0068 92FBF3F1 		sdiv	r1, r2, r3
+ 1523 006c 7B68     		ldr	r3, [r7, #4]
+ 1524 006e DA68     		ldr	r2, [r3, #12]
+ 1525 0070 FB8B     		ldrh	r3, [r7, #30]
+ 1526 0072 581C     		adds	r0, r3, #1
+ 1527 0074 F883     		strh	r0, [r7, #30]	@ movhi
+ 1528 0076 5B00     		lsls	r3, r3, #1
+ 1529 0078 1344     		add	r3, r3, r2
+ 1530 007a 0AB2     		sxth	r2, r1
+ 1531 007c 1A80     		strh	r2, [r3]	@ movhi
+ 1532 007e 0CE0     		b	.L73
+ 1533              	.L69:
+ 1534 0080 7B68     		ldr	r3, [r7, #4]
+ 1535 0082 0222     		movs	r2, #2
+ 1536 0084 1A83     		strh	r2, [r3, #24]	@ movhi
+ 1537 0086 7B68     		ldr	r3, [r7, #4]
+ 1538 0088 03F11A02 		add	r2, r3, #26
+ 1539 008c 0223     		movs	r3, #2
+ 1540 008e 49F20701 		movw	r1, #36871
+ 1541 0092 7868     		ldr	r0, [r7, #4]
+ 1542 0094 FFF7FEFF 		bl	AsebaSendMessage
+ 1543 0098 06E0     		b	.L67
+ 1544              	.L73:
+ 1545 009a 3B8B     		ldrh	r3, [r7, #24]
+ 1546 009c 0133     		adds	r3, r3, #1
+ 1547 009e 3B83     		strh	r3, [r7, #24]	@ movhi
+ 1548              	.L68:
+ 1549 00a0 3A8B     		ldrh	r2, [r7, #24]
+ 1550 00a2 FB8A     		ldrh	r3, [r7, #22]
+ 1551 00a4 9A42     		cmp	r2, r3
+ 1552 00a6 C6D3     		bcc	.L72
+ 1553              	.L67:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 29
+
+
+ 1554 00a8 2037     		adds	r7, r7, #32
+ 1555 00aa BD46     		mov	sp, r7
+ 1556              		@ sp needed
+ 1557 00ac 80BD     		pop	{r7, pc}
+ 1558              		.size	AsebaNative_vecdiv, .-AsebaNative_vecdiv
+ 1559              		.global	AsebaNativeDescription_vecdiv
+ 1560              		.section	.rodata
+ 1561 0199 000000   		.align	2
+ 1562              	.LC18:
+ 1563 019c 6D617468 		.ascii	"math.div\000"
+ 1563      2E646976 
+ 1563      00
+ 1564 01a5 000000   		.align	2
+ 1565              	.LC19:
+ 1566 01a8 64697669 		.ascii	"divides src1 by src2 to dest, element by element\000"
+ 1566      64657320 
+ 1566      73726331 
+ 1566      20627920 
+ 1566      73726332 
+ 1567              		.section	.rodata.AsebaNativeDescription_vecdiv,"a",%progbits
+ 1568              		.align	2
+ 1569              		.type	AsebaNativeDescription_vecdiv, %object
+ 1570              		.size	AsebaNativeDescription_vecdiv, 40
+ 1571              	AsebaNativeDescription_vecdiv:
+ 1572 0000 9C010000 		.word	.LC18
+ 1573 0004 A8010000 		.word	.LC19
+ 1574 0008 FFFF     		.short	-1
+ 1575 000a 0000     		.space	2
+ 1576 000c 34000000 		.word	.LC2
+ 1577 0010 FFFF     		.short	-1
+ 1578 0012 0000     		.space	2
+ 1579 0014 04010000 		.word	.LC12
+ 1580 0018 FFFF     		.short	-1
+ 1581 001a 0000     		.space	2
+ 1582 001c 0C010000 		.word	.LC13
+ 1583 0020 0000     		.short	0
+ 1584 0022 0000     		.space	2
+ 1585 0024 00000000 		.word	0
+ 1586              		.section	.text.AsebaNative_vecmin,"ax",%progbits
+ 1587              		.align	1
+ 1588              		.global	AsebaNative_vecmin
+ 1589              		.syntax unified
+ 1590              		.thumb
+ 1591              		.thumb_func
+ 1592              		.fpu fpv4-sp-d16
+ 1593              		.type	AsebaNative_vecmin, %function
+ 1594              	AsebaNative_vecmin:
+ 1595              		@ args = 0, pretend = 0, frame = 24
+ 1596              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1597 0000 80B5     		push	{r7, lr}
+ 1598 0002 86B0     		sub	sp, sp, #24
+ 1599 0004 00AF     		add	r7, sp, #0
+ 1600 0006 7860     		str	r0, [r7, #4]
+ 1601 0008 7868     		ldr	r0, [r7, #4]
+ 1602 000a FFF7FEFF 		bl	AsebaNativePopArg
+ 1603 000e 0346     		mov	r3, r0
+ 1604 0010 FB82     		strh	r3, [r7, #22]	@ movhi
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 30
+
+
+ 1605 0012 7868     		ldr	r0, [r7, #4]
+ 1606 0014 FFF7FEFF 		bl	AsebaNativePopArg
+ 1607 0018 0346     		mov	r3, r0
+ 1608 001a BB82     		strh	r3, [r7, #20]	@ movhi
+ 1609 001c 7868     		ldr	r0, [r7, #4]
+ 1610 001e FFF7FEFF 		bl	AsebaNativePopArg
+ 1611 0022 0346     		mov	r3, r0
+ 1612 0024 7B82     		strh	r3, [r7, #18]	@ movhi
+ 1613 0026 7868     		ldr	r0, [r7, #4]
+ 1614 0028 FFF7FEFF 		bl	AsebaNativePopArg
+ 1615 002c 0346     		mov	r3, r0
+ 1616 002e FB81     		strh	r3, [r7, #14]	@ movhi
+ 1617 0030 0023     		movs	r3, #0
+ 1618 0032 3B82     		strh	r3, [r7, #16]	@ movhi
+ 1619 0034 25E0     		b	.L75
+ 1620              	.L76:
+ 1621 0036 7B68     		ldr	r3, [r7, #4]
+ 1622 0038 DA68     		ldr	r2, [r3, #12]
+ 1623 003a BB8A     		ldrh	r3, [r7, #20]
+ 1624 003c 591C     		adds	r1, r3, #1
+ 1625 003e B982     		strh	r1, [r7, #20]	@ movhi
+ 1626 0040 5B00     		lsls	r3, r3, #1
+ 1627 0042 1344     		add	r3, r3, r2
+ 1628 0044 1B88     		ldrh	r3, [r3]	@ movhi
+ 1629 0046 BB81     		strh	r3, [r7, #12]	@ movhi
+ 1630 0048 7B68     		ldr	r3, [r7, #4]
+ 1631 004a DA68     		ldr	r2, [r3, #12]
+ 1632 004c 7B8A     		ldrh	r3, [r7, #18]
+ 1633 004e 591C     		adds	r1, r3, #1
+ 1634 0050 7982     		strh	r1, [r7, #18]	@ movhi
+ 1635 0052 5B00     		lsls	r3, r3, #1
+ 1636 0054 1344     		add	r3, r3, r2
+ 1637 0056 1B88     		ldrh	r3, [r3]	@ movhi
+ 1638 0058 7B81     		strh	r3, [r7, #10]	@ movhi
+ 1639 005a B7F90A20 		ldrsh	r2, [r7, #10]
+ 1640 005e B7F90C30 		ldrsh	r3, [r7, #12]
+ 1641 0062 9342     		cmp	r3, r2
+ 1642 0064 A8BF     		it	ge
+ 1643 0066 1346     		movge	r3, r2
+ 1644 0068 3B81     		strh	r3, [r7, #8]	@ movhi
+ 1645 006a 7B68     		ldr	r3, [r7, #4]
+ 1646 006c DA68     		ldr	r2, [r3, #12]
+ 1647 006e FB8A     		ldrh	r3, [r7, #22]
+ 1648 0070 591C     		adds	r1, r3, #1
+ 1649 0072 F982     		strh	r1, [r7, #22]	@ movhi
+ 1650 0074 5B00     		lsls	r3, r3, #1
+ 1651 0076 1344     		add	r3, r3, r2
+ 1652 0078 3A89     		ldrh	r2, [r7, #8]	@ movhi
+ 1653 007a 1A80     		strh	r2, [r3]	@ movhi
+ 1654 007c 3B8A     		ldrh	r3, [r7, #16]
+ 1655 007e 0133     		adds	r3, r3, #1
+ 1656 0080 3B82     		strh	r3, [r7, #16]	@ movhi
+ 1657              	.L75:
+ 1658 0082 3A8A     		ldrh	r2, [r7, #16]
+ 1659 0084 FB89     		ldrh	r3, [r7, #14]
+ 1660 0086 9A42     		cmp	r2, r3
+ 1661 0088 D5D3     		bcc	.L76
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 31
+
+
+ 1662 008a 00BF     		nop
+ 1663 008c 1837     		adds	r7, r7, #24
+ 1664 008e BD46     		mov	sp, r7
+ 1665              		@ sp needed
+ 1666 0090 80BD     		pop	{r7, pc}
+ 1667              		.size	AsebaNative_vecmin, .-AsebaNative_vecmin
+ 1668              		.global	AsebaNativeDescription_vecmin
+ 1669              		.section	.rodata
+ 1670 01d9 000000   		.align	2
+ 1671              	.LC20:
+ 1672 01dc 6D617468 		.ascii	"math.min\000"
+ 1672      2E6D696E 
+ 1672      00
+ 1673 01e5 000000   		.align	2
+ 1674              	.LC21:
+ 1675 01e8 77726974 		.ascii	"writes the minimum of src1 and src2 to dest, elemen"
+ 1675      65732074 
+ 1675      6865206D 
+ 1675      696E696D 
+ 1675      756D206F 
+ 1676 021b 74206279 		.ascii	"t by element\000"
+ 1676      20656C65 
+ 1676      6D656E74 
+ 1676      00
+ 1677              		.section	.rodata.AsebaNativeDescription_vecmin,"a",%progbits
+ 1678              		.align	2
+ 1679              		.type	AsebaNativeDescription_vecmin, %object
+ 1680              		.size	AsebaNativeDescription_vecmin, 40
+ 1681              	AsebaNativeDescription_vecmin:
+ 1682 0000 DC010000 		.word	.LC20
+ 1683 0004 E8010000 		.word	.LC21
+ 1684 0008 FFFF     		.short	-1
+ 1685 000a 0000     		.space	2
+ 1686 000c 34000000 		.word	.LC2
+ 1687 0010 FFFF     		.short	-1
+ 1688 0012 0000     		.space	2
+ 1689 0014 04010000 		.word	.LC12
+ 1690 0018 FFFF     		.short	-1
+ 1691 001a 0000     		.space	2
+ 1692 001c 0C010000 		.word	.LC13
+ 1693 0020 0000     		.short	0
+ 1694 0022 0000     		.space	2
+ 1695 0024 00000000 		.word	0
+ 1696              		.section	.text.AsebaNative_vecmax,"ax",%progbits
+ 1697              		.align	1
+ 1698              		.global	AsebaNative_vecmax
+ 1699              		.syntax unified
+ 1700              		.thumb
+ 1701              		.thumb_func
+ 1702              		.fpu fpv4-sp-d16
+ 1703              		.type	AsebaNative_vecmax, %function
+ 1704              	AsebaNative_vecmax:
+ 1705              		@ args = 0, pretend = 0, frame = 24
+ 1706              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1707 0000 80B5     		push	{r7, lr}
+ 1708 0002 86B0     		sub	sp, sp, #24
+ 1709 0004 00AF     		add	r7, sp, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 32
+
+
+ 1710 0006 7860     		str	r0, [r7, #4]
+ 1711 0008 7868     		ldr	r0, [r7, #4]
+ 1712 000a FFF7FEFF 		bl	AsebaNativePopArg
+ 1713 000e 0346     		mov	r3, r0
+ 1714 0010 FB82     		strh	r3, [r7, #22]	@ movhi
+ 1715 0012 7868     		ldr	r0, [r7, #4]
+ 1716 0014 FFF7FEFF 		bl	AsebaNativePopArg
+ 1717 0018 0346     		mov	r3, r0
+ 1718 001a BB82     		strh	r3, [r7, #20]	@ movhi
+ 1719 001c 7868     		ldr	r0, [r7, #4]
+ 1720 001e FFF7FEFF 		bl	AsebaNativePopArg
+ 1721 0022 0346     		mov	r3, r0
+ 1722 0024 7B82     		strh	r3, [r7, #18]	@ movhi
+ 1723 0026 7868     		ldr	r0, [r7, #4]
+ 1724 0028 FFF7FEFF 		bl	AsebaNativePopArg
+ 1725 002c 0346     		mov	r3, r0
+ 1726 002e FB81     		strh	r3, [r7, #14]	@ movhi
+ 1727 0030 0023     		movs	r3, #0
+ 1728 0032 3B82     		strh	r3, [r7, #16]	@ movhi
+ 1729 0034 25E0     		b	.L78
+ 1730              	.L79:
+ 1731 0036 7B68     		ldr	r3, [r7, #4]
+ 1732 0038 DA68     		ldr	r2, [r3, #12]
+ 1733 003a BB8A     		ldrh	r3, [r7, #20]
+ 1734 003c 591C     		adds	r1, r3, #1
+ 1735 003e B982     		strh	r1, [r7, #20]	@ movhi
+ 1736 0040 5B00     		lsls	r3, r3, #1
+ 1737 0042 1344     		add	r3, r3, r2
+ 1738 0044 1B88     		ldrh	r3, [r3]	@ movhi
+ 1739 0046 BB81     		strh	r3, [r7, #12]	@ movhi
+ 1740 0048 7B68     		ldr	r3, [r7, #4]
+ 1741 004a DA68     		ldr	r2, [r3, #12]
+ 1742 004c 7B8A     		ldrh	r3, [r7, #18]
+ 1743 004e 591C     		adds	r1, r3, #1
+ 1744 0050 7982     		strh	r1, [r7, #18]	@ movhi
+ 1745 0052 5B00     		lsls	r3, r3, #1
+ 1746 0054 1344     		add	r3, r3, r2
+ 1747 0056 1B88     		ldrh	r3, [r3]	@ movhi
+ 1748 0058 7B81     		strh	r3, [r7, #10]	@ movhi
+ 1749 005a B7F90A20 		ldrsh	r2, [r7, #10]
+ 1750 005e B7F90C30 		ldrsh	r3, [r7, #12]
+ 1751 0062 9342     		cmp	r3, r2
+ 1752 0064 B8BF     		it	lt
+ 1753 0066 1346     		movlt	r3, r2
+ 1754 0068 3B81     		strh	r3, [r7, #8]	@ movhi
+ 1755 006a 7B68     		ldr	r3, [r7, #4]
+ 1756 006c DA68     		ldr	r2, [r3, #12]
+ 1757 006e FB8A     		ldrh	r3, [r7, #22]
+ 1758 0070 591C     		adds	r1, r3, #1
+ 1759 0072 F982     		strh	r1, [r7, #22]	@ movhi
+ 1760 0074 5B00     		lsls	r3, r3, #1
+ 1761 0076 1344     		add	r3, r3, r2
+ 1762 0078 3A89     		ldrh	r2, [r7, #8]	@ movhi
+ 1763 007a 1A80     		strh	r2, [r3]	@ movhi
+ 1764 007c 3B8A     		ldrh	r3, [r7, #16]
+ 1765 007e 0133     		adds	r3, r3, #1
+ 1766 0080 3B82     		strh	r3, [r7, #16]	@ movhi
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 33
+
+
+ 1767              	.L78:
+ 1768 0082 3A8A     		ldrh	r2, [r7, #16]
+ 1769 0084 FB89     		ldrh	r3, [r7, #14]
+ 1770 0086 9A42     		cmp	r2, r3
+ 1771 0088 D5D3     		bcc	.L79
+ 1772 008a 00BF     		nop
+ 1773 008c 1837     		adds	r7, r7, #24
+ 1774 008e BD46     		mov	sp, r7
+ 1775              		@ sp needed
+ 1776 0090 80BD     		pop	{r7, pc}
+ 1777              		.size	AsebaNative_vecmax, .-AsebaNative_vecmax
+ 1778              		.global	AsebaNativeDescription_vecmax
+ 1779              		.section	.rodata
+ 1780              		.align	2
+ 1781              	.LC22:
+ 1782 0228 6D617468 		.ascii	"math.max\000"
+ 1782      2E6D6178 
+ 1782      00
+ 1783 0231 000000   		.align	2
+ 1784              	.LC23:
+ 1785 0234 77726974 		.ascii	"writes the maximum of src1 and src2 to dest, elemen"
+ 1785      65732074 
+ 1785      6865206D 
+ 1785      6178696D 
+ 1785      756D206F 
+ 1786 0267 74206279 		.ascii	"t by element\000"
+ 1786      20656C65 
+ 1786      6D656E74 
+ 1786      00
+ 1787              		.section	.rodata.AsebaNativeDescription_vecmax,"a",%progbits
+ 1788              		.align	2
+ 1789              		.type	AsebaNativeDescription_vecmax, %object
+ 1790              		.size	AsebaNativeDescription_vecmax, 40
+ 1791              	AsebaNativeDescription_vecmax:
+ 1792 0000 28020000 		.word	.LC22
+ 1793 0004 34020000 		.word	.LC23
+ 1794 0008 FFFF     		.short	-1
+ 1795 000a 0000     		.space	2
+ 1796 000c 34000000 		.word	.LC2
+ 1797 0010 FFFF     		.short	-1
+ 1798 0012 0000     		.space	2
+ 1799 0014 04010000 		.word	.LC12
+ 1800 0018 FFFF     		.short	-1
+ 1801 001a 0000     		.space	2
+ 1802 001c 0C010000 		.word	.LC13
+ 1803 0020 0000     		.short	0
+ 1804 0022 0000     		.space	2
+ 1805 0024 00000000 		.word	0
+ 1806              		.section	.text.AsebaNative_vecclamp,"ax",%progbits
+ 1807              		.align	1
+ 1808              		.global	AsebaNative_vecclamp
+ 1809              		.syntax unified
+ 1810              		.thumb
+ 1811              		.thumb_func
+ 1812              		.fpu fpv4-sp-d16
+ 1813              		.type	AsebaNative_vecclamp, %function
+ 1814              	AsebaNative_vecclamp:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 34
+
+
+ 1815              		@ args = 0, pretend = 0, frame = 32
+ 1816              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1817 0000 80B5     		push	{r7, lr}
+ 1818 0002 88B0     		sub	sp, sp, #32
+ 1819 0004 00AF     		add	r7, sp, #0
+ 1820 0006 7860     		str	r0, [r7, #4]
+ 1821 0008 7868     		ldr	r0, [r7, #4]
+ 1822 000a FFF7FEFF 		bl	AsebaNativePopArg
+ 1823 000e 0346     		mov	r3, r0
+ 1824 0010 FB83     		strh	r3, [r7, #30]	@ movhi
+ 1825 0012 7868     		ldr	r0, [r7, #4]
+ 1826 0014 FFF7FEFF 		bl	AsebaNativePopArg
+ 1827 0018 0346     		mov	r3, r0
+ 1828 001a BB83     		strh	r3, [r7, #28]	@ movhi
+ 1829 001c 7868     		ldr	r0, [r7, #4]
+ 1830 001e FFF7FEFF 		bl	AsebaNativePopArg
+ 1831 0022 0346     		mov	r3, r0
+ 1832 0024 7B83     		strh	r3, [r7, #26]	@ movhi
+ 1833 0026 7868     		ldr	r0, [r7, #4]
+ 1834 0028 FFF7FEFF 		bl	AsebaNativePopArg
+ 1835 002c 0346     		mov	r3, r0
+ 1836 002e 3B83     		strh	r3, [r7, #24]	@ movhi
+ 1837 0030 7868     		ldr	r0, [r7, #4]
+ 1838 0032 FFF7FEFF 		bl	AsebaNativePopArg
+ 1839 0036 0346     		mov	r3, r0
+ 1840 0038 BB82     		strh	r3, [r7, #20]	@ movhi
+ 1841 003a 0023     		movs	r3, #0
+ 1842 003c FB82     		strh	r3, [r7, #22]	@ movhi
+ 1843 003e 38E0     		b	.L81
+ 1844              	.L84:
+ 1845 0040 7B68     		ldr	r3, [r7, #4]
+ 1846 0042 DA68     		ldr	r2, [r3, #12]
+ 1847 0044 BB8B     		ldrh	r3, [r7, #28]
+ 1848 0046 591C     		adds	r1, r3, #1
+ 1849 0048 B983     		strh	r1, [r7, #28]	@ movhi
+ 1850 004a 5B00     		lsls	r3, r3, #1
+ 1851 004c 1344     		add	r3, r3, r2
+ 1852 004e 1B88     		ldrh	r3, [r3]	@ movhi
+ 1853 0050 7B82     		strh	r3, [r7, #18]	@ movhi
+ 1854 0052 7B68     		ldr	r3, [r7, #4]
+ 1855 0054 DA68     		ldr	r2, [r3, #12]
+ 1856 0056 7B8B     		ldrh	r3, [r7, #26]
+ 1857 0058 591C     		adds	r1, r3, #1
+ 1858 005a 7983     		strh	r1, [r7, #26]	@ movhi
+ 1859 005c 5B00     		lsls	r3, r3, #1
+ 1860 005e 1344     		add	r3, r3, r2
+ 1861 0060 1B88     		ldrh	r3, [r3]	@ movhi
+ 1862 0062 3B82     		strh	r3, [r7, #16]	@ movhi
+ 1863 0064 7B68     		ldr	r3, [r7, #4]
+ 1864 0066 DA68     		ldr	r2, [r3, #12]
+ 1865 0068 3B8B     		ldrh	r3, [r7, #24]
+ 1866 006a 591C     		adds	r1, r3, #1
+ 1867 006c 3983     		strh	r1, [r7, #24]	@ movhi
+ 1868 006e 5B00     		lsls	r3, r3, #1
+ 1869 0070 1344     		add	r3, r3, r2
+ 1870 0072 1B88     		ldrh	r3, [r3]	@ movhi
+ 1871 0074 FB81     		strh	r3, [r7, #14]	@ movhi
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 35
+
+
+ 1872 0076 B7F91220 		ldrsh	r2, [r7, #18]
+ 1873 007a B7F90E30 		ldrsh	r3, [r7, #14]
+ 1874 007e 9A42     		cmp	r2, r3
+ 1875 0080 08DC     		bgt	.L82
+ 1876 0082 B7F91220 		ldrsh	r2, [r7, #18]
+ 1877 0086 B7F91030 		ldrsh	r3, [r7, #16]
+ 1878 008a 9342     		cmp	r3, r2
+ 1879 008c B8BF     		it	lt
+ 1880 008e 1346     		movlt	r3, r2
+ 1881 0090 1BB2     		sxth	r3, r3
+ 1882 0092 01E0     		b	.L83
+ 1883              	.L82:
+ 1884 0094 B7F90E30 		ldrsh	r3, [r7, #14]
+ 1885              	.L83:
+ 1886 0098 BB81     		strh	r3, [r7, #12]	@ movhi
+ 1887 009a 7B68     		ldr	r3, [r7, #4]
+ 1888 009c DA68     		ldr	r2, [r3, #12]
+ 1889 009e FB8B     		ldrh	r3, [r7, #30]
+ 1890 00a0 591C     		adds	r1, r3, #1
+ 1891 00a2 F983     		strh	r1, [r7, #30]	@ movhi
+ 1892 00a4 5B00     		lsls	r3, r3, #1
+ 1893 00a6 1344     		add	r3, r3, r2
+ 1894 00a8 BA89     		ldrh	r2, [r7, #12]	@ movhi
+ 1895 00aa 1A80     		strh	r2, [r3]	@ movhi
+ 1896 00ac FB8A     		ldrh	r3, [r7, #22]
+ 1897 00ae 0133     		adds	r3, r3, #1
+ 1898 00b0 FB82     		strh	r3, [r7, #22]	@ movhi
+ 1899              	.L81:
+ 1900 00b2 FA8A     		ldrh	r2, [r7, #22]
+ 1901 00b4 BB8A     		ldrh	r3, [r7, #20]
+ 1902 00b6 9A42     		cmp	r2, r3
+ 1903 00b8 C2D3     		bcc	.L84
+ 1904 00ba 00BF     		nop
+ 1905 00bc 2037     		adds	r7, r7, #32
+ 1906 00be BD46     		mov	sp, r7
+ 1907              		@ sp needed
+ 1908 00c0 80BD     		pop	{r7, pc}
+ 1909              		.size	AsebaNative_vecclamp, .-AsebaNative_vecclamp
+ 1910              		.global	AsebaNativeDescription_vecclamp
+ 1911              		.section	.rodata
+ 1912              		.align	2
+ 1913              	.LC24:
+ 1914 0274 6D617468 		.ascii	"math.clamp\000"
+ 1914      2E636C61 
+ 1914      6D7000
+ 1915 027f 00       		.align	2
+ 1916              	.LC25:
+ 1917 0280 636C616D 		.ascii	"clamp src to low/high bounds into dest, element by "
+ 1917      70207372 
+ 1917      6320746F 
+ 1917      206C6F77 
+ 1917      2F686967 
+ 1918 02b3 656C656D 		.ascii	"element\000"
+ 1918      656E7400 
+ 1919 02bb 00       		.align	2
+ 1920              	.LC26:
+ 1921 02bc 6C6F7700 		.ascii	"low\000"
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 36
+
+
+ 1922              		.align	2
+ 1923              	.LC27:
+ 1924 02c0 68696768 		.ascii	"high\000"
+ 1924      00
+ 1925              		.section	.rodata.AsebaNativeDescription_vecclamp,"a",%progbits
+ 1926              		.align	2
+ 1927              		.type	AsebaNativeDescription_vecclamp, %object
+ 1928              		.size	AsebaNativeDescription_vecclamp, 48
+ 1929              	AsebaNativeDescription_vecclamp:
+ 1930 0000 74020000 		.word	.LC24
+ 1931 0004 80020000 		.word	.LC25
+ 1932 0008 FFFF     		.short	-1
+ 1933 000a 0000     		.space	2
+ 1934 000c 34000000 		.word	.LC2
+ 1935 0010 FFFF     		.short	-1
+ 1936 0012 0000     		.space	2
+ 1937 0014 3C000000 		.word	.LC3
+ 1938 0018 FFFF     		.short	-1
+ 1939 001a 0000     		.space	2
+ 1940 001c BC020000 		.word	.LC26
+ 1941 0020 FFFF     		.short	-1
+ 1942 0022 0000     		.space	2
+ 1943 0024 C0020000 		.word	.LC27
+ 1944 0028 0000     		.short	0
+ 1945 002a 0000     		.space	2
+ 1946 002c 00000000 		.word	0
+ 1947              		.section	.text.AsebaNative_vecdot,"ax",%progbits
+ 1948              		.align	1
+ 1949              		.global	AsebaNative_vecdot
+ 1950              		.syntax unified
+ 1951              		.thumb
+ 1952              		.thumb_func
+ 1953              		.fpu fpv4-sp-d16
+ 1954              		.type	AsebaNative_vecdot, %function
+ 1955              	AsebaNative_vecdot:
+ 1956              		@ args = 0, pretend = 0, frame = 24
+ 1957              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1958 0000 90B5     		push	{r4, r7, lr}
+ 1959 0002 87B0     		sub	sp, sp, #28
+ 1960 0004 00AF     		add	r7, sp, #0
+ 1961 0006 7860     		str	r0, [r7, #4]
+ 1962 0008 7868     		ldr	r0, [r7, #4]
+ 1963 000a FFF7FEFF 		bl	AsebaNativePopArg
+ 1964 000e 0346     		mov	r3, r0
+ 1965 0010 BB81     		strh	r3, [r7, #12]	@ movhi
+ 1966 0012 7868     		ldr	r0, [r7, #4]
+ 1967 0014 FFF7FEFF 		bl	AsebaNativePopArg
+ 1968 0018 0346     		mov	r3, r0
+ 1969 001a FB82     		strh	r3, [r7, #22]	@ movhi
+ 1970 001c 7868     		ldr	r0, [r7, #4]
+ 1971 001e FFF7FEFF 		bl	AsebaNativePopArg
+ 1972 0022 0346     		mov	r3, r0
+ 1973 0024 BB82     		strh	r3, [r7, #20]	@ movhi
+ 1974 0026 7B68     		ldr	r3, [r7, #4]
+ 1975 0028 DC68     		ldr	r4, [r3, #12]
+ 1976 002a 7868     		ldr	r0, [r7, #4]
+ 1977 002c FFF7FEFF 		bl	AsebaNativePopArg
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 37
+
+
+ 1978 0030 0346     		mov	r3, r0
+ 1979 0032 5B00     		lsls	r3, r3, #1
+ 1980 0034 2344     		add	r3, r3, r4
+ 1981 0036 1B88     		ldrh	r3, [r3]	@ movhi
+ 1982 0038 7B81     		strh	r3, [r7, #10]	@ movhi
+ 1983 003a 7868     		ldr	r0, [r7, #4]
+ 1984 003c FFF7FEFF 		bl	AsebaNativePopArg
+ 1985 0040 0346     		mov	r3, r0
+ 1986 0042 3B81     		strh	r3, [r7, #8]	@ movhi
+ 1987 0044 0023     		movs	r3, #0
+ 1988 0046 3B61     		str	r3, [r7, #16]
+ 1989 0048 B7F90A30 		ldrsh	r3, [r7, #10]
+ 1990 004c 202B     		cmp	r3, #32
+ 1991 004e 07DD     		ble	.L86
+ 1992 0050 7B68     		ldr	r3, [r7, #4]
+ 1993 0052 DA68     		ldr	r2, [r3, #12]
+ 1994 0054 BB89     		ldrh	r3, [r7, #12]
+ 1995 0056 5B00     		lsls	r3, r3, #1
+ 1996 0058 1344     		add	r3, r3, r2
+ 1997 005a 0022     		movs	r2, #0
+ 1998 005c 1A80     		strh	r2, [r3]	@ movhi
+ 1999 005e 2FE0     		b	.L85
+ 2000              	.L86:
+ 2001 0060 0023     		movs	r3, #0
+ 2002 0062 FB81     		strh	r3, [r7, #14]	@ movhi
+ 2003 0064 1AE0     		b	.L88
+ 2004              	.L89:
+ 2005 0066 7B68     		ldr	r3, [r7, #4]
+ 2006 0068 DA68     		ldr	r2, [r3, #12]
+ 2007 006a FB8A     		ldrh	r3, [r7, #22]
+ 2008 006c 591C     		adds	r1, r3, #1
+ 2009 006e F982     		strh	r1, [r7, #22]	@ movhi
+ 2010 0070 5B00     		lsls	r3, r3, #1
+ 2011 0072 1344     		add	r3, r3, r2
+ 2012 0074 B3F90030 		ldrsh	r3, [r3]
+ 2013 0078 1946     		mov	r1, r3
+ 2014 007a 7B68     		ldr	r3, [r7, #4]
+ 2015 007c DA68     		ldr	r2, [r3, #12]
+ 2016 007e BB8A     		ldrh	r3, [r7, #20]
+ 2017 0080 581C     		adds	r0, r3, #1
+ 2018 0082 B882     		strh	r0, [r7, #20]	@ movhi
+ 2019 0084 5B00     		lsls	r3, r3, #1
+ 2020 0086 1344     		add	r3, r3, r2
+ 2021 0088 B3F90030 		ldrsh	r3, [r3]
+ 2022 008c 03FB01F3 		mul	r3, r3, r1
+ 2023 0090 3A69     		ldr	r2, [r7, #16]
+ 2024 0092 1344     		add	r3, r3, r2
+ 2025 0094 3B61     		str	r3, [r7, #16]
+ 2026 0096 FB89     		ldrh	r3, [r7, #14]
+ 2027 0098 0133     		adds	r3, r3, #1
+ 2028 009a FB81     		strh	r3, [r7, #14]	@ movhi
+ 2029              	.L88:
+ 2030 009c FA89     		ldrh	r2, [r7, #14]
+ 2031 009e 3B89     		ldrh	r3, [r7, #8]
+ 2032 00a0 9A42     		cmp	r2, r3
+ 2033 00a2 E0D3     		bcc	.L89
+ 2034 00a4 B7F90A30 		ldrsh	r3, [r7, #10]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 38
+
+
+ 2035 00a8 3A69     		ldr	r2, [r7, #16]
+ 2036 00aa 42FA03F3 		asr	r3, r2, r3
+ 2037 00ae 3B61     		str	r3, [r7, #16]
+ 2038 00b0 7B68     		ldr	r3, [r7, #4]
+ 2039 00b2 DA68     		ldr	r2, [r3, #12]
+ 2040 00b4 BB89     		ldrh	r3, [r7, #12]
+ 2041 00b6 5B00     		lsls	r3, r3, #1
+ 2042 00b8 1344     		add	r3, r3, r2
+ 2043 00ba 3A69     		ldr	r2, [r7, #16]
+ 2044 00bc 12B2     		sxth	r2, r2
+ 2045 00be 1A80     		strh	r2, [r3]	@ movhi
+ 2046              	.L85:
+ 2047 00c0 1C37     		adds	r7, r7, #28
+ 2048 00c2 BD46     		mov	sp, r7
+ 2049              		@ sp needed
+ 2050 00c4 90BD     		pop	{r4, r7, pc}
+ 2051              		.size	AsebaNative_vecdot, .-AsebaNative_vecdot
+ 2052              		.global	AsebaNativeDescription_vecdot
+ 2053              		.section	.rodata
+ 2054 02c5 000000   		.align	2
+ 2055              	.LC28:
+ 2056 02c8 6D617468 		.ascii	"math.dot\000"
+ 2056      2E646F74 
+ 2056      00
+ 2057 02d1 000000   		.align	2
+ 2058              	.LC29:
+ 2059 02d4 77726974 		.ascii	"writes the dot product of src1 and src2 to dest, af"
+ 2059      65732074 
+ 2059      68652064 
+ 2059      6F742070 
+ 2059      726F6475 
+ 2060 0307 74657220 		.ascii	"ter a shift\000"
+ 2060      61207368 
+ 2060      69667400 
+ 2061 0313 00       		.align	2
+ 2062              	.LC30:
+ 2063 0314 73686966 		.ascii	"shift\000"
+ 2063      7400
+ 2064              		.section	.rodata.AsebaNativeDescription_vecdot,"a",%progbits
+ 2065              		.align	2
+ 2066              		.type	AsebaNativeDescription_vecdot, %object
+ 2067              		.size	AsebaNativeDescription_vecdot, 48
+ 2068              	AsebaNativeDescription_vecdot:
+ 2069 0000 C8020000 		.word	.LC28
+ 2070 0004 D4020000 		.word	.LC29
+ 2071 0008 0100     		.short	1
+ 2072 000a 0000     		.space	2
+ 2073 000c 34000000 		.word	.LC2
+ 2074 0010 FFFF     		.short	-1
+ 2075 0012 0000     		.space	2
+ 2076 0014 04010000 		.word	.LC12
+ 2077 0018 FFFF     		.short	-1
+ 2078 001a 0000     		.space	2
+ 2079 001c 0C010000 		.word	.LC13
+ 2080 0020 0100     		.short	1
+ 2081 0022 0000     		.space	2
+ 2082 0024 14030000 		.word	.LC30
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 39
+
+
+ 2083 0028 0000     		.short	0
+ 2084 002a 0000     		.space	2
+ 2085 002c 00000000 		.word	0
+ 2086              		.section	.text.AsebaNative_vecstat,"ax",%progbits
+ 2087              		.align	1
+ 2088              		.global	AsebaNative_vecstat
+ 2089              		.syntax unified
+ 2090              		.thumb
+ 2091              		.thumb_func
+ 2092              		.fpu fpv4-sp-d16
+ 2093              		.type	AsebaNative_vecstat, %function
+ 2094              	AsebaNative_vecstat:
+ 2095              		@ args = 0, pretend = 0, frame = 32
+ 2096              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2097 0000 80B5     		push	{r7, lr}
+ 2098 0002 88B0     		sub	sp, sp, #32
+ 2099 0004 00AF     		add	r7, sp, #0
+ 2100 0006 7860     		str	r0, [r7, #4]
+ 2101 0008 7868     		ldr	r0, [r7, #4]
+ 2102 000a FFF7FEFF 		bl	AsebaNativePopArg
+ 2103 000e 0346     		mov	r3, r0
+ 2104 0010 FB83     		strh	r3, [r7, #30]	@ movhi
+ 2105 0012 7868     		ldr	r0, [r7, #4]
+ 2106 0014 FFF7FEFF 		bl	AsebaNativePopArg
+ 2107 0018 0346     		mov	r3, r0
+ 2108 001a BB82     		strh	r3, [r7, #20]	@ movhi
+ 2109 001c 7868     		ldr	r0, [r7, #4]
+ 2110 001e FFF7FEFF 		bl	AsebaNativePopArg
+ 2111 0022 0346     		mov	r3, r0
+ 2112 0024 7B82     		strh	r3, [r7, #18]	@ movhi
+ 2113 0026 7868     		ldr	r0, [r7, #4]
+ 2114 0028 FFF7FEFF 		bl	AsebaNativePopArg
+ 2115 002c 0346     		mov	r3, r0
+ 2116 002e 3B82     		strh	r3, [r7, #16]	@ movhi
+ 2117 0030 7868     		ldr	r0, [r7, #4]
+ 2118 0032 FFF7FEFF 		bl	AsebaNativePopArg
+ 2119 0036 0346     		mov	r3, r0
+ 2120 0038 FB81     		strh	r3, [r7, #14]	@ movhi
+ 2121 003a FB89     		ldrh	r3, [r7, #14]
+ 2122 003c 002B     		cmp	r3, #0
+ 2123 003e 60D0     		beq	.L96
+ 2124 0040 7B68     		ldr	r3, [r7, #4]
+ 2125 0042 DA68     		ldr	r2, [r3, #12]
+ 2126 0044 FB8B     		ldrh	r3, [r7, #30]
+ 2127 0046 591C     		adds	r1, r3, #1
+ 2128 0048 F983     		strh	r1, [r7, #30]	@ movhi
+ 2129 004a 5B00     		lsls	r3, r3, #1
+ 2130 004c 1344     		add	r3, r3, r2
+ 2131 004e 1B88     		ldrh	r3, [r3]	@ movhi
+ 2132 0050 BB81     		strh	r3, [r7, #12]	@ movhi
+ 2133 0052 B7F90C30 		ldrsh	r3, [r7, #12]
+ 2134 0056 BB61     		str	r3, [r7, #24]
+ 2135 0058 7B68     		ldr	r3, [r7, #4]
+ 2136 005a DA68     		ldr	r2, [r3, #12]
+ 2137 005c BB8A     		ldrh	r3, [r7, #20]
+ 2138 005e 5B00     		lsls	r3, r3, #1
+ 2139 0060 1344     		add	r3, r3, r2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 40
+
+
+ 2140 0062 BA89     		ldrh	r2, [r7, #12]	@ movhi
+ 2141 0064 1A80     		strh	r2, [r3]	@ movhi
+ 2142 0066 7B68     		ldr	r3, [r7, #4]
+ 2143 0068 DA68     		ldr	r2, [r3, #12]
+ 2144 006a 7B8A     		ldrh	r3, [r7, #18]
+ 2145 006c 5B00     		lsls	r3, r3, #1
+ 2146 006e 1344     		add	r3, r3, r2
+ 2147 0070 BA89     		ldrh	r2, [r7, #12]	@ movhi
+ 2148 0072 1A80     		strh	r2, [r3]	@ movhi
+ 2149 0074 0123     		movs	r3, #1
+ 2150 0076 FB82     		strh	r3, [r7, #22]	@ movhi
+ 2151 0078 34E0     		b	.L92
+ 2152              	.L95:
+ 2153 007a 7B68     		ldr	r3, [r7, #4]
+ 2154 007c DA68     		ldr	r2, [r3, #12]
+ 2155 007e FB8B     		ldrh	r3, [r7, #30]
+ 2156 0080 591C     		adds	r1, r3, #1
+ 2157 0082 F983     		strh	r1, [r7, #30]	@ movhi
+ 2158 0084 5B00     		lsls	r3, r3, #1
+ 2159 0086 1344     		add	r3, r3, r2
+ 2160 0088 1B88     		ldrh	r3, [r3]	@ movhi
+ 2161 008a BB81     		strh	r3, [r7, #12]	@ movhi
+ 2162 008c 7B68     		ldr	r3, [r7, #4]
+ 2163 008e DA68     		ldr	r2, [r3, #12]
+ 2164 0090 BB8A     		ldrh	r3, [r7, #20]
+ 2165 0092 5B00     		lsls	r3, r3, #1
+ 2166 0094 1344     		add	r3, r3, r2
+ 2167 0096 B3F90030 		ldrsh	r3, [r3]
+ 2168 009a B7F90C20 		ldrsh	r2, [r7, #12]
+ 2169 009e 9A42     		cmp	r2, r3
+ 2170 00a0 06DA     		bge	.L93
+ 2171 00a2 7B68     		ldr	r3, [r7, #4]
+ 2172 00a4 DA68     		ldr	r2, [r3, #12]
+ 2173 00a6 BB8A     		ldrh	r3, [r7, #20]
+ 2174 00a8 5B00     		lsls	r3, r3, #1
+ 2175 00aa 1344     		add	r3, r3, r2
+ 2176 00ac BA89     		ldrh	r2, [r7, #12]	@ movhi
+ 2177 00ae 1A80     		strh	r2, [r3]	@ movhi
+ 2178              	.L93:
+ 2179 00b0 7B68     		ldr	r3, [r7, #4]
+ 2180 00b2 DA68     		ldr	r2, [r3, #12]
+ 2181 00b4 7B8A     		ldrh	r3, [r7, #18]
+ 2182 00b6 5B00     		lsls	r3, r3, #1
+ 2183 00b8 1344     		add	r3, r3, r2
+ 2184 00ba B3F90030 		ldrsh	r3, [r3]
+ 2185 00be B7F90C20 		ldrsh	r2, [r7, #12]
+ 2186 00c2 9A42     		cmp	r2, r3
+ 2187 00c4 06DD     		ble	.L94
+ 2188 00c6 7B68     		ldr	r3, [r7, #4]
+ 2189 00c8 DA68     		ldr	r2, [r3, #12]
+ 2190 00ca 7B8A     		ldrh	r3, [r7, #18]
+ 2191 00cc 5B00     		lsls	r3, r3, #1
+ 2192 00ce 1344     		add	r3, r3, r2
+ 2193 00d0 BA89     		ldrh	r2, [r7, #12]	@ movhi
+ 2194 00d2 1A80     		strh	r2, [r3]	@ movhi
+ 2195              	.L94:
+ 2196 00d4 B7F90C30 		ldrsh	r3, [r7, #12]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 41
+
+
+ 2197 00d8 BA69     		ldr	r2, [r7, #24]
+ 2198 00da 1344     		add	r3, r3, r2
+ 2199 00dc BB61     		str	r3, [r7, #24]
+ 2200 00de FB8A     		ldrh	r3, [r7, #22]
+ 2201 00e0 0133     		adds	r3, r3, #1
+ 2202 00e2 FB82     		strh	r3, [r7, #22]	@ movhi
+ 2203              	.L92:
+ 2204 00e4 FA8A     		ldrh	r2, [r7, #22]
+ 2205 00e6 FB89     		ldrh	r3, [r7, #14]
+ 2206 00e8 9A42     		cmp	r2, r3
+ 2207 00ea C6D3     		bcc	.L95
+ 2208 00ec FB89     		ldrh	r3, [r7, #14]
+ 2209 00ee BA69     		ldr	r2, [r7, #24]
+ 2210 00f0 92FBF3F1 		sdiv	r1, r2, r3
+ 2211 00f4 7B68     		ldr	r3, [r7, #4]
+ 2212 00f6 DA68     		ldr	r2, [r3, #12]
+ 2213 00f8 3B8A     		ldrh	r3, [r7, #16]
+ 2214 00fa 5B00     		lsls	r3, r3, #1
+ 2215 00fc 1344     		add	r3, r3, r2
+ 2216 00fe 0AB2     		sxth	r2, r1
+ 2217 0100 1A80     		strh	r2, [r3]	@ movhi
+ 2218              	.L96:
+ 2219 0102 00BF     		nop
+ 2220 0104 2037     		adds	r7, r7, #32
+ 2221 0106 BD46     		mov	sp, r7
+ 2222              		@ sp needed
+ 2223 0108 80BD     		pop	{r7, pc}
+ 2224              		.size	AsebaNative_vecstat, .-AsebaNative_vecstat
+ 2225              		.global	AsebaNativeDescription_vecstat
+ 2226              		.section	.rodata
+ 2227 031a 0000     		.align	2
+ 2228              	.LC31:
+ 2229 031c 6D617468 		.ascii	"math.stat\000"
+ 2229      2E737461 
+ 2229      7400
+ 2230 0326 0000     		.align	2
+ 2231              	.LC32:
+ 2232 0328 70657266 		.ascii	"performs statistics on src\000"
+ 2232      6F726D73 
+ 2232      20737461 
+ 2232      74697374 
+ 2232      69637320 
+ 2233 0343 00       		.align	2
+ 2234              	.LC33:
+ 2235 0344 6D696E00 		.ascii	"min\000"
+ 2236              		.align	2
+ 2237              	.LC34:
+ 2238 0348 6D617800 		.ascii	"max\000"
+ 2239              		.align	2
+ 2240              	.LC35:
+ 2241 034c 6D65616E 		.ascii	"mean\000"
+ 2241      00
+ 2242              		.section	.rodata.AsebaNativeDescription_vecstat,"a",%progbits
+ 2243              		.align	2
+ 2244              		.type	AsebaNativeDescription_vecstat, %object
+ 2245              		.size	AsebaNativeDescription_vecstat, 48
+ 2246              	AsebaNativeDescription_vecstat:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 42
+
+
+ 2247 0000 1C030000 		.word	.LC31
+ 2248 0004 28030000 		.word	.LC32
+ 2249 0008 FFFF     		.short	-1
+ 2250 000a 0000     		.space	2
+ 2251 000c 3C000000 		.word	.LC3
+ 2252 0010 0100     		.short	1
+ 2253 0012 0000     		.space	2
+ 2254 0014 44030000 		.word	.LC33
+ 2255 0018 0100     		.short	1
+ 2256 001a 0000     		.space	2
+ 2257 001c 48030000 		.word	.LC34
+ 2258 0020 0100     		.short	1
+ 2259 0022 0000     		.space	2
+ 2260 0024 4C030000 		.word	.LC35
+ 2261 0028 0000     		.short	0
+ 2262 002a 0000     		.space	2
+ 2263 002c 00000000 		.word	0
+ 2264              		.section	.text.AsebaNative_vecargbounds,"ax",%progbits
+ 2265              		.align	1
+ 2266              		.global	AsebaNative_vecargbounds
+ 2267              		.syntax unified
+ 2268              		.thumb
+ 2269              		.thumb_func
+ 2270              		.fpu fpv4-sp-d16
+ 2271              		.type	AsebaNative_vecargbounds, %function
+ 2272              	AsebaNative_vecargbounds:
+ 2273              		@ args = 0, pretend = 0, frame = 24
+ 2274              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2275 0000 80B5     		push	{r7, lr}
+ 2276 0002 86B0     		sub	sp, sp, #24
+ 2277 0004 00AF     		add	r7, sp, #0
+ 2278 0006 7860     		str	r0, [r7, #4]
+ 2279 0008 7868     		ldr	r0, [r7, #4]
+ 2280 000a FFF7FEFF 		bl	AsebaNativePopArg
+ 2281 000e 0346     		mov	r3, r0
+ 2282 0010 FB82     		strh	r3, [r7, #22]	@ movhi
+ 2283 0012 7868     		ldr	r0, [r7, #4]
+ 2284 0014 FFF7FEFF 		bl	AsebaNativePopArg
+ 2285 0018 0346     		mov	r3, r0
+ 2286 001a FB81     		strh	r3, [r7, #14]	@ movhi
+ 2287 001c 7868     		ldr	r0, [r7, #4]
+ 2288 001e FFF7FEFF 		bl	AsebaNativePopArg
+ 2289 0022 0346     		mov	r3, r0
+ 2290 0024 BB81     		strh	r3, [r7, #12]	@ movhi
+ 2291 0026 7868     		ldr	r0, [r7, #4]
+ 2292 0028 FFF7FEFF 		bl	AsebaNativePopArg
+ 2293 002c 0346     		mov	r3, r0
+ 2294 002e 7B81     		strh	r3, [r7, #10]	@ movhi
+ 2295 0030 47F6FF73 		movw	r3, #32767
+ 2296 0034 BB82     		strh	r3, [r7, #20]	@ movhi
+ 2297 0036 4FF40043 		mov	r3, #32768
+ 2298 003a 7B82     		strh	r3, [r7, #18]	@ movhi
+ 2299 003c 7B89     		ldrh	r3, [r7, #10]
+ 2300 003e 002B     		cmp	r3, #0
+ 2301 0040 32D0     		beq	.L103
+ 2302 0042 0023     		movs	r3, #0
+ 2303 0044 3B82     		strh	r3, [r7, #16]	@ movhi
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 43
+
+
+ 2304 0046 2BE0     		b	.L99
+ 2305              	.L102:
+ 2306 0048 7B68     		ldr	r3, [r7, #4]
+ 2307 004a DA68     		ldr	r2, [r3, #12]
+ 2308 004c FB8A     		ldrh	r3, [r7, #22]
+ 2309 004e 591C     		adds	r1, r3, #1
+ 2310 0050 F982     		strh	r1, [r7, #22]	@ movhi
+ 2311 0052 5B00     		lsls	r3, r3, #1
+ 2312 0054 1344     		add	r3, r3, r2
+ 2313 0056 1B88     		ldrh	r3, [r3]	@ movhi
+ 2314 0058 3B81     		strh	r3, [r7, #8]	@ movhi
+ 2315 005a B7F90820 		ldrsh	r2, [r7, #8]
+ 2316 005e B7F91430 		ldrsh	r3, [r7, #20]
+ 2317 0062 9A42     		cmp	r2, r3
+ 2318 0064 09DA     		bge	.L100
+ 2319 0066 3B89     		ldrh	r3, [r7, #8]	@ movhi
+ 2320 0068 BB82     		strh	r3, [r7, #20]	@ movhi
+ 2321 006a 7B68     		ldr	r3, [r7, #4]
+ 2322 006c DA68     		ldr	r2, [r3, #12]
+ 2323 006e FB89     		ldrh	r3, [r7, #14]
+ 2324 0070 5B00     		lsls	r3, r3, #1
+ 2325 0072 1344     		add	r3, r3, r2
+ 2326 0074 B7F91020 		ldrsh	r2, [r7, #16]
+ 2327 0078 1A80     		strh	r2, [r3]	@ movhi
+ 2328              	.L100:
+ 2329 007a B7F90820 		ldrsh	r2, [r7, #8]
+ 2330 007e B7F91230 		ldrsh	r3, [r7, #18]
+ 2331 0082 9A42     		cmp	r2, r3
+ 2332 0084 09DD     		ble	.L101
+ 2333 0086 3B89     		ldrh	r3, [r7, #8]	@ movhi
+ 2334 0088 7B82     		strh	r3, [r7, #18]	@ movhi
+ 2335 008a 7B68     		ldr	r3, [r7, #4]
+ 2336 008c DA68     		ldr	r2, [r3, #12]
+ 2337 008e BB89     		ldrh	r3, [r7, #12]
+ 2338 0090 5B00     		lsls	r3, r3, #1
+ 2339 0092 1344     		add	r3, r3, r2
+ 2340 0094 B7F91020 		ldrsh	r2, [r7, #16]
+ 2341 0098 1A80     		strh	r2, [r3]	@ movhi
+ 2342              	.L101:
+ 2343 009a 3B8A     		ldrh	r3, [r7, #16]
+ 2344 009c 0133     		adds	r3, r3, #1
+ 2345 009e 3B82     		strh	r3, [r7, #16]	@ movhi
+ 2346              	.L99:
+ 2347 00a0 3A8A     		ldrh	r2, [r7, #16]
+ 2348 00a2 7B89     		ldrh	r3, [r7, #10]
+ 2349 00a4 9A42     		cmp	r2, r3
+ 2350 00a6 CFD3     		bcc	.L102
+ 2351              	.L103:
+ 2352 00a8 00BF     		nop
+ 2353 00aa 1837     		adds	r7, r7, #24
+ 2354 00ac BD46     		mov	sp, r7
+ 2355              		@ sp needed
+ 2356 00ae 80BD     		pop	{r7, pc}
+ 2357              		.size	AsebaNative_vecargbounds, .-AsebaNative_vecargbounds
+ 2358              		.global	AsebaNativeDescription_vecargbounds
+ 2359              		.section	.rodata
+ 2360 0351 000000   		.align	2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 44
+
+
+ 2361              	.LC36:
+ 2362 0354 6D617468 		.ascii	"math.argbounds\000"
+ 2362      2E617267 
+ 2362      626F756E 
+ 2362      647300
+ 2363 0363 00       		.align	2
+ 2364              	.LC37:
+ 2365 0364 67657420 		.ascii	"get the indices (argmin, argmax) of the limit value"
+ 2365      74686520 
+ 2365      696E6469 
+ 2365      63657320 
+ 2365      28617267 
+ 2366 0397 73206F66 		.ascii	"s of src\000"
+ 2366      20737263 
+ 2366      00
+ 2367              		.align	2
+ 2368              	.LC38:
+ 2369 03a0 6172676D 		.ascii	"argmin\000"
+ 2369      696E00
+ 2370 03a7 00       		.align	2
+ 2371              	.LC39:
+ 2372 03a8 6172676D 		.ascii	"argmax\000"
+ 2372      617800
+ 2373              		.section	.rodata.AsebaNativeDescription_vecargbounds,"a",%progbits
+ 2374              		.align	2
+ 2375              		.type	AsebaNativeDescription_vecargbounds, %object
+ 2376              		.size	AsebaNativeDescription_vecargbounds, 40
+ 2377              	AsebaNativeDescription_vecargbounds:
+ 2378 0000 54030000 		.word	.LC36
+ 2379 0004 64030000 		.word	.LC37
+ 2380 0008 FFFF     		.short	-1
+ 2381 000a 0000     		.space	2
+ 2382 000c 3C000000 		.word	.LC3
+ 2383 0010 0100     		.short	1
+ 2384 0012 0000     		.space	2
+ 2385 0014 A0030000 		.word	.LC38
+ 2386 0018 0100     		.short	1
+ 2387 001a 0000     		.space	2
+ 2388 001c A8030000 		.word	.LC39
+ 2389 0020 0000     		.short	0
+ 2390 0022 0000     		.space	2
+ 2391 0024 00000000 		.word	0
+ 2392              		.section	.text.AsebaNative_vecsort,"ax",%progbits
+ 2393              		.align	1
+ 2394              		.global	AsebaNative_vecsort
+ 2395              		.syntax unified
+ 2396              		.thumb
+ 2397              		.thumb_func
+ 2398              		.fpu fpv4-sp-d16
+ 2399              		.type	AsebaNative_vecsort, %function
+ 2400              	AsebaNative_vecsort:
+ 2401              		@ args = 0, pretend = 0, frame = 16
+ 2402              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2403 0000 80B5     		push	{r7, lr}
+ 2404 0002 84B0     		sub	sp, sp, #16
+ 2405 0004 00AF     		add	r7, sp, #0
+ 2406 0006 7860     		str	r0, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 45
+
+
+ 2407 0008 7868     		ldr	r0, [r7, #4]
+ 2408 000a FFF7FEFF 		bl	AsebaNativePopArg
+ 2409 000e 0346     		mov	r3, r0
+ 2410 0010 FB81     		strh	r3, [r7, #14]	@ movhi
+ 2411 0012 7868     		ldr	r0, [r7, #4]
+ 2412 0014 FFF7FEFF 		bl	AsebaNativePopArg
+ 2413 0018 0346     		mov	r3, r0
+ 2414 001a BB81     		strh	r3, [r7, #12]	@ movhi
+ 2415 001c 7B68     		ldr	r3, [r7, #4]
+ 2416 001e DA68     		ldr	r2, [r3, #12]
+ 2417 0020 FB89     		ldrh	r3, [r7, #14]
+ 2418 0022 5B00     		lsls	r3, r3, #1
+ 2419 0024 1344     		add	r3, r3, r2
+ 2420 0026 BA89     		ldrh	r2, [r7, #12]
+ 2421 0028 1146     		mov	r1, r2
+ 2422 002a 1846     		mov	r0, r3
+ 2423 002c FFF7FEFF 		bl	aseba_comb_sort
+ 2424 0030 00BF     		nop
+ 2425 0032 1037     		adds	r7, r7, #16
+ 2426 0034 BD46     		mov	sp, r7
+ 2427              		@ sp needed
+ 2428 0036 80BD     		pop	{r7, pc}
+ 2429              		.size	AsebaNative_vecsort, .-AsebaNative_vecsort
+ 2430              		.global	AsebaNativeDescription_vecsort
+ 2431              		.section	.rodata
+ 2432 03af 00       		.align	2
+ 2433              	.LC40:
+ 2434 03b0 6D617468 		.ascii	"math.sort\000"
+ 2434      2E736F72 
+ 2434      7400
+ 2435 03ba 0000     		.align	2
+ 2436              	.LC41:
+ 2437 03bc 736F7274 		.ascii	"sort array in place\000"
+ 2437      20617272 
+ 2437      61792069 
+ 2437      6E20706C 
+ 2437      61636500 
+ 2438              		.align	2
+ 2439              	.LC42:
+ 2440 03d0 61727261 		.ascii	"array\000"
+ 2440      7900
+ 2441              		.section	.rodata.AsebaNativeDescription_vecsort,"a",%progbits
+ 2442              		.align	2
+ 2443              		.type	AsebaNativeDescription_vecsort, %object
+ 2444              		.size	AsebaNativeDescription_vecsort, 24
+ 2445              	AsebaNativeDescription_vecsort:
+ 2446 0000 B0030000 		.word	.LC40
+ 2447 0004 BC030000 		.word	.LC41
+ 2448 0008 FFFF     		.short	-1
+ 2449 000a 0000     		.space	2
+ 2450 000c D0030000 		.word	.LC42
+ 2451 0010 0000     		.short	0
+ 2452 0012 0000     		.space	2
+ 2453 0014 00000000 		.word	0
+ 2454              		.section	.text.AsebaNative_mathmuldiv,"ax",%progbits
+ 2455              		.align	1
+ 2456              		.global	AsebaNative_mathmuldiv
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 46
+
+
+ 2457              		.syntax unified
+ 2458              		.thumb
+ 2459              		.thumb_func
+ 2460              		.fpu fpv4-sp-d16
+ 2461              		.type	AsebaNative_mathmuldiv, %function
+ 2462              	AsebaNative_mathmuldiv:
+ 2463              		@ args = 0, pretend = 0, frame = 32
+ 2464              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2465 0000 80B5     		push	{r7, lr}
+ 2466 0002 88B0     		sub	sp, sp, #32
+ 2467 0004 00AF     		add	r7, sp, #0
+ 2468 0006 7860     		str	r0, [r7, #4]
+ 2469 0008 7868     		ldr	r0, [r7, #4]
+ 2470 000a FFF7FEFF 		bl	AsebaNativePopArg
+ 2471 000e 0346     		mov	r3, r0
+ 2472 0010 FB83     		strh	r3, [r7, #30]	@ movhi
+ 2473 0012 7868     		ldr	r0, [r7, #4]
+ 2474 0014 FFF7FEFF 		bl	AsebaNativePopArg
+ 2475 0018 0346     		mov	r3, r0
+ 2476 001a BB83     		strh	r3, [r7, #28]	@ movhi
+ 2477 001c 7868     		ldr	r0, [r7, #4]
+ 2478 001e FFF7FEFF 		bl	AsebaNativePopArg
+ 2479 0022 0346     		mov	r3, r0
+ 2480 0024 7B83     		strh	r3, [r7, #26]	@ movhi
+ 2481 0026 7868     		ldr	r0, [r7, #4]
+ 2482 0028 FFF7FEFF 		bl	AsebaNativePopArg
+ 2483 002c 0346     		mov	r3, r0
+ 2484 002e 3B83     		strh	r3, [r7, #24]	@ movhi
+ 2485 0030 7868     		ldr	r0, [r7, #4]
+ 2486 0032 FFF7FEFF 		bl	AsebaNativePopArg
+ 2487 0036 0346     		mov	r3, r0
+ 2488 0038 BB82     		strh	r3, [r7, #20]	@ movhi
+ 2489 003a 0023     		movs	r3, #0
+ 2490 003c FB82     		strh	r3, [r7, #22]	@ movhi
+ 2491 003e 41E0     		b	.L106
+ 2492              	.L110:
+ 2493 0040 7B68     		ldr	r3, [r7, #4]
+ 2494 0042 DA68     		ldr	r2, [r3, #12]
+ 2495 0044 BB8B     		ldrh	r3, [r7, #28]
+ 2496 0046 591C     		adds	r1, r3, #1
+ 2497 0048 B983     		strh	r1, [r7, #28]	@ movhi
+ 2498 004a 5B00     		lsls	r3, r3, #1
+ 2499 004c 1344     		add	r3, r3, r2
+ 2500 004e B3F90030 		ldrsh	r3, [r3]
+ 2501 0052 3B61     		str	r3, [r7, #16]
+ 2502 0054 7B68     		ldr	r3, [r7, #4]
+ 2503 0056 DA68     		ldr	r2, [r3, #12]
+ 2504 0058 7B8B     		ldrh	r3, [r7, #26]
+ 2505 005a 591C     		adds	r1, r3, #1
+ 2506 005c 7983     		strh	r1, [r7, #26]	@ movhi
+ 2507 005e 5B00     		lsls	r3, r3, #1
+ 2508 0060 1344     		add	r3, r3, r2
+ 2509 0062 B3F90030 		ldrsh	r3, [r3]
+ 2510 0066 FB60     		str	r3, [r7, #12]
+ 2511 0068 7B68     		ldr	r3, [r7, #4]
+ 2512 006a DA68     		ldr	r2, [r3, #12]
+ 2513 006c 3B8B     		ldrh	r3, [r7, #24]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 47
+
+
+ 2514 006e 591C     		adds	r1, r3, #1
+ 2515 0070 3983     		strh	r1, [r7, #24]	@ movhi
+ 2516 0072 5B00     		lsls	r3, r3, #1
+ 2517 0074 1344     		add	r3, r3, r2
+ 2518 0076 B3F90030 		ldrsh	r3, [r3]
+ 2519 007a BB60     		str	r3, [r7, #8]
+ 2520 007c BB68     		ldr	r3, [r7, #8]
+ 2521 007e 002B     		cmp	r3, #0
+ 2522 0080 10D0     		beq	.L107
+ 2523 0082 3B69     		ldr	r3, [r7, #16]
+ 2524 0084 FA68     		ldr	r2, [r7, #12]
+ 2525 0086 02FB03F2 		mul	r2, r2, r3
+ 2526 008a BB68     		ldr	r3, [r7, #8]
+ 2527 008c 92FBF3F1 		sdiv	r1, r2, r3
+ 2528 0090 7B68     		ldr	r3, [r7, #4]
+ 2529 0092 DA68     		ldr	r2, [r3, #12]
+ 2530 0094 FB8B     		ldrh	r3, [r7, #30]
+ 2531 0096 581C     		adds	r0, r3, #1
+ 2532 0098 F883     		strh	r0, [r7, #30]	@ movhi
+ 2533 009a 5B00     		lsls	r3, r3, #1
+ 2534 009c 1344     		add	r3, r3, r2
+ 2535 009e 0AB2     		sxth	r2, r1
+ 2536 00a0 1A80     		strh	r2, [r3]	@ movhi
+ 2537 00a2 0CE0     		b	.L111
+ 2538              	.L107:
+ 2539 00a4 7B68     		ldr	r3, [r7, #4]
+ 2540 00a6 0222     		movs	r2, #2
+ 2541 00a8 1A83     		strh	r2, [r3, #24]	@ movhi
+ 2542 00aa 7B68     		ldr	r3, [r7, #4]
+ 2543 00ac 03F11A02 		add	r2, r3, #26
+ 2544 00b0 0223     		movs	r3, #2
+ 2545 00b2 49F20701 		movw	r1, #36871
+ 2546 00b6 7868     		ldr	r0, [r7, #4]
+ 2547 00b8 FFF7FEFF 		bl	AsebaSendMessage
+ 2548 00bc 06E0     		b	.L105
+ 2549              	.L111:
+ 2550 00be FB8A     		ldrh	r3, [r7, #22]
+ 2551 00c0 0133     		adds	r3, r3, #1
+ 2552 00c2 FB82     		strh	r3, [r7, #22]	@ movhi
+ 2553              	.L106:
+ 2554 00c4 FA8A     		ldrh	r2, [r7, #22]
+ 2555 00c6 BB8A     		ldrh	r3, [r7, #20]
+ 2556 00c8 9A42     		cmp	r2, r3
+ 2557 00ca B9D3     		bcc	.L110
+ 2558              	.L105:
+ 2559 00cc 2037     		adds	r7, r7, #32
+ 2560 00ce BD46     		mov	sp, r7
+ 2561              		@ sp needed
+ 2562 00d0 80BD     		pop	{r7, pc}
+ 2563              		.size	AsebaNative_mathmuldiv, .-AsebaNative_mathmuldiv
+ 2564              		.global	AsebaNativeDescription_mathmuldiv
+ 2565              		.section	.rodata
+ 2566 03d6 0000     		.align	2
+ 2567              	.LC43:
+ 2568 03d8 6D617468 		.ascii	"math.muldiv\000"
+ 2568      2E6D756C 
+ 2568      64697600 
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 48
+
+
+ 2569              		.align	2
+ 2570              	.LC44:
+ 2571 03e4 70657266 		.ascii	"performs dest = (a*b)/c in 32 bits element by eleme"
+ 2571      6F726D73 
+ 2571      20646573 
+ 2571      74203D20 
+ 2571      28612A62 
+ 2572 0417 6E7400   		.ascii	"nt\000"
+ 2573 041a 0000     		.align	2
+ 2574              	.LC45:
+ 2575 041c 6100     		.ascii	"a\000"
+ 2576 041e 0000     		.align	2
+ 2577              	.LC46:
+ 2578 0420 6200     		.ascii	"b\000"
+ 2579 0422 0000     		.align	2
+ 2580              	.LC47:
+ 2581 0424 6300     		.ascii	"c\000"
+ 2582              		.section	.rodata.AsebaNativeDescription_mathmuldiv,"a",%progbits
+ 2583              		.align	2
+ 2584              		.type	AsebaNativeDescription_mathmuldiv, %object
+ 2585              		.size	AsebaNativeDescription_mathmuldiv, 48
+ 2586              	AsebaNativeDescription_mathmuldiv:
+ 2587 0000 D8030000 		.word	.LC43
+ 2588 0004 E4030000 		.word	.LC44
+ 2589 0008 FFFF     		.short	-1
+ 2590 000a 0000     		.space	2
+ 2591 000c 34000000 		.word	.LC2
+ 2592 0010 FFFF     		.short	-1
+ 2593 0012 0000     		.space	2
+ 2594 0014 1C040000 		.word	.LC45
+ 2595 0018 FFFF     		.short	-1
+ 2596 001a 0000     		.space	2
+ 2597 001c 20040000 		.word	.LC46
+ 2598 0020 FFFF     		.short	-1
+ 2599 0022 0000     		.space	2
+ 2600 0024 24040000 		.word	.LC47
+ 2601 0028 0000     		.short	0
+ 2602 002a 0000     		.space	2
+ 2603 002c 00000000 		.word	0
+ 2604              		.section	.text.AsebaNative_mathatan2,"ax",%progbits
+ 2605              		.align	1
+ 2606              		.global	AsebaNative_mathatan2
+ 2607              		.syntax unified
+ 2608              		.thumb
+ 2609              		.thumb_func
+ 2610              		.fpu fpv4-sp-d16
+ 2611              		.type	AsebaNative_mathatan2, %function
+ 2612              	AsebaNative_mathatan2:
+ 2613              		@ args = 0, pretend = 0, frame = 24
+ 2614              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2615 0000 90B5     		push	{r4, r7, lr}
+ 2616 0002 87B0     		sub	sp, sp, #28
+ 2617 0004 00AF     		add	r7, sp, #0
+ 2618 0006 7860     		str	r0, [r7, #4]
+ 2619 0008 7868     		ldr	r0, [r7, #4]
+ 2620 000a FFF7FEFF 		bl	AsebaNativePopArg
+ 2621 000e 0346     		mov	r3, r0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 49
+
+
+ 2622 0010 FB82     		strh	r3, [r7, #22]	@ movhi
+ 2623 0012 7868     		ldr	r0, [r7, #4]
+ 2624 0014 FFF7FEFF 		bl	AsebaNativePopArg
+ 2625 0018 0346     		mov	r3, r0
+ 2626 001a BB82     		strh	r3, [r7, #20]	@ movhi
+ 2627 001c 7868     		ldr	r0, [r7, #4]
+ 2628 001e FFF7FEFF 		bl	AsebaNativePopArg
+ 2629 0022 0346     		mov	r3, r0
+ 2630 0024 7B82     		strh	r3, [r7, #18]	@ movhi
+ 2631 0026 7868     		ldr	r0, [r7, #4]
+ 2632 0028 FFF7FEFF 		bl	AsebaNativePopArg
+ 2633 002c 0346     		mov	r3, r0
+ 2634 002e FB81     		strh	r3, [r7, #14]	@ movhi
+ 2635 0030 0023     		movs	r3, #0
+ 2636 0032 3B82     		strh	r3, [r7, #16]	@ movhi
+ 2637 0034 2DE0     		b	.L113
+ 2638              	.L114:
+ 2639 0036 7B68     		ldr	r3, [r7, #4]
+ 2640 0038 DA68     		ldr	r2, [r3, #12]
+ 2641 003a B7F91410 		ldrsh	r1, [r7, #20]
+ 2642 003e 8BB2     		uxth	r3, r1
+ 2643 0040 0133     		adds	r3, r3, #1
+ 2644 0042 9BB2     		uxth	r3, r3
+ 2645 0044 BB82     		strh	r3, [r7, #20]	@ movhi
+ 2646 0046 0B46     		mov	r3, r1
+ 2647 0048 5B00     		lsls	r3, r3, #1
+ 2648 004a 1344     		add	r3, r3, r2
+ 2649 004c 1B88     		ldrh	r3, [r3]	@ movhi
+ 2650 004e BB81     		strh	r3, [r7, #12]	@ movhi
+ 2651 0050 7B68     		ldr	r3, [r7, #4]
+ 2652 0052 DA68     		ldr	r2, [r3, #12]
+ 2653 0054 B7F91210 		ldrsh	r1, [r7, #18]
+ 2654 0058 8BB2     		uxth	r3, r1
+ 2655 005a 0133     		adds	r3, r3, #1
+ 2656 005c 9BB2     		uxth	r3, r3
+ 2657 005e 7B82     		strh	r3, [r7, #18]	@ movhi
+ 2658 0060 0B46     		mov	r3, r1
+ 2659 0062 5B00     		lsls	r3, r3, #1
+ 2660 0064 1344     		add	r3, r3, r2
+ 2661 0066 1B88     		ldrh	r3, [r3]	@ movhi
+ 2662 0068 7B81     		strh	r3, [r7, #10]	@ movhi
+ 2663 006a 7B68     		ldr	r3, [r7, #4]
+ 2664 006c DA68     		ldr	r2, [r3, #12]
+ 2665 006e FB8A     		ldrh	r3, [r7, #22]
+ 2666 0070 591C     		adds	r1, r3, #1
+ 2667 0072 F982     		strh	r1, [r7, #22]	@ movhi
+ 2668 0074 5B00     		lsls	r3, r3, #1
+ 2669 0076 D418     		adds	r4, r2, r3
+ 2670 0078 B7F90A20 		ldrsh	r2, [r7, #10]
+ 2671 007c B7F90C30 		ldrsh	r3, [r7, #12]
+ 2672 0080 1146     		mov	r1, r2
+ 2673 0082 1846     		mov	r0, r3
+ 2674 0084 FFF7FEFF 		bl	aseba_atan2
+ 2675 0088 0346     		mov	r3, r0
+ 2676 008a 2380     		strh	r3, [r4]	@ movhi
+ 2677 008c 3B8A     		ldrh	r3, [r7, #16]
+ 2678 008e 0133     		adds	r3, r3, #1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 50
+
+
+ 2679 0090 3B82     		strh	r3, [r7, #16]	@ movhi
+ 2680              	.L113:
+ 2681 0092 3A8A     		ldrh	r2, [r7, #16]
+ 2682 0094 FB89     		ldrh	r3, [r7, #14]
+ 2683 0096 9A42     		cmp	r2, r3
+ 2684 0098 CDD3     		bcc	.L114
+ 2685 009a 00BF     		nop
+ 2686 009c 1C37     		adds	r7, r7, #28
+ 2687 009e BD46     		mov	sp, r7
+ 2688              		@ sp needed
+ 2689 00a0 90BD     		pop	{r4, r7, pc}
+ 2690              		.size	AsebaNative_mathatan2, .-AsebaNative_mathatan2
+ 2691              		.global	AsebaNativeDescription_mathatan2
+ 2692              		.section	.rodata
+ 2693 0426 0000     		.align	2
+ 2694              	.LC48:
+ 2695 0428 6D617468 		.ascii	"math.atan2\000"
+ 2695      2E617461 
+ 2695      6E3200
+ 2696 0433 00       		.align	2
+ 2697              	.LC49:
+ 2698 0434 70657266 		.ascii	"performs dest = atan2(y,x) element by element\000"
+ 2698      6F726D73 
+ 2698      20646573 
+ 2698      74203D20 
+ 2698      6174616E 
+ 2699 0462 0000     		.align	2
+ 2700              	.LC50:
+ 2701 0464 7900     		.ascii	"y\000"
+ 2702 0466 0000     		.align	2
+ 2703              	.LC51:
+ 2704 0468 7800     		.ascii	"x\000"
+ 2705              		.section	.rodata.AsebaNativeDescription_mathatan2,"a",%progbits
+ 2706              		.align	2
+ 2707              		.type	AsebaNativeDescription_mathatan2, %object
+ 2708              		.size	AsebaNativeDescription_mathatan2, 40
+ 2709              	AsebaNativeDescription_mathatan2:
+ 2710 0000 28040000 		.word	.LC48
+ 2711 0004 34040000 		.word	.LC49
+ 2712 0008 FFFF     		.short	-1
+ 2713 000a 0000     		.space	2
+ 2714 000c 34000000 		.word	.LC2
+ 2715 0010 FFFF     		.short	-1
+ 2716 0012 0000     		.space	2
+ 2717 0014 64040000 		.word	.LC50
+ 2718 0018 FFFF     		.short	-1
+ 2719 001a 0000     		.space	2
+ 2720 001c 68040000 		.word	.LC51
+ 2721 0020 0000     		.short	0
+ 2722 0022 0000     		.space	2
+ 2723 0024 00000000 		.word	0
+ 2724              		.section	.text.AsebaNative_mathsin,"ax",%progbits
+ 2725              		.align	1
+ 2726              		.global	AsebaNative_mathsin
+ 2727              		.syntax unified
+ 2728              		.thumb
+ 2729              		.thumb_func
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 51
+
+
+ 2730              		.fpu fpv4-sp-d16
+ 2731              		.type	AsebaNative_mathsin, %function
+ 2732              	AsebaNative_mathsin:
+ 2733              		@ args = 0, pretend = 0, frame = 24
+ 2734              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2735 0000 90B5     		push	{r4, r7, lr}
+ 2736 0002 87B0     		sub	sp, sp, #28
+ 2737 0004 00AF     		add	r7, sp, #0
+ 2738 0006 7860     		str	r0, [r7, #4]
+ 2739 0008 7868     		ldr	r0, [r7, #4]
+ 2740 000a FFF7FEFF 		bl	AsebaNativePopArg
+ 2741 000e 0346     		mov	r3, r0
+ 2742 0010 FB82     		strh	r3, [r7, #22]	@ movhi
+ 2743 0012 7868     		ldr	r0, [r7, #4]
+ 2744 0014 FFF7FEFF 		bl	AsebaNativePopArg
+ 2745 0018 0346     		mov	r3, r0
+ 2746 001a BB82     		strh	r3, [r7, #20]	@ movhi
+ 2747 001c 7868     		ldr	r0, [r7, #4]
+ 2748 001e FFF7FEFF 		bl	AsebaNativePopArg
+ 2749 0022 0346     		mov	r3, r0
+ 2750 0024 3B82     		strh	r3, [r7, #16]	@ movhi
+ 2751 0026 0023     		movs	r3, #0
+ 2752 0028 7B82     		strh	r3, [r7, #18]	@ movhi
+ 2753 002a 1DE0     		b	.L116
+ 2754              	.L117:
+ 2755 002c 7B68     		ldr	r3, [r7, #4]
+ 2756 002e DA68     		ldr	r2, [r3, #12]
+ 2757 0030 B7F91410 		ldrsh	r1, [r7, #20]
+ 2758 0034 8BB2     		uxth	r3, r1
+ 2759 0036 0133     		adds	r3, r3, #1
+ 2760 0038 9BB2     		uxth	r3, r3
+ 2761 003a BB82     		strh	r3, [r7, #20]	@ movhi
+ 2762 003c 0B46     		mov	r3, r1
+ 2763 003e 5B00     		lsls	r3, r3, #1
+ 2764 0040 1344     		add	r3, r3, r2
+ 2765 0042 1B88     		ldrh	r3, [r3]	@ movhi
+ 2766 0044 FB81     		strh	r3, [r7, #14]	@ movhi
+ 2767 0046 7B68     		ldr	r3, [r7, #4]
+ 2768 0048 DA68     		ldr	r2, [r3, #12]
+ 2769 004a FB8A     		ldrh	r3, [r7, #22]
+ 2770 004c 591C     		adds	r1, r3, #1
+ 2771 004e F982     		strh	r1, [r7, #22]	@ movhi
+ 2772 0050 5B00     		lsls	r3, r3, #1
+ 2773 0052 D418     		adds	r4, r2, r3
+ 2774 0054 B7F90E30 		ldrsh	r3, [r7, #14]
+ 2775 0058 1846     		mov	r0, r3
+ 2776 005a FFF7FEFF 		bl	aseba_sin
+ 2777 005e 0346     		mov	r3, r0
+ 2778 0060 2380     		strh	r3, [r4]	@ movhi
+ 2779 0062 7B8A     		ldrh	r3, [r7, #18]
+ 2780 0064 0133     		adds	r3, r3, #1
+ 2781 0066 7B82     		strh	r3, [r7, #18]	@ movhi
+ 2782              	.L116:
+ 2783 0068 7A8A     		ldrh	r2, [r7, #18]
+ 2784 006a 3B8A     		ldrh	r3, [r7, #16]
+ 2785 006c 9A42     		cmp	r2, r3
+ 2786 006e DDD3     		bcc	.L117
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 52
+
+
+ 2787 0070 00BF     		nop
+ 2788 0072 1C37     		adds	r7, r7, #28
+ 2789 0074 BD46     		mov	sp, r7
+ 2790              		@ sp needed
+ 2791 0076 90BD     		pop	{r4, r7, pc}
+ 2792              		.size	AsebaNative_mathsin, .-AsebaNative_mathsin
+ 2793              		.global	AsebaNativeDescription_mathsin
+ 2794              		.section	.rodata
+ 2795 046a 0000     		.align	2
+ 2796              	.LC52:
+ 2797 046c 6D617468 		.ascii	"math.sin\000"
+ 2797      2E73696E 
+ 2797      00
+ 2798 0475 000000   		.align	2
+ 2799              	.LC53:
+ 2800 0478 70657266 		.ascii	"performs dest = sin(x) element by element\000"
+ 2800      6F726D73 
+ 2800      20646573 
+ 2800      74203D20 
+ 2800      73696E28 
+ 2801              		.section	.rodata.AsebaNativeDescription_mathsin,"a",%progbits
+ 2802              		.align	2
+ 2803              		.type	AsebaNativeDescription_mathsin, %object
+ 2804              		.size	AsebaNativeDescription_mathsin, 32
+ 2805              	AsebaNativeDescription_mathsin:
+ 2806 0000 6C040000 		.word	.LC52
+ 2807 0004 78040000 		.word	.LC53
+ 2808 0008 FFFF     		.short	-1
+ 2809 000a 0000     		.space	2
+ 2810 000c 34000000 		.word	.LC2
+ 2811 0010 FFFF     		.short	-1
+ 2812 0012 0000     		.space	2
+ 2813 0014 68040000 		.word	.LC51
+ 2814 0018 0000     		.short	0
+ 2815 001a 0000     		.space	2
+ 2816 001c 00000000 		.word	0
+ 2817              		.section	.text.AsebaNative_mathcos,"ax",%progbits
+ 2818              		.align	1
+ 2819              		.global	AsebaNative_mathcos
+ 2820              		.syntax unified
+ 2821              		.thumb
+ 2822              		.thumb_func
+ 2823              		.fpu fpv4-sp-d16
+ 2824              		.type	AsebaNative_mathcos, %function
+ 2825              	AsebaNative_mathcos:
+ 2826              		@ args = 0, pretend = 0, frame = 24
+ 2827              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2828 0000 90B5     		push	{r4, r7, lr}
+ 2829 0002 87B0     		sub	sp, sp, #28
+ 2830 0004 00AF     		add	r7, sp, #0
+ 2831 0006 7860     		str	r0, [r7, #4]
+ 2832 0008 7868     		ldr	r0, [r7, #4]
+ 2833 000a FFF7FEFF 		bl	AsebaNativePopArg
+ 2834 000e 0346     		mov	r3, r0
+ 2835 0010 FB82     		strh	r3, [r7, #22]	@ movhi
+ 2836 0012 7868     		ldr	r0, [r7, #4]
+ 2837 0014 FFF7FEFF 		bl	AsebaNativePopArg
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 53
+
+
+ 2838 0018 0346     		mov	r3, r0
+ 2839 001a BB82     		strh	r3, [r7, #20]	@ movhi
+ 2840 001c 7868     		ldr	r0, [r7, #4]
+ 2841 001e FFF7FEFF 		bl	AsebaNativePopArg
+ 2842 0022 0346     		mov	r3, r0
+ 2843 0024 3B82     		strh	r3, [r7, #16]	@ movhi
+ 2844 0026 0023     		movs	r3, #0
+ 2845 0028 7B82     		strh	r3, [r7, #18]	@ movhi
+ 2846 002a 1DE0     		b	.L119
+ 2847              	.L120:
+ 2848 002c 7B68     		ldr	r3, [r7, #4]
+ 2849 002e DA68     		ldr	r2, [r3, #12]
+ 2850 0030 B7F91410 		ldrsh	r1, [r7, #20]
+ 2851 0034 8BB2     		uxth	r3, r1
+ 2852 0036 0133     		adds	r3, r3, #1
+ 2853 0038 9BB2     		uxth	r3, r3
+ 2854 003a BB82     		strh	r3, [r7, #20]	@ movhi
+ 2855 003c 0B46     		mov	r3, r1
+ 2856 003e 5B00     		lsls	r3, r3, #1
+ 2857 0040 1344     		add	r3, r3, r2
+ 2858 0042 1B88     		ldrh	r3, [r3]	@ movhi
+ 2859 0044 FB81     		strh	r3, [r7, #14]	@ movhi
+ 2860 0046 7B68     		ldr	r3, [r7, #4]
+ 2861 0048 DA68     		ldr	r2, [r3, #12]
+ 2862 004a FB8A     		ldrh	r3, [r7, #22]
+ 2863 004c 591C     		adds	r1, r3, #1
+ 2864 004e F982     		strh	r1, [r7, #22]	@ movhi
+ 2865 0050 5B00     		lsls	r3, r3, #1
+ 2866 0052 D418     		adds	r4, r2, r3
+ 2867 0054 B7F90E30 		ldrsh	r3, [r7, #14]
+ 2868 0058 1846     		mov	r0, r3
+ 2869 005a FFF7FEFF 		bl	aseba_cos
+ 2870 005e 0346     		mov	r3, r0
+ 2871 0060 2380     		strh	r3, [r4]	@ movhi
+ 2872 0062 7B8A     		ldrh	r3, [r7, #18]
+ 2873 0064 0133     		adds	r3, r3, #1
+ 2874 0066 7B82     		strh	r3, [r7, #18]	@ movhi
+ 2875              	.L119:
+ 2876 0068 7A8A     		ldrh	r2, [r7, #18]
+ 2877 006a 3B8A     		ldrh	r3, [r7, #16]
+ 2878 006c 9A42     		cmp	r2, r3
+ 2879 006e DDD3     		bcc	.L120
+ 2880 0070 00BF     		nop
+ 2881 0072 1C37     		adds	r7, r7, #28
+ 2882 0074 BD46     		mov	sp, r7
+ 2883              		@ sp needed
+ 2884 0076 90BD     		pop	{r4, r7, pc}
+ 2885              		.size	AsebaNative_mathcos, .-AsebaNative_mathcos
+ 2886              		.global	AsebaNativeDescription_mathcos
+ 2887              		.section	.rodata
+ 2888 04a2 0000     		.align	2
+ 2889              	.LC54:
+ 2890 04a4 6D617468 		.ascii	"math.cos\000"
+ 2890      2E636F73 
+ 2890      00
+ 2891 04ad 000000   		.align	2
+ 2892              	.LC55:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 54
+
+
+ 2893 04b0 70657266 		.ascii	"performs dest = cos(x) element by element\000"
+ 2893      6F726D73 
+ 2893      20646573 
+ 2893      74203D20 
+ 2893      636F7328 
+ 2894              		.section	.rodata.AsebaNativeDescription_mathcos,"a",%progbits
+ 2895              		.align	2
+ 2896              		.type	AsebaNativeDescription_mathcos, %object
+ 2897              		.size	AsebaNativeDescription_mathcos, 32
+ 2898              	AsebaNativeDescription_mathcos:
+ 2899 0000 A4040000 		.word	.LC54
+ 2900 0004 B0040000 		.word	.LC55
+ 2901 0008 FFFF     		.short	-1
+ 2902 000a 0000     		.space	2
+ 2903 000c 34000000 		.word	.LC2
+ 2904 0010 FFFF     		.short	-1
+ 2905 0012 0000     		.space	2
+ 2906 0014 68040000 		.word	.LC51
+ 2907 0018 0000     		.short	0
+ 2908 001a 0000     		.space	2
+ 2909 001c 00000000 		.word	0
+ 2910              		.section	.text.AsebaNative_mathrot2,"ax",%progbits
+ 2911              		.align	1
+ 2912              		.global	AsebaNative_mathrot2
+ 2913              		.syntax unified
+ 2914              		.thumb
+ 2915              		.thumb_func
+ 2916              		.fpu fpv4-sp-d16
+ 2917              		.type	AsebaNative_mathrot2, %function
+ 2918              	AsebaNative_mathrot2:
+ 2919              		@ args = 0, pretend = 0, frame = 32
+ 2920              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2921 0000 80B5     		push	{r7, lr}
+ 2922 0002 88B0     		sub	sp, sp, #32
+ 2923 0004 00AF     		add	r7, sp, #0
+ 2924 0006 7860     		str	r0, [r7, #4]
+ 2925 0008 7868     		ldr	r0, [r7, #4]
+ 2926 000a FFF7FEFF 		bl	AsebaNativePopArg
+ 2927 000e 0346     		mov	r3, r0
+ 2928 0010 FB83     		strh	r3, [r7, #30]	@ movhi
+ 2929 0012 7868     		ldr	r0, [r7, #4]
+ 2930 0014 FFF7FEFF 		bl	AsebaNativePopArg
+ 2931 0018 0346     		mov	r3, r0
+ 2932 001a BB83     		strh	r3, [r7, #28]	@ movhi
+ 2933 001c 7868     		ldr	r0, [r7, #4]
+ 2934 001e FFF7FEFF 		bl	AsebaNativePopArg
+ 2935 0022 0346     		mov	r3, r0
+ 2936 0024 7B83     		strh	r3, [r7, #26]	@ movhi
+ 2937 0026 7B68     		ldr	r3, [r7, #4]
+ 2938 0028 DA68     		ldr	r2, [r3, #12]
+ 2939 002a BB8B     		ldrh	r3, [r7, #28]
+ 2940 002c 5B00     		lsls	r3, r3, #1
+ 2941 002e 1344     		add	r3, r3, r2
+ 2942 0030 1B88     		ldrh	r3, [r3]	@ movhi
+ 2943 0032 3B83     		strh	r3, [r7, #24]	@ movhi
+ 2944 0034 7B68     		ldr	r3, [r7, #4]
+ 2945 0036 DA68     		ldr	r2, [r3, #12]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 55
+
+
+ 2946 0038 BB8B     		ldrh	r3, [r7, #28]
+ 2947 003a 0133     		adds	r3, r3, #1
+ 2948 003c 5B00     		lsls	r3, r3, #1
+ 2949 003e 1344     		add	r3, r3, r2
+ 2950 0040 1B88     		ldrh	r3, [r3]	@ movhi
+ 2951 0042 FB82     		strh	r3, [r7, #22]	@ movhi
+ 2952 0044 7B68     		ldr	r3, [r7, #4]
+ 2953 0046 DA68     		ldr	r2, [r3, #12]
+ 2954 0048 7B8B     		ldrh	r3, [r7, #26]
+ 2955 004a 5B00     		lsls	r3, r3, #1
+ 2956 004c 1344     		add	r3, r3, r2
+ 2957 004e 1B88     		ldrh	r3, [r3]	@ movhi
+ 2958 0050 BB82     		strh	r3, [r7, #20]	@ movhi
+ 2959 0052 B7F91430 		ldrsh	r3, [r7, #20]
+ 2960 0056 1846     		mov	r0, r3
+ 2961 0058 FFF7FEFF 		bl	aseba_cos
+ 2962 005c 0346     		mov	r3, r0
+ 2963 005e 7B82     		strh	r3, [r7, #18]	@ movhi
+ 2964 0060 B7F91430 		ldrsh	r3, [r7, #20]
+ 2965 0064 1846     		mov	r0, r3
+ 2966 0066 FFF7FEFF 		bl	aseba_sin
+ 2967 006a 0346     		mov	r3, r0
+ 2968 006c 3B82     		strh	r3, [r7, #16]	@ movhi
+ 2969 006e B7F91230 		ldrsh	r3, [r7, #18]
+ 2970 0072 B7F91820 		ldrsh	r2, [r7, #24]
+ 2971 0076 02FB03F2 		mul	r2, r2, r3
+ 2972 007a B7F91030 		ldrsh	r3, [r7, #16]
+ 2973 007e B7F91610 		ldrsh	r1, [r7, #22]
+ 2974 0082 01FB03F3 		mul	r3, r1, r3
+ 2975 0086 D31A     		subs	r3, r2, r3
+ 2976 0088 DB13     		asrs	r3, r3, #15
+ 2977 008a FB81     		strh	r3, [r7, #14]	@ movhi
+ 2978 008c B7F91230 		ldrsh	r3, [r7, #18]
+ 2979 0090 B7F91620 		ldrsh	r2, [r7, #22]
+ 2980 0094 02FB03F2 		mul	r2, r2, r3
+ 2981 0098 B7F91030 		ldrsh	r3, [r7, #16]
+ 2982 009c B7F91810 		ldrsh	r1, [r7, #24]
+ 2983 00a0 01FB03F3 		mul	r3, r1, r3
+ 2984 00a4 1344     		add	r3, r3, r2
+ 2985 00a6 DB13     		asrs	r3, r3, #15
+ 2986 00a8 BB81     		strh	r3, [r7, #12]	@ movhi
+ 2987 00aa 7B68     		ldr	r3, [r7, #4]
+ 2988 00ac DA68     		ldr	r2, [r3, #12]
+ 2989 00ae FB8B     		ldrh	r3, [r7, #30]
+ 2990 00b0 5B00     		lsls	r3, r3, #1
+ 2991 00b2 1344     		add	r3, r3, r2
+ 2992 00b4 FA89     		ldrh	r2, [r7, #14]	@ movhi
+ 2993 00b6 1A80     		strh	r2, [r3]	@ movhi
+ 2994 00b8 7B68     		ldr	r3, [r7, #4]
+ 2995 00ba DA68     		ldr	r2, [r3, #12]
+ 2996 00bc FB8B     		ldrh	r3, [r7, #30]
+ 2997 00be 0133     		adds	r3, r3, #1
+ 2998 00c0 5B00     		lsls	r3, r3, #1
+ 2999 00c2 1344     		add	r3, r3, r2
+ 3000 00c4 BA89     		ldrh	r2, [r7, #12]	@ movhi
+ 3001 00c6 1A80     		strh	r2, [r3]	@ movhi
+ 3002 00c8 00BF     		nop
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 56
+
+
+ 3003 00ca 2037     		adds	r7, r7, #32
+ 3004 00cc BD46     		mov	sp, r7
+ 3005              		@ sp needed
+ 3006 00ce 80BD     		pop	{r7, pc}
+ 3007              		.size	AsebaNative_mathrot2, .-AsebaNative_mathrot2
+ 3008              		.global	AsebaNativeDescription_mathrot2
+ 3009              		.section	.rodata
+ 3010 04da 0000     		.align	2
+ 3011              	.LC56:
+ 3012 04dc 6D617468 		.ascii	"math.rot2\000"
+ 3012      2E726F74 
+ 3012      3200
+ 3013 04e6 0000     		.align	2
+ 3014              	.LC57:
+ 3015 04e8 726F7461 		.ascii	"rotates v of angle a to dest\000"
+ 3015      74657320 
+ 3015      76206F66 
+ 3015      20616E67 
+ 3015      6C652061 
+ 3016 0505 000000   		.align	2
+ 3017              	.LC58:
+ 3018 0508 7600     		.ascii	"v\000"
+ 3019              		.section	.rodata.AsebaNativeDescription_mathrot2,"a",%progbits
+ 3020              		.align	2
+ 3021              		.type	AsebaNativeDescription_mathrot2, %object
+ 3022              		.size	AsebaNativeDescription_mathrot2, 40
+ 3023              	AsebaNativeDescription_mathrot2:
+ 3024 0000 DC040000 		.word	.LC56
+ 3025 0004 E8040000 		.word	.LC57
+ 3026 0008 0200     		.short	2
+ 3027 000a 0000     		.space	2
+ 3028 000c 34000000 		.word	.LC2
+ 3029 0010 0200     		.short	2
+ 3030 0012 0000     		.space	2
+ 3031 0014 08050000 		.word	.LC58
+ 3032 0018 0100     		.short	1
+ 3033 001a 0000     		.space	2
+ 3034 001c 1C040000 		.word	.LC45
+ 3035 0020 0000     		.short	0
+ 3036 0022 0000     		.space	2
+ 3037 0024 00000000 		.word	0
+ 3038              		.section	.text.AsebaNative_mathsqrt,"ax",%progbits
+ 3039              		.align	1
+ 3040              		.global	AsebaNative_mathsqrt
+ 3041              		.syntax unified
+ 3042              		.thumb
+ 3043              		.thumb_func
+ 3044              		.fpu fpv4-sp-d16
+ 3045              		.type	AsebaNative_mathsqrt, %function
+ 3046              	AsebaNative_mathsqrt:
+ 3047              		@ args = 0, pretend = 0, frame = 24
+ 3048              		@ frame_needed = 1, uses_anonymous_args = 0
+ 3049 0000 90B5     		push	{r4, r7, lr}
+ 3050 0002 87B0     		sub	sp, sp, #28
+ 3051 0004 00AF     		add	r7, sp, #0
+ 3052 0006 7860     		str	r0, [r7, #4]
+ 3053 0008 7868     		ldr	r0, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 57
+
+
+ 3054 000a FFF7FEFF 		bl	AsebaNativePopArg
+ 3055 000e 0346     		mov	r3, r0
+ 3056 0010 FB82     		strh	r3, [r7, #22]	@ movhi
+ 3057 0012 7868     		ldr	r0, [r7, #4]
+ 3058 0014 FFF7FEFF 		bl	AsebaNativePopArg
+ 3059 0018 0346     		mov	r3, r0
+ 3060 001a BB82     		strh	r3, [r7, #20]	@ movhi
+ 3061 001c 7868     		ldr	r0, [r7, #4]
+ 3062 001e FFF7FEFF 		bl	AsebaNativePopArg
+ 3063 0022 0346     		mov	r3, r0
+ 3064 0024 3B82     		strh	r3, [r7, #16]	@ movhi
+ 3065 0026 0023     		movs	r3, #0
+ 3066 0028 7B82     		strh	r3, [r7, #18]	@ movhi
+ 3067 002a 1DE0     		b	.L123
+ 3068              	.L124:
+ 3069 002c 7B68     		ldr	r3, [r7, #4]
+ 3070 002e DA68     		ldr	r2, [r3, #12]
+ 3071 0030 B7F91410 		ldrsh	r1, [r7, #20]
+ 3072 0034 8BB2     		uxth	r3, r1
+ 3073 0036 0133     		adds	r3, r3, #1
+ 3074 0038 9BB2     		uxth	r3, r3
+ 3075 003a BB82     		strh	r3, [r7, #20]	@ movhi
+ 3076 003c 0B46     		mov	r3, r1
+ 3077 003e 5B00     		lsls	r3, r3, #1
+ 3078 0040 1344     		add	r3, r3, r2
+ 3079 0042 1B88     		ldrh	r3, [r3]	@ movhi
+ 3080 0044 FB81     		strh	r3, [r7, #14]	@ movhi
+ 3081 0046 7B68     		ldr	r3, [r7, #4]
+ 3082 0048 DA68     		ldr	r2, [r3, #12]
+ 3083 004a FB8A     		ldrh	r3, [r7, #22]
+ 3084 004c 591C     		adds	r1, r3, #1
+ 3085 004e F982     		strh	r1, [r7, #22]	@ movhi
+ 3086 0050 5B00     		lsls	r3, r3, #1
+ 3087 0052 D418     		adds	r4, r2, r3
+ 3088 0054 B7F90E30 		ldrsh	r3, [r7, #14]
+ 3089 0058 1846     		mov	r0, r3
+ 3090 005a FFF7FEFF 		bl	aseba_sqrt
+ 3091 005e 0346     		mov	r3, r0
+ 3092 0060 2380     		strh	r3, [r4]	@ movhi
+ 3093 0062 7B8A     		ldrh	r3, [r7, #18]
+ 3094 0064 0133     		adds	r3, r3, #1
+ 3095 0066 7B82     		strh	r3, [r7, #18]	@ movhi
+ 3096              	.L123:
+ 3097 0068 7A8A     		ldrh	r2, [r7, #18]
+ 3098 006a 3B8A     		ldrh	r3, [r7, #16]
+ 3099 006c 9A42     		cmp	r2, r3
+ 3100 006e DDD3     		bcc	.L124
+ 3101 0070 00BF     		nop
+ 3102 0072 1C37     		adds	r7, r7, #28
+ 3103 0074 BD46     		mov	sp, r7
+ 3104              		@ sp needed
+ 3105 0076 90BD     		pop	{r4, r7, pc}
+ 3106              		.size	AsebaNative_mathsqrt, .-AsebaNative_mathsqrt
+ 3107              		.global	AsebaNativeDescription_mathsqrt
+ 3108              		.section	.rodata
+ 3109 050a 0000     		.align	2
+ 3110              	.LC59:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 58
+
+
+ 3111 050c 6D617468 		.ascii	"math.sqrt\000"
+ 3111      2E737172 
+ 3111      7400
+ 3112 0516 0000     		.align	2
+ 3113              	.LC60:
+ 3114 0518 70657266 		.ascii	"performs dest = sqrt(x) element by element\000"
+ 3114      6F726D73 
+ 3114      20646573 
+ 3114      74203D20 
+ 3114      73717274 
+ 3115              		.section	.rodata.AsebaNativeDescription_mathsqrt,"a",%progbits
+ 3116              		.align	2
+ 3117              		.type	AsebaNativeDescription_mathsqrt, %object
+ 3118              		.size	AsebaNativeDescription_mathsqrt, 32
+ 3119              	AsebaNativeDescription_mathsqrt:
+ 3120 0000 0C050000 		.word	.LC59
+ 3121 0004 18050000 		.word	.LC60
+ 3122 0008 FFFF     		.short	-1
+ 3123 000a 0000     		.space	2
+ 3124 000c 34000000 		.word	.LC2
+ 3125 0010 FFFF     		.short	-1
+ 3126 0012 0000     		.space	2
+ 3127 0014 68040000 		.word	.LC51
+ 3128 0018 0000     		.short	0
+ 3129 001a 0000     		.space	2
+ 3130 001c 00000000 		.word	0
+ 3131              		.section	.text.AsebaNative_vecnonzerosequence,"ax",%progbits
+ 3132              		.align	1
+ 3133              		.global	AsebaNative_vecnonzerosequence
+ 3134              		.syntax unified
+ 3135              		.thumb
+ 3136              		.thumb_func
+ 3137              		.fpu fpv4-sp-d16
+ 3138              		.type	AsebaNative_vecnonzerosequence, %function
+ 3139              	AsebaNative_vecnonzerosequence:
+ 3140              		@ args = 0, pretend = 0, frame = 40
+ 3141              		@ frame_needed = 1, uses_anonymous_args = 0
+ 3142 0000 90B5     		push	{r4, r7, lr}
+ 3143 0002 8BB0     		sub	sp, sp, #44
+ 3144 0004 00AF     		add	r7, sp, #0
+ 3145 0006 7860     		str	r0, [r7, #4]
+ 3146 0008 7868     		ldr	r0, [r7, #4]
+ 3147 000a FFF7FEFF 		bl	AsebaNativePopArg
+ 3148 000e 0346     		mov	r3, r0
+ 3149 0010 FB83     		strh	r3, [r7, #30]	@ movhi
+ 3150 0012 7868     		ldr	r0, [r7, #4]
+ 3151 0014 FFF7FEFF 		bl	AsebaNativePopArg
+ 3152 0018 0346     		mov	r3, r0
+ 3153 001a BB83     		strh	r3, [r7, #28]	@ movhi
+ 3154 001c 7868     		ldr	r0, [r7, #4]
+ 3155 001e FFF7FEFF 		bl	AsebaNativePopArg
+ 3156 0022 0346     		mov	r3, r0
+ 3157 0024 7B83     		strh	r3, [r7, #26]	@ movhi
+ 3158 0026 7868     		ldr	r0, [r7, #4]
+ 3159 0028 FFF7FEFF 		bl	AsebaNativePopArg
+ 3160 002c 0346     		mov	r3, r0
+ 3161 002e 3B83     		strh	r3, [r7, #24]	@ movhi
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 59
+
+
+ 3162 0030 7B68     		ldr	r3, [r7, #4]
+ 3163 0032 DA68     		ldr	r2, [r3, #12]
+ 3164 0034 7B8B     		ldrh	r3, [r7, #26]
+ 3165 0036 5B00     		lsls	r3, r3, #1
+ 3166 0038 1344     		add	r3, r3, r2
+ 3167 003a 1B88     		ldrh	r3, [r3]	@ movhi
+ 3168 003c FB82     		strh	r3, [r7, #22]	@ movhi
+ 3169 003e 0023     		movs	r3, #0
+ 3170 0040 3B84     		strh	r3, [r7, #32]	@ movhi
+ 3171 0042 0EE0     		b	.L126
+ 3172              	.L128:
+ 3173 0044 3B8C     		ldrh	r3, [r7, #32]	@ movhi
+ 3174 0046 0133     		adds	r3, r3, #1
+ 3175 0048 3B84     		strh	r3, [r7, #32]	@ movhi
+ 3176 004a 3A8C     		ldrh	r2, [r7, #32]
+ 3177 004c 3B8B     		ldrh	r3, [r7, #24]
+ 3178 004e 9A42     		cmp	r2, r3
+ 3179 0050 07D9     		bls	.L126
+ 3180 0052 7B68     		ldr	r3, [r7, #4]
+ 3181 0054 DA68     		ldr	r2, [r3, #12]
+ 3182 0056 FB8B     		ldrh	r3, [r7, #30]
+ 3183 0058 5B00     		lsls	r3, r3, #1
+ 3184 005a 1344     		add	r3, r3, r2
+ 3185 005c 0022     		movs	r2, #0
+ 3186 005e 1A80     		strh	r2, [r3]	@ movhi
+ 3187 0060 CFE0     		b	.L125
+ 3188              	.L126:
+ 3189 0062 7B68     		ldr	r3, [r7, #4]
+ 3190 0064 DA68     		ldr	r2, [r3, #12]
+ 3191 0066 B98B     		ldrh	r1, [r7, #28]
+ 3192 0068 3B8C     		ldrh	r3, [r7, #32]
+ 3193 006a 0B44     		add	r3, r3, r1
+ 3194 006c 5B00     		lsls	r3, r3, #1
+ 3195 006e 1344     		add	r3, r3, r2
+ 3196 0070 B3F90030 		ldrsh	r3, [r3]
+ 3197 0074 002B     		cmp	r3, #0
+ 3198 0076 E5D1     		bne	.L128
+ 3199 0078 3B8C     		ldrh	r3, [r7, #32]	@ movhi
+ 3200 007a BB82     		strh	r3, [r7, #20]	@ movhi
+ 3201 007c 31E0     		b	.L129
+ 3202              	.L133:
+ 3203 007e 3B8C     		ldrh	r3, [r7, #32]	@ movhi
+ 3204 0080 0133     		adds	r3, r3, #1
+ 3205 0082 3B84     		strh	r3, [r7, #32]	@ movhi
+ 3206 0084 3A8C     		ldrh	r2, [r7, #32]
+ 3207 0086 3B8B     		ldrh	r3, [r7, #24]
+ 3208 0088 9A42     		cmp	r2, r3
+ 3209 008a 2AD9     		bls	.L129
+ 3210 008c BB8A     		ldrh	r3, [r7, #20]
+ 3211 008e 002B     		cmp	r3, #0
+ 3212 0090 08D1     		bne	.L130
+ 3213 0092 7B68     		ldr	r3, [r7, #4]
+ 3214 0094 DA68     		ldr	r2, [r3, #12]
+ 3215 0096 FB8B     		ldrh	r3, [r7, #30]
+ 3216 0098 5B00     		lsls	r3, r3, #1
+ 3217 009a 1344     		add	r3, r3, r2
+ 3218 009c 4FF6FF72 		movw	r2, #65535
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 60
+
+
+ 3219 00a0 1A80     		strh	r2, [r3]	@ movhi
+ 3220 00a2 AEE0     		b	.L125
+ 3221              	.L130:
+ 3222 00a4 BB8A     		ldrh	r3, [r7, #20]	@ movhi
+ 3223 00a6 013B     		subs	r3, r3, #1
+ 3224 00a8 FB81     		strh	r3, [r7, #14]	@ movhi
+ 3225 00aa FA89     		ldrh	r2, [r7, #14]
+ 3226 00ac B7F91630 		ldrsh	r3, [r7, #22]
+ 3227 00b0 9A42     		cmp	r2, r3
+ 3228 00b2 08DA     		bge	.L132
+ 3229 00b4 7B68     		ldr	r3, [r7, #4]
+ 3230 00b6 DA68     		ldr	r2, [r3, #12]
+ 3231 00b8 FB8B     		ldrh	r3, [r7, #30]
+ 3232 00ba 5B00     		lsls	r3, r3, #1
+ 3233 00bc 1344     		add	r3, r3, r2
+ 3234 00be 4FF6FF72 		movw	r2, #65535
+ 3235 00c2 1A80     		strh	r2, [r3]	@ movhi
+ 3236 00c4 9DE0     		b	.L125
+ 3237              	.L132:
+ 3238 00c6 BB8A     		ldrh	r3, [r7, #20]
+ 3239 00c8 013B     		subs	r3, r3, #1
+ 3240 00ca DA0F     		lsrs	r2, r3, #31
+ 3241 00cc 1344     		add	r3, r3, r2
+ 3242 00ce 5B10     		asrs	r3, r3, #1
+ 3243 00d0 1946     		mov	r1, r3
+ 3244 00d2 7B68     		ldr	r3, [r7, #4]
+ 3245 00d4 DA68     		ldr	r2, [r3, #12]
+ 3246 00d6 FB8B     		ldrh	r3, [r7, #30]
+ 3247 00d8 5B00     		lsls	r3, r3, #1
+ 3248 00da 1344     		add	r3, r3, r2
+ 3249 00dc 0AB2     		sxth	r2, r1
+ 3250 00de 1A80     		strh	r2, [r3]	@ movhi
+ 3251 00e0 8FE0     		b	.L125
+ 3252              	.L129:
+ 3253 00e2 7B68     		ldr	r3, [r7, #4]
+ 3254 00e4 DA68     		ldr	r2, [r3, #12]
+ 3255 00e6 B98B     		ldrh	r1, [r7, #28]
+ 3256 00e8 3B8C     		ldrh	r3, [r7, #32]
+ 3257 00ea 0B44     		add	r3, r3, r1
+ 3258 00ec 5B00     		lsls	r3, r3, #1
+ 3259 00ee 1344     		add	r3, r3, r2
+ 3260 00f0 B3F90030 		ldrsh	r3, [r3]
+ 3261 00f4 002B     		cmp	r3, #0
+ 3262 00f6 C2D0     		beq	.L133
+ 3263 00f8 0023     		movs	r3, #0
+ 3264 00fa FB84     		strh	r3, [r7, #38]	@ movhi
+ 3265 00fc 0023     		movs	r3, #0
+ 3266 00fe BB84     		strh	r3, [r7, #36]	@ movhi
+ 3267 0100 0023     		movs	r3, #0
+ 3268 0102 7B84     		strh	r3, [r7, #34]	@ movhi
+ 3269              	.L142:
+ 3270 0104 FB8C     		ldrh	r3, [r7, #38]	@ movhi
+ 3271 0106 7B82     		strh	r3, [r7, #18]	@ movhi
+ 3272 0108 08E0     		b	.L134
+ 3273              	.L136:
+ 3274 010a FB8C     		ldrh	r3, [r7, #38]
+ 3275 010c 0133     		adds	r3, r3, #1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 61
+
+
+ 3276 010e 9BB2     		uxth	r3, r3
+ 3277 0110 FB84     		strh	r3, [r7, #38]	@ movhi
+ 3278 0112 B7F92620 		ldrsh	r2, [r7, #38]
+ 3279 0116 3B8B     		ldrh	r3, [r7, #24]
+ 3280 0118 9A42     		cmp	r2, r3
+ 3281 011a 14DA     		bge	.L144
+ 3282              	.L134:
+ 3283 011c 7B68     		ldr	r3, [r7, #4]
+ 3284 011e D968     		ldr	r1, [r3, #12]
+ 3285 0120 B88B     		ldrh	r0, [r7, #28]
+ 3286 0122 3A8C     		ldrh	r2, [r7, #32]
+ 3287 0124 B7F92630 		ldrsh	r3, [r7, #38]
+ 3288 0128 1344     		add	r3, r3, r2
+ 3289 012a 3A8B     		ldrh	r2, [r7, #24]
+ 3290 012c 93FBF2F4 		sdiv	r4, r3, r2
+ 3291 0130 02FB04F2 		mul	r2, r2, r4
+ 3292 0134 9B1A     		subs	r3, r3, r2
+ 3293 0136 0344     		add	r3, r3, r0
+ 3294 0138 5B00     		lsls	r3, r3, #1
+ 3295 013a 0B44     		add	r3, r3, r1
+ 3296 013c B3F90030 		ldrsh	r3, [r3]
+ 3297 0140 002B     		cmp	r3, #0
+ 3298 0142 E2D1     		bne	.L136
+ 3299 0144 00E0     		b	.L135
+ 3300              	.L144:
+ 3301 0146 00BF     		nop
+ 3302              	.L135:
+ 3303 0148 FA8C     		ldrh	r2, [r7, #38]
+ 3304 014a 7B8A     		ldrh	r3, [r7, #18]
+ 3305 014c D31A     		subs	r3, r2, r3
+ 3306 014e 9BB2     		uxth	r3, r3
+ 3307 0150 3B82     		strh	r3, [r7, #16]	@ movhi
+ 3308 0152 B7F91020 		ldrsh	r2, [r7, #16]
+ 3309 0156 B7F92430 		ldrsh	r3, [r7, #36]
+ 3310 015a 9A42     		cmp	r2, r3
+ 3311 015c 0ADD     		ble	.L137
+ 3312 015e 3B8A     		ldrh	r3, [r7, #16]	@ movhi
+ 3313 0160 BB84     		strh	r3, [r7, #36]	@ movhi
+ 3314 0162 B7F92620 		ldrsh	r2, [r7, #38]
+ 3315 0166 B7F91230 		ldrsh	r3, [r7, #18]
+ 3316 016a 1344     		add	r3, r3, r2
+ 3317 016c DA0F     		lsrs	r2, r3, #31
+ 3318 016e 1344     		add	r3, r3, r2
+ 3319 0170 5B10     		asrs	r3, r3, #1
+ 3320 0172 7B84     		strh	r3, [r7, #34]	@ movhi
+ 3321              	.L137:
+ 3322 0174 B7F92620 		ldrsh	r2, [r7, #38]
+ 3323 0178 3B8B     		ldrh	r3, [r7, #24]
+ 3324 017a 9A42     		cmp	r2, r3
+ 3325 017c 1EDA     		bge	.L145
+ 3326 017e 08E0     		b	.L140
+ 3327              	.L141:
+ 3328 0180 FB8C     		ldrh	r3, [r7, #38]
+ 3329 0182 0133     		adds	r3, r3, #1
+ 3330 0184 9BB2     		uxth	r3, r3
+ 3331 0186 FB84     		strh	r3, [r7, #38]	@ movhi
+ 3332 0188 B7F92620 		ldrsh	r2, [r7, #38]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 62
+
+
+ 3333 018c 3B8B     		ldrh	r3, [r7, #24]
+ 3334 018e 9A42     		cmp	r2, r3
+ 3335 0190 16DA     		bge	.L146
+ 3336              	.L140:
+ 3337 0192 7B68     		ldr	r3, [r7, #4]
+ 3338 0194 D968     		ldr	r1, [r3, #12]
+ 3339 0196 B88B     		ldrh	r0, [r7, #28]
+ 3340 0198 3A8C     		ldrh	r2, [r7, #32]
+ 3341 019a B7F92630 		ldrsh	r3, [r7, #38]
+ 3342 019e 1344     		add	r3, r3, r2
+ 3343 01a0 3A8B     		ldrh	r2, [r7, #24]
+ 3344 01a2 93FBF2F4 		sdiv	r4, r3, r2
+ 3345 01a6 02FB04F2 		mul	r2, r2, r4
+ 3346 01aa 9B1A     		subs	r3, r3, r2
+ 3347 01ac 0344     		add	r3, r3, r0
+ 3348 01ae 5B00     		lsls	r3, r3, #1
+ 3349 01b0 0B44     		add	r3, r3, r1
+ 3350 01b2 B3F90030 		ldrsh	r3, [r3]
+ 3351 01b6 002B     		cmp	r3, #0
+ 3352 01b8 E2D0     		beq	.L141
+ 3353 01ba A3E7     		b	.L142
+ 3354              	.L145:
+ 3355 01bc 00BF     		nop
+ 3356 01be 00E0     		b	.L139
+ 3357              	.L146:
+ 3358 01c0 00BF     		nop
+ 3359              	.L139:
+ 3360 01c2 B7F92420 		ldrsh	r2, [r7, #36]
+ 3361 01c6 B7F91630 		ldrsh	r3, [r7, #22]
+ 3362 01ca 9A42     		cmp	r2, r3
+ 3363 01cc 08DA     		bge	.L143
+ 3364 01ce 7B68     		ldr	r3, [r7, #4]
+ 3365 01d0 DA68     		ldr	r2, [r3, #12]
+ 3366 01d2 FB8B     		ldrh	r3, [r7, #30]
+ 3367 01d4 5B00     		lsls	r3, r3, #1
+ 3368 01d6 1344     		add	r3, r3, r2
+ 3369 01d8 4FF6FF72 		movw	r2, #65535
+ 3370 01dc 1A80     		strh	r2, [r3]	@ movhi
+ 3371 01de 10E0     		b	.L125
+ 3372              	.L143:
+ 3373 01e0 3A8C     		ldrh	r2, [r7, #32]
+ 3374 01e2 B7F92230 		ldrsh	r3, [r7, #34]
+ 3375 01e6 1344     		add	r3, r3, r2
+ 3376 01e8 3A8B     		ldrh	r2, [r7, #24]
+ 3377 01ea 93FBF2F1 		sdiv	r1, r3, r2
+ 3378 01ee 02FB01F2 		mul	r2, r2, r1
+ 3379 01f2 991A     		subs	r1, r3, r2
+ 3380 01f4 7B68     		ldr	r3, [r7, #4]
+ 3381 01f6 DA68     		ldr	r2, [r3, #12]
+ 3382 01f8 FB8B     		ldrh	r3, [r7, #30]
+ 3383 01fa 5B00     		lsls	r3, r3, #1
+ 3384 01fc 1344     		add	r3, r3, r2
+ 3385 01fe 0AB2     		sxth	r2, r1
+ 3386 0200 1A80     		strh	r2, [r3]	@ movhi
+ 3387              	.L125:
+ 3388 0202 2C37     		adds	r7, r7, #44
+ 3389 0204 BD46     		mov	sp, r7
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 63
+
+
+ 3390              		@ sp needed
+ 3391 0206 90BD     		pop	{r4, r7, pc}
+ 3392              		.size	AsebaNative_vecnonzerosequence, .-AsebaNative_vecnonzerosequence
+ 3393              		.global	AsebaNativeDescription_vecnonzerosequence
+ 3394              		.section	.rodata
+ 3395 0543 00       		.align	2
+ 3396              	.LC61:
+ 3397 0544 6D617468 		.ascii	"math.nzseq\000"
+ 3397      2E6E7A73 
+ 3397      657100
+ 3398 054f 00       		.align	2
+ 3399              	.LC62:
+ 3400 0550 77726974 		.ascii	"write to dest the middle index of the largest seque"
+ 3400      6520746F 
+ 3400      20646573 
+ 3400      74207468 
+ 3400      65206D69 
+ 3401 0583 6E636520 		.ascii	"nce of non-zero elements from src, -1 if not found "
+ 3401      6F66206E 
+ 3401      6F6E2D7A 
+ 3401      65726F20 
+ 3401      656C656D 
+ 3402 05b6 6F722069 		.ascii	"or if smaller than minLength\000"
+ 3402      6620736D 
+ 3402      616C6C65 
+ 3402      72207468 
+ 3402      616E206D 
+ 3403 05d3 00       		.align	2
+ 3404              	.LC63:
+ 3405 05d4 6D696E4C 		.ascii	"minLength\000"
+ 3405      656E6774 
+ 3405      6800
+ 3406              		.section	.rodata.AsebaNativeDescription_vecnonzerosequence,"a",%progbits
+ 3407              		.align	2
+ 3408              		.type	AsebaNativeDescription_vecnonzerosequence, %object
+ 3409              		.size	AsebaNativeDescription_vecnonzerosequence, 40
+ 3410              	AsebaNativeDescription_vecnonzerosequence:
+ 3411 0000 44050000 		.word	.LC61
+ 3412 0004 50050000 		.word	.LC62
+ 3413 0008 0100     		.short	1
+ 3414 000a 0000     		.space	2
+ 3415 000c 34000000 		.word	.LC2
+ 3416 0010 FFFF     		.short	-1
+ 3417 0012 0000     		.space	2
+ 3418 0014 3C000000 		.word	.LC3
+ 3419 0018 0100     		.short	1
+ 3420 001a 0000     		.space	2
+ 3421 001c D4050000 		.word	.LC63
+ 3422 0020 0000     		.short	0
+ 3423 0022 0000     		.space	2
+ 3424 0024 00000000 		.word	0
+ 3425              		.section	.bss.rnd_state,"aw",%nobits
+ 3426              		.align	1
+ 3427              		.type	rnd_state, %object
+ 3428              		.size	rnd_state, 2
+ 3429              	rnd_state:
+ 3430 0000 0000     		.space	2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 64
+
+
+ 3431              		.section	.text.AsebaSetRandomSeed,"ax",%progbits
+ 3432              		.align	1
+ 3433              		.global	AsebaSetRandomSeed
+ 3434              		.syntax unified
+ 3435              		.thumb
+ 3436              		.thumb_func
+ 3437              		.fpu fpv4-sp-d16
+ 3438              		.type	AsebaSetRandomSeed, %function
+ 3439              	AsebaSetRandomSeed:
+ 3440              		@ args = 0, pretend = 0, frame = 8
+ 3441              		@ frame_needed = 1, uses_anonymous_args = 0
+ 3442              		@ link register save eliminated.
+ 3443 0000 80B4     		push	{r7}
+ 3444 0002 83B0     		sub	sp, sp, #12
+ 3445 0004 00AF     		add	r7, sp, #0
+ 3446 0006 0346     		mov	r3, r0
+ 3447 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 3448 000a 044A     		ldr	r2, .L148
+ 3449 000c FB88     		ldrh	r3, [r7, #6]	@ movhi
+ 3450 000e 1380     		strh	r3, [r2]	@ movhi
+ 3451 0010 00BF     		nop
+ 3452 0012 0C37     		adds	r7, r7, #12
+ 3453 0014 BD46     		mov	sp, r7
+ 3454              		@ sp needed
+ 3455 0016 5DF8047B 		ldr	r7, [sp], #4
+ 3456 001a 7047     		bx	lr
+ 3457              	.L149:
+ 3458              		.align	2
+ 3459              	.L148:
+ 3460 001c 00000000 		.word	rnd_state
+ 3461              		.size	AsebaSetRandomSeed, .-AsebaSetRandomSeed
+ 3462              		.section	.text.AsebaGetRandom,"ax",%progbits
+ 3463              		.align	1
+ 3464              		.global	AsebaGetRandom
+ 3465              		.syntax unified
+ 3466              		.thumb
+ 3467              		.thumb_func
+ 3468              		.fpu fpv4-sp-d16
+ 3469              		.type	AsebaGetRandom, %function
+ 3470              	AsebaGetRandom:
+ 3471              		@ args = 0, pretend = 0, frame = 0
+ 3472              		@ frame_needed = 1, uses_anonymous_args = 0
+ 3473              		@ link register save eliminated.
+ 3474 0000 80B4     		push	{r7}
+ 3475 0002 00AF     		add	r7, sp, #0
+ 3476 0004 0E4B     		ldr	r3, .L152
+ 3477 0006 1B88     		ldrh	r3, [r3]
+ 3478 0008 1A46     		mov	r2, r3	@ movhi
+ 3479 000a D200     		lsls	r2, r2, #3
+ 3480 000c D21A     		subs	r2, r2, r3
+ 3481 000e 9200     		lsls	r2, r2, #2
+ 3482 0010 1A44     		add	r2, r2, r3
+ 3483 0012 1146     		mov	r1, r2	@ movhi
+ 3484 0014 C900     		lsls	r1, r1, #3
+ 3485 0016 8A1A     		subs	r2, r1, r2
+ 3486 0018 1146     		mov	r1, r2	@ movhi
+ 3487 001a 4901     		lsls	r1, r1, #5
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 65
+
+
+ 3488 001c 8A1A     		subs	r2, r1, r2
+ 3489 001e 9200     		lsls	r2, r2, #2
+ 3490 0020 1344     		add	r3, r3, r2
+ 3491 0022 9BB2     		uxth	r3, r3
+ 3492 0024 03F55853 		add	r3, r3, #13824
+ 3493 0028 1933     		adds	r3, r3, #25
+ 3494 002a 9AB2     		uxth	r2, r3
+ 3495 002c 044B     		ldr	r3, .L152
+ 3496 002e 1A80     		strh	r2, [r3]	@ movhi
+ 3497 0030 034B     		ldr	r3, .L152
+ 3498 0032 1B88     		ldrh	r3, [r3]
+ 3499 0034 1846     		mov	r0, r3
+ 3500 0036 BD46     		mov	sp, r7
+ 3501              		@ sp needed
+ 3502 0038 5DF8047B 		ldr	r7, [sp], #4
+ 3503 003c 7047     		bx	lr
+ 3504              	.L153:
+ 3505 003e 00BF     		.align	2
+ 3506              	.L152:
+ 3507 0040 00000000 		.word	rnd_state
+ 3508              		.size	AsebaGetRandom, .-AsebaGetRandom
+ 3509              		.section	.text.AsebaNative_rand,"ax",%progbits
+ 3510              		.align	1
+ 3511              		.global	AsebaNative_rand
+ 3512              		.syntax unified
+ 3513              		.thumb
+ 3514              		.thumb_func
+ 3515              		.fpu fpv4-sp-d16
+ 3516              		.type	AsebaNative_rand, %function
+ 3517              	AsebaNative_rand:
+ 3518              		@ args = 0, pretend = 0, frame = 16
+ 3519              		@ frame_needed = 1, uses_anonymous_args = 0
+ 3520 0000 80B5     		push	{r7, lr}
+ 3521 0002 84B0     		sub	sp, sp, #16
+ 3522 0004 00AF     		add	r7, sp, #0
+ 3523 0006 7860     		str	r0, [r7, #4]
+ 3524 0008 7868     		ldr	r0, [r7, #4]
+ 3525 000a FFF7FEFF 		bl	AsebaNativePopArg
+ 3526 000e 0346     		mov	r3, r0
+ 3527 0010 FB81     		strh	r3, [r7, #14]	@ movhi
+ 3528 0012 7868     		ldr	r0, [r7, #4]
+ 3529 0014 FFF7FEFF 		bl	AsebaNativePopArg
+ 3530 0018 0346     		mov	r3, r0
+ 3531 001a 7B81     		strh	r3, [r7, #10]	@ movhi
+ 3532 001c 0023     		movs	r3, #0
+ 3533 001e BB81     		strh	r3, [r7, #12]	@ movhi
+ 3534 0020 0FE0     		b	.L155
+ 3535              	.L156:
+ 3536 0022 FFF7FEFF 		bl	AsebaGetRandom
+ 3537 0026 0346     		mov	r3, r0
+ 3538 0028 1846     		mov	r0, r3
+ 3539 002a 7B68     		ldr	r3, [r7, #4]
+ 3540 002c DA68     		ldr	r2, [r3, #12]
+ 3541 002e FB89     		ldrh	r3, [r7, #14]
+ 3542 0030 591C     		adds	r1, r3, #1
+ 3543 0032 F981     		strh	r1, [r7, #14]	@ movhi
+ 3544 0034 5B00     		lsls	r3, r3, #1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 66
+
+
+ 3545 0036 1344     		add	r3, r3, r2
+ 3546 0038 02B2     		sxth	r2, r0
+ 3547 003a 1A80     		strh	r2, [r3]	@ movhi
+ 3548 003c BB89     		ldrh	r3, [r7, #12]
+ 3549 003e 0133     		adds	r3, r3, #1
+ 3550 0040 BB81     		strh	r3, [r7, #12]	@ movhi
+ 3551              	.L155:
+ 3552 0042 BA89     		ldrh	r2, [r7, #12]
+ 3553 0044 7B89     		ldrh	r3, [r7, #10]
+ 3554 0046 9A42     		cmp	r2, r3
+ 3555 0048 EBD3     		bcc	.L156
+ 3556 004a 00BF     		nop
+ 3557 004c 1037     		adds	r7, r7, #16
+ 3558 004e BD46     		mov	sp, r7
+ 3559              		@ sp needed
+ 3560 0050 80BD     		pop	{r7, pc}
+ 3561              		.size	AsebaNative_rand, .-AsebaNative_rand
+ 3562              		.global	AsebaNativeDescription_rand
+ 3563              		.section	.rodata
+ 3564 05de 0000     		.align	2
+ 3565              	.LC64:
+ 3566 05e0 6D617468 		.ascii	"math.rand\000"
+ 3566      2E72616E 
+ 3566      6400
+ 3567 05ea 0000     		.align	2
+ 3568              	.LC65:
+ 3569 05ec 66696C6C 		.ascii	"fill array with random values\000"
+ 3569      20617272 
+ 3569      61792077 
+ 3569      69746820 
+ 3569      72616E64 
+ 3570              		.section	.rodata.AsebaNativeDescription_rand,"a",%progbits
+ 3571              		.align	2
+ 3572              		.type	AsebaNativeDescription_rand, %object
+ 3573              		.size	AsebaNativeDescription_rand, 24
+ 3574              	AsebaNativeDescription_rand:
+ 3575 0000 E0050000 		.word	.LC64
+ 3576 0004 EC050000 		.word	.LC65
+ 3577 0008 FFFF     		.short	-1
+ 3578 000a 0000     		.space	2
+ 3579 000c 34000000 		.word	.LC2
+ 3580 0010 0000     		.short	0
+ 3581 0012 0000     		.space	2
+ 3582 0014 00000000 		.word	0
+ 3583              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 67
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 natives.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:15     .text.AsebaNativePopArg:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:21     .text.AsebaNativePopArg:0000000000000000 AsebaNativePopArg
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:51     .rodata.aseba_atan_table:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:54     .rodata.aseba_atan_table:0000000000000000 aseba_atan_table
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:217    .text.aseba_atan2:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:224    .text.aseba_atan2:0000000000000000 aseba_atan2
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:384    .text.aseba_atan2:0000000000000168 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:388    .rodata.aseba_sin_table:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:391    .rodata.aseba_sin_table:0000000000000000 aseba_sin_table
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:522    .text.aseba_sin:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:529    .text.aseba_sin:0000000000000000 aseba_sin
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:632    .text.aseba_sin:00000000000000dc $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:637    .text.aseba_cos:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:644    .text.aseba_cos:0000000000000000 aseba_cos
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:666    .text.aseba_sqrt:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:673    .text.aseba_sqrt:0000000000000000 aseba_sqrt
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:744    .text.aseba_comb_sort:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:751    .text.aseba_comb_sort:0000000000000000 aseba_comb_sort
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:854    .text.aseba_comb_sort:00000000000000bc $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:857    .text.AsebaNative_veccopy:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:864    .text.AsebaNative_veccopy:0000000000000000 AsebaNative_veccopy
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:935    .rodata.AsebaNativeDescription_veccopy:0000000000000000 AsebaNativeDescription_veccopy
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:919    .rodata:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:932    .rodata.AsebaNativeDescription_veccopy:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:948    .text.AsebaNative_vecfill:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:955    .text.AsebaNative_vecfill:0000000000000000 AsebaNative_vecfill
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1021   .rodata.AsebaNativeDescription_vecfill:0000000000000000 AsebaNativeDescription_vecfill
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1018   .rodata.AsebaNativeDescription_vecfill:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1034   .text.AsebaNative_vecaddscalar:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1041   .text.AsebaNative_vecaddscalar:0000000000000000 AsebaNative_vecaddscalar
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1126   .rodata.AsebaNativeDescription_vecaddscalar:0000000000000000 AsebaNativeDescription_vecaddscalar
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1123   .rodata.AsebaNativeDescription_vecaddscalar:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1142   .text.AsebaNative_vecadd:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1149   .text.AsebaNative_vecadd:0000000000000000 AsebaNative_vecadd
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1237   .rodata.AsebaNativeDescription_vecadd:0000000000000000 AsebaNativeDescription_vecadd
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1234   .rodata.AsebaNativeDescription_vecadd:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1253   .text.AsebaNative_vecsub:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1260   .text.AsebaNative_vecsub:0000000000000000 AsebaNative_vecsub
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1343   .rodata.AsebaNativeDescription_vecsub:0000000000000000 AsebaNativeDescription_vecsub
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1340   .rodata.AsebaNativeDescription_vecsub:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1359   .text.AsebaNative_vecmul:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1366   .text.AsebaNative_vecmul:0000000000000000 AsebaNative_vecmul
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1449   .rodata.AsebaNativeDescription_vecmul:0000000000000000 AsebaNativeDescription_vecmul
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1446   .rodata.AsebaNativeDescription_vecmul:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1465   .text.AsebaNative_vecdiv:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1472   .text.AsebaNative_vecdiv:0000000000000000 AsebaNative_vecdiv
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1571   .rodata.AsebaNativeDescription_vecdiv:0000000000000000 AsebaNativeDescription_vecdiv
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1568   .rodata.AsebaNativeDescription_vecdiv:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1587   .text.AsebaNative_vecmin:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1594   .text.AsebaNative_vecmin:0000000000000000 AsebaNative_vecmin
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1681   .rodata.AsebaNativeDescription_vecmin:0000000000000000 AsebaNativeDescription_vecmin
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1678   .rodata.AsebaNativeDescription_vecmin:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1697   .text.AsebaNative_vecmax:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1704   .text.AsebaNative_vecmax:0000000000000000 AsebaNative_vecmax
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1791   .rodata.AsebaNativeDescription_vecmax:0000000000000000 AsebaNativeDescription_vecmax
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 68
+
+
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1788   .rodata.AsebaNativeDescription_vecmax:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1807   .text.AsebaNative_vecclamp:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1814   .text.AsebaNative_vecclamp:0000000000000000 AsebaNative_vecclamp
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1929   .rodata.AsebaNativeDescription_vecclamp:0000000000000000 AsebaNativeDescription_vecclamp
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1926   .rodata.AsebaNativeDescription_vecclamp:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1948   .text.AsebaNative_vecdot:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:1955   .text.AsebaNative_vecdot:0000000000000000 AsebaNative_vecdot
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2068   .rodata.AsebaNativeDescription_vecdot:0000000000000000 AsebaNativeDescription_vecdot
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2065   .rodata.AsebaNativeDescription_vecdot:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2087   .text.AsebaNative_vecstat:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2094   .text.AsebaNative_vecstat:0000000000000000 AsebaNative_vecstat
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2246   .rodata.AsebaNativeDescription_vecstat:0000000000000000 AsebaNativeDescription_vecstat
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2243   .rodata.AsebaNativeDescription_vecstat:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2265   .text.AsebaNative_vecargbounds:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2272   .text.AsebaNative_vecargbounds:0000000000000000 AsebaNative_vecargbounds
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2377   .rodata.AsebaNativeDescription_vecargbounds:0000000000000000 AsebaNativeDescription_vecargbounds
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2374   .rodata.AsebaNativeDescription_vecargbounds:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2393   .text.AsebaNative_vecsort:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2400   .text.AsebaNative_vecsort:0000000000000000 AsebaNative_vecsort
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2445   .rodata.AsebaNativeDescription_vecsort:0000000000000000 AsebaNativeDescription_vecsort
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2442   .rodata.AsebaNativeDescription_vecsort:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2455   .text.AsebaNative_mathmuldiv:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2462   .text.AsebaNative_mathmuldiv:0000000000000000 AsebaNative_mathmuldiv
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2586   .rodata.AsebaNativeDescription_mathmuldiv:0000000000000000 AsebaNativeDescription_mathmuldiv
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2583   .rodata.AsebaNativeDescription_mathmuldiv:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2605   .text.AsebaNative_mathatan2:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2612   .text.AsebaNative_mathatan2:0000000000000000 AsebaNative_mathatan2
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2709   .rodata.AsebaNativeDescription_mathatan2:0000000000000000 AsebaNativeDescription_mathatan2
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2706   .rodata.AsebaNativeDescription_mathatan2:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2725   .text.AsebaNative_mathsin:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2732   .text.AsebaNative_mathsin:0000000000000000 AsebaNative_mathsin
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2805   .rodata.AsebaNativeDescription_mathsin:0000000000000000 AsebaNativeDescription_mathsin
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2802   .rodata.AsebaNativeDescription_mathsin:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2818   .text.AsebaNative_mathcos:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2825   .text.AsebaNative_mathcos:0000000000000000 AsebaNative_mathcos
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2898   .rodata.AsebaNativeDescription_mathcos:0000000000000000 AsebaNativeDescription_mathcos
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2895   .rodata.AsebaNativeDescription_mathcos:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2911   .text.AsebaNative_mathrot2:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:2918   .text.AsebaNative_mathrot2:0000000000000000 AsebaNative_mathrot2
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:3023   .rodata.AsebaNativeDescription_mathrot2:0000000000000000 AsebaNativeDescription_mathrot2
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:3020   .rodata.AsebaNativeDescription_mathrot2:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:3039   .text.AsebaNative_mathsqrt:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:3046   .text.AsebaNative_mathsqrt:0000000000000000 AsebaNative_mathsqrt
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:3119   .rodata.AsebaNativeDescription_mathsqrt:0000000000000000 AsebaNativeDescription_mathsqrt
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:3116   .rodata.AsebaNativeDescription_mathsqrt:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:3132   .text.AsebaNative_vecnonzerosequence:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:3139   .text.AsebaNative_vecnonzerosequence:0000000000000000 AsebaNative_vecnonzerosequence
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:3410   .rodata.AsebaNativeDescription_vecnonzerosequence:0000000000000000 AsebaNativeDescription_vecnonzerosequence
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:3407   .rodata.AsebaNativeDescription_vecnonzerosequence:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:3426   .bss.rnd_state:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:3429   .bss.rnd_state:0000000000000000 rnd_state
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:3432   .text.AsebaSetRandomSeed:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:3439   .text.AsebaSetRandomSeed:0000000000000000 AsebaSetRandomSeed
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:3460   .text.AsebaSetRandomSeed:000000000000001c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:3463   .text.AsebaGetRandom:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:3470   .text.AsebaGetRandom:0000000000000000 AsebaGetRandom
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:3507   .text.AsebaGetRandom:0000000000000040 $d
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s 			page 69
+
+
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:3510   .text.AsebaNative_rand:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:3517   .text.AsebaNative_rand:0000000000000000 AsebaNative_rand
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:3574   .rodata.AsebaNativeDescription_rand:0000000000000000 AsebaNativeDescription_rand
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBpdMDd.s:3571   .rodata.AsebaNativeDescription_rand:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+AsebaSendMessage

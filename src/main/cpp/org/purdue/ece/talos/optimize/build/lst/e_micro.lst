@@ -1,0 +1,595 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc5I9POe.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"e_micro.c"
+  14              		.section	.text.chprintf,"ax",%progbits
+  15              		.align	1
+  16              		.syntax unified
+  17              		.thumb
+  18              		.thumb_func
+  19              		.fpu fpv4-sp-d16
+  20              		.type	chprintf, %function
+  21              	chprintf:
+  22              		@ args = 4, pretend = 12, frame = 16
+  23              		@ frame_needed = 1, uses_anonymous_args = 1
+  24 0000 0EB4     		push	{r1, r2, r3}
+  25 0002 80B5     		push	{r7, lr}
+  26 0004 85B0     		sub	sp, sp, #20
+  27 0006 00AF     		add	r7, sp, #0
+  28 0008 7860     		str	r0, [r7, #4]
+  29 000a 07F12003 		add	r3, r7, #32
+  30 000e BB60     		str	r3, [r7, #8]
+  31 0010 BA68     		ldr	r2, [r7, #8]
+  32 0012 F969     		ldr	r1, [r7, #28]
+  33 0014 7868     		ldr	r0, [r7, #4]
+  34 0016 FFF7FEFF 		bl	chvprintf
+  35 001a F860     		str	r0, [r7, #12]
+  36 001c FB68     		ldr	r3, [r7, #12]
+  37 001e 1846     		mov	r0, r3
+  38 0020 1437     		adds	r7, r7, #20
+  39 0022 BD46     		mov	sp, r7
+  40              		@ sp needed
+  41 0024 BDE88040 		pop	{r7, lr}
+  42 0028 03B0     		add	sp, sp, #12
+  43 002a 7047     		bx	lr
+  44              		.size	chprintf, .-chprintf
+  45              		.section	.text.e_get_micro,"ax",%progbits
+  46              		.align	1
+  47              		.global	e_get_micro
+  48              		.syntax unified
+  49              		.thumb
+  50              		.thumb_func
+  51              		.fpu fpv4-sp-d16
+  52              		.type	e_get_micro, %function
+  53              	e_get_micro:
+  54              		@ args = 0, pretend = 0, frame = 16
+  55              		@ frame_needed = 1, uses_anonymous_args = 0
+  56 0000 80B5     		push	{r7, lr}
+  57 0002 84B0     		sub	sp, sp, #16
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc5I9POe.s 			page 2
+
+
+  58 0004 00AF     		add	r7, sp, #0
+  59 0006 7860     		str	r0, [r7, #4]
+  60 0008 7B68     		ldr	r3, [r7, #4]
+  61 000a DBB2     		uxtb	r3, r3
+  62 000c 1846     		mov	r0, r3
+  63 000e FFF7FEFF 		bl	mic_get_last
+  64 0012 0346     		mov	r3, r0
+  65 0014 FB81     		strh	r3, [r7, #14]	@ movhi
+  66 0016 B7F90E30 		ldrsh	r3, [r7, #14]
+  67 001a 1B11     		asrs	r3, r3, #4
+  68 001c 1BB2     		sxth	r3, r3
+  69 001e 1846     		mov	r0, r3
+  70 0020 1037     		adds	r7, r7, #16
+  71 0022 BD46     		mov	sp, r7
+  72              		@ sp needed
+  73 0024 80BD     		pop	{r7, pc}
+  74              		.size	e_get_micro, .-e_get_micro
+  75              		.section	.text.e_get_micro_average,"ax",%progbits
+  76              		.align	1
+  77              		.global	e_get_micro_average
+  78              		.syntax unified
+  79              		.thumb
+  80              		.thumb_func
+  81              		.fpu fpv4-sp-d16
+  82              		.type	e_get_micro_average, %function
+  83              	e_get_micro_average:
+  84              		@ args = 0, pretend = 0, frame = 24
+  85              		@ frame_needed = 1, uses_anonymous_args = 0
+  86 0000 80B5     		push	{r7, lr}
+  87 0002 86B0     		sub	sp, sp, #24
+  88 0004 00AF     		add	r7, sp, #0
+  89 0006 7860     		str	r0, [r7, #4]
+  90 0008 3960     		str	r1, [r7]
+  91 000a FFF7FEFF 		bl	mic_get_buffer_ptr
+  92 000e F860     		str	r0, [r7, #12]
+  93 0010 0023     		movs	r3, #0
+  94 0012 7B61     		str	r3, [r7, #20]
+  95 0014 7B68     		ldr	r3, [r7, #4]
+  96 0016 022B     		cmp	r3, #2
+  97 0018 25D8     		bhi	.L6
+  98 001a 3B68     		ldr	r3, [r7]
+  99 001c 002B     		cmp	r3, #0
+ 100 001e 22D0     		beq	.L6
+ 101 0020 3B68     		ldr	r3, [r7]
+ 102 0022 A02B     		cmp	r3, #160
+ 103 0024 1FD8     		bhi	.L6
+ 104 0026 0023     		movs	r3, #0
+ 105 0028 7B82     		strh	r3, [r7, #18]	@ movhi
+ 106 002a 3B68     		ldr	r3, [r7]
+ 107 002c 9BB2     		uxth	r3, r3
+ 108 002e C3F1A003 		rsb	r3, r3, #160
+ 109 0032 3B82     		strh	r3, [r7, #16]	@ movhi
+ 110 0034 13E0     		b	.L7
+ 111              	.L8:
+ 112 0036 3B8A     		ldrh	r3, [r7, #16]
+ 113 0038 9B00     		lsls	r3, r3, #2
+ 114 003a 1A46     		mov	r2, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc5I9POe.s 			page 3
+
+
+ 115 003c 7B68     		ldr	r3, [r7, #4]
+ 116 003e 1344     		add	r3, r3, r2
+ 117 0040 5B00     		lsls	r3, r3, #1
+ 118 0042 FA68     		ldr	r2, [r7, #12]
+ 119 0044 1344     		add	r3, r3, r2
+ 120 0046 B3F90030 		ldrsh	r3, [r3]
+ 121 004a 1A46     		mov	r2, r3
+ 122 004c 7B69     		ldr	r3, [r7, #20]
+ 123 004e 1344     		add	r3, r3, r2
+ 124 0050 7B61     		str	r3, [r7, #20]
+ 125 0052 7B8A     		ldrh	r3, [r7, #18]
+ 126 0054 0133     		adds	r3, r3, #1
+ 127 0056 7B82     		strh	r3, [r7, #18]	@ movhi
+ 128 0058 3B8A     		ldrh	r3, [r7, #16]
+ 129 005a 0133     		adds	r3, r3, #1
+ 130 005c 3B82     		strh	r3, [r7, #16]	@ movhi
+ 131              	.L7:
+ 132 005e 7B8A     		ldrh	r3, [r7, #18]
+ 133 0060 3A68     		ldr	r2, [r7]
+ 134 0062 9A42     		cmp	r2, r3
+ 135 0064 E7D8     		bhi	.L8
+ 136              	.L6:
+ 137 0066 7A69     		ldr	r2, [r7, #20]
+ 138 0068 3B68     		ldr	r3, [r7]
+ 139 006a B2FBF3F3 		udiv	r3, r2, r3
+ 140 006e 1846     		mov	r0, r3
+ 141 0070 1837     		adds	r7, r7, #24
+ 142 0072 BD46     		mov	sp, r7
+ 143              		@ sp needed
+ 144 0074 80BD     		pop	{r7, pc}
+ 145              		.size	e_get_micro_average, .-e_get_micro_average
+ 146              		.section	.text.e_get_micro_volume,"ax",%progbits
+ 147              		.align	1
+ 148              		.global	e_get_micro_volume
+ 149              		.syntax unified
+ 150              		.thumb
+ 151              		.thumb_func
+ 152              		.fpu fpv4-sp-d16
+ 153              		.type	e_get_micro_volume, %function
+ 154              	e_get_micro_volume:
+ 155              		@ args = 0, pretend = 0, frame = 16
+ 156              		@ frame_needed = 1, uses_anonymous_args = 0
+ 157 0000 80B5     		push	{r7, lr}
+ 158 0002 84B0     		sub	sp, sp, #16
+ 159 0004 00AF     		add	r7, sp, #0
+ 160 0006 7860     		str	r0, [r7, #4]
+ 161 0008 7B68     		ldr	r3, [r7, #4]
+ 162 000a DBB2     		uxtb	r3, r3
+ 163 000c 1846     		mov	r0, r3
+ 164 000e FFF7FEFF 		bl	mic_get_volume
+ 165 0012 0346     		mov	r3, r0
+ 166 0014 FB60     		str	r3, [r7, #12]
+ 167 0016 FB68     		ldr	r3, [r7, #12]
+ 168 0018 1B11     		asrs	r3, r3, #4
+ 169 001a 1846     		mov	r0, r3
+ 170 001c 1037     		adds	r7, r7, #16
+ 171 001e BD46     		mov	sp, r7
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc5I9POe.s 			page 4
+
+
+ 172              		@ sp needed
+ 173 0020 80BD     		pop	{r7, pc}
+ 174              		.size	e_get_micro_volume, .-e_get_micro_volume
+ 175              		.section	.text.e_get_micro_last_values,"ax",%progbits
+ 176              		.align	1
+ 177              		.global	e_get_micro_last_values
+ 178              		.syntax unified
+ 179              		.thumb
+ 180              		.thumb_func
+ 181              		.fpu fpv4-sp-d16
+ 182              		.type	e_get_micro_last_values, %function
+ 183              	e_get_micro_last_values:
+ 184              		@ args = 0, pretend = 0, frame = 24
+ 185              		@ frame_needed = 1, uses_anonymous_args = 0
+ 186 0000 80B5     		push	{r7, lr}
+ 187 0002 86B0     		sub	sp, sp, #24
+ 188 0004 00AF     		add	r7, sp, #0
+ 189 0006 F860     		str	r0, [r7, #12]
+ 190 0008 B960     		str	r1, [r7, #8]
+ 191 000a 7A60     		str	r2, [r7, #4]
+ 192 000c FFF7FEFF 		bl	mic_get_buffer_ptr
+ 193 0010 3861     		str	r0, [r7, #16]
+ 194 0012 7B68     		ldr	r3, [r7, #4]
+ 195 0014 002B     		cmp	r3, #0
+ 196 0016 1CD0     		beq	.L16
+ 197 0018 7B68     		ldr	r3, [r7, #4]
+ 198 001a A02B     		cmp	r3, #160
+ 199 001c 19D8     		bhi	.L16
+ 200 001e 0023     		movs	r3, #0
+ 201 0020 FB82     		strh	r3, [r7, #22]	@ movhi
+ 202 0022 12E0     		b	.L14
+ 203              	.L15:
+ 204 0024 FB8A     		ldrh	r3, [r7, #22]
+ 205 0026 C3F19F03 		rsb	r3, r3, #159
+ 206 002a 9A00     		lsls	r2, r3, #2
+ 207 002c FB68     		ldr	r3, [r7, #12]
+ 208 002e 1344     		add	r3, r3, r2
+ 209 0030 5B00     		lsls	r3, r3, #1
+ 210 0032 3A69     		ldr	r2, [r7, #16]
+ 211 0034 1A44     		add	r2, r2, r3
+ 212 0036 FB8A     		ldrh	r3, [r7, #22]
+ 213 0038 5B00     		lsls	r3, r3, #1
+ 214 003a B968     		ldr	r1, [r7, #8]
+ 215 003c 0B44     		add	r3, r3, r1
+ 216 003e B2F90020 		ldrsh	r2, [r2]
+ 217 0042 1A80     		strh	r2, [r3]	@ movhi
+ 218 0044 FB8A     		ldrh	r3, [r7, #22]
+ 219 0046 0133     		adds	r3, r3, #1
+ 220 0048 FB82     		strh	r3, [r7, #22]	@ movhi
+ 221              	.L14:
+ 222 004a FB8A     		ldrh	r3, [r7, #22]
+ 223 004c 7A68     		ldr	r2, [r7, #4]
+ 224 004e 9A42     		cmp	r2, r3
+ 225 0050 E8D8     		bhi	.L15
+ 226              	.L16:
+ 227 0052 00BF     		nop
+ 228 0054 1837     		adds	r7, r7, #24
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc5I9POe.s 			page 5
+
+
+ 229 0056 BD46     		mov	sp, r7
+ 230              		@ sp needed
+ 231 0058 80BD     		pop	{r7, pc}
+ 232              		.size	e_get_micro_last_values, .-e_get_micro_last_values
+ 233              		.section	.rodata
+ 234              		.align	2
+ 235              	.LC0:
+ 236 0000 6D696330 		.ascii	"mic0 last values: \000"
+ 236      206C6173 
+ 236      74207661 
+ 236      6C756573 
+ 236      3A2000
+ 237 0013 00       		.align	2
+ 238              	.LC1:
+ 239 0014 25642C20 		.ascii	"%d, \000"
+ 239      00
+ 240 0019 000000   		.align	2
+ 241              	.LC2:
+ 242 001c 0D0A00   		.ascii	"\015\012\000"
+ 243 001f 00       		.align	2
+ 244              	.LC3:
+ 245 0020 6D696331 		.ascii	"mic1 last values: \000"
+ 245      206C6173 
+ 245      74207661 
+ 245      6C756573 
+ 245      3A2000
+ 246 0033 00       		.align	2
+ 247              	.LC4:
+ 248 0034 6D696332 		.ascii	"mic2 last values: \000"
+ 248      206C6173 
+ 248      74207661 
+ 248      6C756573 
+ 248      3A2000
+ 249 0047 00       		.align	2
+ 250              	.LC5:
+ 251 0048 6D696333 		.ascii	"mic3 last values: \000"
+ 251      206C6173 
+ 251      74207661 
+ 251      6C756573 
+ 251      3A2000
+ 252 005b 00       		.align	2
+ 253              	.LC6:
+ 254 005c 6D696330 		.ascii	"mic0 avg = %d\015\012\000"
+ 254      20617667 
+ 254      203D2025 
+ 254      640D0A00 
+ 255              		.align	2
+ 256              	.LC7:
+ 257 006c 6D696331 		.ascii	"mic1 avg = %d\015\012\000"
+ 257      20617667 
+ 257      203D2025 
+ 257      640D0A00 
+ 258              		.align	2
+ 259              	.LC8:
+ 260 007c 6D696332 		.ascii	"mic2 avg = %d\015\012\000"
+ 260      20617667 
+ 260      203D2025 
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc5I9POe.s 			page 6
+
+
+ 260      640D0A00 
+ 261              		.align	2
+ 262              	.LC9:
+ 263 008c 6D696333 		.ascii	"mic3 avg = %d\015\012\000"
+ 263      20617667 
+ 263      203D2025 
+ 263      640D0A00 
+ 264              		.section	.text.e_test_micro,"ax",%progbits
+ 265              		.align	1
+ 266              		.global	e_test_micro
+ 267              		.syntax unified
+ 268              		.thumb
+ 269              		.thumb_func
+ 270              		.fpu fpv4-sp-d16
+ 271              		.type	e_test_micro, %function
+ 272              	e_test_micro:
+ 273              		@ args = 0, pretend = 0, frame = 16
+ 274              		@ frame_needed = 1, uses_anonymous_args = 0
+ 275 0000 80B5     		push	{r7, lr}
+ 276 0002 84B0     		sub	sp, sp, #16
+ 277 0004 00AF     		add	r7, sp, #0
+ 278 0006 0023     		movs	r3, #0
+ 279 0008 FB60     		str	r3, [r7, #12]
+ 280 000a 3B46     		mov	r3, r7
+ 281 000c 0022     		movs	r2, #0
+ 282 000e 1A60     		str	r2, [r3]
+ 283 0010 9A80     		strh	r2, [r3, #4]	@ movhi
+ 284 0012 FFF7FEFF 		bl	mic_get_buffer_ptr
+ 285 0016 B860     		str	r0, [r7, #8]
+ 286 0018 BB68     		ldr	r3, [r7, #8]
+ 287 001a 03F2FE43 		addw	r3, r3, #1278
+ 288 001e 0A22     		movs	r2, #10
+ 289 0020 1A80     		strh	r2, [r3]	@ movhi
+ 290 0022 BB68     		ldr	r3, [r7, #8]
+ 291 0024 03F2FC43 		addw	r3, r3, #1276
+ 292 0028 0B22     		movs	r2, #11
+ 293 002a 1A80     		strh	r2, [r3]	@ movhi
+ 294 002c BB68     		ldr	r3, [r7, #8]
+ 295 002e 03F2FA43 		addw	r3, r3, #1274
+ 296 0032 0C22     		movs	r2, #12
+ 297 0034 1A80     		strh	r2, [r3]	@ movhi
+ 298 0036 BB68     		ldr	r3, [r7, #8]
+ 299 0038 03F59F63 		add	r3, r3, #1272
+ 300 003c 0D22     		movs	r2, #13
+ 301 003e 1A80     		strh	r2, [r3]	@ movhi
+ 302 0040 BB68     		ldr	r3, [r7, #8]
+ 303 0042 03F2F643 		addw	r3, r3, #1270
+ 304 0046 0E22     		movs	r2, #14
+ 305 0048 1A80     		strh	r2, [r3]	@ movhi
+ 306 004a BB68     		ldr	r3, [r7, #8]
+ 307 004c 03F2F443 		addw	r3, r3, #1268
+ 308 0050 0F22     		movs	r2, #15
+ 309 0052 1A80     		strh	r2, [r3]	@ movhi
+ 310 0054 BB68     		ldr	r3, [r7, #8]
+ 311 0056 03F2F243 		addw	r3, r3, #1266
+ 312 005a 1022     		movs	r2, #16
+ 313 005c 1A80     		strh	r2, [r3]	@ movhi
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc5I9POe.s 			page 7
+
+
+ 314 005e BB68     		ldr	r3, [r7, #8]
+ 315 0060 03F59E63 		add	r3, r3, #1264
+ 316 0064 1122     		movs	r2, #17
+ 317 0066 1A80     		strh	r2, [r3]	@ movhi
+ 318 0068 BB68     		ldr	r3, [r7, #8]
+ 319 006a 03F2EE43 		addw	r3, r3, #1262
+ 320 006e 1222     		movs	r2, #18
+ 321 0070 1A80     		strh	r2, [r3]	@ movhi
+ 322 0072 BB68     		ldr	r3, [r7, #8]
+ 323 0074 03F2EC43 		addw	r3, r3, #1260
+ 324 0078 1322     		movs	r2, #19
+ 325 007a 1A80     		strh	r2, [r3]	@ movhi
+ 326 007c BB68     		ldr	r3, [r7, #8]
+ 327 007e 03F2EA43 		addw	r3, r3, #1258
+ 328 0082 1422     		movs	r2, #20
+ 329 0084 1A80     		strh	r2, [r3]	@ movhi
+ 330 0086 BB68     		ldr	r3, [r7, #8]
+ 331 0088 03F59D63 		add	r3, r3, #1256
+ 332 008c 1522     		movs	r2, #21
+ 333 008e 1A80     		strh	r2, [r3]	@ movhi
+ 334 0090 5B49     		ldr	r1, .L26
+ 335 0092 5C48     		ldr	r0, .L26+4
+ 336 0094 FFF7FEFF 		bl	chprintf
+ 337 0098 3B46     		mov	r3, r7
+ 338 009a 0322     		movs	r2, #3
+ 339 009c 1946     		mov	r1, r3
+ 340 009e 0020     		movs	r0, #0
+ 341 00a0 FFF7FEFF 		bl	e_get_micro_last_values
+ 342 00a4 0023     		movs	r3, #0
+ 343 00a6 FB60     		str	r3, [r7, #12]
+ 344 00a8 0EE0     		b	.L18
+ 345              	.L19:
+ 346 00aa FB68     		ldr	r3, [r7, #12]
+ 347 00ac 5B00     		lsls	r3, r3, #1
+ 348 00ae 07F11002 		add	r2, r7, #16
+ 349 00b2 1344     		add	r3, r3, r2
+ 350 00b4 33F9103C 		ldrsh	r3, [r3, #-16]
+ 351 00b8 1A46     		mov	r2, r3
+ 352 00ba 5349     		ldr	r1, .L26+8
+ 353 00bc 5148     		ldr	r0, .L26+4
+ 354 00be FFF7FEFF 		bl	chprintf
+ 355 00c2 FB68     		ldr	r3, [r7, #12]
+ 356 00c4 0133     		adds	r3, r3, #1
+ 357 00c6 FB60     		str	r3, [r7, #12]
+ 358              	.L18:
+ 359 00c8 FB68     		ldr	r3, [r7, #12]
+ 360 00ca 022B     		cmp	r3, #2
+ 361 00cc EDDD     		ble	.L19
+ 362 00ce 4F49     		ldr	r1, .L26+12
+ 363 00d0 4C48     		ldr	r0, .L26+4
+ 364 00d2 FFF7FEFF 		bl	chprintf
+ 365 00d6 4E49     		ldr	r1, .L26+16
+ 366 00d8 4A48     		ldr	r0, .L26+4
+ 367 00da FFF7FEFF 		bl	chprintf
+ 368 00de 3B46     		mov	r3, r7
+ 369 00e0 0322     		movs	r2, #3
+ 370 00e2 1946     		mov	r1, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc5I9POe.s 			page 8
+
+
+ 371 00e4 0120     		movs	r0, #1
+ 372 00e6 FFF7FEFF 		bl	e_get_micro_last_values
+ 373 00ea 0023     		movs	r3, #0
+ 374 00ec FB60     		str	r3, [r7, #12]
+ 375 00ee 0EE0     		b	.L20
+ 376              	.L21:
+ 377 00f0 FB68     		ldr	r3, [r7, #12]
+ 378 00f2 5B00     		lsls	r3, r3, #1
+ 379 00f4 07F11002 		add	r2, r7, #16
+ 380 00f8 1344     		add	r3, r3, r2
+ 381 00fa 33F9103C 		ldrsh	r3, [r3, #-16]
+ 382 00fe 1A46     		mov	r2, r3
+ 383 0100 4149     		ldr	r1, .L26+8
+ 384 0102 4048     		ldr	r0, .L26+4
+ 385 0104 FFF7FEFF 		bl	chprintf
+ 386 0108 FB68     		ldr	r3, [r7, #12]
+ 387 010a 0133     		adds	r3, r3, #1
+ 388 010c FB60     		str	r3, [r7, #12]
+ 389              	.L20:
+ 390 010e FB68     		ldr	r3, [r7, #12]
+ 391 0110 022B     		cmp	r3, #2
+ 392 0112 EDDD     		ble	.L21
+ 393 0114 3D49     		ldr	r1, .L26+12
+ 394 0116 3B48     		ldr	r0, .L26+4
+ 395 0118 FFF7FEFF 		bl	chprintf
+ 396 011c 3D49     		ldr	r1, .L26+20
+ 397 011e 3948     		ldr	r0, .L26+4
+ 398 0120 FFF7FEFF 		bl	chprintf
+ 399 0124 3B46     		mov	r3, r7
+ 400 0126 0322     		movs	r2, #3
+ 401 0128 1946     		mov	r1, r3
+ 402 012a 0220     		movs	r0, #2
+ 403 012c FFF7FEFF 		bl	e_get_micro_last_values
+ 404 0130 0023     		movs	r3, #0
+ 405 0132 FB60     		str	r3, [r7, #12]
+ 406 0134 0EE0     		b	.L22
+ 407              	.L23:
+ 408 0136 FB68     		ldr	r3, [r7, #12]
+ 409 0138 5B00     		lsls	r3, r3, #1
+ 410 013a 07F11002 		add	r2, r7, #16
+ 411 013e 1344     		add	r3, r3, r2
+ 412 0140 33F9103C 		ldrsh	r3, [r3, #-16]
+ 413 0144 1A46     		mov	r2, r3
+ 414 0146 3049     		ldr	r1, .L26+8
+ 415 0148 2E48     		ldr	r0, .L26+4
+ 416 014a FFF7FEFF 		bl	chprintf
+ 417 014e FB68     		ldr	r3, [r7, #12]
+ 418 0150 0133     		adds	r3, r3, #1
+ 419 0152 FB60     		str	r3, [r7, #12]
+ 420              	.L22:
+ 421 0154 FB68     		ldr	r3, [r7, #12]
+ 422 0156 022B     		cmp	r3, #2
+ 423 0158 EDDD     		ble	.L23
+ 424 015a 2C49     		ldr	r1, .L26+12
+ 425 015c 2948     		ldr	r0, .L26+4
+ 426 015e FFF7FEFF 		bl	chprintf
+ 427 0162 2D49     		ldr	r1, .L26+24
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc5I9POe.s 			page 9
+
+
+ 428 0164 2748     		ldr	r0, .L26+4
+ 429 0166 FFF7FEFF 		bl	chprintf
+ 430 016a 3B46     		mov	r3, r7
+ 431 016c 0322     		movs	r2, #3
+ 432 016e 1946     		mov	r1, r3
+ 433 0170 0320     		movs	r0, #3
+ 434 0172 FFF7FEFF 		bl	e_get_micro_last_values
+ 435 0176 0023     		movs	r3, #0
+ 436 0178 FB60     		str	r3, [r7, #12]
+ 437 017a 0EE0     		b	.L24
+ 438              	.L25:
+ 439 017c FB68     		ldr	r3, [r7, #12]
+ 440 017e 5B00     		lsls	r3, r3, #1
+ 441 0180 07F11002 		add	r2, r7, #16
+ 442 0184 1344     		add	r3, r3, r2
+ 443 0186 33F9103C 		ldrsh	r3, [r3, #-16]
+ 444 018a 1A46     		mov	r2, r3
+ 445 018c 1E49     		ldr	r1, .L26+8
+ 446 018e 1D48     		ldr	r0, .L26+4
+ 447 0190 FFF7FEFF 		bl	chprintf
+ 448 0194 FB68     		ldr	r3, [r7, #12]
+ 449 0196 0133     		adds	r3, r3, #1
+ 450 0198 FB60     		str	r3, [r7, #12]
+ 451              	.L24:
+ 452 019a FB68     		ldr	r3, [r7, #12]
+ 453 019c 022B     		cmp	r3, #2
+ 454 019e EDDD     		ble	.L25
+ 455 01a0 1A49     		ldr	r1, .L26+12
+ 456 01a2 1848     		ldr	r0, .L26+4
+ 457 01a4 FFF7FEFF 		bl	chprintf
+ 458 01a8 0321     		movs	r1, #3
+ 459 01aa 0020     		movs	r0, #0
+ 460 01ac FFF7FEFF 		bl	e_get_micro_average
+ 461 01b0 0346     		mov	r3, r0
+ 462 01b2 1A46     		mov	r2, r3
+ 463 01b4 1949     		ldr	r1, .L26+28
+ 464 01b6 1348     		ldr	r0, .L26+4
+ 465 01b8 FFF7FEFF 		bl	chprintf
+ 466 01bc 0321     		movs	r1, #3
+ 467 01be 0120     		movs	r0, #1
+ 468 01c0 FFF7FEFF 		bl	e_get_micro_average
+ 469 01c4 0346     		mov	r3, r0
+ 470 01c6 1A46     		mov	r2, r3
+ 471 01c8 1549     		ldr	r1, .L26+32
+ 472 01ca 0E48     		ldr	r0, .L26+4
+ 473 01cc FFF7FEFF 		bl	chprintf
+ 474 01d0 0321     		movs	r1, #3
+ 475 01d2 0220     		movs	r0, #2
+ 476 01d4 FFF7FEFF 		bl	e_get_micro_average
+ 477 01d8 0346     		mov	r3, r0
+ 478 01da 1A46     		mov	r2, r3
+ 479 01dc 1149     		ldr	r1, .L26+36
+ 480 01de 0948     		ldr	r0, .L26+4
+ 481 01e0 FFF7FEFF 		bl	chprintf
+ 482 01e4 0321     		movs	r1, #3
+ 483 01e6 0320     		movs	r0, #3
+ 484 01e8 FFF7FEFF 		bl	e_get_micro_average
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc5I9POe.s 			page 10
+
+
+ 485 01ec 0346     		mov	r3, r0
+ 486 01ee 1A46     		mov	r2, r3
+ 487 01f0 0D49     		ldr	r1, .L26+40
+ 488 01f2 0448     		ldr	r0, .L26+4
+ 489 01f4 FFF7FEFF 		bl	chprintf
+ 490 01f8 00BF     		nop
+ 491 01fa 1037     		adds	r7, r7, #16
+ 492 01fc BD46     		mov	sp, r7
+ 493              		@ sp needed
+ 494 01fe 80BD     		pop	{r7, pc}
+ 495              	.L27:
+ 496              		.align	2
+ 497              	.L26:
+ 498 0200 00000000 		.word	.LC0
+ 499 0204 00000000 		.word	SDU1
+ 500 0208 14000000 		.word	.LC1
+ 501 020c 1C000000 		.word	.LC2
+ 502 0210 20000000 		.word	.LC3
+ 503 0214 34000000 		.word	.LC4
+ 504 0218 48000000 		.word	.LC5
+ 505 021c 5C000000 		.word	.LC6
+ 506 0220 6C000000 		.word	.LC7
+ 507 0224 7C000000 		.word	.LC8
+ 508 0228 8C000000 		.word	.LC9
+ 509              		.size	e_test_micro, .-e_test_micro
+ 510              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc5I9POe.s 			page 11
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 e_micro.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc5I9POe.s:15     .text.chprintf:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc5I9POe.s:21     .text.chprintf:0000000000000000 chprintf
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc5I9POe.s:46     .text.e_get_micro:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc5I9POe.s:53     .text.e_get_micro:0000000000000000 e_get_micro
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc5I9POe.s:76     .text.e_get_micro_average:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc5I9POe.s:83     .text.e_get_micro_average:0000000000000000 e_get_micro_average
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc5I9POe.s:147    .text.e_get_micro_volume:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc5I9POe.s:154    .text.e_get_micro_volume:0000000000000000 e_get_micro_volume
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc5I9POe.s:176    .text.e_get_micro_last_values:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc5I9POe.s:183    .text.e_get_micro_last_values:0000000000000000 e_get_micro_last_values
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc5I9POe.s:234    .rodata:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc5I9POe.s:265    .text.e_test_micro:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc5I9POe.s:272    .text.e_test_micro:0000000000000000 e_test_micro
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc5I9POe.s:498    .text.e_test_micro:0000000000000200 $d
+
+UNDEFINED SYMBOLS
+chvprintf
+mic_get_last
+mic_get_buffer_ptr
+mic_get_volume
+SDU1

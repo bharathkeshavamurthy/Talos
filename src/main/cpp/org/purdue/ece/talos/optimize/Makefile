@@ -8,9 +8,9 @@ GLOBAL_PATH = ../e-puck2_main-processor
 # The name of the project
 PROJECT = optimize
 # C sources
-CSRC = stack.c
+# CSRC = stack.c
 # C++ sources
-CPPSRC = $(CHCPPSRC) Robot.cpp Controller.cpp
+CPPSRC = $(CHCPPSRC) Talos.cpp
 # Options
 USE_OPT += --specs=nosys.specs
 USE_OPT += -lstdc++

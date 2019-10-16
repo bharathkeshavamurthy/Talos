@@ -1,0 +1,819 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"ext_lld_isr.c"
+  14              		.section	.text.Vector58,"ax",%progbits
+  15              		.align	1
+  16              		.global	Vector58
+  17              		.syntax unified
+  18              		.thumb
+  19              		.thumb_func
+  20              		.fpu fpv4-sp-d16
+  21              		.type	Vector58, %function
+  22              	Vector58:
+  23              		@ args = 0, pretend = 0, frame = 0
+  24              		@ frame_needed = 1, uses_anonymous_args = 0
+  25 0000 80B5     		push	{r7, lr}
+  26 0002 00AF     		add	r7, sp, #0
+  27 0004 FFF7FEFF 		bl	_stats_increase_irq
+  28 0008 FFF7FEFF 		bl	_dbg_check_enter_isr
+  29 000c 074B     		ldr	r3, .L2
+  30 000e 0122     		movs	r2, #1
+  31 0010 5A61     		str	r2, [r3, #20]
+  32 0012 074B     		ldr	r3, .L2+4
+  33 0014 5B68     		ldr	r3, [r3, #4]
+  34 0016 5B68     		ldr	r3, [r3, #4]
+  35 0018 0021     		movs	r1, #0
+  36 001a 0548     		ldr	r0, .L2+4
+  37 001c 9847     		blx	r3
+  38 001e FFF7FEFF 		bl	_dbg_check_leave_isr
+  39 0022 FFF7FEFF 		bl	_port_irq_epilogue
+  40 0026 00BF     		nop
+  41 0028 80BD     		pop	{r7, pc}
+  42              	.L3:
+  43 002a 00BF     		.align	2
+  44              	.L2:
+  45 002c 003C0140 		.word	1073822720
+  46 0030 00000000 		.word	EXTD1
+  47              		.size	Vector58, .-Vector58
+  48              		.section	.text.Vector5C,"ax",%progbits
+  49              		.align	1
+  50              		.global	Vector5C
+  51              		.syntax unified
+  52              		.thumb
+  53              		.thumb_func
+  54              		.fpu fpv4-sp-d16
+  55              		.type	Vector5C, %function
+  56              	Vector5C:
+  57              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s 			page 2
+
+
+  58              		@ frame_needed = 1, uses_anonymous_args = 0
+  59 0000 80B5     		push	{r7, lr}
+  60 0002 00AF     		add	r7, sp, #0
+  61 0004 FFF7FEFF 		bl	_stats_increase_irq
+  62 0008 FFF7FEFF 		bl	_dbg_check_enter_isr
+  63 000c 074B     		ldr	r3, .L5
+  64 000e 0222     		movs	r2, #2
+  65 0010 5A61     		str	r2, [r3, #20]
+  66 0012 074B     		ldr	r3, .L5+4
+  67 0014 5B68     		ldr	r3, [r3, #4]
+  68 0016 DB68     		ldr	r3, [r3, #12]
+  69 0018 0121     		movs	r1, #1
+  70 001a 0548     		ldr	r0, .L5+4
+  71 001c 9847     		blx	r3
+  72 001e FFF7FEFF 		bl	_dbg_check_leave_isr
+  73 0022 FFF7FEFF 		bl	_port_irq_epilogue
+  74 0026 00BF     		nop
+  75 0028 80BD     		pop	{r7, pc}
+  76              	.L6:
+  77 002a 00BF     		.align	2
+  78              	.L5:
+  79 002c 003C0140 		.word	1073822720
+  80 0030 00000000 		.word	EXTD1
+  81              		.size	Vector5C, .-Vector5C
+  82              		.section	.text.Vector60,"ax",%progbits
+  83              		.align	1
+  84              		.global	Vector60
+  85              		.syntax unified
+  86              		.thumb
+  87              		.thumb_func
+  88              		.fpu fpv4-sp-d16
+  89              		.type	Vector60, %function
+  90              	Vector60:
+  91              		@ args = 0, pretend = 0, frame = 0
+  92              		@ frame_needed = 1, uses_anonymous_args = 0
+  93 0000 80B5     		push	{r7, lr}
+  94 0002 00AF     		add	r7, sp, #0
+  95 0004 FFF7FEFF 		bl	_stats_increase_irq
+  96 0008 FFF7FEFF 		bl	_dbg_check_enter_isr
+  97 000c 074B     		ldr	r3, .L8
+  98 000e 0422     		movs	r2, #4
+  99 0010 5A61     		str	r2, [r3, #20]
+ 100 0012 074B     		ldr	r3, .L8+4
+ 101 0014 5B68     		ldr	r3, [r3, #4]
+ 102 0016 5B69     		ldr	r3, [r3, #20]
+ 103 0018 0221     		movs	r1, #2
+ 104 001a 0548     		ldr	r0, .L8+4
+ 105 001c 9847     		blx	r3
+ 106 001e FFF7FEFF 		bl	_dbg_check_leave_isr
+ 107 0022 FFF7FEFF 		bl	_port_irq_epilogue
+ 108 0026 00BF     		nop
+ 109 0028 80BD     		pop	{r7, pc}
+ 110              	.L9:
+ 111 002a 00BF     		.align	2
+ 112              	.L8:
+ 113 002c 003C0140 		.word	1073822720
+ 114 0030 00000000 		.word	EXTD1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s 			page 3
+
+
+ 115              		.size	Vector60, .-Vector60
+ 116              		.section	.text.Vector64,"ax",%progbits
+ 117              		.align	1
+ 118              		.global	Vector64
+ 119              		.syntax unified
+ 120              		.thumb
+ 121              		.thumb_func
+ 122              		.fpu fpv4-sp-d16
+ 123              		.type	Vector64, %function
+ 124              	Vector64:
+ 125              		@ args = 0, pretend = 0, frame = 0
+ 126              		@ frame_needed = 1, uses_anonymous_args = 0
+ 127 0000 80B5     		push	{r7, lr}
+ 128 0002 00AF     		add	r7, sp, #0
+ 129 0004 FFF7FEFF 		bl	_stats_increase_irq
+ 130 0008 FFF7FEFF 		bl	_dbg_check_enter_isr
+ 131 000c 074B     		ldr	r3, .L11
+ 132 000e 0822     		movs	r2, #8
+ 133 0010 5A61     		str	r2, [r3, #20]
+ 134 0012 074B     		ldr	r3, .L11+4
+ 135 0014 5B68     		ldr	r3, [r3, #4]
+ 136 0016 DB69     		ldr	r3, [r3, #28]
+ 137 0018 0321     		movs	r1, #3
+ 138 001a 0548     		ldr	r0, .L11+4
+ 139 001c 9847     		blx	r3
+ 140 001e FFF7FEFF 		bl	_dbg_check_leave_isr
+ 141 0022 FFF7FEFF 		bl	_port_irq_epilogue
+ 142 0026 00BF     		nop
+ 143 0028 80BD     		pop	{r7, pc}
+ 144              	.L12:
+ 145 002a 00BF     		.align	2
+ 146              	.L11:
+ 147 002c 003C0140 		.word	1073822720
+ 148 0030 00000000 		.word	EXTD1
+ 149              		.size	Vector64, .-Vector64
+ 150              		.section	.text.Vector68,"ax",%progbits
+ 151              		.align	1
+ 152              		.global	Vector68
+ 153              		.syntax unified
+ 154              		.thumb
+ 155              		.thumb_func
+ 156              		.fpu fpv4-sp-d16
+ 157              		.type	Vector68, %function
+ 158              	Vector68:
+ 159              		@ args = 0, pretend = 0, frame = 0
+ 160              		@ frame_needed = 1, uses_anonymous_args = 0
+ 161 0000 80B5     		push	{r7, lr}
+ 162 0002 00AF     		add	r7, sp, #0
+ 163 0004 FFF7FEFF 		bl	_stats_increase_irq
+ 164 0008 FFF7FEFF 		bl	_dbg_check_enter_isr
+ 165 000c 074B     		ldr	r3, .L14
+ 166 000e 1022     		movs	r2, #16
+ 167 0010 5A61     		str	r2, [r3, #20]
+ 168 0012 074B     		ldr	r3, .L14+4
+ 169 0014 5B68     		ldr	r3, [r3, #4]
+ 170 0016 5B6A     		ldr	r3, [r3, #36]
+ 171 0018 0421     		movs	r1, #4
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s 			page 4
+
+
+ 172 001a 0548     		ldr	r0, .L14+4
+ 173 001c 9847     		blx	r3
+ 174 001e FFF7FEFF 		bl	_dbg_check_leave_isr
+ 175 0022 FFF7FEFF 		bl	_port_irq_epilogue
+ 176 0026 00BF     		nop
+ 177 0028 80BD     		pop	{r7, pc}
+ 178              	.L15:
+ 179 002a 00BF     		.align	2
+ 180              	.L14:
+ 181 002c 003C0140 		.word	1073822720
+ 182 0030 00000000 		.word	EXTD1
+ 183              		.size	Vector68, .-Vector68
+ 184              		.section	.text.Vector9C,"ax",%progbits
+ 185              		.align	1
+ 186              		.global	Vector9C
+ 187              		.syntax unified
+ 188              		.thumb
+ 189              		.thumb_func
+ 190              		.fpu fpv4-sp-d16
+ 191              		.type	Vector9C, %function
+ 192              	Vector9C:
+ 193              		@ args = 0, pretend = 0, frame = 8
+ 194              		@ frame_needed = 1, uses_anonymous_args = 0
+ 195 0000 80B5     		push	{r7, lr}
+ 196 0002 82B0     		sub	sp, sp, #8
+ 197 0004 00AF     		add	r7, sp, #0
+ 198 0006 FFF7FEFF 		bl	_stats_increase_irq
+ 199 000a FFF7FEFF 		bl	_dbg_check_enter_isr
+ 200 000e 234B     		ldr	r3, .L22
+ 201 0010 5B69     		ldr	r3, [r3, #20]
+ 202 0012 03F47873 		and	r3, r3, #992
+ 203 0016 7B60     		str	r3, [r7, #4]
+ 204 0018 204A     		ldr	r2, .L22
+ 205 001a 7B68     		ldr	r3, [r7, #4]
+ 206 001c 5361     		str	r3, [r2, #20]
+ 207 001e 7B68     		ldr	r3, [r7, #4]
+ 208 0020 03F02003 		and	r3, r3, #32
+ 209 0024 002B     		cmp	r3, #0
+ 210 0026 05D0     		beq	.L17
+ 211 0028 1D4B     		ldr	r3, .L22+4
+ 212 002a 5B68     		ldr	r3, [r3, #4]
+ 213 002c DB6A     		ldr	r3, [r3, #44]
+ 214 002e 0521     		movs	r1, #5
+ 215 0030 1B48     		ldr	r0, .L22+4
+ 216 0032 9847     		blx	r3
+ 217              	.L17:
+ 218 0034 7B68     		ldr	r3, [r7, #4]
+ 219 0036 03F04003 		and	r3, r3, #64
+ 220 003a 002B     		cmp	r3, #0
+ 221 003c 05D0     		beq	.L18
+ 222 003e 184B     		ldr	r3, .L22+4
+ 223 0040 5B68     		ldr	r3, [r3, #4]
+ 224 0042 5B6B     		ldr	r3, [r3, #52]
+ 225 0044 0621     		movs	r1, #6
+ 226 0046 1648     		ldr	r0, .L22+4
+ 227 0048 9847     		blx	r3
+ 228              	.L18:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s 			page 5
+
+
+ 229 004a 7B68     		ldr	r3, [r7, #4]
+ 230 004c 03F08003 		and	r3, r3, #128
+ 231 0050 002B     		cmp	r3, #0
+ 232 0052 05D0     		beq	.L19
+ 233 0054 124B     		ldr	r3, .L22+4
+ 234 0056 5B68     		ldr	r3, [r3, #4]
+ 235 0058 DB6B     		ldr	r3, [r3, #60]
+ 236 005a 0721     		movs	r1, #7
+ 237 005c 1048     		ldr	r0, .L22+4
+ 238 005e 9847     		blx	r3
+ 239              	.L19:
+ 240 0060 7B68     		ldr	r3, [r7, #4]
+ 241 0062 03F48073 		and	r3, r3, #256
+ 242 0066 002B     		cmp	r3, #0
+ 243 0068 05D0     		beq	.L20
+ 244 006a 0D4B     		ldr	r3, .L22+4
+ 245 006c 5B68     		ldr	r3, [r3, #4]
+ 246 006e 5B6C     		ldr	r3, [r3, #68]
+ 247 0070 0821     		movs	r1, #8
+ 248 0072 0B48     		ldr	r0, .L22+4
+ 249 0074 9847     		blx	r3
+ 250              	.L20:
+ 251 0076 7B68     		ldr	r3, [r7, #4]
+ 252 0078 03F40073 		and	r3, r3, #512
+ 253 007c 002B     		cmp	r3, #0
+ 254 007e 05D0     		beq	.L21
+ 255 0080 074B     		ldr	r3, .L22+4
+ 256 0082 5B68     		ldr	r3, [r3, #4]
+ 257 0084 DB6C     		ldr	r3, [r3, #76]
+ 258 0086 0921     		movs	r1, #9
+ 259 0088 0548     		ldr	r0, .L22+4
+ 260 008a 9847     		blx	r3
+ 261              	.L21:
+ 262 008c FFF7FEFF 		bl	_dbg_check_leave_isr
+ 263 0090 FFF7FEFF 		bl	_port_irq_epilogue
+ 264 0094 00BF     		nop
+ 265 0096 0837     		adds	r7, r7, #8
+ 266 0098 BD46     		mov	sp, r7
+ 267              		@ sp needed
+ 268 009a 80BD     		pop	{r7, pc}
+ 269              	.L23:
+ 270              		.align	2
+ 271              	.L22:
+ 272 009c 003C0140 		.word	1073822720
+ 273 00a0 00000000 		.word	EXTD1
+ 274              		.size	Vector9C, .-Vector9C
+ 275              		.section	.text.VectorE0,"ax",%progbits
+ 276              		.align	1
+ 277              		.global	VectorE0
+ 278              		.syntax unified
+ 279              		.thumb
+ 280              		.thumb_func
+ 281              		.fpu fpv4-sp-d16
+ 282              		.type	VectorE0, %function
+ 283              	VectorE0:
+ 284              		@ args = 0, pretend = 0, frame = 8
+ 285              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s 			page 6
+
+
+ 286 0000 80B5     		push	{r7, lr}
+ 287 0002 82B0     		sub	sp, sp, #8
+ 288 0004 00AF     		add	r7, sp, #0
+ 289 0006 FFF7FEFF 		bl	_stats_increase_irq
+ 290 000a FFF7FEFF 		bl	_dbg_check_enter_isr
+ 291 000e 294B     		ldr	r3, .L31
+ 292 0010 5B69     		ldr	r3, [r3, #20]
+ 293 0012 03F47C43 		and	r3, r3, #64512
+ 294 0016 7B60     		str	r3, [r7, #4]
+ 295 0018 264A     		ldr	r2, .L31
+ 296 001a 7B68     		ldr	r3, [r7, #4]
+ 297 001c 5361     		str	r3, [r2, #20]
+ 298 001e 7B68     		ldr	r3, [r7, #4]
+ 299 0020 03F48063 		and	r3, r3, #1024
+ 300 0024 002B     		cmp	r3, #0
+ 301 0026 05D0     		beq	.L25
+ 302 0028 234B     		ldr	r3, .L31+4
+ 303 002a 5B68     		ldr	r3, [r3, #4]
+ 304 002c 5B6D     		ldr	r3, [r3, #84]
+ 305 002e 0A21     		movs	r1, #10
+ 306 0030 2148     		ldr	r0, .L31+4
+ 307 0032 9847     		blx	r3
+ 308              	.L25:
+ 309 0034 7B68     		ldr	r3, [r7, #4]
+ 310 0036 03F40063 		and	r3, r3, #2048
+ 311 003a 002B     		cmp	r3, #0
+ 312 003c 05D0     		beq	.L26
+ 313 003e 1E4B     		ldr	r3, .L31+4
+ 314 0040 5B68     		ldr	r3, [r3, #4]
+ 315 0042 DB6D     		ldr	r3, [r3, #92]
+ 316 0044 0B21     		movs	r1, #11
+ 317 0046 1C48     		ldr	r0, .L31+4
+ 318 0048 9847     		blx	r3
+ 319              	.L26:
+ 320 004a 7B68     		ldr	r3, [r7, #4]
+ 321 004c 03F48053 		and	r3, r3, #4096
+ 322 0050 002B     		cmp	r3, #0
+ 323 0052 05D0     		beq	.L27
+ 324 0054 184B     		ldr	r3, .L31+4
+ 325 0056 5B68     		ldr	r3, [r3, #4]
+ 326 0058 5B6E     		ldr	r3, [r3, #100]
+ 327 005a 0C21     		movs	r1, #12
+ 328 005c 1648     		ldr	r0, .L31+4
+ 329 005e 9847     		blx	r3
+ 330              	.L27:
+ 331 0060 7B68     		ldr	r3, [r7, #4]
+ 332 0062 03F40053 		and	r3, r3, #8192
+ 333 0066 002B     		cmp	r3, #0
+ 334 0068 05D0     		beq	.L28
+ 335 006a 134B     		ldr	r3, .L31+4
+ 336 006c 5B68     		ldr	r3, [r3, #4]
+ 337 006e DB6E     		ldr	r3, [r3, #108]
+ 338 0070 0D21     		movs	r1, #13
+ 339 0072 1148     		ldr	r0, .L31+4
+ 340 0074 9847     		blx	r3
+ 341              	.L28:
+ 342 0076 7B68     		ldr	r3, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s 			page 7
+
+
+ 343 0078 03F48043 		and	r3, r3, #16384
+ 344 007c 002B     		cmp	r3, #0
+ 345 007e 05D0     		beq	.L29
+ 346 0080 0D4B     		ldr	r3, .L31+4
+ 347 0082 5B68     		ldr	r3, [r3, #4]
+ 348 0084 5B6F     		ldr	r3, [r3, #116]
+ 349 0086 0E21     		movs	r1, #14
+ 350 0088 0B48     		ldr	r0, .L31+4
+ 351 008a 9847     		blx	r3
+ 352              	.L29:
+ 353 008c 7B68     		ldr	r3, [r7, #4]
+ 354 008e 03F40043 		and	r3, r3, #32768
+ 355 0092 002B     		cmp	r3, #0
+ 356 0094 05D0     		beq	.L30
+ 357 0096 084B     		ldr	r3, .L31+4
+ 358 0098 5B68     		ldr	r3, [r3, #4]
+ 359 009a DB6F     		ldr	r3, [r3, #124]
+ 360 009c 0F21     		movs	r1, #15
+ 361 009e 0648     		ldr	r0, .L31+4
+ 362 00a0 9847     		blx	r3
+ 363              	.L30:
+ 364 00a2 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 365 00a6 FFF7FEFF 		bl	_port_irq_epilogue
+ 366 00aa 00BF     		nop
+ 367 00ac 0837     		adds	r7, r7, #8
+ 368 00ae BD46     		mov	sp, r7
+ 369              		@ sp needed
+ 370 00b0 80BD     		pop	{r7, pc}
+ 371              	.L32:
+ 372 00b2 00BF     		.align	2
+ 373              	.L31:
+ 374 00b4 003C0140 		.word	1073822720
+ 375 00b8 00000000 		.word	EXTD1
+ 376              		.size	VectorE0, .-VectorE0
+ 377              		.section	.text.Vector44,"ax",%progbits
+ 378              		.align	1
+ 379              		.global	Vector44
+ 380              		.syntax unified
+ 381              		.thumb
+ 382              		.thumb_func
+ 383              		.fpu fpv4-sp-d16
+ 384              		.type	Vector44, %function
+ 385              	Vector44:
+ 386              		@ args = 0, pretend = 0, frame = 0
+ 387              		@ frame_needed = 1, uses_anonymous_args = 0
+ 388 0000 80B5     		push	{r7, lr}
+ 389 0002 00AF     		add	r7, sp, #0
+ 390 0004 FFF7FEFF 		bl	_stats_increase_irq
+ 391 0008 FFF7FEFF 		bl	_dbg_check_enter_isr
+ 392 000c 084B     		ldr	r3, .L34
+ 393 000e 4FF48032 		mov	r2, #65536
+ 394 0012 5A61     		str	r2, [r3, #20]
+ 395 0014 074B     		ldr	r3, .L34+4
+ 396 0016 5B68     		ldr	r3, [r3, #4]
+ 397 0018 D3F88430 		ldr	r3, [r3, #132]
+ 398 001c 1021     		movs	r1, #16
+ 399 001e 0548     		ldr	r0, .L34+4
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s 			page 8
+
+
+ 400 0020 9847     		blx	r3
+ 401 0022 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 402 0026 FFF7FEFF 		bl	_port_irq_epilogue
+ 403 002a 00BF     		nop
+ 404 002c 80BD     		pop	{r7, pc}
+ 405              	.L35:
+ 406 002e 00BF     		.align	2
+ 407              	.L34:
+ 408 0030 003C0140 		.word	1073822720
+ 409 0034 00000000 		.word	EXTD1
+ 410              		.size	Vector44, .-Vector44
+ 411              		.section	.text.VectorE4,"ax",%progbits
+ 412              		.align	1
+ 413              		.global	VectorE4
+ 414              		.syntax unified
+ 415              		.thumb
+ 416              		.thumb_func
+ 417              		.fpu fpv4-sp-d16
+ 418              		.type	VectorE4, %function
+ 419              	VectorE4:
+ 420              		@ args = 0, pretend = 0, frame = 0
+ 421              		@ frame_needed = 1, uses_anonymous_args = 0
+ 422 0000 80B5     		push	{r7, lr}
+ 423 0002 00AF     		add	r7, sp, #0
+ 424 0004 FFF7FEFF 		bl	_stats_increase_irq
+ 425 0008 FFF7FEFF 		bl	_dbg_check_enter_isr
+ 426 000c 084B     		ldr	r3, .L37
+ 427 000e 4FF40032 		mov	r2, #131072
+ 428 0012 5A61     		str	r2, [r3, #20]
+ 429 0014 074B     		ldr	r3, .L37+4
+ 430 0016 5B68     		ldr	r3, [r3, #4]
+ 431 0018 D3F88C30 		ldr	r3, [r3, #140]
+ 432 001c 1121     		movs	r1, #17
+ 433 001e 0548     		ldr	r0, .L37+4
+ 434 0020 9847     		blx	r3
+ 435 0022 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 436 0026 FFF7FEFF 		bl	_port_irq_epilogue
+ 437 002a 00BF     		nop
+ 438 002c 80BD     		pop	{r7, pc}
+ 439              	.L38:
+ 440 002e 00BF     		.align	2
+ 441              	.L37:
+ 442 0030 003C0140 		.word	1073822720
+ 443 0034 00000000 		.word	EXTD1
+ 444              		.size	VectorE4, .-VectorE4
+ 445              		.section	.text.VectorE8,"ax",%progbits
+ 446              		.align	1
+ 447              		.global	VectorE8
+ 448              		.syntax unified
+ 449              		.thumb
+ 450              		.thumb_func
+ 451              		.fpu fpv4-sp-d16
+ 452              		.type	VectorE8, %function
+ 453              	VectorE8:
+ 454              		@ args = 0, pretend = 0, frame = 0
+ 455              		@ frame_needed = 1, uses_anonymous_args = 0
+ 456 0000 80B5     		push	{r7, lr}
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s 			page 9
+
+
+ 457 0002 00AF     		add	r7, sp, #0
+ 458 0004 FFF7FEFF 		bl	_stats_increase_irq
+ 459 0008 FFF7FEFF 		bl	_dbg_check_enter_isr
+ 460 000c 084B     		ldr	r3, .L40
+ 461 000e 4FF48022 		mov	r2, #262144
+ 462 0012 5A61     		str	r2, [r3, #20]
+ 463 0014 074B     		ldr	r3, .L40+4
+ 464 0016 5B68     		ldr	r3, [r3, #4]
+ 465 0018 D3F89430 		ldr	r3, [r3, #148]
+ 466 001c 1221     		movs	r1, #18
+ 467 001e 0548     		ldr	r0, .L40+4
+ 468 0020 9847     		blx	r3
+ 469 0022 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 470 0026 FFF7FEFF 		bl	_port_irq_epilogue
+ 471 002a 00BF     		nop
+ 472 002c 80BD     		pop	{r7, pc}
+ 473              	.L41:
+ 474 002e 00BF     		.align	2
+ 475              	.L40:
+ 476 0030 003C0140 		.word	1073822720
+ 477 0034 00000000 		.word	EXTD1
+ 478              		.size	VectorE8, .-VectorE8
+ 479              		.section	.text.Vector138,"ax",%progbits
+ 480              		.align	1
+ 481              		.global	Vector138
+ 482              		.syntax unified
+ 483              		.thumb
+ 484              		.thumb_func
+ 485              		.fpu fpv4-sp-d16
+ 486              		.type	Vector138, %function
+ 487              	Vector138:
+ 488              		@ args = 0, pretend = 0, frame = 0
+ 489              		@ frame_needed = 1, uses_anonymous_args = 0
+ 490 0000 80B5     		push	{r7, lr}
+ 491 0002 00AF     		add	r7, sp, #0
+ 492 0004 FFF7FEFF 		bl	_stats_increase_irq
+ 493 0008 FFF7FEFF 		bl	_dbg_check_enter_isr
+ 494 000c 084B     		ldr	r3, .L43
+ 495 000e 4FF40022 		mov	r2, #524288
+ 496 0012 5A61     		str	r2, [r3, #20]
+ 497 0014 074B     		ldr	r3, .L43+4
+ 498 0016 5B68     		ldr	r3, [r3, #4]
+ 499 0018 D3F89C30 		ldr	r3, [r3, #156]
+ 500 001c 1321     		movs	r1, #19
+ 501 001e 0548     		ldr	r0, .L43+4
+ 502 0020 9847     		blx	r3
+ 503 0022 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 504 0026 FFF7FEFF 		bl	_port_irq_epilogue
+ 505 002a 00BF     		nop
+ 506 002c 80BD     		pop	{r7, pc}
+ 507              	.L44:
+ 508 002e 00BF     		.align	2
+ 509              	.L43:
+ 510 0030 003C0140 		.word	1073822720
+ 511 0034 00000000 		.word	EXTD1
+ 512              		.size	Vector138, .-Vector138
+ 513              		.section	.text.Vector170,"ax",%progbits
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s 			page 10
+
+
+ 514              		.align	1
+ 515              		.global	Vector170
+ 516              		.syntax unified
+ 517              		.thumb
+ 518              		.thumb_func
+ 519              		.fpu fpv4-sp-d16
+ 520              		.type	Vector170, %function
+ 521              	Vector170:
+ 522              		@ args = 0, pretend = 0, frame = 0
+ 523              		@ frame_needed = 1, uses_anonymous_args = 0
+ 524 0000 80B5     		push	{r7, lr}
+ 525 0002 00AF     		add	r7, sp, #0
+ 526 0004 FFF7FEFF 		bl	_stats_increase_irq
+ 527 0008 FFF7FEFF 		bl	_dbg_check_enter_isr
+ 528 000c 084B     		ldr	r3, .L46
+ 529 000e 4FF48012 		mov	r2, #1048576
+ 530 0012 5A61     		str	r2, [r3, #20]
+ 531 0014 074B     		ldr	r3, .L46+4
+ 532 0016 5B68     		ldr	r3, [r3, #4]
+ 533 0018 D3F8A430 		ldr	r3, [r3, #164]
+ 534 001c 1421     		movs	r1, #20
+ 535 001e 0548     		ldr	r0, .L46+4
+ 536 0020 9847     		blx	r3
+ 537 0022 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 538 0026 FFF7FEFF 		bl	_port_irq_epilogue
+ 539 002a 00BF     		nop
+ 540 002c 80BD     		pop	{r7, pc}
+ 541              	.L47:
+ 542 002e 00BF     		.align	2
+ 543              	.L46:
+ 544 0030 003C0140 		.word	1073822720
+ 545 0034 00000000 		.word	EXTD1
+ 546              		.size	Vector170, .-Vector170
+ 547              		.section	.text.Vector48,"ax",%progbits
+ 548              		.align	1
+ 549              		.global	Vector48
+ 550              		.syntax unified
+ 551              		.thumb
+ 552              		.thumb_func
+ 553              		.fpu fpv4-sp-d16
+ 554              		.type	Vector48, %function
+ 555              	Vector48:
+ 556              		@ args = 0, pretend = 0, frame = 0
+ 557              		@ frame_needed = 1, uses_anonymous_args = 0
+ 558 0000 80B5     		push	{r7, lr}
+ 559 0002 00AF     		add	r7, sp, #0
+ 560 0004 FFF7FEFF 		bl	_stats_increase_irq
+ 561 0008 FFF7FEFF 		bl	_dbg_check_enter_isr
+ 562 000c 084B     		ldr	r3, .L49
+ 563 000e 4FF40012 		mov	r2, #2097152
+ 564 0012 5A61     		str	r2, [r3, #20]
+ 565 0014 074B     		ldr	r3, .L49+4
+ 566 0016 5B68     		ldr	r3, [r3, #4]
+ 567 0018 D3F8AC30 		ldr	r3, [r3, #172]
+ 568 001c 1521     		movs	r1, #21
+ 569 001e 0548     		ldr	r0, .L49+4
+ 570 0020 9847     		blx	r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s 			page 11
+
+
+ 571 0022 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 572 0026 FFF7FEFF 		bl	_port_irq_epilogue
+ 573 002a 00BF     		nop
+ 574 002c 80BD     		pop	{r7, pc}
+ 575              	.L50:
+ 576 002e 00BF     		.align	2
+ 577              	.L49:
+ 578 0030 003C0140 		.word	1073822720
+ 579 0034 00000000 		.word	EXTD1
+ 580              		.size	Vector48, .-Vector48
+ 581              		.section	.text.Vector4C,"ax",%progbits
+ 582              		.align	1
+ 583              		.global	Vector4C
+ 584              		.syntax unified
+ 585              		.thumb
+ 586              		.thumb_func
+ 587              		.fpu fpv4-sp-d16
+ 588              		.type	Vector4C, %function
+ 589              	Vector4C:
+ 590              		@ args = 0, pretend = 0, frame = 0
+ 591              		@ frame_needed = 1, uses_anonymous_args = 0
+ 592 0000 80B5     		push	{r7, lr}
+ 593 0002 00AF     		add	r7, sp, #0
+ 594 0004 FFF7FEFF 		bl	_stats_increase_irq
+ 595 0008 FFF7FEFF 		bl	_dbg_check_enter_isr
+ 596 000c 084B     		ldr	r3, .L52
+ 597 000e 4FF48002 		mov	r2, #4194304
+ 598 0012 5A61     		str	r2, [r3, #20]
+ 599 0014 074B     		ldr	r3, .L52+4
+ 600 0016 5B68     		ldr	r3, [r3, #4]
+ 601 0018 D3F8B430 		ldr	r3, [r3, #180]
+ 602 001c 1621     		movs	r1, #22
+ 603 001e 0548     		ldr	r0, .L52+4
+ 604 0020 9847     		blx	r3
+ 605 0022 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 606 0026 FFF7FEFF 		bl	_port_irq_epilogue
+ 607 002a 00BF     		nop
+ 608 002c 80BD     		pop	{r7, pc}
+ 609              	.L53:
+ 610 002e 00BF     		.align	2
+ 611              	.L52:
+ 612 0030 003C0140 		.word	1073822720
+ 613 0034 00000000 		.word	EXTD1
+ 614              		.size	Vector4C, .-Vector4C
+ 615              		.section	.text.ext_lld_exti_irq_enable,"ax",%progbits
+ 616              		.align	1
+ 617              		.global	ext_lld_exti_irq_enable
+ 618              		.syntax unified
+ 619              		.thumb
+ 620              		.thumb_func
+ 621              		.fpu fpv4-sp-d16
+ 622              		.type	ext_lld_exti_irq_enable, %function
+ 623              	ext_lld_exti_irq_enable:
+ 624              		@ args = 0, pretend = 0, frame = 0
+ 625              		@ frame_needed = 1, uses_anonymous_args = 0
+ 626 0000 80B5     		push	{r7, lr}
+ 627 0002 00AF     		add	r7, sp, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s 			page 12
+
+
+ 628 0004 0621     		movs	r1, #6
+ 629 0006 0620     		movs	r0, #6
+ 630 0008 FFF7FEFF 		bl	nvicEnableVector
+ 631 000c 0621     		movs	r1, #6
+ 632 000e 0720     		movs	r0, #7
+ 633 0010 FFF7FEFF 		bl	nvicEnableVector
+ 634 0014 0621     		movs	r1, #6
+ 635 0016 0820     		movs	r0, #8
+ 636 0018 FFF7FEFF 		bl	nvicEnableVector
+ 637 001c 0621     		movs	r1, #6
+ 638 001e 0920     		movs	r0, #9
+ 639 0020 FFF7FEFF 		bl	nvicEnableVector
+ 640 0024 0621     		movs	r1, #6
+ 641 0026 0A20     		movs	r0, #10
+ 642 0028 FFF7FEFF 		bl	nvicEnableVector
+ 643 002c 0621     		movs	r1, #6
+ 644 002e 1720     		movs	r0, #23
+ 645 0030 FFF7FEFF 		bl	nvicEnableVector
+ 646 0034 0621     		movs	r1, #6
+ 647 0036 2820     		movs	r0, #40
+ 648 0038 FFF7FEFF 		bl	nvicEnableVector
+ 649 003c 0621     		movs	r1, #6
+ 650 003e 0120     		movs	r0, #1
+ 651 0040 FFF7FEFF 		bl	nvicEnableVector
+ 652 0044 0F21     		movs	r1, #15
+ 653 0046 2920     		movs	r0, #41
+ 654 0048 FFF7FEFF 		bl	nvicEnableVector
+ 655 004c 0621     		movs	r1, #6
+ 656 004e 2A20     		movs	r0, #42
+ 657 0050 FFF7FEFF 		bl	nvicEnableVector
+ 658 0054 0621     		movs	r1, #6
+ 659 0056 3E20     		movs	r0, #62
+ 660 0058 FFF7FEFF 		bl	nvicEnableVector
+ 661 005c 0621     		movs	r1, #6
+ 662 005e 4C20     		movs	r0, #76
+ 663 0060 FFF7FEFF 		bl	nvicEnableVector
+ 664 0064 0F21     		movs	r1, #15
+ 665 0066 0220     		movs	r0, #2
+ 666 0068 FFF7FEFF 		bl	nvicEnableVector
+ 667 006c 0F21     		movs	r1, #15
+ 668 006e 0320     		movs	r0, #3
+ 669 0070 FFF7FEFF 		bl	nvicEnableVector
+ 670 0074 00BF     		nop
+ 671 0076 80BD     		pop	{r7, pc}
+ 672              		.size	ext_lld_exti_irq_enable, .-ext_lld_exti_irq_enable
+ 673              		.section	.text.ext_lld_exti_irq_disable,"ax",%progbits
+ 674              		.align	1
+ 675              		.global	ext_lld_exti_irq_disable
+ 676              		.syntax unified
+ 677              		.thumb
+ 678              		.thumb_func
+ 679              		.fpu fpv4-sp-d16
+ 680              		.type	ext_lld_exti_irq_disable, %function
+ 681              	ext_lld_exti_irq_disable:
+ 682              		@ args = 0, pretend = 0, frame = 0
+ 683              		@ frame_needed = 1, uses_anonymous_args = 0
+ 684 0000 80B5     		push	{r7, lr}
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s 			page 13
+
+
+ 685 0002 00AF     		add	r7, sp, #0
+ 686 0004 0620     		movs	r0, #6
+ 687 0006 FFF7FEFF 		bl	nvicDisableVector
+ 688 000a 0720     		movs	r0, #7
+ 689 000c FFF7FEFF 		bl	nvicDisableVector
+ 690 0010 0820     		movs	r0, #8
+ 691 0012 FFF7FEFF 		bl	nvicDisableVector
+ 692 0016 0920     		movs	r0, #9
+ 693 0018 FFF7FEFF 		bl	nvicDisableVector
+ 694 001c 0A20     		movs	r0, #10
+ 695 001e FFF7FEFF 		bl	nvicDisableVector
+ 696 0022 1720     		movs	r0, #23
+ 697 0024 FFF7FEFF 		bl	nvicDisableVector
+ 698 0028 2820     		movs	r0, #40
+ 699 002a FFF7FEFF 		bl	nvicDisableVector
+ 700 002e 0120     		movs	r0, #1
+ 701 0030 FFF7FEFF 		bl	nvicDisableVector
+ 702 0034 2920     		movs	r0, #41
+ 703 0036 FFF7FEFF 		bl	nvicDisableVector
+ 704 003a 2A20     		movs	r0, #42
+ 705 003c FFF7FEFF 		bl	nvicDisableVector
+ 706 0040 3E20     		movs	r0, #62
+ 707 0042 FFF7FEFF 		bl	nvicDisableVector
+ 708 0046 4C20     		movs	r0, #76
+ 709 0048 FFF7FEFF 		bl	nvicDisableVector
+ 710 004c 0220     		movs	r0, #2
+ 711 004e FFF7FEFF 		bl	nvicDisableVector
+ 712 0052 0320     		movs	r0, #3
+ 713 0054 FFF7FEFF 		bl	nvicDisableVector
+ 714 0058 00BF     		nop
+ 715 005a 80BD     		pop	{r7, pc}
+ 716              		.size	ext_lld_exti_irq_disable, .-ext_lld_exti_irq_disable
+ 717              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s 			page 14
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 ext_lld_isr.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:15     .text.Vector58:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:22     .text.Vector58:0000000000000000 Vector58
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:45     .text.Vector58:000000000000002c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:49     .text.Vector5C:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:56     .text.Vector5C:0000000000000000 Vector5C
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:79     .text.Vector5C:000000000000002c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:83     .text.Vector60:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:90     .text.Vector60:0000000000000000 Vector60
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:113    .text.Vector60:000000000000002c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:117    .text.Vector64:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:124    .text.Vector64:0000000000000000 Vector64
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:147    .text.Vector64:000000000000002c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:151    .text.Vector68:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:158    .text.Vector68:0000000000000000 Vector68
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:181    .text.Vector68:000000000000002c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:185    .text.Vector9C:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:192    .text.Vector9C:0000000000000000 Vector9C
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:272    .text.Vector9C:000000000000009c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:276    .text.VectorE0:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:283    .text.VectorE0:0000000000000000 VectorE0
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:374    .text.VectorE0:00000000000000b4 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:378    .text.Vector44:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:385    .text.Vector44:0000000000000000 Vector44
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:408    .text.Vector44:0000000000000030 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:412    .text.VectorE4:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:419    .text.VectorE4:0000000000000000 VectorE4
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:442    .text.VectorE4:0000000000000030 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:446    .text.VectorE8:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:453    .text.VectorE8:0000000000000000 VectorE8
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:476    .text.VectorE8:0000000000000030 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:480    .text.Vector138:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:487    .text.Vector138:0000000000000000 Vector138
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:510    .text.Vector138:0000000000000030 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:514    .text.Vector170:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:521    .text.Vector170:0000000000000000 Vector170
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:544    .text.Vector170:0000000000000030 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:548    .text.Vector48:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:555    .text.Vector48:0000000000000000 Vector48
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:578    .text.Vector48:0000000000000030 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:582    .text.Vector4C:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:589    .text.Vector4C:0000000000000000 Vector4C
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:612    .text.Vector4C:0000000000000030 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:616    .text.ext_lld_exti_irq_enable:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:623    .text.ext_lld_exti_irq_enable:0000000000000000 ext_lld_exti_irq_enable
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:674    .text.ext_lld_exti_irq_disable:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s:681    .text.ext_lld_exti_irq_disable:0000000000000000 ext_lld_exti_irq_disable
+
+UNDEFINED SYMBOLS
+_stats_increase_irq
+_dbg_check_enter_isr
+_dbg_check_leave_isr
+_port_irq_epilogue
+EXTD1
+nvicEnableVector
+nvicDisableVector
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc0uqdhF.s 			page 15
+
+

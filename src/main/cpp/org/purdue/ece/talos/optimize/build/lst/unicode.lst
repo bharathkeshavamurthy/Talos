@@ -1,0 +1,840 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"unicode.c"
+  14              		.section	.rodata.Tbl,"a",%progbits
+  15              		.align	2
+  16              		.type	Tbl, %object
+  17              		.size	Tbl, 256
+  18              	Tbl:
+  19 0000 AC20     		.short	8364
+  20 0002 0000     		.short	0
+  21 0004 1A20     		.short	8218
+  22 0006 9201     		.short	402
+  23 0008 1E20     		.short	8222
+  24 000a 2620     		.short	8230
+  25 000c 2020     		.short	8224
+  26 000e 2120     		.short	8225
+  27 0010 C602     		.short	710
+  28 0012 3020     		.short	8240
+  29 0014 6001     		.short	352
+  30 0016 3920     		.short	8249
+  31 0018 5201     		.short	338
+  32 001a 0000     		.short	0
+  33 001c 7D01     		.short	381
+  34 001e 0000     		.short	0
+  35 0020 0000     		.short	0
+  36 0022 1820     		.short	8216
+  37 0024 1920     		.short	8217
+  38 0026 1C20     		.short	8220
+  39 0028 1D20     		.short	8221
+  40 002a 2220     		.short	8226
+  41 002c 1320     		.short	8211
+  42 002e 1420     		.short	8212
+  43 0030 DC02     		.short	732
+  44 0032 2221     		.short	8482
+  45 0034 6101     		.short	353
+  46 0036 3A20     		.short	8250
+  47 0038 5301     		.short	339
+  48 003a 0000     		.short	0
+  49 003c 7E01     		.short	382
+  50 003e 7801     		.short	376
+  51 0040 A000     		.short	160
+  52 0042 A100     		.short	161
+  53 0044 A200     		.short	162
+  54 0046 A300     		.short	163
+  55 0048 A400     		.short	164
+  56 004a A500     		.short	165
+  57 004c A600     		.short	166
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s 			page 2
+
+
+  58 004e A700     		.short	167
+  59 0050 A800     		.short	168
+  60 0052 A900     		.short	169
+  61 0054 AA00     		.short	170
+  62 0056 AB00     		.short	171
+  63 0058 AC00     		.short	172
+  64 005a AD00     		.short	173
+  65 005c AE00     		.short	174
+  66 005e AF00     		.short	175
+  67 0060 B000     		.short	176
+  68 0062 B100     		.short	177
+  69 0064 B200     		.short	178
+  70 0066 B300     		.short	179
+  71 0068 B400     		.short	180
+  72 006a B500     		.short	181
+  73 006c B600     		.short	182
+  74 006e B700     		.short	183
+  75 0070 B800     		.short	184
+  76 0072 B900     		.short	185
+  77 0074 BA00     		.short	186
+  78 0076 BB00     		.short	187
+  79 0078 BC00     		.short	188
+  80 007a BD00     		.short	189
+  81 007c BE00     		.short	190
+  82 007e BF00     		.short	191
+  83 0080 C000     		.short	192
+  84 0082 C100     		.short	193
+  85 0084 C200     		.short	194
+  86 0086 C300     		.short	195
+  87 0088 C400     		.short	196
+  88 008a C500     		.short	197
+  89 008c C600     		.short	198
+  90 008e C700     		.short	199
+  91 0090 C800     		.short	200
+  92 0092 C900     		.short	201
+  93 0094 CA00     		.short	202
+  94 0096 CB00     		.short	203
+  95 0098 CC00     		.short	204
+  96 009a CD00     		.short	205
+  97 009c CE00     		.short	206
+  98 009e CF00     		.short	207
+  99 00a0 D000     		.short	208
+ 100 00a2 D100     		.short	209
+ 101 00a4 D200     		.short	210
+ 102 00a6 D300     		.short	211
+ 103 00a8 D400     		.short	212
+ 104 00aa D500     		.short	213
+ 105 00ac D600     		.short	214
+ 106 00ae D700     		.short	215
+ 107 00b0 D800     		.short	216
+ 108 00b2 D900     		.short	217
+ 109 00b4 DA00     		.short	218
+ 110 00b6 DB00     		.short	219
+ 111 00b8 DC00     		.short	220
+ 112 00ba DD00     		.short	221
+ 113 00bc DE00     		.short	222
+ 114 00be DF00     		.short	223
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s 			page 3
+
+
+ 115 00c0 E000     		.short	224
+ 116 00c2 E100     		.short	225
+ 117 00c4 E200     		.short	226
+ 118 00c6 E300     		.short	227
+ 119 00c8 E400     		.short	228
+ 120 00ca E500     		.short	229
+ 121 00cc E600     		.short	230
+ 122 00ce E700     		.short	231
+ 123 00d0 E800     		.short	232
+ 124 00d2 E900     		.short	233
+ 125 00d4 EA00     		.short	234
+ 126 00d6 EB00     		.short	235
+ 127 00d8 EC00     		.short	236
+ 128 00da ED00     		.short	237
+ 129 00dc EE00     		.short	238
+ 130 00de EF00     		.short	239
+ 131 00e0 F000     		.short	240
+ 132 00e2 F100     		.short	241
+ 133 00e4 F200     		.short	242
+ 134 00e6 F300     		.short	243
+ 135 00e8 F400     		.short	244
+ 136 00ea F500     		.short	245
+ 137 00ec F600     		.short	246
+ 138 00ee F700     		.short	247
+ 139 00f0 F800     		.short	248
+ 140 00f2 F900     		.short	249
+ 141 00f4 FA00     		.short	250
+ 142 00f6 FB00     		.short	251
+ 143 00f8 FC00     		.short	252
+ 144 00fa FD00     		.short	253
+ 145 00fc FE00     		.short	254
+ 146 00fe FF00     		.short	255
+ 147              		.section	.text.ff_convert,"ax",%progbits
+ 148              		.align	1
+ 149              		.global	ff_convert
+ 150              		.syntax unified
+ 151              		.thumb
+ 152              		.thumb_func
+ 153              		.fpu fpv4-sp-d16
+ 154              		.type	ff_convert, %function
+ 155              	ff_convert:
+ 156              		@ args = 0, pretend = 0, frame = 16
+ 157              		@ frame_needed = 1, uses_anonymous_args = 0
+ 158              		@ link register save eliminated.
+ 159 0000 80B4     		push	{r7}
+ 160 0002 85B0     		sub	sp, sp, #20
+ 161 0004 00AF     		add	r7, sp, #0
+ 162 0006 0346     		mov	r3, r0
+ 163 0008 3960     		str	r1, [r7]
+ 164 000a FB80     		strh	r3, [r7, #6]	@ movhi
+ 165 000c FB88     		ldrh	r3, [r7, #6]
+ 166 000e 7F2B     		cmp	r3, #127
+ 167 0010 02D8     		bhi	.L2
+ 168 0012 FB88     		ldrh	r3, [r7, #6]	@ movhi
+ 169 0014 FB81     		strh	r3, [r7, #14]	@ movhi
+ 170 0016 25E0     		b	.L3
+ 171              	.L2:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s 			page 4
+
+
+ 172 0018 3B68     		ldr	r3, [r7]
+ 173 001a 002B     		cmp	r3, #0
+ 174 001c 0BD0     		beq	.L4
+ 175 001e FB88     		ldrh	r3, [r7, #6]
+ 176 0020 FF2B     		cmp	r3, #255
+ 177 0022 05D8     		bhi	.L5
+ 178 0024 FB88     		ldrh	r3, [r7, #6]
+ 179 0026 803B     		subs	r3, r3, #128
+ 180 0028 124A     		ldr	r2, .L13
+ 181 002a 32F81330 		ldrh	r3, [r2, r3, lsl #1]
+ 182 002e 00E0     		b	.L6
+ 183              	.L5:
+ 184 0030 0023     		movs	r3, #0
+ 185              	.L6:
+ 186 0032 FB81     		strh	r3, [r7, #14]	@ movhi
+ 187 0034 16E0     		b	.L3
+ 188              	.L4:
+ 189 0036 0023     		movs	r3, #0
+ 190 0038 FB81     		strh	r3, [r7, #14]	@ movhi
+ 191 003a 09E0     		b	.L7
+ 192              	.L10:
+ 193 003c FB89     		ldrh	r3, [r7, #14]
+ 194 003e 0D4A     		ldr	r2, .L13
+ 195 0040 32F81330 		ldrh	r3, [r2, r3, lsl #1]
+ 196 0044 FA88     		ldrh	r2, [r7, #6]
+ 197 0046 9A42     		cmp	r2, r3
+ 198 0048 06D0     		beq	.L12
+ 199 004a FB89     		ldrh	r3, [r7, #14]
+ 200 004c 0133     		adds	r3, r3, #1
+ 201 004e FB81     		strh	r3, [r7, #14]	@ movhi
+ 202              	.L7:
+ 203 0050 FB89     		ldrh	r3, [r7, #14]
+ 204 0052 7F2B     		cmp	r3, #127
+ 205 0054 F2D9     		bls	.L10
+ 206 0056 00E0     		b	.L9
+ 207              	.L12:
+ 208 0058 00BF     		nop
+ 209              	.L9:
+ 210 005a FB89     		ldrh	r3, [r7, #14]	@ movhi
+ 211 005c 8033     		adds	r3, r3, #128
+ 212 005e 9BB2     		uxth	r3, r3
+ 213 0060 DBB2     		uxtb	r3, r3
+ 214 0062 FB81     		strh	r3, [r7, #14]	@ movhi
+ 215              	.L3:
+ 216 0064 FB89     		ldrh	r3, [r7, #14]
+ 217 0066 1846     		mov	r0, r3
+ 218 0068 1437     		adds	r7, r7, #20
+ 219 006a BD46     		mov	sp, r7
+ 220              		@ sp needed
+ 221 006c 5DF8047B 		ldr	r7, [sp], #4
+ 222 0070 7047     		bx	lr
+ 223              	.L14:
+ 224 0072 00BF     		.align	2
+ 225              	.L13:
+ 226 0074 00000000 		.word	Tbl
+ 227              		.size	ff_convert, .-ff_convert
+ 228              		.section	.text.ff_wtoupper,"ax",%progbits
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s 			page 5
+
+
+ 229              		.align	1
+ 230              		.global	ff_wtoupper
+ 231              		.syntax unified
+ 232              		.thumb
+ 233              		.thumb_func
+ 234              		.fpu fpv4-sp-d16
+ 235              		.type	ff_wtoupper, %function
+ 236              	ff_wtoupper:
+ 237              		@ args = 0, pretend = 0, frame = 16
+ 238              		@ frame_needed = 1, uses_anonymous_args = 0
+ 239              		@ link register save eliminated.
+ 240 0000 80B4     		push	{r7}
+ 241 0002 85B0     		sub	sp, sp, #20
+ 242 0004 00AF     		add	r7, sp, #0
+ 243 0006 0346     		mov	r3, r0
+ 244 0008 FB80     		strh	r3, [r7, #6]	@ movhi
+ 245 000a 0023     		movs	r3, #0
+ 246 000c FB60     		str	r3, [r7, #12]
+ 247 000e 02E0     		b	.L16
+ 248              	.L18:
+ 249 0010 FB68     		ldr	r3, [r7, #12]
+ 250 0012 0133     		adds	r3, r3, #1
+ 251 0014 FB60     		str	r3, [r7, #12]
+ 252              	.L16:
+ 253 0016 0F4A     		ldr	r2, .L22
+ 254 0018 FB68     		ldr	r3, [r7, #12]
+ 255 001a 32F81330 		ldrh	r3, [r2, r3, lsl #1]
+ 256 001e 002B     		cmp	r3, #0
+ 257 0020 06D0     		beq	.L17
+ 258 0022 0C4A     		ldr	r2, .L22
+ 259 0024 FB68     		ldr	r3, [r7, #12]
+ 260 0026 32F81330 		ldrh	r3, [r2, r3, lsl #1]
+ 261 002a FA88     		ldrh	r2, [r7, #6]
+ 262 002c 9A42     		cmp	r2, r3
+ 263 002e EFD1     		bne	.L18
+ 264              	.L17:
+ 265 0030 084A     		ldr	r2, .L22
+ 266 0032 FB68     		ldr	r3, [r7, #12]
+ 267 0034 32F81330 		ldrh	r3, [r2, r3, lsl #1]
+ 268 0038 002B     		cmp	r3, #0
+ 269 003a 04D0     		beq	.L19
+ 270 003c 064A     		ldr	r2, .L22+4
+ 271 003e FB68     		ldr	r3, [r7, #12]
+ 272 0040 32F81330 		ldrh	r3, [r2, r3, lsl #1]
+ 273 0044 00E0     		b	.L20
+ 274              	.L19:
+ 275 0046 FB88     		ldrh	r3, [r7, #6]
+ 276              	.L20:
+ 277 0048 1846     		mov	r0, r3
+ 278 004a 1437     		adds	r7, r7, #20
+ 279 004c BD46     		mov	sp, r7
+ 280              		@ sp needed
+ 281 004e 5DF8047B 		ldr	r7, [sp], #4
+ 282 0052 7047     		bx	lr
+ 283              	.L23:
+ 284              		.align	2
+ 285              	.L22:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s 			page 6
+
+
+ 286 0054 00000000 		.word	tbl_lower.8049
+ 287 0058 00000000 		.word	tbl_upper.8050
+ 288              		.size	ff_wtoupper, .-ff_wtoupper
+ 289              		.section	.rodata.tbl_lower.8049,"a",%progbits
+ 290              		.align	2
+ 291              		.type	tbl_lower.8049, %object
+ 292              		.size	tbl_lower.8049, 480
+ 293              	tbl_lower.8049:
+ 294 0000 6100     		.short	97
+ 295 0002 6200     		.short	98
+ 296 0004 6300     		.short	99
+ 297 0006 6400     		.short	100
+ 298 0008 6500     		.short	101
+ 299 000a 6600     		.short	102
+ 300 000c 6700     		.short	103
+ 301 000e 6800     		.short	104
+ 302 0010 6900     		.short	105
+ 303 0012 6A00     		.short	106
+ 304 0014 6B00     		.short	107
+ 305 0016 6C00     		.short	108
+ 306 0018 6D00     		.short	109
+ 307 001a 6E00     		.short	110
+ 308 001c 6F00     		.short	111
+ 309 001e 7000     		.short	112
+ 310 0020 7100     		.short	113
+ 311 0022 7200     		.short	114
+ 312 0024 7300     		.short	115
+ 313 0026 7400     		.short	116
+ 314 0028 7500     		.short	117
+ 315 002a 7600     		.short	118
+ 316 002c 7700     		.short	119
+ 317 002e 7800     		.short	120
+ 318 0030 7900     		.short	121
+ 319 0032 7A00     		.short	122
+ 320 0034 A100     		.short	161
+ 321 0036 A200     		.short	162
+ 322 0038 A300     		.short	163
+ 323 003a A500     		.short	165
+ 324 003c AC00     		.short	172
+ 325 003e AF00     		.short	175
+ 326 0040 E000     		.short	224
+ 327 0042 E100     		.short	225
+ 328 0044 E200     		.short	226
+ 329 0046 E300     		.short	227
+ 330 0048 E400     		.short	228
+ 331 004a E500     		.short	229
+ 332 004c E600     		.short	230
+ 333 004e E700     		.short	231
+ 334 0050 E800     		.short	232
+ 335 0052 E900     		.short	233
+ 336 0054 EA00     		.short	234
+ 337 0056 EB00     		.short	235
+ 338 0058 EC00     		.short	236
+ 339 005a ED00     		.short	237
+ 340 005c EE00     		.short	238
+ 341 005e EF00     		.short	239
+ 342 0060 F000     		.short	240
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s 			page 7
+
+
+ 343 0062 F100     		.short	241
+ 344 0064 F200     		.short	242
+ 345 0066 F300     		.short	243
+ 346 0068 F400     		.short	244
+ 347 006a F500     		.short	245
+ 348 006c F600     		.short	246
+ 349 006e F800     		.short	248
+ 350 0070 F900     		.short	249
+ 351 0072 FA00     		.short	250
+ 352 0074 FB00     		.short	251
+ 353 0076 FC00     		.short	252
+ 354 0078 FD00     		.short	253
+ 355 007a FE00     		.short	254
+ 356 007c FF00     		.short	255
+ 357 007e 0101     		.short	257
+ 358 0080 0301     		.short	259
+ 359 0082 0501     		.short	261
+ 360 0084 0701     		.short	263
+ 361 0086 0901     		.short	265
+ 362 0088 0B01     		.short	267
+ 363 008a 0D01     		.short	269
+ 364 008c 0F01     		.short	271
+ 365 008e 1101     		.short	273
+ 366 0090 1301     		.short	275
+ 367 0092 1501     		.short	277
+ 368 0094 1701     		.short	279
+ 369 0096 1901     		.short	281
+ 370 0098 1B01     		.short	283
+ 371 009a 1D01     		.short	285
+ 372 009c 1F01     		.short	287
+ 373 009e 2101     		.short	289
+ 374 00a0 2301     		.short	291
+ 375 00a2 2501     		.short	293
+ 376 00a4 2701     		.short	295
+ 377 00a6 2901     		.short	297
+ 378 00a8 2B01     		.short	299
+ 379 00aa 2D01     		.short	301
+ 380 00ac 2F01     		.short	303
+ 381 00ae 3101     		.short	305
+ 382 00b0 3301     		.short	307
+ 383 00b2 3501     		.short	309
+ 384 00b4 3701     		.short	311
+ 385 00b6 3A01     		.short	314
+ 386 00b8 3C01     		.short	316
+ 387 00ba 3E01     		.short	318
+ 388 00bc 4001     		.short	320
+ 389 00be 4201     		.short	322
+ 390 00c0 4401     		.short	324
+ 391 00c2 4601     		.short	326
+ 392 00c4 4801     		.short	328
+ 393 00c6 4B01     		.short	331
+ 394 00c8 4D01     		.short	333
+ 395 00ca 4F01     		.short	335
+ 396 00cc 5101     		.short	337
+ 397 00ce 5301     		.short	339
+ 398 00d0 5501     		.short	341
+ 399 00d2 5701     		.short	343
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s 			page 8
+
+
+ 400 00d4 5901     		.short	345
+ 401 00d6 5B01     		.short	347
+ 402 00d8 5D01     		.short	349
+ 403 00da 5F01     		.short	351
+ 404 00dc 6101     		.short	353
+ 405 00de 6301     		.short	355
+ 406 00e0 6501     		.short	357
+ 407 00e2 6701     		.short	359
+ 408 00e4 6901     		.short	361
+ 409 00e6 6B01     		.short	363
+ 410 00e8 6D01     		.short	365
+ 411 00ea 6F01     		.short	367
+ 412 00ec 7101     		.short	369
+ 413 00ee 7301     		.short	371
+ 414 00f0 7501     		.short	373
+ 415 00f2 7701     		.short	375
+ 416 00f4 7A01     		.short	378
+ 417 00f6 7C01     		.short	380
+ 418 00f8 7E01     		.short	382
+ 419 00fa 9201     		.short	402
+ 420 00fc B103     		.short	945
+ 421 00fe B203     		.short	946
+ 422 0100 B303     		.short	947
+ 423 0102 B403     		.short	948
+ 424 0104 B503     		.short	949
+ 425 0106 B603     		.short	950
+ 426 0108 B703     		.short	951
+ 427 010a B803     		.short	952
+ 428 010c B903     		.short	953
+ 429 010e BA03     		.short	954
+ 430 0110 BB03     		.short	955
+ 431 0112 BC03     		.short	956
+ 432 0114 BD03     		.short	957
+ 433 0116 BE03     		.short	958
+ 434 0118 BF03     		.short	959
+ 435 011a C003     		.short	960
+ 436 011c C103     		.short	961
+ 437 011e C303     		.short	963
+ 438 0120 C403     		.short	964
+ 439 0122 C503     		.short	965
+ 440 0124 C603     		.short	966
+ 441 0126 C703     		.short	967
+ 442 0128 C803     		.short	968
+ 443 012a C903     		.short	969
+ 444 012c CA03     		.short	970
+ 445 012e 3004     		.short	1072
+ 446 0130 3104     		.short	1073
+ 447 0132 3204     		.short	1074
+ 448 0134 3304     		.short	1075
+ 449 0136 3404     		.short	1076
+ 450 0138 3504     		.short	1077
+ 451 013a 3604     		.short	1078
+ 452 013c 3704     		.short	1079
+ 453 013e 3804     		.short	1080
+ 454 0140 3904     		.short	1081
+ 455 0142 3A04     		.short	1082
+ 456 0144 3B04     		.short	1083
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s 			page 9
+
+
+ 457 0146 3C04     		.short	1084
+ 458 0148 3D04     		.short	1085
+ 459 014a 3E04     		.short	1086
+ 460 014c 3F04     		.short	1087
+ 461 014e 4004     		.short	1088
+ 462 0150 4104     		.short	1089
+ 463 0152 4204     		.short	1090
+ 464 0154 4304     		.short	1091
+ 465 0156 4404     		.short	1092
+ 466 0158 4504     		.short	1093
+ 467 015a 4604     		.short	1094
+ 468 015c 4704     		.short	1095
+ 469 015e 4804     		.short	1096
+ 470 0160 4904     		.short	1097
+ 471 0162 4A04     		.short	1098
+ 472 0164 4B04     		.short	1099
+ 473 0166 4C04     		.short	1100
+ 474 0168 4D04     		.short	1101
+ 475 016a 4E04     		.short	1102
+ 476 016c 4F04     		.short	1103
+ 477 016e 5104     		.short	1105
+ 478 0170 5204     		.short	1106
+ 479 0172 5304     		.short	1107
+ 480 0174 5404     		.short	1108
+ 481 0176 5504     		.short	1109
+ 482 0178 5604     		.short	1110
+ 483 017a 5704     		.short	1111
+ 484 017c 5804     		.short	1112
+ 485 017e 5904     		.short	1113
+ 486 0180 5A04     		.short	1114
+ 487 0182 5B04     		.short	1115
+ 488 0184 5C04     		.short	1116
+ 489 0186 5E04     		.short	1118
+ 490 0188 5F04     		.short	1119
+ 491 018a 7021     		.short	8560
+ 492 018c 7121     		.short	8561
+ 493 018e 7221     		.short	8562
+ 494 0190 7321     		.short	8563
+ 495 0192 7421     		.short	8564
+ 496 0194 7521     		.short	8565
+ 497 0196 7621     		.short	8566
+ 498 0198 7721     		.short	8567
+ 499 019a 7821     		.short	8568
+ 500 019c 7921     		.short	8569
+ 501 019e 7A21     		.short	8570
+ 502 01a0 7B21     		.short	8571
+ 503 01a2 7C21     		.short	8572
+ 504 01a4 7D21     		.short	8573
+ 505 01a6 7E21     		.short	8574
+ 506 01a8 7F21     		.short	8575
+ 507 01aa 41FF     		.short	-191
+ 508 01ac 42FF     		.short	-190
+ 509 01ae 43FF     		.short	-189
+ 510 01b0 44FF     		.short	-188
+ 511 01b2 45FF     		.short	-187
+ 512 01b4 46FF     		.short	-186
+ 513 01b6 47FF     		.short	-185
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s 			page 10
+
+
+ 514 01b8 48FF     		.short	-184
+ 515 01ba 49FF     		.short	-183
+ 516 01bc 4AFF     		.short	-182
+ 517 01be 4BFF     		.short	-181
+ 518 01c0 4CFF     		.short	-180
+ 519 01c2 4DFF     		.short	-179
+ 520 01c4 4EFF     		.short	-178
+ 521 01c6 4FFF     		.short	-177
+ 522 01c8 50FF     		.short	-176
+ 523 01ca 51FF     		.short	-175
+ 524 01cc 52FF     		.short	-174
+ 525 01ce 53FF     		.short	-173
+ 526 01d0 54FF     		.short	-172
+ 527 01d2 55FF     		.short	-171
+ 528 01d4 56FF     		.short	-170
+ 529 01d6 57FF     		.short	-169
+ 530 01d8 58FF     		.short	-168
+ 531 01da 59FF     		.short	-167
+ 532 01dc 5AFF     		.short	-166
+ 533 01de 0000     		.short	0
+ 534              		.section	.rodata.tbl_upper.8050,"a",%progbits
+ 535              		.align	2
+ 536              		.type	tbl_upper.8050, %object
+ 537              		.size	tbl_upper.8050, 480
+ 538              	tbl_upper.8050:
+ 539 0000 4100     		.short	65
+ 540 0002 4200     		.short	66
+ 541 0004 4300     		.short	67
+ 542 0006 4400     		.short	68
+ 543 0008 4500     		.short	69
+ 544 000a 4600     		.short	70
+ 545 000c 4700     		.short	71
+ 546 000e 4800     		.short	72
+ 547 0010 4900     		.short	73
+ 548 0012 4A00     		.short	74
+ 549 0014 4B00     		.short	75
+ 550 0016 4C00     		.short	76
+ 551 0018 4D00     		.short	77
+ 552 001a 4E00     		.short	78
+ 553 001c 4F00     		.short	79
+ 554 001e 5000     		.short	80
+ 555 0020 5100     		.short	81
+ 556 0022 5200     		.short	82
+ 557 0024 5300     		.short	83
+ 558 0026 5400     		.short	84
+ 559 0028 5500     		.short	85
+ 560 002a 5600     		.short	86
+ 561 002c 5700     		.short	87
+ 562 002e 5800     		.short	88
+ 563 0030 5900     		.short	89
+ 564 0032 5A00     		.short	90
+ 565 0034 2100     		.short	33
+ 566 0036 E0FF     		.short	-32
+ 567 0038 E1FF     		.short	-31
+ 568 003a E5FF     		.short	-27
+ 569 003c E2FF     		.short	-30
+ 570 003e E3FF     		.short	-29
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s 			page 11
+
+
+ 571 0040 C000     		.short	192
+ 572 0042 C100     		.short	193
+ 573 0044 C200     		.short	194
+ 574 0046 C300     		.short	195
+ 575 0048 C400     		.short	196
+ 576 004a C500     		.short	197
+ 577 004c C600     		.short	198
+ 578 004e C700     		.short	199
+ 579 0050 C800     		.short	200
+ 580 0052 C900     		.short	201
+ 581 0054 CA00     		.short	202
+ 582 0056 CB00     		.short	203
+ 583 0058 CC00     		.short	204
+ 584 005a CD00     		.short	205
+ 585 005c CE00     		.short	206
+ 586 005e CF00     		.short	207
+ 587 0060 D000     		.short	208
+ 588 0062 D100     		.short	209
+ 589 0064 D200     		.short	210
+ 590 0066 D300     		.short	211
+ 591 0068 D400     		.short	212
+ 592 006a D500     		.short	213
+ 593 006c D600     		.short	214
+ 594 006e D800     		.short	216
+ 595 0070 D900     		.short	217
+ 596 0072 DA00     		.short	218
+ 597 0074 DB00     		.short	219
+ 598 0076 DC00     		.short	220
+ 599 0078 DD00     		.short	221
+ 600 007a DE00     		.short	222
+ 601 007c 7801     		.short	376
+ 602 007e 0001     		.short	256
+ 603 0080 0201     		.short	258
+ 604 0082 0401     		.short	260
+ 605 0084 0601     		.short	262
+ 606 0086 0801     		.short	264
+ 607 0088 0A01     		.short	266
+ 608 008a 0C01     		.short	268
+ 609 008c 0E01     		.short	270
+ 610 008e 1001     		.short	272
+ 611 0090 1201     		.short	274
+ 612 0092 1401     		.short	276
+ 613 0094 1601     		.short	278
+ 614 0096 1801     		.short	280
+ 615 0098 1A01     		.short	282
+ 616 009a 1C01     		.short	284
+ 617 009c 1E01     		.short	286
+ 618 009e 2001     		.short	288
+ 619 00a0 2201     		.short	290
+ 620 00a2 2401     		.short	292
+ 621 00a4 2601     		.short	294
+ 622 00a6 2801     		.short	296
+ 623 00a8 2A01     		.short	298
+ 624 00aa 2C01     		.short	300
+ 625 00ac 2E01     		.short	302
+ 626 00ae 3001     		.short	304
+ 627 00b0 3201     		.short	306
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s 			page 12
+
+
+ 628 00b2 3401     		.short	308
+ 629 00b4 3601     		.short	310
+ 630 00b6 3901     		.short	313
+ 631 00b8 3B01     		.short	315
+ 632 00ba 3D01     		.short	317
+ 633 00bc 3F01     		.short	319
+ 634 00be 4101     		.short	321
+ 635 00c0 4301     		.short	323
+ 636 00c2 4501     		.short	325
+ 637 00c4 4701     		.short	327
+ 638 00c6 4A01     		.short	330
+ 639 00c8 4C01     		.short	332
+ 640 00ca 4E01     		.short	334
+ 641 00cc 5001     		.short	336
+ 642 00ce 5201     		.short	338
+ 643 00d0 5401     		.short	340
+ 644 00d2 5601     		.short	342
+ 645 00d4 5801     		.short	344
+ 646 00d6 5A01     		.short	346
+ 647 00d8 5C01     		.short	348
+ 648 00da 5E01     		.short	350
+ 649 00dc 6001     		.short	352
+ 650 00de 6201     		.short	354
+ 651 00e0 6401     		.short	356
+ 652 00e2 6601     		.short	358
+ 653 00e4 6801     		.short	360
+ 654 00e6 6A01     		.short	362
+ 655 00e8 6C01     		.short	364
+ 656 00ea 6E01     		.short	366
+ 657 00ec 7001     		.short	368
+ 658 00ee 7201     		.short	370
+ 659 00f0 7401     		.short	372
+ 660 00f2 7601     		.short	374
+ 661 00f4 7901     		.short	377
+ 662 00f6 7B01     		.short	379
+ 663 00f8 7D01     		.short	381
+ 664 00fa 9101     		.short	401
+ 665 00fc 9103     		.short	913
+ 666 00fe 9203     		.short	914
+ 667 0100 9303     		.short	915
+ 668 0102 9403     		.short	916
+ 669 0104 9503     		.short	917
+ 670 0106 9603     		.short	918
+ 671 0108 9703     		.short	919
+ 672 010a 9803     		.short	920
+ 673 010c 9903     		.short	921
+ 674 010e 9A03     		.short	922
+ 675 0110 9B03     		.short	923
+ 676 0112 9C03     		.short	924
+ 677 0114 9D03     		.short	925
+ 678 0116 9E03     		.short	926
+ 679 0118 9F03     		.short	927
+ 680 011a A003     		.short	928
+ 681 011c A103     		.short	929
+ 682 011e A303     		.short	931
+ 683 0120 A403     		.short	932
+ 684 0122 A503     		.short	933
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s 			page 13
+
+
+ 685 0124 A603     		.short	934
+ 686 0126 A703     		.short	935
+ 687 0128 A803     		.short	936
+ 688 012a A903     		.short	937
+ 689 012c AA03     		.short	938
+ 690 012e 1004     		.short	1040
+ 691 0130 1104     		.short	1041
+ 692 0132 1204     		.short	1042
+ 693 0134 1304     		.short	1043
+ 694 0136 1404     		.short	1044
+ 695 0138 1504     		.short	1045
+ 696 013a 1604     		.short	1046
+ 697 013c 1704     		.short	1047
+ 698 013e 1804     		.short	1048
+ 699 0140 1904     		.short	1049
+ 700 0142 1A04     		.short	1050
+ 701 0144 1B04     		.short	1051
+ 702 0146 1C04     		.short	1052
+ 703 0148 1D04     		.short	1053
+ 704 014a 1E04     		.short	1054
+ 705 014c 1F04     		.short	1055
+ 706 014e 2004     		.short	1056
+ 707 0150 2104     		.short	1057
+ 708 0152 2204     		.short	1058
+ 709 0154 2304     		.short	1059
+ 710 0156 2404     		.short	1060
+ 711 0158 2504     		.short	1061
+ 712 015a 2604     		.short	1062
+ 713 015c 2704     		.short	1063
+ 714 015e 2804     		.short	1064
+ 715 0160 2904     		.short	1065
+ 716 0162 2A04     		.short	1066
+ 717 0164 2B04     		.short	1067
+ 718 0166 2C04     		.short	1068
+ 719 0168 2D04     		.short	1069
+ 720 016a 2E04     		.short	1070
+ 721 016c 2F04     		.short	1071
+ 722 016e 0104     		.short	1025
+ 723 0170 0204     		.short	1026
+ 724 0172 0304     		.short	1027
+ 725 0174 0404     		.short	1028
+ 726 0176 0504     		.short	1029
+ 727 0178 0604     		.short	1030
+ 728 017a 0704     		.short	1031
+ 729 017c 0804     		.short	1032
+ 730 017e 0904     		.short	1033
+ 731 0180 0A04     		.short	1034
+ 732 0182 0B04     		.short	1035
+ 733 0184 0C04     		.short	1036
+ 734 0186 0E04     		.short	1038
+ 735 0188 0F04     		.short	1039
+ 736 018a 6021     		.short	8544
+ 737 018c 6121     		.short	8545
+ 738 018e 6221     		.short	8546
+ 739 0190 6321     		.short	8547
+ 740 0192 6421     		.short	8548
+ 741 0194 6521     		.short	8549
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s 			page 14
+
+
+ 742 0196 6621     		.short	8550
+ 743 0198 6721     		.short	8551
+ 744 019a 6821     		.short	8552
+ 745 019c 6921     		.short	8553
+ 746 019e 6A21     		.short	8554
+ 747 01a0 6B21     		.short	8555
+ 748 01a2 6C21     		.short	8556
+ 749 01a4 6D21     		.short	8557
+ 750 01a6 6E21     		.short	8558
+ 751 01a8 6F21     		.short	8559
+ 752 01aa 21FF     		.short	-223
+ 753 01ac 22FF     		.short	-222
+ 754 01ae 23FF     		.short	-221
+ 755 01b0 24FF     		.short	-220
+ 756 01b2 25FF     		.short	-219
+ 757 01b4 26FF     		.short	-218
+ 758 01b6 27FF     		.short	-217
+ 759 01b8 28FF     		.short	-216
+ 760 01ba 29FF     		.short	-215
+ 761 01bc 2AFF     		.short	-214
+ 762 01be 2BFF     		.short	-213
+ 763 01c0 2CFF     		.short	-212
+ 764 01c2 2DFF     		.short	-211
+ 765 01c4 2EFF     		.short	-210
+ 766 01c6 2FFF     		.short	-209
+ 767 01c8 30FF     		.short	-208
+ 768 01ca 31FF     		.short	-207
+ 769 01cc 32FF     		.short	-206
+ 770 01ce 33FF     		.short	-205
+ 771 01d0 34FF     		.short	-204
+ 772 01d2 35FF     		.short	-203
+ 773 01d4 36FF     		.short	-202
+ 774 01d6 37FF     		.short	-201
+ 775 01d8 38FF     		.short	-200
+ 776 01da 39FF     		.short	-199
+ 777 01dc 3AFF     		.short	-198
+ 778 01de 0000     		.short	0
+ 779              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s 			page 15
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 unicode.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s:15     .rodata.Tbl:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s:18     .rodata.Tbl:0000000000000000 Tbl
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s:148    .text.ff_convert:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s:155    .text.ff_convert:0000000000000000 ff_convert
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s:226    .text.ff_convert:0000000000000074 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s:229    .text.ff_wtoupper:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s:236    .text.ff_wtoupper:0000000000000000 ff_wtoupper
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s:286    .text.ff_wtoupper:0000000000000054 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s:293    .rodata.tbl_lower.8049:0000000000000000 tbl_lower.8049
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s:538    .rodata.tbl_upper.8050:0000000000000000 tbl_upper.8050
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s:290    .rodata.tbl_lower.8049:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc3Sentz.s:535    .rodata.tbl_upper.8050:0000000000000000 $d
+
+NO UNDEFINED SYMBOLS

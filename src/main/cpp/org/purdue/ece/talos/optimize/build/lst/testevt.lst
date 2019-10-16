@@ -1,0 +1,1396 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"testevt.c"
+  14              		.section	.text.port_lock,"ax",%progbits
+  15              		.align	1
+  16              		.syntax unified
+  17              		.thumb
+  18              		.thumb_func
+  19              		.fpu fpv4-sp-d16
+  20              		.type	port_lock, %function
+  21              	port_lock:
+  22              		@ args = 0, pretend = 0, frame = 8
+  23              		@ frame_needed = 1, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 80B4     		push	{r7}
+  26 0002 83B0     		sub	sp, sp, #12
+  27 0004 00AF     		add	r7, sp, #0
+  28 0006 2023     		movs	r3, #32
+  29 0008 7B60     		str	r3, [r7, #4]
+  30 000a 7B68     		ldr	r3, [r7, #4]
+  31              		.syntax unified
+  32              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  33 000c 83F31188 		MSR basepri, r3
+  34              	@ 0 "" 2
+  35              		.thumb
+  36              		.syntax unified
+  37 0010 00BF     		nop
+  38 0012 0C37     		adds	r7, r7, #12
+  39 0014 BD46     		mov	sp, r7
+  40              		@ sp needed
+  41 0016 5DF8047B 		ldr	r7, [sp], #4
+  42 001a 7047     		bx	lr
+  43              		.size	port_lock, .-port_lock
+  44              		.section	.text.port_unlock,"ax",%progbits
+  45              		.align	1
+  46              		.syntax unified
+  47              		.thumb
+  48              		.thumb_func
+  49              		.fpu fpv4-sp-d16
+  50              		.type	port_unlock, %function
+  51              	port_unlock:
+  52              		@ args = 0, pretend = 0, frame = 8
+  53              		@ frame_needed = 1, uses_anonymous_args = 0
+  54              		@ link register save eliminated.
+  55 0000 80B4     		push	{r7}
+  56 0002 83B0     		sub	sp, sp, #12
+  57 0004 00AF     		add	r7, sp, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s 			page 2
+
+
+  58 0006 0023     		movs	r3, #0
+  59 0008 7B60     		str	r3, [r7, #4]
+  60 000a 7B68     		ldr	r3, [r7, #4]
+  61              		.syntax unified
+  62              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  63 000c 83F31188 		MSR basepri, r3
+  64              	@ 0 "" 2
+  65              		.thumb
+  66              		.syntax unified
+  67 0010 00BF     		nop
+  68 0012 0C37     		adds	r7, r7, #12
+  69 0014 BD46     		mov	sp, r7
+  70              		@ sp needed
+  71 0016 5DF8047B 		ldr	r7, [sp], #4
+  72 001a 7047     		bx	lr
+  73              		.size	port_unlock, .-port_unlock
+  74              		.section	.text.chSysLock,"ax",%progbits
+  75              		.align	1
+  76              		.syntax unified
+  77              		.thumb
+  78              		.thumb_func
+  79              		.fpu fpv4-sp-d16
+  80              		.type	chSysLock, %function
+  81              	chSysLock:
+  82              		@ args = 0, pretend = 0, frame = 0
+  83              		@ frame_needed = 1, uses_anonymous_args = 0
+  84 0000 80B5     		push	{r7, lr}
+  85 0002 00AF     		add	r7, sp, #0
+  86 0004 FFF7FEFF 		bl	port_lock
+  87 0008 FFF7FEFF 		bl	_stats_start_measure_crit_thd
+  88 000c FFF7FEFF 		bl	_dbg_check_lock
+  89 0010 00BF     		nop
+  90 0012 80BD     		pop	{r7, pc}
+  91              		.size	chSysLock, .-chSysLock
+  92              		.section	.text.chSysUnlock,"ax",%progbits
+  93              		.align	1
+  94              		.syntax unified
+  95              		.thumb
+  96              		.thumb_func
+  97              		.fpu fpv4-sp-d16
+  98              		.type	chSysUnlock, %function
+  99              	chSysUnlock:
+ 100              		@ args = 0, pretend = 0, frame = 0
+ 101              		@ frame_needed = 1, uses_anonymous_args = 0
+ 102 0000 80B5     		push	{r7, lr}
+ 103 0002 00AF     		add	r7, sp, #0
+ 104 0004 FFF7FEFF 		bl	_dbg_check_unlock
+ 105 0008 FFF7FEFF 		bl	_stats_stop_measure_crit_thd
+ 106 000c 094B     		ldr	r3, .L6
+ 107 000e 1B68     		ldr	r3, [r3]
+ 108 0010 084A     		ldr	r2, .L6
+ 109 0012 9342     		cmp	r3, r2
+ 110 0014 0AD0     		beq	.L5
+ 111 0016 074B     		ldr	r3, .L6
+ 112 0018 9B69     		ldr	r3, [r3, #24]
+ 113 001a 9A68     		ldr	r2, [r3, #8]
+ 114 001c 054B     		ldr	r3, .L6
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s 			page 3
+
+
+ 115 001e 1B68     		ldr	r3, [r3]
+ 116 0020 9B68     		ldr	r3, [r3, #8]
+ 117 0022 9A42     		cmp	r2, r3
+ 118 0024 02D2     		bcs	.L5
+ 119 0026 0448     		ldr	r0, .L6+4
+ 120 0028 FFF7FEFF 		bl	chSysHalt
+ 121              	.L5:
+ 122 002c FFF7FEFF 		bl	port_unlock
+ 123 0030 00BF     		nop
+ 124 0032 80BD     		pop	{r7, pc}
+ 125              	.L7:
+ 126              		.align	2
+ 127              	.L6:
+ 128 0034 00000000 		.word	ch
+ 129 0038 00000000 		.word	__func__.7153
+ 130              		.size	chSysUnlock, .-chSysUnlock
+ 131              		.section	.text.chVTGetSystemTimeX,"ax",%progbits
+ 132              		.align	1
+ 133              		.syntax unified
+ 134              		.thumb
+ 135              		.thumb_func
+ 136              		.fpu fpv4-sp-d16
+ 137              		.type	chVTGetSystemTimeX, %function
+ 138              	chVTGetSystemTimeX:
+ 139              		@ args = 0, pretend = 0, frame = 0
+ 140              		@ frame_needed = 1, uses_anonymous_args = 0
+ 141              		@ link register save eliminated.
+ 142 0000 80B4     		push	{r7}
+ 143 0002 00AF     		add	r7, sp, #0
+ 144 0004 034B     		ldr	r3, .L10
+ 145 0006 9B6A     		ldr	r3, [r3, #40]
+ 146 0008 1846     		mov	r0, r3
+ 147 000a BD46     		mov	sp, r7
+ 148              		@ sp needed
+ 149 000c 5DF8047B 		ldr	r7, [sp], #4
+ 150 0010 7047     		bx	lr
+ 151              	.L11:
+ 152 0012 00BF     		.align	2
+ 153              	.L10:
+ 154 0014 00000000 		.word	ch
+ 155              		.size	chVTGetSystemTimeX, .-chVTGetSystemTimeX
+ 156              		.section	.text.chVTGetSystemTime,"ax",%progbits
+ 157              		.align	1
+ 158              		.syntax unified
+ 159              		.thumb
+ 160              		.thumb_func
+ 161              		.fpu fpv4-sp-d16
+ 162              		.type	chVTGetSystemTime, %function
+ 163              	chVTGetSystemTime:
+ 164              		@ args = 0, pretend = 0, frame = 8
+ 165              		@ frame_needed = 1, uses_anonymous_args = 0
+ 166 0000 80B5     		push	{r7, lr}
+ 167 0002 82B0     		sub	sp, sp, #8
+ 168 0004 00AF     		add	r7, sp, #0
+ 169 0006 FFF7FEFF 		bl	chSysLock
+ 170 000a FFF7FEFF 		bl	chVTGetSystemTimeX
+ 171 000e 7860     		str	r0, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s 			page 4
+
+
+ 172 0010 FFF7FEFF 		bl	chSysUnlock
+ 173 0014 7B68     		ldr	r3, [r7, #4]
+ 174 0016 1846     		mov	r0, r3
+ 175 0018 0837     		adds	r7, r7, #8
+ 176 001a BD46     		mov	sp, r7
+ 177              		@ sp needed
+ 178 001c 80BD     		pop	{r7, pc}
+ 179              		.size	chVTGetSystemTime, .-chVTGetSystemTime
+ 180              		.section	.text.chThdGetSelfX,"ax",%progbits
+ 181              		.align	1
+ 182              		.syntax unified
+ 183              		.thumb
+ 184              		.thumb_func
+ 185              		.fpu fpv4-sp-d16
+ 186              		.type	chThdGetSelfX, %function
+ 187              	chThdGetSelfX:
+ 188              		@ args = 0, pretend = 0, frame = 0
+ 189              		@ frame_needed = 1, uses_anonymous_args = 0
+ 190              		@ link register save eliminated.
+ 191 0000 80B4     		push	{r7}
+ 192 0002 00AF     		add	r7, sp, #0
+ 193 0004 034B     		ldr	r3, .L16
+ 194 0006 9B69     		ldr	r3, [r3, #24]
+ 195 0008 1846     		mov	r0, r3
+ 196 000a BD46     		mov	sp, r7
+ 197              		@ sp needed
+ 198 000c 5DF8047B 		ldr	r7, [sp], #4
+ 199 0010 7047     		bx	lr
+ 200              	.L17:
+ 201 0012 00BF     		.align	2
+ 202              	.L16:
+ 203 0014 00000000 		.word	ch
+ 204              		.size	chThdGetSelfX, .-chThdGetSelfX
+ 205              		.section	.text.chThdGetPriorityX,"ax",%progbits
+ 206              		.align	1
+ 207              		.syntax unified
+ 208              		.thumb
+ 209              		.thumb_func
+ 210              		.fpu fpv4-sp-d16
+ 211              		.type	chThdGetPriorityX, %function
+ 212              	chThdGetPriorityX:
+ 213              		@ args = 0, pretend = 0, frame = 0
+ 214              		@ frame_needed = 1, uses_anonymous_args = 0
+ 215 0000 80B5     		push	{r7, lr}
+ 216 0002 00AF     		add	r7, sp, #0
+ 217 0004 FFF7FEFF 		bl	chThdGetSelfX
+ 218 0008 0346     		mov	r3, r0
+ 219 000a 9B68     		ldr	r3, [r3, #8]
+ 220 000c 1846     		mov	r0, r3
+ 221 000e 80BD     		pop	{r7, pc}
+ 222              		.size	chThdGetPriorityX, .-chThdGetPriorityX
+ 223              		.section	.text.chEvtObjectInit,"ax",%progbits
+ 224              		.align	1
+ 225              		.syntax unified
+ 226              		.thumb
+ 227              		.thumb_func
+ 228              		.fpu fpv4-sp-d16
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s 			page 5
+
+
+ 229              		.type	chEvtObjectInit, %function
+ 230              	chEvtObjectInit:
+ 231              		@ args = 0, pretend = 0, frame = 8
+ 232              		@ frame_needed = 1, uses_anonymous_args = 0
+ 233              		@ link register save eliminated.
+ 234 0000 80B4     		push	{r7}
+ 235 0002 83B0     		sub	sp, sp, #12
+ 236 0004 00AF     		add	r7, sp, #0
+ 237 0006 7860     		str	r0, [r7, #4]
+ 238 0008 7B68     		ldr	r3, [r7, #4]
+ 239 000a 7A68     		ldr	r2, [r7, #4]
+ 240 000c 1A60     		str	r2, [r3]
+ 241 000e 00BF     		nop
+ 242 0010 0C37     		adds	r7, r7, #12
+ 243 0012 BD46     		mov	sp, r7
+ 244              		@ sp needed
+ 245 0014 5DF8047B 		ldr	r7, [sp], #4
+ 246 0018 7047     		bx	lr
+ 247              		.size	chEvtObjectInit, .-chEvtObjectInit
+ 248              		.section	.text.chEvtRegisterMask,"ax",%progbits
+ 249              		.align	1
+ 250              		.syntax unified
+ 251              		.thumb
+ 252              		.thumb_func
+ 253              		.fpu fpv4-sp-d16
+ 254              		.type	chEvtRegisterMask, %function
+ 255              	chEvtRegisterMask:
+ 256              		@ args = 0, pretend = 0, frame = 16
+ 257              		@ frame_needed = 1, uses_anonymous_args = 0
+ 258 0000 80B5     		push	{r7, lr}
+ 259 0002 84B0     		sub	sp, sp, #16
+ 260 0004 00AF     		add	r7, sp, #0
+ 261 0006 F860     		str	r0, [r7, #12]
+ 262 0008 B960     		str	r1, [r7, #8]
+ 263 000a 7A60     		str	r2, [r7, #4]
+ 264 000c 4FF0FF33 		mov	r3, #-1
+ 265 0010 7A68     		ldr	r2, [r7, #4]
+ 266 0012 B968     		ldr	r1, [r7, #8]
+ 267 0014 F868     		ldr	r0, [r7, #12]
+ 268 0016 FFF7FEFF 		bl	chEvtRegisterMaskWithFlags
+ 269 001a 00BF     		nop
+ 270 001c 1037     		adds	r7, r7, #16
+ 271 001e BD46     		mov	sp, r7
+ 272              		@ sp needed
+ 273 0020 80BD     		pop	{r7, pc}
+ 274              		.size	chEvtRegisterMask, .-chEvtRegisterMask
+ 275              		.section	.text.chEvtIsListeningI,"ax",%progbits
+ 276              		.align	1
+ 277              		.syntax unified
+ 278              		.thumb
+ 279              		.thumb_func
+ 280              		.fpu fpv4-sp-d16
+ 281              		.type	chEvtIsListeningI, %function
+ 282              	chEvtIsListeningI:
+ 283              		@ args = 0, pretend = 0, frame = 8
+ 284              		@ frame_needed = 1, uses_anonymous_args = 0
+ 285              		@ link register save eliminated.
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s 			page 6
+
+
+ 286 0000 80B4     		push	{r7}
+ 287 0002 83B0     		sub	sp, sp, #12
+ 288 0004 00AF     		add	r7, sp, #0
+ 289 0006 7860     		str	r0, [r7, #4]
+ 290 0008 7B68     		ldr	r3, [r7, #4]
+ 291 000a 1B68     		ldr	r3, [r3]
+ 292 000c 7A68     		ldr	r2, [r7, #4]
+ 293 000e 9A42     		cmp	r2, r3
+ 294 0010 14BF     		ite	ne
+ 295 0012 0123     		movne	r3, #1
+ 296 0014 0023     		moveq	r3, #0
+ 297 0016 DBB2     		uxtb	r3, r3
+ 298 0018 1846     		mov	r0, r3
+ 299 001a 0C37     		adds	r7, r7, #12
+ 300 001c BD46     		mov	sp, r7
+ 301              		@ sp needed
+ 302 001e 5DF8047B 		ldr	r7, [sp], #4
+ 303 0022 7047     		bx	lr
+ 304              		.size	chEvtIsListeningI, .-chEvtIsListeningI
+ 305              		.section	.text.chEvtBroadcast,"ax",%progbits
+ 306              		.align	1
+ 307              		.syntax unified
+ 308              		.thumb
+ 309              		.thumb_func
+ 310              		.fpu fpv4-sp-d16
+ 311              		.type	chEvtBroadcast, %function
+ 312              	chEvtBroadcast:
+ 313              		@ args = 0, pretend = 0, frame = 8
+ 314              		@ frame_needed = 1, uses_anonymous_args = 0
+ 315 0000 80B5     		push	{r7, lr}
+ 316 0002 82B0     		sub	sp, sp, #8
+ 317 0004 00AF     		add	r7, sp, #0
+ 318 0006 7860     		str	r0, [r7, #4]
+ 319 0008 0021     		movs	r1, #0
+ 320 000a 7868     		ldr	r0, [r7, #4]
+ 321 000c FFF7FEFF 		bl	chEvtBroadcastFlags
+ 322 0010 00BF     		nop
+ 323 0012 0837     		adds	r7, r7, #8
+ 324 0014 BD46     		mov	sp, r7
+ 325              		@ sp needed
+ 326 0016 80BD     		pop	{r7, pc}
+ 327              		.size	chEvtBroadcast, .-chEvtBroadcast
+ 328              		.section	.data.es1,"aw",%progbits
+ 329              		.align	2
+ 330              		.type	es1, %object
+ 331              		.size	es1, 4
+ 332              	es1:
+ 333 0000 00000000 		.word	es1
+ 334              		.section	.data.es2,"aw",%progbits
+ 335              		.align	2
+ 336              		.type	es2, %object
+ 337              		.size	es2, 4
+ 338              	es2:
+ 339 0000 00000000 		.word	es2
+ 340              		.section	.text.evt1_setup,"ax",%progbits
+ 341              		.align	1
+ 342              		.syntax unified
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s 			page 7
+
+
+ 343              		.thumb
+ 344              		.thumb_func
+ 345              		.fpu fpv4-sp-d16
+ 346              		.type	evt1_setup, %function
+ 347              	evt1_setup:
+ 348              		@ args = 0, pretend = 0, frame = 0
+ 349              		@ frame_needed = 1, uses_anonymous_args = 0
+ 350 0000 80B5     		push	{r7, lr}
+ 351 0002 00AF     		add	r7, sp, #0
+ 352 0004 4FF0FF30 		mov	r0, #-1
+ 353 0008 FFF7FEFF 		bl	chEvtGetAndClearEvents
+ 354 000c 00BF     		nop
+ 355 000e 80BD     		pop	{r7, pc}
+ 356              		.size	evt1_setup, .-evt1_setup
+ 357              		.section	.text.h1,"ax",%progbits
+ 358              		.align	1
+ 359              		.syntax unified
+ 360              		.thumb
+ 361              		.thumb_func
+ 362              		.fpu fpv4-sp-d16
+ 363              		.type	h1, %function
+ 364              	h1:
+ 365              		@ args = 0, pretend = 0, frame = 8
+ 366              		@ frame_needed = 1, uses_anonymous_args = 0
+ 367 0000 80B5     		push	{r7, lr}
+ 368 0002 82B0     		sub	sp, sp, #8
+ 369 0004 00AF     		add	r7, sp, #0
+ 370 0006 7860     		str	r0, [r7, #4]
+ 371 0008 4120     		movs	r0, #65
+ 372 000a FFF7FEFF 		bl	test_emit_token
+ 373 000e 00BF     		nop
+ 374 0010 0837     		adds	r7, r7, #8
+ 375 0012 BD46     		mov	sp, r7
+ 376              		@ sp needed
+ 377 0014 80BD     		pop	{r7, pc}
+ 378              		.size	h1, .-h1
+ 379              		.section	.text.h2,"ax",%progbits
+ 380              		.align	1
+ 381              		.syntax unified
+ 382              		.thumb
+ 383              		.thumb_func
+ 384              		.fpu fpv4-sp-d16
+ 385              		.type	h2, %function
+ 386              	h2:
+ 387              		@ args = 0, pretend = 0, frame = 8
+ 388              		@ frame_needed = 1, uses_anonymous_args = 0
+ 389 0000 80B5     		push	{r7, lr}
+ 390 0002 82B0     		sub	sp, sp, #8
+ 391 0004 00AF     		add	r7, sp, #0
+ 392 0006 7860     		str	r0, [r7, #4]
+ 393 0008 4220     		movs	r0, #66
+ 394 000a FFF7FEFF 		bl	test_emit_token
+ 395 000e 00BF     		nop
+ 396 0010 0837     		adds	r7, r7, #8
+ 397 0012 BD46     		mov	sp, r7
+ 398              		@ sp needed
+ 399 0014 80BD     		pop	{r7, pc}
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s 			page 8
+
+
+ 400              		.size	h2, .-h2
+ 401              		.section	.text.h3,"ax",%progbits
+ 402              		.align	1
+ 403              		.syntax unified
+ 404              		.thumb
+ 405              		.thumb_func
+ 406              		.fpu fpv4-sp-d16
+ 407              		.type	h3, %function
+ 408              	h3:
+ 409              		@ args = 0, pretend = 0, frame = 8
+ 410              		@ frame_needed = 1, uses_anonymous_args = 0
+ 411 0000 80B5     		push	{r7, lr}
+ 412 0002 82B0     		sub	sp, sp, #8
+ 413 0004 00AF     		add	r7, sp, #0
+ 414 0006 7860     		str	r0, [r7, #4]
+ 415 0008 4320     		movs	r0, #67
+ 416 000a FFF7FEFF 		bl	test_emit_token
+ 417 000e 00BF     		nop
+ 418 0010 0837     		adds	r7, r7, #8
+ 419 0012 BD46     		mov	sp, r7
+ 420              		@ sp needed
+ 421 0014 80BD     		pop	{r7, pc}
+ 422              		.size	h3, .-h3
+ 423              		.section	.rodata.evhndl,"a",%progbits
+ 424              		.align	2
+ 425              		.type	evhndl, %object
+ 426              		.size	evhndl, 12
+ 427              	evhndl:
+ 428 0000 00000000 		.word	h1
+ 429 0004 00000000 		.word	h2
+ 430 0008 00000000 		.word	h3
+ 431              		.section	.rodata
+ 432              		.align	2
+ 433              	.LC0:
+ 434 0000 41424300 		.ascii	"ABC\000"
+ 435              		.section	.text.evt1_execute,"ax",%progbits
+ 436              		.align	1
+ 437              		.syntax unified
+ 438              		.thumb
+ 439              		.thumb_func
+ 440              		.fpu fpv4-sp-d16
+ 441              		.type	evt1_execute, %function
+ 442              	evt1_execute:
+ 443              		@ args = 0, pretend = 0, frame = 40
+ 444              		@ frame_needed = 1, uses_anonymous_args = 0
+ 445 0000 80B5     		push	{r7, lr}
+ 446 0002 8AB0     		sub	sp, sp, #40
+ 447 0004 00AF     		add	r7, sp, #0
+ 448 0006 2D48     		ldr	r0, .L39
+ 449 0008 FFF7FEFF 		bl	chEvtObjectInit
+ 450 000c 07F11403 		add	r3, r7, #20
+ 451 0010 0122     		movs	r2, #1
+ 452 0012 1946     		mov	r1, r3
+ 453 0014 2948     		ldr	r0, .L39
+ 454 0016 FFF7FEFF 		bl	chEvtRegisterMask
+ 455 001a 3B46     		mov	r3, r7
+ 456 001c 0222     		movs	r2, #2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s 			page 9
+
+
+ 457 001e 1946     		mov	r1, r3
+ 458 0020 2648     		ldr	r0, .L39
+ 459 0022 FFF7FEFF 		bl	chEvtRegisterMask
+ 460 0026 2548     		ldr	r0, .L39
+ 461 0028 FFF7FEFF 		bl	chEvtIsListeningI
+ 462 002c 0346     		mov	r3, r0
+ 463 002e 1946     		mov	r1, r3
+ 464 0030 0120     		movs	r0, #1
+ 465 0032 FFF7FEFF 		bl	_test_assert
+ 466 0036 0346     		mov	r3, r0
+ 467 0038 002B     		cmp	r3, #0
+ 468 003a 36D1     		bne	.L36
+ 469 003c 07F11403 		add	r3, r7, #20
+ 470 0040 1946     		mov	r1, r3
+ 471 0042 1E48     		ldr	r0, .L39
+ 472 0044 FFF7FEFF 		bl	chEvtUnregister
+ 473 0048 1C48     		ldr	r0, .L39
+ 474 004a FFF7FEFF 		bl	chEvtIsListeningI
+ 475 004e 0346     		mov	r3, r0
+ 476 0050 1946     		mov	r1, r3
+ 477 0052 0220     		movs	r0, #2
+ 478 0054 FFF7FEFF 		bl	_test_assert
+ 479 0058 0346     		mov	r3, r0
+ 480 005a 002B     		cmp	r3, #0
+ 481 005c 27D1     		bne	.L37
+ 482 005e 3B46     		mov	r3, r7
+ 483 0060 1946     		mov	r1, r3
+ 484 0062 1648     		ldr	r0, .L39
+ 485 0064 FFF7FEFF 		bl	chEvtUnregister
+ 486 0068 1448     		ldr	r0, .L39
+ 487 006a FFF7FEFF 		bl	chEvtIsListeningI
+ 488 006e 0346     		mov	r3, r0
+ 489 0070 002B     		cmp	r3, #0
+ 490 0072 14BF     		ite	ne
+ 491 0074 0123     		movne	r3, #1
+ 492 0076 0023     		moveq	r3, #0
+ 493 0078 DBB2     		uxtb	r3, r3
+ 494 007a 83F00103 		eor	r3, r3, #1
+ 495 007e DBB2     		uxtb	r3, r3
+ 496 0080 03F00103 		and	r3, r3, #1
+ 497 0084 DBB2     		uxtb	r3, r3
+ 498 0086 1946     		mov	r1, r3
+ 499 0088 0320     		movs	r0, #3
+ 500 008a FFF7FEFF 		bl	_test_assert
+ 501 008e 0346     		mov	r3, r0
+ 502 0090 002B     		cmp	r3, #0
+ 503 0092 0ED1     		bne	.L38
+ 504 0094 0721     		movs	r1, #7
+ 505 0096 0A48     		ldr	r0, .L39+4
+ 506 0098 FFF7FEFF 		bl	chEvtDispatch
+ 507 009c 0949     		ldr	r1, .L39+8
+ 508 009e 0420     		movs	r0, #4
+ 509 00a0 FFF7FEFF 		bl	_test_assert_sequence
+ 510 00a4 0346     		mov	r3, r0
+ 511 00a6 002B     		cmp	r3, #0
+ 512 00a8 04E0     		b	.L29
+ 513              	.L36:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s 			page 10
+
+
+ 514 00aa 00BF     		nop
+ 515 00ac 02E0     		b	.L29
+ 516              	.L37:
+ 517 00ae 00BF     		nop
+ 518 00b0 00E0     		b	.L29
+ 519              	.L38:
+ 520 00b2 00BF     		nop
+ 521              	.L29:
+ 522 00b4 2837     		adds	r7, r7, #40
+ 523 00b6 BD46     		mov	sp, r7
+ 524              		@ sp needed
+ 525 00b8 80BD     		pop	{r7, pc}
+ 526              	.L40:
+ 527 00ba 00BF     		.align	2
+ 528              	.L39:
+ 529 00bc 00000000 		.word	es1
+ 530 00c0 00000000 		.word	evhndl
+ 531 00c4 00000000 		.word	.LC0
+ 532              		.size	evt1_execute, .-evt1_execute
+ 533              		.global	testevt1
+ 534              		.section	.rodata
+ 535              		.align	2
+ 536              	.LC1:
+ 537 0004 4576656E 		.ascii	"Events, registration and dispatch\000"
+ 537      74732C20 
+ 537      72656769 
+ 537      73747261 
+ 537      74696F6E 
+ 538              		.section	.rodata.testevt1,"a",%progbits
+ 539              		.align	2
+ 540              		.type	testevt1, %object
+ 541              		.size	testevt1, 16
+ 542              	testevt1:
+ 543 0000 04000000 		.word	.LC1
+ 544 0004 00000000 		.word	evt1_setup
+ 545 0008 00000000 		.word	0
+ 546 000c 00000000 		.word	evt1_execute
+ 547              		.section	.text.evt2_setup,"ax",%progbits
+ 548              		.align	1
+ 549              		.syntax unified
+ 550              		.thumb
+ 551              		.thumb_func
+ 552              		.fpu fpv4-sp-d16
+ 553              		.type	evt2_setup, %function
+ 554              	evt2_setup:
+ 555              		@ args = 0, pretend = 0, frame = 0
+ 556              		@ frame_needed = 1, uses_anonymous_args = 0
+ 557 0000 80B5     		push	{r7, lr}
+ 558 0002 00AF     		add	r7, sp, #0
+ 559 0004 4FF0FF30 		mov	r0, #-1
+ 560 0008 FFF7FEFF 		bl	chEvtGetAndClearEvents
+ 561 000c 00BF     		nop
+ 562 000e 80BD     		pop	{r7, pc}
+ 563              		.size	evt2_setup, .-evt2_setup
+ 564              		.section	.text.thread1,"ax",%progbits
+ 565              		.align	1
+ 566              		.syntax unified
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s 			page 11
+
+
+ 567              		.thumb
+ 568              		.thumb_func
+ 569              		.fpu fpv4-sp-d16
+ 570              		.type	thread1, %function
+ 571              	thread1:
+ 572              		@ args = 0, pretend = 0, frame = 8
+ 573              		@ frame_needed = 1, uses_anonymous_args = 0
+ 574 0000 80B5     		push	{r7, lr}
+ 575 0002 82B0     		sub	sp, sp, #8
+ 576 0004 00AF     		add	r7, sp, #0
+ 577 0006 7860     		str	r0, [r7, #4]
+ 578 0008 3220     		movs	r0, #50
+ 579 000a FFF7FEFF 		bl	chThdSleep
+ 580 000e 0121     		movs	r1, #1
+ 581 0010 7868     		ldr	r0, [r7, #4]
+ 582 0012 FFF7FEFF 		bl	chEvtSignal
+ 583 0016 00BF     		nop
+ 584 0018 0837     		adds	r7, r7, #8
+ 585 001a BD46     		mov	sp, r7
+ 586              		@ sp needed
+ 587 001c 80BD     		pop	{r7, pc}
+ 588              		.size	thread1, .-thread1
+ 589              		.section	.text.thread2,"ax",%progbits
+ 590              		.align	1
+ 591              		.syntax unified
+ 592              		.thumb
+ 593              		.thumb_func
+ 594              		.fpu fpv4-sp-d16
+ 595              		.type	thread2, %function
+ 596              	thread2:
+ 597              		@ args = 0, pretend = 0, frame = 8
+ 598              		@ frame_needed = 1, uses_anonymous_args = 0
+ 599 0000 80B5     		push	{r7, lr}
+ 600 0002 82B0     		sub	sp, sp, #8
+ 601 0004 00AF     		add	r7, sp, #0
+ 602 0006 7860     		str	r0, [r7, #4]
+ 603 0008 0648     		ldr	r0, .L44
+ 604 000a FFF7FEFF 		bl	chEvtBroadcast
+ 605 000e 3220     		movs	r0, #50
+ 606 0010 FFF7FEFF 		bl	chThdSleep
+ 607 0014 0448     		ldr	r0, .L44+4
+ 608 0016 FFF7FEFF 		bl	chEvtBroadcast
+ 609 001a 00BF     		nop
+ 610 001c 0837     		adds	r7, r7, #8
+ 611 001e BD46     		mov	sp, r7
+ 612              		@ sp needed
+ 613 0020 80BD     		pop	{r7, pc}
+ 614              	.L45:
+ 615 0022 00BF     		.align	2
+ 616              	.L44:
+ 617 0024 00000000 		.word	es1
+ 618 0028 00000000 		.word	es2
+ 619              		.size	thread2, .-thread2
+ 620              		.section	.rodata
+ 621 0026 0000     		.align	2
+ 622              	.LC2:
+ 623 0028 4100     		.ascii	"A\000"
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s 			page 12
+
+
+ 624              		.section	.text.evt2_execute,"ax",%progbits
+ 625              		.align	1
+ 626              		.syntax unified
+ 627              		.thumb
+ 628              		.thumb_func
+ 629              		.fpu fpv4-sp-d16
+ 630              		.type	evt2_execute, %function
+ 631              	evt2_execute:
+ 632              		@ args = 0, pretend = 0, frame = 48
+ 633              		@ frame_needed = 1, uses_anonymous_args = 0
+ 634 0000 B0B5     		push	{r4, r5, r7, lr}
+ 635 0002 8EB0     		sub	sp, sp, #56
+ 636 0004 02AF     		add	r7, sp, #8
+ 637 0006 0720     		movs	r0, #7
+ 638 0008 FFF7FEFF 		bl	chEvtAddEvents
+ 639 000c 4FF0FF30 		mov	r0, #-1
+ 640 0010 FFF7FEFF 		bl	chEvtWaitOne
+ 641 0014 F862     		str	r0, [r7, #44]
+ 642 0016 FB6A     		ldr	r3, [r7, #44]
+ 643 0018 012B     		cmp	r3, #1
+ 644 001a 0CBF     		ite	eq
+ 645 001c 0123     		moveq	r3, #1
+ 646 001e 0023     		movne	r3, #0
+ 647 0020 DBB2     		uxtb	r3, r3
+ 648 0022 1946     		mov	r1, r3
+ 649 0024 0120     		movs	r0, #1
+ 650 0026 FFF7FEFF 		bl	_test_assert
+ 651 002a 0346     		mov	r3, r0
+ 652 002c 002B     		cmp	r3, #0
+ 653 002e 40F08281 		bne	.L65
+ 654 0032 4FF0FF30 		mov	r0, #-1
+ 655 0036 FFF7FEFF 		bl	chEvtWaitOne
+ 656 003a F862     		str	r0, [r7, #44]
+ 657 003c FB6A     		ldr	r3, [r7, #44]
+ 658 003e 022B     		cmp	r3, #2
+ 659 0040 0CBF     		ite	eq
+ 660 0042 0123     		moveq	r3, #1
+ 661 0044 0023     		movne	r3, #0
+ 662 0046 DBB2     		uxtb	r3, r3
+ 663 0048 1946     		mov	r1, r3
+ 664 004a 0220     		movs	r0, #2
+ 665 004c FFF7FEFF 		bl	_test_assert
+ 666 0050 0346     		mov	r3, r0
+ 667 0052 002B     		cmp	r3, #0
+ 668 0054 40F07181 		bne	.L66
+ 669 0058 4FF0FF30 		mov	r0, #-1
+ 670 005c FFF7FEFF 		bl	chEvtWaitOne
+ 671 0060 F862     		str	r0, [r7, #44]
+ 672 0062 FB6A     		ldr	r3, [r7, #44]
+ 673 0064 042B     		cmp	r3, #4
+ 674 0066 0CBF     		ite	eq
+ 675 0068 0123     		moveq	r3, #1
+ 676 006a 0023     		movne	r3, #0
+ 677 006c DBB2     		uxtb	r3, r3
+ 678 006e 1946     		mov	r1, r3
+ 679 0070 0320     		movs	r0, #3
+ 680 0072 FFF7FEFF 		bl	_test_assert
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s 			page 13
+
+
+ 681 0076 0346     		mov	r3, r0
+ 682 0078 002B     		cmp	r3, #0
+ 683 007a 40F06081 		bne	.L67
+ 684 007e 4FF0FF30 		mov	r0, #-1
+ 685 0082 FFF7FEFF 		bl	chEvtGetAndClearEvents
+ 686 0086 F862     		str	r0, [r7, #44]
+ 687 0088 FB6A     		ldr	r3, [r7, #44]
+ 688 008a 002B     		cmp	r3, #0
+ 689 008c 0CBF     		ite	eq
+ 690 008e 0123     		moveq	r3, #1
+ 691 0090 0023     		movne	r3, #0
+ 692 0092 DBB2     		uxtb	r3, r3
+ 693 0094 1946     		mov	r1, r3
+ 694 0096 0420     		movs	r0, #4
+ 695 0098 FFF7FEFF 		bl	_test_assert
+ 696 009c 0346     		mov	r3, r0
+ 697 009e 002B     		cmp	r3, #0
+ 698 00a0 40F04F81 		bne	.L68
+ 699 00a4 FFF7FEFF 		bl	test_wait_tick
+ 700 00a8 FFF7FEFF 		bl	chVTGetSystemTime
+ 701 00ac 0346     		mov	r3, r0
+ 702 00ae 3233     		adds	r3, r3, #50
+ 703 00b0 BB62     		str	r3, [r7, #40]
+ 704 00b2 B14B     		ldr	r3, .L80
+ 705 00b4 1C68     		ldr	r4, [r3]
+ 706 00b6 FFF7FEFF 		bl	chThdGetPriorityX
+ 707 00ba 0346     		mov	r3, r0
+ 708 00bc 5D1E     		subs	r5, r3, #1
+ 709 00be FFF7FEFF 		bl	chThdGetSelfX
+ 710 00c2 0346     		mov	r3, r0
+ 711 00c4 0093     		str	r3, [sp]
+ 712 00c6 AD4B     		ldr	r3, .L80+4
+ 713 00c8 2A46     		mov	r2, r5
+ 714 00ca 4FF4FC71 		mov	r1, #504
+ 715 00ce 2046     		mov	r0, r4
+ 716 00d0 FFF7FEFF 		bl	chThdCreateStatic
+ 717 00d4 0246     		mov	r2, r0
+ 718 00d6 AA4B     		ldr	r3, .L80+8
+ 719 00d8 1A60     		str	r2, [r3]
+ 720 00da 4FF0FF30 		mov	r0, #-1
+ 721 00de FFF7FEFF 		bl	chEvtWaitOne
+ 722 00e2 F862     		str	r0, [r7, #44]
+ 723 00e4 BB6A     		ldr	r3, [r7, #40]
+ 724 00e6 0533     		adds	r3, r3, #5
+ 725 00e8 1A46     		mov	r2, r3
+ 726 00ea B96A     		ldr	r1, [r7, #40]
+ 727 00ec 0520     		movs	r0, #5
+ 728 00ee FFF7FEFF 		bl	_test_assert_time_window
+ 729 00f2 0346     		mov	r3, r0
+ 730 00f4 002B     		cmp	r3, #0
+ 731 00f6 40F02681 		bne	.L69
+ 732 00fa FB6A     		ldr	r3, [r7, #44]
+ 733 00fc 012B     		cmp	r3, #1
+ 734 00fe 0CBF     		ite	eq
+ 735 0100 0123     		moveq	r3, #1
+ 736 0102 0023     		movne	r3, #0
+ 737 0104 DBB2     		uxtb	r3, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s 			page 14
+
+
+ 738 0106 1946     		mov	r1, r3
+ 739 0108 0620     		movs	r0, #6
+ 740 010a FFF7FEFF 		bl	_test_assert
+ 741 010e 0346     		mov	r3, r0
+ 742 0110 002B     		cmp	r3, #0
+ 743 0112 40F01A81 		bne	.L70
+ 744 0116 4FF0FF30 		mov	r0, #-1
+ 745 011a FFF7FEFF 		bl	chEvtGetAndClearEvents
+ 746 011e F862     		str	r0, [r7, #44]
+ 747 0120 FB6A     		ldr	r3, [r7, #44]
+ 748 0122 002B     		cmp	r3, #0
+ 749 0124 0CBF     		ite	eq
+ 750 0126 0123     		moveq	r3, #1
+ 751 0128 0023     		movne	r3, #0
+ 752 012a DBB2     		uxtb	r3, r3
+ 753 012c 1946     		mov	r1, r3
+ 754 012e 0720     		movs	r0, #7
+ 755 0130 FFF7FEFF 		bl	_test_assert
+ 756 0134 0346     		mov	r3, r0
+ 757 0136 002B     		cmp	r3, #0
+ 758 0138 40F00981 		bne	.L71
+ 759 013c FFF7FEFF 		bl	test_wait_threads
+ 760 0140 0520     		movs	r0, #5
+ 761 0142 FFF7FEFF 		bl	chEvtAddEvents
+ 762 0146 4FF0FF30 		mov	r0, #-1
+ 763 014a FFF7FEFF 		bl	chEvtWaitAny
+ 764 014e F862     		str	r0, [r7, #44]
+ 765 0150 FB6A     		ldr	r3, [r7, #44]
+ 766 0152 052B     		cmp	r3, #5
+ 767 0154 0CBF     		ite	eq
+ 768 0156 0123     		moveq	r3, #1
+ 769 0158 0023     		movne	r3, #0
+ 770 015a DBB2     		uxtb	r3, r3
+ 771 015c 1946     		mov	r1, r3
+ 772 015e 0820     		movs	r0, #8
+ 773 0160 FFF7FEFF 		bl	_test_assert
+ 774 0164 0346     		mov	r3, r0
+ 775 0166 002B     		cmp	r3, #0
+ 776 0168 40F0F380 		bne	.L72
+ 777 016c 4FF0FF30 		mov	r0, #-1
+ 778 0170 FFF7FEFF 		bl	chEvtGetAndClearEvents
+ 779 0174 F862     		str	r0, [r7, #44]
+ 780 0176 FB6A     		ldr	r3, [r7, #44]
+ 781 0178 002B     		cmp	r3, #0
+ 782 017a 0CBF     		ite	eq
+ 783 017c 0123     		moveq	r3, #1
+ 784 017e 0023     		movne	r3, #0
+ 785 0180 DBB2     		uxtb	r3, r3
+ 786 0182 1946     		mov	r1, r3
+ 787 0184 0920     		movs	r0, #9
+ 788 0186 FFF7FEFF 		bl	_test_assert
+ 789 018a 0346     		mov	r3, r0
+ 790 018c 002B     		cmp	r3, #0
+ 791 018e 40F0E280 		bne	.L73
+ 792 0192 FFF7FEFF 		bl	test_wait_tick
+ 793 0196 FFF7FEFF 		bl	chVTGetSystemTime
+ 794 019a 0346     		mov	r3, r0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s 			page 15
+
+
+ 795 019c 3233     		adds	r3, r3, #50
+ 796 019e BB62     		str	r3, [r7, #40]
+ 797 01a0 754B     		ldr	r3, .L80
+ 798 01a2 1C68     		ldr	r4, [r3]
+ 799 01a4 FFF7FEFF 		bl	chThdGetPriorityX
+ 800 01a8 0346     		mov	r3, r0
+ 801 01aa 5D1E     		subs	r5, r3, #1
+ 802 01ac FFF7FEFF 		bl	chThdGetSelfX
+ 803 01b0 0346     		mov	r3, r0
+ 804 01b2 0093     		str	r3, [sp]
+ 805 01b4 714B     		ldr	r3, .L80+4
+ 806 01b6 2A46     		mov	r2, r5
+ 807 01b8 4FF4FC71 		mov	r1, #504
+ 808 01bc 2046     		mov	r0, r4
+ 809 01be FFF7FEFF 		bl	chThdCreateStatic
+ 810 01c2 0246     		mov	r2, r0
+ 811 01c4 6E4B     		ldr	r3, .L80+8
+ 812 01c6 1A60     		str	r2, [r3]
+ 813 01c8 4FF0FF30 		mov	r0, #-1
+ 814 01cc FFF7FEFF 		bl	chEvtWaitAny
+ 815 01d0 F862     		str	r0, [r7, #44]
+ 816 01d2 BB6A     		ldr	r3, [r7, #40]
+ 817 01d4 0533     		adds	r3, r3, #5
+ 818 01d6 1A46     		mov	r2, r3
+ 819 01d8 B96A     		ldr	r1, [r7, #40]
+ 820 01da 0A20     		movs	r0, #10
+ 821 01dc FFF7FEFF 		bl	_test_assert_time_window
+ 822 01e0 0346     		mov	r3, r0
+ 823 01e2 002B     		cmp	r3, #0
+ 824 01e4 40F0B980 		bne	.L74
+ 825 01e8 FB6A     		ldr	r3, [r7, #44]
+ 826 01ea 012B     		cmp	r3, #1
+ 827 01ec 0CBF     		ite	eq
+ 828 01ee 0123     		moveq	r3, #1
+ 829 01f0 0023     		movne	r3, #0
+ 830 01f2 DBB2     		uxtb	r3, r3
+ 831 01f4 1946     		mov	r1, r3
+ 832 01f6 0B20     		movs	r0, #11
+ 833 01f8 FFF7FEFF 		bl	_test_assert
+ 834 01fc 0346     		mov	r3, r0
+ 835 01fe 002B     		cmp	r3, #0
+ 836 0200 40F0AD80 		bne	.L75
+ 837 0204 4FF0FF30 		mov	r0, #-1
+ 838 0208 FFF7FEFF 		bl	chEvtGetAndClearEvents
+ 839 020c F862     		str	r0, [r7, #44]
+ 840 020e FB6A     		ldr	r3, [r7, #44]
+ 841 0210 002B     		cmp	r3, #0
+ 842 0212 0CBF     		ite	eq
+ 843 0214 0123     		moveq	r3, #1
+ 844 0216 0023     		movne	r3, #0
+ 845 0218 DBB2     		uxtb	r3, r3
+ 846 021a 1946     		mov	r1, r3
+ 847 021c 0C20     		movs	r0, #12
+ 848 021e FFF7FEFF 		bl	_test_assert
+ 849 0222 0346     		mov	r3, r0
+ 850 0224 002B     		cmp	r3, #0
+ 851 0226 40F09C80 		bne	.L76
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s 			page 16
+
+
+ 852 022a FFF7FEFF 		bl	test_wait_threads
+ 853 022e 5548     		ldr	r0, .L80+12
+ 854 0230 FFF7FEFF 		bl	chEvtObjectInit
+ 855 0234 5448     		ldr	r0, .L80+16
+ 856 0236 FFF7FEFF 		bl	chEvtObjectInit
+ 857 023a 07F11403 		add	r3, r7, #20
+ 858 023e 0122     		movs	r2, #1
+ 859 0240 1946     		mov	r1, r3
+ 860 0242 5048     		ldr	r0, .L80+12
+ 861 0244 FFF7FEFF 		bl	chEvtRegisterMask
+ 862 0248 3B46     		mov	r3, r7
+ 863 024a 0422     		movs	r2, #4
+ 864 024c 1946     		mov	r1, r3
+ 865 024e 4E48     		ldr	r0, .L80+16
+ 866 0250 FFF7FEFF 		bl	chEvtRegisterMask
+ 867 0254 FFF7FEFF 		bl	test_wait_tick
+ 868 0258 FFF7FEFF 		bl	chVTGetSystemTime
+ 869 025c 0346     		mov	r3, r0
+ 870 025e 3233     		adds	r3, r3, #50
+ 871 0260 BB62     		str	r3, [r7, #40]
+ 872 0262 454B     		ldr	r3, .L80
+ 873 0264 1C68     		ldr	r4, [r3]
+ 874 0266 FFF7FEFF 		bl	chThdGetPriorityX
+ 875 026a 0346     		mov	r3, r0
+ 876 026c 5A1E     		subs	r2, r3, #1
+ 877 026e 474B     		ldr	r3, .L80+20
+ 878 0270 0093     		str	r3, [sp]
+ 879 0272 474B     		ldr	r3, .L80+24
+ 880 0274 4FF4FC71 		mov	r1, #504
+ 881 0278 2046     		mov	r0, r4
+ 882 027a FFF7FEFF 		bl	chThdCreateStatic
+ 883 027e 0246     		mov	r2, r0
+ 884 0280 3F4B     		ldr	r3, .L80+8
+ 885 0282 1A60     		str	r2, [r3]
+ 886 0284 0520     		movs	r0, #5
+ 887 0286 FFF7FEFF 		bl	chEvtWaitAll
+ 888 028a F862     		str	r0, [r7, #44]
+ 889 028c BB6A     		ldr	r3, [r7, #40]
+ 890 028e 0533     		adds	r3, r3, #5
+ 891 0290 1A46     		mov	r2, r3
+ 892 0292 B96A     		ldr	r1, [r7, #40]
+ 893 0294 0D20     		movs	r0, #13
+ 894 0296 FFF7FEFF 		bl	_test_assert_time_window
+ 895 029a 0346     		mov	r3, r0
+ 896 029c 002B     		cmp	r3, #0
+ 897 029e 62D1     		bne	.L77
+ 898 02a0 4FF0FF30 		mov	r0, #-1
+ 899 02a4 FFF7FEFF 		bl	chEvtGetAndClearEvents
+ 900 02a8 F862     		str	r0, [r7, #44]
+ 901 02aa FB6A     		ldr	r3, [r7, #44]
+ 902 02ac 002B     		cmp	r3, #0
+ 903 02ae 0CBF     		ite	eq
+ 904 02b0 0123     		moveq	r3, #1
+ 905 02b2 0023     		movne	r3, #0
+ 906 02b4 DBB2     		uxtb	r3, r3
+ 907 02b6 1946     		mov	r1, r3
+ 908 02b8 0E20     		movs	r0, #14
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s 			page 17
+
+
+ 909 02ba FFF7FEFF 		bl	_test_assert
+ 910 02be 0346     		mov	r3, r0
+ 911 02c0 002B     		cmp	r3, #0
+ 912 02c2 52D1     		bne	.L78
+ 913 02c4 FFF7FEFF 		bl	test_wait_threads
+ 914 02c8 07F11403 		add	r3, r7, #20
+ 915 02cc 1946     		mov	r1, r3
+ 916 02ce 2D48     		ldr	r0, .L80+12
+ 917 02d0 FFF7FEFF 		bl	chEvtUnregister
+ 918 02d4 3B46     		mov	r3, r7
+ 919 02d6 1946     		mov	r1, r3
+ 920 02d8 2B48     		ldr	r0, .L80+16
+ 921 02da FFF7FEFF 		bl	chEvtUnregister
+ 922 02de 2948     		ldr	r0, .L80+12
+ 923 02e0 FFF7FEFF 		bl	chEvtIsListeningI
+ 924 02e4 0346     		mov	r3, r0
+ 925 02e6 002B     		cmp	r3, #0
+ 926 02e8 14BF     		ite	ne
+ 927 02ea 0123     		movne	r3, #1
+ 928 02ec 0023     		moveq	r3, #0
+ 929 02ee DBB2     		uxtb	r3, r3
+ 930 02f0 83F00103 		eor	r3, r3, #1
+ 931 02f4 DBB2     		uxtb	r3, r3
+ 932 02f6 03F00103 		and	r3, r3, #1
+ 933 02fa DBB2     		uxtb	r3, r3
+ 934 02fc 1946     		mov	r1, r3
+ 935 02fe 0F20     		movs	r0, #15
+ 936 0300 FFF7FEFF 		bl	_test_assert
+ 937 0304 0346     		mov	r3, r0
+ 938 0306 002B     		cmp	r3, #0
+ 939 0308 31D1     		bne	.L79
+ 940 030a 1F48     		ldr	r0, .L80+16
+ 941 030c FFF7FEFF 		bl	chEvtIsListeningI
+ 942 0310 0346     		mov	r3, r0
+ 943 0312 002B     		cmp	r3, #0
+ 944 0314 14BF     		ite	ne
+ 945 0316 0123     		movne	r3, #1
+ 946 0318 0023     		moveq	r3, #0
+ 947 031a DBB2     		uxtb	r3, r3
+ 948 031c 83F00103 		eor	r3, r3, #1
+ 949 0320 DBB2     		uxtb	r3, r3
+ 950 0322 03F00103 		and	r3, r3, #1
+ 951 0326 DBB2     		uxtb	r3, r3
+ 952 0328 1946     		mov	r1, r3
+ 953 032a 1020     		movs	r0, #16
+ 954 032c FFF7FEFF 		bl	_test_assert
+ 955 0330 0346     		mov	r3, r0
+ 956 0332 002B     		cmp	r3, #0
+ 957 0334 1CE0     		b	.L46
+ 958              	.L65:
+ 959 0336 00BF     		nop
+ 960 0338 1AE0     		b	.L46
+ 961              	.L66:
+ 962 033a 00BF     		nop
+ 963 033c 18E0     		b	.L46
+ 964              	.L67:
+ 965 033e 00BF     		nop
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s 			page 18
+
+
+ 966 0340 16E0     		b	.L46
+ 967              	.L68:
+ 968 0342 00BF     		nop
+ 969 0344 14E0     		b	.L46
+ 970              	.L69:
+ 971 0346 00BF     		nop
+ 972 0348 12E0     		b	.L46
+ 973              	.L70:
+ 974 034a 00BF     		nop
+ 975 034c 10E0     		b	.L46
+ 976              	.L71:
+ 977 034e 00BF     		nop
+ 978 0350 0EE0     		b	.L46
+ 979              	.L72:
+ 980 0352 00BF     		nop
+ 981 0354 0CE0     		b	.L46
+ 982              	.L73:
+ 983 0356 00BF     		nop
+ 984 0358 0AE0     		b	.L46
+ 985              	.L74:
+ 986 035a 00BF     		nop
+ 987 035c 08E0     		b	.L46
+ 988              	.L75:
+ 989 035e 00BF     		nop
+ 990 0360 06E0     		b	.L46
+ 991              	.L76:
+ 992 0362 00BF     		nop
+ 993 0364 04E0     		b	.L46
+ 994              	.L77:
+ 995 0366 00BF     		nop
+ 996 0368 02E0     		b	.L46
+ 997              	.L78:
+ 998 036a 00BF     		nop
+ 999 036c 00E0     		b	.L46
+ 1000              	.L79:
+ 1001 036e 00BF     		nop
+ 1002              	.L46:
+ 1003 0370 3037     		adds	r7, r7, #48
+ 1004 0372 BD46     		mov	sp, r7
+ 1005              		@ sp needed
+ 1006 0374 B0BD     		pop	{r4, r5, r7, pc}
+ 1007              	.L81:
+ 1008 0376 00BF     		.align	2
+ 1009              	.L80:
+ 1010 0378 00000000 		.word	wa
+ 1011 037c 00000000 		.word	thread1
+ 1012 0380 00000000 		.word	threads
+ 1013 0384 00000000 		.word	es1
+ 1014 0388 00000000 		.word	es2
+ 1015 038c 28000000 		.word	.LC2
+ 1016 0390 00000000 		.word	thread2
+ 1017              		.size	evt2_execute, .-evt2_execute
+ 1018              		.global	testevt2
+ 1019              		.section	.rodata
+ 1020 002a 0000     		.align	2
+ 1021              	.LC3:
+ 1022 002c 4576656E 		.ascii	"Events, wait and broadcast\000"
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s 			page 19
+
+
+ 1022      74732C20 
+ 1022      77616974 
+ 1022      20616E64 
+ 1022      2062726F 
+ 1023              		.section	.rodata.testevt2,"a",%progbits
+ 1024              		.align	2
+ 1025              		.type	testevt2, %object
+ 1026              		.size	testevt2, 16
+ 1027              	testevt2:
+ 1028 0000 2C000000 		.word	.LC3
+ 1029 0004 00000000 		.word	evt2_setup
+ 1030 0008 00000000 		.word	0
+ 1031 000c 00000000 		.word	evt2_execute
+ 1032              		.section	.text.evt3_setup,"ax",%progbits
+ 1033              		.align	1
+ 1034              		.syntax unified
+ 1035              		.thumb
+ 1036              		.thumb_func
+ 1037              		.fpu fpv4-sp-d16
+ 1038              		.type	evt3_setup, %function
+ 1039              	evt3_setup:
+ 1040              		@ args = 0, pretend = 0, frame = 0
+ 1041              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1042 0000 80B5     		push	{r7, lr}
+ 1043 0002 00AF     		add	r7, sp, #0
+ 1044 0004 4FF0FF30 		mov	r0, #-1
+ 1045 0008 FFF7FEFF 		bl	chEvtGetAndClearEvents
+ 1046 000c 00BF     		nop
+ 1047 000e 80BD     		pop	{r7, pc}
+ 1048              		.size	evt3_setup, .-evt3_setup
+ 1049              		.section	.text.evt3_execute,"ax",%progbits
+ 1050              		.align	1
+ 1051              		.syntax unified
+ 1052              		.thumb
+ 1053              		.thumb_func
+ 1054              		.fpu fpv4-sp-d16
+ 1055              		.type	evt3_execute, %function
+ 1056              	evt3_execute:
+ 1057              		@ args = 0, pretend = 0, frame = 8
+ 1058              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1059 0000 80B5     		push	{r7, lr}
+ 1060 0002 82B0     		sub	sp, sp, #8
+ 1061 0004 00AF     		add	r7, sp, #0
+ 1062 0006 0021     		movs	r1, #0
+ 1063 0008 4FF0FF30 		mov	r0, #-1
+ 1064 000c FFF7FEFF 		bl	chEvtWaitOneTimeout
+ 1065 0010 7860     		str	r0, [r7, #4]
+ 1066 0012 7B68     		ldr	r3, [r7, #4]
+ 1067 0014 002B     		cmp	r3, #0
+ 1068 0016 0CBF     		ite	eq
+ 1069 0018 0123     		moveq	r3, #1
+ 1070 001a 0023     		movne	r3, #0
+ 1071 001c DBB2     		uxtb	r3, r3
+ 1072 001e 1946     		mov	r1, r3
+ 1073 0020 0120     		movs	r0, #1
+ 1074 0022 FFF7FEFF 		bl	_test_assert
+ 1075 0026 0346     		mov	r3, r0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s 			page 20
+
+
+ 1076 0028 002B     		cmp	r3, #0
+ 1077 002a 5ED1     		bne	.L90
+ 1078 002c 0021     		movs	r1, #0
+ 1079 002e 4FF0FF30 		mov	r0, #-1
+ 1080 0032 FFF7FEFF 		bl	chEvtWaitAnyTimeout
+ 1081 0036 7860     		str	r0, [r7, #4]
+ 1082 0038 7B68     		ldr	r3, [r7, #4]
+ 1083 003a 002B     		cmp	r3, #0
+ 1084 003c 0CBF     		ite	eq
+ 1085 003e 0123     		moveq	r3, #1
+ 1086 0040 0023     		movne	r3, #0
+ 1087 0042 DBB2     		uxtb	r3, r3
+ 1088 0044 1946     		mov	r1, r3
+ 1089 0046 0220     		movs	r0, #2
+ 1090 0048 FFF7FEFF 		bl	_test_assert
+ 1091 004c 0346     		mov	r3, r0
+ 1092 004e 002B     		cmp	r3, #0
+ 1093 0050 4DD1     		bne	.L91
+ 1094 0052 0021     		movs	r1, #0
+ 1095 0054 4FF0FF30 		mov	r0, #-1
+ 1096 0058 FFF7FEFF 		bl	chEvtWaitAllTimeout
+ 1097 005c 7860     		str	r0, [r7, #4]
+ 1098 005e 7B68     		ldr	r3, [r7, #4]
+ 1099 0060 002B     		cmp	r3, #0
+ 1100 0062 0CBF     		ite	eq
+ 1101 0064 0123     		moveq	r3, #1
+ 1102 0066 0023     		movne	r3, #0
+ 1103 0068 DBB2     		uxtb	r3, r3
+ 1104 006a 1946     		mov	r1, r3
+ 1105 006c 0320     		movs	r0, #3
+ 1106 006e FFF7FEFF 		bl	_test_assert
+ 1107 0072 0346     		mov	r3, r0
+ 1108 0074 002B     		cmp	r3, #0
+ 1109 0076 3CD1     		bne	.L92
+ 1110 0078 0A21     		movs	r1, #10
+ 1111 007a 4FF0FF30 		mov	r0, #-1
+ 1112 007e FFF7FEFF 		bl	chEvtWaitOneTimeout
+ 1113 0082 7860     		str	r0, [r7, #4]
+ 1114 0084 7B68     		ldr	r3, [r7, #4]
+ 1115 0086 002B     		cmp	r3, #0
+ 1116 0088 0CBF     		ite	eq
+ 1117 008a 0123     		moveq	r3, #1
+ 1118 008c 0023     		movne	r3, #0
+ 1119 008e DBB2     		uxtb	r3, r3
+ 1120 0090 1946     		mov	r1, r3
+ 1121 0092 0420     		movs	r0, #4
+ 1122 0094 FFF7FEFF 		bl	_test_assert
+ 1123 0098 0346     		mov	r3, r0
+ 1124 009a 002B     		cmp	r3, #0
+ 1125 009c 2BD1     		bne	.L93
+ 1126 009e 0A21     		movs	r1, #10
+ 1127 00a0 4FF0FF30 		mov	r0, #-1
+ 1128 00a4 FFF7FEFF 		bl	chEvtWaitAnyTimeout
+ 1129 00a8 7860     		str	r0, [r7, #4]
+ 1130 00aa 7B68     		ldr	r3, [r7, #4]
+ 1131 00ac 002B     		cmp	r3, #0
+ 1132 00ae 0CBF     		ite	eq
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s 			page 21
+
+
+ 1133 00b0 0123     		moveq	r3, #1
+ 1134 00b2 0023     		movne	r3, #0
+ 1135 00b4 DBB2     		uxtb	r3, r3
+ 1136 00b6 1946     		mov	r1, r3
+ 1137 00b8 0520     		movs	r0, #5
+ 1138 00ba FFF7FEFF 		bl	_test_assert
+ 1139 00be 0346     		mov	r3, r0
+ 1140 00c0 002B     		cmp	r3, #0
+ 1141 00c2 1AD1     		bne	.L94
+ 1142 00c4 0A21     		movs	r1, #10
+ 1143 00c6 4FF0FF30 		mov	r0, #-1
+ 1144 00ca FFF7FEFF 		bl	chEvtWaitAllTimeout
+ 1145 00ce 7860     		str	r0, [r7, #4]
+ 1146 00d0 7B68     		ldr	r3, [r7, #4]
+ 1147 00d2 002B     		cmp	r3, #0
+ 1148 00d4 0CBF     		ite	eq
+ 1149 00d6 0123     		moveq	r3, #1
+ 1150 00d8 0023     		movne	r3, #0
+ 1151 00da DBB2     		uxtb	r3, r3
+ 1152 00dc 1946     		mov	r1, r3
+ 1153 00de 0620     		movs	r0, #6
+ 1154 00e0 FFF7FEFF 		bl	_test_assert
+ 1155 00e4 0346     		mov	r3, r0
+ 1156 00e6 002B     		cmp	r3, #0
+ 1157 00e8 08E0     		b	.L83
+ 1158              	.L90:
+ 1159 00ea 00BF     		nop
+ 1160 00ec 06E0     		b	.L83
+ 1161              	.L91:
+ 1162 00ee 00BF     		nop
+ 1163 00f0 04E0     		b	.L83
+ 1164              	.L92:
+ 1165 00f2 00BF     		nop
+ 1166 00f4 02E0     		b	.L83
+ 1167              	.L93:
+ 1168 00f6 00BF     		nop
+ 1169 00f8 00E0     		b	.L83
+ 1170              	.L94:
+ 1171 00fa 00BF     		nop
+ 1172              	.L83:
+ 1173 00fc 0837     		adds	r7, r7, #8
+ 1174 00fe BD46     		mov	sp, r7
+ 1175              		@ sp needed
+ 1176 0100 80BD     		pop	{r7, pc}
+ 1177              		.size	evt3_execute, .-evt3_execute
+ 1178              		.global	testevt3
+ 1179              		.section	.rodata
+ 1180 0047 00       		.align	2
+ 1181              	.LC4:
+ 1182 0048 4576656E 		.ascii	"Events, timeouts\000"
+ 1182      74732C20 
+ 1182      74696D65 
+ 1182      6F757473 
+ 1182      00
+ 1183              		.section	.rodata.testevt3,"a",%progbits
+ 1184              		.align	2
+ 1185              		.type	testevt3, %object
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s 			page 22
+
+
+ 1186              		.size	testevt3, 16
+ 1187              	testevt3:
+ 1188 0000 48000000 		.word	.LC4
+ 1189 0004 00000000 		.word	evt3_setup
+ 1190 0008 00000000 		.word	0
+ 1191 000c 00000000 		.word	evt3_execute
+ 1192              		.global	patternevt
+ 1193              		.section	.rodata.patternevt,"a",%progbits
+ 1194              		.align	2
+ 1195              		.type	patternevt, %object
+ 1196              		.size	patternevt, 16
+ 1197              	patternevt:
+ 1198 0000 00000000 		.word	testevt1
+ 1199 0004 00000000 		.word	testevt2
+ 1200 0008 00000000 		.word	testevt3
+ 1201 000c 00000000 		.word	0
+ 1202              		.section	.rodata.__func__.7153,"a",%progbits
+ 1203              		.align	2
+ 1204              		.type	__func__.7153, %object
+ 1205              		.size	__func__.7153, 12
+ 1206              	__func__.7153:
+ 1207 0000 63685379 		.ascii	"chSysUnlock\000"
+ 1207      73556E6C 
+ 1207      6F636B00 
+ 1208              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s 			page 23
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 testevt.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:15     .text.port_lock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:21     .text.port_lock:0000000000000000 port_lock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:45     .text.port_unlock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:51     .text.port_unlock:0000000000000000 port_unlock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:75     .text.chSysLock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:81     .text.chSysLock:0000000000000000 chSysLock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:93     .text.chSysUnlock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:99     .text.chSysUnlock:0000000000000000 chSysUnlock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:128    .text.chSysUnlock:0000000000000034 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:1206   .rodata.__func__.7153:0000000000000000 __func__.7153
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:132    .text.chVTGetSystemTimeX:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:138    .text.chVTGetSystemTimeX:0000000000000000 chVTGetSystemTimeX
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:154    .text.chVTGetSystemTimeX:0000000000000014 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:157    .text.chVTGetSystemTime:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:163    .text.chVTGetSystemTime:0000000000000000 chVTGetSystemTime
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:181    .text.chThdGetSelfX:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:187    .text.chThdGetSelfX:0000000000000000 chThdGetSelfX
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:203    .text.chThdGetSelfX:0000000000000014 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:206    .text.chThdGetPriorityX:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:212    .text.chThdGetPriorityX:0000000000000000 chThdGetPriorityX
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:224    .text.chEvtObjectInit:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:230    .text.chEvtObjectInit:0000000000000000 chEvtObjectInit
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:249    .text.chEvtRegisterMask:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:255    .text.chEvtRegisterMask:0000000000000000 chEvtRegisterMask
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:276    .text.chEvtIsListeningI:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:282    .text.chEvtIsListeningI:0000000000000000 chEvtIsListeningI
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:306    .text.chEvtBroadcast:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:312    .text.chEvtBroadcast:0000000000000000 chEvtBroadcast
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:329    .data.es1:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:332    .data.es1:0000000000000000 es1
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:335    .data.es2:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:338    .data.es2:0000000000000000 es2
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:341    .text.evt1_setup:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:347    .text.evt1_setup:0000000000000000 evt1_setup
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:358    .text.h1:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:364    .text.h1:0000000000000000 h1
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:380    .text.h2:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:386    .text.h2:0000000000000000 h2
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:402    .text.h3:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:408    .text.h3:0000000000000000 h3
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:424    .rodata.evhndl:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:427    .rodata.evhndl:0000000000000000 evhndl
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:432    .rodata:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:436    .text.evt1_execute:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:442    .text.evt1_execute:0000000000000000 evt1_execute
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:529    .text.evt1_execute:00000000000000bc $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:542    .rodata.testevt1:0000000000000000 testevt1
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:539    .rodata.testevt1:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:548    .text.evt2_setup:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:554    .text.evt2_setup:0000000000000000 evt2_setup
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:565    .text.thread1:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:571    .text.thread1:0000000000000000 thread1
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:590    .text.thread2:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:596    .text.thread2:0000000000000000 thread2
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:617    .text.thread2:0000000000000024 $d
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s 			page 24
+
+
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:625    .text.evt2_execute:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:631    .text.evt2_execute:0000000000000000 evt2_execute
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:1010   .text.evt2_execute:0000000000000378 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:1027   .rodata.testevt2:0000000000000000 testevt2
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:1024   .rodata.testevt2:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:1033   .text.evt3_setup:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:1039   .text.evt3_setup:0000000000000000 evt3_setup
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:1050   .text.evt3_execute:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:1056   .text.evt3_execute:0000000000000000 evt3_execute
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:1187   .rodata.testevt3:0000000000000000 testevt3
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:1184   .rodata.testevt3:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:1197   .rodata.patternevt:0000000000000000 patternevt
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:1194   .rodata.patternevt:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccq7AwVV.s:1203   .rodata.__func__.7153:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+_stats_start_measure_crit_thd
+_dbg_check_lock
+_dbg_check_unlock
+_stats_stop_measure_crit_thd
+chSysHalt
+ch
+chEvtRegisterMaskWithFlags
+chEvtBroadcastFlags
+chEvtGetAndClearEvents
+test_emit_token
+_test_assert
+chEvtUnregister
+chEvtDispatch
+_test_assert_sequence
+chThdSleep
+chEvtSignal
+chEvtAddEvents
+chEvtWaitOne
+test_wait_tick
+chThdCreateStatic
+_test_assert_time_window
+test_wait_threads
+chEvtWaitAny
+chEvtWaitAll
+wa
+threads
+chEvtWaitOneTimeout
+chEvtWaitAnyTimeout
+chEvtWaitAllTimeout

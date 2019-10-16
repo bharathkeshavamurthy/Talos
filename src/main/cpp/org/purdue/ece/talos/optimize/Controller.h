@@ -14,9 +14,7 @@
 #define CONTROLLER_H_
 
 #ifdef __cplusplus
-
 extern "C" {
-
 #endif /* __cplusplus */
 
 #include "msgbus/messagebus.h"
@@ -26,9 +24,7 @@ extern messagebus_t bus;
 extern parameter_namespace_t parameter_root;
 
 #ifdef __cplusplus
-
 }
-
 #endif /* __cplusplus */
 
 #endif /* CONTROLLER_H_ */

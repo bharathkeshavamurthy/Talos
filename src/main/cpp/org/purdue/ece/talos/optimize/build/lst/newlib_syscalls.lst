@@ -1,0 +1,344 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"newlib_syscalls.c"
+  14              		.section	.text._read_r,"ax",%progbits
+  15              		.align	1
+  16              		.global	_read_r
+  17              		.syntax unified
+  18              		.thumb
+  19              		.thumb_func
+  20              		.fpu fpv4-sp-d16
+  21              		.type	_read_r, %function
+  22              	_read_r:
+  23              		@ args = 0, pretend = 0, frame = 16
+  24              		@ frame_needed = 1, uses_anonymous_args = 0
+  25 0000 80B5     		push	{r7, lr}
+  26 0002 84B0     		sub	sp, sp, #16
+  27 0004 00AF     		add	r7, sp, #0
+  28 0006 F860     		str	r0, [r7, #12]
+  29 0008 B960     		str	r1, [r7, #8]
+  30 000a 7A60     		str	r2, [r7, #4]
+  31 000c 3B60     		str	r3, [r7]
+  32 000e 3B68     		ldr	r3, [r7]
+  33 0010 002B     		cmp	r3, #0
+  34 0012 02D0     		beq	.L2
+  35 0014 BB68     		ldr	r3, [r7, #8]
+  36 0016 002B     		cmp	r3, #0
+  37 0018 05D0     		beq	.L3
+  38              	.L2:
+  39 001a FB68     		ldr	r3, [r7, #12]
+  40 001c 1622     		movs	r2, #22
+  41 001e 1A60     		str	r2, [r3]
+  42 0020 4FF0FF33 		mov	r3, #-1
+  43 0024 09E0     		b	.L4
+  44              	.L3:
+  45 0026 074B     		ldr	r3, .L5
+  46 0028 1B68     		ldr	r3, [r3]
+  47 002a 5B68     		ldr	r3, [r3, #4]
+  48 002c 3A68     		ldr	r2, [r7]
+  49 002e 7968     		ldr	r1, [r7, #4]
+  50 0030 0448     		ldr	r0, .L5
+  51 0032 9847     		blx	r3
+  52 0034 0346     		mov	r3, r0
+  53 0036 3B60     		str	r3, [r7]
+  54 0038 3B68     		ldr	r3, [r7]
+  55              	.L4:
+  56 003a 1846     		mov	r0, r3
+  57 003c 1037     		adds	r7, r7, #16
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s 			page 2
+
+
+  58 003e BD46     		mov	sp, r7
+  59              		@ sp needed
+  60 0040 80BD     		pop	{r7, pc}
+  61              	.L6:
+  62 0042 00BF     		.align	2
+  63              	.L5:
+  64 0044 00000000 		.word	SDU1
+  65              		.size	_read_r, .-_read_r
+  66              		.section	.text._lseek_r,"ax",%progbits
+  67              		.align	1
+  68              		.global	_lseek_r
+  69              		.syntax unified
+  70              		.thumb
+  71              		.thumb_func
+  72              		.fpu fpv4-sp-d16
+  73              		.type	_lseek_r, %function
+  74              	_lseek_r:
+  75              		@ args = 0, pretend = 0, frame = 16
+  76              		@ frame_needed = 1, uses_anonymous_args = 0
+  77              		@ link register save eliminated.
+  78 0000 80B4     		push	{r7}
+  79 0002 85B0     		sub	sp, sp, #20
+  80 0004 00AF     		add	r7, sp, #0
+  81 0006 F860     		str	r0, [r7, #12]
+  82 0008 B960     		str	r1, [r7, #8]
+  83 000a 7A60     		str	r2, [r7, #4]
+  84 000c 3B60     		str	r3, [r7]
+  85 000e 0023     		movs	r3, #0
+  86 0010 1846     		mov	r0, r3
+  87 0012 1437     		adds	r7, r7, #20
+  88 0014 BD46     		mov	sp, r7
+  89              		@ sp needed
+  90 0016 5DF8047B 		ldr	r7, [sp], #4
+  91 001a 7047     		bx	lr
+  92              		.size	_lseek_r, .-_lseek_r
+  93              		.section	.text._write_r,"ax",%progbits
+  94              		.align	1
+  95              		.global	_write_r
+  96              		.syntax unified
+  97              		.thumb
+  98              		.thumb_func
+  99              		.fpu fpv4-sp-d16
+ 100              		.type	_write_r, %function
+ 101              	_write_r:
+ 102              		@ args = 0, pretend = 0, frame = 16
+ 103              		@ frame_needed = 1, uses_anonymous_args = 0
+ 104 0000 80B5     		push	{r7, lr}
+ 105 0002 84B0     		sub	sp, sp, #16
+ 106 0004 00AF     		add	r7, sp, #0
+ 107 0006 F860     		str	r0, [r7, #12]
+ 108 0008 B960     		str	r1, [r7, #8]
+ 109 000a 7A60     		str	r2, [r7, #4]
+ 110 000c 3B60     		str	r3, [r7]
+ 111 000e BB68     		ldr	r3, [r7, #8]
+ 112 0010 012B     		cmp	r3, #1
+ 113 0012 05D0     		beq	.L10
+ 114 0014 FB68     		ldr	r3, [r7, #12]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s 			page 3
+
+
+ 115 0016 1622     		movs	r2, #22
+ 116 0018 1A60     		str	r2, [r3]
+ 117 001a 4FF0FF33 		mov	r3, #-1
+ 118 001e 07E0     		b	.L11
+ 119              	.L10:
+ 120 0020 054B     		ldr	r3, .L12
+ 121 0022 1B68     		ldr	r3, [r3]
+ 122 0024 1B68     		ldr	r3, [r3]
+ 123 0026 3A68     		ldr	r2, [r7]
+ 124 0028 7968     		ldr	r1, [r7, #4]
+ 125 002a 0348     		ldr	r0, .L12
+ 126 002c 9847     		blx	r3
+ 127 002e 3B68     		ldr	r3, [r7]
+ 128              	.L11:
+ 129 0030 1846     		mov	r0, r3
+ 130 0032 1037     		adds	r7, r7, #16
+ 131 0034 BD46     		mov	sp, r7
+ 132              		@ sp needed
+ 133 0036 80BD     		pop	{r7, pc}
+ 134              	.L13:
+ 135              		.align	2
+ 136              	.L12:
+ 137 0038 00000000 		.word	SDU1
+ 138              		.size	_write_r, .-_write_r
+ 139              		.section	.text._close_r,"ax",%progbits
+ 140              		.align	1
+ 141              		.global	_close_r
+ 142              		.syntax unified
+ 143              		.thumb
+ 144              		.thumb_func
+ 145              		.fpu fpv4-sp-d16
+ 146              		.type	_close_r, %function
+ 147              	_close_r:
+ 148              		@ args = 0, pretend = 0, frame = 8
+ 149              		@ frame_needed = 1, uses_anonymous_args = 0
+ 150              		@ link register save eliminated.
+ 151 0000 80B4     		push	{r7}
+ 152 0002 83B0     		sub	sp, sp, #12
+ 153 0004 00AF     		add	r7, sp, #0
+ 154 0006 7860     		str	r0, [r7, #4]
+ 155 0008 3960     		str	r1, [r7]
+ 156 000a 0023     		movs	r3, #0
+ 157 000c 1846     		mov	r0, r3
+ 158 000e 0C37     		adds	r7, r7, #12
+ 159 0010 BD46     		mov	sp, r7
+ 160              		@ sp needed
+ 161 0012 5DF8047B 		ldr	r7, [sp], #4
+ 162 0016 7047     		bx	lr
+ 163              		.size	_close_r, .-_close_r
+ 164              		.section	.text._sbrk_r,"ax",%progbits
+ 165              		.align	1
+ 166              		.global	_sbrk_r
+ 167              		.syntax unified
+ 168              		.thumb
+ 169              		.thumb_func
+ 170              		.fpu fpv4-sp-d16
+ 171              		.type	_sbrk_r, %function
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s 			page 4
+
+
+ 172              	_sbrk_r:
+ 173              		@ args = 0, pretend = 0, frame = 16
+ 174              		@ frame_needed = 1, uses_anonymous_args = 0
+ 175 0000 80B5     		push	{r7, lr}
+ 176 0002 84B0     		sub	sp, sp, #16
+ 177 0004 00AF     		add	r7, sp, #0
+ 178 0006 7860     		str	r0, [r7, #4]
+ 179 0008 3960     		str	r1, [r7]
+ 180 000a 3B68     		ldr	r3, [r7]
+ 181 000c 002B     		cmp	r3, #0
+ 182 000e 02DC     		bgt	.L17
+ 183 0010 0A48     		ldr	r0, .L20
+ 184 0012 FFF7FEFF 		bl	chSysHalt
+ 185              	.L17:
+ 186 0016 3B68     		ldr	r3, [r7]
+ 187 0018 1846     		mov	r0, r3
+ 188 001a FFF7FEFF 		bl	chCoreAlloc
+ 189 001e F860     		str	r0, [r7, #12]
+ 190 0020 FB68     		ldr	r3, [r7, #12]
+ 191 0022 002B     		cmp	r3, #0
+ 192 0024 05D1     		bne	.L18
+ 193 0026 7B68     		ldr	r3, [r7, #4]
+ 194 0028 0C22     		movs	r2, #12
+ 195 002a 1A60     		str	r2, [r3]
+ 196 002c 4FF0FF33 		mov	r3, #-1
+ 197 0030 00E0     		b	.L19
+ 198              	.L18:
+ 199 0032 FB68     		ldr	r3, [r7, #12]
+ 200              	.L19:
+ 201 0034 1846     		mov	r0, r3
+ 202 0036 1037     		adds	r7, r7, #16
+ 203 0038 BD46     		mov	sp, r7
+ 204              		@ sp needed
+ 205 003a 80BD     		pop	{r7, pc}
+ 206              	.L21:
+ 207              		.align	2
+ 208              	.L20:
+ 209 003c 00000000 		.word	__func__.10923
+ 210              		.size	_sbrk_r, .-_sbrk_r
+ 211              		.section	.text._fstat_r,"ax",%progbits
+ 212              		.align	1
+ 213              		.global	_fstat_r
+ 214              		.syntax unified
+ 215              		.thumb
+ 216              		.thumb_func
+ 217              		.fpu fpv4-sp-d16
+ 218              		.type	_fstat_r, %function
+ 219              	_fstat_r:
+ 220              		@ args = 0, pretend = 0, frame = 16
+ 221              		@ frame_needed = 1, uses_anonymous_args = 0
+ 222 0000 80B5     		push	{r7, lr}
+ 223 0002 84B0     		sub	sp, sp, #16
+ 224 0004 00AF     		add	r7, sp, #0
+ 225 0006 F860     		str	r0, [r7, #12]
+ 226 0008 B960     		str	r1, [r7, #8]
+ 227 000a 7A60     		str	r2, [r7, #4]
+ 228 000c 5822     		movs	r2, #88
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s 			page 5
+
+
+ 229 000e 0021     		movs	r1, #0
+ 230 0010 7868     		ldr	r0, [r7, #4]
+ 231 0012 FFF7FEFF 		bl	memset
+ 232 0016 7B68     		ldr	r3, [r7, #4]
+ 233 0018 4FF40052 		mov	r2, #8192
+ 234 001c 5A60     		str	r2, [r3, #4]
+ 235 001e 0023     		movs	r3, #0
+ 236 0020 1846     		mov	r0, r3
+ 237 0022 1037     		adds	r7, r7, #16
+ 238 0024 BD46     		mov	sp, r7
+ 239              		@ sp needed
+ 240 0026 80BD     		pop	{r7, pc}
+ 241              		.size	_fstat_r, .-_fstat_r
+ 242              		.section	.text._isatty_r,"ax",%progbits
+ 243              		.align	1
+ 244              		.global	_isatty_r
+ 245              		.syntax unified
+ 246              		.thumb
+ 247              		.thumb_func
+ 248              		.fpu fpv4-sp-d16
+ 249              		.type	_isatty_r, %function
+ 250              	_isatty_r:
+ 251              		@ args = 0, pretend = 0, frame = 8
+ 252              		@ frame_needed = 1, uses_anonymous_args = 0
+ 253              		@ link register save eliminated.
+ 254 0000 80B4     		push	{r7}
+ 255 0002 83B0     		sub	sp, sp, #12
+ 256 0004 00AF     		add	r7, sp, #0
+ 257 0006 7860     		str	r0, [r7, #4]
+ 258 0008 3960     		str	r1, [r7]
+ 259 000a 0123     		movs	r3, #1
+ 260 000c 1846     		mov	r0, r3
+ 261 000e 0C37     		adds	r7, r7, #12
+ 262 0010 BD46     		mov	sp, r7
+ 263              		@ sp needed
+ 264 0012 5DF8047B 		ldr	r7, [sp], #4
+ 265 0016 7047     		bx	lr
+ 266              		.size	_isatty_r, .-_isatty_r
+ 267              		.section	.text._fini,"ax",%progbits
+ 268              		.align	1
+ 269              		.global	_fini
+ 270              		.syntax unified
+ 271              		.thumb
+ 272              		.thumb_func
+ 273              		.fpu fpv4-sp-d16
+ 274              		.type	_fini, %function
+ 275              	_fini:
+ 276              		@ args = 0, pretend = 0, frame = 0
+ 277              		@ frame_needed = 1, uses_anonymous_args = 0
+ 278              		@ link register save eliminated.
+ 279 0000 80B4     		push	{r7}
+ 280 0002 00AF     		add	r7, sp, #0
+ 281 0004 00BF     		nop
+ 282 0006 BD46     		mov	sp, r7
+ 283              		@ sp needed
+ 284 0008 5DF8047B 		ldr	r7, [sp], #4
+ 285 000c 7047     		bx	lr
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s 			page 6
+
+
+ 286              		.size	_fini, .-_fini
+ 287              		.section	.rodata.__func__.10923,"a",%progbits
+ 288              		.align	2
+ 289              		.type	__func__.10923, %object
+ 290              		.size	__func__.10923, 8
+ 291              	__func__.10923:
+ 292 0000 5F736272 		.ascii	"_sbrk_r\000"
+ 292      6B5F7200 
+ 293              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 newlib_syscalls.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s:15     .text._read_r:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s:22     .text._read_r:0000000000000000 _read_r
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s:64     .text._read_r:0000000000000044 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s:67     .text._lseek_r:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s:74     .text._lseek_r:0000000000000000 _lseek_r
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s:94     .text._write_r:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s:101    .text._write_r:0000000000000000 _write_r
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s:137    .text._write_r:0000000000000038 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s:140    .text._close_r:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s:147    .text._close_r:0000000000000000 _close_r
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s:165    .text._sbrk_r:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s:172    .text._sbrk_r:0000000000000000 _sbrk_r
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s:209    .text._sbrk_r:000000000000003c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s:291    .rodata.__func__.10923:0000000000000000 __func__.10923
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s:212    .text._fstat_r:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s:219    .text._fstat_r:0000000000000000 _fstat_r
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s:243    .text._isatty_r:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s:250    .text._isatty_r:0000000000000000 _isatty_r
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s:268    .text._fini:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s:275    .text._fini:0000000000000000 _fini
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccUhRjmH.s:288    .rodata.__func__.10923:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+SDU1
+chSysHalt
+chCoreAlloc
+memset

@@ -1,0 +1,77 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsrH4CN.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"selector.c"
+  14              		.section	.text.get_selector,"ax",%progbits
+  15              		.align	1
+  16              		.global	get_selector
+  17              		.syntax unified
+  18              		.thumb
+  19              		.thumb_func
+  20              		.fpu fpv4-sp-d16
+  21              		.type	get_selector, %function
+  22              	get_selector:
+  23              		@ args = 0, pretend = 0, frame = 0
+  24              		@ frame_needed = 1, uses_anonymous_args = 0
+  25              		@ link register save eliminated.
+  26 0000 80B4     		push	{r7}
+  27 0002 00AF     		add	r7, sp, #0
+  28 0004 0F4B     		ldr	r3, .L3
+  29 0006 1B69     		ldr	r3, [r3, #16]
+  30 0008 5B0B     		lsrs	r3, r3, #13
+  31 000a 03F00102 		and	r2, r3, #1
+  32 000e 0D4B     		ldr	r3, .L3
+  33 0010 1B69     		ldr	r3, [r3, #16]
+  34 0012 DB0B     		lsrs	r3, r3, #15
+  35 0014 03F00101 		and	r1, r3, #1
+  36 0018 0B4B     		ldr	r3, .L3+4
+  37 001a 1B69     		ldr	r3, [r3, #16]
+  38 001c 1B09     		lsrs	r3, r3, #4
+  39 001e 03F00103 		and	r3, r3, #1
+  40 0022 5B00     		lsls	r3, r3, #1
+  41 0024 0B44     		add	r3, r3, r1
+  42 0026 5900     		lsls	r1, r3, #1
+  43 0028 064B     		ldr	r3, .L3
+  44 002a 1B69     		ldr	r3, [r3, #16]
+  45 002c 9B0B     		lsrs	r3, r3, #14
+  46 002e 03F00103 		and	r3, r3, #1
+  47 0032 0B44     		add	r3, r3, r1
+  48 0034 5B00     		lsls	r3, r3, #1
+  49 0036 1344     		add	r3, r3, r2
+  50 0038 1846     		mov	r0, r3
+  51 003a BD46     		mov	sp, r7
+  52              		@ sp needed
+  53 003c 5DF8047B 		ldr	r7, [sp], #4
+  54 0040 7047     		bx	lr
+  55              	.L4:
+  56 0042 00BF     		.align	2
+  57              	.L3:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsrH4CN.s 			page 2
+
+
+  58 0044 00080240 		.word	1073874944
+  59 0048 000C0240 		.word	1073875968
+  60              		.size	get_selector, .-get_selector
+  61              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsrH4CN.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 selector.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsrH4CN.s:15     .text.get_selector:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsrH4CN.s:22     .text.get_selector:0000000000000000 get_selector
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsrH4CN.s:58     .text.get_selector:0000000000000044 $d
+
+NO UNDEFINED SYMBOLS

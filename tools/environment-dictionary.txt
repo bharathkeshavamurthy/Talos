@@ -5,3 +5,15 @@ lafayette
 purdue
 bot
 int
+initialise
+aseba
+config
+inits
+inter
+init
+uart
+framerate
+magnetometer
+proximities
+inertial
+micro

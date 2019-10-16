@@ -1,0 +1,1090 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"pwm_lld.c"
+  14              		.global	PWMD2
+  15              		.section	.bss.PWMD2,"aw",%nobits
+  16              		.align	2
+  17              		.type	PWMD2, %object
+  18              		.size	PWMD2, 28
+  19              	PWMD2:
+  20 0000 00000000 		.space	28
+  20      00000000 
+  20      00000000 
+  20      00000000 
+  20      00000000 
+  21              		.global	PWMD3
+  22              		.section	.bss.PWMD3,"aw",%nobits
+  23              		.align	2
+  24              		.type	PWMD3, %object
+  25              		.size	PWMD3, 28
+  26              	PWMD3:
+  27 0000 00000000 		.space	28
+  27      00000000 
+  27      00000000 
+  27      00000000 
+  27      00000000 
+  28              		.global	PWMD4
+  29              		.section	.bss.PWMD4,"aw",%nobits
+  30              		.align	2
+  31              		.type	PWMD4, %object
+  32              		.size	PWMD4, 28
+  33              	PWMD4:
+  34 0000 00000000 		.space	28
+  34      00000000 
+  34      00000000 
+  34      00000000 
+  34      00000000 
+  35              		.global	PWMD5
+  36              		.section	.bss.PWMD5,"aw",%nobits
+  37              		.align	2
+  38              		.type	PWMD5, %object
+  39              		.size	PWMD5, 28
+  40              	PWMD5:
+  41 0000 00000000 		.space	28
+  41      00000000 
+  41      00000000 
+  41      00000000 
+  41      00000000 
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s 			page 2
+
+
+  42              		.section	.text.pwm_lld_serve_interrupt,"ax",%progbits
+  43              		.align	1
+  44              		.syntax unified
+  45              		.thumb
+  46              		.thumb_func
+  47              		.fpu fpv4-sp-d16
+  48              		.type	pwm_lld_serve_interrupt, %function
+  49              	pwm_lld_serve_interrupt:
+  50              		@ args = 0, pretend = 0, frame = 16
+  51              		@ frame_needed = 1, uses_anonymous_args = 0
+  52 0000 80B5     		push	{r7, lr}
+  53 0002 84B0     		sub	sp, sp, #16
+  54 0004 00AF     		add	r7, sp, #0
+  55 0006 7860     		str	r0, [r7, #4]
+  56 0008 7B68     		ldr	r3, [r7, #4]
+  57 000a 9B69     		ldr	r3, [r3, #24]
+  58 000c 1B69     		ldr	r3, [r3, #16]
+  59 000e FB60     		str	r3, [r7, #12]
+  60 0010 7B68     		ldr	r3, [r7, #4]
+  61 0012 9B69     		ldr	r3, [r3, #24]
+  62 0014 DB68     		ldr	r3, [r3, #12]
+  63 0016 DBB2     		uxtb	r3, r3
+  64 0018 FA68     		ldr	r2, [r7, #12]
+  65 001a 1340     		ands	r3, r3, r2
+  66 001c FB60     		str	r3, [r7, #12]
+  67 001e 7B68     		ldr	r3, [r7, #4]
+  68 0020 9B69     		ldr	r3, [r3, #24]
+  69 0022 FA68     		ldr	r2, [r7, #12]
+  70 0024 D243     		mvns	r2, r2
+  71 0026 1A61     		str	r2, [r3, #16]
+  72 0028 FB68     		ldr	r3, [r7, #12]
+  73 002a 03F00203 		and	r3, r3, #2
+  74 002e 002B     		cmp	r3, #0
+  75 0030 09D0     		beq	.L2
+  76 0032 7B68     		ldr	r3, [r7, #4]
+  77 0034 5B68     		ldr	r3, [r3, #4]
+  78 0036 1B69     		ldr	r3, [r3, #16]
+  79 0038 002B     		cmp	r3, #0
+  80 003a 04D0     		beq	.L2
+  81 003c 7B68     		ldr	r3, [r7, #4]
+  82 003e 5B68     		ldr	r3, [r3, #4]
+  83 0040 1B69     		ldr	r3, [r3, #16]
+  84 0042 7868     		ldr	r0, [r7, #4]
+  85 0044 9847     		blx	r3
+  86              	.L2:
+  87 0046 FB68     		ldr	r3, [r7, #12]
+  88 0048 03F00403 		and	r3, r3, #4
+  89 004c 002B     		cmp	r3, #0
+  90 004e 09D0     		beq	.L3
+  91 0050 7B68     		ldr	r3, [r7, #4]
+  92 0052 5B68     		ldr	r3, [r3, #4]
+  93 0054 9B69     		ldr	r3, [r3, #24]
+  94 0056 002B     		cmp	r3, #0
+  95 0058 04D0     		beq	.L3
+  96 005a 7B68     		ldr	r3, [r7, #4]
+  97 005c 5B68     		ldr	r3, [r3, #4]
+  98 005e 9B69     		ldr	r3, [r3, #24]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s 			page 3
+
+
+  99 0060 7868     		ldr	r0, [r7, #4]
+ 100 0062 9847     		blx	r3
+ 101              	.L3:
+ 102 0064 FB68     		ldr	r3, [r7, #12]
+ 103 0066 03F00803 		and	r3, r3, #8
+ 104 006a 002B     		cmp	r3, #0
+ 105 006c 09D0     		beq	.L4
+ 106 006e 7B68     		ldr	r3, [r7, #4]
+ 107 0070 5B68     		ldr	r3, [r3, #4]
+ 108 0072 1B6A     		ldr	r3, [r3, #32]
+ 109 0074 002B     		cmp	r3, #0
+ 110 0076 04D0     		beq	.L4
+ 111 0078 7B68     		ldr	r3, [r7, #4]
+ 112 007a 5B68     		ldr	r3, [r3, #4]
+ 113 007c 1B6A     		ldr	r3, [r3, #32]
+ 114 007e 7868     		ldr	r0, [r7, #4]
+ 115 0080 9847     		blx	r3
+ 116              	.L4:
+ 117 0082 FB68     		ldr	r3, [r7, #12]
+ 118 0084 03F01003 		and	r3, r3, #16
+ 119 0088 002B     		cmp	r3, #0
+ 120 008a 09D0     		beq	.L5
+ 121 008c 7B68     		ldr	r3, [r7, #4]
+ 122 008e 5B68     		ldr	r3, [r3, #4]
+ 123 0090 9B6A     		ldr	r3, [r3, #40]
+ 124 0092 002B     		cmp	r3, #0
+ 125 0094 04D0     		beq	.L5
+ 126 0096 7B68     		ldr	r3, [r7, #4]
+ 127 0098 5B68     		ldr	r3, [r3, #4]
+ 128 009a 9B6A     		ldr	r3, [r3, #40]
+ 129 009c 7868     		ldr	r0, [r7, #4]
+ 130 009e 9847     		blx	r3
+ 131              	.L5:
+ 132 00a0 FB68     		ldr	r3, [r7, #12]
+ 133 00a2 03F00103 		and	r3, r3, #1
+ 134 00a6 002B     		cmp	r3, #0
+ 135 00a8 09D0     		beq	.L7
+ 136 00aa 7B68     		ldr	r3, [r7, #4]
+ 137 00ac 5B68     		ldr	r3, [r3, #4]
+ 138 00ae 9B68     		ldr	r3, [r3, #8]
+ 139 00b0 002B     		cmp	r3, #0
+ 140 00b2 04D0     		beq	.L7
+ 141 00b4 7B68     		ldr	r3, [r7, #4]
+ 142 00b6 5B68     		ldr	r3, [r3, #4]
+ 143 00b8 9B68     		ldr	r3, [r3, #8]
+ 144 00ba 7868     		ldr	r0, [r7, #4]
+ 145 00bc 9847     		blx	r3
+ 146              	.L7:
+ 147 00be 00BF     		nop
+ 148 00c0 1037     		adds	r7, r7, #16
+ 149 00c2 BD46     		mov	sp, r7
+ 150              		@ sp needed
+ 151 00c4 80BD     		pop	{r7, pc}
+ 152              		.size	pwm_lld_serve_interrupt, .-pwm_lld_serve_interrupt
+ 153              		.section	.text.VectorB0,"ax",%progbits
+ 154              		.align	1
+ 155              		.global	VectorB0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s 			page 4
+
+
+ 156              		.syntax unified
+ 157              		.thumb
+ 158              		.thumb_func
+ 159              		.fpu fpv4-sp-d16
+ 160              		.type	VectorB0, %function
+ 161              	VectorB0:
+ 162              		@ args = 0, pretend = 0, frame = 0
+ 163              		@ frame_needed = 1, uses_anonymous_args = 0
+ 164 0000 80B5     		push	{r7, lr}
+ 165 0002 00AF     		add	r7, sp, #0
+ 166 0004 FFF7FEFF 		bl	_stats_increase_irq
+ 167 0008 FFF7FEFF 		bl	_dbg_check_enter_isr
+ 168 000c 0448     		ldr	r0, .L9
+ 169 000e FFF7FEFF 		bl	pwm_lld_serve_interrupt
+ 170 0012 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 171 0016 FFF7FEFF 		bl	_port_irq_epilogue
+ 172 001a 00BF     		nop
+ 173 001c 80BD     		pop	{r7, pc}
+ 174              	.L10:
+ 175 001e 00BF     		.align	2
+ 176              	.L9:
+ 177 0020 00000000 		.word	PWMD2
+ 178              		.size	VectorB0, .-VectorB0
+ 179              		.section	.text.VectorB4,"ax",%progbits
+ 180              		.align	1
+ 181              		.global	VectorB4
+ 182              		.syntax unified
+ 183              		.thumb
+ 184              		.thumb_func
+ 185              		.fpu fpv4-sp-d16
+ 186              		.type	VectorB4, %function
+ 187              	VectorB4:
+ 188              		@ args = 0, pretend = 0, frame = 0
+ 189              		@ frame_needed = 1, uses_anonymous_args = 0
+ 190 0000 80B5     		push	{r7, lr}
+ 191 0002 00AF     		add	r7, sp, #0
+ 192 0004 FFF7FEFF 		bl	_stats_increase_irq
+ 193 0008 FFF7FEFF 		bl	_dbg_check_enter_isr
+ 194 000c 0448     		ldr	r0, .L12
+ 195 000e FFF7FEFF 		bl	pwm_lld_serve_interrupt
+ 196 0012 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 197 0016 FFF7FEFF 		bl	_port_irq_epilogue
+ 198 001a 00BF     		nop
+ 199 001c 80BD     		pop	{r7, pc}
+ 200              	.L13:
+ 201 001e 00BF     		.align	2
+ 202              	.L12:
+ 203 0020 00000000 		.word	PWMD3
+ 204              		.size	VectorB4, .-VectorB4
+ 205              		.section	.text.VectorB8,"ax",%progbits
+ 206              		.align	1
+ 207              		.global	VectorB8
+ 208              		.syntax unified
+ 209              		.thumb
+ 210              		.thumb_func
+ 211              		.fpu fpv4-sp-d16
+ 212              		.type	VectorB8, %function
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s 			page 5
+
+
+ 213              	VectorB8:
+ 214              		@ args = 0, pretend = 0, frame = 0
+ 215              		@ frame_needed = 1, uses_anonymous_args = 0
+ 216 0000 80B5     		push	{r7, lr}
+ 217 0002 00AF     		add	r7, sp, #0
+ 218 0004 FFF7FEFF 		bl	_stats_increase_irq
+ 219 0008 FFF7FEFF 		bl	_dbg_check_enter_isr
+ 220 000c 0448     		ldr	r0, .L15
+ 221 000e FFF7FEFF 		bl	pwm_lld_serve_interrupt
+ 222 0012 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 223 0016 FFF7FEFF 		bl	_port_irq_epilogue
+ 224 001a 00BF     		nop
+ 225 001c 80BD     		pop	{r7, pc}
+ 226              	.L16:
+ 227 001e 00BF     		.align	2
+ 228              	.L15:
+ 229 0020 00000000 		.word	PWMD4
+ 230              		.size	VectorB8, .-VectorB8
+ 231              		.section	.text.Vector108,"ax",%progbits
+ 232              		.align	1
+ 233              		.global	Vector108
+ 234              		.syntax unified
+ 235              		.thumb
+ 236              		.thumb_func
+ 237              		.fpu fpv4-sp-d16
+ 238              		.type	Vector108, %function
+ 239              	Vector108:
+ 240              		@ args = 0, pretend = 0, frame = 0
+ 241              		@ frame_needed = 1, uses_anonymous_args = 0
+ 242 0000 80B5     		push	{r7, lr}
+ 243 0002 00AF     		add	r7, sp, #0
+ 244 0004 FFF7FEFF 		bl	_stats_increase_irq
+ 245 0008 FFF7FEFF 		bl	_dbg_check_enter_isr
+ 246 000c 0448     		ldr	r0, .L18
+ 247 000e FFF7FEFF 		bl	pwm_lld_serve_interrupt
+ 248 0012 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 249 0016 FFF7FEFF 		bl	_port_irq_epilogue
+ 250 001a 00BF     		nop
+ 251 001c 80BD     		pop	{r7, pc}
+ 252              	.L19:
+ 253 001e 00BF     		.align	2
+ 254              	.L18:
+ 255 0020 00000000 		.word	PWMD5
+ 256              		.size	Vector108, .-Vector108
+ 257              		.section	.text.pwm_lld_init,"ax",%progbits
+ 258              		.align	1
+ 259              		.global	pwm_lld_init
+ 260              		.syntax unified
+ 261              		.thumb
+ 262              		.thumb_func
+ 263              		.fpu fpv4-sp-d16
+ 264              		.type	pwm_lld_init, %function
+ 265              	pwm_lld_init:
+ 266              		@ args = 0, pretend = 0, frame = 0
+ 267              		@ frame_needed = 1, uses_anonymous_args = 0
+ 268 0000 80B5     		push	{r7, lr}
+ 269 0002 00AF     		add	r7, sp, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s 			page 6
+
+
+ 270 0004 1348     		ldr	r0, .L21
+ 271 0006 FFF7FEFF 		bl	pwmObjectInit
+ 272 000a 124B     		ldr	r3, .L21
+ 273 000c 0422     		movs	r2, #4
+ 274 000e 1A74     		strb	r2, [r3, #16]
+ 275 0010 104B     		ldr	r3, .L21
+ 276 0012 4FF08042 		mov	r2, #1073741824
+ 277 0016 9A61     		str	r2, [r3, #24]
+ 278 0018 0F48     		ldr	r0, .L21+4
+ 279 001a FFF7FEFF 		bl	pwmObjectInit
+ 280 001e 0E4B     		ldr	r3, .L21+4
+ 281 0020 0422     		movs	r2, #4
+ 282 0022 1A74     		strb	r2, [r3, #16]
+ 283 0024 0C4B     		ldr	r3, .L21+4
+ 284 0026 0D4A     		ldr	r2, .L21+8
+ 285 0028 9A61     		str	r2, [r3, #24]
+ 286 002a 0D48     		ldr	r0, .L21+12
+ 287 002c FFF7FEFF 		bl	pwmObjectInit
+ 288 0030 0B4B     		ldr	r3, .L21+12
+ 289 0032 0422     		movs	r2, #4
+ 290 0034 1A74     		strb	r2, [r3, #16]
+ 291 0036 0A4B     		ldr	r3, .L21+12
+ 292 0038 0A4A     		ldr	r2, .L21+16
+ 293 003a 9A61     		str	r2, [r3, #24]
+ 294 003c 0A48     		ldr	r0, .L21+20
+ 295 003e FFF7FEFF 		bl	pwmObjectInit
+ 296 0042 094B     		ldr	r3, .L21+20
+ 297 0044 0422     		movs	r2, #4
+ 298 0046 1A74     		strb	r2, [r3, #16]
+ 299 0048 074B     		ldr	r3, .L21+20
+ 300 004a 084A     		ldr	r2, .L21+24
+ 301 004c 9A61     		str	r2, [r3, #24]
+ 302 004e 00BF     		nop
+ 303 0050 80BD     		pop	{r7, pc}
+ 304              	.L22:
+ 305 0052 00BF     		.align	2
+ 306              	.L21:
+ 307 0054 00000000 		.word	PWMD2
+ 308 0058 00000000 		.word	PWMD3
+ 309 005c 00040040 		.word	1073742848
+ 310 0060 00000000 		.word	PWMD4
+ 311 0064 00080040 		.word	1073743872
+ 312 0068 00000000 		.word	PWMD5
+ 313 006c 000C0040 		.word	1073744896
+ 314              		.size	pwm_lld_init, .-pwm_lld_init
+ 315              		.section	.text.pwm_lld_start,"ax",%progbits
+ 316              		.align	1
+ 317              		.global	pwm_lld_start
+ 318              		.syntax unified
+ 319              		.thumb
+ 320              		.thumb_func
+ 321              		.fpu fpv4-sp-d16
+ 322              		.type	pwm_lld_start, %function
+ 323              	pwm_lld_start:
+ 324              		@ args = 0, pretend = 0, frame = 16
+ 325              		@ frame_needed = 1, uses_anonymous_args = 0
+ 326 0000 80B5     		push	{r7, lr}
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s 			page 7
+
+
+ 327 0002 84B0     		sub	sp, sp, #16
+ 328 0004 00AF     		add	r7, sp, #0
+ 329 0006 7860     		str	r0, [r7, #4]
+ 330 0008 7B68     		ldr	r3, [r7, #4]
+ 331 000a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 332 000c 012B     		cmp	r3, #1
+ 333 000e 72D1     		bne	.L24
+ 334 0010 7B68     		ldr	r3, [r7, #4]
+ 335 0012 8B4A     		ldr	r2, .L44
+ 336 0014 9342     		cmp	r3, r2
+ 337 0016 15D1     		bne	.L25
+ 338 0018 8A4B     		ldr	r3, .L44+4
+ 339 001a 1B6C     		ldr	r3, [r3, #64]
+ 340 001c 894A     		ldr	r2, .L44+4
+ 341 001e 43F00103 		orr	r3, r3, #1
+ 342 0022 1364     		str	r3, [r2, #64]
+ 343 0024 874B     		ldr	r3, .L44+4
+ 344 0026 1B6A     		ldr	r3, [r3, #32]
+ 345 0028 864A     		ldr	r2, .L44+4
+ 346 002a 43F00103 		orr	r3, r3, #1
+ 347 002e 1362     		str	r3, [r2, #32]
+ 348 0030 844B     		ldr	r3, .L44+4
+ 349 0032 0022     		movs	r2, #0
+ 350 0034 1A62     		str	r2, [r3, #32]
+ 351 0036 0721     		movs	r1, #7
+ 352 0038 1C20     		movs	r0, #28
+ 353 003a FFF7FEFF 		bl	nvicEnableVector
+ 354 003e 7B68     		ldr	r3, [r7, #4]
+ 355 0040 814A     		ldr	r2, .L44+8
+ 356 0042 5A61     		str	r2, [r3, #20]
+ 357              	.L25:
+ 358 0044 7B68     		ldr	r3, [r7, #4]
+ 359 0046 814A     		ldr	r2, .L44+12
+ 360 0048 9342     		cmp	r3, r2
+ 361 004a 15D1     		bne	.L26
+ 362 004c 7D4B     		ldr	r3, .L44+4
+ 363 004e 1B6C     		ldr	r3, [r3, #64]
+ 364 0050 7C4A     		ldr	r2, .L44+4
+ 365 0052 43F00203 		orr	r3, r3, #2
+ 366 0056 1364     		str	r3, [r2, #64]
+ 367 0058 7A4B     		ldr	r3, .L44+4
+ 368 005a 1B6A     		ldr	r3, [r3, #32]
+ 369 005c 794A     		ldr	r2, .L44+4
+ 370 005e 43F00203 		orr	r3, r3, #2
+ 371 0062 1362     		str	r3, [r2, #32]
+ 372 0064 774B     		ldr	r3, .L44+4
+ 373 0066 0022     		movs	r2, #0
+ 374 0068 1A62     		str	r2, [r3, #32]
+ 375 006a 0721     		movs	r1, #7
+ 376 006c 1D20     		movs	r0, #29
+ 377 006e FFF7FEFF 		bl	nvicEnableVector
+ 378 0072 7B68     		ldr	r3, [r7, #4]
+ 379 0074 744A     		ldr	r2, .L44+8
+ 380 0076 5A61     		str	r2, [r3, #20]
+ 381              	.L26:
+ 382 0078 7B68     		ldr	r3, [r7, #4]
+ 383 007a 754A     		ldr	r2, .L44+16
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s 			page 8
+
+
+ 384 007c 9342     		cmp	r3, r2
+ 385 007e 15D1     		bne	.L27
+ 386 0080 704B     		ldr	r3, .L44+4
+ 387 0082 1B6C     		ldr	r3, [r3, #64]
+ 388 0084 6F4A     		ldr	r2, .L44+4
+ 389 0086 43F00403 		orr	r3, r3, #4
+ 390 008a 1364     		str	r3, [r2, #64]
+ 391 008c 6D4B     		ldr	r3, .L44+4
+ 392 008e 1B6A     		ldr	r3, [r3, #32]
+ 393 0090 6C4A     		ldr	r2, .L44+4
+ 394 0092 43F00403 		orr	r3, r3, #4
+ 395 0096 1362     		str	r3, [r2, #32]
+ 396 0098 6A4B     		ldr	r3, .L44+4
+ 397 009a 0022     		movs	r2, #0
+ 398 009c 1A62     		str	r2, [r3, #32]
+ 399 009e 0721     		movs	r1, #7
+ 400 00a0 1E20     		movs	r0, #30
+ 401 00a2 FFF7FEFF 		bl	nvicEnableVector
+ 402 00a6 7B68     		ldr	r3, [r7, #4]
+ 403 00a8 674A     		ldr	r2, .L44+8
+ 404 00aa 5A61     		str	r2, [r3, #20]
+ 405              	.L27:
+ 406 00ac 7B68     		ldr	r3, [r7, #4]
+ 407 00ae 694A     		ldr	r2, .L44+20
+ 408 00b0 9342     		cmp	r3, r2
+ 409 00b2 15D1     		bne	.L28
+ 410 00b4 634B     		ldr	r3, .L44+4
+ 411 00b6 1B6C     		ldr	r3, [r3, #64]
+ 412 00b8 624A     		ldr	r2, .L44+4
+ 413 00ba 43F00803 		orr	r3, r3, #8
+ 414 00be 1364     		str	r3, [r2, #64]
+ 415 00c0 604B     		ldr	r3, .L44+4
+ 416 00c2 1B6A     		ldr	r3, [r3, #32]
+ 417 00c4 5F4A     		ldr	r2, .L44+4
+ 418 00c6 43F00803 		orr	r3, r3, #8
+ 419 00ca 1362     		str	r3, [r2, #32]
+ 420 00cc 5D4B     		ldr	r3, .L44+4
+ 421 00ce 0022     		movs	r2, #0
+ 422 00d0 1A62     		str	r2, [r3, #32]
+ 423 00d2 0721     		movs	r1, #7
+ 424 00d4 3220     		movs	r0, #50
+ 425 00d6 FFF7FEFF 		bl	nvicEnableVector
+ 426 00da 7B68     		ldr	r3, [r7, #4]
+ 427 00dc 5A4A     		ldr	r2, .L44+8
+ 428 00de 5A61     		str	r2, [r3, #20]
+ 429              	.L28:
+ 430 00e0 7B68     		ldr	r3, [r7, #4]
+ 431 00e2 9B69     		ldr	r3, [r3, #24]
+ 432 00e4 46F66802 		movw	r2, #26728
+ 433 00e8 9A61     		str	r2, [r3, #24]
+ 434 00ea 7B68     		ldr	r3, [r7, #4]
+ 435 00ec 9B69     		ldr	r3, [r3, #24]
+ 436 00ee 46F66802 		movw	r2, #26728
+ 437 00f2 DA61     		str	r2, [r3, #28]
+ 438 00f4 17E0     		b	.L29
+ 439              	.L24:
+ 440 00f6 7B68     		ldr	r3, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s 			page 9
+
+
+ 441 00f8 9B69     		ldr	r3, [r3, #24]
+ 442 00fa 0022     		movs	r2, #0
+ 443 00fc 1A60     		str	r2, [r3]
+ 444 00fe 7B68     		ldr	r3, [r7, #4]
+ 445 0100 9B69     		ldr	r3, [r3, #24]
+ 446 0102 0022     		movs	r2, #0
+ 447 0104 5A63     		str	r2, [r3, #52]
+ 448 0106 7B68     		ldr	r3, [r7, #4]
+ 449 0108 9B69     		ldr	r3, [r3, #24]
+ 450 010a 0022     		movs	r2, #0
+ 451 010c 9A63     		str	r2, [r3, #56]
+ 452 010e 7B68     		ldr	r3, [r7, #4]
+ 453 0110 9B69     		ldr	r3, [r3, #24]
+ 454 0112 0022     		movs	r2, #0
+ 455 0114 DA63     		str	r2, [r3, #60]
+ 456 0116 7B68     		ldr	r3, [r7, #4]
+ 457 0118 9B69     		ldr	r3, [r3, #24]
+ 458 011a 0022     		movs	r2, #0
+ 459 011c 1A64     		str	r2, [r3, #64]
+ 460 011e 7B68     		ldr	r3, [r7, #4]
+ 461 0120 9B69     		ldr	r3, [r3, #24]
+ 462 0122 0022     		movs	r2, #0
+ 463 0124 5A62     		str	r2, [r3, #36]
+ 464              	.L29:
+ 465 0126 7B68     		ldr	r3, [r7, #4]
+ 466 0128 5A69     		ldr	r2, [r3, #20]
+ 467 012a 7B68     		ldr	r3, [r7, #4]
+ 468 012c 5B68     		ldr	r3, [r3, #4]
+ 469 012e 1B68     		ldr	r3, [r3]
+ 470 0130 B2FBF3F3 		udiv	r3, r2, r3
+ 471 0134 013B     		subs	r3, r3, #1
+ 472 0136 BB60     		str	r3, [r7, #8]
+ 473 0138 BB68     		ldr	r3, [r7, #8]
+ 474 013a B3F5803F 		cmp	r3, #65536
+ 475 013e 0AD2     		bcs	.L30
+ 476 0140 BB68     		ldr	r3, [r7, #8]
+ 477 0142 0133     		adds	r3, r3, #1
+ 478 0144 7A68     		ldr	r2, [r7, #4]
+ 479 0146 5268     		ldr	r2, [r2, #4]
+ 480 0148 1268     		ldr	r2, [r2]
+ 481 014a 02FB03F2 		mul	r2, r2, r3
+ 482 014e 7B68     		ldr	r3, [r7, #4]
+ 483 0150 5B69     		ldr	r3, [r3, #20]
+ 484 0152 9A42     		cmp	r2, r3
+ 485 0154 02D0     		beq	.L31
+ 486              	.L30:
+ 487 0156 4048     		ldr	r0, .L44+24
+ 488 0158 FFF7FEFF 		bl	chSysHalt
+ 489              	.L31:
+ 490 015c 7B68     		ldr	r3, [r7, #4]
+ 491 015e 9B69     		ldr	r3, [r3, #24]
+ 492 0160 BA68     		ldr	r2, [r7, #8]
+ 493 0162 9A62     		str	r2, [r3, #40]
+ 494 0164 7B68     		ldr	r3, [r7, #4]
+ 495 0166 9A68     		ldr	r2, [r3, #8]
+ 496 0168 7B68     		ldr	r3, [r7, #4]
+ 497 016a 9B69     		ldr	r3, [r3, #24]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s 			page 10
+
+
+ 498 016c 013A     		subs	r2, r2, #1
+ 499 016e DA62     		str	r2, [r3, #44]
+ 500 0170 7B68     		ldr	r3, [r7, #4]
+ 501 0172 5A68     		ldr	r2, [r3, #4]
+ 502 0174 7B68     		ldr	r3, [r7, #4]
+ 503 0176 9B69     		ldr	r3, [r3, #24]
+ 504 0178 D26A     		ldr	r2, [r2, #44]
+ 505 017a 5A60     		str	r2, [r3, #4]
+ 506 017c 0023     		movs	r3, #0
+ 507 017e FB60     		str	r3, [r7, #12]
+ 508 0180 7B68     		ldr	r3, [r7, #4]
+ 509 0182 5B68     		ldr	r3, [r3, #4]
+ 510 0184 DB68     		ldr	r3, [r3, #12]
+ 511 0186 03F00F03 		and	r3, r3, #15
+ 512 018a 012B     		cmp	r3, #1
+ 513 018c 05D0     		beq	.L33
+ 514 018e 022B     		cmp	r3, #2
+ 515 0190 07D1     		bne	.L32
+ 516 0192 FB68     		ldr	r3, [r7, #12]
+ 517 0194 43F00203 		orr	r3, r3, #2
+ 518 0198 FB60     		str	r3, [r7, #12]
+ 519              	.L33:
+ 520 019a FB68     		ldr	r3, [r7, #12]
+ 521 019c 43F00103 		orr	r3, r3, #1
+ 522 01a0 FB60     		str	r3, [r7, #12]
+ 523              	.L32:
+ 524 01a2 7B68     		ldr	r3, [r7, #4]
+ 525 01a4 5B68     		ldr	r3, [r3, #4]
+ 526 01a6 5B69     		ldr	r3, [r3, #20]
+ 527 01a8 03F00F03 		and	r3, r3, #15
+ 528 01ac 012B     		cmp	r3, #1
+ 529 01ae 05D0     		beq	.L36
+ 530 01b0 022B     		cmp	r3, #2
+ 531 01b2 07D1     		bne	.L35
+ 532 01b4 FB68     		ldr	r3, [r7, #12]
+ 533 01b6 43F02003 		orr	r3, r3, #32
+ 534 01ba FB60     		str	r3, [r7, #12]
+ 535              	.L36:
+ 536 01bc FB68     		ldr	r3, [r7, #12]
+ 537 01be 43F01003 		orr	r3, r3, #16
+ 538 01c2 FB60     		str	r3, [r7, #12]
+ 539              	.L35:
+ 540 01c4 7B68     		ldr	r3, [r7, #4]
+ 541 01c6 5B68     		ldr	r3, [r3, #4]
+ 542 01c8 DB69     		ldr	r3, [r3, #28]
+ 543 01ca 03F00F03 		and	r3, r3, #15
+ 544 01ce 012B     		cmp	r3, #1
+ 545 01d0 05D0     		beq	.L39
+ 546 01d2 022B     		cmp	r3, #2
+ 547 01d4 07D1     		bne	.L38
+ 548 01d6 FB68     		ldr	r3, [r7, #12]
+ 549 01d8 43F40073 		orr	r3, r3, #512
+ 550 01dc FB60     		str	r3, [r7, #12]
+ 551              	.L39:
+ 552 01de FB68     		ldr	r3, [r7, #12]
+ 553 01e0 43F48073 		orr	r3, r3, #256
+ 554 01e4 FB60     		str	r3, [r7, #12]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s 			page 11
+
+
+ 555              	.L38:
+ 556 01e6 7B68     		ldr	r3, [r7, #4]
+ 557 01e8 5B68     		ldr	r3, [r3, #4]
+ 558 01ea 5B6A     		ldr	r3, [r3, #36]
+ 559 01ec 03F00F03 		and	r3, r3, #15
+ 560 01f0 012B     		cmp	r3, #1
+ 561 01f2 05D0     		beq	.L42
+ 562 01f4 022B     		cmp	r3, #2
+ 563 01f6 07D1     		bne	.L41
+ 564 01f8 FB68     		ldr	r3, [r7, #12]
+ 565 01fa 43F40053 		orr	r3, r3, #8192
+ 566 01fe FB60     		str	r3, [r7, #12]
+ 567              	.L42:
+ 568 0200 FB68     		ldr	r3, [r7, #12]
+ 569 0202 43F48053 		orr	r3, r3, #4096
+ 570 0206 FB60     		str	r3, [r7, #12]
+ 571              	.L41:
+ 572 0208 7B68     		ldr	r3, [r7, #4]
+ 573 020a 9B69     		ldr	r3, [r3, #24]
+ 574 020c FA68     		ldr	r2, [r7, #12]
+ 575 020e 1A62     		str	r2, [r3, #32]
+ 576 0210 7B68     		ldr	r3, [r7, #4]
+ 577 0212 9B69     		ldr	r3, [r3, #24]
+ 578 0214 0122     		movs	r2, #1
+ 579 0216 5A61     		str	r2, [r3, #20]
+ 580 0218 7B68     		ldr	r3, [r7, #4]
+ 581 021a 9B69     		ldr	r3, [r3, #24]
+ 582 021c 0022     		movs	r2, #0
+ 583 021e 1A61     		str	r2, [r3, #16]
+ 584 0220 7B68     		ldr	r3, [r7, #4]
+ 585 0222 5B68     		ldr	r3, [r3, #4]
+ 586 0224 1A6B     		ldr	r2, [r3, #48]
+ 587 0226 7B68     		ldr	r3, [r7, #4]
+ 588 0228 9B69     		ldr	r3, [r3, #24]
+ 589 022a 22F0FF02 		bic	r2, r2, #255
+ 590 022e DA60     		str	r2, [r3, #12]
+ 591 0230 7B68     		ldr	r3, [r7, #4]
+ 592 0232 9B69     		ldr	r3, [r3, #24]
+ 593 0234 8522     		movs	r2, #133
+ 594 0236 1A60     		str	r2, [r3]
+ 595 0238 00BF     		nop
+ 596 023a 1037     		adds	r7, r7, #16
+ 597 023c BD46     		mov	sp, r7
+ 598              		@ sp needed
+ 599 023e 80BD     		pop	{r7, pc}
+ 600              	.L45:
+ 601              		.align	2
+ 602              	.L44:
+ 603 0240 00000000 		.word	PWMD2
+ 604 0244 00380240 		.word	1073887232
+ 605 0248 00BD0105 		.word	84000000
+ 606 024c 00000000 		.word	PWMD3
+ 607 0250 00000000 		.word	PWMD4
+ 608 0254 00000000 		.word	PWMD5
+ 609 0258 00000000 		.word	__func__.9866
+ 610              		.size	pwm_lld_start, .-pwm_lld_start
+ 611              		.section	.text.pwm_lld_stop,"ax",%progbits
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s 			page 12
+
+
+ 612              		.align	1
+ 613              		.global	pwm_lld_stop
+ 614              		.syntax unified
+ 615              		.thumb
+ 616              		.thumb_func
+ 617              		.fpu fpv4-sp-d16
+ 618              		.type	pwm_lld_stop, %function
+ 619              	pwm_lld_stop:
+ 620              		@ args = 0, pretend = 0, frame = 8
+ 621              		@ frame_needed = 1, uses_anonymous_args = 0
+ 622 0000 80B5     		push	{r7, lr}
+ 623 0002 82B0     		sub	sp, sp, #8
+ 624 0004 00AF     		add	r7, sp, #0
+ 625 0006 7860     		str	r0, [r7, #4]
+ 626 0008 7B68     		ldr	r3, [r7, #4]
+ 627 000a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 628 000c 022B     		cmp	r3, #2
+ 629 000e 3FD1     		bne	.L51
+ 630 0010 7B68     		ldr	r3, [r7, #4]
+ 631 0012 9B69     		ldr	r3, [r3, #24]
+ 632 0014 0022     		movs	r2, #0
+ 633 0016 1A60     		str	r2, [r3]
+ 634 0018 7B68     		ldr	r3, [r7, #4]
+ 635 001a 9B69     		ldr	r3, [r3, #24]
+ 636 001c 0022     		movs	r2, #0
+ 637 001e DA60     		str	r2, [r3, #12]
+ 638 0020 7B68     		ldr	r3, [r7, #4]
+ 639 0022 9B69     		ldr	r3, [r3, #24]
+ 640 0024 0022     		movs	r2, #0
+ 641 0026 1A61     		str	r2, [r3, #16]
+ 642 0028 7B68     		ldr	r3, [r7, #4]
+ 643 002a 1B4A     		ldr	r2, .L52
+ 644 002c 9342     		cmp	r3, r2
+ 645 002e 08D1     		bne	.L48
+ 646 0030 1C20     		movs	r0, #28
+ 647 0032 FFF7FEFF 		bl	nvicDisableVector
+ 648 0036 194B     		ldr	r3, .L52+4
+ 649 0038 1B6C     		ldr	r3, [r3, #64]
+ 650 003a 184A     		ldr	r2, .L52+4
+ 651 003c 23F00103 		bic	r3, r3, #1
+ 652 0040 1364     		str	r3, [r2, #64]
+ 653              	.L48:
+ 654 0042 7B68     		ldr	r3, [r7, #4]
+ 655 0044 164A     		ldr	r2, .L52+8
+ 656 0046 9342     		cmp	r3, r2
+ 657 0048 08D1     		bne	.L49
+ 658 004a 1D20     		movs	r0, #29
+ 659 004c FFF7FEFF 		bl	nvicDisableVector
+ 660 0050 124B     		ldr	r3, .L52+4
+ 661 0052 1B6C     		ldr	r3, [r3, #64]
+ 662 0054 114A     		ldr	r2, .L52+4
+ 663 0056 23F00203 		bic	r3, r3, #2
+ 664 005a 1364     		str	r3, [r2, #64]
+ 665              	.L49:
+ 666 005c 7B68     		ldr	r3, [r7, #4]
+ 667 005e 114A     		ldr	r2, .L52+12
+ 668 0060 9342     		cmp	r3, r2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s 			page 13
+
+
+ 669 0062 08D1     		bne	.L50
+ 670 0064 1E20     		movs	r0, #30
+ 671 0066 FFF7FEFF 		bl	nvicDisableVector
+ 672 006a 0C4B     		ldr	r3, .L52+4
+ 673 006c 1B6C     		ldr	r3, [r3, #64]
+ 674 006e 0B4A     		ldr	r2, .L52+4
+ 675 0070 23F00403 		bic	r3, r3, #4
+ 676 0074 1364     		str	r3, [r2, #64]
+ 677              	.L50:
+ 678 0076 7B68     		ldr	r3, [r7, #4]
+ 679 0078 0B4A     		ldr	r2, .L52+16
+ 680 007a 9342     		cmp	r3, r2
+ 681 007c 08D1     		bne	.L51
+ 682 007e 3220     		movs	r0, #50
+ 683 0080 FFF7FEFF 		bl	nvicDisableVector
+ 684 0084 054B     		ldr	r3, .L52+4
+ 685 0086 1B6C     		ldr	r3, [r3, #64]
+ 686 0088 044A     		ldr	r2, .L52+4
+ 687 008a 23F00803 		bic	r3, r3, #8
+ 688 008e 1364     		str	r3, [r2, #64]
+ 689              	.L51:
+ 690 0090 00BF     		nop
+ 691 0092 0837     		adds	r7, r7, #8
+ 692 0094 BD46     		mov	sp, r7
+ 693              		@ sp needed
+ 694 0096 80BD     		pop	{r7, pc}
+ 695              	.L53:
+ 696              		.align	2
+ 697              	.L52:
+ 698 0098 00000000 		.word	PWMD2
+ 699 009c 00380240 		.word	1073887232
+ 700 00a0 00000000 		.word	PWMD3
+ 701 00a4 00000000 		.word	PWMD4
+ 702 00a8 00000000 		.word	PWMD5
+ 703              		.size	pwm_lld_stop, .-pwm_lld_stop
+ 704              		.section	.text.pwm_lld_enable_channel,"ax",%progbits
+ 705              		.align	1
+ 706              		.global	pwm_lld_enable_channel
+ 707              		.syntax unified
+ 708              		.thumb
+ 709              		.thumb_func
+ 710              		.fpu fpv4-sp-d16
+ 711              		.type	pwm_lld_enable_channel, %function
+ 712              	pwm_lld_enable_channel:
+ 713              		@ args = 0, pretend = 0, frame = 16
+ 714              		@ frame_needed = 1, uses_anonymous_args = 0
+ 715              		@ link register save eliminated.
+ 716 0000 80B4     		push	{r7}
+ 717 0002 85B0     		sub	sp, sp, #20
+ 718 0004 00AF     		add	r7, sp, #0
+ 719 0006 F860     		str	r0, [r7, #12]
+ 720 0008 0B46     		mov	r3, r1
+ 721 000a 7A60     		str	r2, [r7, #4]
+ 722 000c FB72     		strb	r3, [r7, #11]
+ 723 000e FB68     		ldr	r3, [r7, #12]
+ 724 0010 9A69     		ldr	r2, [r3, #24]
+ 725 0012 FB7A     		ldrb	r3, [r7, #11]	@ zero_extendqisi2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s 			page 14
+
+
+ 726 0014 0C33     		adds	r3, r3, #12
+ 727 0016 9B00     		lsls	r3, r3, #2
+ 728 0018 1344     		add	r3, r3, r2
+ 729 001a 7A68     		ldr	r2, [r7, #4]
+ 730 001c 5A60     		str	r2, [r3, #4]
+ 731 001e 00BF     		nop
+ 732 0020 1437     		adds	r7, r7, #20
+ 733 0022 BD46     		mov	sp, r7
+ 734              		@ sp needed
+ 735 0024 5DF8047B 		ldr	r7, [sp], #4
+ 736 0028 7047     		bx	lr
+ 737              		.size	pwm_lld_enable_channel, .-pwm_lld_enable_channel
+ 738              		.section	.text.pwm_lld_disable_channel,"ax",%progbits
+ 739              		.align	1
+ 740              		.global	pwm_lld_disable_channel
+ 741              		.syntax unified
+ 742              		.thumb
+ 743              		.thumb_func
+ 744              		.fpu fpv4-sp-d16
+ 745              		.type	pwm_lld_disable_channel, %function
+ 746              	pwm_lld_disable_channel:
+ 747              		@ args = 0, pretend = 0, frame = 8
+ 748              		@ frame_needed = 1, uses_anonymous_args = 0
+ 749              		@ link register save eliminated.
+ 750 0000 80B4     		push	{r7}
+ 751 0002 83B0     		sub	sp, sp, #12
+ 752 0004 00AF     		add	r7, sp, #0
+ 753 0006 7860     		str	r0, [r7, #4]
+ 754 0008 0B46     		mov	r3, r1
+ 755 000a FB70     		strb	r3, [r7, #3]
+ 756 000c 7B68     		ldr	r3, [r7, #4]
+ 757 000e 9A69     		ldr	r2, [r3, #24]
+ 758 0010 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 759 0012 0C33     		adds	r3, r3, #12
+ 760 0014 9B00     		lsls	r3, r3, #2
+ 761 0016 1344     		add	r3, r3, r2
+ 762 0018 0022     		movs	r2, #0
+ 763 001a 5A60     		str	r2, [r3, #4]
+ 764 001c 7B68     		ldr	r3, [r7, #4]
+ 765 001e 9B69     		ldr	r3, [r3, #24]
+ 766 0020 DA68     		ldr	r2, [r3, #12]
+ 767 0022 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 768 0024 0221     		movs	r1, #2
+ 769 0026 01FA03F3 		lsl	r3, r1, r3
+ 770 002a DB43     		mvns	r3, r3
+ 771 002c 1946     		mov	r1, r3
+ 772 002e 7B68     		ldr	r3, [r7, #4]
+ 773 0030 9B69     		ldr	r3, [r3, #24]
+ 774 0032 0A40     		ands	r2, r2, r1
+ 775 0034 DA60     		str	r2, [r3, #12]
+ 776 0036 00BF     		nop
+ 777 0038 0C37     		adds	r7, r7, #12
+ 778 003a BD46     		mov	sp, r7
+ 779              		@ sp needed
+ 780 003c 5DF8047B 		ldr	r7, [sp], #4
+ 781 0040 7047     		bx	lr
+ 782              		.size	pwm_lld_disable_channel, .-pwm_lld_disable_channel
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s 			page 15
+
+
+ 783              		.section	.text.pwm_lld_enable_periodic_notification,"ax",%progbits
+ 784              		.align	1
+ 785              		.global	pwm_lld_enable_periodic_notification
+ 786              		.syntax unified
+ 787              		.thumb
+ 788              		.thumb_func
+ 789              		.fpu fpv4-sp-d16
+ 790              		.type	pwm_lld_enable_periodic_notification, %function
+ 791              	pwm_lld_enable_periodic_notification:
+ 792              		@ args = 0, pretend = 0, frame = 16
+ 793              		@ frame_needed = 1, uses_anonymous_args = 0
+ 794              		@ link register save eliminated.
+ 795 0000 80B4     		push	{r7}
+ 796 0002 85B0     		sub	sp, sp, #20
+ 797 0004 00AF     		add	r7, sp, #0
+ 798 0006 7860     		str	r0, [r7, #4]
+ 799 0008 7B68     		ldr	r3, [r7, #4]
+ 800 000a 9B69     		ldr	r3, [r3, #24]
+ 801 000c DB68     		ldr	r3, [r3, #12]
+ 802 000e FB60     		str	r3, [r7, #12]
+ 803 0010 FB68     		ldr	r3, [r7, #12]
+ 804 0012 03F00103 		and	r3, r3, #1
+ 805 0016 002B     		cmp	r3, #0
+ 806 0018 0DD1     		bne	.L58
+ 807 001a 7B68     		ldr	r3, [r7, #4]
+ 808 001c 9B69     		ldr	r3, [r3, #24]
+ 809 001e 1A69     		ldr	r2, [r3, #16]
+ 810 0020 7B68     		ldr	r3, [r7, #4]
+ 811 0022 9B69     		ldr	r3, [r3, #24]
+ 812 0024 22F00102 		bic	r2, r2, #1
+ 813 0028 1A61     		str	r2, [r3, #16]
+ 814 002a 7B68     		ldr	r3, [r7, #4]
+ 815 002c 9B69     		ldr	r3, [r3, #24]
+ 816 002e FA68     		ldr	r2, [r7, #12]
+ 817 0030 42F00102 		orr	r2, r2, #1
+ 818 0034 DA60     		str	r2, [r3, #12]
+ 819              	.L58:
+ 820 0036 00BF     		nop
+ 821 0038 1437     		adds	r7, r7, #20
+ 822 003a BD46     		mov	sp, r7
+ 823              		@ sp needed
+ 824 003c 5DF8047B 		ldr	r7, [sp], #4
+ 825 0040 7047     		bx	lr
+ 826              		.size	pwm_lld_enable_periodic_notification, .-pwm_lld_enable_periodic_notification
+ 827              		.section	.text.pwm_lld_disable_periodic_notification,"ax",%progbits
+ 828              		.align	1
+ 829              		.global	pwm_lld_disable_periodic_notification
+ 830              		.syntax unified
+ 831              		.thumb
+ 832              		.thumb_func
+ 833              		.fpu fpv4-sp-d16
+ 834              		.type	pwm_lld_disable_periodic_notification, %function
+ 835              	pwm_lld_disable_periodic_notification:
+ 836              		@ args = 0, pretend = 0, frame = 8
+ 837              		@ frame_needed = 1, uses_anonymous_args = 0
+ 838              		@ link register save eliminated.
+ 839 0000 80B4     		push	{r7}
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s 			page 16
+
+
+ 840 0002 83B0     		sub	sp, sp, #12
+ 841 0004 00AF     		add	r7, sp, #0
+ 842 0006 7860     		str	r0, [r7, #4]
+ 843 0008 7B68     		ldr	r3, [r7, #4]
+ 844 000a 9B69     		ldr	r3, [r3, #24]
+ 845 000c DA68     		ldr	r2, [r3, #12]
+ 846 000e 7B68     		ldr	r3, [r7, #4]
+ 847 0010 9B69     		ldr	r3, [r3, #24]
+ 848 0012 22F00102 		bic	r2, r2, #1
+ 849 0016 DA60     		str	r2, [r3, #12]
+ 850 0018 00BF     		nop
+ 851 001a 0C37     		adds	r7, r7, #12
+ 852 001c BD46     		mov	sp, r7
+ 853              		@ sp needed
+ 854 001e 5DF8047B 		ldr	r7, [sp], #4
+ 855 0022 7047     		bx	lr
+ 856              		.size	pwm_lld_disable_periodic_notification, .-pwm_lld_disable_periodic_notification
+ 857              		.section	.text.pwm_lld_enable_channel_notification,"ax",%progbits
+ 858              		.align	1
+ 859              		.global	pwm_lld_enable_channel_notification
+ 860              		.syntax unified
+ 861              		.thumb
+ 862              		.thumb_func
+ 863              		.fpu fpv4-sp-d16
+ 864              		.type	pwm_lld_enable_channel_notification, %function
+ 865              	pwm_lld_enable_channel_notification:
+ 866              		@ args = 0, pretend = 0, frame = 16
+ 867              		@ frame_needed = 1, uses_anonymous_args = 0
+ 868              		@ link register save eliminated.
+ 869 0000 80B4     		push	{r7}
+ 870 0002 85B0     		sub	sp, sp, #20
+ 871 0004 00AF     		add	r7, sp, #0
+ 872 0006 7860     		str	r0, [r7, #4]
+ 873 0008 0B46     		mov	r3, r1
+ 874 000a FB70     		strb	r3, [r7, #3]
+ 875 000c 7B68     		ldr	r3, [r7, #4]
+ 876 000e 9B69     		ldr	r3, [r3, #24]
+ 877 0010 DB68     		ldr	r3, [r3, #12]
+ 878 0012 FB60     		str	r3, [r7, #12]
+ 879 0014 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 880 0016 0222     		movs	r2, #2
+ 881 0018 02FA03F3 		lsl	r3, r2, r3
+ 882 001c 1A46     		mov	r2, r3
+ 883 001e FB68     		ldr	r3, [r7, #12]
+ 884 0020 1340     		ands	r3, r3, r2
+ 885 0022 002B     		cmp	r3, #0
+ 886 0024 11D1     		bne	.L62
+ 887 0026 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 888 0028 0222     		movs	r2, #2
+ 889 002a 02FA03F3 		lsl	r3, r2, r3
+ 890 002e 1946     		mov	r1, r3
+ 891 0030 7B68     		ldr	r3, [r7, #4]
+ 892 0032 9B69     		ldr	r3, [r3, #24]
+ 893 0034 FA68     		ldr	r2, [r7, #12]
+ 894 0036 0A43     		orrs	r2, r2, r1
+ 895 0038 DA60     		str	r2, [r3, #12]
+ 896 003a FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s 			page 17
+
+
+ 897 003c 0222     		movs	r2, #2
+ 898 003e 02FA03F3 		lsl	r3, r2, r3
+ 899 0042 DA43     		mvns	r2, r3
+ 900 0044 7B68     		ldr	r3, [r7, #4]
+ 901 0046 9B69     		ldr	r3, [r3, #24]
+ 902 0048 1A61     		str	r2, [r3, #16]
+ 903              	.L62:
+ 904 004a 00BF     		nop
+ 905 004c 1437     		adds	r7, r7, #20
+ 906 004e BD46     		mov	sp, r7
+ 907              		@ sp needed
+ 908 0050 5DF8047B 		ldr	r7, [sp], #4
+ 909 0054 7047     		bx	lr
+ 910              		.size	pwm_lld_enable_channel_notification, .-pwm_lld_enable_channel_notification
+ 911              		.section	.text.pwm_lld_disable_channel_notification,"ax",%progbits
+ 912              		.align	1
+ 913              		.global	pwm_lld_disable_channel_notification
+ 914              		.syntax unified
+ 915              		.thumb
+ 916              		.thumb_func
+ 917              		.fpu fpv4-sp-d16
+ 918              		.type	pwm_lld_disable_channel_notification, %function
+ 919              	pwm_lld_disable_channel_notification:
+ 920              		@ args = 0, pretend = 0, frame = 8
+ 921              		@ frame_needed = 1, uses_anonymous_args = 0
+ 922              		@ link register save eliminated.
+ 923 0000 80B4     		push	{r7}
+ 924 0002 83B0     		sub	sp, sp, #12
+ 925 0004 00AF     		add	r7, sp, #0
+ 926 0006 7860     		str	r0, [r7, #4]
+ 927 0008 0B46     		mov	r3, r1
+ 928 000a FB70     		strb	r3, [r7, #3]
+ 929 000c 7B68     		ldr	r3, [r7, #4]
+ 930 000e 9B69     		ldr	r3, [r3, #24]
+ 931 0010 DA68     		ldr	r2, [r3, #12]
+ 932 0012 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 933 0014 0221     		movs	r1, #2
+ 934 0016 01FA03F3 		lsl	r3, r1, r3
+ 935 001a DB43     		mvns	r3, r3
+ 936 001c 1946     		mov	r1, r3
+ 937 001e 7B68     		ldr	r3, [r7, #4]
+ 938 0020 9B69     		ldr	r3, [r3, #24]
+ 939 0022 0A40     		ands	r2, r2, r1
+ 940 0024 DA60     		str	r2, [r3, #12]
+ 941 0026 00BF     		nop
+ 942 0028 0C37     		adds	r7, r7, #12
+ 943 002a BD46     		mov	sp, r7
+ 944              		@ sp needed
+ 945 002c 5DF8047B 		ldr	r7, [sp], #4
+ 946 0030 7047     		bx	lr
+ 947              		.size	pwm_lld_disable_channel_notification, .-pwm_lld_disable_channel_notification
+ 948              		.section	.rodata.__func__.9866,"a",%progbits
+ 949              		.align	2
+ 950              		.type	__func__.9866, %object
+ 951              		.size	__func__.9866, 14
+ 952              	__func__.9866:
+ 953 0000 70776D5F 		.ascii	"pwm_lld_start\000"
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s 			page 18
+
+
+ 953      6C6C645F 
+ 953      73746172 
+ 953      7400
+ 954              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s 			page 19
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 pwm_lld.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:19     .bss.PWMD2:0000000000000000 PWMD2
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:16     .bss.PWMD2:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:26     .bss.PWMD3:0000000000000000 PWMD3
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:23     .bss.PWMD3:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:33     .bss.PWMD4:0000000000000000 PWMD4
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:30     .bss.PWMD4:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:40     .bss.PWMD5:0000000000000000 PWMD5
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:37     .bss.PWMD5:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:43     .text.pwm_lld_serve_interrupt:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:49     .text.pwm_lld_serve_interrupt:0000000000000000 pwm_lld_serve_interrupt
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:154    .text.VectorB0:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:161    .text.VectorB0:0000000000000000 VectorB0
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:177    .text.VectorB0:0000000000000020 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:180    .text.VectorB4:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:187    .text.VectorB4:0000000000000000 VectorB4
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:203    .text.VectorB4:0000000000000020 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:206    .text.VectorB8:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:213    .text.VectorB8:0000000000000000 VectorB8
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:229    .text.VectorB8:0000000000000020 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:232    .text.Vector108:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:239    .text.Vector108:0000000000000000 Vector108
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:255    .text.Vector108:0000000000000020 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:258    .text.pwm_lld_init:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:265    .text.pwm_lld_init:0000000000000000 pwm_lld_init
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:307    .text.pwm_lld_init:0000000000000054 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:316    .text.pwm_lld_start:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:323    .text.pwm_lld_start:0000000000000000 pwm_lld_start
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:603    .text.pwm_lld_start:0000000000000240 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:952    .rodata.__func__.9866:0000000000000000 __func__.9866
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:612    .text.pwm_lld_stop:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:619    .text.pwm_lld_stop:0000000000000000 pwm_lld_stop
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:698    .text.pwm_lld_stop:0000000000000098 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:705    .text.pwm_lld_enable_channel:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:712    .text.pwm_lld_enable_channel:0000000000000000 pwm_lld_enable_channel
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:739    .text.pwm_lld_disable_channel:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:746    .text.pwm_lld_disable_channel:0000000000000000 pwm_lld_disable_channel
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:784    .text.pwm_lld_enable_periodic_notification:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:791    .text.pwm_lld_enable_periodic_notification:0000000000000000 pwm_lld_enable_periodic_notification
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:828    .text.pwm_lld_disable_periodic_notification:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:835    .text.pwm_lld_disable_periodic_notification:0000000000000000 pwm_lld_disable_periodic_notification
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:858    .text.pwm_lld_enable_channel_notification:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:865    .text.pwm_lld_enable_channel_notification:0000000000000000 pwm_lld_enable_channel_notification
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:912    .text.pwm_lld_disable_channel_notification:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:919    .text.pwm_lld_disable_channel_notification:0000000000000000 pwm_lld_disable_channel_notification
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s:949    .rodata.__func__.9866:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+_stats_increase_irq
+_dbg_check_enter_isr
+_dbg_check_leave_isr
+_port_irq_epilogue
+pwmObjectInit
+nvicEnableVector
+chSysHalt
+nvicDisableVector
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cc8wYuJ1.s 			page 20
+
+

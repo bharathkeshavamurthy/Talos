@@ -1,0 +1,315 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"utility.c"
+  14              		.section	.text.port_rt_get_counter_value,"ax",%progbits
+  15              		.align	1
+  16              		.syntax unified
+  17              		.thumb
+  18              		.thumb_func
+  19              		.fpu fpv4-sp-d16
+  20              		.type	port_rt_get_counter_value, %function
+  21              	port_rt_get_counter_value:
+  22              		@ args = 0, pretend = 0, frame = 0
+  23              		@ frame_needed = 1, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 80B4     		push	{r7}
+  26 0002 00AF     		add	r7, sp, #0
+  27 0004 034B     		ldr	r3, .L3
+  28 0006 5B68     		ldr	r3, [r3, #4]
+  29 0008 1846     		mov	r0, r3
+  30 000a BD46     		mov	sp, r7
+  31              		@ sp needed
+  32 000c 5DF8047B 		ldr	r7, [sp], #4
+  33 0010 7047     		bx	lr
+  34              	.L4:
+  35 0012 00BF     		.align	2
+  36              	.L3:
+  37 0014 001000E0 		.word	-536866816
+  38              		.size	port_rt_get_counter_value, .-port_rt_get_counter_value
+  39              		.global	tickAdcIsr
+  40              		.section	.bss.tickAdcIsr,"aw",%nobits
+  41              		.align	2
+  42              		.type	tickAdcIsr, %object
+  43              		.size	tickAdcIsr, 4
+  44              	tickAdcIsr:
+  45 0000 00000000 		.space	4
+  46              		.section	.text.wait,"ax",%progbits
+  47              		.align	1
+  48              		.global	wait
+  49              		.syntax unified
+  50              		.thumb
+  51              		.thumb_func
+  52              		.fpu fpv4-sp-d16
+  53              		.type	wait, %function
+  54              	wait:
+  55              		@ args = 0, pretend = 0, frame = 16
+  56              		@ frame_needed = 1, uses_anonymous_args = 0
+  57              		@ link register save eliminated.
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s 			page 2
+
+
+  58 0000 80B4     		push	{r7}
+  59 0002 85B0     		sub	sp, sp, #20
+  60 0004 00AF     		add	r7, sp, #0
+  61 0006 7860     		str	r0, [r7, #4]
+  62 0008 0023     		movs	r3, #0
+  63 000a FB60     		str	r3, [r7, #12]
+  64 000c 02E0     		b	.L6
+  65              	.L7:
+  66 000e FB68     		ldr	r3, [r7, #12]
+  67 0010 0133     		adds	r3, r3, #1
+  68 0012 FB60     		str	r3, [r7, #12]
+  69              	.L6:
+  70 0014 FB68     		ldr	r3, [r7, #12]
+  71 0016 7A68     		ldr	r2, [r7, #4]
+  72 0018 9A42     		cmp	r2, r3
+  73 001a F8DC     		bgt	.L7
+  74 001c 00BF     		nop
+  75 001e 1437     		adds	r7, r7, #20
+  76 0020 BD46     		mov	sp, r7
+  77              		@ sp needed
+  78 0022 5DF8047B 		ldr	r7, [sp], #4
+  79 0026 7047     		bx	lr
+  80              		.size	wait, .-wait
+  81              		.section	.text.getselector,"ax",%progbits
+  82              		.align	1
+  83              		.global	getselector
+  84              		.syntax unified
+  85              		.thumb
+  86              		.thumb_func
+  87              		.fpu fpv4-sp-d16
+  88              		.type	getselector, %function
+  89              	getselector:
+  90              		@ args = 0, pretend = 0, frame = 0
+  91              		@ frame_needed = 1, uses_anonymous_args = 0
+  92 0000 80B5     		push	{r7, lr}
+  93 0002 00AF     		add	r7, sp, #0
+  94 0004 FFF7FEFF 		bl	get_selector
+  95 0008 0346     		mov	r3, r0
+  96 000a 1846     		mov	r0, r3
+  97 000c 80BD     		pop	{r7, pc}
+  98              		.size	getselector, .-getselector
+  99              		.section	.text.getBatteryValueRaw,"ax",%progbits
+ 100              		.align	1
+ 101              		.global	getBatteryValueRaw
+ 102              		.syntax unified
+ 103              		.thumb
+ 104              		.thumb_func
+ 105              		.fpu fpv4-sp-d16
+ 106              		.type	getBatteryValueRaw, %function
+ 107              	getBatteryValueRaw:
+ 108              		@ args = 0, pretend = 0, frame = 0
+ 109              		@ frame_needed = 1, uses_anonymous_args = 0
+ 110 0000 80B5     		push	{r7, lr}
+ 111 0002 00AF     		add	r7, sp, #0
+ 112 0004 FFF7FEFF 		bl	get_battery_raw
+ 113 0008 0346     		mov	r3, r0
+ 114 000a 1846     		mov	r0, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s 			page 3
+
+
+ 115 000c 80BD     		pop	{r7, pc}
+ 116              		.size	getBatteryValueRaw, .-getBatteryValueRaw
+ 117              		.section	.text.getBatteryValueVoltage,"ax",%progbits
+ 118              		.align	1
+ 119              		.global	getBatteryValueVoltage
+ 120              		.syntax unified
+ 121              		.thumb
+ 122              		.thumb_func
+ 123              		.fpu fpv4-sp-d16
+ 124              		.type	getBatteryValueVoltage, %function
+ 125              	getBatteryValueVoltage:
+ 126              		@ args = 0, pretend = 0, frame = 0
+ 127              		@ frame_needed = 1, uses_anonymous_args = 0
+ 128 0000 80B5     		push	{r7, lr}
+ 129 0002 00AF     		add	r7, sp, #0
+ 130 0004 FFF7FEFF 		bl	get_battery_voltage
+ 131 0008 F0EE407A 		vmov.f32	s15, s0
+ 132 000c B0EE670A 		vmov.f32	s0, s15
+ 133 0010 80BD     		pop	{r7, pc}
+ 134              		.size	getBatteryValueVoltage, .-getBatteryValueVoltage
+ 135              		.section	.text.getBatteryValuePercentage,"ax",%progbits
+ 136              		.align	1
+ 137              		.global	getBatteryValuePercentage
+ 138              		.syntax unified
+ 139              		.thumb
+ 140              		.thumb_func
+ 141              		.fpu fpv4-sp-d16
+ 142              		.type	getBatteryValuePercentage, %function
+ 143              	getBatteryValuePercentage:
+ 144              		@ args = 0, pretend = 0, frame = 0
+ 145              		@ frame_needed = 1, uses_anonymous_args = 0
+ 146 0000 80B5     		push	{r7, lr}
+ 147 0002 00AF     		add	r7, sp, #0
+ 148 0004 FFF7FEFF 		bl	get_battery_percentage
+ 149 0008 F0EE407A 		vmov.f32	s15, s0
+ 150 000c FCEEE77A 		vcvt.u32.f32	s15, s15
+ 151 0010 17EE903A 		vmov	r3, s15	@ int
+ 152 0014 1846     		mov	r0, r3
+ 153 0016 80BD     		pop	{r7, pc}
+ 154              		.size	getBatteryValuePercentage, .-getBatteryValuePercentage
+ 155              		.section	.text.resetTime,"ax",%progbits
+ 156              		.align	1
+ 157              		.global	resetTime
+ 158              		.syntax unified
+ 159              		.thumb
+ 160              		.thumb_func
+ 161              		.fpu fpv4-sp-d16
+ 162              		.type	resetTime, %function
+ 163              	resetTime:
+ 164              		@ args = 0, pretend = 0, frame = 0
+ 165              		@ frame_needed = 1, uses_anonymous_args = 0
+ 166 0000 80B5     		push	{r7, lr}
+ 167 0002 00AF     		add	r7, sp, #0
+ 168 0004 FFF7FEFF 		bl	port_rt_get_counter_value
+ 169 0008 0246     		mov	r2, r0
+ 170 000a 024B     		ldr	r3, .L17
+ 171 000c 1A60     		str	r2, [r3]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s 			page 4
+
+
+ 172 000e 00BF     		nop
+ 173 0010 80BD     		pop	{r7, pc}
+ 174              	.L18:
+ 175 0012 00BF     		.align	2
+ 176              	.L17:
+ 177 0014 00000000 		.word	tickAdcIsr
+ 178              		.size	resetTime, .-resetTime
+ 179              		.section	.text.getDiffTimeMs,"ax",%progbits
+ 180              		.align	1
+ 181              		.global	getDiffTimeMs
+ 182              		.syntax unified
+ 183              		.thumb
+ 184              		.thumb_func
+ 185              		.fpu fpv4-sp-d16
+ 186              		.type	getDiffTimeMs, %function
+ 187              	getDiffTimeMs:
+ 188              		@ args = 0, pretend = 0, frame = 0
+ 189              		@ frame_needed = 1, uses_anonymous_args = 0
+ 190 0000 80B5     		push	{r7, lr}
+ 191 0002 00AF     		add	r7, sp, #0
+ 192 0004 FFF7FEFF 		bl	port_rt_get_counter_value
+ 193 0008 0246     		mov	r2, r0
+ 194 000a 0B4B     		ldr	r3, .L21
+ 195 000c 1B68     		ldr	r3, [r3]
+ 196 000e D31A     		subs	r3, r2, r3
+ 197 0010 013B     		subs	r3, r3, #1
+ 198 0012 DB08     		lsrs	r3, r3, #3
+ 199 0014 094A     		ldr	r2, .L21+4
+ 200 0016 A2FB0323 		umull	r2, r3, r2, r3
+ 201 001a 5B08     		lsrs	r3, r3, #1
+ 202 001c 0133     		adds	r3, r3, #1
+ 203 001e 07EE903A 		vmov	s15, r3	@ int
+ 204 0022 F8EE677A 		vcvt.f32.u32	s15, s15
+ 205 0026 9FED067A 		vldr.32	s14, .L21+8
+ 206 002a C7EE876A 		vdiv.f32	s13, s15, s14
+ 207 002e F0EE667A 		vmov.f32	s15, s13
+ 208 0032 B0EE670A 		vmov.f32	s0, s15
+ 209 0036 80BD     		pop	{r7, pc}
+ 210              	.L22:
+ 211              		.align	2
+ 212              	.L21:
+ 213 0038 00000000 		.word	tickAdcIsr
+ 214 003c 19866118 		.word	409044505
+ 215 0040 00007A44 		.word	1148846080
+ 216              		.size	getDiffTimeMs, .-getDiffTimeMs
+ 217              		.section	.text.getDiffTimeMsAndReset,"ax",%progbits
+ 218              		.align	1
+ 219              		.global	getDiffTimeMsAndReset
+ 220              		.syntax unified
+ 221              		.thumb
+ 222              		.thumb_func
+ 223              		.fpu fpv4-sp-d16
+ 224              		.type	getDiffTimeMsAndReset, %function
+ 225              	getDiffTimeMsAndReset:
+ 226              		@ args = 0, pretend = 0, frame = 8
+ 227              		@ frame_needed = 1, uses_anonymous_args = 0
+ 228 0000 80B5     		push	{r7, lr}
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s 			page 5
+
+
+ 229 0002 82B0     		sub	sp, sp, #8
+ 230 0004 00AF     		add	r7, sp, #0
+ 231 0006 FFF7FEFF 		bl	port_rt_get_counter_value
+ 232 000a 0246     		mov	r2, r0
+ 233 000c 104B     		ldr	r3, .L25
+ 234 000e 1B68     		ldr	r3, [r3]
+ 235 0010 D31A     		subs	r3, r2, r3
+ 236 0012 013B     		subs	r3, r3, #1
+ 237 0014 DB08     		lsrs	r3, r3, #3
+ 238 0016 0F4A     		ldr	r2, .L25+4
+ 239 0018 A2FB0323 		umull	r2, r3, r2, r3
+ 240 001c 5B08     		lsrs	r3, r3, #1
+ 241 001e 0133     		adds	r3, r3, #1
+ 242 0020 07EE903A 		vmov	s15, r3	@ int
+ 243 0024 B8EE677A 		vcvt.f32.u32	s14, s15
+ 244 0028 DFED0B6A 		vldr.32	s13, .L25+8
+ 245 002c C7EE267A 		vdiv.f32	s15, s14, s13
+ 246 0030 C7ED017A 		vstr.32	s15, [r7, #4]
+ 247 0034 FFF7FEFF 		bl	port_rt_get_counter_value
+ 248 0038 0246     		mov	r2, r0
+ 249 003a 054B     		ldr	r3, .L25
+ 250 003c 1A60     		str	r2, [r3]
+ 251 003e 7B68     		ldr	r3, [r7, #4]	@ float
+ 252 0040 07EE903A 		vmov	s15, r3
+ 253 0044 B0EE670A 		vmov.f32	s0, s15
+ 254 0048 0837     		adds	r7, r7, #8
+ 255 004a BD46     		mov	sp, r7
+ 256              		@ sp needed
+ 257 004c 80BD     		pop	{r7, pc}
+ 258              	.L26:
+ 259 004e 00BF     		.align	2
+ 260              	.L25:
+ 261 0050 00000000 		.word	tickAdcIsr
+ 262 0054 19866118 		.word	409044505
+ 263 0058 00007A44 		.word	1148846080
+ 264              		.size	getDiffTimeMsAndReset, .-getDiffTimeMsAndReset
+ 265              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 utility.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s:15     .text.port_rt_get_counter_value:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s:21     .text.port_rt_get_counter_value:0000000000000000 port_rt_get_counter_value
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s:37     .text.port_rt_get_counter_value:0000000000000014 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s:44     .bss.tickAdcIsr:0000000000000000 tickAdcIsr
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s:41     .bss.tickAdcIsr:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s:47     .text.wait:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s:54     .text.wait:0000000000000000 wait
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s:82     .text.getselector:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s:89     .text.getselector:0000000000000000 getselector
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s:100    .text.getBatteryValueRaw:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s:107    .text.getBatteryValueRaw:0000000000000000 getBatteryValueRaw
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s:118    .text.getBatteryValueVoltage:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s:125    .text.getBatteryValueVoltage:0000000000000000 getBatteryValueVoltage
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s:136    .text.getBatteryValuePercentage:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s:143    .text.getBatteryValuePercentage:0000000000000000 getBatteryValuePercentage
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s:156    .text.resetTime:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s:163    .text.resetTime:0000000000000000 resetTime
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s:177    .text.resetTime:0000000000000014 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s:180    .text.getDiffTimeMs:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s:187    .text.getDiffTimeMs:0000000000000000 getDiffTimeMs
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s:213    .text.getDiffTimeMs:0000000000000038 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s:218    .text.getDiffTimeMsAndReset:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s:225    .text.getDiffTimeMsAndReset:0000000000000000 getDiffTimeMsAndReset
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccw1lHDV.s:261    .text.getDiffTimeMsAndReset:0000000000000050 $d
+
+UNDEFINED SYMBOLS
+get_selector
+get_battery_raw
+get_battery_voltage
+get_battery_percentage

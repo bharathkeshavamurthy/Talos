@@ -1,0 +1,811 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"ov2640.c"
+  14              		.section	.bss.ov2640_conf,"aw",%nobits
+  15              		.align	2
+  16              		.type	ov2640_conf, %object
+  17              		.size	ov2640_conf, 8
+  18              	ov2640_conf:
+  19 0000 00000000 		.space	8
+  19      00000000 
+  20              		.global	OV2640_QQVGA
+  21              		.section	.rodata.OV2640_QQVGA,"a",%progbits
+  22              		.align	2
+  23              		.type	OV2640_QQVGA, %object
+  24              		.size	OV2640_QQVGA, 440
+  25              	OV2640_QQVGA:
+  26 0000 FF       		.byte	-1
+  27 0001 00       		.byte	0
+  28 0002 2C       		.byte	44
+  29 0003 FF       		.byte	-1
+  30 0004 2E       		.byte	46
+  31 0005 DF       		.byte	-33
+  32 0006 FF       		.byte	-1
+  33 0007 01       		.byte	1
+  34 0008 3C       		.byte	60
+  35 0009 32       		.byte	50
+  36 000a 11       		.byte	17
+  37 000b 00       		.byte	0
+  38 000c 09       		.byte	9
+  39 000d 02       		.byte	2
+  40 000e 04       		.byte	4
+  41 000f A8       		.byte	-88
+  42 0010 13       		.byte	19
+  43 0011 E5       		.byte	-27
+  44 0012 14       		.byte	20
+  45 0013 48       		.byte	72
+  46 0014 2C       		.byte	44
+  47 0015 0C       		.byte	12
+  48 0016 33       		.byte	51
+  49 0017 78       		.byte	120
+  50 0018 3A       		.byte	58
+  51 0019 33       		.byte	51
+  52 001a 3B       		.byte	59
+  53 001b FB       		.byte	-5
+  54 001c 3E       		.byte	62
+  55 001d 00       		.byte	0
+  56 001e 43       		.byte	67
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s 			page 2
+
+
+  57 001f 11       		.byte	17
+  58 0020 16       		.byte	22
+  59 0021 10       		.byte	16
+  60 0022 4A       		.byte	74
+  61 0023 81       		.byte	-127
+  62 0024 21       		.byte	33
+  63 0025 99       		.byte	-103
+  64 0026 24       		.byte	36
+  65 0027 40       		.byte	64
+  66 0028 25       		.byte	37
+  67 0029 38       		.byte	56
+  68 002a 26       		.byte	38
+  69 002b 82       		.byte	-126
+  70 002c 5C       		.byte	92
+  71 002d 00       		.byte	0
+  72 002e 63       		.byte	99
+  73 002f 00       		.byte	0
+  74 0030 46       		.byte	70
+  75 0031 3F       		.byte	63
+  76 0032 0C       		.byte	12
+  77 0033 3C       		.byte	60
+  78 0034 61       		.byte	97
+  79 0035 70       		.byte	112
+  80 0036 62       		.byte	98
+  81 0037 80       		.byte	-128
+  82 0038 7C       		.byte	124
+  83 0039 05       		.byte	5
+  84 003a 20       		.byte	32
+  85 003b 80       		.byte	-128
+  86 003c 28       		.byte	40
+  87 003d 30       		.byte	48
+  88 003e 6C       		.byte	108
+  89 003f 00       		.byte	0
+  90 0040 6D       		.byte	109
+  91 0041 80       		.byte	-128
+  92 0042 6E       		.byte	110
+  93 0043 00       		.byte	0
+  94 0044 70       		.byte	112
+  95 0045 02       		.byte	2
+  96 0046 71       		.byte	113
+  97 0047 94       		.byte	-108
+  98 0048 73       		.byte	115
+  99 0049 C1       		.byte	-63
+ 100 004a 3D       		.byte	61
+ 101 004b 34       		.byte	52
+ 102 004c 5A       		.byte	90
+ 103 004d 57       		.byte	87
+ 104 004e 12       		.byte	18
+ 105 004f 00       		.byte	0
+ 106 0050 11       		.byte	17
+ 107 0051 00       		.byte	0
+ 108 0052 17       		.byte	23
+ 109 0053 11       		.byte	17
+ 110 0054 18       		.byte	24
+ 111 0055 75       		.byte	117
+ 112 0056 19       		.byte	25
+ 113 0057 01       		.byte	1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s 			page 3
+
+
+ 114 0058 1A       		.byte	26
+ 115 0059 97       		.byte	-105
+ 116 005a 32       		.byte	50
+ 117 005b 36       		.byte	54
+ 118 005c 03       		.byte	3
+ 119 005d 0F       		.byte	15
+ 120 005e 37       		.byte	55
+ 121 005f 40       		.byte	64
+ 122 0060 4F       		.byte	79
+ 123 0061 BB       		.byte	-69
+ 124 0062 50       		.byte	80
+ 125 0063 9C       		.byte	-100
+ 126 0064 5A       		.byte	90
+ 127 0065 57       		.byte	87
+ 128 0066 6D       		.byte	109
+ 129 0067 80       		.byte	-128
+ 130 0068 6D       		.byte	109
+ 131 0069 38       		.byte	56
+ 132 006a 39       		.byte	57
+ 133 006b 02       		.byte	2
+ 134 006c 35       		.byte	53
+ 135 006d 88       		.byte	-120
+ 136 006e 22       		.byte	34
+ 137 006f 0A       		.byte	10
+ 138 0070 37       		.byte	55
+ 139 0071 40       		.byte	64
+ 140 0072 23       		.byte	35
+ 141 0073 00       		.byte	0
+ 142 0074 34       		.byte	52
+ 143 0075 A0       		.byte	-96
+ 144 0076 36       		.byte	54
+ 145 0077 1A       		.byte	26
+ 146 0078 06       		.byte	6
+ 147 0079 02       		.byte	2
+ 148 007a 07       		.byte	7
+ 149 007b C0       		.byte	-64
+ 150 007c 0D       		.byte	13
+ 151 007d B7       		.byte	-73
+ 152 007e 0E       		.byte	14
+ 153 007f 01       		.byte	1
+ 154 0080 4C       		.byte	76
+ 155 0081 00       		.byte	0
+ 156 0082 FF       		.byte	-1
+ 157 0083 00       		.byte	0
+ 158 0084 E5       		.byte	-27
+ 159 0085 7F       		.byte	127
+ 160 0086 F9       		.byte	-7
+ 161 0087 C0       		.byte	-64
+ 162 0088 41       		.byte	65
+ 163 0089 24       		.byte	36
+ 164 008a E0       		.byte	-32
+ 165 008b 14       		.byte	20
+ 166 008c 76       		.byte	118
+ 167 008d FF       		.byte	-1
+ 168 008e 33       		.byte	51
+ 169 008f A0       		.byte	-96
+ 170 0090 42       		.byte	66
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s 			page 4
+
+
+ 171 0091 20       		.byte	32
+ 172 0092 43       		.byte	67
+ 173 0093 18       		.byte	24
+ 174 0094 4C       		.byte	76
+ 175 0095 00       		.byte	0
+ 176 0096 87       		.byte	-121
+ 177 0097 D0       		.byte	-48
+ 178 0098 88       		.byte	-120
+ 179 0099 3F       		.byte	63
+ 180 009a D7       		.byte	-41
+ 181 009b 03       		.byte	3
+ 182 009c D9       		.byte	-39
+ 183 009d 10       		.byte	16
+ 184 009e D3       		.byte	-45
+ 185 009f 82       		.byte	-126
+ 186 00a0 C8       		.byte	-56
+ 187 00a1 08       		.byte	8
+ 188 00a2 C9       		.byte	-55
+ 189 00a3 80       		.byte	-128
+ 190 00a4 7D       		.byte	125
+ 191 00a5 00       		.byte	0
+ 192 00a6 7C       		.byte	124
+ 193 00a7 03       		.byte	3
+ 194 00a8 7D       		.byte	125
+ 195 00a9 48       		.byte	72
+ 196 00aa 7C       		.byte	124
+ 197 00ab 08       		.byte	8
+ 198 00ac 7D       		.byte	125
+ 199 00ad 20       		.byte	32
+ 200 00ae 7D       		.byte	125
+ 201 00af 10       		.byte	16
+ 202 00b0 7D       		.byte	125
+ 203 00b1 0E       		.byte	14
+ 204 00b2 90       		.byte	-112
+ 205 00b3 00       		.byte	0
+ 206 00b4 91       		.byte	-111
+ 207 00b5 0E       		.byte	14
+ 208 00b6 91       		.byte	-111
+ 209 00b7 1A       		.byte	26
+ 210 00b8 91       		.byte	-111
+ 211 00b9 31       		.byte	49
+ 212 00ba 91       		.byte	-111
+ 213 00bb 5A       		.byte	90
+ 214 00bc 91       		.byte	-111
+ 215 00bd 69       		.byte	105
+ 216 00be 91       		.byte	-111
+ 217 00bf 75       		.byte	117
+ 218 00c0 91       		.byte	-111
+ 219 00c1 7E       		.byte	126
+ 220 00c2 91       		.byte	-111
+ 221 00c3 88       		.byte	-120
+ 222 00c4 91       		.byte	-111
+ 223 00c5 8F       		.byte	-113
+ 224 00c6 91       		.byte	-111
+ 225 00c7 96       		.byte	-106
+ 226 00c8 91       		.byte	-111
+ 227 00c9 A3       		.byte	-93
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s 			page 5
+
+
+ 228 00ca 91       		.byte	-111
+ 229 00cb AF       		.byte	-81
+ 230 00cc 91       		.byte	-111
+ 231 00cd C4       		.byte	-60
+ 232 00ce 91       		.byte	-111
+ 233 00cf D7       		.byte	-41
+ 234 00d0 91       		.byte	-111
+ 235 00d1 E8       		.byte	-24
+ 236 00d2 91       		.byte	-111
+ 237 00d3 20       		.byte	32
+ 238 00d4 92       		.byte	-110
+ 239 00d5 00       		.byte	0
+ 240 00d6 93       		.byte	-109
+ 241 00d7 06       		.byte	6
+ 242 00d8 93       		.byte	-109
+ 243 00d9 E3       		.byte	-29
+ 244 00da 93       		.byte	-109
+ 245 00db 02       		.byte	2
+ 246 00dc 93       		.byte	-109
+ 247 00dd 02       		.byte	2
+ 248 00de 93       		.byte	-109
+ 249 00df 00       		.byte	0
+ 250 00e0 93       		.byte	-109
+ 251 00e1 04       		.byte	4
+ 252 00e2 93       		.byte	-109
+ 253 00e3 00       		.byte	0
+ 254 00e4 93       		.byte	-109
+ 255 00e5 03       		.byte	3
+ 256 00e6 93       		.byte	-109
+ 257 00e7 00       		.byte	0
+ 258 00e8 93       		.byte	-109
+ 259 00e9 00       		.byte	0
+ 260 00ea 93       		.byte	-109
+ 261 00eb 00       		.byte	0
+ 262 00ec 93       		.byte	-109
+ 263 00ed 00       		.byte	0
+ 264 00ee 93       		.byte	-109
+ 265 00ef 00       		.byte	0
+ 266 00f0 93       		.byte	-109
+ 267 00f1 00       		.byte	0
+ 268 00f2 93       		.byte	-109
+ 269 00f3 00       		.byte	0
+ 270 00f4 96       		.byte	-106
+ 271 00f5 00       		.byte	0
+ 272 00f6 97       		.byte	-105
+ 273 00f7 08       		.byte	8
+ 274 00f8 97       		.byte	-105
+ 275 00f9 19       		.byte	25
+ 276 00fa 97       		.byte	-105
+ 277 00fb 02       		.byte	2
+ 278 00fc 97       		.byte	-105
+ 279 00fd 0C       		.byte	12
+ 280 00fe 97       		.byte	-105
+ 281 00ff 24       		.byte	36
+ 282 0100 97       		.byte	-105
+ 283 0101 30       		.byte	48
+ 284 0102 97       		.byte	-105
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s 			page 6
+
+
+ 285 0103 28       		.byte	40
+ 286 0104 97       		.byte	-105
+ 287 0105 26       		.byte	38
+ 288 0106 97       		.byte	-105
+ 289 0107 02       		.byte	2
+ 290 0108 97       		.byte	-105
+ 291 0109 98       		.byte	-104
+ 292 010a 97       		.byte	-105
+ 293 010b 80       		.byte	-128
+ 294 010c 97       		.byte	-105
+ 295 010d 00       		.byte	0
+ 296 010e 97       		.byte	-105
+ 297 010f 00       		.byte	0
+ 298 0110 C3       		.byte	-61
+ 299 0111 EF       		.byte	-17
+ 300 0112 FF       		.byte	-1
+ 301 0113 00       		.byte	0
+ 302 0114 BA       		.byte	-70
+ 303 0115 DC       		.byte	-36
+ 304 0116 BB       		.byte	-69
+ 305 0117 08       		.byte	8
+ 306 0118 B6       		.byte	-74
+ 307 0119 24       		.byte	36
+ 308 011a B8       		.byte	-72
+ 309 011b 33       		.byte	51
+ 310 011c B7       		.byte	-73
+ 311 011d 20       		.byte	32
+ 312 011e B9       		.byte	-71
+ 313 011f 30       		.byte	48
+ 314 0120 B3       		.byte	-77
+ 315 0121 B4       		.byte	-76
+ 316 0122 B4       		.byte	-76
+ 317 0123 CA       		.byte	-54
+ 318 0124 B5       		.byte	-75
+ 319 0125 43       		.byte	67
+ 320 0126 B0       		.byte	-80
+ 321 0127 5C       		.byte	92
+ 322 0128 B1       		.byte	-79
+ 323 0129 4F       		.byte	79
+ 324 012a B2       		.byte	-78
+ 325 012b 06       		.byte	6
+ 326 012c C7       		.byte	-57
+ 327 012d 00       		.byte	0
+ 328 012e C6       		.byte	-58
+ 329 012f 51       		.byte	81
+ 330 0130 C5       		.byte	-59
+ 331 0131 11       		.byte	17
+ 332 0132 C4       		.byte	-60
+ 333 0133 9C       		.byte	-100
+ 334 0134 BF       		.byte	-65
+ 335 0135 00       		.byte	0
+ 336 0136 BC       		.byte	-68
+ 337 0137 64       		.byte	100
+ 338 0138 A6       		.byte	-90
+ 339 0139 00       		.byte	0
+ 340 013a A7       		.byte	-89
+ 341 013b 1E       		.byte	30
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s 			page 7
+
+
+ 342 013c A7       		.byte	-89
+ 343 013d 6B       		.byte	107
+ 344 013e A7       		.byte	-89
+ 345 013f 47       		.byte	71
+ 346 0140 A7       		.byte	-89
+ 347 0141 33       		.byte	51
+ 348 0142 A7       		.byte	-89
+ 349 0143 00       		.byte	0
+ 350 0144 A7       		.byte	-89
+ 351 0145 23       		.byte	35
+ 352 0146 A7       		.byte	-89
+ 353 0147 2E       		.byte	46
+ 354 0148 A7       		.byte	-89
+ 355 0149 85       		.byte	-123
+ 356 014a A7       		.byte	-89
+ 357 014b 42       		.byte	66
+ 358 014c A7       		.byte	-89
+ 359 014d 33       		.byte	51
+ 360 014e A7       		.byte	-89
+ 361 014f 00       		.byte	0
+ 362 0150 A7       		.byte	-89
+ 363 0151 23       		.byte	35
+ 364 0152 A7       		.byte	-89
+ 365 0153 1B       		.byte	27
+ 366 0154 A7       		.byte	-89
+ 367 0155 74       		.byte	116
+ 368 0156 A7       		.byte	-89
+ 369 0157 42       		.byte	66
+ 370 0158 A7       		.byte	-89
+ 371 0159 33       		.byte	51
+ 372 015a A7       		.byte	-89
+ 373 015b 00       		.byte	0
+ 374 015c A7       		.byte	-89
+ 375 015d 23       		.byte	35
+ 376 015e C0       		.byte	-64
+ 377 015f C8       		.byte	-56
+ 378 0160 C1       		.byte	-63
+ 379 0161 96       		.byte	-106
+ 380 0162 8C       		.byte	-116
+ 381 0163 00       		.byte	0
+ 382 0164 86       		.byte	-122
+ 383 0165 3D       		.byte	61
+ 384 0166 50       		.byte	80
+ 385 0167 92       		.byte	-110
+ 386 0168 51       		.byte	81
+ 387 0169 90       		.byte	-112
+ 388 016a 52       		.byte	82
+ 389 016b 2C       		.byte	44
+ 390 016c 53       		.byte	83
+ 391 016d 00       		.byte	0
+ 392 016e 54       		.byte	84
+ 393 016f 00       		.byte	0
+ 394 0170 55       		.byte	85
+ 395 0171 88       		.byte	-120
+ 396 0172 5A       		.byte	90
+ 397 0173 50       		.byte	80
+ 398 0174 5B       		.byte	91
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s 			page 8
+
+
+ 399 0175 3C       		.byte	60
+ 400 0176 5C       		.byte	92
+ 401 0177 00       		.byte	0
+ 402 0178 D3       		.byte	-45
+ 403 0179 04       		.byte	4
+ 404 017a 7F       		.byte	127
+ 405 017b 00       		.byte	0
+ 406 017c DA       		.byte	-38
+ 407 017d 00       		.byte	0
+ 408 017e E5       		.byte	-27
+ 409 017f 1F       		.byte	31
+ 410 0180 E1       		.byte	-31
+ 411 0181 67       		.byte	103
+ 412 0182 E0       		.byte	-32
+ 413 0183 00       		.byte	0
+ 414 0184 DD       		.byte	-35
+ 415 0185 7F       		.byte	127
+ 416 0186 05       		.byte	5
+ 417 0187 00       		.byte	0
+ 418 0188 FF       		.byte	-1
+ 419 0189 00       		.byte	0
+ 420 018a E0       		.byte	-32
+ 421 018b 04       		.byte	4
+ 422 018c C0       		.byte	-64
+ 423 018d C8       		.byte	-56
+ 424 018e C1       		.byte	-63
+ 425 018f 96       		.byte	-106
+ 426 0190 86       		.byte	-122
+ 427 0191 3D       		.byte	61
+ 428 0192 50       		.byte	80
+ 429 0193 92       		.byte	-110
+ 430 0194 51       		.byte	81
+ 431 0195 90       		.byte	-112
+ 432 0196 52       		.byte	82
+ 433 0197 2C       		.byte	44
+ 434 0198 53       		.byte	83
+ 435 0199 00       		.byte	0
+ 436 019a 54       		.byte	84
+ 437 019b 00       		.byte	0
+ 438 019c 55       		.byte	85
+ 439 019d 88       		.byte	-120
+ 440 019e 57       		.byte	87
+ 441 019f 00       		.byte	0
+ 442 01a0 5A       		.byte	90
+ 443 01a1 28       		.byte	40
+ 444 01a2 5B       		.byte	91
+ 445 01a3 1E       		.byte	30
+ 446 01a4 5C       		.byte	92
+ 447 01a5 00       		.byte	0
+ 448 01a6 D3       		.byte	-45
+ 449 01a7 08       		.byte	8
+ 450 01a8 E0       		.byte	-32
+ 451 01a9 00       		.byte	0
+ 452 01aa FF       		.byte	-1
+ 453 01ab 00       		.byte	0
+ 454 01ac 05       		.byte	5
+ 455 01ad 00       		.byte	0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s 			page 9
+
+
+ 456 01ae DA       		.byte	-38
+ 457 01af 08       		.byte	8
+ 458 01b0 DA       		.byte	-38
+ 459 01b1 09       		.byte	9
+ 460 01b2 98       		.byte	-104
+ 461 01b3 00       		.byte	0
+ 462 01b4 99       		.byte	-103
+ 463 01b5 00       		.byte	0
+ 464 01b6 00       		.byte	0
+ 465 01b7 00       		.byte	0
+ 466              		.section	.text.ov2640_set_bank,"ax",%progbits
+ 467              		.align	1
+ 468              		.global	ov2640_set_bank
+ 469              		.syntax unified
+ 470              		.thumb
+ 471              		.thumb_func
+ 472              		.fpu fpv4-sp-d16
+ 473              		.type	ov2640_set_bank, %function
+ 474              	ov2640_set_bank:
+ 475              		@ args = 0, pretend = 0, frame = 8
+ 476              		@ frame_needed = 1, uses_anonymous_args = 0
+ 477 0000 80B5     		push	{r7, lr}
+ 478 0002 82B0     		sub	sp, sp, #8
+ 479 0004 00AF     		add	r7, sp, #0
+ 480 0006 0346     		mov	r3, r0
+ 481 0008 FB71     		strb	r3, [r7, #7]
+ 482 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 483 000c 1A46     		mov	r2, r3
+ 484 000e FF21     		movs	r1, #255
+ 485 0010 3020     		movs	r0, #48
+ 486 0012 FFF7FEFF 		bl	write_reg
+ 487 0016 0346     		mov	r3, r0
+ 488 0018 1846     		mov	r0, r3
+ 489 001a 0837     		adds	r7, r7, #8
+ 490 001c BD46     		mov	sp, r7
+ 491              		@ sp needed
+ 492 001e 80BD     		pop	{r7, pc}
+ 493              		.size	ov2640_set_bank, .-ov2640_set_bank
+ 494              		.section	.text.ov2640_read_id,"ax",%progbits
+ 495              		.align	1
+ 496              		.global	ov2640_read_id
+ 497              		.syntax unified
+ 498              		.thumb
+ 499              		.thumb_func
+ 500              		.fpu fpv4-sp-d16
+ 501              		.type	ov2640_read_id, %function
+ 502              	ov2640_read_id:
+ 503              		@ args = 0, pretend = 0, frame = 16
+ 504              		@ frame_needed = 1, uses_anonymous_args = 0
+ 505 0000 80B5     		push	{r7, lr}
+ 506 0002 84B0     		sub	sp, sp, #16
+ 507 0004 00AF     		add	r7, sp, #0
+ 508 0006 7860     		str	r0, [r7, #4]
+ 509 0008 0023     		movs	r3, #0
+ 510 000a BB81     		strh	r3, [r7, #12]	@ movhi
+ 511 000c 0023     		movs	r3, #0
+ 512 000e FB73     		strb	r3, [r7, #15]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s 			page 10
+
+
+ 513 0010 0120     		movs	r0, #1
+ 514 0012 FFF7FEFF 		bl	ov2640_set_bank
+ 515 0016 07F10C03 		add	r3, r7, #12
+ 516 001a 1A46     		mov	r2, r3
+ 517 001c 0A21     		movs	r1, #10
+ 518 001e 3020     		movs	r0, #48
+ 519 0020 FFF7FEFF 		bl	read_reg
+ 520 0024 0346     		mov	r3, r0
+ 521 0026 FB73     		strb	r3, [r7, #15]
+ 522 0028 97F90F30 		ldrsb	r3, [r7, #15]
+ 523 002c 002B     		cmp	r3, #0
+ 524 002e 02D0     		beq	.L4
+ 525 0030 97F90F30 		ldrsb	r3, [r7, #15]
+ 526 0034 1BE0     		b	.L7
+ 527              	.L4:
+ 528 0036 07F10C03 		add	r3, r7, #12
+ 529 003a 0133     		adds	r3, r3, #1
+ 530 003c 1A46     		mov	r2, r3
+ 531 003e 0B21     		movs	r1, #11
+ 532 0040 3020     		movs	r0, #48
+ 533 0042 FFF7FEFF 		bl	read_reg
+ 534 0046 0346     		mov	r3, r0
+ 535 0048 FB73     		strb	r3, [r7, #15]
+ 536 004a 97F90F30 		ldrsb	r3, [r7, #15]
+ 537 004e 002B     		cmp	r3, #0
+ 538 0050 02D0     		beq	.L6
+ 539 0052 97F90F30 		ldrsb	r3, [r7, #15]
+ 540 0056 0AE0     		b	.L7
+ 541              	.L6:
+ 542 0058 3B7B     		ldrb	r3, [r7, #12]	@ zero_extendqisi2
+ 543 005a 1B02     		lsls	r3, r3, #8
+ 544 005c 1AB2     		sxth	r2, r3
+ 545 005e 7B7B     		ldrb	r3, [r7, #13]	@ zero_extendqisi2
+ 546 0060 1BB2     		sxth	r3, r3
+ 547 0062 1343     		orrs	r3, r3, r2
+ 548 0064 1BB2     		sxth	r3, r3
+ 549 0066 9AB2     		uxth	r2, r3
+ 550 0068 7B68     		ldr	r3, [r7, #4]
+ 551 006a 1A80     		strh	r2, [r3]	@ movhi
+ 552 006c 0023     		movs	r3, #0
+ 553              	.L7:
+ 554 006e 1846     		mov	r0, r3
+ 555 0070 1037     		adds	r7, r7, #16
+ 556 0072 BD46     		mov	sp, r7
+ 557              		@ sp needed
+ 558 0074 80BD     		pop	{r7, pc}
+ 559              		.size	ov2640_read_id, .-ov2640_read_id
+ 560              		.section	.text.ov2640_set_qqvga,"ax",%progbits
+ 561              		.align	1
+ 562              		.global	ov2640_set_qqvga
+ 563              		.syntax unified
+ 564              		.thumb
+ 565              		.thumb_func
+ 566              		.fpu fpv4-sp-d16
+ 567              		.type	ov2640_set_qqvga, %function
+ 568              	ov2640_set_qqvga:
+ 569              		@ args = 0, pretend = 0, frame = 8
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s 			page 11
+
+
+ 570              		@ frame_needed = 1, uses_anonymous_args = 0
+ 571 0000 80B5     		push	{r7, lr}
+ 572 0002 82B0     		sub	sp, sp, #8
+ 573 0004 00AF     		add	r7, sp, #0
+ 574 0006 0023     		movs	r3, #0
+ 575 0008 FB70     		strb	r3, [r7, #3]
+ 576 000a 0023     		movs	r3, #0
+ 577 000c 7B60     		str	r3, [r7, #4]
+ 578 000e 0023     		movs	r3, #0
+ 579 0010 7B60     		str	r3, [r7, #4]
+ 580 0012 18E0     		b	.L9
+ 581              	.L12:
+ 582 0014 164A     		ldr	r2, .L13
+ 583 0016 7B68     		ldr	r3, [r7, #4]
+ 584 0018 12F81310 		ldrb	r1, [r2, r3, lsl #1]	@ zero_extendqisi2
+ 585 001c 144A     		ldr	r2, .L13
+ 586 001e 7B68     		ldr	r3, [r7, #4]
+ 587 0020 5B00     		lsls	r3, r3, #1
+ 588 0022 1344     		add	r3, r3, r2
+ 589 0024 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+ 590 0026 1A46     		mov	r2, r3
+ 591 0028 3020     		movs	r0, #48
+ 592 002a FFF7FEFF 		bl	write_reg
+ 593 002e 0346     		mov	r3, r0
+ 594 0030 FB70     		strb	r3, [r7, #3]
+ 595 0032 97F90330 		ldrsb	r3, [r7, #3]
+ 596 0036 002B     		cmp	r3, #0
+ 597 0038 02D0     		beq	.L10
+ 598 003a 97F90330 		ldrsb	r3, [r7, #3]
+ 599 003e 12E0     		b	.L11
+ 600              	.L10:
+ 601 0040 7B68     		ldr	r3, [r7, #4]
+ 602 0042 0133     		adds	r3, r3, #1
+ 603 0044 7B60     		str	r3, [r7, #4]
+ 604              	.L9:
+ 605 0046 7B68     		ldr	r3, [r7, #4]
+ 606 0048 DB2B     		cmp	r3, #219
+ 607 004a E3D9     		bls	.L12
+ 608 004c 094B     		ldr	r3, .L13+4
+ 609 004e A022     		movs	r2, #160
+ 610 0050 1A80     		strh	r2, [r3]	@ movhi
+ 611 0052 084B     		ldr	r3, .L13+4
+ 612 0054 7822     		movs	r2, #120
+ 613 0056 5A80     		strh	r2, [r3, #2]	@ movhi
+ 614 0058 064B     		ldr	r3, .L13+4
+ 615 005a 8022     		movs	r2, #128
+ 616 005c 5A71     		strb	r2, [r3, #5]
+ 617 005e 054B     		ldr	r3, .L13+4
+ 618 0060 8022     		movs	r2, #128
+ 619 0062 9A71     		strb	r2, [r3, #6]
+ 620 0064 0023     		movs	r3, #0
+ 621              	.L11:
+ 622 0066 1846     		mov	r0, r3
+ 623 0068 0837     		adds	r7, r7, #8
+ 624 006a BD46     		mov	sp, r7
+ 625              		@ sp needed
+ 626 006c 80BD     		pop	{r7, pc}
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s 			page 12
+
+
+ 627              	.L14:
+ 628 006e 00BF     		.align	2
+ 629              	.L13:
+ 630 0070 00000000 		.word	OV2640_QQVGA
+ 631 0074 00000000 		.word	ov2640_conf
+ 632              		.size	ov2640_set_qqvga, .-ov2640_set_qqvga
+ 633              		.section	.text.ov2640_start,"ax",%progbits
+ 634              		.align	1
+ 635              		.global	ov2640_start
+ 636              		.syntax unified
+ 637              		.thumb
+ 638              		.thumb_func
+ 639              		.fpu fpv4-sp-d16
+ 640              		.type	ov2640_start, %function
+ 641              	ov2640_start:
+ 642              		@ args = 0, pretend = 0, frame = 0
+ 643              		@ frame_needed = 1, uses_anonymous_args = 0
+ 644 0000 80B5     		push	{r7, lr}
+ 645 0002 00AF     		add	r7, sp, #0
+ 646 0004 034B     		ldr	r3, .L16
+ 647 0006 0822     		movs	r2, #8
+ 648 0008 1A71     		strb	r2, [r3, #4]
+ 649 000a FFF7FEFF 		bl	ov2640_set_qqvga
+ 650 000e 00BF     		nop
+ 651 0010 80BD     		pop	{r7, pc}
+ 652              	.L17:
+ 653 0012 00BF     		.align	2
+ 654              	.L16:
+ 655 0014 00000000 		.word	ov2640_conf
+ 656              		.size	ov2640_start, .-ov2640_start
+ 657              		.section	.text.ov2640_get_image_size,"ax",%progbits
+ 658              		.align	1
+ 659              		.global	ov2640_get_image_size
+ 660              		.syntax unified
+ 661              		.thumb
+ 662              		.thumb_func
+ 663              		.fpu fpv4-sp-d16
+ 664              		.type	ov2640_get_image_size, %function
+ 665              	ov2640_get_image_size:
+ 666              		@ args = 0, pretend = 0, frame = 0
+ 667              		@ frame_needed = 1, uses_anonymous_args = 0
+ 668              		@ link register save eliminated.
+ 669 0000 80B4     		push	{r7}
+ 670 0002 00AF     		add	r7, sp, #0
+ 671 0004 0C4B     		ldr	r3, .L21
+ 672 0006 1B79     		ldrb	r3, [r3, #4]	@ zero_extendqisi2
+ 673 0008 402B     		cmp	r3, #64
+ 674 000a 07D1     		bne	.L19
+ 675 000c 0A4B     		ldr	r3, .L21
+ 676 000e 1B88     		ldrh	r3, [r3]
+ 677 0010 1A46     		mov	r2, r3
+ 678 0012 094B     		ldr	r3, .L21
+ 679 0014 5B88     		ldrh	r3, [r3, #2]
+ 680 0016 03FB02F3 		mul	r3, r3, r2
+ 681 001a 07E0     		b	.L20
+ 682              	.L19:
+ 683 001c 064B     		ldr	r3, .L21
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s 			page 13
+
+
+ 684 001e 1B88     		ldrh	r3, [r3]
+ 685 0020 1A46     		mov	r2, r3
+ 686 0022 054B     		ldr	r3, .L21
+ 687 0024 5B88     		ldrh	r3, [r3, #2]
+ 688 0026 03FB02F3 		mul	r3, r3, r2
+ 689 002a 5B00     		lsls	r3, r3, #1
+ 690              	.L20:
+ 691 002c 1846     		mov	r0, r3
+ 692 002e BD46     		mov	sp, r7
+ 693              		@ sp needed
+ 694 0030 5DF8047B 		ldr	r7, [sp], #4
+ 695 0034 7047     		bx	lr
+ 696              	.L22:
+ 697 0036 00BF     		.align	2
+ 698              	.L21:
+ 699 0038 00000000 		.word	ov2640_conf
+ 700              		.size	ov2640_get_image_size, .-ov2640_get_image_size
+ 701              		.section	.text.ov2640_is_connected,"ax",%progbits
+ 702              		.align	1
+ 703              		.global	ov2640_is_connected
+ 704              		.syntax unified
+ 705              		.thumb
+ 706              		.thumb_func
+ 707              		.fpu fpv4-sp-d16
+ 708              		.type	ov2640_is_connected, %function
+ 709              	ov2640_is_connected:
+ 710              		@ args = 0, pretend = 0, frame = 8
+ 711              		@ frame_needed = 1, uses_anonymous_args = 0
+ 712 0000 80B5     		push	{r7, lr}
+ 713 0002 82B0     		sub	sp, sp, #8
+ 714 0004 00AF     		add	r7, sp, #0
+ 715 0006 0023     		movs	r3, #0
+ 716 0008 BB80     		strh	r3, [r7, #4]	@ movhi
+ 717 000a 3B1D     		adds	r3, r7, #4
+ 718 000c 1846     		mov	r0, r3
+ 719 000e FFF7FEFF 		bl	ov2640_read_id
+ 720 0012 0346     		mov	r3, r0
+ 721 0014 FB71     		strb	r3, [r7, #7]
+ 722 0016 97F90730 		ldrsb	r3, [r7, #7]
+ 723 001a 002B     		cmp	r3, #0
+ 724 001c 06D1     		bne	.L24
+ 725 001e BB88     		ldrh	r3, [r7, #4]
+ 726 0020 42F24162 		movw	r2, #9793
+ 727 0024 9342     		cmp	r3, r2
+ 728 0026 01D1     		bne	.L24
+ 729 0028 0123     		movs	r3, #1
+ 730 002a 00E0     		b	.L26
+ 731              	.L24:
+ 732 002c 0023     		movs	r3, #0
+ 733              	.L26:
+ 734 002e 1846     		mov	r0, r3
+ 735 0030 0837     		adds	r7, r7, #8
+ 736 0032 BD46     		mov	sp, r7
+ 737              		@ sp needed
+ 738 0034 80BD     		pop	{r7, pc}
+ 739              		.size	ov2640_is_connected, .-ov2640_is_connected
+ 740              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s 			page 14
+
+
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s 			page 15
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 ov2640.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s:15     .bss.ov2640_conf:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s:18     .bss.ov2640_conf:0000000000000000 ov2640_conf
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s:25     .rodata.OV2640_QQVGA:0000000000000000 OV2640_QQVGA
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s:22     .rodata.OV2640_QQVGA:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s:467    .text.ov2640_set_bank:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s:474    .text.ov2640_set_bank:0000000000000000 ov2640_set_bank
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s:495    .text.ov2640_read_id:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s:502    .text.ov2640_read_id:0000000000000000 ov2640_read_id
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s:561    .text.ov2640_set_qqvga:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s:568    .text.ov2640_set_qqvga:0000000000000000 ov2640_set_qqvga
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s:630    .text.ov2640_set_qqvga:0000000000000070 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s:634    .text.ov2640_start:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s:641    .text.ov2640_start:0000000000000000 ov2640_start
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s:655    .text.ov2640_start:0000000000000014 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s:658    .text.ov2640_get_image_size:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s:665    .text.ov2640_get_image_size:0000000000000000 ov2640_get_image_size
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s:699    .text.ov2640_get_image_size:0000000000000038 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s:702    .text.ov2640_is_connected:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRLbw2F.s:709    .text.ov2640_is_connected:0000000000000000 ov2640_is_connected
+
+UNDEFINED SYMBOLS
+write_reg
+read_reg

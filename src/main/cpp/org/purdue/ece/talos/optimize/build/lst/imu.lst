@@ -1,0 +1,2077 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"imu.c"
+  14              		.section	.text.port_lock,"ax",%progbits
+  15              		.align	1
+  16              		.syntax unified
+  17              		.thumb
+  18              		.thumb_func
+  19              		.fpu fpv4-sp-d16
+  20              		.type	port_lock, %function
+  21              	port_lock:
+  22              		@ args = 0, pretend = 0, frame = 8
+  23              		@ frame_needed = 1, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 80B4     		push	{r7}
+  26 0002 83B0     		sub	sp, sp, #12
+  27 0004 00AF     		add	r7, sp, #0
+  28 0006 2023     		movs	r3, #32
+  29 0008 7B60     		str	r3, [r7, #4]
+  30 000a 7B68     		ldr	r3, [r7, #4]
+  31              		.syntax unified
+  32              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  33 000c 83F31188 		MSR basepri, r3
+  34              	@ 0 "" 2
+  35              		.thumb
+  36              		.syntax unified
+  37 0010 00BF     		nop
+  38 0012 0C37     		adds	r7, r7, #12
+  39 0014 BD46     		mov	sp, r7
+  40              		@ sp needed
+  41 0016 5DF8047B 		ldr	r7, [sp], #4
+  42 001a 7047     		bx	lr
+  43              		.size	port_lock, .-port_lock
+  44              		.section	.text.port_unlock,"ax",%progbits
+  45              		.align	1
+  46              		.syntax unified
+  47              		.thumb
+  48              		.thumb_func
+  49              		.fpu fpv4-sp-d16
+  50              		.type	port_unlock, %function
+  51              	port_unlock:
+  52              		@ args = 0, pretend = 0, frame = 8
+  53              		@ frame_needed = 1, uses_anonymous_args = 0
+  54              		@ link register save eliminated.
+  55 0000 80B4     		push	{r7}
+  56 0002 83B0     		sub	sp, sp, #12
+  57 0004 00AF     		add	r7, sp, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 2
+
+
+  58 0006 0023     		movs	r3, #0
+  59 0008 7B60     		str	r3, [r7, #4]
+  60 000a 7B68     		ldr	r3, [r7, #4]
+  61              		.syntax unified
+  62              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  63 000c 83F31188 		MSR basepri, r3
+  64              	@ 0 "" 2
+  65              		.thumb
+  66              		.syntax unified
+  67 0010 00BF     		nop
+  68 0012 0C37     		adds	r7, r7, #12
+  69 0014 BD46     		mov	sp, r7
+  70              		@ sp needed
+  71 0016 5DF8047B 		ldr	r7, [sp], #4
+  72 001a 7047     		bx	lr
+  73              		.size	port_unlock, .-port_unlock
+  74              		.section	.text.chSysLock,"ax",%progbits
+  75              		.align	1
+  76              		.syntax unified
+  77              		.thumb
+  78              		.thumb_func
+  79              		.fpu fpv4-sp-d16
+  80              		.type	chSysLock, %function
+  81              	chSysLock:
+  82              		@ args = 0, pretend = 0, frame = 0
+  83              		@ frame_needed = 1, uses_anonymous_args = 0
+  84 0000 80B5     		push	{r7, lr}
+  85 0002 00AF     		add	r7, sp, #0
+  86 0004 FFF7FEFF 		bl	port_lock
+  87 0008 FFF7FEFF 		bl	_stats_start_measure_crit_thd
+  88 000c FFF7FEFF 		bl	_dbg_check_lock
+  89 0010 00BF     		nop
+  90 0012 80BD     		pop	{r7, pc}
+  91              		.size	chSysLock, .-chSysLock
+  92              		.section	.text.chSysUnlock,"ax",%progbits
+  93              		.align	1
+  94              		.syntax unified
+  95              		.thumb
+  96              		.thumb_func
+  97              		.fpu fpv4-sp-d16
+  98              		.type	chSysUnlock, %function
+  99              	chSysUnlock:
+ 100              		@ args = 0, pretend = 0, frame = 0
+ 101              		@ frame_needed = 1, uses_anonymous_args = 0
+ 102 0000 80B5     		push	{r7, lr}
+ 103 0002 00AF     		add	r7, sp, #0
+ 104 0004 FFF7FEFF 		bl	_dbg_check_unlock
+ 105 0008 FFF7FEFF 		bl	_stats_stop_measure_crit_thd
+ 106 000c 094B     		ldr	r3, .L6
+ 107 000e 1B68     		ldr	r3, [r3]
+ 108 0010 084A     		ldr	r2, .L6
+ 109 0012 9342     		cmp	r3, r2
+ 110 0014 0AD0     		beq	.L5
+ 111 0016 074B     		ldr	r3, .L6
+ 112 0018 9B69     		ldr	r3, [r3, #24]
+ 113 001a 9A68     		ldr	r2, [r3, #8]
+ 114 001c 054B     		ldr	r3, .L6
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 3
+
+
+ 115 001e 1B68     		ldr	r3, [r3]
+ 116 0020 9B68     		ldr	r3, [r3, #8]
+ 117 0022 9A42     		cmp	r2, r3
+ 118 0024 02D2     		bcs	.L5
+ 119 0026 0448     		ldr	r0, .L6+4
+ 120 0028 FFF7FEFF 		bl	chSysHalt
+ 121              	.L5:
+ 122 002c FFF7FEFF 		bl	port_unlock
+ 123 0030 00BF     		nop
+ 124 0032 80BD     		pop	{r7, pc}
+ 125              	.L7:
+ 126              		.align	2
+ 127              	.L6:
+ 128 0034 00000000 		.word	ch
+ 129 0038 00000000 		.word	__func__.7153
+ 130              		.size	chSysUnlock, .-chSysUnlock
+ 131              		.section	.text.chVTGetSystemTimeX,"ax",%progbits
+ 132              		.align	1
+ 133              		.syntax unified
+ 134              		.thumb
+ 135              		.thumb_func
+ 136              		.fpu fpv4-sp-d16
+ 137              		.type	chVTGetSystemTimeX, %function
+ 138              	chVTGetSystemTimeX:
+ 139              		@ args = 0, pretend = 0, frame = 0
+ 140              		@ frame_needed = 1, uses_anonymous_args = 0
+ 141              		@ link register save eliminated.
+ 142 0000 80B4     		push	{r7}
+ 143 0002 00AF     		add	r7, sp, #0
+ 144 0004 034B     		ldr	r3, .L10
+ 145 0006 9B6A     		ldr	r3, [r3, #40]
+ 146 0008 1846     		mov	r0, r3
+ 147 000a BD46     		mov	sp, r7
+ 148              		@ sp needed
+ 149 000c 5DF8047B 		ldr	r7, [sp], #4
+ 150 0010 7047     		bx	lr
+ 151              	.L11:
+ 152 0012 00BF     		.align	2
+ 153              	.L10:
+ 154 0014 00000000 		.word	ch
+ 155              		.size	chVTGetSystemTimeX, .-chVTGetSystemTimeX
+ 156              		.section	.text.chVTGetSystemTime,"ax",%progbits
+ 157              		.align	1
+ 158              		.syntax unified
+ 159              		.thumb
+ 160              		.thumb_func
+ 161              		.fpu fpv4-sp-d16
+ 162              		.type	chVTGetSystemTime, %function
+ 163              	chVTGetSystemTime:
+ 164              		@ args = 0, pretend = 0, frame = 8
+ 165              		@ frame_needed = 1, uses_anonymous_args = 0
+ 166 0000 80B5     		push	{r7, lr}
+ 167 0002 82B0     		sub	sp, sp, #8
+ 168 0004 00AF     		add	r7, sp, #0
+ 169 0006 FFF7FEFF 		bl	chSysLock
+ 170 000a FFF7FEFF 		bl	chVTGetSystemTimeX
+ 171 000e 7860     		str	r0, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 4
+
+
+ 172 0010 FFF7FEFF 		bl	chSysUnlock
+ 173 0014 7B68     		ldr	r3, [r7, #4]
+ 174 0016 1846     		mov	r0, r3
+ 175 0018 0837     		adds	r7, r7, #8
+ 176 001a BD46     		mov	sp, r7
+ 177              		@ sp needed
+ 178 001c 80BD     		pop	{r7, pc}
+ 179              		.size	chVTGetSystemTime, .-chVTGetSystemTime
+ 180              		.section	.text.chThdGetSelfX,"ax",%progbits
+ 181              		.align	1
+ 182              		.syntax unified
+ 183              		.thumb
+ 184              		.thumb_func
+ 185              		.fpu fpv4-sp-d16
+ 186              		.type	chThdGetSelfX, %function
+ 187              	chThdGetSelfX:
+ 188              		@ args = 0, pretend = 0, frame = 0
+ 189              		@ frame_needed = 1, uses_anonymous_args = 0
+ 190              		@ link register save eliminated.
+ 191 0000 80B4     		push	{r7}
+ 192 0002 00AF     		add	r7, sp, #0
+ 193 0004 034B     		ldr	r3, .L16
+ 194 0006 9B69     		ldr	r3, [r3, #24]
+ 195 0008 1846     		mov	r0, r3
+ 196 000a BD46     		mov	sp, r7
+ 197              		@ sp needed
+ 198 000c 5DF8047B 		ldr	r7, [sp], #4
+ 199 0010 7047     		bx	lr
+ 200              	.L17:
+ 201 0012 00BF     		.align	2
+ 202              	.L16:
+ 203 0014 00000000 		.word	ch
+ 204              		.size	chThdGetSelfX, .-chThdGetSelfX
+ 205              		.section	.text.chThdShouldTerminateX,"ax",%progbits
+ 206              		.align	1
+ 207              		.syntax unified
+ 208              		.thumb
+ 209              		.thumb_func
+ 210              		.fpu fpv4-sp-d16
+ 211              		.type	chThdShouldTerminateX, %function
+ 212              	chThdShouldTerminateX:
+ 213              		@ args = 0, pretend = 0, frame = 0
+ 214              		@ frame_needed = 1, uses_anonymous_args = 0
+ 215 0000 80B5     		push	{r7, lr}
+ 216 0002 00AF     		add	r7, sp, #0
+ 217 0004 FFF7FEFF 		bl	chThdGetSelfX
+ 218 0008 0346     		mov	r3, r0
+ 219 000a 93F82130 		ldrb	r3, [r3, #33]	@ zero_extendqisi2
+ 220 000e 03F00403 		and	r3, r3, #4
+ 221 0012 002B     		cmp	r3, #0
+ 222 0014 14BF     		ite	ne
+ 223 0016 0123     		movne	r3, #1
+ 224 0018 0023     		moveq	r3, #0
+ 225 001a DBB2     		uxtb	r3, r3
+ 226 001c 1846     		mov	r0, r3
+ 227 001e 80BD     		pop	{r7, pc}
+ 228              		.size	chThdShouldTerminateX, .-chThdShouldTerminateX
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 5
+
+
+ 229              		.section	.text.chRegSetThreadName,"ax",%progbits
+ 230              		.align	1
+ 231              		.syntax unified
+ 232              		.thumb
+ 233              		.thumb_func
+ 234              		.fpu fpv4-sp-d16
+ 235              		.type	chRegSetThreadName, %function
+ 236              	chRegSetThreadName:
+ 237              		@ args = 0, pretend = 0, frame = 8
+ 238              		@ frame_needed = 1, uses_anonymous_args = 0
+ 239              		@ link register save eliminated.
+ 240 0000 80B4     		push	{r7}
+ 241 0002 83B0     		sub	sp, sp, #12
+ 242 0004 00AF     		add	r7, sp, #0
+ 243 0006 7860     		str	r0, [r7, #4]
+ 244 0008 044B     		ldr	r3, .L21
+ 245 000a 9B69     		ldr	r3, [r3, #24]
+ 246 000c 7A68     		ldr	r2, [r7, #4]
+ 247 000e 9A61     		str	r2, [r3, #24]
+ 248 0010 00BF     		nop
+ 249 0012 0C37     		adds	r7, r7, #12
+ 250 0014 BD46     		mov	sp, r7
+ 251              		@ sp needed
+ 252 0016 5DF8047B 		ldr	r7, [sp], #4
+ 253 001a 7047     		bx	lr
+ 254              	.L22:
+ 255              		.align	2
+ 256              	.L21:
+ 257 001c 00000000 		.word	ch
+ 258              		.size	chRegSetThreadName, .-chRegSetThreadName
+ 259              		.section	.bss.imu_values,"aw",%nobits
+ 260              		.align	2
+ 261              		.type	imu_values, %object
+ 262              		.size	imu_values, 116
+ 263              	imu_values:
+ 264 0000 00000000 		.space	116
+ 264      00000000 
+ 264      00000000 
+ 264      00000000 
+ 264      00000000 
+ 265              		.section	.bss.accAxisFilteringInProgress,"aw",%nobits
+ 266              		.type	accAxisFilteringInProgress, %object
+ 267              		.size	accAxisFilteringInProgress, 1
+ 268              	accAxisFilteringInProgress:
+ 269 0000 00       		.space	1
+ 270              		.section	.bss.accAxisFilteringState,"aw",%nobits
+ 271              		.type	accAxisFilteringState, %object
+ 272              		.size	accAxisFilteringState, 1
+ 273              	accAxisFilteringState:
+ 274 0000 00       		.space	1
+ 275              		.section	.bss.accAxisSelected,"aw",%nobits
+ 276              		.type	accAxisSelected, %object
+ 277              		.size	accAxisSelected, 1
+ 278              	accAxisSelected:
+ 279 0000 00       		.space	1
+ 280              		.section	.bss.accFilterSize,"aw",%nobits
+ 281              		.type	accFilterSize, %object
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 6
+
+
+ 282              		.size	accFilterSize, 1
+ 283              	accFilterSize:
+ 284 0000 00       		.space	1
+ 285              		.section	.bss.accCalibrationInProgress,"aw",%nobits
+ 286              		.type	accCalibrationInProgress, %object
+ 287              		.size	accCalibrationInProgress, 1
+ 288              	accCalibrationInProgress:
+ 289 0000 00       		.space	1
+ 290              		.section	.bss.gyroAxisFilteringInProgress,"aw",%nobits
+ 291              		.type	gyroAxisFilteringInProgress, %object
+ 292              		.size	gyroAxisFilteringInProgress, 1
+ 293              	gyroAxisFilteringInProgress:
+ 294 0000 00       		.space	1
+ 295              		.section	.bss.gyroAxisFilteringState,"aw",%nobits
+ 296              		.type	gyroAxisFilteringState, %object
+ 297              		.size	gyroAxisFilteringState, 1
+ 298              	gyroAxisFilteringState:
+ 299 0000 00       		.space	1
+ 300              		.section	.bss.gyroAxisSelected,"aw",%nobits
+ 301              		.type	gyroAxisSelected, %object
+ 302              		.size	gyroAxisSelected, 1
+ 303              	gyroAxisSelected:
+ 304 0000 00       		.space	1
+ 305              		.section	.bss.gyroFilterSize,"aw",%nobits
+ 306              		.type	gyroFilterSize, %object
+ 307              		.size	gyroFilterSize, 1
+ 308              	gyroFilterSize:
+ 309 0000 00       		.space	1
+ 310              		.section	.bss.gyroCalibrationInProgress,"aw",%nobits
+ 311              		.type	gyroCalibrationInProgress, %object
+ 312              		.size	gyroCalibrationInProgress, 1
+ 313              	gyroCalibrationInProgress:
+ 314 0000 00       		.space	1
+ 315              		.section	.bss.magCalibrationInProgress,"aw",%nobits
+ 316              		.type	magCalibrationInProgress, %object
+ 317              		.size	magCalibrationInProgress, 1
+ 318              	magCalibrationInProgress:
+ 319 0000 00       		.space	1
+ 320              		.section	.bss.magCalibrationState,"aw",%nobits
+ 321              		.type	magCalibrationState, %object
+ 322              		.size	magCalibrationState, 1
+ 323              	magCalibrationState:
+ 324 0000 00       		.space	1
+ 325              		.section	.bss.imuThd,"aw",%nobits
+ 326              		.align	2
+ 327              		.type	imuThd, %object
+ 328              		.size	imuThd, 4
+ 329              	imuThd:
+ 330 0000 00000000 		.space	4
+ 331              		.section	.bss.imu_configured,"aw",%nobits
+ 332              		.type	imu_configured, %object
+ 333              		.size	imu_configured, 1
+ 334              	imu_configured:
+ 335 0000 00       		.space	1
+ 336              		.section	.bss.imu_reader_thd_wa,"aw",%nobits
+ 337              		.align	3
+ 338              		.type	imu_reader_thd_wa, %object
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 7
+
+
+ 339              		.size	imu_reader_thd_wa, 888
+ 340              	imu_reader_thd_wa:
+ 341 0000 00000000 		.space	888
+ 341      00000000 
+ 341      00000000 
+ 341      00000000 
+ 341      00000000 
+ 342              		.section	.rodata
+ 343              		.align	2
+ 344              	.LC0:
+ 345 0000 2F696D75 		.ascii	"/imu\000"
+ 345      00
+ 346              		.section	.text.imu_reader_thd,"ax",%progbits
+ 347              		.align	1
+ 348              		.syntax unified
+ 349              		.thumb
+ 350              		.thumb_func
+ 351              		.fpu fpv4-sp-d16
+ 352              		.type	imu_reader_thd, %function
+ 353              	imu_reader_thd:
+ 354              		@ args = 0, pretend = 0, frame = 184
+ 355              		@ frame_needed = 1, uses_anonymous_args = 0
+ 356 0000 80B5     		push	{r7, lr}
+ 357 0002 B4B0     		sub	sp, sp, #208
+ 358 0004 06AF     		add	r7, sp, #24
+ 359 0006 7860     		str	r0, [r7, #4]
+ 360 0008 A748     		ldr	r0, .L60
+ 361 000a FFF7FEFF 		bl	chRegSetThreadName
+ 362 000e 07F12C03 		add	r3, r7, #44
+ 363 0012 FB62     		str	r3, [r7, #44]
+ 364 0014 07F12C03 		add	r3, r7, #44
+ 365 0018 3B63     		str	r3, [r7, #48]
+ 366 001a 0023     		movs	r3, #0
+ 367 001c 7B63     		str	r3, [r7, #52]
+ 368 001e 0023     		movs	r3, #0
+ 369 0020 BB63     		str	r3, [r7, #56]
+ 370 0022 0023     		movs	r3, #0
+ 371 0024 FB63     		str	r3, [r7, #60]
+ 372 0026 07F12403 		add	r3, r7, #36
+ 373 002a 7B62     		str	r3, [r7, #36]
+ 374 002c 07F12403 		add	r3, r7, #36
+ 375 0030 BB62     		str	r3, [r7, #40]
+ 376 0032 07F12402 		add	r2, r7, #36
+ 377 0036 07F12C01 		add	r1, r7, #44
+ 378 003a 07F14000 		add	r0, r7, #64
+ 379 003e 7423     		movs	r3, #116
+ 380 0040 0093     		str	r3, [sp]
+ 381 0042 9A4B     		ldr	r3, .L60+4
+ 382 0044 FFF7FEFF 		bl	messagebus_topic_init
+ 383 0048 07F14003 		add	r3, r7, #64
+ 384 004c 984A     		ldr	r2, .L60+8
+ 385 004e 1946     		mov	r1, r3
+ 386 0050 9848     		ldr	r0, .L60+12
+ 387 0052 FFF7FEFF 		bl	messagebus_advertise_topic
+ 388 0056 0023     		movs	r3, #0
+ 389 0058 87F8B730 		strb	r3, [r7, #183]
+ 390 005c 0023     		movs	r3, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 8
+
+
+ 391 005e C7F8B030 		str	r3, [r7, #176]
+ 392 0062 0023     		movs	r3, #0
+ 393 0064 87F8AF30 		strb	r3, [r7, #175]
+ 394 0068 0023     		movs	r3, #0
+ 395 006a C7F8A830 		str	r3, [r7, #168]
+ 396 006e 0023     		movs	r3, #0
+ 397 0070 87F8A730 		strb	r3, [r7, #167]
+ 398 0074 07F11803 		add	r3, r7, #24
+ 399 0078 0022     		movs	r2, #0
+ 400 007a 1A60     		str	r2, [r3]
+ 401 007c 5A60     		str	r2, [r3, #4]
+ 402 007e 9A60     		str	r2, [r3, #8]
+ 403 0080 07F10C03 		add	r3, r7, #12
+ 404 0084 0022     		movs	r2, #0
+ 405 0086 1A60     		str	r2, [r3]
+ 406 0088 5A60     		str	r2, [r3, #4]
+ 407 008a 9A60     		str	r2, [r3, #8]
+ 408 008c 0023     		movs	r3, #0
+ 409 008e 87F8A630 		strb	r3, [r7, #166]
+ 410 0092 864B     		ldr	r3, .L60+4
+ 411 0094 884A     		ldr	r2, .L60+16
+ 412 0096 1A65     		str	r2, [r3, #80]	@ float
+ 413 0098 844B     		ldr	r3, .L60+4
+ 414 009a 884A     		ldr	r2, .L60+20
+ 415 009c 5A65     		str	r2, [r3, #84]	@ float
+ 416 009e 834B     		ldr	r3, .L60+4
+ 417 00a0 874A     		ldr	r2, .L60+24
+ 418 00a2 9A65     		str	r2, [r3, #88]	@ float
+ 419 00a4 814B     		ldr	r3, .L60+4
+ 420 00a6 874A     		ldr	r2, .L60+28
+ 421 00a8 DA65     		str	r2, [r3, #92]	@ float
+ 422 00aa 804B     		ldr	r3, .L60+4
+ 423 00ac 864A     		ldr	r2, .L60+32
+ 424 00ae 1A66     		str	r2, [r3, #96]	@ float
+ 425 00b0 7E4B     		ldr	r3, .L60+4
+ 426 00b2 864A     		ldr	r2, .L60+36
+ 427 00b4 5A66     		str	r2, [r3, #100]	@ float
+ 428 00b6 7D4B     		ldr	r3, .L60+4
+ 429 00b8 854A     		ldr	r2, .L60+40
+ 430 00ba 9A66     		str	r2, [r3, #104]	@ float
+ 431 00bc 7B4B     		ldr	r3, .L60+4
+ 432 00be 854A     		ldr	r2, .L60+44
+ 433 00c0 DA66     		str	r2, [r3, #108]	@ float
+ 434 00c2 7A4B     		ldr	r3, .L60+4
+ 435 00c4 844A     		ldr	r2, .L60+48
+ 436 00c6 1A67     		str	r2, [r3, #112]	@ float
+ 437 00c8 50E2     		b	.L24
+ 438              	.L50:
+ 439 00ca FFF7FEFF 		bl	chVTGetSystemTime
+ 440 00ce C7F8A000 		str	r0, [r7, #160]
+ 441 00d2 824B     		ldr	r3, .L60+52
+ 442 00d4 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 443 00d6 002B     		cmp	r3, #0
+ 444 00d8 0FD0     		beq	.L25
+ 445 00da 814B     		ldr	r3, .L60+56
+ 446 00dc 0493     		str	r3, [sp, #16]
+ 447 00de 814B     		ldr	r3, .L60+60
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 9
+
+
+ 448 00e0 0393     		str	r3, [sp, #12]
+ 449 00e2 814B     		ldr	r3, .L60+64
+ 450 00e4 0293     		str	r3, [sp, #8]
+ 451 00e6 814B     		ldr	r3, .L60+68
+ 452 00e8 0193     		str	r3, [sp, #4]
+ 453 00ea 814B     		ldr	r3, .L60+72
+ 454 00ec 0093     		str	r3, [sp]
+ 455 00ee 814B     		ldr	r3, .L60+76
+ 456 00f0 814A     		ldr	r2, .L60+80
+ 457 00f2 6E49     		ldr	r1, .L60+4
+ 458 00f4 8148     		ldr	r0, .L60+84
+ 459 00f6 FFF7FEFF 		bl	mpu9250_read
+ 460              	.L25:
+ 461 00fa 07F14003 		add	r3, r7, #64
+ 462 00fe 7422     		movs	r2, #116
+ 463 0100 6A49     		ldr	r1, .L60+4
+ 464 0102 1846     		mov	r0, r3
+ 465 0104 FFF7FEFF 		bl	messagebus_topic_publish
+ 466 0108 7D4B     		ldr	r3, .L60+88
+ 467 010a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 468 010c 002B     		cmp	r3, #0
+ 469 010e 5AD0     		beq	.L26
+ 470 0110 7C4B     		ldr	r3, .L60+92
+ 471 0112 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 472 0114 002B     		cmp	r3, #0
+ 473 0116 02D0     		beq	.L27
+ 474 0118 012B     		cmp	r3, #1
+ 475 011a 12D0     		beq	.L28
+ 476 011c 53E0     		b	.L26
+ 477              	.L27:
+ 478 011e 7A4B     		ldr	r3, .L60+96
+ 479 0120 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 480 0122 624A     		ldr	r2, .L60+4
+ 481 0124 1833     		adds	r3, r3, #24
+ 482 0126 5B00     		lsls	r3, r3, #1
+ 483 0128 1344     		add	r3, r3, r2
+ 484 012a 0022     		movs	r2, #0
+ 485 012c 9A80     		strh	r2, [r3, #4]	@ movhi
+ 486 012e 0023     		movs	r3, #0
+ 487 0130 C7F8B030 		str	r3, [r7, #176]
+ 488 0134 0023     		movs	r3, #0
+ 489 0136 87F8B730 		strb	r3, [r7, #183]
+ 490 013a 724B     		ldr	r3, .L60+92
+ 491 013c 0122     		movs	r2, #1
+ 492 013e 1A70     		strb	r2, [r3]
+ 493 0140 41E0     		b	.L26
+ 494              	.L28:
+ 495 0142 714B     		ldr	r3, .L60+96
+ 496 0144 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 497 0146 594A     		ldr	r2, .L60+4
+ 498 0148 1433     		adds	r3, r3, #20
+ 499 014a 32F91330 		ldrsh	r3, [r2, r3, lsl #1]
+ 500 014e 1A46     		mov	r2, r3
+ 501 0150 D7F8B030 		ldr	r3, [r7, #176]
+ 502 0154 1344     		add	r3, r3, r2
+ 503 0156 C7F8B030 		str	r3, [r7, #176]
+ 504 015a 97F8B730 		ldrb	r3, [r7, #183]	@ zero_extendqisi2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 10
+
+
+ 505 015e 0133     		adds	r3, r3, #1
+ 506 0160 87F8B730 		strb	r3, [r7, #183]
+ 507 0164 694B     		ldr	r3, .L60+100
+ 508 0166 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 509 0168 97F8B720 		ldrb	r2, [r7, #183]	@ zero_extendqisi2
+ 510 016c 9A42     		cmp	r2, r3
+ 511 016e 29D1     		bne	.L57
+ 512 0170 664B     		ldr	r3, .L60+100
+ 513 0172 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 514 0174 1A46     		mov	r2, r3
+ 515 0176 D7F8B030 		ldr	r3, [r7, #176]
+ 516 017a 93FBF2F2 		sdiv	r2, r3, r2
+ 517 017e 624B     		ldr	r3, .L60+96
+ 518 0180 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 519 0182 11B2     		sxth	r1, r2
+ 520 0184 494A     		ldr	r2, .L60+4
+ 521 0186 2033     		adds	r3, r3, #32
+ 522 0188 22F81310 		strh	r1, [r2, r3, lsl #1]	@ movhi
+ 523 018c 5C4B     		ldr	r3, .L60+88
+ 524 018e 0022     		movs	r2, #0
+ 525 0190 1A70     		strb	r2, [r3]
+ 526 0192 5F4B     		ldr	r3, .L60+104
+ 527 0194 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 528 0196 012B     		cmp	r3, #1
+ 529 0198 14D1     		bne	.L57
+ 530 019a 5B4B     		ldr	r3, .L60+96
+ 531 019c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 532 019e 1946     		mov	r1, r3
+ 533 01a0 594B     		ldr	r3, .L60+96
+ 534 01a2 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 535 01a4 1846     		mov	r0, r3
+ 536 01a6 414A     		ldr	r2, .L60+4
+ 537 01a8 01F12003 		add	r3, r1, #32
+ 538 01ac 32F91310 		ldrsh	r1, [r2, r3, lsl #1]
+ 539 01b0 3E4A     		ldr	r2, .L60+4
+ 540 01b2 00F11803 		add	r3, r0, #24
+ 541 01b6 5B00     		lsls	r3, r3, #1
+ 542 01b8 1344     		add	r3, r3, r2
+ 543 01ba 0A46     		mov	r2, r1	@ movhi
+ 544 01bc 9A80     		strh	r2, [r3, #4]	@ movhi
+ 545 01be 544B     		ldr	r3, .L60+104
+ 546 01c0 0022     		movs	r2, #0
+ 547 01c2 1A70     		strb	r2, [r3]
+ 548              	.L57:
+ 549 01c4 00BF     		nop
+ 550              	.L26:
+ 551 01c6 534B     		ldr	r3, .L60+108
+ 552 01c8 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 553 01ca 002B     		cmp	r3, #0
+ 554 01cc 60D0     		beq	.L30
+ 555 01ce 524B     		ldr	r3, .L60+112
+ 556 01d0 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 557 01d2 002B     		cmp	r3, #0
+ 558 01d4 02D0     		beq	.L31
+ 559 01d6 012B     		cmp	r3, #1
+ 560 01d8 12D0     		beq	.L32
+ 561 01da 59E0     		b	.L30
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 11
+
+
+ 562              	.L31:
+ 563 01dc 4F4B     		ldr	r3, .L60+116
+ 564 01de 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 565 01e0 324A     		ldr	r2, .L60+4
+ 566 01e2 1C33     		adds	r3, r3, #28
+ 567 01e4 5B00     		lsls	r3, r3, #1
+ 568 01e6 1344     		add	r3, r3, r2
+ 569 01e8 0022     		movs	r2, #0
+ 570 01ea 5A80     		strh	r2, [r3, #2]	@ movhi
+ 571 01ec 0023     		movs	r3, #0
+ 572 01ee C7F8A830 		str	r3, [r7, #168]
+ 573 01f2 0023     		movs	r3, #0
+ 574 01f4 87F8AF30 		strb	r3, [r7, #175]
+ 575 01f8 474B     		ldr	r3, .L60+112
+ 576 01fa 0122     		movs	r2, #1
+ 577 01fc 1A70     		strb	r2, [r3]
+ 578 01fe 47E0     		b	.L30
+ 579              	.L32:
+ 580 0200 464B     		ldr	r3, .L60+116
+ 581 0202 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 582 0204 294A     		ldr	r2, .L60+4
+ 583 0206 1433     		adds	r3, r3, #20
+ 584 0208 5B00     		lsls	r3, r3, #1
+ 585 020a 1344     		add	r3, r3, r2
+ 586 020c B3F90630 		ldrsh	r3, [r3, #6]
+ 587 0210 1A46     		mov	r2, r3
+ 588 0212 D7F8A830 		ldr	r3, [r7, #168]
+ 589 0216 1344     		add	r3, r3, r2
+ 590 0218 C7F8A830 		str	r3, [r7, #168]
+ 591 021c 97F8AF30 		ldrb	r3, [r7, #175]	@ zero_extendqisi2
+ 592 0220 0133     		adds	r3, r3, #1
+ 593 0222 87F8AF30 		strb	r3, [r7, #175]
+ 594 0226 3E4B     		ldr	r3, .L60+120
+ 595 0228 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 596 022a 97F8AF20 		ldrb	r2, [r7, #175]	@ zero_extendqisi2
+ 597 022e 9A42     		cmp	r2, r3
+ 598 0230 2DD1     		bne	.L58
+ 599 0232 3B4B     		ldr	r3, .L60+120
+ 600 0234 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 601 0236 1A46     		mov	r2, r3
+ 602 0238 D7F8A830 		ldr	r3, [r7, #168]
+ 603 023c 93FBF2F2 		sdiv	r2, r3, r2
+ 604 0240 364B     		ldr	r3, .L60+116
+ 605 0242 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 606 0244 11B2     		sxth	r1, r2
+ 607 0246 194A     		ldr	r2, .L60+4
+ 608 0248 2033     		adds	r3, r3, #32
+ 609 024a 5B00     		lsls	r3, r3, #1
+ 610 024c 1344     		add	r3, r3, r2
+ 611 024e 0A46     		mov	r2, r1	@ movhi
+ 612 0250 DA80     		strh	r2, [r3, #6]	@ movhi
+ 613 0252 304B     		ldr	r3, .L60+108
+ 614 0254 0022     		movs	r2, #0
+ 615 0256 1A70     		strb	r2, [r3]
+ 616 0258 324B     		ldr	r3, .L60+124
+ 617 025a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 618 025c 012B     		cmp	r3, #1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 12
+
+
+ 619 025e 16D1     		bne	.L58
+ 620 0260 2E4B     		ldr	r3, .L60+116
+ 621 0262 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 622 0264 1946     		mov	r1, r3
+ 623 0266 2D4B     		ldr	r3, .L60+116
+ 624 0268 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 625 026a 1846     		mov	r0, r3
+ 626 026c 0F4A     		ldr	r2, .L60+4
+ 627 026e 01F12003 		add	r3, r1, #32
+ 628 0272 5B00     		lsls	r3, r3, #1
+ 629 0274 1344     		add	r3, r3, r2
+ 630 0276 B3F90610 		ldrsh	r1, [r3, #6]
+ 631 027a 0C4A     		ldr	r2, .L60+4
+ 632 027c 00F11C03 		add	r3, r0, #28
+ 633 0280 5B00     		lsls	r3, r3, #1
+ 634 0282 1344     		add	r3, r3, r2
+ 635 0284 0A46     		mov	r2, r1	@ movhi
+ 636 0286 5A80     		strh	r2, [r3, #2]	@ movhi
+ 637 0288 264B     		ldr	r3, .L60+124
+ 638 028a 0022     		movs	r2, #0
+ 639 028c 1A70     		strb	r2, [r3]
+ 640              	.L58:
+ 641 028e 00BF     		nop
+ 642              	.L30:
+ 643 0290 254B     		ldr	r3, .L60+128
+ 644 0292 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 645 0294 002B     		cmp	r3, #0
+ 646 0296 00F06181 		beq	.L34
+ 647 029a 244B     		ldr	r3, .L60+132
+ 648 029c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 649 029e 002B     		cmp	r3, #0
+ 650 02a0 46D0     		beq	.L35
+ 651 02a2 012B     		cmp	r3, #1
+ 652 02a4 72D0     		beq	.L36
+ 653 02a6 59E1     		b	.L34
+ 654              	.L61:
+ 655              		.align	2
+ 656              	.L60:
+ 657 02a8 00000000 		.word	__FUNCTION__.11429
+ 658 02ac 00000000 		.word	imu_values
+ 659 02b0 00000000 		.word	.LC0
+ 660 02b4 00000000 		.word	bus
+ 661 02b8 AAF1923F 		.word	1066594730
+ 662 02bc 7F6A8C3F 		.word	1066166911
+ 663 02c0 C3F5B83F 		.word	1069086147
+ 664 02c4 00001442 		.word	1108606976
+ 665 02c8 000060C0 		.word	-1067450368
+ 666 02cc 00003B43 		.word	1127940096
+ 667 02d0 3D0AB73F 		.word	1068960317
+ 668 02d4 A4707D3F 		.word	1065185444
+ 669 02d8 B81E453F 		.word	1061494456
+ 670 02dc 00000000 		.word	imu_configured
+ 671 02e0 4C000000 		.word	imu_values+76
+ 672 02e4 34000000 		.word	imu_values+52
+ 673 02e8 3A000000 		.word	imu_values+58
+ 674 02ec 28000000 		.word	imu_values+40
+ 675 02f0 2E000000 		.word	imu_values+46
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 13
+
+
+ 676 02f4 1C000000 		.word	imu_values+28
+ 677 02f8 18000000 		.word	imu_values+24
+ 678 02fc 0C000000 		.word	imu_values+12
+ 679 0300 00000000 		.word	accAxisFilteringInProgress
+ 680 0304 00000000 		.word	accAxisFilteringState
+ 681 0308 00000000 		.word	accAxisSelected
+ 682 030c 00000000 		.word	accFilterSize
+ 683 0310 00000000 		.word	accCalibrationInProgress
+ 684 0314 00000000 		.word	gyroAxisFilteringInProgress
+ 685 0318 00000000 		.word	gyroAxisFilteringState
+ 686 031c 00000000 		.word	gyroAxisSelected
+ 687 0320 00000000 		.word	gyroFilterSize
+ 688 0324 00000000 		.word	gyroCalibrationInProgress
+ 689 0328 00000000 		.word	magCalibrationInProgress
+ 690 032c 00000000 		.word	magCalibrationState
+ 691              	.L35:
+ 692 0330 954B     		ldr	r3, .L62
+ 693 0332 4FF00002 		mov	r2, #0
+ 694 0336 5A66     		str	r2, [r3, #100]	@ float
+ 695 0338 934B     		ldr	r3, .L62
+ 696 033a 5B6E     		ldr	r3, [r3, #100]	@ float
+ 697 033c 924A     		ldr	r2, .L62
+ 698 033e 1366     		str	r3, [r2, #96]	@ float
+ 699 0340 914B     		ldr	r3, .L62
+ 700 0342 1B6E     		ldr	r3, [r3, #96]	@ float
+ 701 0344 904A     		ldr	r2, .L62
+ 702 0346 D365     		str	r3, [r2, #92]	@ float
+ 703 0348 8F4B     		ldr	r3, .L62
+ 704 034a 4FF00002 		mov	r2, #0
+ 705 034e 1A67     		str	r2, [r3, #112]	@ float
+ 706 0350 8D4B     		ldr	r3, .L62
+ 707 0352 1B6F     		ldr	r3, [r3, #112]	@ float
+ 708 0354 8C4A     		ldr	r2, .L62
+ 709 0356 D366     		str	r3, [r2, #108]	@ float
+ 710 0358 8B4B     		ldr	r3, .L62
+ 711 035a DB6E     		ldr	r3, [r3, #108]	@ float
+ 712 035c 8A4A     		ldr	r2, .L62
+ 713 035e 9366     		str	r3, [r2, #104]	@ float
+ 714 0360 0023     		movs	r3, #0
+ 715 0362 87F8A730 		strb	r3, [r7, #167]
+ 716 0366 894B     		ldr	r3, .L62+4
+ 717 0368 3B62     		str	r3, [r7, #32]	@ float
+ 718 036a 3B6A     		ldr	r3, [r7, #32]	@ float
+ 719 036c FB61     		str	r3, [r7, #28]	@ float
+ 720 036e FB69     		ldr	r3, [r7, #28]	@ float
+ 721 0370 BB61     		str	r3, [r7, #24]	@ float
+ 722 0372 874B     		ldr	r3, .L62+8
+ 723 0374 7B61     		str	r3, [r7, #20]	@ float
+ 724 0376 7B69     		ldr	r3, [r7, #20]	@ float
+ 725 0378 3B61     		str	r3, [r7, #16]	@ float
+ 726 037a 3B69     		ldr	r3, [r7, #16]	@ float
+ 727 037c FB60     		str	r3, [r7, #12]	@ float
+ 728 037e 2323     		movs	r3, #35
+ 729 0380 87F8A630 		strb	r3, [r7, #166]
+ 730 0384 834B     		ldr	r3, .L62+12
+ 731 0386 0122     		movs	r2, #1
+ 732 0388 1A70     		strb	r2, [r3]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 14
+
+
+ 733 038a E7E0     		b	.L34
+ 734              	.L36:
+ 735 038c 97F8A630 		ldrb	r3, [r7, #166]	@ zero_extendqisi2
+ 736 0390 0133     		adds	r3, r3, #1
+ 737 0392 87F8A630 		strb	r3, [r7, #166]
+ 738 0396 97F8A630 		ldrb	r3, [r7, #166]	@ zero_extendqisi2
+ 739 039a 222B     		cmp	r3, #34
+ 740 039c 40F2DD80 		bls	.L59
+ 741 03a0 0023     		movs	r3, #0
+ 742 03a2 87F8A630 		strb	r3, [r7, #166]
+ 743 03a6 784B     		ldr	r3, .L62
+ 744 03a8 93ED077A 		vldr.32	s14, [r3, #28]
+ 745 03ac D7ED067A 		vldr.32	s15, [r7, #24]
+ 746 03b0 B4EEE77A 		vcmpe.f32	s14, s15
+ 747 03b4 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 748 03b8 02D5     		bpl	.L38
+ 749 03ba 734B     		ldr	r3, .L62
+ 750 03bc DB69     		ldr	r3, [r3, #28]	@ float
+ 751 03be BB61     		str	r3, [r7, #24]	@ float
+ 752              	.L38:
+ 753 03c0 714B     		ldr	r3, .L62
+ 754 03c2 93ED077A 		vldr.32	s14, [r3, #28]
+ 755 03c6 D7ED037A 		vldr.32	s15, [r7, #12]
+ 756 03ca B4EEE77A 		vcmpe.f32	s14, s15
+ 757 03ce F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 758 03d2 02DD     		ble	.L40
+ 759 03d4 6C4B     		ldr	r3, .L62
+ 760 03d6 DB69     		ldr	r3, [r3, #28]	@ float
+ 761 03d8 FB60     		str	r3, [r7, #12]	@ float
+ 762              	.L40:
+ 763 03da 6B4B     		ldr	r3, .L62
+ 764 03dc 93ED087A 		vldr.32	s14, [r3, #32]
+ 765 03e0 D7ED077A 		vldr.32	s15, [r7, #28]
+ 766 03e4 B4EEE77A 		vcmpe.f32	s14, s15
+ 767 03e8 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 768 03ec 02D5     		bpl	.L42
+ 769 03ee 664B     		ldr	r3, .L62
+ 770 03f0 1B6A     		ldr	r3, [r3, #32]	@ float
+ 771 03f2 FB61     		str	r3, [r7, #28]	@ float
+ 772              	.L42:
+ 773 03f4 644B     		ldr	r3, .L62
+ 774 03f6 93ED087A 		vldr.32	s14, [r3, #32]
+ 775 03fa D7ED047A 		vldr.32	s15, [r7, #16]
+ 776 03fe B4EEE77A 		vcmpe.f32	s14, s15
+ 777 0402 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 778 0406 02DD     		ble	.L44
+ 779 0408 5F4B     		ldr	r3, .L62
+ 780 040a 1B6A     		ldr	r3, [r3, #32]	@ float
+ 781 040c 3B61     		str	r3, [r7, #16]	@ float
+ 782              	.L44:
+ 783 040e 5E4B     		ldr	r3, .L62
+ 784 0410 93ED097A 		vldr.32	s14, [r3, #36]
+ 785 0414 D7ED087A 		vldr.32	s15, [r7, #32]
+ 786 0418 B4EEE77A 		vcmpe.f32	s14, s15
+ 787 041c F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 788 0420 02D5     		bpl	.L46
+ 789 0422 594B     		ldr	r3, .L62
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 15
+
+
+ 790 0424 5B6A     		ldr	r3, [r3, #36]	@ float
+ 791 0426 3B62     		str	r3, [r7, #32]	@ float
+ 792              	.L46:
+ 793 0428 574B     		ldr	r3, .L62
+ 794 042a 93ED097A 		vldr.32	s14, [r3, #36]
+ 795 042e D7ED057A 		vldr.32	s15, [r7, #20]
+ 796 0432 B4EEE77A 		vcmpe.f32	s14, s15
+ 797 0436 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 798 043a 02DD     		ble	.L48
+ 799 043c 524B     		ldr	r3, .L62
+ 800 043e 5B6A     		ldr	r3, [r3, #36]	@ float
+ 801 0440 7B61     		str	r3, [r7, #20]	@ float
+ 802              	.L48:
+ 803 0442 97F8A730 		ldrb	r3, [r7, #167]	@ zero_extendqisi2
+ 804 0446 0133     		adds	r3, r3, #1
+ 805 0448 87F8A730 		strb	r3, [r7, #167]
+ 806 044c 97F8A730 		ldrb	r3, [r7, #167]	@ zero_extendqisi2
+ 807 0450 312B     		cmp	r3, #49
+ 808 0452 40F28280 		bls	.L59
+ 809 0456 97ED037A 		vldr.32	s14, [r7, #12]
+ 810 045a D7ED067A 		vldr.32	s15, [r7, #24]
+ 811 045e 37EE277A 		vadd.f32	s14, s14, s15
+ 812 0462 F0EE006A 		vmov.f32	s13, #2.0e+0
+ 813 0466 C7EE267A 		vdiv.f32	s15, s14, s13
+ 814 046a 474B     		ldr	r3, .L62
+ 815 046c C3ED177A 		vstr.32	s15, [r3, #92]
+ 816 0470 97ED047A 		vldr.32	s14, [r7, #16]
+ 817 0474 D7ED077A 		vldr.32	s15, [r7, #28]
+ 818 0478 37EE277A 		vadd.f32	s14, s14, s15
+ 819 047c F0EE006A 		vmov.f32	s13, #2.0e+0
+ 820 0480 C7EE267A 		vdiv.f32	s15, s14, s13
+ 821 0484 404B     		ldr	r3, .L62
+ 822 0486 C3ED187A 		vstr.32	s15, [r3, #96]
+ 823 048a 97ED057A 		vldr.32	s14, [r7, #20]
+ 824 048e D7ED087A 		vldr.32	s15, [r7, #32]
+ 825 0492 37EE277A 		vadd.f32	s14, s14, s15
+ 826 0496 F0EE006A 		vmov.f32	s13, #2.0e+0
+ 827 049a C7EE267A 		vdiv.f32	s15, s14, s13
+ 828 049e 3A4B     		ldr	r3, .L62
+ 829 04a0 C3ED197A 		vstr.32	s15, [r3, #100]
+ 830 04a4 97ED037A 		vldr.32	s14, [r7, #12]
+ 831 04a8 D7ED067A 		vldr.32	s15, [r7, #24]
+ 832 04ac 37EE677A 		vsub.f32	s14, s14, s15
+ 833 04b0 F0EE006A 		vmov.f32	s13, #2.0e+0
+ 834 04b4 C7EE267A 		vdiv.f32	s15, s14, s13
+ 835 04b8 334B     		ldr	r3, .L62
+ 836 04ba C3ED1A7A 		vstr.32	s15, [r3, #104]
+ 837 04be 97ED047A 		vldr.32	s14, [r7, #16]
+ 838 04c2 D7ED077A 		vldr.32	s15, [r7, #28]
+ 839 04c6 37EE677A 		vsub.f32	s14, s14, s15
+ 840 04ca F0EE006A 		vmov.f32	s13, #2.0e+0
+ 841 04ce C7EE267A 		vdiv.f32	s15, s14, s13
+ 842 04d2 2D4B     		ldr	r3, .L62
+ 843 04d4 C3ED1B7A 		vstr.32	s15, [r3, #108]
+ 844 04d8 97ED057A 		vldr.32	s14, [r7, #20]
+ 845 04dc D7ED087A 		vldr.32	s15, [r7, #32]
+ 846 04e0 37EE677A 		vsub.f32	s14, s14, s15
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 16
+
+
+ 847 04e4 F0EE006A 		vmov.f32	s13, #2.0e+0
+ 848 04e8 C7EE267A 		vdiv.f32	s15, s14, s13
+ 849 04ec 264B     		ldr	r3, .L62
+ 850 04ee C3ED1C7A 		vstr.32	s15, [r3, #112]
+ 851 04f2 254B     		ldr	r3, .L62
+ 852 04f4 93ED1A7A 		vldr.32	s14, [r3, #104]
+ 853 04f8 234B     		ldr	r3, .L62
+ 854 04fa D3ED1B7A 		vldr.32	s15, [r3, #108]
+ 855 04fe 37EE277A 		vadd.f32	s14, s14, s15
+ 856 0502 214B     		ldr	r3, .L62
+ 857 0504 D3ED1C7A 		vldr.32	s15, [r3, #112]
+ 858 0508 37EE277A 		vadd.f32	s14, s14, s15
+ 859 050c F0EE086A 		vmov.f32	s13, #3.0e+0
+ 860 0510 C7EE267A 		vdiv.f32	s15, s14, s13
+ 861 0514 C7ED277A 		vstr.32	s15, [r7, #156]
+ 862 0518 1B4B     		ldr	r3, .L62
+ 863 051a 93ED1A7A 		vldr.32	s14, [r3, #104]
+ 864 051e D7ED276A 		vldr.32	s13, [r7, #156]
+ 865 0522 C6EE877A 		vdiv.f32	s15, s13, s14
+ 866 0526 184B     		ldr	r3, .L62
+ 867 0528 C3ED1A7A 		vstr.32	s15, [r3, #104]
+ 868 052c 164B     		ldr	r3, .L62
+ 869 052e 93ED1B7A 		vldr.32	s14, [r3, #108]
+ 870 0532 D7ED276A 		vldr.32	s13, [r7, #156]
+ 871 0536 C6EE877A 		vdiv.f32	s15, s13, s14
+ 872 053a 134B     		ldr	r3, .L62
+ 873 053c C3ED1B7A 		vstr.32	s15, [r3, #108]
+ 874 0540 114B     		ldr	r3, .L62
+ 875 0542 93ED1C7A 		vldr.32	s14, [r3, #112]
+ 876 0546 D7ED276A 		vldr.32	s13, [r7, #156]
+ 877 054a C6EE877A 		vdiv.f32	s15, s13, s14
+ 878 054e 0E4B     		ldr	r3, .L62
+ 879 0550 C3ED1C7A 		vstr.32	s15, [r3, #112]
+ 880 0554 104B     		ldr	r3, .L62+16
+ 881 0556 0022     		movs	r2, #0
+ 882 0558 1A70     		strb	r2, [r3]
+ 883              	.L59:
+ 884 055a 00BF     		nop
+ 885              	.L34:
+ 886 055c D7F8A030 		ldr	r3, [r7, #160]
+ 887 0560 0433     		adds	r3, r3, #4
+ 888 0562 1946     		mov	r1, r3
+ 889 0564 D7F8A000 		ldr	r0, [r7, #160]
+ 890 0568 FFF7FEFF 		bl	chThdSleepUntilWindowed
+ 891              	.L24:
+ 892 056c FFF7FEFF 		bl	chThdShouldTerminateX
+ 893 0570 0346     		mov	r3, r0
+ 894 0572 83F00103 		eor	r3, r3, #1
+ 895 0576 DBB2     		uxtb	r3, r3
+ 896 0578 002B     		cmp	r3, #0
+ 897 057a 7FF4A6AD 		bne	.L50
+ 898 057e 00BF     		nop
+ 899 0580 B837     		adds	r7, r7, #184
+ 900 0582 BD46     		mov	sp, r7
+ 901              		@ sp needed
+ 902 0584 80BD     		pop	{r7, pc}
+ 903              	.L63:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 17
+
+
+ 904 0586 00BF     		.align	2
+ 905              	.L62:
+ 906 0588 00000000 		.word	imu_values
+ 907 058c 00809945 		.word	1167687680
+ 908 0590 008099C5 		.word	-979795968
+ 909 0594 00000000 		.word	magCalibrationState
+ 910 0598 00000000 		.word	magCalibrationInProgress
+ 911              		.size	imu_reader_thd, .-imu_reader_thd
+ 912              		.section	.text.imu_start,"ax",%progbits
+ 913              		.align	1
+ 914              		.global	imu_start
+ 915              		.syntax unified
+ 916              		.thumb
+ 917              		.thumb_func
+ 918              		.fpu fpv4-sp-d16
+ 919              		.type	imu_start, %function
+ 920              	imu_start:
+ 921              		@ args = 0, pretend = 0, frame = 8
+ 922              		@ frame_needed = 1, uses_anonymous_args = 0
+ 923 0000 80B5     		push	{r7, lr}
+ 924 0002 84B0     		sub	sp, sp, #16
+ 925 0004 02AF     		add	r7, sp, #8
+ 926 0006 0023     		movs	r3, #0
+ 927 0008 FB71     		strb	r3, [r7, #7]
+ 928 000a 124B     		ldr	r3, .L69
+ 929 000c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 930 000e 002B     		cmp	r3, #0
+ 931 0010 1BD1     		bne	.L68
+ 932 0012 FFF7FEFF 		bl	i2c_start
+ 933 0016 4FF4C840 		mov	r0, #25600
+ 934 001a FFF7FEFF 		bl	mpu9250_setup
+ 935 001e 0346     		mov	r3, r0
+ 936 0020 FB71     		strb	r3, [r7, #7]
+ 937 0022 97F90730 		ldrsb	r3, [r7, #7]
+ 938 0026 002B     		cmp	r3, #0
+ 939 0028 02D1     		bne	.L67
+ 940 002a 0A4B     		ldr	r3, .L69
+ 941 002c 0122     		movs	r2, #1
+ 942 002e 1A70     		strb	r2, [r3]
+ 943              	.L67:
+ 944 0030 0023     		movs	r3, #0
+ 945 0032 0093     		str	r3, [sp]
+ 946 0034 084B     		ldr	r3, .L69+4
+ 947 0036 4022     		movs	r2, #64
+ 948 0038 4FF45E71 		mov	r1, #888
+ 949 003c 0748     		ldr	r0, .L69+8
+ 950 003e FFF7FEFF 		bl	chThdCreateStatic
+ 951 0042 0246     		mov	r2, r0
+ 952 0044 064B     		ldr	r3, .L69+12
+ 953 0046 1A60     		str	r2, [r3]
+ 954 0048 00E0     		b	.L64
+ 955              	.L68:
+ 956 004a 00BF     		nop
+ 957              	.L64:
+ 958 004c 0837     		adds	r7, r7, #8
+ 959 004e BD46     		mov	sp, r7
+ 960              		@ sp needed
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 18
+
+
+ 961 0050 80BD     		pop	{r7, pc}
+ 962              	.L70:
+ 963 0052 00BF     		.align	2
+ 964              	.L69:
+ 965 0054 00000000 		.word	imu_configured
+ 966 0058 00000000 		.word	imu_reader_thd
+ 967 005c 00000000 		.word	imu_reader_thd_wa
+ 968 0060 00000000 		.word	imuThd
+ 969              		.size	imu_start, .-imu_start
+ 970              		.section	.text.imu_stop,"ax",%progbits
+ 971              		.align	1
+ 972              		.global	imu_stop
+ 973              		.syntax unified
+ 974              		.thumb
+ 975              		.thumb_func
+ 976              		.fpu fpv4-sp-d16
+ 977              		.type	imu_stop, %function
+ 978              	imu_stop:
+ 979              		@ args = 0, pretend = 0, frame = 0
+ 980              		@ frame_needed = 1, uses_anonymous_args = 0
+ 981 0000 80B5     		push	{r7, lr}
+ 982 0002 00AF     		add	r7, sp, #0
+ 983 0004 084B     		ldr	r3, .L72
+ 984 0006 1B68     		ldr	r3, [r3]
+ 985 0008 1846     		mov	r0, r3
+ 986 000a FFF7FEFF 		bl	chThdTerminate
+ 987 000e 064B     		ldr	r3, .L72
+ 988 0010 1B68     		ldr	r3, [r3]
+ 989 0012 1846     		mov	r0, r3
+ 990 0014 FFF7FEFF 		bl	chThdWait
+ 991 0018 034B     		ldr	r3, .L72
+ 992 001a 0022     		movs	r2, #0
+ 993 001c 1A60     		str	r2, [r3]
+ 994 001e 034B     		ldr	r3, .L72+4
+ 995 0020 0022     		movs	r2, #0
+ 996 0022 1A70     		strb	r2, [r3]
+ 997 0024 00BF     		nop
+ 998 0026 80BD     		pop	{r7, pc}
+ 999              	.L73:
+ 1000              		.align	2
+ 1001              	.L72:
+ 1002 0028 00000000 		.word	imuThd
+ 1003 002c 00000000 		.word	imu_configured
+ 1004              		.size	imu_stop, .-imu_stop
+ 1005              		.section	.text.get_acc,"ax",%progbits
+ 1006              		.align	1
+ 1007              		.global	get_acc
+ 1008              		.syntax unified
+ 1009              		.thumb
+ 1010              		.thumb_func
+ 1011              		.fpu fpv4-sp-d16
+ 1012              		.type	get_acc, %function
+ 1013              	get_acc:
+ 1014              		@ args = 0, pretend = 0, frame = 8
+ 1015              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1016              		@ link register save eliminated.
+ 1017 0000 80B4     		push	{r7}
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 19
+
+
+ 1018 0002 83B0     		sub	sp, sp, #12
+ 1019 0004 00AF     		add	r7, sp, #0
+ 1020 0006 0346     		mov	r3, r0
+ 1021 0008 FB71     		strb	r3, [r7, #7]
+ 1022 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1023 000c 022B     		cmp	r3, #2
+ 1024 000e 05D8     		bhi	.L75
+ 1025 0010 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1026 0012 064A     		ldr	r2, .L77
+ 1027 0014 1433     		adds	r3, r3, #20
+ 1028 0016 32F91330 		ldrsh	r3, [r2, r3, lsl #1]
+ 1029 001a 00E0     		b	.L76
+ 1030              	.L75:
+ 1031 001c 0023     		movs	r3, #0
+ 1032              	.L76:
+ 1033 001e 1846     		mov	r0, r3
+ 1034 0020 0C37     		adds	r7, r7, #12
+ 1035 0022 BD46     		mov	sp, r7
+ 1036              		@ sp needed
+ 1037 0024 5DF8047B 		ldr	r7, [sp], #4
+ 1038 0028 7047     		bx	lr
+ 1039              	.L78:
+ 1040 002a 00BF     		.align	2
+ 1041              	.L77:
+ 1042 002c 00000000 		.word	imu_values
+ 1043              		.size	get_acc, .-get_acc
+ 1044              		.section	.text.get_acc_all,"ax",%progbits
+ 1045              		.align	1
+ 1046              		.global	get_acc_all
+ 1047              		.syntax unified
+ 1048              		.thumb
+ 1049              		.thumb_func
+ 1050              		.fpu fpv4-sp-d16
+ 1051              		.type	get_acc_all, %function
+ 1052              	get_acc_all:
+ 1053              		@ args = 0, pretend = 0, frame = 8
+ 1054              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1055              		@ link register save eliminated.
+ 1056 0000 80B4     		push	{r7}
+ 1057 0002 83B0     		sub	sp, sp, #12
+ 1058 0004 00AF     		add	r7, sp, #0
+ 1059 0006 7860     		str	r0, [r7, #4]
+ 1060 0008 0B4B     		ldr	r3, .L80
+ 1061 000a B3F92820 		ldrsh	r2, [r3, #40]
+ 1062 000e 7B68     		ldr	r3, [r7, #4]
+ 1063 0010 1A80     		strh	r2, [r3]	@ movhi
+ 1064 0012 7B68     		ldr	r3, [r7, #4]
+ 1065 0014 0233     		adds	r3, r3, #2
+ 1066 0016 084A     		ldr	r2, .L80
+ 1067 0018 B2F92A20 		ldrsh	r2, [r2, #42]
+ 1068 001c 1A80     		strh	r2, [r3]	@ movhi
+ 1069 001e 7B68     		ldr	r3, [r7, #4]
+ 1070 0020 0433     		adds	r3, r3, #4
+ 1071 0022 054A     		ldr	r2, .L80
+ 1072 0024 B2F92C20 		ldrsh	r2, [r2, #44]
+ 1073 0028 1A80     		strh	r2, [r3]	@ movhi
+ 1074 002a 00BF     		nop
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 20
+
+
+ 1075 002c 0C37     		adds	r7, r7, #12
+ 1076 002e BD46     		mov	sp, r7
+ 1077              		@ sp needed
+ 1078 0030 5DF8047B 		ldr	r7, [sp], #4
+ 1079 0034 7047     		bx	lr
+ 1080              	.L81:
+ 1081 0036 00BF     		.align	2
+ 1082              	.L80:
+ 1083 0038 00000000 		.word	imu_values
+ 1084              		.size	get_acc_all, .-get_acc_all
+ 1085              		.section	.text.get_acc_filtered,"ax",%progbits
+ 1086              		.align	1
+ 1087              		.global	get_acc_filtered
+ 1088              		.syntax unified
+ 1089              		.thumb
+ 1090              		.thumb_func
+ 1091              		.fpu fpv4-sp-d16
+ 1092              		.type	get_acc_filtered, %function
+ 1093              	get_acc_filtered:
+ 1094              		@ args = 0, pretend = 0, frame = 8
+ 1095              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1096 0000 80B5     		push	{r7, lr}
+ 1097 0002 82B0     		sub	sp, sp, #8
+ 1098 0004 00AF     		add	r7, sp, #0
+ 1099 0006 0346     		mov	r3, r0
+ 1100 0008 0A46     		mov	r2, r1
+ 1101 000a FB71     		strb	r3, [r7, #7]
+ 1102 000c 1346     		mov	r3, r2
+ 1103 000e BB71     		strb	r3, [r7, #6]
+ 1104 0010 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1105 0012 022B     		cmp	r3, #2
+ 1106 0014 1DD8     		bhi	.L83
+ 1107 0016 114B     		ldr	r3, .L88
+ 1108 0018 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1109 001a 002B     		cmp	r3, #0
+ 1110 001c 13D0     		beq	.L84
+ 1111 001e 104B     		ldr	r3, .L88+4
+ 1112 0020 0022     		movs	r2, #0
+ 1113 0022 1A70     		strb	r2, [r3]
+ 1114 0024 0F4B     		ldr	r3, .L88+8
+ 1115 0026 0122     		movs	r2, #1
+ 1116 0028 1A70     		strb	r2, [r3]
+ 1117 002a 0F4A     		ldr	r2, .L88+12
+ 1118 002c FB79     		ldrb	r3, [r7, #7]
+ 1119 002e 1370     		strb	r3, [r2]
+ 1120 0030 0E4A     		ldr	r2, .L88+16
+ 1121 0032 BB79     		ldrb	r3, [r7, #6]
+ 1122 0034 1370     		strb	r3, [r2]
+ 1123 0036 02E0     		b	.L85
+ 1124              	.L86:
+ 1125 0038 1420     		movs	r0, #20
+ 1126 003a FFF7FEFF 		bl	chThdSleep
+ 1127              	.L85:
+ 1128 003e 094B     		ldr	r3, .L88+8
+ 1129 0040 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1130 0042 002B     		cmp	r3, #0
+ 1131 0044 F8D1     		bne	.L86
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 21
+
+
+ 1132              	.L84:
+ 1133 0046 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1134 0048 094A     		ldr	r2, .L88+20
+ 1135 004a 2033     		adds	r3, r3, #32
+ 1136 004c 32F91330 		ldrsh	r3, [r2, r3, lsl #1]
+ 1137 0050 00E0     		b	.L87
+ 1138              	.L83:
+ 1139 0052 0023     		movs	r3, #0
+ 1140              	.L87:
+ 1141 0054 1846     		mov	r0, r3
+ 1142 0056 0837     		adds	r7, r7, #8
+ 1143 0058 BD46     		mov	sp, r7
+ 1144              		@ sp needed
+ 1145 005a 80BD     		pop	{r7, pc}
+ 1146              	.L89:
+ 1147              		.align	2
+ 1148              	.L88:
+ 1149 005c 00000000 		.word	imu_configured
+ 1150 0060 00000000 		.word	accAxisFilteringState
+ 1151 0064 00000000 		.word	accAxisFilteringInProgress
+ 1152 0068 00000000 		.word	accAxisSelected
+ 1153 006c 00000000 		.word	accFilterSize
+ 1154 0070 00000000 		.word	imu_values
+ 1155              		.size	get_acc_filtered, .-get_acc_filtered
+ 1156              		.section	.text.calibrate_acc,"ax",%progbits
+ 1157              		.align	1
+ 1158              		.global	calibrate_acc
+ 1159              		.syntax unified
+ 1160              		.thumb
+ 1161              		.thumb_func
+ 1162              		.fpu fpv4-sp-d16
+ 1163              		.type	calibrate_acc, %function
+ 1164              	calibrate_acc:
+ 1165              		@ args = 0, pretend = 0, frame = 0
+ 1166              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1167 0000 80B5     		push	{r7, lr}
+ 1168 0002 00AF     		add	r7, sp, #0
+ 1169 0004 0E4B     		ldr	r3, .L93
+ 1170 0006 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1171 0008 002B     		cmp	r3, #0
+ 1172 000a 17D0     		beq	.L92
+ 1173 000c 0D4B     		ldr	r3, .L93+4
+ 1174 000e 0122     		movs	r2, #1
+ 1175 0010 1A70     		strb	r2, [r3]
+ 1176 0012 3221     		movs	r1, #50
+ 1177 0014 0020     		movs	r0, #0
+ 1178 0016 FFF7FEFF 		bl	get_acc_filtered
+ 1179 001a 0A4B     		ldr	r3, .L93+4
+ 1180 001c 0122     		movs	r2, #1
+ 1181 001e 1A70     		strb	r2, [r3]
+ 1182 0020 3221     		movs	r1, #50
+ 1183 0022 0120     		movs	r0, #1
+ 1184 0024 FFF7FEFF 		bl	get_acc_filtered
+ 1185 0028 064B     		ldr	r3, .L93+4
+ 1186 002a 0122     		movs	r2, #1
+ 1187 002c 1A70     		strb	r2, [r3]
+ 1188 002e 3221     		movs	r1, #50
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 22
+
+
+ 1189 0030 0220     		movs	r0, #2
+ 1190 0032 FFF7FEFF 		bl	get_acc_filtered
+ 1191 0036 034B     		ldr	r3, .L93+4
+ 1192 0038 0022     		movs	r2, #0
+ 1193 003a 1A70     		strb	r2, [r3]
+ 1194              	.L92:
+ 1195 003c 00BF     		nop
+ 1196 003e 80BD     		pop	{r7, pc}
+ 1197              	.L94:
+ 1198              		.align	2
+ 1199              	.L93:
+ 1200 0040 00000000 		.word	imu_configured
+ 1201 0044 00000000 		.word	accCalibrationInProgress
+ 1202              		.size	calibrate_acc, .-calibrate_acc
+ 1203              		.section	.text.get_acc_offset,"ax",%progbits
+ 1204              		.align	1
+ 1205              		.global	get_acc_offset
+ 1206              		.syntax unified
+ 1207              		.thumb
+ 1208              		.thumb_func
+ 1209              		.fpu fpv4-sp-d16
+ 1210              		.type	get_acc_offset, %function
+ 1211              	get_acc_offset:
+ 1212              		@ args = 0, pretend = 0, frame = 8
+ 1213              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1214              		@ link register save eliminated.
+ 1215 0000 80B4     		push	{r7}
+ 1216 0002 83B0     		sub	sp, sp, #12
+ 1217 0004 00AF     		add	r7, sp, #0
+ 1218 0006 0346     		mov	r3, r0
+ 1219 0008 FB71     		strb	r3, [r7, #7]
+ 1220 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1221 000c 022B     		cmp	r3, #2
+ 1222 000e 07D8     		bhi	.L96
+ 1223 0010 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1224 0012 074A     		ldr	r2, .L98
+ 1225 0014 1833     		adds	r3, r3, #24
+ 1226 0016 5B00     		lsls	r3, r3, #1
+ 1227 0018 1344     		add	r3, r3, r2
+ 1228 001a B3F90430 		ldrsh	r3, [r3, #4]
+ 1229 001e 00E0     		b	.L97
+ 1230              	.L96:
+ 1231 0020 0023     		movs	r3, #0
+ 1232              	.L97:
+ 1233 0022 1846     		mov	r0, r3
+ 1234 0024 0C37     		adds	r7, r7, #12
+ 1235 0026 BD46     		mov	sp, r7
+ 1236              		@ sp needed
+ 1237 0028 5DF8047B 		ldr	r7, [sp], #4
+ 1238 002c 7047     		bx	lr
+ 1239              	.L99:
+ 1240 002e 00BF     		.align	2
+ 1241              	.L98:
+ 1242 0030 00000000 		.word	imu_values
+ 1243              		.size	get_acc_offset, .-get_acc_offset
+ 1244              		.section	.text.get_acceleration,"ax",%progbits
+ 1245              		.align	1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 23
+
+
+ 1246              		.global	get_acceleration
+ 1247              		.syntax unified
+ 1248              		.thumb
+ 1249              		.thumb_func
+ 1250              		.fpu fpv4-sp-d16
+ 1251              		.type	get_acceleration, %function
+ 1252              	get_acceleration:
+ 1253              		@ args = 0, pretend = 0, frame = 8
+ 1254              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1255              		@ link register save eliminated.
+ 1256 0000 80B4     		push	{r7}
+ 1257 0002 83B0     		sub	sp, sp, #12
+ 1258 0004 00AF     		add	r7, sp, #0
+ 1259 0006 0346     		mov	r3, r0
+ 1260 0008 FB71     		strb	r3, [r7, #7]
+ 1261 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1262 000c 022B     		cmp	r3, #2
+ 1263 000e 05D8     		bhi	.L101
+ 1264 0010 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1265 0012 084A     		ldr	r2, .L103
+ 1266 0014 9B00     		lsls	r3, r3, #2
+ 1267 0016 1344     		add	r3, r3, r2
+ 1268 0018 1B68     		ldr	r3, [r3]	@ float
+ 1269 001a 01E0     		b	.L102
+ 1270              	.L101:
+ 1271 001c 4FF00003 		mov	r3, #0
+ 1272              	.L102:
+ 1273 0020 07EE903A 		vmov	s15, r3
+ 1274 0024 B0EE670A 		vmov.f32	s0, s15
+ 1275 0028 0C37     		adds	r7, r7, #12
+ 1276 002a BD46     		mov	sp, r7
+ 1277              		@ sp needed
+ 1278 002c 5DF8047B 		ldr	r7, [sp], #4
+ 1279 0030 7047     		bx	lr
+ 1280              	.L104:
+ 1281 0032 00BF     		.align	2
+ 1282              	.L103:
+ 1283 0034 00000000 		.word	imu_values
+ 1284              		.size	get_acceleration, .-get_acceleration
+ 1285              		.section	.text.get_gyro,"ax",%progbits
+ 1286              		.align	1
+ 1287              		.global	get_gyro
+ 1288              		.syntax unified
+ 1289              		.thumb
+ 1290              		.thumb_func
+ 1291              		.fpu fpv4-sp-d16
+ 1292              		.type	get_gyro, %function
+ 1293              	get_gyro:
+ 1294              		@ args = 0, pretend = 0, frame = 8
+ 1295              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1296              		@ link register save eliminated.
+ 1297 0000 80B4     		push	{r7}
+ 1298 0002 83B0     		sub	sp, sp, #12
+ 1299 0004 00AF     		add	r7, sp, #0
+ 1300 0006 0346     		mov	r3, r0
+ 1301 0008 FB71     		strb	r3, [r7, #7]
+ 1302 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 24
+
+
+ 1303 000c 022B     		cmp	r3, #2
+ 1304 000e 07D8     		bhi	.L106
+ 1305 0010 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1306 0012 074A     		ldr	r2, .L108
+ 1307 0014 1433     		adds	r3, r3, #20
+ 1308 0016 5B00     		lsls	r3, r3, #1
+ 1309 0018 1344     		add	r3, r3, r2
+ 1310 001a B3F90630 		ldrsh	r3, [r3, #6]
+ 1311 001e 00E0     		b	.L107
+ 1312              	.L106:
+ 1313 0020 0023     		movs	r3, #0
+ 1314              	.L107:
+ 1315 0022 1846     		mov	r0, r3
+ 1316 0024 0C37     		adds	r7, r7, #12
+ 1317 0026 BD46     		mov	sp, r7
+ 1318              		@ sp needed
+ 1319 0028 5DF8047B 		ldr	r7, [sp], #4
+ 1320 002c 7047     		bx	lr
+ 1321              	.L109:
+ 1322 002e 00BF     		.align	2
+ 1323              	.L108:
+ 1324 0030 00000000 		.word	imu_values
+ 1325              		.size	get_gyro, .-get_gyro
+ 1326              		.section	.text.get_gyro_all,"ax",%progbits
+ 1327              		.align	1
+ 1328              		.global	get_gyro_all
+ 1329              		.syntax unified
+ 1330              		.thumb
+ 1331              		.thumb_func
+ 1332              		.fpu fpv4-sp-d16
+ 1333              		.type	get_gyro_all, %function
+ 1334              	get_gyro_all:
+ 1335              		@ args = 0, pretend = 0, frame = 8
+ 1336              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1337              		@ link register save eliminated.
+ 1338 0000 80B4     		push	{r7}
+ 1339 0002 83B0     		sub	sp, sp, #12
+ 1340 0004 00AF     		add	r7, sp, #0
+ 1341 0006 7860     		str	r0, [r7, #4]
+ 1342 0008 0B4B     		ldr	r3, .L111
+ 1343 000a B3F92E20 		ldrsh	r2, [r3, #46]
+ 1344 000e 7B68     		ldr	r3, [r7, #4]
+ 1345 0010 1A80     		strh	r2, [r3]	@ movhi
+ 1346 0012 7B68     		ldr	r3, [r7, #4]
+ 1347 0014 0233     		adds	r3, r3, #2
+ 1348 0016 084A     		ldr	r2, .L111
+ 1349 0018 B2F93020 		ldrsh	r2, [r2, #48]
+ 1350 001c 1A80     		strh	r2, [r3]	@ movhi
+ 1351 001e 7B68     		ldr	r3, [r7, #4]
+ 1352 0020 0433     		adds	r3, r3, #4
+ 1353 0022 054A     		ldr	r2, .L111
+ 1354 0024 B2F93220 		ldrsh	r2, [r2, #50]
+ 1355 0028 1A80     		strh	r2, [r3]	@ movhi
+ 1356 002a 00BF     		nop
+ 1357 002c 0C37     		adds	r7, r7, #12
+ 1358 002e BD46     		mov	sp, r7
+ 1359              		@ sp needed
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 25
+
+
+ 1360 0030 5DF8047B 		ldr	r7, [sp], #4
+ 1361 0034 7047     		bx	lr
+ 1362              	.L112:
+ 1363 0036 00BF     		.align	2
+ 1364              	.L111:
+ 1365 0038 00000000 		.word	imu_values
+ 1366              		.size	get_gyro_all, .-get_gyro_all
+ 1367              		.section	.text.get_gyro_filtered,"ax",%progbits
+ 1368              		.align	1
+ 1369              		.global	get_gyro_filtered
+ 1370              		.syntax unified
+ 1371              		.thumb
+ 1372              		.thumb_func
+ 1373              		.fpu fpv4-sp-d16
+ 1374              		.type	get_gyro_filtered, %function
+ 1375              	get_gyro_filtered:
+ 1376              		@ args = 0, pretend = 0, frame = 8
+ 1377              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1378 0000 80B5     		push	{r7, lr}
+ 1379 0002 82B0     		sub	sp, sp, #8
+ 1380 0004 00AF     		add	r7, sp, #0
+ 1381 0006 0346     		mov	r3, r0
+ 1382 0008 0A46     		mov	r2, r1
+ 1383 000a FB71     		strb	r3, [r7, #7]
+ 1384 000c 1346     		mov	r3, r2
+ 1385 000e BB71     		strb	r3, [r7, #6]
+ 1386 0010 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1387 0012 022B     		cmp	r3, #2
+ 1388 0014 1FD8     		bhi	.L114
+ 1389 0016 124B     		ldr	r3, .L119
+ 1390 0018 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1391 001a 002B     		cmp	r3, #0
+ 1392 001c 13D0     		beq	.L115
+ 1393 001e 114B     		ldr	r3, .L119+4
+ 1394 0020 0022     		movs	r2, #0
+ 1395 0022 1A70     		strb	r2, [r3]
+ 1396 0024 104B     		ldr	r3, .L119+8
+ 1397 0026 0122     		movs	r2, #1
+ 1398 0028 1A70     		strb	r2, [r3]
+ 1399 002a 104A     		ldr	r2, .L119+12
+ 1400 002c FB79     		ldrb	r3, [r7, #7]
+ 1401 002e 1370     		strb	r3, [r2]
+ 1402 0030 0F4A     		ldr	r2, .L119+16
+ 1403 0032 BB79     		ldrb	r3, [r7, #6]
+ 1404 0034 1370     		strb	r3, [r2]
+ 1405 0036 02E0     		b	.L116
+ 1406              	.L117:
+ 1407 0038 1420     		movs	r0, #20
+ 1408 003a FFF7FEFF 		bl	chThdSleep
+ 1409              	.L116:
+ 1410 003e 0A4B     		ldr	r3, .L119+8
+ 1411 0040 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1412 0042 002B     		cmp	r3, #0
+ 1413 0044 F8D1     		bne	.L117
+ 1414              	.L115:
+ 1415 0046 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1416 0048 0A4A     		ldr	r2, .L119+20
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 26
+
+
+ 1417 004a 2033     		adds	r3, r3, #32
+ 1418 004c 5B00     		lsls	r3, r3, #1
+ 1419 004e 1344     		add	r3, r3, r2
+ 1420 0050 B3F90630 		ldrsh	r3, [r3, #6]
+ 1421 0054 00E0     		b	.L118
+ 1422              	.L114:
+ 1423 0056 0023     		movs	r3, #0
+ 1424              	.L118:
+ 1425 0058 1846     		mov	r0, r3
+ 1426 005a 0837     		adds	r7, r7, #8
+ 1427 005c BD46     		mov	sp, r7
+ 1428              		@ sp needed
+ 1429 005e 80BD     		pop	{r7, pc}
+ 1430              	.L120:
+ 1431              		.align	2
+ 1432              	.L119:
+ 1433 0060 00000000 		.word	imu_configured
+ 1434 0064 00000000 		.word	gyroAxisFilteringState
+ 1435 0068 00000000 		.word	gyroAxisFilteringInProgress
+ 1436 006c 00000000 		.word	gyroAxisSelected
+ 1437 0070 00000000 		.word	gyroFilterSize
+ 1438 0074 00000000 		.word	imu_values
+ 1439              		.size	get_gyro_filtered, .-get_gyro_filtered
+ 1440              		.section	.text.get_gyro_offset,"ax",%progbits
+ 1441              		.align	1
+ 1442              		.global	get_gyro_offset
+ 1443              		.syntax unified
+ 1444              		.thumb
+ 1445              		.thumb_func
+ 1446              		.fpu fpv4-sp-d16
+ 1447              		.type	get_gyro_offset, %function
+ 1448              	get_gyro_offset:
+ 1449              		@ args = 0, pretend = 0, frame = 8
+ 1450              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1451              		@ link register save eliminated.
+ 1452 0000 80B4     		push	{r7}
+ 1453 0002 83B0     		sub	sp, sp, #12
+ 1454 0004 00AF     		add	r7, sp, #0
+ 1455 0006 0346     		mov	r3, r0
+ 1456 0008 FB71     		strb	r3, [r7, #7]
+ 1457 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1458 000c 022B     		cmp	r3, #2
+ 1459 000e 07D8     		bhi	.L122
+ 1460 0010 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1461 0012 074A     		ldr	r2, .L124
+ 1462 0014 1C33     		adds	r3, r3, #28
+ 1463 0016 5B00     		lsls	r3, r3, #1
+ 1464 0018 1344     		add	r3, r3, r2
+ 1465 001a B3F90230 		ldrsh	r3, [r3, #2]
+ 1466 001e 00E0     		b	.L123
+ 1467              	.L122:
+ 1468 0020 0023     		movs	r3, #0
+ 1469              	.L123:
+ 1470 0022 1846     		mov	r0, r3
+ 1471 0024 0C37     		adds	r7, r7, #12
+ 1472 0026 BD46     		mov	sp, r7
+ 1473              		@ sp needed
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 27
+
+
+ 1474 0028 5DF8047B 		ldr	r7, [sp], #4
+ 1475 002c 7047     		bx	lr
+ 1476              	.L125:
+ 1477 002e 00BF     		.align	2
+ 1478              	.L124:
+ 1479 0030 00000000 		.word	imu_values
+ 1480              		.size	get_gyro_offset, .-get_gyro_offset
+ 1481              		.section	.text.calibrate_gyro,"ax",%progbits
+ 1482              		.align	1
+ 1483              		.global	calibrate_gyro
+ 1484              		.syntax unified
+ 1485              		.thumb
+ 1486              		.thumb_func
+ 1487              		.fpu fpv4-sp-d16
+ 1488              		.type	calibrate_gyro, %function
+ 1489              	calibrate_gyro:
+ 1490              		@ args = 0, pretend = 0, frame = 0
+ 1491              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1492 0000 80B5     		push	{r7, lr}
+ 1493 0002 00AF     		add	r7, sp, #0
+ 1494 0004 0E4B     		ldr	r3, .L129
+ 1495 0006 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1496 0008 002B     		cmp	r3, #0
+ 1497 000a 17D0     		beq	.L128
+ 1498 000c 0D4B     		ldr	r3, .L129+4
+ 1499 000e 0122     		movs	r2, #1
+ 1500 0010 1A70     		strb	r2, [r3]
+ 1501 0012 3221     		movs	r1, #50
+ 1502 0014 0020     		movs	r0, #0
+ 1503 0016 FFF7FEFF 		bl	get_gyro_filtered
+ 1504 001a 0A4B     		ldr	r3, .L129+4
+ 1505 001c 0122     		movs	r2, #1
+ 1506 001e 1A70     		strb	r2, [r3]
+ 1507 0020 3221     		movs	r1, #50
+ 1508 0022 0120     		movs	r0, #1
+ 1509 0024 FFF7FEFF 		bl	get_gyro_filtered
+ 1510 0028 064B     		ldr	r3, .L129+4
+ 1511 002a 0122     		movs	r2, #1
+ 1512 002c 1A70     		strb	r2, [r3]
+ 1513 002e 3221     		movs	r1, #50
+ 1514 0030 0220     		movs	r0, #2
+ 1515 0032 FFF7FEFF 		bl	get_gyro_filtered
+ 1516 0036 034B     		ldr	r3, .L129+4
+ 1517 0038 0022     		movs	r2, #0
+ 1518 003a 1A70     		strb	r2, [r3]
+ 1519              	.L128:
+ 1520 003c 00BF     		nop
+ 1521 003e 80BD     		pop	{r7, pc}
+ 1522              	.L130:
+ 1523              		.align	2
+ 1524              	.L129:
+ 1525 0040 00000000 		.word	imu_configured
+ 1526 0044 00000000 		.word	gyroCalibrationInProgress
+ 1527              		.size	calibrate_gyro, .-calibrate_gyro
+ 1528              		.section	.text.get_gyro_rate,"ax",%progbits
+ 1529              		.align	1
+ 1530              		.global	get_gyro_rate
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 28
+
+
+ 1531              		.syntax unified
+ 1532              		.thumb
+ 1533              		.thumb_func
+ 1534              		.fpu fpv4-sp-d16
+ 1535              		.type	get_gyro_rate, %function
+ 1536              	get_gyro_rate:
+ 1537              		@ args = 0, pretend = 0, frame = 8
+ 1538              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1539              		@ link register save eliminated.
+ 1540 0000 80B4     		push	{r7}
+ 1541 0002 83B0     		sub	sp, sp, #12
+ 1542 0004 00AF     		add	r7, sp, #0
+ 1543 0006 0346     		mov	r3, r0
+ 1544 0008 FB71     		strb	r3, [r7, #7]
+ 1545 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1546 000c 022B     		cmp	r3, #2
+ 1547 000e 07D8     		bhi	.L132
+ 1548 0010 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1549 0012 094A     		ldr	r2, .L134
+ 1550 0014 0233     		adds	r3, r3, #2
+ 1551 0016 9B00     		lsls	r3, r3, #2
+ 1552 0018 1344     		add	r3, r3, r2
+ 1553 001a 0433     		adds	r3, r3, #4
+ 1554 001c 1B68     		ldr	r3, [r3]	@ float
+ 1555 001e 01E0     		b	.L133
+ 1556              	.L132:
+ 1557 0020 4FF00003 		mov	r3, #0
+ 1558              	.L133:
+ 1559 0024 07EE903A 		vmov	s15, r3
+ 1560 0028 B0EE670A 		vmov.f32	s0, s15
+ 1561 002c 0C37     		adds	r7, r7, #12
+ 1562 002e BD46     		mov	sp, r7
+ 1563              		@ sp needed
+ 1564 0030 5DF8047B 		ldr	r7, [sp], #4
+ 1565 0034 7047     		bx	lr
+ 1566              	.L135:
+ 1567 0036 00BF     		.align	2
+ 1568              	.L134:
+ 1569 0038 00000000 		.word	imu_values
+ 1570              		.size	get_gyro_rate, .-get_gyro_rate
+ 1571              		.section	.text.get_temperature,"ax",%progbits
+ 1572              		.align	1
+ 1573              		.global	get_temperature
+ 1574              		.syntax unified
+ 1575              		.thumb
+ 1576              		.thumb_func
+ 1577              		.fpu fpv4-sp-d16
+ 1578              		.type	get_temperature, %function
+ 1579              	get_temperature:
+ 1580              		@ args = 0, pretend = 0, frame = 0
+ 1581              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1582              		@ link register save eliminated.
+ 1583 0000 80B4     		push	{r7}
+ 1584 0002 00AF     		add	r7, sp, #0
+ 1585 0004 044B     		ldr	r3, .L138
+ 1586 0006 9B69     		ldr	r3, [r3, #24]	@ float
+ 1587 0008 07EE903A 		vmov	s15, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 29
+
+
+ 1588 000c B0EE670A 		vmov.f32	s0, s15
+ 1589 0010 BD46     		mov	sp, r7
+ 1590              		@ sp needed
+ 1591 0012 5DF8047B 		ldr	r7, [sp], #4
+ 1592 0016 7047     		bx	lr
+ 1593              	.L139:
+ 1594              		.align	2
+ 1595              	.L138:
+ 1596 0018 00000000 		.word	imu_values
+ 1597              		.size	get_temperature, .-get_temperature
+ 1598              		.section	.text.calibrate_magnetometer,"ax",%progbits
+ 1599              		.align	1
+ 1600              		.global	calibrate_magnetometer
+ 1601              		.syntax unified
+ 1602              		.thumb
+ 1603              		.thumb_func
+ 1604              		.fpu fpv4-sp-d16
+ 1605              		.type	calibrate_magnetometer, %function
+ 1606              	calibrate_magnetometer:
+ 1607              		@ args = 0, pretend = 0, frame = 0
+ 1608              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1609 0000 80B5     		push	{r7, lr}
+ 1610 0002 00AF     		add	r7, sp, #0
+ 1611 0004 0B4B     		ldr	r3, .L145
+ 1612 0006 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1613 0008 002B     		cmp	r3, #0
+ 1614 000a 10D0     		beq	.L144
+ 1615 000c 0A48     		ldr	r0, .L145+4
+ 1616 000e FFF7FEFF 		bl	mpu9250_magnetometer_read_sens_adj
+ 1617 0012 0A4B     		ldr	r3, .L145+8
+ 1618 0014 0022     		movs	r2, #0
+ 1619 0016 1A70     		strb	r2, [r3]
+ 1620 0018 094B     		ldr	r3, .L145+12
+ 1621 001a 0122     		movs	r2, #1
+ 1622 001c 1A70     		strb	r2, [r3]
+ 1623 001e 02E0     		b	.L142
+ 1624              	.L143:
+ 1625 0020 1420     		movs	r0, #20
+ 1626 0022 FFF7FEFF 		bl	chThdSleep
+ 1627              	.L142:
+ 1628 0026 064B     		ldr	r3, .L145+12
+ 1629 0028 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1630 002a 002B     		cmp	r3, #0
+ 1631 002c F8D1     		bne	.L143
+ 1632              	.L144:
+ 1633 002e 00BF     		nop
+ 1634 0030 80BD     		pop	{r7, pc}
+ 1635              	.L146:
+ 1636 0032 00BF     		.align	2
+ 1637              	.L145:
+ 1638 0034 00000000 		.word	imu_configured
+ 1639 0038 50000000 		.word	imu_values+80
+ 1640 003c 00000000 		.word	magCalibrationState
+ 1641 0040 00000000 		.word	magCalibrationInProgress
+ 1642              		.size	calibrate_magnetometer, .-calibrate_magnetometer
+ 1643              		.section	.text.get_mag_filtered,"ax",%progbits
+ 1644              		.align	1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 30
+
+
+ 1645              		.global	get_mag_filtered
+ 1646              		.syntax unified
+ 1647              		.thumb
+ 1648              		.thumb_func
+ 1649              		.fpu fpv4-sp-d16
+ 1650              		.type	get_mag_filtered, %function
+ 1651              	get_mag_filtered:
+ 1652              		@ args = 0, pretend = 0, frame = 8
+ 1653              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1654              		@ link register save eliminated.
+ 1655 0000 80B4     		push	{r7}
+ 1656 0002 83B0     		sub	sp, sp, #12
+ 1657 0004 00AF     		add	r7, sp, #0
+ 1658 0006 7860     		str	r0, [r7, #4]
+ 1659 0008 414B     		ldr	r3, .L148
+ 1660 000a DA69     		ldr	r2, [r3, #28]	@ float
+ 1661 000c 7B68     		ldr	r3, [r7, #4]
+ 1662 000e 1A60     		str	r2, [r3]	@ float
+ 1663 0010 7B68     		ldr	r3, [r7, #4]
+ 1664 0012 0433     		adds	r3, r3, #4
+ 1665 0014 3E4A     		ldr	r2, .L148
+ 1666 0016 126A     		ldr	r2, [r2, #32]	@ float
+ 1667 0018 1A60     		str	r2, [r3]	@ float
+ 1668 001a 7B68     		ldr	r3, [r7, #4]
+ 1669 001c 0833     		adds	r3, r3, #8
+ 1670 001e 3C4A     		ldr	r2, .L148
+ 1671 0020 526A     		ldr	r2, [r2, #36]	@ float
+ 1672 0022 1A60     		str	r2, [r3]	@ float
+ 1673 0024 7B68     		ldr	r3, [r7, #4]
+ 1674 0026 93ED007A 		vldr.32	s14, [r3]
+ 1675 002a 394B     		ldr	r3, .L148
+ 1676 002c D3ED147A 		vldr.32	s15, [r3, #80]
+ 1677 0030 67EE277A 		vmul.f32	s15, s14, s15
+ 1678 0034 7B68     		ldr	r3, [r7, #4]
+ 1679 0036 C3ED007A 		vstr.32	s15, [r3]
+ 1680 003a 7B68     		ldr	r3, [r7, #4]
+ 1681 003c 0433     		adds	r3, r3, #4
+ 1682 003e 93ED007A 		vldr.32	s14, [r3]
+ 1683 0042 334B     		ldr	r3, .L148
+ 1684 0044 D3ED157A 		vldr.32	s15, [r3, #84]
+ 1685 0048 7B68     		ldr	r3, [r7, #4]
+ 1686 004a 0433     		adds	r3, r3, #4
+ 1687 004c 67EE277A 		vmul.f32	s15, s14, s15
+ 1688 0050 C3ED007A 		vstr.32	s15, [r3]
+ 1689 0054 7B68     		ldr	r3, [r7, #4]
+ 1690 0056 0833     		adds	r3, r3, #8
+ 1691 0058 93ED007A 		vldr.32	s14, [r3]
+ 1692 005c 2C4B     		ldr	r3, .L148
+ 1693 005e D3ED167A 		vldr.32	s15, [r3, #88]
+ 1694 0062 7B68     		ldr	r3, [r7, #4]
+ 1695 0064 0833     		adds	r3, r3, #8
+ 1696 0066 67EE277A 		vmul.f32	s15, s14, s15
+ 1697 006a C3ED007A 		vstr.32	s15, [r3]
+ 1698 006e 7B68     		ldr	r3, [r7, #4]
+ 1699 0070 93ED007A 		vldr.32	s14, [r3]
+ 1700 0074 264B     		ldr	r3, .L148
+ 1701 0076 D3ED177A 		vldr.32	s15, [r3, #92]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 31
+
+
+ 1702 007a 77EE677A 		vsub.f32	s15, s14, s15
+ 1703 007e 7B68     		ldr	r3, [r7, #4]
+ 1704 0080 C3ED007A 		vstr.32	s15, [r3]
+ 1705 0084 7B68     		ldr	r3, [r7, #4]
+ 1706 0086 0433     		adds	r3, r3, #4
+ 1707 0088 93ED007A 		vldr.32	s14, [r3]
+ 1708 008c 204B     		ldr	r3, .L148
+ 1709 008e D3ED187A 		vldr.32	s15, [r3, #96]
+ 1710 0092 7B68     		ldr	r3, [r7, #4]
+ 1711 0094 0433     		adds	r3, r3, #4
+ 1712 0096 77EE677A 		vsub.f32	s15, s14, s15
+ 1713 009a C3ED007A 		vstr.32	s15, [r3]
+ 1714 009e 7B68     		ldr	r3, [r7, #4]
+ 1715 00a0 0833     		adds	r3, r3, #8
+ 1716 00a2 93ED007A 		vldr.32	s14, [r3]
+ 1717 00a6 1A4B     		ldr	r3, .L148
+ 1718 00a8 D3ED197A 		vldr.32	s15, [r3, #100]
+ 1719 00ac 7B68     		ldr	r3, [r7, #4]
+ 1720 00ae 0833     		adds	r3, r3, #8
+ 1721 00b0 77EE677A 		vsub.f32	s15, s14, s15
+ 1722 00b4 C3ED007A 		vstr.32	s15, [r3]
+ 1723 00b8 7B68     		ldr	r3, [r7, #4]
+ 1724 00ba 93ED007A 		vldr.32	s14, [r3]
+ 1725 00be 144B     		ldr	r3, .L148
+ 1726 00c0 D3ED1A7A 		vldr.32	s15, [r3, #104]
+ 1727 00c4 67EE277A 		vmul.f32	s15, s14, s15
+ 1728 00c8 7B68     		ldr	r3, [r7, #4]
+ 1729 00ca C3ED007A 		vstr.32	s15, [r3]
+ 1730 00ce 7B68     		ldr	r3, [r7, #4]
+ 1731 00d0 0433     		adds	r3, r3, #4
+ 1732 00d2 93ED007A 		vldr.32	s14, [r3]
+ 1733 00d6 0E4B     		ldr	r3, .L148
+ 1734 00d8 D3ED1B7A 		vldr.32	s15, [r3, #108]
+ 1735 00dc 7B68     		ldr	r3, [r7, #4]
+ 1736 00de 0433     		adds	r3, r3, #4
+ 1737 00e0 67EE277A 		vmul.f32	s15, s14, s15
+ 1738 00e4 C3ED007A 		vstr.32	s15, [r3]
+ 1739 00e8 7B68     		ldr	r3, [r7, #4]
+ 1740 00ea 0833     		adds	r3, r3, #8
+ 1741 00ec 93ED007A 		vldr.32	s14, [r3]
+ 1742 00f0 074B     		ldr	r3, .L148
+ 1743 00f2 D3ED1C7A 		vldr.32	s15, [r3, #112]
+ 1744 00f6 7B68     		ldr	r3, [r7, #4]
+ 1745 00f8 0833     		adds	r3, r3, #8
+ 1746 00fa 67EE277A 		vmul.f32	s15, s14, s15
+ 1747 00fe C3ED007A 		vstr.32	s15, [r3]
+ 1748 0102 00BF     		nop
+ 1749 0104 0C37     		adds	r7, r7, #12
+ 1750 0106 BD46     		mov	sp, r7
+ 1751              		@ sp needed
+ 1752 0108 5DF8047B 		ldr	r7, [sp], #4
+ 1753 010c 7047     		bx	lr
+ 1754              	.L149:
+ 1755 010e 00BF     		.align	2
+ 1756              	.L148:
+ 1757 0110 00000000 		.word	imu_values
+ 1758              		.size	get_mag_filtered, .-get_mag_filtered
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 32
+
+
+ 1759              		.section	.text.get_magnetic_field,"ax",%progbits
+ 1760              		.align	1
+ 1761              		.global	get_magnetic_field
+ 1762              		.syntax unified
+ 1763              		.thumb
+ 1764              		.thumb_func
+ 1765              		.fpu fpv4-sp-d16
+ 1766              		.type	get_magnetic_field, %function
+ 1767              	get_magnetic_field:
+ 1768              		@ args = 0, pretend = 0, frame = 8
+ 1769              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1770              		@ link register save eliminated.
+ 1771 0000 80B4     		push	{r7}
+ 1772 0002 83B0     		sub	sp, sp, #12
+ 1773 0004 00AF     		add	r7, sp, #0
+ 1774 0006 0346     		mov	r3, r0
+ 1775 0008 FB71     		strb	r3, [r7, #7]
+ 1776 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1777 000c 022B     		cmp	r3, #2
+ 1778 000e 07D8     		bhi	.L151
+ 1779 0010 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1780 0012 094A     		ldr	r2, .L153
+ 1781 0014 0633     		adds	r3, r3, #6
+ 1782 0016 9B00     		lsls	r3, r3, #2
+ 1783 0018 1344     		add	r3, r3, r2
+ 1784 001a 0433     		adds	r3, r3, #4
+ 1785 001c 1B68     		ldr	r3, [r3]	@ float
+ 1786 001e 01E0     		b	.L152
+ 1787              	.L151:
+ 1788 0020 4FF00003 		mov	r3, #0
+ 1789              	.L152:
+ 1790 0024 07EE903A 		vmov	s15, r3
+ 1791 0028 B0EE670A 		vmov.f32	s0, s15
+ 1792 002c 0C37     		adds	r7, r7, #12
+ 1793 002e BD46     		mov	sp, r7
+ 1794              		@ sp needed
+ 1795 0030 5DF8047B 		ldr	r7, [sp], #4
+ 1796 0034 7047     		bx	lr
+ 1797              	.L154:
+ 1798 0036 00BF     		.align	2
+ 1799              	.L153:
+ 1800 0038 00000000 		.word	imu_values
+ 1801              		.size	get_magnetic_field, .-get_magnetic_field
+ 1802              		.section	.rodata.__FUNCTION__.11429,"a",%progbits
+ 1803              		.align	2
+ 1804              		.type	__FUNCTION__.11429, %object
+ 1805              		.size	__FUNCTION__.11429, 15
+ 1806              	__FUNCTION__.11429:
+ 1807 0000 696D755F 		.ascii	"imu_reader_thd\000"
+ 1807      72656164 
+ 1807      65725F74 
+ 1807      686400
+ 1808              		.section	.rodata.__func__.7153,"a",%progbits
+ 1809              		.align	2
+ 1810              		.type	__func__.7153, %object
+ 1811              		.size	__func__.7153, 12
+ 1812              	__func__.7153:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 33
+
+
+ 1813 0000 63685379 		.ascii	"chSysUnlock\000"
+ 1813      73556E6C 
+ 1813      6F636B00 
+ 1814              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 34
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 imu.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:15     .text.port_lock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:21     .text.port_lock:0000000000000000 port_lock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:45     .text.port_unlock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:51     .text.port_unlock:0000000000000000 port_unlock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:75     .text.chSysLock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:81     .text.chSysLock:0000000000000000 chSysLock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:93     .text.chSysUnlock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:99     .text.chSysUnlock:0000000000000000 chSysUnlock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:128    .text.chSysUnlock:0000000000000034 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1812   .rodata.__func__.7153:0000000000000000 __func__.7153
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:132    .text.chVTGetSystemTimeX:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:138    .text.chVTGetSystemTimeX:0000000000000000 chVTGetSystemTimeX
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:154    .text.chVTGetSystemTimeX:0000000000000014 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:157    .text.chVTGetSystemTime:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:163    .text.chVTGetSystemTime:0000000000000000 chVTGetSystemTime
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:181    .text.chThdGetSelfX:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:187    .text.chThdGetSelfX:0000000000000000 chThdGetSelfX
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:203    .text.chThdGetSelfX:0000000000000014 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:206    .text.chThdShouldTerminateX:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:212    .text.chThdShouldTerminateX:0000000000000000 chThdShouldTerminateX
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:230    .text.chRegSetThreadName:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:236    .text.chRegSetThreadName:0000000000000000 chRegSetThreadName
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:257    .text.chRegSetThreadName:000000000000001c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:260    .bss.imu_values:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:263    .bss.imu_values:0000000000000000 imu_values
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:268    .bss.accAxisFilteringInProgress:0000000000000000 accAxisFilteringInProgress
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:269    .bss.accAxisFilteringInProgress:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:273    .bss.accAxisFilteringState:0000000000000000 accAxisFilteringState
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:274    .bss.accAxisFilteringState:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:278    .bss.accAxisSelected:0000000000000000 accAxisSelected
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:279    .bss.accAxisSelected:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:283    .bss.accFilterSize:0000000000000000 accFilterSize
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:284    .bss.accFilterSize:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:288    .bss.accCalibrationInProgress:0000000000000000 accCalibrationInProgress
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:289    .bss.accCalibrationInProgress:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:293    .bss.gyroAxisFilteringInProgress:0000000000000000 gyroAxisFilteringInProgress
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:294    .bss.gyroAxisFilteringInProgress:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:298    .bss.gyroAxisFilteringState:0000000000000000 gyroAxisFilteringState
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:299    .bss.gyroAxisFilteringState:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:303    .bss.gyroAxisSelected:0000000000000000 gyroAxisSelected
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:304    .bss.gyroAxisSelected:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:308    .bss.gyroFilterSize:0000000000000000 gyroFilterSize
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:309    .bss.gyroFilterSize:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:313    .bss.gyroCalibrationInProgress:0000000000000000 gyroCalibrationInProgress
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:314    .bss.gyroCalibrationInProgress:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:318    .bss.magCalibrationInProgress:0000000000000000 magCalibrationInProgress
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:319    .bss.magCalibrationInProgress:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:323    .bss.magCalibrationState:0000000000000000 magCalibrationState
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:324    .bss.magCalibrationState:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:326    .bss.imuThd:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:329    .bss.imuThd:0000000000000000 imuThd
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:334    .bss.imu_configured:0000000000000000 imu_configured
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:335    .bss.imu_configured:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:337    .bss.imu_reader_thd_wa:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:340    .bss.imu_reader_thd_wa:0000000000000000 imu_reader_thd_wa
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 35
+
+
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:343    .rodata:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:347    .text.imu_reader_thd:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:353    .text.imu_reader_thd:0000000000000000 imu_reader_thd
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:657    .text.imu_reader_thd:00000000000002a8 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1806   .rodata.__FUNCTION__.11429:0000000000000000 __FUNCTION__.11429
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:692    .text.imu_reader_thd:0000000000000330 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:906    .text.imu_reader_thd:0000000000000588 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:913    .text.imu_start:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:920    .text.imu_start:0000000000000000 imu_start
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:965    .text.imu_start:0000000000000054 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:971    .text.imu_stop:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:978    .text.imu_stop:0000000000000000 imu_stop
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1002   .text.imu_stop:0000000000000028 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1006   .text.get_acc:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1013   .text.get_acc:0000000000000000 get_acc
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1042   .text.get_acc:000000000000002c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1045   .text.get_acc_all:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1052   .text.get_acc_all:0000000000000000 get_acc_all
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1083   .text.get_acc_all:0000000000000038 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1086   .text.get_acc_filtered:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1093   .text.get_acc_filtered:0000000000000000 get_acc_filtered
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1149   .text.get_acc_filtered:000000000000005c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1157   .text.calibrate_acc:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1164   .text.calibrate_acc:0000000000000000 calibrate_acc
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1200   .text.calibrate_acc:0000000000000040 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1204   .text.get_acc_offset:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1211   .text.get_acc_offset:0000000000000000 get_acc_offset
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1242   .text.get_acc_offset:0000000000000030 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1245   .text.get_acceleration:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1252   .text.get_acceleration:0000000000000000 get_acceleration
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1283   .text.get_acceleration:0000000000000034 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1286   .text.get_gyro:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1293   .text.get_gyro:0000000000000000 get_gyro
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1324   .text.get_gyro:0000000000000030 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1327   .text.get_gyro_all:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1334   .text.get_gyro_all:0000000000000000 get_gyro_all
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1365   .text.get_gyro_all:0000000000000038 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1368   .text.get_gyro_filtered:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1375   .text.get_gyro_filtered:0000000000000000 get_gyro_filtered
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1433   .text.get_gyro_filtered:0000000000000060 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1441   .text.get_gyro_offset:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1448   .text.get_gyro_offset:0000000000000000 get_gyro_offset
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1479   .text.get_gyro_offset:0000000000000030 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1482   .text.calibrate_gyro:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1489   .text.calibrate_gyro:0000000000000000 calibrate_gyro
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1525   .text.calibrate_gyro:0000000000000040 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1529   .text.get_gyro_rate:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1536   .text.get_gyro_rate:0000000000000000 get_gyro_rate
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1569   .text.get_gyro_rate:0000000000000038 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1572   .text.get_temperature:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1579   .text.get_temperature:0000000000000000 get_temperature
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1596   .text.get_temperature:0000000000000018 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1599   .text.calibrate_magnetometer:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1606   .text.calibrate_magnetometer:0000000000000000 calibrate_magnetometer
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1638   .text.calibrate_magnetometer:0000000000000034 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1644   .text.get_mag_filtered:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1651   .text.get_mag_filtered:0000000000000000 get_mag_filtered
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s 			page 36
+
+
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1757   .text.get_mag_filtered:0000000000000110 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1760   .text.get_magnetic_field:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1767   .text.get_magnetic_field:0000000000000000 get_magnetic_field
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1800   .text.get_magnetic_field:0000000000000038 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1803   .rodata.__FUNCTION__.11429:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccP3DxyU.s:1809   .rodata.__func__.7153:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+_stats_start_measure_crit_thd
+_dbg_check_lock
+_dbg_check_unlock
+_stats_stop_measure_crit_thd
+chSysHalt
+ch
+messagebus_topic_init
+messagebus_advertise_topic
+mpu9250_read
+messagebus_topic_publish
+bus
+chThdSleepUntilWindowed
+i2c_start
+mpu9250_setup
+chThdCreateStatic
+chThdTerminate
+chThdWait
+chThdSleep
+mpu9250_magnetometer_read_sens_adj

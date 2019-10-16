@@ -1,0 +1,537 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"vectors.c"
+  14              		.section	.rodata
+  15              		.align	2
+  16              	.LC0:
+  17 0000 756E6861 		.ascii	"unhandled exception\000"
+  17      6E646C65 
+  17      64206578 
+  17      63657074 
+  17      696F6E00 
+  18              		.section	.text._unhandled_exception,"ax",%progbits
+  19              		.align	1
+  20              		.global	_unhandled_exception
+  21              		.syntax unified
+  22              		.thumb
+  23              		.thumb_func
+  24              		.fpu fpv4-sp-d16
+  25              		.type	_unhandled_exception, %function
+  26              	_unhandled_exception:
+  27              		@ args = 0, pretend = 0, frame = 0
+  28              		@ frame_needed = 1, uses_anonymous_args = 0
+  29 0000 80B5     		push	{r7, lr}
+  30 0002 00AF     		add	r7, sp, #0
+  31 0004 0148     		ldr	r0, .L3
+  32 0006 FFF7FEFF 		bl	chSysHalt
+  33              	.L2:
+  34 000a FEE7     		b	.L2
+  35              	.L4:
+  36              		.align	2
+  37              	.L3:
+  38 000c 00000000 		.word	.LC0
+  39              		.size	_unhandled_exception, .-_unhandled_exception
+  40              		.weak	Vector1BC
+  41              		.thumb_set Vector1BC,_unhandled_exception
+  42              		.weak	Vector1B8
+  43              		.thumb_set Vector1B8,_unhandled_exception
+  44              		.weak	Vector1B4
+  45              		.thumb_set Vector1B4,_unhandled_exception
+  46              		.weak	Vector1B0
+  47              		.thumb_set Vector1B0,_unhandled_exception
+  48              		.weak	Vector1AC
+  49              		.thumb_set Vector1AC,_unhandled_exception
+  50              		.weak	Vector1A8
+  51              		.thumb_set Vector1A8,_unhandled_exception
+  52              		.weak	Vector1A4
+  53              		.thumb_set Vector1A4,_unhandled_exception
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s 			page 2
+
+
+  54              		.weak	Vector1A0
+  55              		.thumb_set Vector1A0,_unhandled_exception
+  56              		.weak	Vector19C
+  57              		.thumb_set Vector19C,_unhandled_exception
+  58              		.weak	Vector198
+  59              		.thumb_set Vector198,_unhandled_exception
+  60              		.weak	Vector194
+  61              		.thumb_set Vector194,_unhandled_exception
+  62              		.weak	Vector190
+  63              		.thumb_set Vector190,_unhandled_exception
+  64              		.weak	Vector18C
+  65              		.thumb_set Vector18C,_unhandled_exception
+  66              		.weak	Vector188
+  67              		.thumb_set Vector188,_unhandled_exception
+  68              		.weak	Vector184
+  69              		.thumb_set Vector184,_unhandled_exception
+  70              		.weak	Vector180
+  71              		.thumb_set Vector180,_unhandled_exception
+  72              		.weak	Vector17C
+  73              		.thumb_set Vector17C,_unhandled_exception
+  74              		.weak	Vector178
+  75              		.thumb_set Vector178,_unhandled_exception
+  76              		.weak	Vector174
+  77              		.thumb_set Vector174,_unhandled_exception
+  78              		.weak	Vector170
+  79              		.thumb_set Vector170,_unhandled_exception
+  80              		.weak	Vector16C
+  81              		.thumb_set Vector16C,_unhandled_exception
+  82              		.weak	Vector168
+  83              		.thumb_set Vector168,_unhandled_exception
+  84              		.weak	Vector164
+  85              		.thumb_set Vector164,_unhandled_exception
+  86              		.weak	Vector160
+  87              		.thumb_set Vector160,_unhandled_exception
+  88              		.weak	Vector15C
+  89              		.thumb_set Vector15C,_unhandled_exception
+  90              		.weak	Vector158
+  91              		.thumb_set Vector158,_unhandled_exception
+  92              		.weak	Vector154
+  93              		.thumb_set Vector154,_unhandled_exception
+  94              		.weak	Vector150
+  95              		.thumb_set Vector150,_unhandled_exception
+  96              		.weak	Vector14C
+  97              		.thumb_set Vector14C,_unhandled_exception
+  98              		.weak	Vector148
+  99              		.thumb_set Vector148,_unhandled_exception
+ 100              		.weak	Vector144
+ 101              		.thumb_set Vector144,_unhandled_exception
+ 102              		.weak	Vector140
+ 103              		.thumb_set Vector140,_unhandled_exception
+ 104              		.weak	Vector13C
+ 105              		.thumb_set Vector13C,_unhandled_exception
+ 106              		.weak	Vector138
+ 107              		.thumb_set Vector138,_unhandled_exception
+ 108              		.weak	Vector134
+ 109              		.thumb_set Vector134,_unhandled_exception
+ 110              		.weak	Vector130
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s 			page 3
+
+
+ 111              		.thumb_set Vector130,_unhandled_exception
+ 112              		.weak	Vector12C
+ 113              		.thumb_set Vector12C,_unhandled_exception
+ 114              		.weak	Vector128
+ 115              		.thumb_set Vector128,_unhandled_exception
+ 116              		.weak	Vector124
+ 117              		.thumb_set Vector124,_unhandled_exception
+ 118              		.weak	Vector120
+ 119              		.thumb_set Vector120,_unhandled_exception
+ 120              		.weak	Vector11C
+ 121              		.thumb_set Vector11C,_unhandled_exception
+ 122              		.weak	Vector118
+ 123              		.thumb_set Vector118,_unhandled_exception
+ 124              		.weak	Vector114
+ 125              		.thumb_set Vector114,_unhandled_exception
+ 126              		.weak	Vector110
+ 127              		.thumb_set Vector110,_unhandled_exception
+ 128              		.weak	Vector10C
+ 129              		.thumb_set Vector10C,_unhandled_exception
+ 130              		.weak	Vector108
+ 131              		.thumb_set Vector108,_unhandled_exception
+ 132              		.weak	Vector104
+ 133              		.thumb_set Vector104,_unhandled_exception
+ 134              		.weak	Vector100
+ 135              		.thumb_set Vector100,_unhandled_exception
+ 136              		.weak	VectorFC
+ 137              		.thumb_set VectorFC,_unhandled_exception
+ 138              		.weak	VectorF8
+ 139              		.thumb_set VectorF8,_unhandled_exception
+ 140              		.weak	VectorF4
+ 141              		.thumb_set VectorF4,_unhandled_exception
+ 142              		.weak	VectorF0
+ 143              		.thumb_set VectorF0,_unhandled_exception
+ 144              		.weak	VectorEC
+ 145              		.thumb_set VectorEC,_unhandled_exception
+ 146              		.weak	VectorE8
+ 147              		.thumb_set VectorE8,_unhandled_exception
+ 148              		.weak	VectorE4
+ 149              		.thumb_set VectorE4,_unhandled_exception
+ 150              		.weak	VectorE0
+ 151              		.thumb_set VectorE0,_unhandled_exception
+ 152              		.weak	VectorDC
+ 153              		.thumb_set VectorDC,_unhandled_exception
+ 154              		.weak	VectorD8
+ 155              		.thumb_set VectorD8,_unhandled_exception
+ 156              		.weak	VectorD4
+ 157              		.thumb_set VectorD4,_unhandled_exception
+ 158              		.weak	VectorD0
+ 159              		.thumb_set VectorD0,_unhandled_exception
+ 160              		.weak	VectorCC
+ 161              		.thumb_set VectorCC,_unhandled_exception
+ 162              		.weak	VectorC8
+ 163              		.thumb_set VectorC8,_unhandled_exception
+ 164              		.weak	VectorC4
+ 165              		.thumb_set VectorC4,_unhandled_exception
+ 166              		.weak	VectorC0
+ 167              		.thumb_set VectorC0,_unhandled_exception
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s 			page 4
+
+
+ 168              		.weak	VectorBC
+ 169              		.thumb_set VectorBC,_unhandled_exception
+ 170              		.weak	VectorB8
+ 171              		.thumb_set VectorB8,_unhandled_exception
+ 172              		.weak	VectorB4
+ 173              		.thumb_set VectorB4,_unhandled_exception
+ 174              		.weak	VectorB0
+ 175              		.thumb_set VectorB0,_unhandled_exception
+ 176              		.weak	VectorAC
+ 177              		.thumb_set VectorAC,_unhandled_exception
+ 178              		.weak	VectorA8
+ 179              		.thumb_set VectorA8,_unhandled_exception
+ 180              		.weak	VectorA4
+ 181              		.thumb_set VectorA4,_unhandled_exception
+ 182              		.weak	VectorA0
+ 183              		.thumb_set VectorA0,_unhandled_exception
+ 184              		.weak	Vector9C
+ 185              		.thumb_set Vector9C,_unhandled_exception
+ 186              		.weak	Vector98
+ 187              		.thumb_set Vector98,_unhandled_exception
+ 188              		.weak	Vector94
+ 189              		.thumb_set Vector94,_unhandled_exception
+ 190              		.weak	Vector90
+ 191              		.thumb_set Vector90,_unhandled_exception
+ 192              		.weak	Vector8C
+ 193              		.thumb_set Vector8C,_unhandled_exception
+ 194              		.weak	Vector88
+ 195              		.thumb_set Vector88,_unhandled_exception
+ 196              		.weak	Vector84
+ 197              		.thumb_set Vector84,_unhandled_exception
+ 198              		.weak	Vector80
+ 199              		.thumb_set Vector80,_unhandled_exception
+ 200              		.weak	Vector7C
+ 201              		.thumb_set Vector7C,_unhandled_exception
+ 202              		.weak	Vector78
+ 203              		.thumb_set Vector78,_unhandled_exception
+ 204              		.weak	Vector74
+ 205              		.thumb_set Vector74,_unhandled_exception
+ 206              		.weak	Vector70
+ 207              		.thumb_set Vector70,_unhandled_exception
+ 208              		.weak	Vector6C
+ 209              		.thumb_set Vector6C,_unhandled_exception
+ 210              		.weak	Vector68
+ 211              		.thumb_set Vector68,_unhandled_exception
+ 212              		.weak	Vector64
+ 213              		.thumb_set Vector64,_unhandled_exception
+ 214              		.weak	Vector60
+ 215              		.thumb_set Vector60,_unhandled_exception
+ 216              		.weak	Vector5C
+ 217              		.thumb_set Vector5C,_unhandled_exception
+ 218              		.weak	Vector58
+ 219              		.thumb_set Vector58,_unhandled_exception
+ 220              		.weak	Vector54
+ 221              		.thumb_set Vector54,_unhandled_exception
+ 222              		.weak	Vector50
+ 223              		.thumb_set Vector50,_unhandled_exception
+ 224              		.weak	Vector4C
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s 			page 5
+
+
+ 225              		.thumb_set Vector4C,_unhandled_exception
+ 226              		.weak	Vector48
+ 227              		.thumb_set Vector48,_unhandled_exception
+ 228              		.weak	Vector44
+ 229              		.thumb_set Vector44,_unhandled_exception
+ 230              		.weak	Vector40
+ 231              		.thumb_set Vector40,_unhandled_exception
+ 232              		.weak	SysTick_Handler
+ 233              		.thumb_set SysTick_Handler,_unhandled_exception
+ 234              		.weak	PendSV_Handler
+ 235              		.thumb_set PendSV_Handler,_unhandled_exception
+ 236              		.weak	Vector34
+ 237              		.thumb_set Vector34,_unhandled_exception
+ 238              		.weak	DebugMon_Handler
+ 239              		.thumb_set DebugMon_Handler,_unhandled_exception
+ 240              		.weak	SVC_Handler
+ 241              		.thumb_set SVC_Handler,_unhandled_exception
+ 242              		.weak	Vector28
+ 243              		.thumb_set Vector28,_unhandled_exception
+ 244              		.weak	Vector24
+ 245              		.thumb_set Vector24,_unhandled_exception
+ 246              		.weak	Vector20
+ 247              		.thumb_set Vector20,_unhandled_exception
+ 248              		.weak	Vector1C
+ 249              		.thumb_set Vector1C,_unhandled_exception
+ 250              		.weak	UsageFault_Handler
+ 251              		.thumb_set UsageFault_Handler,_unhandled_exception
+ 252              		.weak	BusFault_Handler
+ 253              		.thumb_set BusFault_Handler,_unhandled_exception
+ 254              		.weak	MemManage_Handler
+ 255              		.thumb_set MemManage_Handler,_unhandled_exception
+ 256              		.weak	HardFault_Handler
+ 257              		.thumb_set HardFault_Handler,_unhandled_exception
+ 258              		.weak	NMI_Handler
+ 259              		.thumb_set NMI_Handler,_unhandled_exception
+ 260              		.weak	Reset_Handler
+ 261              		.thumb_set Reset_Handler,_unhandled_exception
+ 262              		.global	_vectors
+ 263              		.section	.vectors,"aw",%progbits
+ 264              		.align	2
+ 265              		.type	_vectors, %object
+ 266              		.size	_vectors, 448
+ 267              	_vectors:
+ 268 0000 00000000 		.word	__main_stack_end__
+ 269 0004 00000000 		.word	Reset_Handler
+ 270 0008 00000000 		.word	NMI_Handler
+ 271 000c 00000000 		.word	HardFault_Handler
+ 272 0010 00000000 		.word	MemManage_Handler
+ 273 0014 00000000 		.word	BusFault_Handler
+ 274 0018 00000000 		.word	UsageFault_Handler
+ 275 001c 00000000 		.word	Vector1C
+ 276 0020 00000000 		.word	Vector20
+ 277 0024 00000000 		.word	Vector24
+ 278 0028 00000000 		.word	Vector28
+ 279 002c 00000000 		.word	SVC_Handler
+ 280 0030 00000000 		.word	DebugMon_Handler
+ 281 0034 00000000 		.word	Vector34
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s 			page 6
+
+
+ 282 0038 00000000 		.word	PendSV_Handler
+ 283 003c 00000000 		.word	SysTick_Handler
+ 284 0040 00000000 		.word	Vector40
+ 285 0044 00000000 		.word	Vector44
+ 286 0048 00000000 		.word	Vector48
+ 287 004c 00000000 		.word	Vector4C
+ 288 0050 00000000 		.word	Vector50
+ 289 0054 00000000 		.word	Vector54
+ 290 0058 00000000 		.word	Vector58
+ 291 005c 00000000 		.word	Vector5C
+ 292 0060 00000000 		.word	Vector60
+ 293 0064 00000000 		.word	Vector64
+ 294 0068 00000000 		.word	Vector68
+ 295 006c 00000000 		.word	Vector6C
+ 296 0070 00000000 		.word	Vector70
+ 297 0074 00000000 		.word	Vector74
+ 298 0078 00000000 		.word	Vector78
+ 299 007c 00000000 		.word	Vector7C
+ 300 0080 00000000 		.word	Vector80
+ 301 0084 00000000 		.word	Vector84
+ 302 0088 00000000 		.word	Vector88
+ 303 008c 00000000 		.word	Vector8C
+ 304 0090 00000000 		.word	Vector90
+ 305 0094 00000000 		.word	Vector94
+ 306 0098 00000000 		.word	Vector98
+ 307 009c 00000000 		.word	Vector9C
+ 308 00a0 00000000 		.word	VectorA0
+ 309 00a4 00000000 		.word	VectorA4
+ 310 00a8 00000000 		.word	VectorA8
+ 311 00ac 00000000 		.word	VectorAC
+ 312 00b0 00000000 		.word	VectorB0
+ 313 00b4 00000000 		.word	VectorB4
+ 314 00b8 00000000 		.word	VectorB8
+ 315 00bc 00000000 		.word	VectorBC
+ 316 00c0 00000000 		.word	VectorC0
+ 317 00c4 00000000 		.word	VectorC4
+ 318 00c8 00000000 		.word	VectorC8
+ 319 00cc 00000000 		.word	VectorCC
+ 320 00d0 00000000 		.word	VectorD0
+ 321 00d4 00000000 		.word	VectorD4
+ 322 00d8 00000000 		.word	VectorD8
+ 323 00dc 00000000 		.word	VectorDC
+ 324 00e0 00000000 		.word	VectorE0
+ 325 00e4 00000000 		.word	VectorE4
+ 326 00e8 00000000 		.word	VectorE8
+ 327 00ec 00000000 		.word	VectorEC
+ 328 00f0 00000000 		.word	VectorF0
+ 329 00f4 00000000 		.word	VectorF4
+ 330 00f8 00000000 		.word	VectorF8
+ 331 00fc 00000000 		.word	VectorFC
+ 332 0100 00000000 		.word	Vector100
+ 333 0104 00000000 		.word	Vector104
+ 334 0108 00000000 		.word	Vector108
+ 335 010c 00000000 		.word	Vector10C
+ 336 0110 00000000 		.word	Vector110
+ 337 0114 00000000 		.word	Vector114
+ 338 0118 00000000 		.word	Vector118
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s 			page 7
+
+
+ 339 011c 00000000 		.word	Vector11C
+ 340 0120 00000000 		.word	Vector120
+ 341 0124 00000000 		.word	Vector124
+ 342 0128 00000000 		.word	Vector128
+ 343 012c 00000000 		.word	Vector12C
+ 344 0130 00000000 		.word	Vector130
+ 345 0134 00000000 		.word	Vector134
+ 346 0138 00000000 		.word	Vector138
+ 347 013c 00000000 		.word	Vector13C
+ 348 0140 00000000 		.word	Vector140
+ 349 0144 00000000 		.word	Vector144
+ 350 0148 00000000 		.word	Vector148
+ 351 014c 00000000 		.word	Vector14C
+ 352 0150 00000000 		.word	Vector150
+ 353 0154 00000000 		.word	Vector154
+ 354 0158 00000000 		.word	Vector158
+ 355 015c 00000000 		.word	Vector15C
+ 356 0160 00000000 		.word	Vector160
+ 357 0164 00000000 		.word	Vector164
+ 358 0168 00000000 		.word	Vector168
+ 359 016c 00000000 		.word	Vector16C
+ 360 0170 00000000 		.word	Vector170
+ 361 0174 00000000 		.word	Vector174
+ 362 0178 00000000 		.word	Vector178
+ 363 017c 00000000 		.word	Vector17C
+ 364 0180 00000000 		.word	Vector180
+ 365 0184 00000000 		.word	Vector184
+ 366 0188 00000000 		.word	Vector188
+ 367 018c 00000000 		.word	Vector18C
+ 368 0190 00000000 		.word	Vector190
+ 369 0194 00000000 		.word	Vector194
+ 370 0198 00000000 		.word	Vector198
+ 371 019c 00000000 		.word	Vector19C
+ 372 01a0 00000000 		.word	Vector1A0
+ 373 01a4 00000000 		.word	Vector1A4
+ 374 01a8 00000000 		.word	Vector1A8
+ 375 01ac 00000000 		.word	Vector1AC
+ 376 01b0 00000000 		.word	Vector1B0
+ 377 01b4 00000000 		.word	Vector1B4
+ 378 01b8 00000000 		.word	Vector1B8
+ 379 01bc 00000000 		.word	Vector1BC
+ 380              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 vectors.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:15     .rodata:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:19     .text._unhandled_exception:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 _unhandled_exception
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:38     .text._unhandled_exception:000000000000000c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector1BC
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector1B8
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector1B4
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector1B0
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector1AC
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector1A8
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector1A4
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector1A0
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector19C
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector198
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector194
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector190
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector18C
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector188
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector184
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector180
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector17C
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector178
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector174
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector170
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector16C
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector168
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector164
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector160
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector15C
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector158
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector154
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector150
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector14C
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector148
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector144
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector140
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector13C
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector138
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector134
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector130
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector12C
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector128
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector124
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector120
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector11C
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector118
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector114
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector110
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector10C
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector108
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector104
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector100
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 VectorFC
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 VectorF8
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 VectorF4
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s 			page 9
+
+
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 VectorF0
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 VectorEC
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 VectorE8
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 VectorE4
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 VectorE0
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 VectorDC
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 VectorD8
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 VectorD4
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 VectorD0
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 VectorCC
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 VectorC8
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 VectorC4
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 VectorC0
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 VectorBC
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 VectorB8
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 VectorB4
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 VectorB0
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 VectorAC
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 VectorA8
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 VectorA4
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 VectorA0
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector9C
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector98
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector94
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector90
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector8C
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector88
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector84
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector80
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector7C
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector78
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector74
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector70
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector6C
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector68
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector64
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector60
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector5C
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector58
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector54
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector50
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector4C
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector48
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector44
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector40
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 SysTick_Handler
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 PendSV_Handler
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector34
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 DebugMon_Handler
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 SVC_Handler
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector28
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector24
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector20
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Vector1C
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 UsageFault_Handler
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 BusFault_Handler
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 MemManage_Handler
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s 			page 10
+
+
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 HardFault_Handler
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 NMI_Handler
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:26     .text._unhandled_exception:0000000000000000 Reset_Handler
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:267    .vectors:0000000000000000 _vectors
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccN4ZEQB.s:264    .vectors:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+chSysHalt
+__main_stack_end__

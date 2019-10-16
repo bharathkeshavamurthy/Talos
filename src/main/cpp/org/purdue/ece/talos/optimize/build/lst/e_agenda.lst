@@ -1,0 +1,235 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cceQV36r.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"e_agenda.c"
+  14              		.section	.text.e_start_agendas_processing,"ax",%progbits
+  15              		.align	1
+  16              		.global	e_start_agendas_processing
+  17              		.syntax unified
+  18              		.thumb
+  19              		.thumb_func
+  20              		.fpu fpv4-sp-d16
+  21              		.type	e_start_agendas_processing, %function
+  22              	e_start_agendas_processing:
+  23              		@ args = 0, pretend = 0, frame = 0
+  24              		@ frame_needed = 1, uses_anonymous_args = 0
+  25              		@ link register save eliminated.
+  26 0000 80B4     		push	{r7}
+  27 0002 00AF     		add	r7, sp, #0
+  28 0004 00BF     		nop
+  29 0006 BD46     		mov	sp, r7
+  30              		@ sp needed
+  31 0008 5DF8047B 		ldr	r7, [sp], #4
+  32 000c 7047     		bx	lr
+  33              		.size	e_start_agendas_processing, .-e_start_agendas_processing
+  34              		.section	.text.e_end_agendas_processing,"ax",%progbits
+  35              		.align	1
+  36              		.global	e_end_agendas_processing
+  37              		.syntax unified
+  38              		.thumb
+  39              		.thumb_func
+  40              		.fpu fpv4-sp-d16
+  41              		.type	e_end_agendas_processing, %function
+  42              	e_end_agendas_processing:
+  43              		@ args = 0, pretend = 0, frame = 0
+  44              		@ frame_needed = 1, uses_anonymous_args = 0
+  45              		@ link register save eliminated.
+  46 0000 80B4     		push	{r7}
+  47 0002 00AF     		add	r7, sp, #0
+  48 0004 00BF     		nop
+  49 0006 BD46     		mov	sp, r7
+  50              		@ sp needed
+  51 0008 5DF8047B 		ldr	r7, [sp], #4
+  52 000c 7047     		bx	lr
+  53              		.size	e_end_agendas_processing, .-e_end_agendas_processing
+  54              		.section	.text.e_activate_agenda,"ax",%progbits
+  55              		.align	1
+  56              		.global	e_activate_agenda
+  57              		.syntax unified
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cceQV36r.s 			page 2
+
+
+  58              		.thumb
+  59              		.thumb_func
+  60              		.fpu fpv4-sp-d16
+  61              		.type	e_activate_agenda, %function
+  62              	e_activate_agenda:
+  63              		@ args = 0, pretend = 0, frame = 8
+  64              		@ frame_needed = 1, uses_anonymous_args = 0
+  65              		@ link register save eliminated.
+  66 0000 80B4     		push	{r7}
+  67 0002 83B0     		sub	sp, sp, #12
+  68 0004 00AF     		add	r7, sp, #0
+  69 0006 7860     		str	r0, [r7, #4]
+  70 0008 3960     		str	r1, [r7]
+  71 000a 0023     		movs	r3, #0
+  72 000c 1846     		mov	r0, r3
+  73 000e 0C37     		adds	r7, r7, #12
+  74 0010 BD46     		mov	sp, r7
+  75              		@ sp needed
+  76 0012 5DF8047B 		ldr	r7, [sp], #4
+  77 0016 7047     		bx	lr
+  78              		.size	e_activate_agenda, .-e_activate_agenda
+  79              		.section	.text.e_destroy_agenda,"ax",%progbits
+  80              		.align	1
+  81              		.global	e_destroy_agenda
+  82              		.syntax unified
+  83              		.thumb
+  84              		.thumb_func
+  85              		.fpu fpv4-sp-d16
+  86              		.type	e_destroy_agenda, %function
+  87              	e_destroy_agenda:
+  88              		@ args = 0, pretend = 0, frame = 8
+  89              		@ frame_needed = 1, uses_anonymous_args = 0
+  90              		@ link register save eliminated.
+  91 0000 80B4     		push	{r7}
+  92 0002 83B0     		sub	sp, sp, #12
+  93 0004 00AF     		add	r7, sp, #0
+  94 0006 7860     		str	r0, [r7, #4]
+  95 0008 0023     		movs	r3, #0
+  96 000a 1846     		mov	r0, r3
+  97 000c 0C37     		adds	r7, r7, #12
+  98 000e BD46     		mov	sp, r7
+  99              		@ sp needed
+ 100 0010 5DF8047B 		ldr	r7, [sp], #4
+ 101 0014 7047     		bx	lr
+ 102              		.size	e_destroy_agenda, .-e_destroy_agenda
+ 103              		.section	.text.e_set_agenda_cycle,"ax",%progbits
+ 104              		.align	1
+ 105              		.global	e_set_agenda_cycle
+ 106              		.syntax unified
+ 107              		.thumb
+ 108              		.thumb_func
+ 109              		.fpu fpv4-sp-d16
+ 110              		.type	e_set_agenda_cycle, %function
+ 111              	e_set_agenda_cycle:
+ 112              		@ args = 0, pretend = 0, frame = 8
+ 113              		@ frame_needed = 1, uses_anonymous_args = 0
+ 114              		@ link register save eliminated.
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cceQV36r.s 			page 3
+
+
+ 115 0000 80B4     		push	{r7}
+ 116 0002 83B0     		sub	sp, sp, #12
+ 117 0004 00AF     		add	r7, sp, #0
+ 118 0006 7860     		str	r0, [r7, #4]
+ 119 0008 3960     		str	r1, [r7]
+ 120 000a 0023     		movs	r3, #0
+ 121 000c 1846     		mov	r0, r3
+ 122 000e 0C37     		adds	r7, r7, #12
+ 123 0010 BD46     		mov	sp, r7
+ 124              		@ sp needed
+ 125 0012 5DF8047B 		ldr	r7, [sp], #4
+ 126 0016 7047     		bx	lr
+ 127              		.size	e_set_agenda_cycle, .-e_set_agenda_cycle
+ 128              		.section	.text.e_reset_agenda,"ax",%progbits
+ 129              		.align	1
+ 130              		.global	e_reset_agenda
+ 131              		.syntax unified
+ 132              		.thumb
+ 133              		.thumb_func
+ 134              		.fpu fpv4-sp-d16
+ 135              		.type	e_reset_agenda, %function
+ 136              	e_reset_agenda:
+ 137              		@ args = 0, pretend = 0, frame = 8
+ 138              		@ frame_needed = 1, uses_anonymous_args = 0
+ 139              		@ link register save eliminated.
+ 140 0000 80B4     		push	{r7}
+ 141 0002 83B0     		sub	sp, sp, #12
+ 142 0004 00AF     		add	r7, sp, #0
+ 143 0006 7860     		str	r0, [r7, #4]
+ 144 0008 0023     		movs	r3, #0
+ 145 000a 1846     		mov	r0, r3
+ 146 000c 0C37     		adds	r7, r7, #12
+ 147 000e BD46     		mov	sp, r7
+ 148              		@ sp needed
+ 149 0010 5DF8047B 		ldr	r7, [sp], #4
+ 150 0014 7047     		bx	lr
+ 151              		.size	e_reset_agenda, .-e_reset_agenda
+ 152              		.section	.text.e_pause_agenda,"ax",%progbits
+ 153              		.align	1
+ 154              		.global	e_pause_agenda
+ 155              		.syntax unified
+ 156              		.thumb
+ 157              		.thumb_func
+ 158              		.fpu fpv4-sp-d16
+ 159              		.type	e_pause_agenda, %function
+ 160              	e_pause_agenda:
+ 161              		@ args = 0, pretend = 0, frame = 8
+ 162              		@ frame_needed = 1, uses_anonymous_args = 0
+ 163              		@ link register save eliminated.
+ 164 0000 80B4     		push	{r7}
+ 165 0002 83B0     		sub	sp, sp, #12
+ 166 0004 00AF     		add	r7, sp, #0
+ 167 0006 7860     		str	r0, [r7, #4]
+ 168 0008 0023     		movs	r3, #0
+ 169 000a 1846     		mov	r0, r3
+ 170 000c 0C37     		adds	r7, r7, #12
+ 171 000e BD46     		mov	sp, r7
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cceQV36r.s 			page 4
+
+
+ 172              		@ sp needed
+ 173 0010 5DF8047B 		ldr	r7, [sp], #4
+ 174 0014 7047     		bx	lr
+ 175              		.size	e_pause_agenda, .-e_pause_agenda
+ 176              		.section	.text.e_restart_agenda,"ax",%progbits
+ 177              		.align	1
+ 178              		.global	e_restart_agenda
+ 179              		.syntax unified
+ 180              		.thumb
+ 181              		.thumb_func
+ 182              		.fpu fpv4-sp-d16
+ 183              		.type	e_restart_agenda, %function
+ 184              	e_restart_agenda:
+ 185              		@ args = 0, pretend = 0, frame = 8
+ 186              		@ frame_needed = 1, uses_anonymous_args = 0
+ 187              		@ link register save eliminated.
+ 188 0000 80B4     		push	{r7}
+ 189 0002 83B0     		sub	sp, sp, #12
+ 190 0004 00AF     		add	r7, sp, #0
+ 191 0006 7860     		str	r0, [r7, #4]
+ 192 0008 0023     		movs	r3, #0
+ 193 000a 1846     		mov	r0, r3
+ 194 000c 0C37     		adds	r7, r7, #12
+ 195 000e BD46     		mov	sp, r7
+ 196              		@ sp needed
+ 197 0010 5DF8047B 		ldr	r7, [sp], #4
+ 198 0014 7047     		bx	lr
+ 199              		.size	e_restart_agenda, .-e_restart_agenda
+ 200              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cceQV36r.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 e_agenda.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cceQV36r.s:15     .text.e_start_agendas_processing:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cceQV36r.s:22     .text.e_start_agendas_processing:0000000000000000 e_start_agendas_processing
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cceQV36r.s:35     .text.e_end_agendas_processing:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cceQV36r.s:42     .text.e_end_agendas_processing:0000000000000000 e_end_agendas_processing
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cceQV36r.s:55     .text.e_activate_agenda:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cceQV36r.s:62     .text.e_activate_agenda:0000000000000000 e_activate_agenda
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cceQV36r.s:80     .text.e_destroy_agenda:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cceQV36r.s:87     .text.e_destroy_agenda:0000000000000000 e_destroy_agenda
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cceQV36r.s:104    .text.e_set_agenda_cycle:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cceQV36r.s:111    .text.e_set_agenda_cycle:0000000000000000 e_set_agenda_cycle
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cceQV36r.s:129    .text.e_reset_agenda:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cceQV36r.s:136    .text.e_reset_agenda:0000000000000000 e_reset_agenda
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cceQV36r.s:153    .text.e_pause_agenda:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cceQV36r.s:160    .text.e_pause_agenda:0000000000000000 e_pause_agenda
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cceQV36r.s:177    .text.e_restart_agenda:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cceQV36r.s:184    .text.e_restart_agenda:0000000000000000 e_restart_agenda
+
+NO UNDEFINED SYMBOLS

@@ -1,0 +1,301 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"st_lld.c"
+  14              		.section	.text.port_lock,"ax",%progbits
+  15              		.align	1
+  16              		.syntax unified
+  17              		.thumb
+  18              		.thumb_func
+  19              		.fpu fpv4-sp-d16
+  20              		.type	port_lock, %function
+  21              	port_lock:
+  22              		@ args = 0, pretend = 0, frame = 8
+  23              		@ frame_needed = 1, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 80B4     		push	{r7}
+  26 0002 83B0     		sub	sp, sp, #12
+  27 0004 00AF     		add	r7, sp, #0
+  28 0006 2023     		movs	r3, #32
+  29 0008 7B60     		str	r3, [r7, #4]
+  30 000a 7B68     		ldr	r3, [r7, #4]
+  31              		.syntax unified
+  32              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  33 000c 83F31188 		MSR basepri, r3
+  34              	@ 0 "" 2
+  35              		.thumb
+  36              		.syntax unified
+  37 0010 00BF     		nop
+  38 0012 0C37     		adds	r7, r7, #12
+  39 0014 BD46     		mov	sp, r7
+  40              		@ sp needed
+  41 0016 5DF8047B 		ldr	r7, [sp], #4
+  42 001a 7047     		bx	lr
+  43              		.size	port_lock, .-port_lock
+  44              		.section	.text.port_unlock,"ax",%progbits
+  45              		.align	1
+  46              		.syntax unified
+  47              		.thumb
+  48              		.thumb_func
+  49              		.fpu fpv4-sp-d16
+  50              		.type	port_unlock, %function
+  51              	port_unlock:
+  52              		@ args = 0, pretend = 0, frame = 8
+  53              		@ frame_needed = 1, uses_anonymous_args = 0
+  54              		@ link register save eliminated.
+  55 0000 80B4     		push	{r7}
+  56 0002 83B0     		sub	sp, sp, #12
+  57 0004 00AF     		add	r7, sp, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s 			page 2
+
+
+  58 0006 0023     		movs	r3, #0
+  59 0008 7B60     		str	r3, [r7, #4]
+  60 000a 7B68     		ldr	r3, [r7, #4]
+  61              		.syntax unified
+  62              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  63 000c 83F31188 		MSR basepri, r3
+  64              	@ 0 "" 2
+  65              		.thumb
+  66              		.syntax unified
+  67 0010 00BF     		nop
+  68 0012 0C37     		adds	r7, r7, #12
+  69 0014 BD46     		mov	sp, r7
+  70              		@ sp needed
+  71 0016 5DF8047B 		ldr	r7, [sp], #4
+  72 001a 7047     		bx	lr
+  73              		.size	port_unlock, .-port_unlock
+  74              		.section	.text.port_lock_from_isr,"ax",%progbits
+  75              		.align	1
+  76              		.syntax unified
+  77              		.thumb
+  78              		.thumb_func
+  79              		.fpu fpv4-sp-d16
+  80              		.type	port_lock_from_isr, %function
+  81              	port_lock_from_isr:
+  82              		@ args = 0, pretend = 0, frame = 0
+  83              		@ frame_needed = 1, uses_anonymous_args = 0
+  84 0000 80B5     		push	{r7, lr}
+  85 0002 00AF     		add	r7, sp, #0
+  86 0004 FFF7FEFF 		bl	port_lock
+  87 0008 00BF     		nop
+  88 000a 80BD     		pop	{r7, pc}
+  89              		.size	port_lock_from_isr, .-port_lock_from_isr
+  90              		.section	.text.port_unlock_from_isr,"ax",%progbits
+  91              		.align	1
+  92              		.syntax unified
+  93              		.thumb
+  94              		.thumb_func
+  95              		.fpu fpv4-sp-d16
+  96              		.type	port_unlock_from_isr, %function
+  97              	port_unlock_from_isr:
+  98              		@ args = 0, pretend = 0, frame = 0
+  99              		@ frame_needed = 1, uses_anonymous_args = 0
+ 100 0000 80B5     		push	{r7, lr}
+ 101 0002 00AF     		add	r7, sp, #0
+ 102 0004 FFF7FEFF 		bl	port_unlock
+ 103 0008 00BF     		nop
+ 104 000a 80BD     		pop	{r7, pc}
+ 105              		.size	port_unlock_from_isr, .-port_unlock_from_isr
+ 106              		.section	.text.chSysLockFromISR,"ax",%progbits
+ 107              		.align	1
+ 108              		.syntax unified
+ 109              		.thumb
+ 110              		.thumb_func
+ 111              		.fpu fpv4-sp-d16
+ 112              		.type	chSysLockFromISR, %function
+ 113              	chSysLockFromISR:
+ 114              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s 			page 3
+
+
+ 115              		@ frame_needed = 1, uses_anonymous_args = 0
+ 116 0000 80B5     		push	{r7, lr}
+ 117 0002 00AF     		add	r7, sp, #0
+ 118 0004 FFF7FEFF 		bl	port_lock_from_isr
+ 119 0008 FFF7FEFF 		bl	_stats_start_measure_crit_isr
+ 120 000c FFF7FEFF 		bl	_dbg_check_lock_from_isr
+ 121 0010 00BF     		nop
+ 122 0012 80BD     		pop	{r7, pc}
+ 123              		.size	chSysLockFromISR, .-chSysLockFromISR
+ 124              		.section	.text.chSysUnlockFromISR,"ax",%progbits
+ 125              		.align	1
+ 126              		.syntax unified
+ 127              		.thumb
+ 128              		.thumb_func
+ 129              		.fpu fpv4-sp-d16
+ 130              		.type	chSysUnlockFromISR, %function
+ 131              	chSysUnlockFromISR:
+ 132              		@ args = 0, pretend = 0, frame = 0
+ 133              		@ frame_needed = 1, uses_anonymous_args = 0
+ 134 0000 80B5     		push	{r7, lr}
+ 135 0002 00AF     		add	r7, sp, #0
+ 136 0004 FFF7FEFF 		bl	_dbg_check_unlock_from_isr
+ 137 0008 FFF7FEFF 		bl	_stats_stop_measure_crit_isr
+ 138 000c FFF7FEFF 		bl	port_unlock_from_isr
+ 139 0010 00BF     		nop
+ 140 0012 80BD     		pop	{r7, pc}
+ 141              		.size	chSysUnlockFromISR, .-chSysUnlockFromISR
+ 142              		.section	.text.osalSysLockFromISR,"ax",%progbits
+ 143              		.align	1
+ 144              		.syntax unified
+ 145              		.thumb
+ 146              		.thumb_func
+ 147              		.fpu fpv4-sp-d16
+ 148              		.type	osalSysLockFromISR, %function
+ 149              	osalSysLockFromISR:
+ 150              		@ args = 0, pretend = 0, frame = 0
+ 151              		@ frame_needed = 1, uses_anonymous_args = 0
+ 152 0000 80B5     		push	{r7, lr}
+ 153 0002 00AF     		add	r7, sp, #0
+ 154 0004 FFF7FEFF 		bl	chSysLockFromISR
+ 155 0008 00BF     		nop
+ 156 000a 80BD     		pop	{r7, pc}
+ 157              		.size	osalSysLockFromISR, .-osalSysLockFromISR
+ 158              		.section	.text.osalSysUnlockFromISR,"ax",%progbits
+ 159              		.align	1
+ 160              		.syntax unified
+ 161              		.thumb
+ 162              		.thumb_func
+ 163              		.fpu fpv4-sp-d16
+ 164              		.type	osalSysUnlockFromISR, %function
+ 165              	osalSysUnlockFromISR:
+ 166              		@ args = 0, pretend = 0, frame = 0
+ 167              		@ frame_needed = 1, uses_anonymous_args = 0
+ 168 0000 80B5     		push	{r7, lr}
+ 169 0002 00AF     		add	r7, sp, #0
+ 170 0004 FFF7FEFF 		bl	chSysUnlockFromISR
+ 171 0008 00BF     		nop
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s 			page 4
+
+
+ 172 000a 80BD     		pop	{r7, pc}
+ 173              		.size	osalSysUnlockFromISR, .-osalSysUnlockFromISR
+ 174              		.section	.text.osalOsTimerHandlerI,"ax",%progbits
+ 175              		.align	1
+ 176              		.syntax unified
+ 177              		.thumb
+ 178              		.thumb_func
+ 179              		.fpu fpv4-sp-d16
+ 180              		.type	osalOsTimerHandlerI, %function
+ 181              	osalOsTimerHandlerI:
+ 182              		@ args = 0, pretend = 0, frame = 0
+ 183              		@ frame_needed = 1, uses_anonymous_args = 0
+ 184 0000 80B5     		push	{r7, lr}
+ 185 0002 00AF     		add	r7, sp, #0
+ 186 0004 FFF7FEFF 		bl	chSysTimerHandlerI
+ 187 0008 00BF     		nop
+ 188 000a 80BD     		pop	{r7, pc}
+ 189              		.size	osalOsTimerHandlerI, .-osalOsTimerHandlerI
+ 190              		.section	.text.SysTick_Handler,"ax",%progbits
+ 191              		.align	1
+ 192              		.global	SysTick_Handler
+ 193              		.syntax unified
+ 194              		.thumb
+ 195              		.thumb_func
+ 196              		.fpu fpv4-sp-d16
+ 197              		.type	SysTick_Handler, %function
+ 198              	SysTick_Handler:
+ 199              		@ args = 0, pretend = 0, frame = 0
+ 200              		@ frame_needed = 1, uses_anonymous_args = 0
+ 201 0000 80B5     		push	{r7, lr}
+ 202 0002 00AF     		add	r7, sp, #0
+ 203 0004 FFF7FEFF 		bl	_stats_increase_irq
+ 204 0008 FFF7FEFF 		bl	_dbg_check_enter_isr
+ 205 000c FFF7FEFF 		bl	osalSysLockFromISR
+ 206 0010 FFF7FEFF 		bl	osalOsTimerHandlerI
+ 207 0014 FFF7FEFF 		bl	osalSysUnlockFromISR
+ 208 0018 FFF7FEFF 		bl	_dbg_check_leave_isr
+ 209 001c FFF7FEFF 		bl	_port_irq_epilogue
+ 210 0020 00BF     		nop
+ 211 0022 80BD     		pop	{r7, pc}
+ 212              		.size	SysTick_Handler, .-SysTick_Handler
+ 213              		.section	.text.st_lld_init,"ax",%progbits
+ 214              		.align	1
+ 215              		.global	st_lld_init
+ 216              		.syntax unified
+ 217              		.thumb
+ 218              		.thumb_func
+ 219              		.fpu fpv4-sp-d16
+ 220              		.type	st_lld_init, %function
+ 221              	st_lld_init:
+ 222              		@ args = 0, pretend = 0, frame = 0
+ 223              		@ frame_needed = 1, uses_anonymous_args = 0
+ 224 0000 80B5     		push	{r7, lr}
+ 225 0002 00AF     		add	r7, sp, #0
+ 226 0004 074B     		ldr	r3, .L12
+ 227 0006 084A     		ldr	r2, .L12+4
+ 228 0008 5A60     		str	r2, [r3, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s 			page 5
+
+
+ 229 000a 064B     		ldr	r3, .L12
+ 230 000c 0022     		movs	r2, #0
+ 231 000e 9A60     		str	r2, [r3, #8]
+ 232 0010 044B     		ldr	r3, .L12
+ 233 0012 0722     		movs	r2, #7
+ 234 0014 1A60     		str	r2, [r3]
+ 235 0016 0821     		movs	r1, #8
+ 236 0018 0B20     		movs	r0, #11
+ 237 001a FFF7FEFF 		bl	nvicSetSystemHandlerPriority
+ 238 001e 00BF     		nop
+ 239 0020 80BD     		pop	{r7, pc}
+ 240              	.L13:
+ 241 0022 00BF     		.align	2
+ 242              	.L12:
+ 243 0024 10E000E0 		.word	-536813552
+ 244 0028 3F900200 		.word	167999
+ 245              		.size	st_lld_init, .-st_lld_init
+ 246              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 st_lld.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s:15     .text.port_lock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s:21     .text.port_lock:0000000000000000 port_lock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s:45     .text.port_unlock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s:51     .text.port_unlock:0000000000000000 port_unlock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s:75     .text.port_lock_from_isr:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s:81     .text.port_lock_from_isr:0000000000000000 port_lock_from_isr
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s:91     .text.port_unlock_from_isr:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s:97     .text.port_unlock_from_isr:0000000000000000 port_unlock_from_isr
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s:107    .text.chSysLockFromISR:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s:113    .text.chSysLockFromISR:0000000000000000 chSysLockFromISR
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s:125    .text.chSysUnlockFromISR:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s:131    .text.chSysUnlockFromISR:0000000000000000 chSysUnlockFromISR
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s:143    .text.osalSysLockFromISR:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s:149    .text.osalSysLockFromISR:0000000000000000 osalSysLockFromISR
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s:159    .text.osalSysUnlockFromISR:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s:165    .text.osalSysUnlockFromISR:0000000000000000 osalSysUnlockFromISR
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s:175    .text.osalOsTimerHandlerI:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s:181    .text.osalOsTimerHandlerI:0000000000000000 osalOsTimerHandlerI
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s:191    .text.SysTick_Handler:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s:198    .text.SysTick_Handler:0000000000000000 SysTick_Handler
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s:214    .text.st_lld_init:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s:221    .text.st_lld_init:0000000000000000 st_lld_init
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cckYAczN.s:243    .text.st_lld_init:0000000000000024 $d
+
+UNDEFINED SYMBOLS
+_stats_start_measure_crit_isr
+_dbg_check_lock_from_isr
+_dbg_check_unlock_from_isr
+_stats_stop_measure_crit_isr
+chSysTimerHandlerI
+_stats_increase_irq
+_dbg_check_enter_isr
+_dbg_check_leave_isr
+_port_irq_epilogue
+nvicSetSystemHandlerPriority

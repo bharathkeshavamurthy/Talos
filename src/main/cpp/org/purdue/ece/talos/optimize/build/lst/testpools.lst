@@ -1,0 +1,292 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccSDQvhz.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"testpools.c"
+  14              		.section	.data.mp1,"aw",%progbits
+  15              		.align	2
+  16              		.type	mp1, %object
+  17              		.size	mp1, 12
+  18              	mp1:
+  19 0000 00000000 		.word	0
+  20 0004 F8010000 		.word	504
+  21 0008 00000000 		.word	0
+  22              		.section	.text.null_provider,"ax",%progbits
+  23              		.align	1
+  24              		.syntax unified
+  25              		.thumb
+  26              		.thumb_func
+  27              		.fpu fpv4-sp-d16
+  28              		.type	null_provider, %function
+  29              	null_provider:
+  30              		@ args = 0, pretend = 0, frame = 8
+  31              		@ frame_needed = 1, uses_anonymous_args = 0
+  32              		@ link register save eliminated.
+  33 0000 80B4     		push	{r7}
+  34 0002 83B0     		sub	sp, sp, #12
+  35 0004 00AF     		add	r7, sp, #0
+  36 0006 7860     		str	r0, [r7, #4]
+  37 0008 0023     		movs	r3, #0
+  38 000a 1846     		mov	r0, r3
+  39 000c 0C37     		adds	r7, r7, #12
+  40 000e BD46     		mov	sp, r7
+  41              		@ sp needed
+  42 0010 5DF8047B 		ldr	r7, [sp], #4
+  43 0014 7047     		bx	lr
+  44              		.size	null_provider, .-null_provider
+  45              		.section	.text.pools1_setup,"ax",%progbits
+  46              		.align	1
+  47              		.syntax unified
+  48              		.thumb
+  49              		.thumb_func
+  50              		.fpu fpv4-sp-d16
+  51              		.type	pools1_setup, %function
+  52              	pools1_setup:
+  53              		@ args = 0, pretend = 0, frame = 0
+  54              		@ frame_needed = 1, uses_anonymous_args = 0
+  55 0000 80B5     		push	{r7, lr}
+  56 0002 00AF     		add	r7, sp, #0
+  57 0004 0022     		movs	r2, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccSDQvhz.s 			page 2
+
+
+  58 0006 4FF4FC71 		mov	r1, #504
+  59 000a 0248     		ldr	r0, .L4
+  60 000c FFF7FEFF 		bl	chPoolObjectInit
+  61 0010 00BF     		nop
+  62 0012 80BD     		pop	{r7, pc}
+  63              	.L5:
+  64              		.align	2
+  65              	.L4:
+  66 0014 00000000 		.word	mp1
+  67              		.size	pools1_setup, .-pools1_setup
+  68              		.section	.text.pools1_execute,"ax",%progbits
+  69              		.align	1
+  70              		.syntax unified
+  71              		.thumb
+  72              		.thumb_func
+  73              		.fpu fpv4-sp-d16
+  74              		.type	pools1_execute, %function
+  75              	pools1_execute:
+  76              		@ args = 0, pretend = 0, frame = 8
+  77              		@ frame_needed = 1, uses_anonymous_args = 0
+  78 0000 80B5     		push	{r7, lr}
+  79 0002 82B0     		sub	sp, sp, #8
+  80 0004 00AF     		add	r7, sp, #0
+  81 0006 444B     		ldr	r3, .L22
+  82 0008 1B68     		ldr	r3, [r3]
+  83 000a 0522     		movs	r2, #5
+  84 000c 1946     		mov	r1, r3
+  85 000e 4348     		ldr	r0, .L22+4
+  86 0010 FFF7FEFF 		bl	chPoolLoadArray
+  87 0014 0023     		movs	r3, #0
+  88 0016 7B60     		str	r3, [r7, #4]
+  89 0018 12E0     		b	.L7
+  90              	.L10:
+  91 001a 4048     		ldr	r0, .L22+4
+  92 001c FFF7FEFF 		bl	chPoolAlloc
+  93 0020 0346     		mov	r3, r0
+  94 0022 002B     		cmp	r3, #0
+  95 0024 14BF     		ite	ne
+  96 0026 0123     		movne	r3, #1
+  97 0028 0023     		moveq	r3, #0
+  98 002a DBB2     		uxtb	r3, r3
+  99 002c 1946     		mov	r1, r3
+ 100 002e 0120     		movs	r0, #1
+ 101 0030 FFF7FEFF 		bl	_test_assert
+ 102 0034 0346     		mov	r3, r0
+ 103 0036 002B     		cmp	r3, #0
+ 104 0038 64D1     		bne	.L18
+ 105 003a 7B68     		ldr	r3, [r7, #4]
+ 106 003c 0133     		adds	r3, r3, #1
+ 107 003e 7B60     		str	r3, [r7, #4]
+ 108              	.L7:
+ 109 0040 7B68     		ldr	r3, [r7, #4]
+ 110 0042 042B     		cmp	r3, #4
+ 111 0044 E9DD     		ble	.L10
+ 112 0046 3548     		ldr	r0, .L22+4
+ 113 0048 FFF7FEFF 		bl	chPoolAlloc
+ 114 004c 0346     		mov	r3, r0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccSDQvhz.s 			page 3
+
+
+ 115 004e 002B     		cmp	r3, #0
+ 116 0050 0CBF     		ite	eq
+ 117 0052 0123     		moveq	r3, #1
+ 118 0054 0023     		movne	r3, #0
+ 119 0056 DBB2     		uxtb	r3, r3
+ 120 0058 1946     		mov	r1, r3
+ 121 005a 0220     		movs	r0, #2
+ 122 005c FFF7FEFF 		bl	_test_assert
+ 123 0060 0346     		mov	r3, r0
+ 124 0062 002B     		cmp	r3, #0
+ 125 0064 50D1     		bne	.L19
+ 126 0066 0023     		movs	r3, #0
+ 127 0068 7B60     		str	r3, [r7, #4]
+ 128 006a 0AE0     		b	.L12
+ 129              	.L13:
+ 130 006c 2A4A     		ldr	r2, .L22
+ 131 006e 7B68     		ldr	r3, [r7, #4]
+ 132 0070 52F82330 		ldr	r3, [r2, r3, lsl #2]
+ 133 0074 1946     		mov	r1, r3
+ 134 0076 2948     		ldr	r0, .L22+4
+ 135 0078 FFF7FEFF 		bl	chPoolFree
+ 136 007c 7B68     		ldr	r3, [r7, #4]
+ 137 007e 0133     		adds	r3, r3, #1
+ 138 0080 7B60     		str	r3, [r7, #4]
+ 139              	.L12:
+ 140 0082 7B68     		ldr	r3, [r7, #4]
+ 141 0084 042B     		cmp	r3, #4
+ 142 0086 F1DD     		ble	.L13
+ 143 0088 0023     		movs	r3, #0
+ 144 008a 7B60     		str	r3, [r7, #4]
+ 145 008c 12E0     		b	.L14
+ 146              	.L16:
+ 147 008e 2348     		ldr	r0, .L22+4
+ 148 0090 FFF7FEFF 		bl	chPoolAlloc
+ 149 0094 0346     		mov	r3, r0
+ 150 0096 002B     		cmp	r3, #0
+ 151 0098 14BF     		ite	ne
+ 152 009a 0123     		movne	r3, #1
+ 153 009c 0023     		moveq	r3, #0
+ 154 009e DBB2     		uxtb	r3, r3
+ 155 00a0 1946     		mov	r1, r3
+ 156 00a2 0320     		movs	r0, #3
+ 157 00a4 FFF7FEFF 		bl	_test_assert
+ 158 00a8 0346     		mov	r3, r0
+ 159 00aa 002B     		cmp	r3, #0
+ 160 00ac 2ED1     		bne	.L20
+ 161 00ae 7B68     		ldr	r3, [r7, #4]
+ 162 00b0 0133     		adds	r3, r3, #1
+ 163 00b2 7B60     		str	r3, [r7, #4]
+ 164              	.L14:
+ 165 00b4 7B68     		ldr	r3, [r7, #4]
+ 166 00b6 042B     		cmp	r3, #4
+ 167 00b8 E9DD     		ble	.L16
+ 168 00ba 1848     		ldr	r0, .L22+4
+ 169 00bc FFF7FEFF 		bl	chPoolAlloc
+ 170 00c0 0346     		mov	r3, r0
+ 171 00c2 002B     		cmp	r3, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccSDQvhz.s 			page 4
+
+
+ 172 00c4 0CBF     		ite	eq
+ 173 00c6 0123     		moveq	r3, #1
+ 174 00c8 0023     		movne	r3, #0
+ 175 00ca DBB2     		uxtb	r3, r3
+ 176 00cc 1946     		mov	r1, r3
+ 177 00ce 0420     		movs	r0, #4
+ 178 00d0 FFF7FEFF 		bl	_test_assert
+ 179 00d4 0346     		mov	r3, r0
+ 180 00d6 002B     		cmp	r3, #0
+ 181 00d8 1AD1     		bne	.L21
+ 182 00da 114A     		ldr	r2, .L22+8
+ 183 00dc 1021     		movs	r1, #16
+ 184 00de 0F48     		ldr	r0, .L22+4
+ 185 00e0 FFF7FEFF 		bl	chPoolObjectInit
+ 186 00e4 0D48     		ldr	r0, .L22+4
+ 187 00e6 FFF7FEFF 		bl	chPoolAlloc
+ 188 00ea 0346     		mov	r3, r0
+ 189 00ec 002B     		cmp	r3, #0
+ 190 00ee 0CBF     		ite	eq
+ 191 00f0 0123     		moveq	r3, #1
+ 192 00f2 0023     		movne	r3, #0
+ 193 00f4 DBB2     		uxtb	r3, r3
+ 194 00f6 1946     		mov	r1, r3
+ 195 00f8 0520     		movs	r0, #5
+ 196 00fa FFF7FEFF 		bl	_test_assert
+ 197 00fe 0346     		mov	r3, r0
+ 198 0100 002B     		cmp	r3, #0
+ 199 0102 06E0     		b	.L6
+ 200              	.L18:
+ 201 0104 00BF     		nop
+ 202 0106 04E0     		b	.L6
+ 203              	.L19:
+ 204 0108 00BF     		nop
+ 205 010a 02E0     		b	.L6
+ 206              	.L20:
+ 207 010c 00BF     		nop
+ 208 010e 00E0     		b	.L6
+ 209              	.L21:
+ 210 0110 00BF     		nop
+ 211              	.L6:
+ 212 0112 0837     		adds	r7, r7, #8
+ 213 0114 BD46     		mov	sp, r7
+ 214              		@ sp needed
+ 215 0116 80BD     		pop	{r7, pc}
+ 216              	.L23:
+ 217              		.align	2
+ 218              	.L22:
+ 219 0118 00000000 		.word	wa
+ 220 011c 00000000 		.word	mp1
+ 221 0120 00000000 		.word	null_provider
+ 222              		.size	pools1_execute, .-pools1_execute
+ 223              		.global	testpools1
+ 224              		.section	.rodata
+ 225              		.align	2
+ 226              	.LC0:
+ 227 0000 4D656D6F 		.ascii	"Memory Pools, queue/dequeue\000"
+ 227      72792050 
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccSDQvhz.s 			page 5
+
+
+ 227      6F6F6C73 
+ 227      2C207175 
+ 227      6575652F 
+ 228              		.section	.rodata.testpools1,"a",%progbits
+ 229              		.align	2
+ 230              		.type	testpools1, %object
+ 231              		.size	testpools1, 16
+ 232              	testpools1:
+ 233 0000 00000000 		.word	.LC0
+ 234 0004 00000000 		.word	pools1_setup
+ 235 0008 00000000 		.word	0
+ 236 000c 00000000 		.word	pools1_execute
+ 237              		.global	patternpools
+ 238              		.section	.rodata.patternpools,"a",%progbits
+ 239              		.align	2
+ 240              		.type	patternpools, %object
+ 241              		.size	patternpools, 8
+ 242              	patternpools:
+ 243 0000 00000000 		.word	testpools1
+ 244 0004 00000000 		.word	0
+ 245              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccSDQvhz.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 testpools.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccSDQvhz.s:15     .data.mp1:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccSDQvhz.s:18     .data.mp1:0000000000000000 mp1
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccSDQvhz.s:23     .text.null_provider:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccSDQvhz.s:29     .text.null_provider:0000000000000000 null_provider
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccSDQvhz.s:46     .text.pools1_setup:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccSDQvhz.s:52     .text.pools1_setup:0000000000000000 pools1_setup
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccSDQvhz.s:66     .text.pools1_setup:0000000000000014 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccSDQvhz.s:69     .text.pools1_execute:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccSDQvhz.s:75     .text.pools1_execute:0000000000000000 pools1_execute
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccSDQvhz.s:219    .text.pools1_execute:0000000000000118 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccSDQvhz.s:232    .rodata.testpools1:0000000000000000 testpools1
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccSDQvhz.s:225    .rodata:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccSDQvhz.s:229    .rodata.testpools1:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccSDQvhz.s:242    .rodata.patternpools:0000000000000000 patternpools
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccSDQvhz.s:239    .rodata.patternpools:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+chPoolObjectInit
+chPoolLoadArray
+chPoolAlloc
+_test_assert
+chPoolFree
+wa

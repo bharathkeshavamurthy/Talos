@@ -1,0 +1,228 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccS0Kes0.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"sdio.c"
+  14              		.section	.bss.sdio_connected,"aw",%nobits
+  15              		.type	sdio_connected, %object
+  16              		.size	sdio_connected, 1
+  17              	sdio_connected:
+  18 0000 00       		.space	1
+  19              		.section	.text.sdio_start,"ax",%progbits
+  20              		.align	1
+  21              		.global	sdio_start
+  22              		.syntax unified
+  23              		.thumb
+  24              		.thumb_func
+  25              		.fpu fpv4-sp-d16
+  26              		.type	sdio_start, %function
+  27              	sdio_start:
+  28              		@ args = 0, pretend = 0, frame = 0
+  29              		@ frame_needed = 1, uses_anonymous_args = 0
+  30 0000 80B5     		push	{r7, lr}
+  31 0002 00AF     		add	r7, sp, #0
+  32 0004 0249     		ldr	r1, .L2
+  33 0006 0348     		ldr	r0, .L2+4
+  34 0008 FFF7FEFF 		bl	sdcStart
+  35 000c 00BF     		nop
+  36 000e 80BD     		pop	{r7, pc}
+  37              	.L3:
+  38              		.align	2
+  39              	.L2:
+  40 0010 00000000 		.word	sdccfg.9851
+  41 0014 00000000 		.word	SDCD1
+  42              		.size	sdio_start, .-sdio_start
+  43              		.section	.text.sdio_is_present,"ax",%progbits
+  44              		.align	1
+  45              		.global	sdio_is_present
+  46              		.syntax unified
+  47              		.thumb
+  48              		.thumb_func
+  49              		.fpu fpv4-sp-d16
+  50              		.type	sdio_is_present, %function
+  51              	sdio_is_present:
+  52              		@ args = 0, pretend = 0, frame = 0
+  53              		@ frame_needed = 1, uses_anonymous_args = 0
+  54 0000 80B5     		push	{r7, lr}
+  55 0002 00AF     		add	r7, sp, #0
+  56 0004 034B     		ldr	r3, .L6
+  57 0006 1B68     		ldr	r3, [r3]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccS0Kes0.s 			page 2
+
+
+  58 0008 1B68     		ldr	r3, [r3]
+  59 000a 0248     		ldr	r0, .L6
+  60 000c 9847     		blx	r3
+  61 000e 0346     		mov	r3, r0
+  62 0010 1846     		mov	r0, r3
+  63 0012 80BD     		pop	{r7, pc}
+  64              	.L7:
+  65              		.align	2
+  66              	.L6:
+  67 0014 00000000 		.word	SDCD1
+  68              		.size	sdio_is_present, .-sdio_is_present
+  69              		.section	.text.sdio_connect,"ax",%progbits
+  70              		.align	1
+  71              		.global	sdio_connect
+  72              		.syntax unified
+  73              		.thumb
+  74              		.thumb_func
+  75              		.fpu fpv4-sp-d16
+  76              		.type	sdio_connect, %function
+  77              	sdio_connect:
+  78              		@ args = 0, pretend = 0, frame = 0
+  79              		@ frame_needed = 1, uses_anonymous_args = 0
+  80 0000 80B5     		push	{r7, lr}
+  81 0002 00AF     		add	r7, sp, #0
+  82 0004 FFF7FEFF 		bl	sdio_is_present
+  83 0008 0346     		mov	r3, r0
+  84 000a 002B     		cmp	r3, #0
+  85 000c 17D0     		beq	.L9
+  86 000e 0D4B     		ldr	r3, .L13
+  87 0010 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  88 0012 83F00103 		eor	r3, r3, #1
+  89 0016 DBB2     		uxtb	r3, r3
+  90 0018 002B     		cmp	r3, #0
+  91 001a 0ED0     		beq	.L10
+  92 001c 0A48     		ldr	r0, .L13+4
+  93 001e FFF7FEFF 		bl	sdcConnect
+  94 0022 0346     		mov	r3, r0
+  95 0024 83F00103 		eor	r3, r3, #1
+  96 0028 DBB2     		uxtb	r3, r3
+  97 002a 002B     		cmp	r3, #0
+  98 002c 03D0     		beq	.L11
+  99 002e 054B     		ldr	r3, .L13
+ 100 0030 0122     		movs	r2, #1
+ 101 0032 1A70     		strb	r2, [r3]
+ 102 0034 01E0     		b	.L10
+ 103              	.L11:
+ 104 0036 0123     		movs	r3, #1
+ 105 0038 02E0     		b	.L12
+ 106              	.L10:
+ 107 003a 0023     		movs	r3, #0
+ 108 003c 00E0     		b	.L12
+ 109              	.L9:
+ 110 003e 0123     		movs	r3, #1
+ 111              	.L12:
+ 112 0040 1846     		mov	r0, r3
+ 113 0042 80BD     		pop	{r7, pc}
+ 114              	.L14:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccS0Kes0.s 			page 3
+
+
+ 115              		.align	2
+ 116              	.L13:
+ 117 0044 00000000 		.word	sdio_connected
+ 118 0048 00000000 		.word	SDCD1
+ 119              		.size	sdio_connect, .-sdio_connect
+ 120              		.section	.text.sdio_disconnect,"ax",%progbits
+ 121              		.align	1
+ 122              		.global	sdio_disconnect
+ 123              		.syntax unified
+ 124              		.thumb
+ 125              		.thumb_func
+ 126              		.fpu fpv4-sp-d16
+ 127              		.type	sdio_disconnect, %function
+ 128              	sdio_disconnect:
+ 129              		@ args = 0, pretend = 0, frame = 0
+ 130              		@ frame_needed = 1, uses_anonymous_args = 0
+ 131 0000 80B5     		push	{r7, lr}
+ 132 0002 00AF     		add	r7, sp, #0
+ 133 0004 FFF7FEFF 		bl	sdio_is_present
+ 134 0008 0346     		mov	r3, r0
+ 135 000a 002B     		cmp	r3, #0
+ 136 000c 14D0     		beq	.L16
+ 137 000e 0C4B     		ldr	r3, .L20
+ 138 0010 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 139 0012 002B     		cmp	r3, #0
+ 140 0014 0ED0     		beq	.L17
+ 141 0016 0B48     		ldr	r0, .L20+4
+ 142 0018 FFF7FEFF 		bl	sdcDisconnect
+ 143 001c 0346     		mov	r3, r0
+ 144 001e 83F00103 		eor	r3, r3, #1
+ 145 0022 DBB2     		uxtb	r3, r3
+ 146 0024 002B     		cmp	r3, #0
+ 147 0026 03D0     		beq	.L18
+ 148 0028 054B     		ldr	r3, .L20
+ 149 002a 0022     		movs	r2, #0
+ 150 002c 1A70     		strb	r2, [r3]
+ 151 002e 01E0     		b	.L17
+ 152              	.L18:
+ 153 0030 0123     		movs	r3, #1
+ 154 0032 02E0     		b	.L19
+ 155              	.L17:
+ 156 0034 0023     		movs	r3, #0
+ 157 0036 00E0     		b	.L19
+ 158              	.L16:
+ 159 0038 0123     		movs	r3, #1
+ 160              	.L19:
+ 161 003a 1846     		mov	r0, r3
+ 162 003c 80BD     		pop	{r7, pc}
+ 163              	.L21:
+ 164 003e 00BF     		.align	2
+ 165              	.L20:
+ 166 0040 00000000 		.word	sdio_connected
+ 167 0044 00000000 		.word	SDCD1
+ 168              		.size	sdio_disconnect, .-sdio_disconnect
+ 169              		.section	.rodata.sdccfg.9851,"a",%progbits
+ 170              		.align	2
+ 171              		.type	sdccfg.9851, %object
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccS0Kes0.s 			page 4
+
+
+ 172              		.size	sdccfg.9851, 8
+ 173              	sdccfg.9851:
+ 174 0000 00000000 		.word	sd_scratchpad.9850
+ 175 0004 00       		.byte	0
+ 176 0005 000000   		.space	3
+ 177              		.section	.bss.sd_scratchpad.9850,"aw",%nobits
+ 178              		.align	2
+ 179              		.type	sd_scratchpad.9850, %object
+ 180              		.size	sd_scratchpad.9850, 512
+ 181              	sd_scratchpad.9850:
+ 182 0000 00000000 		.space	512
+ 182      00000000 
+ 182      00000000 
+ 182      00000000 
+ 182      00000000 
+ 183              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccS0Kes0.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 sdio.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccS0Kes0.s:17     .bss.sdio_connected:0000000000000000 sdio_connected
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccS0Kes0.s:18     .bss.sdio_connected:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccS0Kes0.s:20     .text.sdio_start:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccS0Kes0.s:27     .text.sdio_start:0000000000000000 sdio_start
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccS0Kes0.s:40     .text.sdio_start:0000000000000010 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccS0Kes0.s:173    .rodata.sdccfg.9851:0000000000000000 sdccfg.9851
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccS0Kes0.s:44     .text.sdio_is_present:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccS0Kes0.s:51     .text.sdio_is_present:0000000000000000 sdio_is_present
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccS0Kes0.s:67     .text.sdio_is_present:0000000000000014 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccS0Kes0.s:70     .text.sdio_connect:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccS0Kes0.s:77     .text.sdio_connect:0000000000000000 sdio_connect
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccS0Kes0.s:117    .text.sdio_connect:0000000000000044 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccS0Kes0.s:121    .text.sdio_disconnect:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccS0Kes0.s:128    .text.sdio_disconnect:0000000000000000 sdio_disconnect
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccS0Kes0.s:166    .text.sdio_disconnect:0000000000000040 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccS0Kes0.s:170    .rodata.sdccfg.9851:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccS0Kes0.s:181    .bss.sd_scratchpad.9850:0000000000000000 sd_scratchpad.9850
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccS0Kes0.s:178    .bss.sd_scratchpad.9850:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+sdcStart
+SDCD1
+sdcConnect
+sdcDisconnect

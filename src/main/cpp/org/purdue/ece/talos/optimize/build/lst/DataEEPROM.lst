@@ -1,0 +1,129 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccscyl5t.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"DataEEPROM.c"
+  14              		.section	.text.ReadEE,"ax",%progbits
+  15              		.align	1
+  16              		.global	ReadEE
+  17              		.syntax unified
+  18              		.thumb
+  19              		.thumb_func
+  20              		.fpu fpv4-sp-d16
+  21              		.type	ReadEE, %function
+  22              	ReadEE:
+  23              		@ args = 0, pretend = 0, frame = 16
+  24              		@ frame_needed = 1, uses_anonymous_args = 0
+  25              		@ link register save eliminated.
+  26 0000 80B4     		push	{r7}
+  27 0002 85B0     		sub	sp, sp, #20
+  28 0004 00AF     		add	r7, sp, #0
+  29 0006 F860     		str	r0, [r7, #12]
+  30 0008 B960     		str	r1, [r7, #8]
+  31 000a 7A60     		str	r2, [r7, #4]
+  32 000c 3B60     		str	r3, [r7]
+  33 000e FB68     		ldr	r3, [r7, #12]
+  34 0010 7F2B     		cmp	r3, #127
+  35 0012 09D1     		bne	.L2
+  36 0014 BB68     		ldr	r3, [r7, #8]
+  37 0016 4FF6FE72 		movw	r2, #65534
+  38 001a 9342     		cmp	r3, r2
+  39 001c 04D1     		bne	.L2
+  40 001e 7B68     		ldr	r3, [r7, #4]
+  41 0020 4FF6F772 		movw	r2, #65527
+  42 0024 1A60     		str	r2, [r3]
+  43 0026 02E0     		b	.L3
+  44              	.L2:
+  45 0028 7B68     		ldr	r3, [r7, #4]
+  46 002a 0022     		movs	r2, #0
+  47 002c 1A60     		str	r2, [r3]
+  48              	.L3:
+  49 002e 0023     		movs	r3, #0
+  50 0030 1846     		mov	r0, r3
+  51 0032 1437     		adds	r7, r7, #20
+  52 0034 BD46     		mov	sp, r7
+  53              		@ sp needed
+  54 0036 5DF8047B 		ldr	r7, [sp], #4
+  55 003a 7047     		bx	lr
+  56              		.size	ReadEE, .-ReadEE
+  57              		.section	.text.EraseEE,"ax",%progbits
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccscyl5t.s 			page 2
+
+
+  58              		.align	1
+  59              		.global	EraseEE
+  60              		.syntax unified
+  61              		.thumb
+  62              		.thumb_func
+  63              		.fpu fpv4-sp-d16
+  64              		.type	EraseEE, %function
+  65              	EraseEE:
+  66              		@ args = 0, pretend = 0, frame = 16
+  67              		@ frame_needed = 1, uses_anonymous_args = 0
+  68              		@ link register save eliminated.
+  69 0000 80B4     		push	{r7}
+  70 0002 85B0     		sub	sp, sp, #20
+  71 0004 00AF     		add	r7, sp, #0
+  72 0006 F860     		str	r0, [r7, #12]
+  73 0008 B960     		str	r1, [r7, #8]
+  74 000a 7A60     		str	r2, [r7, #4]
+  75 000c 0023     		movs	r3, #0
+  76 000e 1846     		mov	r0, r3
+  77 0010 1437     		adds	r7, r7, #20
+  78 0012 BD46     		mov	sp, r7
+  79              		@ sp needed
+  80 0014 5DF8047B 		ldr	r7, [sp], #4
+  81 0018 7047     		bx	lr
+  82              		.size	EraseEE, .-EraseEE
+  83              		.section	.text.WriteEE,"ax",%progbits
+  84              		.align	1
+  85              		.global	WriteEE
+  86              		.syntax unified
+  87              		.thumb
+  88              		.thumb_func
+  89              		.fpu fpv4-sp-d16
+  90              		.type	WriteEE, %function
+  91              	WriteEE:
+  92              		@ args = 0, pretend = 0, frame = 16
+  93              		@ frame_needed = 1, uses_anonymous_args = 0
+  94              		@ link register save eliminated.
+  95 0000 80B4     		push	{r7}
+  96 0002 85B0     		sub	sp, sp, #20
+  97 0004 00AF     		add	r7, sp, #0
+  98 0006 F860     		str	r0, [r7, #12]
+  99 0008 B960     		str	r1, [r7, #8]
+ 100 000a 7A60     		str	r2, [r7, #4]
+ 101 000c 3B60     		str	r3, [r7]
+ 102 000e 0023     		movs	r3, #0
+ 103 0010 1846     		mov	r0, r3
+ 104 0012 1437     		adds	r7, r7, #20
+ 105 0014 BD46     		mov	sp, r7
+ 106              		@ sp needed
+ 107 0016 5DF8047B 		ldr	r7, [sp], #4
+ 108 001a 7047     		bx	lr
+ 109              		.size	WriteEE, .-WriteEE
+ 110              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccscyl5t.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 DataEEPROM.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccscyl5t.s:15     .text.ReadEE:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccscyl5t.s:22     .text.ReadEE:0000000000000000 ReadEE
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccscyl5t.s:58     .text.EraseEE:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccscyl5t.s:65     .text.EraseEE:0000000000000000 EraseEE
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccscyl5t.s:84     .text.WriteEE:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccscyl5t.s:91     .text.WriteEE:0000000000000000 WriteEE
+
+NO UNDEFINED SYMBOLS

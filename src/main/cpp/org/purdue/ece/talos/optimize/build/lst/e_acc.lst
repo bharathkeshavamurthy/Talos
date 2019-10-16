@@ -1,0 +1,900 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"e_acc.c"
+  14              		.section	.bss.angle_mem,"aw",%nobits
+  15              		.align	2
+  16              		.type	angle_mem, %object
+  17              		.size	angle_mem, 4
+  18              	angle_mem:
+  19 0000 00000000 		.space	4
+  20              		.section	.text.e_get_acc,"ax",%progbits
+  21              		.align	1
+  22              		.global	e_get_acc
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  26              		.fpu fpv4-sp-d16
+  27              		.type	e_get_acc, %function
+  28              	e_get_acc:
+  29              		@ args = 0, pretend = 0, frame = 16
+  30              		@ frame_needed = 1, uses_anonymous_args = 0
+  31 0000 90B5     		push	{r4, r7, lr}
+  32 0002 85B0     		sub	sp, sp, #20
+  33 0004 00AF     		add	r7, sp, #0
+  34 0006 7860     		str	r0, [r7, #4]
+  35 0008 0023     		movs	r3, #0
+  36 000a FB60     		str	r3, [r7, #12]
+  37 000c 7B68     		ldr	r3, [r7, #4]
+  38 000e 002B     		cmp	r3, #0
+  39 0010 0FD1     		bne	.L2
+  40 0012 7B68     		ldr	r3, [r7, #4]
+  41 0014 DBB2     		uxtb	r3, r3
+  42 0016 1846     		mov	r0, r3
+  43 0018 FFF7FEFF 		bl	get_acc
+  44 001c 0346     		mov	r3, r0
+  45 001e 1C46     		mov	r4, r3
+  46 0020 7B68     		ldr	r3, [r7, #4]
+  47 0022 DBB2     		uxtb	r3, r3
+  48 0024 1846     		mov	r0, r3
+  49 0026 FFF7FEFF 		bl	get_acc_offset
+  50 002a 0346     		mov	r3, r0
+  51 002c E31A     		subs	r3, r4, r3
+  52 002e FB60     		str	r3, [r7, #12]
+  53 0030 23E0     		b	.L3
+  54              	.L2:
+  55 0032 7B68     		ldr	r3, [r7, #4]
+  56 0034 012B     		cmp	r3, #1
+  57 0036 0FD1     		bne	.L4
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s 			page 2
+
+
+  58 0038 7B68     		ldr	r3, [r7, #4]
+  59 003a DBB2     		uxtb	r3, r3
+  60 003c 1846     		mov	r0, r3
+  61 003e FFF7FEFF 		bl	get_acc_offset
+  62 0042 0346     		mov	r3, r0
+  63 0044 1C46     		mov	r4, r3
+  64 0046 7B68     		ldr	r3, [r7, #4]
+  65 0048 DBB2     		uxtb	r3, r3
+  66 004a 1846     		mov	r0, r3
+  67 004c FFF7FEFF 		bl	get_acc
+  68 0050 0346     		mov	r3, r0
+  69 0052 E31A     		subs	r3, r4, r3
+  70 0054 FB60     		str	r3, [r7, #12]
+  71 0056 10E0     		b	.L3
+  72              	.L4:
+  73 0058 7B68     		ldr	r3, [r7, #4]
+  74 005a DBB2     		uxtb	r3, r3
+  75 005c 1846     		mov	r0, r3
+  76 005e FFF7FEFF 		bl	get_acc
+  77 0062 0346     		mov	r3, r0
+  78 0064 1C46     		mov	r4, r3
+  79 0066 7B68     		ldr	r3, [r7, #4]
+  80 0068 DBB2     		uxtb	r3, r3
+  81 006a 1846     		mov	r0, r3
+  82 006c FFF7FEFF 		bl	get_acc_offset
+  83 0070 0346     		mov	r3, r0
+  84 0072 E31A     		subs	r3, r4, r3
+  85 0074 A3F58043 		sub	r3, r3, #16384
+  86 0078 FB60     		str	r3, [r7, #12]
+  87              	.L3:
+  88 007a FB68     		ldr	r3, [r7, #12]
+  89 007c 1A11     		asrs	r2, r3, #4
+  90 007e FB68     		ldr	r3, [r7, #12]
+  91 0080 9B11     		asrs	r3, r3, #6
+  92 0082 D31A     		subs	r3, r2, r3
+  93 0084 FB60     		str	r3, [r7, #12]
+  94 0086 FB68     		ldr	r3, [r7, #12]
+  95 0088 5B42     		negs	r3, r3
+  96 008a 1846     		mov	r0, r3
+  97 008c 1437     		adds	r7, r7, #20
+  98 008e BD46     		mov	sp, r7
+  99              		@ sp needed
+ 100 0090 90BD     		pop	{r4, r7, pc}
+ 101              		.size	e_get_acc, .-e_get_acc
+ 102              		.section	.text.e_get_acc_filtered,"ax",%progbits
+ 103              		.align	1
+ 104              		.global	e_get_acc_filtered
+ 105              		.syntax unified
+ 106              		.thumb
+ 107              		.thumb_func
+ 108              		.fpu fpv4-sp-d16
+ 109              		.type	e_get_acc_filtered, %function
+ 110              	e_get_acc_filtered:
+ 111              		@ args = 0, pretend = 0, frame = 16
+ 112              		@ frame_needed = 1, uses_anonymous_args = 0
+ 113 0000 80B5     		push	{r7, lr}
+ 114 0002 84B0     		sub	sp, sp, #16
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s 			page 3
+
+
+ 115 0004 00AF     		add	r7, sp, #0
+ 116 0006 7860     		str	r0, [r7, #4]
+ 117 0008 3960     		str	r1, [r7]
+ 118 000a 0023     		movs	r3, #0
+ 119 000c FB60     		str	r3, [r7, #12]
+ 120 000e 7B68     		ldr	r3, [r7, #4]
+ 121 0010 002B     		cmp	r3, #0
+ 122 0012 0BD1     		bne	.L7
+ 123 0014 7B68     		ldr	r3, [r7, #4]
+ 124 0016 DBB2     		uxtb	r3, r3
+ 125 0018 3A68     		ldr	r2, [r7]
+ 126 001a D2B2     		uxtb	r2, r2
+ 127 001c 1146     		mov	r1, r2
+ 128 001e 1846     		mov	r0, r3
+ 129 0020 FFF7FEFF 		bl	get_acc_filtered
+ 130 0024 0346     		mov	r3, r0
+ 131 0026 5B42     		negs	r3, r3
+ 132 0028 FB60     		str	r3, [r7, #12]
+ 133 002a 18E0     		b	.L8
+ 134              	.L7:
+ 135 002c 7B68     		ldr	r3, [r7, #4]
+ 136 002e 012B     		cmp	r3, #1
+ 137 0030 0AD1     		bne	.L9
+ 138 0032 7B68     		ldr	r3, [r7, #4]
+ 139 0034 DBB2     		uxtb	r3, r3
+ 140 0036 3A68     		ldr	r2, [r7]
+ 141 0038 D2B2     		uxtb	r2, r2
+ 142 003a 1146     		mov	r1, r2
+ 143 003c 1846     		mov	r0, r3
+ 144 003e FFF7FEFF 		bl	get_acc_filtered
+ 145 0042 0346     		mov	r3, r0
+ 146 0044 FB60     		str	r3, [r7, #12]
+ 147 0046 0AE0     		b	.L8
+ 148              	.L9:
+ 149 0048 7B68     		ldr	r3, [r7, #4]
+ 150 004a DBB2     		uxtb	r3, r3
+ 151 004c 3A68     		ldr	r2, [r7]
+ 152 004e D2B2     		uxtb	r2, r2
+ 153 0050 1146     		mov	r1, r2
+ 154 0052 1846     		mov	r0, r3
+ 155 0054 FFF7FEFF 		bl	get_acc_filtered
+ 156 0058 0346     		mov	r3, r0
+ 157 005a 5B42     		negs	r3, r3
+ 158 005c FB60     		str	r3, [r7, #12]
+ 159              	.L8:
+ 160 005e FB68     		ldr	r3, [r7, #12]
+ 161 0060 1A11     		asrs	r2, r3, #4
+ 162 0062 FB68     		ldr	r3, [r7, #12]
+ 163 0064 9B11     		asrs	r3, r3, #6
+ 164 0066 D31A     		subs	r3, r2, r3
+ 165 0068 03F50063 		add	r3, r3, #2048
+ 166 006c FB60     		str	r3, [r7, #12]
+ 167 006e FB68     		ldr	r3, [r7, #12]
+ 168 0070 1846     		mov	r0, r3
+ 169 0072 1037     		adds	r7, r7, #16
+ 170 0074 BD46     		mov	sp, r7
+ 171              		@ sp needed
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s 			page 4
+
+
+ 172 0076 80BD     		pop	{r7, pc}
+ 173              		.size	e_get_acc_filtered, .-e_get_acc_filtered
+ 174              		.section	.text.e_acc_calibr,"ax",%progbits
+ 175              		.align	1
+ 176              		.global	e_acc_calibr
+ 177              		.syntax unified
+ 178              		.thumb
+ 179              		.thumb_func
+ 180              		.fpu fpv4-sp-d16
+ 181              		.type	e_acc_calibr, %function
+ 182              	e_acc_calibr:
+ 183              		@ args = 0, pretend = 0, frame = 0
+ 184              		@ frame_needed = 1, uses_anonymous_args = 0
+ 185 0000 80B5     		push	{r7, lr}
+ 186 0002 00AF     		add	r7, sp, #0
+ 187 0004 FFF7FEFF 		bl	calibrate_acc
+ 188 0008 00BF     		nop
+ 189 000a 80BD     		pop	{r7, pc}
+ 190              		.size	e_acc_calibr, .-e_acc_calibr
+ 191              		.section	.text.e_read_acc_spheric,"ax",%progbits
+ 192              		.align	1
+ 193              		.global	e_read_acc_spheric
+ 194              		.syntax unified
+ 195              		.thumb
+ 196              		.thumb_func
+ 197              		.fpu fpv4-sp-d16
+ 198              		.type	e_read_acc_spheric, %function
+ 199              	e_read_acc_spheric:
+ 200              		@ args = 0, pretend = 0, frame = 56
+ 201              		@ frame_needed = 1, uses_anonymous_args = 0
+ 202 0000 80B5     		push	{r7, lr}
+ 203 0002 2DED028B 		vpush.64	{d8}
+ 204 0006 8EB0     		sub	sp, sp, #56
+ 205 0008 00AF     		add	r7, sp, #0
+ 206 000a 0020     		movs	r0, #0
+ 207 000c FFF7FEFF 		bl	e_get_acc
+ 208 0010 7863     		str	r0, [r7, #52]
+ 209 0012 0120     		movs	r0, #1
+ 210 0014 FFF7FEFF 		bl	e_get_acc
+ 211 0018 3863     		str	r0, [r7, #48]
+ 212 001a 0220     		movs	r0, #2
+ 213 001c FFF7FEFF 		bl	e_get_acc
+ 214 0020 F862     		str	r0, [r7, #44]
+ 215 0022 7B6B     		ldr	r3, [r7, #52]
+ 216 0024 7A6B     		ldr	r2, [r7, #52]
+ 217 0026 02FB03F2 		mul	r2, r2, r3
+ 218 002a 3B6B     		ldr	r3, [r7, #48]
+ 219 002c 396B     		ldr	r1, [r7, #48]
+ 220 002e 01FB03F3 		mul	r3, r1, r3
+ 221 0032 1A44     		add	r2, r2, r3
+ 222 0034 FB6A     		ldr	r3, [r7, #44]
+ 223 0036 F96A     		ldr	r1, [r7, #44]
+ 224 0038 01FB03F3 		mul	r3, r1, r3
+ 225 003c 1344     		add	r3, r3, r2
+ 226 003e 07EE903A 		vmov	s15, r3	@ int
+ 227 0042 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 228 0046 B0EE670A 		vmov.f32	s0, s15
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s 			page 5
+
+
+ 229 004a FFF7FEFF 		bl	sqrtf
+ 230 004e F0EE407A 		vmov.f32	s15, s0
+ 231 0052 C7ED057A 		vstr.32	s15, [r7, #20]
+ 232 0056 FB6A     		ldr	r3, [r7, #44]
+ 233 0058 07EE903A 		vmov	s15, r3	@ int
+ 234 005c B8EEE78A 		vcvt.f32.s32	s16, s15
+ 235 0060 7B6B     		ldr	r3, [r7, #52]
+ 236 0062 7A6B     		ldr	r2, [r7, #52]
+ 237 0064 02FB03F2 		mul	r2, r2, r3
+ 238 0068 3B6B     		ldr	r3, [r7, #48]
+ 239 006a 396B     		ldr	r1, [r7, #48]
+ 240 006c 01FB03F3 		mul	r3, r1, r3
+ 241 0070 1344     		add	r3, r3, r2
+ 242 0072 07EE903A 		vmov	s15, r3	@ int
+ 243 0076 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 244 007a B0EE670A 		vmov.f32	s0, s15
+ 245 007e FFF7FEFF 		bl	sqrtf
+ 246 0082 F0EE407A 		vmov.f32	s15, s0
+ 247 0086 F0EE670A 		vmov.f32	s1, s15
+ 248 008a B0EE480A 		vmov.f32	s0, s16
+ 249 008e FFF7FEFF 		bl	atan2f
+ 250 0092 B0EE407A 		vmov.f32	s14, s0
+ 251 0096 DFED2B7A 		vldr.32	s15, .L19
+ 252 009a 67EE277A 		vmul.f32	s15, s14, s15
+ 253 009e 9FED2A7A 		vldr.32	s14, .L19+4
+ 254 00a2 77EE677A 		vsub.f32	s15, s14, s15
+ 255 00a6 C7ED077A 		vstr.32	s15, [r7, #28]
+ 256 00aa D7ED077A 		vldr.32	s15, [r7, #28]
+ 257 00ae B1EE047A 		vmov.f32	s14, #5.0e+0
+ 258 00b2 F4EEC77A 		vcmpe.f32	s15, s14
+ 259 00b6 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 260 00ba 08D4     		bmi	.L13
+ 261 00bc D7ED077A 		vldr.32	s15, [r7, #28]
+ 262 00c0 9FED227A 		vldr.32	s14, .L19+8
+ 263 00c4 F4EEC77A 		vcmpe.f32	s15, s14
+ 264 00c8 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 265 00cc 03DD     		ble	.L18
+ 266              	.L13:
+ 267 00ce 4FF00003 		mov	r3, #0
+ 268 00d2 BB61     		str	r3, [r7, #24]	@ float
+ 269 00d4 1BE0     		b	.L16
+ 270              	.L18:
+ 271 00d6 7B6B     		ldr	r3, [r7, #52]
+ 272 00d8 07EE903A 		vmov	s15, r3	@ int
+ 273 00dc F8EEE77A 		vcvt.f32.s32	s15, s15
+ 274 00e0 3B6B     		ldr	r3, [r7, #48]
+ 275 00e2 07EE103A 		vmov	s14, r3	@ int
+ 276 00e6 B8EEC77A 		vcvt.f32.s32	s14, s14
+ 277 00ea F0EE470A 		vmov.f32	s1, s14
+ 278 00ee B0EE670A 		vmov.f32	s0, s15
+ 279 00f2 FFF7FEFF 		bl	atan2f
+ 280 00f6 B0EE407A 		vmov.f32	s14, s0
+ 281 00fa DFED127A 		vldr.32	s15, .L19
+ 282 00fe 67EE277A 		vmul.f32	s15, s14, s15
+ 283 0102 9FED137A 		vldr.32	s14, .L19+12
+ 284 0106 77EE877A 		vadd.f32	s15, s15, s14
+ 285 010a C7ED067A 		vstr.32	s15, [r7, #24]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s 			page 6
+
+
+ 286              	.L16:
+ 287 010e 07F12003 		add	r3, r7, #32
+ 288 0112 07F11402 		add	r2, r7, #20
+ 289 0116 07CA     		ldm	r2, {r0, r1, r2}
+ 290 0118 83E80700 		stm	r3, {r0, r1, r2}
+ 291 011c 396A     		ldr	r1, [r7, #32]	@ float
+ 292 011e 7A6A     		ldr	r2, [r7, #36]	@ float
+ 293 0120 BB6A     		ldr	r3, [r7, #40]	@ float
+ 294 0122 06EE901A 		vmov	s13, r1
+ 295 0126 07EE102A 		vmov	s14, r2
+ 296 012a 07EE903A 		vmov	s15, r3
+ 297 012e B0EE660A 		vmov.f32	s0, s13
+ 298 0132 F0EE470A 		vmov.f32	s1, s14
+ 299 0136 B0EE671A 		vmov.f32	s2, s15
+ 300 013a 3837     		adds	r7, r7, #56
+ 301 013c BD46     		mov	sp, r7
+ 302              		@ sp needed
+ 303 013e BDEC028B 		vldm	sp!, {d8}
+ 304 0142 80BD     		pop	{r7, pc}
+ 305              	.L20:
+ 306              		.align	2
+ 307              	.L19:
+ 308 0144 9C306542 		.word	1113927836
+ 309 0148 0000B442 		.word	1119092736
+ 310 014c 00002043 		.word	1126170624
+ 311 0150 00003443 		.word	1127481344
+ 312              		.size	e_read_acc_spheric, .-e_read_acc_spheric
+ 313              		.section	.text.e_read_inclination,"ax",%progbits
+ 314              		.align	1
+ 315              		.global	e_read_inclination
+ 316              		.syntax unified
+ 317              		.thumb
+ 318              		.thumb_func
+ 319              		.fpu fpv4-sp-d16
+ 320              		.type	e_read_inclination, %function
+ 321              	e_read_inclination:
+ 322              		@ args = 0, pretend = 0, frame = 24
+ 323              		@ frame_needed = 1, uses_anonymous_args = 0
+ 324 0000 80B5     		push	{r7, lr}
+ 325 0002 2DED028B 		vpush.64	{d8}
+ 326 0006 86B0     		sub	sp, sp, #24
+ 327 0008 00AF     		add	r7, sp, #0
+ 328 000a 0020     		movs	r0, #0
+ 329 000c FFF7FEFF 		bl	e_get_acc
+ 330 0010 7861     		str	r0, [r7, #20]
+ 331 0012 0120     		movs	r0, #1
+ 332 0014 FFF7FEFF 		bl	e_get_acc
+ 333 0018 3861     		str	r0, [r7, #16]
+ 334 001a 0220     		movs	r0, #2
+ 335 001c FFF7FEFF 		bl	e_get_acc
+ 336 0020 F860     		str	r0, [r7, #12]
+ 337 0022 FB68     		ldr	r3, [r7, #12]
+ 338 0024 07EE903A 		vmov	s15, r3	@ int
+ 339 0028 B8EEE78A 		vcvt.f32.s32	s16, s15
+ 340 002c 7B69     		ldr	r3, [r7, #20]
+ 341 002e 7A69     		ldr	r2, [r7, #20]
+ 342 0030 02FB03F2 		mul	r2, r2, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s 			page 7
+
+
+ 343 0034 3B69     		ldr	r3, [r7, #16]
+ 344 0036 3969     		ldr	r1, [r7, #16]
+ 345 0038 01FB03F3 		mul	r3, r1, r3
+ 346 003c 1344     		add	r3, r3, r2
+ 347 003e 07EE903A 		vmov	s15, r3	@ int
+ 348 0042 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 349 0046 B0EE670A 		vmov.f32	s0, s15
+ 350 004a FFF7FEFF 		bl	sqrtf
+ 351 004e F0EE407A 		vmov.f32	s15, s0
+ 352 0052 F0EE670A 		vmov.f32	s1, s15
+ 353 0056 B0EE480A 		vmov.f32	s0, s16
+ 354 005a FFF7FEFF 		bl	atan2f
+ 355 005e B0EE407A 		vmov.f32	s14, s0
+ 356 0062 DFED0A7A 		vldr.32	s15, .L23
+ 357 0066 67EE277A 		vmul.f32	s15, s14, s15
+ 358 006a 9FED097A 		vldr.32	s14, .L23+4
+ 359 006e 77EE677A 		vsub.f32	s15, s14, s15
+ 360 0072 C7ED027A 		vstr.32	s15, [r7, #8]
+ 361 0076 BB68     		ldr	r3, [r7, #8]	@ float
+ 362 0078 07EE903A 		vmov	s15, r3
+ 363 007c B0EE670A 		vmov.f32	s0, s15
+ 364 0080 1837     		adds	r7, r7, #24
+ 365 0082 BD46     		mov	sp, r7
+ 366              		@ sp needed
+ 367 0084 BDEC028B 		vldm	sp!, {d8}
+ 368 0088 80BD     		pop	{r7, pc}
+ 369              	.L24:
+ 370 008a 00BF     		.align	2
+ 371              	.L23:
+ 372 008c 9C306542 		.word	1113927836
+ 373 0090 0000B442 		.word	1119092736
+ 374              		.size	e_read_inclination, .-e_read_inclination
+ 375              		.section	.text.e_read_orientation,"ax",%progbits
+ 376              		.align	1
+ 377              		.global	e_read_orientation
+ 378              		.syntax unified
+ 379              		.thumb
+ 380              		.thumb_func
+ 381              		.fpu fpv4-sp-d16
+ 382              		.type	e_read_orientation, %function
+ 383              	e_read_orientation:
+ 384              		@ args = 0, pretend = 0, frame = 24
+ 385              		@ frame_needed = 1, uses_anonymous_args = 0
+ 386 0000 80B5     		push	{r7, lr}
+ 387 0002 2DED028B 		vpush.64	{d8}
+ 388 0006 86B0     		sub	sp, sp, #24
+ 389 0008 00AF     		add	r7, sp, #0
+ 390 000a 0020     		movs	r0, #0
+ 391 000c FFF7FEFF 		bl	e_get_acc
+ 392 0010 7861     		str	r0, [r7, #20]
+ 393 0012 0120     		movs	r0, #1
+ 394 0014 FFF7FEFF 		bl	e_get_acc
+ 395 0018 3861     		str	r0, [r7, #16]
+ 396 001a 0220     		movs	r0, #2
+ 397 001c FFF7FEFF 		bl	e_get_acc
+ 398 0020 F860     		str	r0, [r7, #12]
+ 399 0022 FB68     		ldr	r3, [r7, #12]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s 			page 8
+
+
+ 400 0024 07EE903A 		vmov	s15, r3	@ int
+ 401 0028 B8EEE78A 		vcvt.f32.s32	s16, s15
+ 402 002c 7B69     		ldr	r3, [r7, #20]
+ 403 002e 7A69     		ldr	r2, [r7, #20]
+ 404 0030 02FB03F2 		mul	r2, r2, r3
+ 405 0034 3B69     		ldr	r3, [r7, #16]
+ 406 0036 3969     		ldr	r1, [r7, #16]
+ 407 0038 01FB03F3 		mul	r3, r1, r3
+ 408 003c 1344     		add	r3, r3, r2
+ 409 003e 07EE903A 		vmov	s15, r3	@ int
+ 410 0042 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 411 0046 B0EE670A 		vmov.f32	s0, s15
+ 412 004a FFF7FEFF 		bl	sqrtf
+ 413 004e F0EE407A 		vmov.f32	s15, s0
+ 414 0052 F0EE670A 		vmov.f32	s1, s15
+ 415 0056 B0EE480A 		vmov.f32	s0, s16
+ 416 005a FFF7FEFF 		bl	atan2f
+ 417 005e B0EE407A 		vmov.f32	s14, s0
+ 418 0062 DFED237A 		vldr.32	s15, .L32
+ 419 0066 67EE277A 		vmul.f32	s15, s14, s15
+ 420 006a 9FED227A 		vldr.32	s14, .L32+4
+ 421 006e 77EE677A 		vsub.f32	s15, s14, s15
+ 422 0072 C7ED027A 		vstr.32	s15, [r7, #8]
+ 423 0076 D7ED027A 		vldr.32	s15, [r7, #8]
+ 424 007a B1EE047A 		vmov.f32	s14, #5.0e+0
+ 425 007e F4EEC77A 		vcmpe.f32	s15, s14
+ 426 0082 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 427 0086 08D4     		bmi	.L26
+ 428 0088 D7ED027A 		vldr.32	s15, [r7, #8]
+ 429 008c 9FED1A7A 		vldr.32	s14, .L32+8
+ 430 0090 F4EEC77A 		vcmpe.f32	s15, s14
+ 431 0094 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 432 0098 03DD     		ble	.L31
+ 433              	.L26:
+ 434 009a 4FF00003 		mov	r3, #0
+ 435 009e 7B60     		str	r3, [r7, #4]	@ float
+ 436 00a0 1BE0     		b	.L29
+ 437              	.L31:
+ 438 00a2 7B69     		ldr	r3, [r7, #20]
+ 439 00a4 07EE903A 		vmov	s15, r3	@ int
+ 440 00a8 F8EEE77A 		vcvt.f32.s32	s15, s15
+ 441 00ac 3B69     		ldr	r3, [r7, #16]
+ 442 00ae 07EE103A 		vmov	s14, r3	@ int
+ 443 00b2 B8EEC77A 		vcvt.f32.s32	s14, s14
+ 444 00b6 F0EE470A 		vmov.f32	s1, s14
+ 445 00ba B0EE670A 		vmov.f32	s0, s15
+ 446 00be FFF7FEFF 		bl	atan2f
+ 447 00c2 B0EE407A 		vmov.f32	s14, s0
+ 448 00c6 DFED0A7A 		vldr.32	s15, .L32
+ 449 00ca 67EE277A 		vmul.f32	s15, s14, s15
+ 450 00ce 9FED0B7A 		vldr.32	s14, .L32+12
+ 451 00d2 77EE877A 		vadd.f32	s15, s15, s14
+ 452 00d6 C7ED017A 		vstr.32	s15, [r7, #4]
+ 453              	.L29:
+ 454 00da 7B68     		ldr	r3, [r7, #4]	@ float
+ 455 00dc 07EE903A 		vmov	s15, r3
+ 456 00e0 B0EE670A 		vmov.f32	s0, s15
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s 			page 9
+
+
+ 457 00e4 1837     		adds	r7, r7, #24
+ 458 00e6 BD46     		mov	sp, r7
+ 459              		@ sp needed
+ 460 00e8 BDEC028B 		vldm	sp!, {d8}
+ 461 00ec 80BD     		pop	{r7, pc}
+ 462              	.L33:
+ 463 00ee 00BF     		.align	2
+ 464              	.L32:
+ 465 00f0 9C306542 		.word	1113927836
+ 466 00f4 0000B442 		.word	1119092736
+ 467 00f8 00002043 		.word	1126170624
+ 468 00fc 00003443 		.word	1127481344
+ 469              		.size	e_read_orientation, .-e_read_orientation
+ 470              		.section	.text.e_read_acc,"ax",%progbits
+ 471              		.align	1
+ 472              		.global	e_read_acc
+ 473              		.syntax unified
+ 474              		.thumb
+ 475              		.thumb_func
+ 476              		.fpu fpv4-sp-d16
+ 477              		.type	e_read_acc, %function
+ 478              	e_read_acc:
+ 479              		@ args = 0, pretend = 0, frame = 24
+ 480              		@ frame_needed = 1, uses_anonymous_args = 0
+ 481 0000 80B5     		push	{r7, lr}
+ 482 0002 86B0     		sub	sp, sp, #24
+ 483 0004 00AF     		add	r7, sp, #0
+ 484 0006 0020     		movs	r0, #0
+ 485 0008 FFF7FEFF 		bl	e_get_acc
+ 486 000c 7861     		str	r0, [r7, #20]
+ 487 000e 0120     		movs	r0, #1
+ 488 0010 FFF7FEFF 		bl	e_get_acc
+ 489 0014 3861     		str	r0, [r7, #16]
+ 490 0016 0220     		movs	r0, #2
+ 491 0018 FFF7FEFF 		bl	e_get_acc
+ 492 001c F860     		str	r0, [r7, #12]
+ 493 001e 7B69     		ldr	r3, [r7, #20]
+ 494 0020 7A69     		ldr	r2, [r7, #20]
+ 495 0022 02FB03F2 		mul	r2, r2, r3
+ 496 0026 3B69     		ldr	r3, [r7, #16]
+ 497 0028 3969     		ldr	r1, [r7, #16]
+ 498 002a 01FB03F3 		mul	r3, r1, r3
+ 499 002e 1A44     		add	r2, r2, r3
+ 500 0030 FB68     		ldr	r3, [r7, #12]
+ 501 0032 F968     		ldr	r1, [r7, #12]
+ 502 0034 01FB03F3 		mul	r3, r1, r3
+ 503 0038 1344     		add	r3, r3, r2
+ 504 003a 07EE903A 		vmov	s15, r3	@ int
+ 505 003e F8EEE77A 		vcvt.f32.s32	s15, s15
+ 506 0042 B0EE670A 		vmov.f32	s0, s15
+ 507 0046 FFF7FEFF 		bl	sqrtf
+ 508 004a F0EE407A 		vmov.f32	s15, s0
+ 509 004e C7ED007A 		vstr.32	s15, [r7]
+ 510 0052 3B68     		ldr	r3, [r7]	@ float
+ 511 0054 07EE903A 		vmov	s15, r3
+ 512 0058 B0EE670A 		vmov.f32	s0, s15
+ 513 005c 1837     		adds	r7, r7, #24
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s 			page 10
+
+
+ 514 005e BD46     		mov	sp, r7
+ 515              		@ sp needed
+ 516 0060 80BD     		pop	{r7, pc}
+ 517              		.size	e_read_acc, .-e_read_acc
+ 518              		.section	.text.e_read_acc_xyz,"ax",%progbits
+ 519              		.align	1
+ 520              		.global	e_read_acc_xyz
+ 521              		.syntax unified
+ 522              		.thumb
+ 523              		.thumb_func
+ 524              		.fpu fpv4-sp-d16
+ 525              		.type	e_read_acc_xyz, %function
+ 526              	e_read_acc_xyz:
+ 527              		@ args = 0, pretend = 0, frame = 24
+ 528              		@ frame_needed = 1, uses_anonymous_args = 0
+ 529 0000 90B5     		push	{r4, r7, lr}
+ 530 0002 87B0     		sub	sp, sp, #28
+ 531 0004 00AF     		add	r7, sp, #0
+ 532 0006 7860     		str	r0, [r7, #4]
+ 533 0008 0020     		movs	r0, #0
+ 534 000a FFF7FEFF 		bl	e_get_acc
+ 535 000e 0346     		mov	r3, r0
+ 536 0010 FB60     		str	r3, [r7, #12]
+ 537 0012 0120     		movs	r0, #1
+ 538 0014 FFF7FEFF 		bl	e_get_acc
+ 539 0018 0346     		mov	r3, r0
+ 540 001a 3B61     		str	r3, [r7, #16]
+ 541 001c 0220     		movs	r0, #2
+ 542 001e FFF7FEFF 		bl	e_get_acc
+ 543 0022 0346     		mov	r3, r0
+ 544 0024 7B61     		str	r3, [r7, #20]
+ 545 0026 7B68     		ldr	r3, [r7, #4]
+ 546 0028 1C46     		mov	r4, r3
+ 547 002a 07F10C03 		add	r3, r7, #12
+ 548 002e 93E80700 		ldm	r3, {r0, r1, r2}
+ 549 0032 84E80700 		stm	r4, {r0, r1, r2}
+ 550 0036 7868     		ldr	r0, [r7, #4]
+ 551 0038 1C37     		adds	r7, r7, #28
+ 552 003a BD46     		mov	sp, r7
+ 553              		@ sp needed
+ 554 003c 90BD     		pop	{r4, r7, pc}
+ 555              		.size	e_read_acc_xyz, .-e_read_acc_xyz
+ 556              		.section	.text.e_read_acc_x,"ax",%progbits
+ 557              		.align	1
+ 558              		.global	e_read_acc_x
+ 559              		.syntax unified
+ 560              		.thumb
+ 561              		.thumb_func
+ 562              		.fpu fpv4-sp-d16
+ 563              		.type	e_read_acc_x, %function
+ 564              	e_read_acc_x:
+ 565              		@ args = 0, pretend = 0, frame = 0
+ 566              		@ frame_needed = 1, uses_anonymous_args = 0
+ 567 0000 80B5     		push	{r7, lr}
+ 568 0002 00AF     		add	r7, sp, #0
+ 569 0004 0020     		movs	r0, #0
+ 570 0006 FFF7FEFF 		bl	e_get_acc
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s 			page 11
+
+
+ 571 000a 0346     		mov	r3, r0
+ 572 000c 1846     		mov	r0, r3
+ 573 000e 80BD     		pop	{r7, pc}
+ 574              		.size	e_read_acc_x, .-e_read_acc_x
+ 575              		.section	.text.e_read_acc_y,"ax",%progbits
+ 576              		.align	1
+ 577              		.global	e_read_acc_y
+ 578              		.syntax unified
+ 579              		.thumb
+ 580              		.thumb_func
+ 581              		.fpu fpv4-sp-d16
+ 582              		.type	e_read_acc_y, %function
+ 583              	e_read_acc_y:
+ 584              		@ args = 0, pretend = 0, frame = 0
+ 585              		@ frame_needed = 1, uses_anonymous_args = 0
+ 586 0000 80B5     		push	{r7, lr}
+ 587 0002 00AF     		add	r7, sp, #0
+ 588 0004 0120     		movs	r0, #1
+ 589 0006 FFF7FEFF 		bl	e_get_acc
+ 590 000a 0346     		mov	r3, r0
+ 591 000c 1846     		mov	r0, r3
+ 592 000e 80BD     		pop	{r7, pc}
+ 593              		.size	e_read_acc_y, .-e_read_acc_y
+ 594              		.section	.text.e_read_acc_z,"ax",%progbits
+ 595              		.align	1
+ 596              		.global	e_read_acc_z
+ 597              		.syntax unified
+ 598              		.thumb
+ 599              		.thumb_func
+ 600              		.fpu fpv4-sp-d16
+ 601              		.type	e_read_acc_z, %function
+ 602              	e_read_acc_z:
+ 603              		@ args = 0, pretend = 0, frame = 0
+ 604              		@ frame_needed = 1, uses_anonymous_args = 0
+ 605 0000 80B5     		push	{r7, lr}
+ 606 0002 00AF     		add	r7, sp, #0
+ 607 0004 0220     		movs	r0, #2
+ 608 0006 FFF7FEFF 		bl	e_get_acc
+ 609 000a 0346     		mov	r3, r0
+ 610 000c 1846     		mov	r0, r3
+ 611 000e 80BD     		pop	{r7, pc}
+ 612              		.size	e_read_acc_z, .-e_read_acc_z
+ 613              		.section	.text.e_display_angle,"ax",%progbits
+ 614              		.align	1
+ 615              		.global	e_display_angle
+ 616              		.syntax unified
+ 617              		.thumb
+ 618              		.thumb_func
+ 619              		.fpu fpv4-sp-d16
+ 620              		.type	e_display_angle, %function
+ 621              	e_display_angle:
+ 622              		@ args = 0, pretend = 0, frame = 8
+ 623              		@ frame_needed = 1, uses_anonymous_args = 0
+ 624 0000 80B5     		push	{r7, lr}
+ 625 0002 82B0     		sub	sp, sp, #8
+ 626 0004 00AF     		add	r7, sp, #0
+ 627 0006 4FF00003 		mov	r3, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s 			page 12
+
+
+ 628 000a 7B60     		str	r3, [r7, #4]	@ float
+ 629 000c FFF7FEFF 		bl	e_read_orientation
+ 630 0010 87ED010A 		vstr.32	s0, [r7, #4]
+ 631 0014 7A4B     		ldr	r3, .L85
+ 632 0016 1B68     		ldr	r3, [r3]
+ 633 0018 07EE903A 		vmov	s15, r3	@ int
+ 634 001c B8EEE77A 		vcvt.f32.s32	s14, s15
+ 635 0020 D7ED017A 		vldr.32	s15, [r7, #4]
+ 636 0024 77EE677A 		vsub.f32	s15, s14, s15
+ 637 0028 FDEEE77A 		vcvt.s32.f32	s15, s15
+ 638 002c 17EE903A 		vmov	r3, s15	@ int
+ 639 0030 002B     		cmp	r3, #0
+ 640 0032 B8BF     		it	lt
+ 641 0034 5B42     		rsblt	r3, r3, #0
+ 642 0036 07EE903A 		vmov	s15, r3	@ int
+ 643 003a F8EEE77A 		vcvt.f32.s32	s15, s15
+ 644 003e B1EE047A 		vmov.f32	s14, #5.0e+0
+ 645 0042 F4EEC77A 		vcmpe.f32	s15, s14
+ 646 0046 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 647 004a 00DC     		bgt	.L69
+ 648 004c D3E0     		b	.L84
+ 649              	.L69:
+ 650 004e FFF7FEFF 		bl	e_led_clear
+ 651 0052 D7ED017A 		vldr.32	s15, [r7, #4]
+ 652 0056 9FED6B7A 		vldr.32	s14, .L85+4
+ 653 005a F4EEC77A 		vcmpe.f32	s15, s14
+ 654 005e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 655 0062 CCBF     		ite	gt
+ 656 0064 0123     		movgt	r3, #1
+ 657 0066 0023     		movle	r3, #0
+ 658 0068 DAB2     		uxtb	r2, r3
+ 659 006a D7ED017A 		vldr.32	s15, [r7, #4]
+ 660 006e 9FED667A 		vldr.32	s14, .L85+8
+ 661 0072 F4EEC77A 		vcmpe.f32	s15, s14
+ 662 0076 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 663 007a 94BF     		ite	ls
+ 664 007c 0123     		movls	r3, #1
+ 665 007e 0023     		movhi	r3, #0
+ 666 0080 DBB2     		uxtb	r3, r3
+ 667 0082 1343     		orrs	r3, r3, r2
+ 668 0084 DBB2     		uxtb	r3, r3
+ 669 0086 002B     		cmp	r3, #0
+ 670 0088 0DD0     		beq	.L47
+ 671 008a D7ED017A 		vldr.32	s15, [r7, #4]
+ 672 008e 9FED5F7A 		vldr.32	s14, .L85+12
+ 673 0092 F4EE477A 		vcmp.f32	s15, s14
+ 674 0096 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 675 009a 04D0     		beq	.L47
+ 676 009c 0121     		movs	r1, #1
+ 677 009e 0020     		movs	r0, #0
+ 678 00a0 FFF7FEFF 		bl	e_set_led
+ 679 00a4 9FE0     		b	.L48
+ 680              	.L47:
+ 681 00a6 D7ED017A 		vldr.32	s15, [r7, #4]
+ 682 00aa 9FED577A 		vldr.32	s14, .L85+8
+ 683 00ae F4EEC77A 		vcmpe.f32	s15, s14
+ 684 00b2 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s 			page 13
+
+
+ 685 00b6 0DDD     		ble	.L49
+ 686 00b8 D7ED017A 		vldr.32	s15, [r7, #4]
+ 687 00bc 9FED547A 		vldr.32	s14, .L85+16
+ 688 00c0 F4EEC77A 		vcmpe.f32	s15, s14
+ 689 00c4 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 690 00c8 04D8     		bhi	.L49
+ 691 00ca 0121     		movs	r1, #1
+ 692 00cc 0720     		movs	r0, #7
+ 693 00ce FFF7FEFF 		bl	e_set_led
+ 694 00d2 88E0     		b	.L48
+ 695              	.L49:
+ 696 00d4 D7ED017A 		vldr.32	s15, [r7, #4]
+ 697 00d8 9FED4D7A 		vldr.32	s14, .L85+16
+ 698 00dc F4EEC77A 		vcmpe.f32	s15, s14
+ 699 00e0 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 700 00e4 0DDD     		ble	.L52
+ 701 00e6 D7ED017A 		vldr.32	s15, [r7, #4]
+ 702 00ea 9FED4A7A 		vldr.32	s14, .L85+20
+ 703 00ee F4EEC77A 		vcmpe.f32	s15, s14
+ 704 00f2 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 705 00f6 04D8     		bhi	.L52
+ 706 00f8 0121     		movs	r1, #1
+ 707 00fa 0620     		movs	r0, #6
+ 708 00fc FFF7FEFF 		bl	e_set_led
+ 709 0100 71E0     		b	.L48
+ 710              	.L52:
+ 711 0102 D7ED017A 		vldr.32	s15, [r7, #4]
+ 712 0106 9FED437A 		vldr.32	s14, .L85+20
+ 713 010a F4EEC77A 		vcmpe.f32	s15, s14
+ 714 010e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 715 0112 0DDD     		ble	.L55
+ 716 0114 D7ED017A 		vldr.32	s15, [r7, #4]
+ 717 0118 9FED3F7A 		vldr.32	s14, .L85+24
+ 718 011c F4EEC77A 		vcmpe.f32	s15, s14
+ 719 0120 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 720 0124 04D8     		bhi	.L55
+ 721 0126 0121     		movs	r1, #1
+ 722 0128 0520     		movs	r0, #5
+ 723 012a FFF7FEFF 		bl	e_set_led
+ 724 012e 5AE0     		b	.L48
+ 725              	.L55:
+ 726 0130 D7ED017A 		vldr.32	s15, [r7, #4]
+ 727 0134 9FED387A 		vldr.32	s14, .L85+24
+ 728 0138 F4EEC77A 		vcmpe.f32	s15, s14
+ 729 013c F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 730 0140 0DDD     		ble	.L58
+ 731 0142 D7ED017A 		vldr.32	s15, [r7, #4]
+ 732 0146 9FED357A 		vldr.32	s14, .L85+28
+ 733 014a F4EEC77A 		vcmpe.f32	s15, s14
+ 734 014e F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 735 0152 04D8     		bhi	.L58
+ 736 0154 0121     		movs	r1, #1
+ 737 0156 0420     		movs	r0, #4
+ 738 0158 FFF7FEFF 		bl	e_set_led
+ 739 015c 43E0     		b	.L48
+ 740              	.L58:
+ 741 015e D7ED017A 		vldr.32	s15, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s 			page 14
+
+
+ 742 0162 9FED2E7A 		vldr.32	s14, .L85+28
+ 743 0166 F4EEC77A 		vcmpe.f32	s15, s14
+ 744 016a F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 745 016e 0DDD     		ble	.L61
+ 746 0170 D7ED017A 		vldr.32	s15, [r7, #4]
+ 747 0174 9FED2A7A 		vldr.32	s14, .L85+32
+ 748 0178 F4EEC77A 		vcmpe.f32	s15, s14
+ 749 017c F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 750 0180 04D8     		bhi	.L61
+ 751 0182 0121     		movs	r1, #1
+ 752 0184 0320     		movs	r0, #3
+ 753 0186 FFF7FEFF 		bl	e_set_led
+ 754 018a 2CE0     		b	.L48
+ 755              	.L61:
+ 756 018c D7ED017A 		vldr.32	s15, [r7, #4]
+ 757 0190 9FED237A 		vldr.32	s14, .L85+32
+ 758 0194 F4EEC77A 		vcmpe.f32	s15, s14
+ 759 0198 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 760 019c 0DDD     		ble	.L64
+ 761 019e D7ED017A 		vldr.32	s15, [r7, #4]
+ 762 01a2 9FED207A 		vldr.32	s14, .L85+36
+ 763 01a6 F4EEC77A 		vcmpe.f32	s15, s14
+ 764 01aa F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 765 01ae 04D8     		bhi	.L64
+ 766 01b0 0121     		movs	r1, #1
+ 767 01b2 0220     		movs	r0, #2
+ 768 01b4 FFF7FEFF 		bl	e_set_led
+ 769 01b8 15E0     		b	.L48
+ 770              	.L64:
+ 771 01ba D7ED017A 		vldr.32	s15, [r7, #4]
+ 772 01be 9FED197A 		vldr.32	s14, .L85+36
+ 773 01c2 F4EEC77A 		vcmpe.f32	s15, s14
+ 774 01c6 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 775 01ca 0CDD     		ble	.L48
+ 776 01cc D7ED017A 		vldr.32	s15, [r7, #4]
+ 777 01d0 9FED0C7A 		vldr.32	s14, .L85+4
+ 778 01d4 F4EEC77A 		vcmpe.f32	s15, s14
+ 779 01d8 F1EE10FA 		vmrs	APSR_nzcv, FPSCR
+ 780 01dc 03D8     		bhi	.L48
+ 781 01de 0121     		movs	r1, #1
+ 782 01e0 0120     		movs	r0, #1
+ 783 01e2 FFF7FEFF 		bl	e_set_led
+ 784              	.L48:
+ 785 01e6 D7ED017A 		vldr.32	s15, [r7, #4]
+ 786 01ea FDEEE77A 		vcvt.s32.f32	s15, s15
+ 787 01ee 17EE902A 		vmov	r2, s15	@ int
+ 788 01f2 034B     		ldr	r3, .L85
+ 789 01f4 1A60     		str	r2, [r3]
+ 790              	.L84:
+ 791 01f6 00BF     		nop
+ 792 01f8 0837     		adds	r7, r7, #8
+ 793 01fa BD46     		mov	sp, r7
+ 794              		@ sp needed
+ 795 01fc 80BD     		pop	{r7, pc}
+ 796              	.L86:
+ 797 01fe 00BF     		.align	2
+ 798              	.L85:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s 			page 15
+
+
+ 799 0200 00000000 		.word	angle_mem
+ 800 0204 00C0A843 		.word	1135132672
+ 801 0208 0000B441 		.word	1102315520
+ 802 020c 00802644 		.word	1143373824
+ 803 0210 00008742 		.word	1116143616
+ 804 0214 0000E142 		.word	1122041856
+ 805 0218 00801D43 		.word	1126006784
+ 806 021c 00804A43 		.word	1128955904
+ 807 0220 00807743 		.word	1131905024
+ 808 0224 00409243 		.word	1133658112
+ 809              		.size	e_display_angle, .-e_display_angle
+ 810              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s 			page 16
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 e_acc.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:15     .bss.angle_mem:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:18     .bss.angle_mem:0000000000000000 angle_mem
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:21     .text.e_get_acc:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:28     .text.e_get_acc:0000000000000000 e_get_acc
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:103    .text.e_get_acc_filtered:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:110    .text.e_get_acc_filtered:0000000000000000 e_get_acc_filtered
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:175    .text.e_acc_calibr:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:182    .text.e_acc_calibr:0000000000000000 e_acc_calibr
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:192    .text.e_read_acc_spheric:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:199    .text.e_read_acc_spheric:0000000000000000 e_read_acc_spheric
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:308    .text.e_read_acc_spheric:0000000000000144 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:314    .text.e_read_inclination:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:321    .text.e_read_inclination:0000000000000000 e_read_inclination
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:372    .text.e_read_inclination:000000000000008c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:376    .text.e_read_orientation:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:383    .text.e_read_orientation:0000000000000000 e_read_orientation
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:465    .text.e_read_orientation:00000000000000f0 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:471    .text.e_read_acc:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:478    .text.e_read_acc:0000000000000000 e_read_acc
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:519    .text.e_read_acc_xyz:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:526    .text.e_read_acc_xyz:0000000000000000 e_read_acc_xyz
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:557    .text.e_read_acc_x:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:564    .text.e_read_acc_x:0000000000000000 e_read_acc_x
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:576    .text.e_read_acc_y:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:583    .text.e_read_acc_y:0000000000000000 e_read_acc_y
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:595    .text.e_read_acc_z:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:602    .text.e_read_acc_z:0000000000000000 e_read_acc_z
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:614    .text.e_display_angle:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:621    .text.e_display_angle:0000000000000000 e_display_angle
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczicaXQ.s:799    .text.e_display_angle:0000000000000200 $d
+
+UNDEFINED SYMBOLS
+get_acc
+get_acc_offset
+get_acc_filtered
+calibrate_acc
+sqrtf
+atan2f
+e_led_clear
+e_set_led

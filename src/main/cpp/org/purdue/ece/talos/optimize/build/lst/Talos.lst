@@ -1,0 +1,3499 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"Talos.cpp"
+  14              		.section	.rodata._ZStL19piecewise_construct,"a",%progbits
+  15              		.align	2
+  16              		.type	_ZStL19piecewise_construct, %object
+  17              		.size	_ZStL19piecewise_construct, 1
+  18              	_ZStL19piecewise_construct:
+  19 0000 00       		.space	1
+  20              		.section	.text._ZnwjPv,"axG",%progbits,_ZnwjPv,comdat
+  21              		.align	1
+  22              		.weak	_ZnwjPv
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  26              		.fpu fpv4-sp-d16
+  27              		.type	_ZnwjPv, %function
+  28              	_ZnwjPv:
+  29              		.fnstart
+  30              	.LFB568:
+  31              		@ args = 0, pretend = 0, frame = 8
+  32              		@ frame_needed = 1, uses_anonymous_args = 0
+  33              		@ link register save eliminated.
+  34 0000 80B4     		push	{r7}
+  35 0002 83B0     		sub	sp, sp, #12
+  36 0004 00AF     		add	r7, sp, #0
+  37 0006 7860     		str	r0, [r7, #4]
+  38 0008 3960     		str	r1, [r7]
+  39 000a 3B68     		ldr	r3, [r7]
+  40 000c 1846     		mov	r0, r3
+  41 000e 0C37     		adds	r7, r7, #12
+  42 0010 BD46     		mov	sp, r7
+  43              		@ sp needed
+  44 0012 5DF8047B 		ldr	r7, [sp], #4
+  45 0016 7047     		bx	lr
+  46              		.cantunwind
+  47              		.fnend
+  48              		.size	_ZnwjPv, .-_ZnwjPv
+  49              		.section	.text.port_lock,"ax",%progbits
+  50              		.align	1
+  51              		.syntax unified
+  52              		.thumb
+  53              		.thumb_func
+  54              		.fpu fpv4-sp-d16
+  55              		.type	port_lock, %function
+  56              	port_lock:
+  57              		.fnstart
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 2
+
+
+  58              	.LFB1143:
+  59              		@ args = 0, pretend = 0, frame = 8
+  60              		@ frame_needed = 1, uses_anonymous_args = 0
+  61              		@ link register save eliminated.
+  62 0000 80B4     		push	{r7}
+  63 0002 83B0     		sub	sp, sp, #12
+  64 0004 00AF     		add	r7, sp, #0
+  65 0006 2023     		movs	r3, #32
+  66 0008 7B60     		str	r3, [r7, #4]
+  67 000a 7B68     		ldr	r3, [r7, #4]
+  68              		.syntax unified
+  69              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  70 000c 83F31188 		MSR basepri, r3
+  71              	@ 0 "" 2
+  72              		.thumb
+  73              		.syntax unified
+  74 0010 00BF     		nop
+  75 0012 0C37     		adds	r7, r7, #12
+  76 0014 BD46     		mov	sp, r7
+  77              		@ sp needed
+  78 0016 5DF8047B 		ldr	r7, [sp], #4
+  79 001a 7047     		bx	lr
+  80              		.cantunwind
+  81              		.fnend
+  82              		.size	port_lock, .-port_lock
+  83              		.section	.text.port_unlock,"ax",%progbits
+  84              		.align	1
+  85              		.syntax unified
+  86              		.thumb
+  87              		.thumb_func
+  88              		.fpu fpv4-sp-d16
+  89              		.type	port_unlock, %function
+  90              	port_unlock:
+  91              		.fnstart
+  92              	.LFB1144:
+  93              		@ args = 0, pretend = 0, frame = 8
+  94              		@ frame_needed = 1, uses_anonymous_args = 0
+  95              		@ link register save eliminated.
+  96 0000 80B4     		push	{r7}
+  97 0002 83B0     		sub	sp, sp, #12
+  98 0004 00AF     		add	r7, sp, #0
+  99 0006 0023     		movs	r3, #0
+ 100 0008 7B60     		str	r3, [r7, #4]
+ 101 000a 7B68     		ldr	r3, [r7, #4]
+ 102              		.syntax unified
+ 103              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+ 104 000c 83F31188 		MSR basepri, r3
+ 105              	@ 0 "" 2
+ 106              		.thumb
+ 107              		.syntax unified
+ 108 0010 00BF     		nop
+ 109 0012 0C37     		adds	r7, r7, #12
+ 110 0014 BD46     		mov	sp, r7
+ 111              		@ sp needed
+ 112 0016 5DF8047B 		ldr	r7, [sp], #4
+ 113 001a 7047     		bx	lr
+ 114              		.cantunwind
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 3
+
+
+ 115              		.fnend
+ 116              		.size	port_unlock, .-port_unlock
+ 117              		.section	.text.chSysLock,"ax",%progbits
+ 118              		.align	1
+ 119              		.syntax unified
+ 120              		.thumb
+ 121              		.thumb_func
+ 122              		.fpu fpv4-sp-d16
+ 123              		.type	chSysLock, %function
+ 124              	chSysLock:
+ 125              		.fnstart
+ 126              	.LFB1172:
+ 127              		@ args = 0, pretend = 0, frame = 0
+ 128              		@ frame_needed = 1, uses_anonymous_args = 0
+ 129 0000 80B5     		push	{r7, lr}
+ 130              		.save {r7, lr}
+ 131              		.setfp r7, sp, #0
+ 132 0002 00AF     		add	r7, sp, #0
+ 133 0004 FFF7FEFF 		bl	port_lock
+ 134 0008 FFF7FEFF 		bl	_stats_start_measure_crit_thd
+ 135 000c FFF7FEFF 		bl	_dbg_check_lock
+ 136 0010 00BF     		nop
+ 137 0012 80BD     		pop	{r7, pc}
+ 138              		.fnend
+ 139              		.size	chSysLock, .-chSysLock
+ 140              		.section	.text.chSysUnlock,"ax",%progbits
+ 141              		.align	1
+ 142              		.syntax unified
+ 143              		.thumb
+ 144              		.thumb_func
+ 145              		.fpu fpv4-sp-d16
+ 146              		.type	chSysUnlock, %function
+ 147              	chSysUnlock:
+ 148              		.fnstart
+ 149              	.LFB1173:
+ 150              		@ args = 0, pretend = 0, frame = 0
+ 151              		@ frame_needed = 1, uses_anonymous_args = 0
+ 152 0000 80B5     		push	{r7, lr}
+ 153              		.save {r7, lr}
+ 154              		.setfp r7, sp, #0
+ 155 0002 00AF     		add	r7, sp, #0
+ 156 0004 FFF7FEFF 		bl	_dbg_check_unlock
+ 157 0008 FFF7FEFF 		bl	_stats_stop_measure_crit_thd
+ 158 000c 094B     		ldr	r3, .L8
+ 159 000e 1B68     		ldr	r3, [r3]
+ 160 0010 084A     		ldr	r2, .L8
+ 161 0012 9342     		cmp	r3, r2
+ 162 0014 0AD0     		beq	.L7
+ 163 0016 074B     		ldr	r3, .L8
+ 164 0018 9B69     		ldr	r3, [r3, #24]
+ 165 001a 9A68     		ldr	r2, [r3, #8]
+ 166 001c 054B     		ldr	r3, .L8
+ 167 001e 1B68     		ldr	r3, [r3]
+ 168 0020 9B68     		ldr	r3, [r3, #8]
+ 169 0022 9A42     		cmp	r2, r3
+ 170 0024 02D2     		bcs	.L7
+ 171 0026 0448     		ldr	r0, .L8+4
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 4
+
+
+ 172 0028 FFF7FEFF 		bl	chSysHalt
+ 173              	.L7:
+ 174 002c FFF7FEFF 		bl	port_unlock
+ 175 0030 00BF     		nop
+ 176 0032 80BD     		pop	{r7, pc}
+ 177              	.L9:
+ 178              		.align	2
+ 179              	.L8:
+ 180 0034 00000000 		.word	ch
+ 181 0038 00000000 		.word	_ZZ11chSysUnlockE8__func__
+ 182              		.fnend
+ 183              		.size	chSysUnlock, .-chSysUnlock
+ 184              		.section	.text.chVTGetSystemTimeX,"ax",%progbits
+ 185              		.align	1
+ 186              		.syntax unified
+ 187              		.thumb
+ 188              		.thumb_func
+ 189              		.fpu fpv4-sp-d16
+ 190              		.type	chVTGetSystemTimeX, %function
+ 191              	chVTGetSystemTimeX:
+ 192              		.fnstart
+ 193              	.LFB1180:
+ 194              		@ args = 0, pretend = 0, frame = 0
+ 195              		@ frame_needed = 1, uses_anonymous_args = 0
+ 196              		@ link register save eliminated.
+ 197 0000 80B4     		push	{r7}
+ 198 0002 00AF     		add	r7, sp, #0
+ 199 0004 034B     		ldr	r3, .L12
+ 200 0006 9B6A     		ldr	r3, [r3, #40]
+ 201 0008 1846     		mov	r0, r3
+ 202 000a BD46     		mov	sp, r7
+ 203              		@ sp needed
+ 204 000c 5DF8047B 		ldr	r7, [sp], #4
+ 205 0010 7047     		bx	lr
+ 206              	.L13:
+ 207 0012 00BF     		.align	2
+ 208              	.L12:
+ 209 0014 00000000 		.word	ch
+ 210              		.cantunwind
+ 211              		.fnend
+ 212              		.size	chVTGetSystemTimeX, .-chVTGetSystemTimeX
+ 213              		.section	.text.chVTGetSystemTime,"ax",%progbits
+ 214              		.align	1
+ 215              		.syntax unified
+ 216              		.thumb
+ 217              		.thumb_func
+ 218              		.fpu fpv4-sp-d16
+ 219              		.type	chVTGetSystemTime, %function
+ 220              	chVTGetSystemTime:
+ 221              		.fnstart
+ 222              	.LFB1181:
+ 223              		@ args = 0, pretend = 0, frame = 8
+ 224              		@ frame_needed = 1, uses_anonymous_args = 0
+ 225 0000 80B5     		push	{r7, lr}
+ 226              		.save {r7, lr}
+ 227              		.pad #8
+ 228 0002 82B0     		sub	sp, sp, #8
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 5
+
+
+ 229              		.setfp r7, sp, #0
+ 230 0004 00AF     		add	r7, sp, #0
+ 231 0006 FFF7FEFF 		bl	chSysLock
+ 232 000a FFF7FEFF 		bl	chVTGetSystemTimeX
+ 233 000e 7860     		str	r0, [r7, #4]
+ 234 0010 FFF7FEFF 		bl	chSysUnlock
+ 235 0014 7B68     		ldr	r3, [r7, #4]
+ 236 0016 1846     		mov	r0, r3
+ 237 0018 0837     		adds	r7, r7, #8
+ 238 001a BD46     		mov	sp, r7
+ 239              		@ sp needed
+ 240 001c 80BD     		pop	{r7, pc}
+ 241              		.fnend
+ 242              		.size	chVTGetSystemTime, .-chVTGetSystemTime
+ 243              		.global	bus
+ 244              		.section	.bss.bus,"aw",%nobits
+ 245              		.align	2
+ 246              		.type	bus, %object
+ 247              		.size	bus, 12
+ 248              	bus:
+ 249 0000 00000000 		.space	12
+ 249      00000000 
+ 249      00000000 
+ 250              		.global	bus_lock
+ 251              		.section	.data.bus_lock,"aw",%progbits
+ 252              		.align	2
+ 253              		.type	bus_lock, %object
+ 254              		.size	bus_lock, 20
+ 255              	bus_lock:
+ 256 0000 00000000 		.word	bus_lock
+ 257 0004 00000000 		.word	bus_lock
+ 258 0008 00000000 		.word	0
+ 259 000c 00000000 		.word	0
+ 260 0010 00000000 		.word	0
+ 261              		.global	bus_condvar
+ 262              		.section	.data.bus_condvar,"aw",%progbits
+ 263              		.align	2
+ 264              		.type	bus_condvar, %object
+ 265              		.size	bus_condvar, 8
+ 266              	bus_condvar:
+ 267 0000 00000000 		.word	bus_condvar
+ 268 0004 00000000 		.word	bus_condvar
+ 269              		.global	parameter_root
+ 270              		.section	.bss.parameter_root,"aw",%nobits
+ 271              		.align	2
+ 272              		.type	parameter_root, %object
+ 273              		.size	parameter_root, 24
+ 274              	parameter_root:
+ 275 0000 00000000 		.space	24
+ 275      00000000 
+ 275      00000000 
+ 275      00000000 
+ 275      00000000 
+ 276              		.global	aseba_ns
+ 277              		.section	.bss.aseba_ns,"aw",%nobits
+ 278              		.align	2
+ 279              		.type	aseba_ns, %object
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 6
+
+
+ 280              		.size	aseba_ns, 24
+ 281              	aseba_ns:
+ 282 0000 00000000 		.space	24
+ 282      00000000 
+ 282      00000000 
+ 282      00000000 
+ 282      00000000 
+ 283              		.section	.text._ZL11load_configv,"ax",%progbits
+ 284              		.align	1
+ 285              		.syntax unified
+ 286              		.thumb
+ 287              		.thumb_func
+ 288              		.fpu fpv4-sp-d16
+ 289              		.type	_ZL11load_configv, %function
+ 290              	_ZL11load_configv:
+ 291              		.fnstart
+ 292              	.LFB1288:
+ 293              		@ args = 0, pretend = 0, frame = 0
+ 294              		@ frame_needed = 1, uses_anonymous_args = 0
+ 295 0000 80B5     		push	{r7, lr}
+ 296              		.save {r7, lr}
+ 297              		.setfp r7, sp, #0
+ 298 0002 00AF     		add	r7, sp, #0
+ 299 0004 0349     		ldr	r1, .L18
+ 300 0006 0448     		ldr	r0, .L18+4
+ 301 0008 FFF7FEFF 		bl	config_load
+ 302 000c 0346     		mov	r3, r0
+ 303 000e 1846     		mov	r0, r3
+ 304 0010 80BD     		pop	{r7, pc}
+ 305              	.L19:
+ 306 0012 00BF     		.align	2
+ 307              	.L18:
+ 308 0014 00000000 		.word	_config_start
+ 309 0018 00000000 		.word	parameter_root
+ 310              		.fnend
+ 311              		.size	_ZL11load_configv, .-_ZL11load_configv
+ 312              		.section	.rodata
+ 313              		.align	2
+ 314              	.LC0:
+ 315 0000 61736562 		.ascii	"aseba\000"
+ 315      6100
+ 316 0006 0000     		.align	2
+ 317              	.LC1:
+ 318 0008 2F70726F 		.ascii	"/proximity\000"
+ 318      78696D69 
+ 318      747900
+ 319              		.section	.text.main,"ax",%progbits
+ 320              		.align	1
+ 321              		.global	main
+ 322              		.syntax unified
+ 323              		.thumb
+ 324              		.thumb_func
+ 325              		.fpu fpv4-sp-d16
+ 326              		.type	main, %function
+ 327              	main:
+ 328              		.fnstart
+ 329              	.LFB1289:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 7
+
+
+ 330              		@ args = 0, pretend = 0, frame = 200
+ 331              		@ frame_needed = 1, uses_anonymous_args = 0
+ 332 0000 90B5     		push	{r4, r7, lr}
+ 333              		.save {r4, r7, lr}
+ 334              		.pad #204
+ 335 0002 B3B0     		sub	sp, sp, #204
+ 336              		.setfp r7, sp, #0
+ 337 0004 00AF     		add	r7, sp, #0
+ 338              	.LEHB0:
+ 339 0006 FFF7FEFF 		bl	halInit
+ 340 000a FFF7FEFF 		bl	chSysInit
+ 341 000e FFF7FEFF 		bl	mpu_init
+ 342 0012 B64A     		ldr	r2, .L51
+ 343 0014 B649     		ldr	r1, .L51+4
+ 344 0016 B748     		ldr	r0, .L51+8
+ 345 0018 FFF7FEFF 		bl	messagebus_init
+ 346 001c 0022     		movs	r2, #0
+ 347 001e 0021     		movs	r1, #0
+ 348 0020 B548     		ldr	r0, .L51+12
+ 349 0022 FFF7FEFF 		bl	parameter_namespace_declare
+ 350 0026 FFF7FEFF 		bl	clear_leds
+ 351 002a 0020     		movs	r0, #0
+ 352 002c FFF7FEFF 		bl	set_body_led
+ 353 0030 0020     		movs	r0, #0
+ 354 0032 FFF7FEFF 		bl	set_front_led
+ 355 0036 FFF7FEFF 		bl	usb_start
+ 356 003a FFF7FEFF 		bl	dcmi_start
+ 357 003e FFF7FEFF 		bl	cam_start
+ 358 0042 FFF7FEFF 		bl	motors_init
+ 359 0046 FFF7FEFF 		bl	proximity_start
+ 360 004a FFF7FEFF 		bl	battery_level_start
+ 361 004e FFF7FEFF 		bl	dac_start
+ 362 0052 FFF7FEFF 		bl	exti_start
+ 363 0056 FFF7FEFF 		bl	imu_start
+ 364 005a FFF7FEFF 		bl	ir_remote_start
+ 365 005e FFF7FEFF 		bl	spi_comm_start
+ 366 0062 FFF7FEFF 		bl	VL53L0X_start
+ 367 0066 FFF7FEFF 		bl	serial_start
+ 368 006a 0020     		movs	r0, #0
+ 369 006c FFF7FEFF 		bl	mic_start
+ 370 0070 FFF7FEFF 		bl	sdio_start
+ 371 0074 FFF7FEFF 		bl	playMelodyStart
+ 372 0078 FFF7FEFF 		bl	playSoundFileStart
+ 373 007c FFF7FEFF 		bl	ground_start
+ 374 0080 FFF7FEFF 		bl	behaviors_start
+ 375 0084 9D4A     		ldr	r2, .L51+16
+ 376 0086 9C49     		ldr	r1, .L51+12
+ 377 0088 9D48     		ldr	r0, .L51+20
+ 378 008a FFF7FEFF 		bl	parameter_namespace_declare
+ 379 008e 9C48     		ldr	r0, .L51+20
+ 380 0090 FFF7FEFF 		bl	aseba_declare_parameters
+ 381 0094 FFF7FEFF 		bl	_ZL11load_configv
+ 382 0098 FFF7FEFF 		bl	aseba_vm_init
+ 383 009c 9948     		ldr	r0, .L51+24
+ 384 009e FFF7FEFF 		bl	aseba_can_start
+ 385 00a2 0120     		movs	r0, #1
+ 386 00a4 FFF7FEFF 		bl	set_body_led
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 8
+
+
+ 387 00a8 0120     		movs	r0, #1
+ 388 00aa FFF7FEFF 		bl	set_front_led
+ 389 00ae 0023     		movs	r3, #0
+ 390 00b0 C7F8C430 		str	r3, [r7, #196]
+ 391 00b4 0023     		movs	r3, #0
+ 392 00b6 C7F8C030 		str	r3, [r7, #192]
+ 393              	.L48:
+ 394 00ba FFF7FEFF 		bl	chVTGetSystemTime
+ 395 00be 0346     		mov	r3, r0
+ 396 00c0 C7F89830 		str	r3, [r7, #152]
+ 397 00c4 D7F8C430 		ldr	r3, [r7, #196]
+ 398 00c8 012B     		cmp	r3, #1
+ 399 00ca 14BF     		ite	ne
+ 400 00cc 0123     		movne	r3, #1
+ 401 00ce 0023     		moveq	r3, #0
+ 402 00d0 DBB2     		uxtb	r3, r3
+ 403 00d2 C7F8C430 		str	r3, [r7, #196]
+ 404 00d6 0023     		movs	r3, #0
+ 405 00d8 C7F8BC30 		str	r3, [r7, #188]
+ 406              	.L22:
+ 407 00dc D7F8BC30 		ldr	r3, [r7, #188]
+ 408 00e0 042B     		cmp	r3, #4
+ 409 00e2 0DD0     		beq	.L21
+ 410 00e4 D7F8BC30 		ldr	r3, [r7, #188]
+ 411 00e8 DBB2     		uxtb	r3, r3
+ 412 00ea D7F8C410 		ldr	r1, [r7, #196]
+ 413 00ee 1846     		mov	r0, r3
+ 414 00f0 FFF7FEFF 		bl	set_led
+ 415 00f4 D7F8BC30 		ldr	r3, [r7, #188]
+ 416 00f8 0133     		adds	r3, r3, #1
+ 417 00fa C7F8BC30 		str	r3, [r7, #188]
+ 418 00fe EDE7     		b	.L22
+ 419              	.L21:
+ 420 0100 D7F8C030 		ldr	r3, [r7, #192]
+ 421 0104 062B     		cmp	r3, #6
+ 422 0106 00F2C080 		bhi	.L23
+ 423 010a 01A2     		adr	r2, .L25
+ 424 010c 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 425              		.p2align 2
+ 426              	.L25:
+ 427 0110 2D010000 		.word	.L24+1
+ 428 0114 5F010000 		.word	.L26+1
+ 429 0118 91010000 		.word	.L27+1
+ 430 011c C3010000 		.word	.L28+1
+ 431 0120 F5010000 		.word	.L29+1
+ 432 0124 27020000 		.word	.L30+1
+ 433 0128 59020000 		.word	.L31+1
+ 434              		.p2align 1
+ 435              	.L24:
+ 436 012c 0023     		movs	r3, #0
+ 437 012e C7F8B830 		str	r3, [r7, #184]
+ 438              	.L33:
+ 439 0132 D7F8B830 		ldr	r3, [r7, #184]
+ 440 0136 042B     		cmp	r3, #4
+ 441 0138 0DD0     		beq	.L32
+ 442 013a D7F8B830 		ldr	r3, [r7, #184]
+ 443 013e D8B2     		uxtb	r0, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 9
+
+
+ 444 0140 0023     		movs	r3, #0
+ 445 0142 0022     		movs	r2, #0
+ 446 0144 0A21     		movs	r1, #10
+ 447 0146 FFF7FEFF 		bl	set_rgb_led
+ 448 014a D7F8B830 		ldr	r3, [r7, #184]
+ 449 014e 0133     		adds	r3, r3, #1
+ 450 0150 C7F8B830 		str	r3, [r7, #184]
+ 451 0154 EDE7     		b	.L33
+ 452              	.L32:
+ 453 0156 0123     		movs	r3, #1
+ 454 0158 C7F8C030 		str	r3, [r7, #192]
+ 455 015c 95E0     		b	.L23
+ 456              	.L26:
+ 457 015e 0023     		movs	r3, #0
+ 458 0160 C7F8B430 		str	r3, [r7, #180]
+ 459              	.L35:
+ 460 0164 D7F8B430 		ldr	r3, [r7, #180]
+ 461 0168 042B     		cmp	r3, #4
+ 462 016a 0DD0     		beq	.L34
+ 463 016c D7F8B430 		ldr	r3, [r7, #180]
+ 464 0170 D8B2     		uxtb	r0, r3
+ 465 0172 0023     		movs	r3, #0
+ 466 0174 0A22     		movs	r2, #10
+ 467 0176 0021     		movs	r1, #0
+ 468 0178 FFF7FEFF 		bl	set_rgb_led
+ 469 017c D7F8B430 		ldr	r3, [r7, #180]
+ 470 0180 0133     		adds	r3, r3, #1
+ 471 0182 C7F8B430 		str	r3, [r7, #180]
+ 472 0186 EDE7     		b	.L35
+ 473              	.L34:
+ 474 0188 0223     		movs	r3, #2
+ 475 018a C7F8C030 		str	r3, [r7, #192]
+ 476 018e 7CE0     		b	.L23
+ 477              	.L27:
+ 478 0190 0023     		movs	r3, #0
+ 479 0192 C7F8B030 		str	r3, [r7, #176]
+ 480              	.L37:
+ 481 0196 D7F8B030 		ldr	r3, [r7, #176]
+ 482 019a 042B     		cmp	r3, #4
+ 483 019c 0DD0     		beq	.L36
+ 484 019e D7F8B030 		ldr	r3, [r7, #176]
+ 485 01a2 D8B2     		uxtb	r0, r3
+ 486 01a4 0A23     		movs	r3, #10
+ 487 01a6 0022     		movs	r2, #0
+ 488 01a8 0021     		movs	r1, #0
+ 489 01aa FFF7FEFF 		bl	set_rgb_led
+ 490 01ae D7F8B030 		ldr	r3, [r7, #176]
+ 491 01b2 0133     		adds	r3, r3, #1
+ 492 01b4 C7F8B030 		str	r3, [r7, #176]
+ 493 01b8 EDE7     		b	.L37
+ 494              	.L36:
+ 495 01ba 0323     		movs	r3, #3
+ 496 01bc C7F8C030 		str	r3, [r7, #192]
+ 497 01c0 63E0     		b	.L23
+ 498              	.L28:
+ 499 01c2 0023     		movs	r3, #0
+ 500 01c4 C7F8AC30 		str	r3, [r7, #172]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 10
+
+
+ 501              	.L39:
+ 502 01c8 D7F8AC30 		ldr	r3, [r7, #172]
+ 503 01cc 042B     		cmp	r3, #4
+ 504 01ce 0DD0     		beq	.L38
+ 505 01d0 D7F8AC30 		ldr	r3, [r7, #172]
+ 506 01d4 D8B2     		uxtb	r0, r3
+ 507 01d6 0023     		movs	r3, #0
+ 508 01d8 0A22     		movs	r2, #10
+ 509 01da 0A21     		movs	r1, #10
+ 510 01dc FFF7FEFF 		bl	set_rgb_led
+ 511 01e0 D7F8AC30 		ldr	r3, [r7, #172]
+ 512 01e4 0133     		adds	r3, r3, #1
+ 513 01e6 C7F8AC30 		str	r3, [r7, #172]
+ 514 01ea EDE7     		b	.L39
+ 515              	.L38:
+ 516 01ec 0423     		movs	r3, #4
+ 517 01ee C7F8C030 		str	r3, [r7, #192]
+ 518 01f2 4AE0     		b	.L23
+ 519              	.L29:
+ 520 01f4 0023     		movs	r3, #0
+ 521 01f6 C7F8A830 		str	r3, [r7, #168]
+ 522              	.L41:
+ 523 01fa D7F8A830 		ldr	r3, [r7, #168]
+ 524 01fe 042B     		cmp	r3, #4
+ 525 0200 0DD0     		beq	.L40
+ 526 0202 D7F8A830 		ldr	r3, [r7, #168]
+ 527 0206 D8B2     		uxtb	r0, r3
+ 528 0208 0A23     		movs	r3, #10
+ 529 020a 0A22     		movs	r2, #10
+ 530 020c 0021     		movs	r1, #0
+ 531 020e FFF7FEFF 		bl	set_rgb_led
+ 532 0212 D7F8A830 		ldr	r3, [r7, #168]
+ 533 0216 0133     		adds	r3, r3, #1
+ 534 0218 C7F8A830 		str	r3, [r7, #168]
+ 535 021c EDE7     		b	.L41
+ 536              	.L40:
+ 537 021e 0523     		movs	r3, #5
+ 538 0220 C7F8C030 		str	r3, [r7, #192]
+ 539 0224 31E0     		b	.L23
+ 540              	.L30:
+ 541 0226 0023     		movs	r3, #0
+ 542 0228 C7F8A430 		str	r3, [r7, #164]
+ 543              	.L43:
+ 544 022c D7F8A430 		ldr	r3, [r7, #164]
+ 545 0230 042B     		cmp	r3, #4
+ 546 0232 0DD0     		beq	.L42
+ 547 0234 D7F8A430 		ldr	r3, [r7, #164]
+ 548 0238 D8B2     		uxtb	r0, r3
+ 549 023a 0A23     		movs	r3, #10
+ 550 023c 0022     		movs	r2, #0
+ 551 023e 0A21     		movs	r1, #10
+ 552 0240 FFF7FEFF 		bl	set_rgb_led
+ 553 0244 D7F8A430 		ldr	r3, [r7, #164]
+ 554 0248 0133     		adds	r3, r3, #1
+ 555 024a C7F8A430 		str	r3, [r7, #164]
+ 556 024e EDE7     		b	.L43
+ 557              	.L42:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 11
+
+
+ 558 0250 0623     		movs	r3, #6
+ 559 0252 C7F8C030 		str	r3, [r7, #192]
+ 560 0256 18E0     		b	.L23
+ 561              	.L31:
+ 562 0258 0023     		movs	r3, #0
+ 563 025a C7F8A030 		str	r3, [r7, #160]
+ 564              	.L45:
+ 565 025e D7F8A030 		ldr	r3, [r7, #160]
+ 566 0262 042B     		cmp	r3, #4
+ 567 0264 0DD0     		beq	.L44
+ 568 0266 D7F8A030 		ldr	r3, [r7, #160]
+ 569 026a D8B2     		uxtb	r0, r3
+ 570 026c 0A23     		movs	r3, #10
+ 571 026e 0022     		movs	r2, #0
+ 572 0270 0A21     		movs	r1, #10
+ 573 0272 FFF7FEFF 		bl	set_rgb_led
+ 574              	.LEHE0:
+ 575 0276 D7F8A030 		ldr	r3, [r7, #160]
+ 576 027a 0133     		adds	r3, r3, #1
+ 577 027c C7F8A030 		str	r3, [r7, #160]
+ 578 0280 EDE7     		b	.L45
+ 579              	.L44:
+ 580 0282 0023     		movs	r3, #0
+ 581 0284 C7F8C030 		str	r3, [r7, #192]
+ 582 0288 00BF     		nop
+ 583              	.L23:
+ 584 028a 07F18403 		add	r3, r7, #132
+ 585 028e 1846     		mov	r0, r3
+ 586 0290 FFF7FEFF 		bl	_ZNSt6vectorItSaItEEC1Ev
+ 587 0294 1C49     		ldr	r1, .L51+28
+ 588 0296 1748     		ldr	r0, .L51+8
+ 589              	.LEHB1:
+ 590 0298 FFF7FEFF 		bl	messagebus_find_topic_blocking
+ 591 029c 0346     		mov	r3, r0
+ 592 029e C7F89430 		str	r3, [r7, #148]
+ 593 02a2 3B1D     		adds	r3, r7, #4
+ 594 02a4 8022     		movs	r2, #128
+ 595 02a6 1946     		mov	r1, r3
+ 596 02a8 D7F89400 		ldr	r0, [r7, #148]
+ 597 02ac FFF7FEFF 		bl	messagebus_topic_wait
+ 598 02b0 0023     		movs	r3, #0
+ 599 02b2 C7F89C30 		str	r3, [r7, #156]
+ 600              	.L47:
+ 601 02b6 D7F89C30 		ldr	r3, [r7, #156]
+ 602 02ba 072B     		cmp	r3, #7
+ 603 02bc 26D8     		bhi	.L46
+ 604 02be D7F89C00 		ldr	r0, [r7, #156]
+ 605 02c2 FFF7FEFF 		bl	get_calibrated_prox
+ 606 02c6 0346     		mov	r3, r0
+ 607 02c8 9BB2     		uxth	r3, r3
+ 608 02ca A7F89230 		strh	r3, [r7, #146]	@ movhi
+ 609 02ce 07F19202 		add	r2, r7, #146
+ 610 02d2 07F18403 		add	r3, r7, #132
+ 611 02d6 1146     		mov	r1, r2
+ 612 02d8 1846     		mov	r0, r3
+ 613 02da FFF7FEFF 		bl	_ZNSt6vectorItSaItEE9push_backEOt
+ 614 02de D7F89C30 		ldr	r3, [r7, #156]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 12
+
+
+ 615 02e2 0133     		adds	r3, r3, #1
+ 616 02e4 C7F89C30 		str	r3, [r7, #156]
+ 617 02e8 E5E7     		b	.L47
+ 618              	.L52:
+ 619 02ea 00BF     		.align	2
+ 620              	.L51:
+ 621 02ec 00000000 		.word	bus_condvar
+ 622 02f0 00000000 		.word	bus_lock
+ 623 02f4 00000000 		.word	bus
+ 624 02f8 00000000 		.word	parameter_root
+ 625 02fc 00000000 		.word	.LC0
+ 626 0300 00000000 		.word	aseba_ns
+ 627 0304 00000000 		.word	vmState
+ 628 0308 08000000 		.word	.LC1
+ 629              	.L46:
+ 630 030c 07F18403 		add	r3, r7, #132
+ 631 0310 0721     		movs	r1, #7
+ 632 0312 1846     		mov	r0, r3
+ 633 0314 FFF7FEFF 		bl	_ZNSt6vectorItSaItEEixEj
+ 634 0318 0346     		mov	r3, r0
+ 635 031a 1B88     		ldrh	r3, [r3]
+ 636 031c DB00     		lsls	r3, r3, #3
+ 637 031e 9BB2     		uxth	r3, r3
+ 638 0320 5B42     		negs	r3, r3
+ 639 0322 9CB2     		uxth	r4, r3
+ 640 0324 07F18403 		add	r3, r7, #132
+ 641 0328 0621     		movs	r1, #6
+ 642 032a 1846     		mov	r0, r3
+ 643 032c FFF7FEFF 		bl	_ZNSt6vectorItSaItEEixEj
+ 644 0330 0346     		mov	r3, r0
+ 645 0332 1B88     		ldrh	r3, [r3]
+ 646 0334 9B00     		lsls	r3, r3, #2
+ 647 0336 9BB2     		uxth	r3, r3
+ 648 0338 E31A     		subs	r3, r4, r3
+ 649 033a 9CB2     		uxth	r4, r3
+ 650 033c 07F18403 		add	r3, r7, #132
+ 651 0340 0521     		movs	r1, #5
+ 652 0342 1846     		mov	r0, r3
+ 653 0344 FFF7FEFF 		bl	_ZNSt6vectorItSaItEEixEj
+ 654 0348 0346     		mov	r3, r0
+ 655 034a 1B88     		ldrh	r3, [r3]
+ 656 034c 5B00     		lsls	r3, r3, #1
+ 657 034e 9BB2     		uxth	r3, r3
+ 658 0350 E31A     		subs	r3, r4, r3
+ 659 0352 9BB2     		uxth	r3, r3
+ 660 0354 03F22623 		addw	r3, r3, #550
+ 661 0358 9BB2     		uxth	r3, r3
+ 662 035a 1BB2     		sxth	r3, r3
+ 663 035c 1846     		mov	r0, r3
+ 664 035e FFF7FEFF 		bl	right_motor_set_speed
+ 665 0362 07F18403 		add	r3, r7, #132
+ 666 0366 0021     		movs	r1, #0
+ 667 0368 1846     		mov	r0, r3
+ 668 036a FFF7FEFF 		bl	_ZNSt6vectorItSaItEEixEj
+ 669 036e 0346     		mov	r3, r0
+ 670 0370 1B88     		ldrh	r3, [r3]
+ 671 0372 DB00     		lsls	r3, r3, #3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 13
+
+
+ 672 0374 9BB2     		uxth	r3, r3
+ 673 0376 5B42     		negs	r3, r3
+ 674 0378 9CB2     		uxth	r4, r3
+ 675 037a 07F18403 		add	r3, r7, #132
+ 676 037e 0121     		movs	r1, #1
+ 677 0380 1846     		mov	r0, r3
+ 678 0382 FFF7FEFF 		bl	_ZNSt6vectorItSaItEEixEj
+ 679 0386 0346     		mov	r3, r0
+ 680 0388 1B88     		ldrh	r3, [r3]
+ 681 038a 9B00     		lsls	r3, r3, #2
+ 682 038c 9BB2     		uxth	r3, r3
+ 683 038e E31A     		subs	r3, r4, r3
+ 684 0390 9CB2     		uxth	r4, r3
+ 685 0392 07F18403 		add	r3, r7, #132
+ 686 0396 0221     		movs	r1, #2
+ 687 0398 1846     		mov	r0, r3
+ 688 039a FFF7FEFF 		bl	_ZNSt6vectorItSaItEEixEj
+ 689 039e 0346     		mov	r3, r0
+ 690 03a0 1B88     		ldrh	r3, [r3]
+ 691 03a2 5B00     		lsls	r3, r3, #1
+ 692 03a4 9BB2     		uxth	r3, r3
+ 693 03a6 E31A     		subs	r3, r4, r3
+ 694 03a8 9BB2     		uxth	r3, r3
+ 695 03aa 03F22623 		addw	r3, r3, #550
+ 696 03ae 9BB2     		uxth	r3, r3
+ 697 03b0 1BB2     		sxth	r3, r3
+ 698 03b2 1846     		mov	r0, r3
+ 699 03b4 FFF7FEFF 		bl	left_motor_set_speed
+ 700 03b8 D7F89830 		ldr	r3, [r7, #152]
+ 701 03bc 0A33     		adds	r3, r3, #10
+ 702 03be 1946     		mov	r1, r3
+ 703 03c0 D7F89800 		ldr	r0, [r7, #152]
+ 704 03c4 FFF7FEFF 		bl	chThdSleepUntilWindowed
+ 705              	.LEHE1:
+ 706 03c8 07F18403 		add	r3, r7, #132
+ 707 03cc 1846     		mov	r0, r3
+ 708 03ce FFF7FEFF 		bl	_ZNSt6vectorItSaItEED1Ev
+ 709 03d2 72E6     		b	.L48
+ 710              	.L50:
+ 711 03d4 07F18403 		add	r3, r7, #132
+ 712 03d8 1846     		mov	r0, r3
+ 713 03da FFF7FEFF 		bl	_ZNSt6vectorItSaItEED1Ev
+ 714              	.LEHB2:
+ 715 03de FFF7FEFF 		bl	__cxa_end_cleanup
+ 716              	.LEHE2:
+ 717              		.global	__gxx_personality_v0
+ 718              		.personality	__gxx_personality_v0
+ 719              		.handlerdata
+ 720              	.LLSDA1289:
+ 721 000c FF       		.byte	0xff
+ 722 000d FF       		.byte	0xff
+ 723 000e 01       		.byte	0x1
+ 724 000f 11       		.uleb128 .LLSDACSE1289-.LLSDACSB1289
+ 725              	.LLSDACSB1289:
+ 726 0010 06       		.uleb128 .LEHB0-.LFB1289
+ 727 0011 F004     		.uleb128 .LEHE0-.LEHB0
+ 728 0013 00       		.uleb128 0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 14
+
+
+ 729 0014 00       		.uleb128 0
+ 730 0015 9805     		.uleb128 .LEHB1-.LFB1289
+ 731 0017 B002     		.uleb128 .LEHE1-.LEHB1
+ 732 0019 D407     		.uleb128 .L50-.LFB1289
+ 733 001b 00       		.uleb128 0
+ 734 001c DE07     		.uleb128 .LEHB2-.LFB1289
+ 735 001e 04       		.uleb128 .LEHE2-.LEHB2
+ 736 001f 00       		.uleb128 0
+ 737 0020 00       		.uleb128 0
+ 738              	.LLSDACSE1289:
+ 739              		.section	.text.main
+ 740              		.fnend
+ 741              		.size	main, .-main
+ 742              		.global	__stack_chk_guard
+ 743 03e2 00BF     		.section	.data.__stack_chk_guard,"aw",%progbits
+ 744              		.align	2
+ 745              		.type	__stack_chk_guard, %object
+ 746              		.size	__stack_chk_guard, 4
+ 747              	__stack_chk_guard:
+ 748 0000 96E3DEE2 		.word	-488709226
+ 749              		.section	.rodata
+ 750 0013 00       		.align	2
+ 751              	.LC2:
+ 752 0014 53746163 		.ascii	"Stack smashing detected\000"
+ 752      6B20736D 
+ 752      61736869 
+ 752      6E672064 
+ 752      65746563 
+ 753              		.section	.text._Z16__stack_chk_failv,"ax",%progbits
+ 754              		.align	1
+ 755              		.global	_Z16__stack_chk_failv
+ 756              		.syntax unified
+ 757              		.thumb
+ 758              		.thumb_func
+ 759              		.fpu fpv4-sp-d16
+ 760              		.type	_Z16__stack_chk_failv, %function
+ 761              	_Z16__stack_chk_failv:
+ 762              		.fnstart
+ 763              	.LFB1290:
+ 764              		@ args = 0, pretend = 0, frame = 0
+ 765              		@ frame_needed = 1, uses_anonymous_args = 0
+ 766 0000 80B5     		push	{r7, lr}
+ 767              		.save {r7, lr}
+ 768              		.setfp r7, sp, #0
+ 769 0002 00AF     		add	r7, sp, #0
+ 770 0004 0248     		ldr	r0, .L54
+ 771 0006 FFF7FEFF 		bl	chSysHalt
+ 772 000a 00BF     		nop
+ 773 000c 80BD     		pop	{r7, pc}
+ 774              	.L55:
+ 775 000e 00BF     		.align	2
+ 776              	.L54:
+ 777 0010 14000000 		.word	.LC2
+ 778              		.fnend
+ 779              		.size	_Z16__stack_chk_failv, .-_Z16__stack_chk_failv
+ 780              		.section	.text._ZNSt6vectorItSaItEEC2Ev,"axG",%progbits,_ZNSt6vectorItSaItEEC5Ev,comdat
+ 781              		.align	1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 15
+
+
+ 782              		.weak	_ZNSt6vectorItSaItEEC2Ev
+ 783              		.syntax unified
+ 784              		.thumb
+ 785              		.thumb_func
+ 786              		.fpu fpv4-sp-d16
+ 787              		.type	_ZNSt6vectorItSaItEEC2Ev, %function
+ 788              	_ZNSt6vectorItSaItEEC2Ev:
+ 789              		.fnstart
+ 790              	.LFB1295:
+ 791              		@ args = 0, pretend = 0, frame = 8
+ 792              		@ frame_needed = 1, uses_anonymous_args = 0
+ 793 0000 80B5     		push	{r7, lr}
+ 794              		.save {r7, lr}
+ 795              		.pad #8
+ 796 0002 82B0     		sub	sp, sp, #8
+ 797              		.setfp r7, sp, #0
+ 798 0004 00AF     		add	r7, sp, #0
+ 799 0006 7860     		str	r0, [r7, #4]
+ 800 0008 7B68     		ldr	r3, [r7, #4]
+ 801 000a 1846     		mov	r0, r3
+ 802 000c FFF7FEFF 		bl	_ZNSt12_Vector_baseItSaItEEC2Ev
+ 803 0010 7B68     		ldr	r3, [r7, #4]
+ 804 0012 1846     		mov	r0, r3
+ 805 0014 0837     		adds	r7, r7, #8
+ 806 0016 BD46     		mov	sp, r7
+ 807              		@ sp needed
+ 808 0018 80BD     		pop	{r7, pc}
+ 809              		.personality	__gxx_personality_v0
+ 810              		.handlerdata
+ 811              	.LLSDA1295:
+ 812 000c FF       		.byte	0xff
+ 813 000d FF       		.byte	0xff
+ 814 000e 01       		.byte	0x1
+ 815 000f 00       		.uleb128 .LLSDACSE1295-.LLSDACSB1295
+ 816              	.LLSDACSB1295:
+ 817              	.LLSDACSE1295:
+ 818              		.section	.text._ZNSt6vectorItSaItEEC2Ev,"axG",%progbits,_ZNSt6vectorItSaItEEC5Ev,comdat
+ 819              		.fnend
+ 820              		.size	_ZNSt6vectorItSaItEEC2Ev, .-_ZNSt6vectorItSaItEEC2Ev
+ 821              		.weak	_ZNSt6vectorItSaItEEC1Ev
+ 822              		.thumb_set _ZNSt6vectorItSaItEEC1Ev,_ZNSt6vectorItSaItEEC2Ev
+ 823              		.section	.text._ZNSt6vectorItSaItEED2Ev,"axG",%progbits,_ZNSt6vectorItSaItEED5Ev,comdat
+ 824              		.align	1
+ 825              		.weak	_ZNSt6vectorItSaItEED2Ev
+ 826              		.syntax unified
+ 827              		.thumb
+ 828              		.thumb_func
+ 829              		.fpu fpv4-sp-d16
+ 830              		.type	_ZNSt6vectorItSaItEED2Ev, %function
+ 831              	_ZNSt6vectorItSaItEED2Ev:
+ 832              		.fnstart
+ 833              	.LFB1298:
+ 834              		@ args = 0, pretend = 0, frame = 8
+ 835              		@ frame_needed = 1, uses_anonymous_args = 0
+ 836 0000 B0B5     		push	{r4, r5, r7, lr}
+ 837              		.save {r4, r5, r7, lr}
+ 838              		.pad #8
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 16
+
+
+ 839 0002 82B0     		sub	sp, sp, #8
+ 840              		.setfp r7, sp, #0
+ 841 0004 00AF     		add	r7, sp, #0
+ 842 0006 7860     		str	r0, [r7, #4]
+ 843 0008 7B68     		ldr	r3, [r7, #4]
+ 844 000a 1C68     		ldr	r4, [r3]
+ 845 000c 7B68     		ldr	r3, [r7, #4]
+ 846 000e 5D68     		ldr	r5, [r3, #4]
+ 847 0010 7B68     		ldr	r3, [r7, #4]
+ 848 0012 1846     		mov	r0, r3
+ 849 0014 FFF7FEFF 		bl	_ZNSt12_Vector_baseItSaItEE19_M_get_Tp_allocatorEv
+ 850 0018 0346     		mov	r3, r0
+ 851 001a 1A46     		mov	r2, r3
+ 852 001c 2946     		mov	r1, r5
+ 853 001e 2046     		mov	r0, r4
+ 854 0020 FFF7FEFF 		bl	_ZSt8_DestroyIPttEvT_S1_RSaIT0_E
+ 855 0024 7B68     		ldr	r3, [r7, #4]
+ 856 0026 1846     		mov	r0, r3
+ 857 0028 FFF7FEFF 		bl	_ZNSt12_Vector_baseItSaItEED2Ev
+ 858 002c 7B68     		ldr	r3, [r7, #4]
+ 859 002e 1846     		mov	r0, r3
+ 860 0030 0837     		adds	r7, r7, #8
+ 861 0032 BD46     		mov	sp, r7
+ 862              		@ sp needed
+ 863 0034 B0BD     		pop	{r4, r5, r7, pc}
+ 864              		.personality	__gxx_personality_v0
+ 865              		.handlerdata
+ 866              	.LLSDA1298:
+ 867 000c FF       		.byte	0xff
+ 868 000d FF       		.byte	0xff
+ 869 000e 01       		.byte	0x1
+ 870 000f 00       		.uleb128 .LLSDACSE1298-.LLSDACSB1298
+ 871              	.LLSDACSB1298:
+ 872              	.LLSDACSE1298:
+ 873              		.section	.text._ZNSt6vectorItSaItEED2Ev,"axG",%progbits,_ZNSt6vectorItSaItEED5Ev,comdat
+ 874              		.fnend
+ 875              		.size	_ZNSt6vectorItSaItEED2Ev, .-_ZNSt6vectorItSaItEED2Ev
+ 876              		.weak	_ZNSt6vectorItSaItEED1Ev
+ 877              		.thumb_set _ZNSt6vectorItSaItEED1Ev,_ZNSt6vectorItSaItEED2Ev
+ 878              		.section	.text._ZSt4moveIRtEONSt16remove_referenceIT_E4typeEOS2_,"axG",%progbits,_ZSt4moveIRtEONSt
+ 879              		.align	1
+ 880              		.weak	_ZSt4moveIRtEONSt16remove_referenceIT_E4typeEOS2_
+ 881              		.syntax unified
+ 882              		.thumb
+ 883              		.thumb_func
+ 884              		.fpu fpv4-sp-d16
+ 885              		.type	_ZSt4moveIRtEONSt16remove_referenceIT_E4typeEOS2_, %function
+ 886              	_ZSt4moveIRtEONSt16remove_referenceIT_E4typeEOS2_:
+ 887              		.fnstart
+ 888              	.LFB1301:
+ 889              		@ args = 0, pretend = 0, frame = 8
+ 890              		@ frame_needed = 1, uses_anonymous_args = 0
+ 891              		@ link register save eliminated.
+ 892 0000 80B4     		push	{r7}
+ 893 0002 83B0     		sub	sp, sp, #12
+ 894 0004 00AF     		add	r7, sp, #0
+ 895 0006 7860     		str	r0, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 17
+
+
+ 896 0008 7B68     		ldr	r3, [r7, #4]
+ 897 000a 1846     		mov	r0, r3
+ 898 000c 0C37     		adds	r7, r7, #12
+ 899 000e BD46     		mov	sp, r7
+ 900              		@ sp needed
+ 901 0010 5DF8047B 		ldr	r7, [sp], #4
+ 902 0014 7047     		bx	lr
+ 903              		.cantunwind
+ 904              		.fnend
+ 905              		.size	_ZSt4moveIRtEONSt16remove_referenceIT_E4typeEOS2_, .-_ZSt4moveIRtEONSt16remove_referenceIT_E
+ 906              		.section	.text._ZNSt6vectorItSaItEE9push_backEOt,"axG",%progbits,_ZNSt6vectorItSaItEE9push_backEOt
+ 907              		.align	1
+ 908              		.weak	_ZNSt6vectorItSaItEE9push_backEOt
+ 909              		.syntax unified
+ 910              		.thumb
+ 911              		.thumb_func
+ 912              		.fpu fpv4-sp-d16
+ 913              		.type	_ZNSt6vectorItSaItEE9push_backEOt, %function
+ 914              	_ZNSt6vectorItSaItEE9push_backEOt:
+ 915              		.fnstart
+ 916              	.LFB1300:
+ 917              		@ args = 0, pretend = 0, frame = 8
+ 918              		@ frame_needed = 1, uses_anonymous_args = 0
+ 919 0000 80B5     		push	{r7, lr}
+ 920              		.save {r7, lr}
+ 921              		.pad #8
+ 922 0002 82B0     		sub	sp, sp, #8
+ 923              		.setfp r7, sp, #0
+ 924 0004 00AF     		add	r7, sp, #0
+ 925 0006 7860     		str	r0, [r7, #4]
+ 926 0008 3960     		str	r1, [r7]
+ 927 000a 3868     		ldr	r0, [r7]
+ 928 000c FFF7FEFF 		bl	_ZSt4moveIRtEONSt16remove_referenceIT_E4typeEOS2_
+ 929 0010 0346     		mov	r3, r0
+ 930 0012 1946     		mov	r1, r3
+ 931 0014 7868     		ldr	r0, [r7, #4]
+ 932 0016 FFF7FEFF 		bl	_ZNSt6vectorItSaItEE12emplace_backIJtEEEvDpOT_
+ 933 001a 00BF     		nop
+ 934 001c 0837     		adds	r7, r7, #8
+ 935 001e BD46     		mov	sp, r7
+ 936              		@ sp needed
+ 937 0020 80BD     		pop	{r7, pc}
+ 938              		.fnend
+ 939              		.size	_ZNSt6vectorItSaItEE9push_backEOt, .-_ZNSt6vectorItSaItEE9push_backEOt
+ 940              		.section	.text._ZNSt6vectorItSaItEEixEj,"axG",%progbits,_ZNSt6vectorItSaItEEixEj,comdat
+ 941              		.align	1
+ 942              		.weak	_ZNSt6vectorItSaItEEixEj
+ 943              		.syntax unified
+ 944              		.thumb
+ 945              		.thumb_func
+ 946              		.fpu fpv4-sp-d16
+ 947              		.type	_ZNSt6vectorItSaItEEixEj, %function
+ 948              	_ZNSt6vectorItSaItEEixEj:
+ 949              		.fnstart
+ 950              	.LFB1302:
+ 951              		@ args = 0, pretend = 0, frame = 8
+ 952              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 18
+
+
+ 953              		@ link register save eliminated.
+ 954 0000 80B4     		push	{r7}
+ 955 0002 83B0     		sub	sp, sp, #12
+ 956 0004 00AF     		add	r7, sp, #0
+ 957 0006 7860     		str	r0, [r7, #4]
+ 958 0008 3960     		str	r1, [r7]
+ 959 000a 7B68     		ldr	r3, [r7, #4]
+ 960 000c 1A68     		ldr	r2, [r3]
+ 961 000e 3B68     		ldr	r3, [r7]
+ 962 0010 5B00     		lsls	r3, r3, #1
+ 963 0012 1344     		add	r3, r3, r2
+ 964 0014 1846     		mov	r0, r3
+ 965 0016 0C37     		adds	r7, r7, #12
+ 966 0018 BD46     		mov	sp, r7
+ 967              		@ sp needed
+ 968 001a 5DF8047B 		ldr	r7, [sp], #4
+ 969 001e 7047     		bx	lr
+ 970              		.cantunwind
+ 971              		.fnend
+ 972              		.size	_ZNSt6vectorItSaItEEixEj, .-_ZNSt6vectorItSaItEEixEj
+ 973              		.section	.text._ZNSt12_Vector_baseItSaItEE12_Vector_implD2Ev,"axG",%progbits,_ZNSt12_Vector_baseIt
+ 974              		.align	1
+ 975              		.weak	_ZNSt12_Vector_baseItSaItEE12_Vector_implD2Ev
+ 976              		.syntax unified
+ 977              		.thumb
+ 978              		.thumb_func
+ 979              		.fpu fpv4-sp-d16
+ 980              		.type	_ZNSt12_Vector_baseItSaItEE12_Vector_implD2Ev, %function
+ 981              	_ZNSt12_Vector_baseItSaItEE12_Vector_implD2Ev:
+ 982              		.fnstart
+ 983              	.LFB1307:
+ 984              		@ args = 0, pretend = 0, frame = 8
+ 985              		@ frame_needed = 1, uses_anonymous_args = 0
+ 986 0000 80B5     		push	{r7, lr}
+ 987 0002 82B0     		sub	sp, sp, #8
+ 988 0004 00AF     		add	r7, sp, #0
+ 989 0006 7860     		str	r0, [r7, #4]
+ 990 0008 7868     		ldr	r0, [r7, #4]
+ 991 000a FFF7FEFF 		bl	_ZNSaItED2Ev
+ 992 000e 7B68     		ldr	r3, [r7, #4]
+ 993 0010 1846     		mov	r0, r3
+ 994 0012 0837     		adds	r7, r7, #8
+ 995 0014 BD46     		mov	sp, r7
+ 996              		@ sp needed
+ 997 0016 80BD     		pop	{r7, pc}
+ 998              		.cantunwind
+ 999              		.fnend
+ 1000              		.size	_ZNSt12_Vector_baseItSaItEE12_Vector_implD2Ev, .-_ZNSt12_Vector_baseItSaItEE12_Vector_implD2
+ 1001              		.weak	_ZNSt12_Vector_baseItSaItEE12_Vector_implD1Ev
+ 1002              		.thumb_set _ZNSt12_Vector_baseItSaItEE12_Vector_implD1Ev,_ZNSt12_Vector_baseItSaItEE12_Vector_impl
+ 1003              		.section	.text._ZNSt12_Vector_baseItSaItEEC2Ev,"axG",%progbits,_ZNSt12_Vector_baseItSaItEEC5Ev,com
+ 1004              		.align	1
+ 1005              		.weak	_ZNSt12_Vector_baseItSaItEEC2Ev
+ 1006              		.syntax unified
+ 1007              		.thumb
+ 1008              		.thumb_func
+ 1009              		.fpu fpv4-sp-d16
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 19
+
+
+ 1010              		.type	_ZNSt12_Vector_baseItSaItEEC2Ev, %function
+ 1011              	_ZNSt12_Vector_baseItSaItEEC2Ev:
+ 1012              		.fnstart
+ 1013              	.LFB1309:
+ 1014              		@ args = 0, pretend = 0, frame = 8
+ 1015              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1016 0000 80B5     		push	{r7, lr}
+ 1017 0002 82B0     		sub	sp, sp, #8
+ 1018 0004 00AF     		add	r7, sp, #0
+ 1019 0006 7860     		str	r0, [r7, #4]
+ 1020 0008 7B68     		ldr	r3, [r7, #4]
+ 1021 000a 1846     		mov	r0, r3
+ 1022 000c FFF7FEFF 		bl	_ZNSt12_Vector_baseItSaItEE12_Vector_implC1Ev
+ 1023 0010 7B68     		ldr	r3, [r7, #4]
+ 1024 0012 1846     		mov	r0, r3
+ 1025 0014 0837     		adds	r7, r7, #8
+ 1026 0016 BD46     		mov	sp, r7
+ 1027              		@ sp needed
+ 1028 0018 80BD     		pop	{r7, pc}
+ 1029              		.cantunwind
+ 1030              		.fnend
+ 1031              		.size	_ZNSt12_Vector_baseItSaItEEC2Ev, .-_ZNSt12_Vector_baseItSaItEEC2Ev
+ 1032              		.weak	_ZNSt12_Vector_baseItSaItEEC1Ev
+ 1033              		.thumb_set _ZNSt12_Vector_baseItSaItEEC1Ev,_ZNSt12_Vector_baseItSaItEEC2Ev
+ 1034              		.section	.text._ZNSt12_Vector_baseItSaItEED2Ev,"axG",%progbits,_ZNSt12_Vector_baseItSaItEED5Ev,com
+ 1035              		.align	1
+ 1036              		.weak	_ZNSt12_Vector_baseItSaItEED2Ev
+ 1037              		.syntax unified
+ 1038              		.thumb
+ 1039              		.thumb_func
+ 1040              		.fpu fpv4-sp-d16
+ 1041              		.type	_ZNSt12_Vector_baseItSaItEED2Ev, %function
+ 1042              	_ZNSt12_Vector_baseItSaItEED2Ev:
+ 1043              		.fnstart
+ 1044              	.LFB1312:
+ 1045              		@ args = 0, pretend = 0, frame = 8
+ 1046              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1047 0000 80B5     		push	{r7, lr}
+ 1048              		.save {r7, lr}
+ 1049              		.pad #8
+ 1050 0002 82B0     		sub	sp, sp, #8
+ 1051              		.setfp r7, sp, #0
+ 1052 0004 00AF     		add	r7, sp, #0
+ 1053 0006 7860     		str	r0, [r7, #4]
+ 1054 0008 7B68     		ldr	r3, [r7, #4]
+ 1055 000a 1968     		ldr	r1, [r3]
+ 1056 000c 7B68     		ldr	r3, [r7, #4]
+ 1057 000e 9B68     		ldr	r3, [r3, #8]
+ 1058 0010 1A46     		mov	r2, r3
+ 1059 0012 7B68     		ldr	r3, [r7, #4]
+ 1060 0014 1B68     		ldr	r3, [r3]
+ 1061 0016 D31A     		subs	r3, r2, r3
+ 1062 0018 5B10     		asrs	r3, r3, #1
+ 1063 001a 1A46     		mov	r2, r3
+ 1064 001c 7868     		ldr	r0, [r7, #4]
+ 1065 001e FFF7FEFF 		bl	_ZNSt12_Vector_baseItSaItEE13_M_deallocateEPtj
+ 1066 0022 7B68     		ldr	r3, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 20
+
+
+ 1067 0024 1846     		mov	r0, r3
+ 1068 0026 FFF7FEFF 		bl	_ZNSt12_Vector_baseItSaItEE12_Vector_implD1Ev
+ 1069 002a 7B68     		ldr	r3, [r7, #4]
+ 1070 002c 1846     		mov	r0, r3
+ 1071 002e 0837     		adds	r7, r7, #8
+ 1072 0030 BD46     		mov	sp, r7
+ 1073              		@ sp needed
+ 1074 0032 80BD     		pop	{r7, pc}
+ 1075              		.personality	__gxx_personality_v0
+ 1076              		.handlerdata
+ 1077              	.LLSDA1312:
+ 1078 000c FF       		.byte	0xff
+ 1079 000d FF       		.byte	0xff
+ 1080 000e 01       		.byte	0x1
+ 1081 000f 00       		.uleb128 .LLSDACSE1312-.LLSDACSB1312
+ 1082              	.LLSDACSB1312:
+ 1083              	.LLSDACSE1312:
+ 1084              		.section	.text._ZNSt12_Vector_baseItSaItEED2Ev,"axG",%progbits,_ZNSt12_Vector_baseItSaItEED5Ev,com
+ 1085              		.fnend
+ 1086              		.size	_ZNSt12_Vector_baseItSaItEED2Ev, .-_ZNSt12_Vector_baseItSaItEED2Ev
+ 1087              		.weak	_ZNSt12_Vector_baseItSaItEED1Ev
+ 1088              		.thumb_set _ZNSt12_Vector_baseItSaItEED1Ev,_ZNSt12_Vector_baseItSaItEED2Ev
+ 1089              		.section	.text._ZNSt12_Vector_baseItSaItEE19_M_get_Tp_allocatorEv,"axG",%progbits,_ZNSt12_Vector_b
+ 1090              		.align	1
+ 1091              		.weak	_ZNSt12_Vector_baseItSaItEE19_M_get_Tp_allocatorEv
+ 1092              		.syntax unified
+ 1093              		.thumb
+ 1094              		.thumb_func
+ 1095              		.fpu fpv4-sp-d16
+ 1096              		.type	_ZNSt12_Vector_baseItSaItEE19_M_get_Tp_allocatorEv, %function
+ 1097              	_ZNSt12_Vector_baseItSaItEE19_M_get_Tp_allocatorEv:
+ 1098              		.fnstart
+ 1099              	.LFB1314:
+ 1100              		@ args = 0, pretend = 0, frame = 8
+ 1101              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1102              		@ link register save eliminated.
+ 1103 0000 80B4     		push	{r7}
+ 1104 0002 83B0     		sub	sp, sp, #12
+ 1105 0004 00AF     		add	r7, sp, #0
+ 1106 0006 7860     		str	r0, [r7, #4]
+ 1107 0008 7B68     		ldr	r3, [r7, #4]
+ 1108 000a 1846     		mov	r0, r3
+ 1109 000c 0C37     		adds	r7, r7, #12
+ 1110 000e BD46     		mov	sp, r7
+ 1111              		@ sp needed
+ 1112 0010 5DF8047B 		ldr	r7, [sp], #4
+ 1113 0014 7047     		bx	lr
+ 1114              		.cantunwind
+ 1115              		.fnend
+ 1116              		.size	_ZNSt12_Vector_baseItSaItEE19_M_get_Tp_allocatorEv, .-_ZNSt12_Vector_baseItSaItEE19_M_get_Tp
+ 1117              		.section	.text._ZSt8_DestroyIPttEvT_S1_RSaIT0_E,"axG",%progbits,_ZSt8_DestroyIPttEvT_S1_RSaIT0_E,c
+ 1118              		.align	1
+ 1119              		.weak	_ZSt8_DestroyIPttEvT_S1_RSaIT0_E
+ 1120              		.syntax unified
+ 1121              		.thumb
+ 1122              		.thumb_func
+ 1123              		.fpu fpv4-sp-d16
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 21
+
+
+ 1124              		.type	_ZSt8_DestroyIPttEvT_S1_RSaIT0_E, %function
+ 1125              	_ZSt8_DestroyIPttEvT_S1_RSaIT0_E:
+ 1126              		.fnstart
+ 1127              	.LFB1315:
+ 1128              		@ args = 0, pretend = 0, frame = 16
+ 1129              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1130 0000 80B5     		push	{r7, lr}
+ 1131              		.save {r7, lr}
+ 1132              		.pad #16
+ 1133 0002 84B0     		sub	sp, sp, #16
+ 1134              		.setfp r7, sp, #0
+ 1135 0004 00AF     		add	r7, sp, #0
+ 1136 0006 F860     		str	r0, [r7, #12]
+ 1137 0008 B960     		str	r1, [r7, #8]
+ 1138 000a 7A60     		str	r2, [r7, #4]
+ 1139 000c B968     		ldr	r1, [r7, #8]
+ 1140 000e F868     		ldr	r0, [r7, #12]
+ 1141 0010 FFF7FEFF 		bl	_ZSt8_DestroyIPtEvT_S1_
+ 1142 0014 00BF     		nop
+ 1143 0016 1037     		adds	r7, r7, #16
+ 1144 0018 BD46     		mov	sp, r7
+ 1145              		@ sp needed
+ 1146 001a 80BD     		pop	{r7, pc}
+ 1147              		.fnend
+ 1148              		.size	_ZSt8_DestroyIPttEvT_S1_RSaIT0_E, .-_ZSt8_DestroyIPttEvT_S1_RSaIT0_E
+ 1149              		.section	.text._ZSt7forwardItEOT_RNSt16remove_referenceIS0_E4typeE,"axG",%progbits,_ZSt7forwardItE
+ 1150              		.align	1
+ 1151              		.weak	_ZSt7forwardItEOT_RNSt16remove_referenceIS0_E4typeE
+ 1152              		.syntax unified
+ 1153              		.thumb
+ 1154              		.thumb_func
+ 1155              		.fpu fpv4-sp-d16
+ 1156              		.type	_ZSt7forwardItEOT_RNSt16remove_referenceIS0_E4typeE, %function
+ 1157              	_ZSt7forwardItEOT_RNSt16remove_referenceIS0_E4typeE:
+ 1158              		.fnstart
+ 1159              	.LFB1317:
+ 1160              		@ args = 0, pretend = 0, frame = 8
+ 1161              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1162              		@ link register save eliminated.
+ 1163 0000 80B4     		push	{r7}
+ 1164 0002 83B0     		sub	sp, sp, #12
+ 1165 0004 00AF     		add	r7, sp, #0
+ 1166 0006 7860     		str	r0, [r7, #4]
+ 1167 0008 7B68     		ldr	r3, [r7, #4]
+ 1168 000a 1846     		mov	r0, r3
+ 1169 000c 0C37     		adds	r7, r7, #12
+ 1170 000e BD46     		mov	sp, r7
+ 1171              		@ sp needed
+ 1172 0010 5DF8047B 		ldr	r7, [sp], #4
+ 1173 0014 7047     		bx	lr
+ 1174              		.cantunwind
+ 1175              		.fnend
+ 1176              		.size	_ZSt7forwardItEOT_RNSt16remove_referenceIS0_E4typeE, .-_ZSt7forwardItEOT_RNSt16remove_refere
+ 1177              		.section	.text._ZNSt6vectorItSaItEE12emplace_backIJtEEEvDpOT_,"axG",%progbits,_ZNSt6vectorItSaItEE
+ 1178              		.align	1
+ 1179              		.weak	_ZNSt6vectorItSaItEE12emplace_backIJtEEEvDpOT_
+ 1180              		.syntax unified
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 22
+
+
+ 1181              		.thumb
+ 1182              		.thumb_func
+ 1183              		.fpu fpv4-sp-d16
+ 1184              		.type	_ZNSt6vectorItSaItEE12emplace_backIJtEEEvDpOT_, %function
+ 1185              	_ZNSt6vectorItSaItEE12emplace_backIJtEEEvDpOT_:
+ 1186              		.fnstart
+ 1187              	.LFB1316:
+ 1188              		@ args = 0, pretend = 0, frame = 8
+ 1189              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1190 0000 B0B5     		push	{r4, r5, r7, lr}
+ 1191              		.save {r4, r5, r7, lr}
+ 1192              		.pad #8
+ 1193 0002 82B0     		sub	sp, sp, #8
+ 1194              		.setfp r7, sp, #0
+ 1195 0004 00AF     		add	r7, sp, #0
+ 1196 0006 7860     		str	r0, [r7, #4]
+ 1197 0008 3960     		str	r1, [r7]
+ 1198 000a 7B68     		ldr	r3, [r7, #4]
+ 1199 000c 5A68     		ldr	r2, [r3, #4]
+ 1200 000e 7B68     		ldr	r3, [r7, #4]
+ 1201 0010 9B68     		ldr	r3, [r3, #8]
+ 1202 0012 9A42     		cmp	r2, r3
+ 1203 0014 11D0     		beq	.L77
+ 1204 0016 7C68     		ldr	r4, [r7, #4]
+ 1205 0018 7B68     		ldr	r3, [r7, #4]
+ 1206 001a 5D68     		ldr	r5, [r3, #4]
+ 1207 001c 3868     		ldr	r0, [r7]
+ 1208 001e FFF7FEFF 		bl	_ZSt7forwardItEOT_RNSt16remove_referenceIS0_E4typeE
+ 1209 0022 0346     		mov	r3, r0
+ 1210 0024 1A46     		mov	r2, r3
+ 1211 0026 2946     		mov	r1, r5
+ 1212 0028 2046     		mov	r0, r4
+ 1213 002a FFF7FEFF 		bl	_ZNSt16allocator_traitsISaItEE9constructItJtEEEvRS0_PT_DpOT0_
+ 1214 002e 7B68     		ldr	r3, [r7, #4]
+ 1215 0030 5B68     		ldr	r3, [r3, #4]
+ 1216 0032 9A1C     		adds	r2, r3, #2
+ 1217 0034 7B68     		ldr	r3, [r7, #4]
+ 1218 0036 5A60     		str	r2, [r3, #4]
+ 1219 0038 0CE0     		b	.L79
+ 1220              	.L77:
+ 1221 003a 7868     		ldr	r0, [r7, #4]
+ 1222 003c FFF7FEFF 		bl	_ZNSt6vectorItSaItEE3endEv
+ 1223 0040 0446     		mov	r4, r0
+ 1224 0042 3868     		ldr	r0, [r7]
+ 1225 0044 FFF7FEFF 		bl	_ZSt7forwardItEOT_RNSt16remove_referenceIS0_E4typeE
+ 1226 0048 0346     		mov	r3, r0
+ 1227 004a 1A46     		mov	r2, r3
+ 1228 004c 2146     		mov	r1, r4
+ 1229 004e 7868     		ldr	r0, [r7, #4]
+ 1230 0050 FFF7FEFF 		bl	_ZNSt6vectorItSaItEE17_M_realloc_insertIJtEEEvN9__gnu_cxx17__normal_iteratorIPtS1_EEDpOT_
+ 1231              	.L79:
+ 1232 0054 00BF     		nop
+ 1233 0056 0837     		adds	r7, r7, #8
+ 1234 0058 BD46     		mov	sp, r7
+ 1235              		@ sp needed
+ 1236 005a B0BD     		pop	{r4, r5, r7, pc}
+ 1237              		.fnend
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 23
+
+
+ 1238              		.size	_ZNSt6vectorItSaItEE12emplace_backIJtEEEvDpOT_, .-_ZNSt6vectorItSaItEE12emplace_backIJtEEEvD
+ 1239              		.section	.text._ZNSt12_Vector_baseItSaItEE12_Vector_implC2Ev,"axG",%progbits,_ZNSt12_Vector_baseIt
+ 1240              		.align	1
+ 1241              		.weak	_ZNSt12_Vector_baseItSaItEE12_Vector_implC2Ev
+ 1242              		.syntax unified
+ 1243              		.thumb
+ 1244              		.thumb_func
+ 1245              		.fpu fpv4-sp-d16
+ 1246              		.type	_ZNSt12_Vector_baseItSaItEE12_Vector_implC2Ev, %function
+ 1247              	_ZNSt12_Vector_baseItSaItEE12_Vector_implC2Ev:
+ 1248              		.fnstart
+ 1249              	.LFB1319:
+ 1250              		@ args = 0, pretend = 0, frame = 8
+ 1251              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1252 0000 80B5     		push	{r7, lr}
+ 1253 0002 82B0     		sub	sp, sp, #8
+ 1254 0004 00AF     		add	r7, sp, #0
+ 1255 0006 7860     		str	r0, [r7, #4]
+ 1256 0008 7868     		ldr	r0, [r7, #4]
+ 1257 000a FFF7FEFF 		bl	_ZNSaItEC2Ev
+ 1258 000e 7B68     		ldr	r3, [r7, #4]
+ 1259 0010 0022     		movs	r2, #0
+ 1260 0012 1A60     		str	r2, [r3]
+ 1261 0014 7B68     		ldr	r3, [r7, #4]
+ 1262 0016 0022     		movs	r2, #0
+ 1263 0018 5A60     		str	r2, [r3, #4]
+ 1264 001a 7B68     		ldr	r3, [r7, #4]
+ 1265 001c 0022     		movs	r2, #0
+ 1266 001e 9A60     		str	r2, [r3, #8]
+ 1267 0020 7B68     		ldr	r3, [r7, #4]
+ 1268 0022 1846     		mov	r0, r3
+ 1269 0024 0837     		adds	r7, r7, #8
+ 1270 0026 BD46     		mov	sp, r7
+ 1271              		@ sp needed
+ 1272 0028 80BD     		pop	{r7, pc}
+ 1273              		.cantunwind
+ 1274              		.fnend
+ 1275              		.size	_ZNSt12_Vector_baseItSaItEE12_Vector_implC2Ev, .-_ZNSt12_Vector_baseItSaItEE12_Vector_implC2
+ 1276              		.weak	_ZNSt12_Vector_baseItSaItEE12_Vector_implC1Ev
+ 1277              		.thumb_set _ZNSt12_Vector_baseItSaItEE12_Vector_implC1Ev,_ZNSt12_Vector_baseItSaItEE12_Vector_impl
+ 1278              		.section	.text._ZNSaItED2Ev,"axG",%progbits,_ZNSaItED5Ev,comdat
+ 1279              		.align	1
+ 1280              		.weak	_ZNSaItED2Ev
+ 1281              		.syntax unified
+ 1282              		.thumb
+ 1283              		.thumb_func
+ 1284              		.fpu fpv4-sp-d16
+ 1285              		.type	_ZNSaItED2Ev, %function
+ 1286              	_ZNSaItED2Ev:
+ 1287              		.fnstart
+ 1288              	.LFB1322:
+ 1289              		@ args = 0, pretend = 0, frame = 8
+ 1290              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1291 0000 80B5     		push	{r7, lr}
+ 1292 0002 82B0     		sub	sp, sp, #8
+ 1293 0004 00AF     		add	r7, sp, #0
+ 1294 0006 7860     		str	r0, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 24
+
+
+ 1295 0008 7868     		ldr	r0, [r7, #4]
+ 1296 000a FFF7FEFF 		bl	_ZN9__gnu_cxx13new_allocatorItED2Ev
+ 1297 000e 7B68     		ldr	r3, [r7, #4]
+ 1298 0010 1846     		mov	r0, r3
+ 1299 0012 0837     		adds	r7, r7, #8
+ 1300 0014 BD46     		mov	sp, r7
+ 1301              		@ sp needed
+ 1302 0016 80BD     		pop	{r7, pc}
+ 1303              		.cantunwind
+ 1304              		.fnend
+ 1305              		.size	_ZNSaItED2Ev, .-_ZNSaItED2Ev
+ 1306              		.weak	_ZNSaItED1Ev
+ 1307              		.thumb_set _ZNSaItED1Ev,_ZNSaItED2Ev
+ 1308              		.section	.text._ZNSt12_Vector_baseItSaItEE13_M_deallocateEPtj,"axG",%progbits,_ZNSt12_Vector_baseI
+ 1309              		.align	1
+ 1310              		.weak	_ZNSt12_Vector_baseItSaItEE13_M_deallocateEPtj
+ 1311              		.syntax unified
+ 1312              		.thumb
+ 1313              		.thumb_func
+ 1314              		.fpu fpv4-sp-d16
+ 1315              		.type	_ZNSt12_Vector_baseItSaItEE13_M_deallocateEPtj, %function
+ 1316              	_ZNSt12_Vector_baseItSaItEE13_M_deallocateEPtj:
+ 1317              		.fnstart
+ 1318              	.LFB1324:
+ 1319              		@ args = 0, pretend = 0, frame = 16
+ 1320              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1321 0000 80B5     		push	{r7, lr}
+ 1322              		.save {r7, lr}
+ 1323              		.pad #16
+ 1324 0002 84B0     		sub	sp, sp, #16
+ 1325              		.setfp r7, sp, #0
+ 1326 0004 00AF     		add	r7, sp, #0
+ 1327 0006 F860     		str	r0, [r7, #12]
+ 1328 0008 B960     		str	r1, [r7, #8]
+ 1329 000a 7A60     		str	r2, [r7, #4]
+ 1330 000c BB68     		ldr	r3, [r7, #8]
+ 1331 000e 002B     		cmp	r3, #0
+ 1332 0010 05D0     		beq	.L86
+ 1333 0012 FB68     		ldr	r3, [r7, #12]
+ 1334 0014 7A68     		ldr	r2, [r7, #4]
+ 1335 0016 B968     		ldr	r1, [r7, #8]
+ 1336 0018 1846     		mov	r0, r3
+ 1337 001a FFF7FEFF 		bl	_ZNSt16allocator_traitsISaItEE10deallocateERS0_Ptj
+ 1338              	.L86:
+ 1339 001e 00BF     		nop
+ 1340 0020 1037     		adds	r7, r7, #16
+ 1341 0022 BD46     		mov	sp, r7
+ 1342              		@ sp needed
+ 1343 0024 80BD     		pop	{r7, pc}
+ 1344              		.fnend
+ 1345              		.size	_ZNSt12_Vector_baseItSaItEE13_M_deallocateEPtj, .-_ZNSt12_Vector_baseItSaItEE13_M_deallocate
+ 1346              		.section	.text._ZSt8_DestroyIPtEvT_S1_,"axG",%progbits,_ZSt8_DestroyIPtEvT_S1_,comdat
+ 1347              		.align	1
+ 1348              		.weak	_ZSt8_DestroyIPtEvT_S1_
+ 1349              		.syntax unified
+ 1350              		.thumb
+ 1351              		.thumb_func
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 25
+
+
+ 1352              		.fpu fpv4-sp-d16
+ 1353              		.type	_ZSt8_DestroyIPtEvT_S1_, %function
+ 1354              	_ZSt8_DestroyIPtEvT_S1_:
+ 1355              		.fnstart
+ 1356              	.LFB1325:
+ 1357              		@ args = 0, pretend = 0, frame = 8
+ 1358              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1359 0000 80B5     		push	{r7, lr}
+ 1360 0002 82B0     		sub	sp, sp, #8
+ 1361 0004 00AF     		add	r7, sp, #0
+ 1362 0006 7860     		str	r0, [r7, #4]
+ 1363 0008 3960     		str	r1, [r7]
+ 1364 000a 3968     		ldr	r1, [r7]
+ 1365 000c 7868     		ldr	r0, [r7, #4]
+ 1366 000e FFF7FEFF 		bl	_ZNSt12_Destroy_auxILb1EE9__destroyIPtEEvT_S3_
+ 1367 0012 00BF     		nop
+ 1368 0014 0837     		adds	r7, r7, #8
+ 1369 0016 BD46     		mov	sp, r7
+ 1370              		@ sp needed
+ 1371 0018 80BD     		pop	{r7, pc}
+ 1372              		.cantunwind
+ 1373              		.fnend
+ 1374              		.size	_ZSt8_DestroyIPtEvT_S1_, .-_ZSt8_DestroyIPtEvT_S1_
+ 1375              		.section	.text._ZNSt16allocator_traitsISaItEE9constructItJtEEEvRS0_PT_DpOT0_,"axG",%progbits,_ZNSt
+ 1376              		.align	1
+ 1377              		.weak	_ZNSt16allocator_traitsISaItEE9constructItJtEEEvRS0_PT_DpOT0_
+ 1378              		.syntax unified
+ 1379              		.thumb
+ 1380              		.thumb_func
+ 1381              		.fpu fpv4-sp-d16
+ 1382              		.type	_ZNSt16allocator_traitsISaItEE9constructItJtEEEvRS0_PT_DpOT0_, %function
+ 1383              	_ZNSt16allocator_traitsISaItEE9constructItJtEEEvRS0_PT_DpOT0_:
+ 1384              		.fnstart
+ 1385              	.LFB1326:
+ 1386              		@ args = 0, pretend = 0, frame = 16
+ 1387              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1388 0000 80B5     		push	{r7, lr}
+ 1389 0002 84B0     		sub	sp, sp, #16
+ 1390 0004 00AF     		add	r7, sp, #0
+ 1391 0006 F860     		str	r0, [r7, #12]
+ 1392 0008 B960     		str	r1, [r7, #8]
+ 1393 000a 7A60     		str	r2, [r7, #4]
+ 1394 000c 7868     		ldr	r0, [r7, #4]
+ 1395 000e FFF7FEFF 		bl	_ZSt7forwardItEOT_RNSt16remove_referenceIS0_E4typeE
+ 1396 0012 0346     		mov	r3, r0
+ 1397 0014 1A46     		mov	r2, r3
+ 1398 0016 B968     		ldr	r1, [r7, #8]
+ 1399 0018 F868     		ldr	r0, [r7, #12]
+ 1400 001a FFF7FEFF 		bl	_ZN9__gnu_cxx13new_allocatorItE9constructItJtEEEvPT_DpOT0_
+ 1401 001e 00BF     		nop
+ 1402 0020 1037     		adds	r7, r7, #16
+ 1403 0022 BD46     		mov	sp, r7
+ 1404              		@ sp needed
+ 1405 0024 80BD     		pop	{r7, pc}
+ 1406              		.cantunwind
+ 1407              		.fnend
+ 1408              		.size	_ZNSt16allocator_traitsISaItEE9constructItJtEEEvRS0_PT_DpOT0_, .-_ZNSt16allocator_traitsISaI
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 26
+
+
+ 1409              		.section	.text._ZNSt6vectorItSaItEE3endEv,"axG",%progbits,_ZNSt6vectorItSaItEE3endEv,comdat
+ 1410              		.align	1
+ 1411              		.weak	_ZNSt6vectorItSaItEE3endEv
+ 1412              		.syntax unified
+ 1413              		.thumb
+ 1414              		.thumb_func
+ 1415              		.fpu fpv4-sp-d16
+ 1416              		.type	_ZNSt6vectorItSaItEE3endEv, %function
+ 1417              	_ZNSt6vectorItSaItEE3endEv:
+ 1418              		.fnstart
+ 1419              	.LFB1327:
+ 1420              		@ args = 0, pretend = 0, frame = 16
+ 1421              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1422 0000 80B5     		push	{r7, lr}
+ 1423 0002 84B0     		sub	sp, sp, #16
+ 1424 0004 00AF     		add	r7, sp, #0
+ 1425 0006 7860     		str	r0, [r7, #4]
+ 1426 0008 7B68     		ldr	r3, [r7, #4]
+ 1427 000a 1A1D     		adds	r2, r3, #4
+ 1428 000c 07F10C03 		add	r3, r7, #12
+ 1429 0010 1146     		mov	r1, r2
+ 1430 0012 1846     		mov	r0, r3
+ 1431 0014 FFF7FEFF 		bl	_ZN9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEEC1ERKS1_
+ 1432 0018 FB68     		ldr	r3, [r7, #12]
+ 1433 001a 1846     		mov	r0, r3
+ 1434 001c 1037     		adds	r7, r7, #16
+ 1435 001e BD46     		mov	sp, r7
+ 1436              		@ sp needed
+ 1437 0020 80BD     		pop	{r7, pc}
+ 1438              		.cantunwind
+ 1439              		.fnend
+ 1440              		.size	_ZNSt6vectorItSaItEE3endEv, .-_ZNSt6vectorItSaItEE3endEv
+ 1441              		.section	.rodata
+ 1442              		.align	2
+ 1443              	.LC3:
+ 1444 002c 76656374 		.ascii	"vector::_M_realloc_insert\000"
+ 1444      6F723A3A 
+ 1444      5F4D5F72 
+ 1444      65616C6C 
+ 1444      6F635F69 
+ 1445              		.section	.text._ZNSt6vectorItSaItEE17_M_realloc_insertIJtEEEvN9__gnu_cxx17__normal_iteratorIPtS1_E
+ 1446              		.align	1
+ 1447              		.weak	_ZNSt6vectorItSaItEE17_M_realloc_insertIJtEEEvN9__gnu_cxx17__normal_iteratorIPtS1_EEDpOT_
+ 1448              		.syntax unified
+ 1449              		.thumb
+ 1450              		.thumb_func
+ 1451              		.fpu fpv4-sp-d16
+ 1452              		.type	_ZNSt6vectorItSaItEE17_M_realloc_insertIJtEEEvN9__gnu_cxx17__normal_iteratorIPtS1_EEDpOT_, %
+ 1453              	_ZNSt6vectorItSaItEE17_M_realloc_insertIJtEEEvN9__gnu_cxx17__normal_iteratorIPtS1_EEDpOT_:
+ 1454              		.fnstart
+ 1455              	.LFB1328:
+ 1456              		@ args = 0, pretend = 0, frame = 40
+ 1457              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1458 0000 B0B5     		push	{r4, r5, r7, lr}
+ 1459              		.save {r4, r5, r7, lr}
+ 1460              		.pad #40
+ 1461 0002 8AB0     		sub	sp, sp, #40
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 27
+
+
+ 1462              		.setfp r7, sp, #0
+ 1463 0004 00AF     		add	r7, sp, #0
+ 1464 0006 F860     		str	r0, [r7, #12]
+ 1465 0008 B960     		str	r1, [r7, #8]
+ 1466 000a 7A60     		str	r2, [r7, #4]
+ 1467 000c 564A     		ldr	r2, .L99
+ 1468 000e 0121     		movs	r1, #1
+ 1469 0010 F868     		ldr	r0, [r7, #12]
+ 1470              	.LEHB3:
+ 1471 0012 FFF7FEFF 		bl	_ZNKSt6vectorItSaItEE12_M_check_lenEjPKc
+ 1472 0016 0346     		mov	r3, r0
+ 1473 0018 3B62     		str	r3, [r7, #32]
+ 1474 001a F868     		ldr	r0, [r7, #12]
+ 1475 001c FFF7FEFF 		bl	_ZNSt6vectorItSaItEE5beginEv
+ 1476 0020 0346     		mov	r3, r0
+ 1477 0022 7B61     		str	r3, [r7, #20]
+ 1478 0024 07F11402 		add	r2, r7, #20
+ 1479 0028 07F10803 		add	r3, r7, #8
+ 1480 002c 1146     		mov	r1, r2
+ 1481 002e 1846     		mov	r0, r3
+ 1482 0030 FFF7FEFF 		bl	_ZN9__gnu_cxxmiIPtSt6vectorItSaItEEEENS_17__normal_iteratorIT_T0_E15difference_typeERKS8_SB_
+ 1483 0034 0346     		mov	r3, r0
+ 1484 0036 FB61     		str	r3, [r7, #28]
+ 1485 0038 FB68     		ldr	r3, [r7, #12]
+ 1486 003a 396A     		ldr	r1, [r7, #32]
+ 1487 003c 1846     		mov	r0, r3
+ 1488 003e FFF7FEFF 		bl	_ZNSt12_Vector_baseItSaItEE11_M_allocateEj
+ 1489              	.LEHE3:
+ 1490 0042 0346     		mov	r3, r0
+ 1491 0044 BB61     		str	r3, [r7, #24]
+ 1492 0046 BB69     		ldr	r3, [r7, #24]
+ 1493 0048 7B62     		str	r3, [r7, #36]
+ 1494 004a FC68     		ldr	r4, [r7, #12]
+ 1495 004c FB69     		ldr	r3, [r7, #28]
+ 1496 004e 5B00     		lsls	r3, r3, #1
+ 1497 0050 BA69     		ldr	r2, [r7, #24]
+ 1498 0052 D518     		adds	r5, r2, r3
+ 1499 0054 7868     		ldr	r0, [r7, #4]
+ 1500 0056 FFF7FEFF 		bl	_ZSt7forwardItEOT_RNSt16remove_referenceIS0_E4typeE
+ 1501 005a 0346     		mov	r3, r0
+ 1502 005c 1A46     		mov	r2, r3
+ 1503 005e 2946     		mov	r1, r5
+ 1504 0060 2046     		mov	r0, r4
+ 1505 0062 FFF7FEFF 		bl	_ZNSt16allocator_traitsISaItEE9constructItJtEEEvRS0_PT_DpOT0_
+ 1506 0066 0023     		movs	r3, #0
+ 1507 0068 7B62     		str	r3, [r7, #36]
+ 1508 006a FB68     		ldr	r3, [r7, #12]
+ 1509 006c 1C68     		ldr	r4, [r3]
+ 1510 006e 07F10803 		add	r3, r7, #8
+ 1511 0072 1846     		mov	r0, r3
+ 1512 0074 FFF7FEFF 		bl	_ZNK9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEE4baseEv
+ 1513 0078 0346     		mov	r3, r0
+ 1514 007a 1D68     		ldr	r5, [r3]
+ 1515 007c FB68     		ldr	r3, [r7, #12]
+ 1516 007e 1846     		mov	r0, r3
+ 1517 0080 FFF7FEFF 		bl	_ZNSt12_Vector_baseItSaItEE19_M_get_Tp_allocatorEv
+ 1518 0084 0346     		mov	r3, r0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 28
+
+
+ 1519 0086 BA69     		ldr	r2, [r7, #24]
+ 1520 0088 2946     		mov	r1, r5
+ 1521 008a 2046     		mov	r0, r4
+ 1522              	.LEHB4:
+ 1523 008c FFF7FEFF 		bl	_ZSt34__uninitialized_move_if_noexcept_aIPtS0_SaItEET0_T_S3_S2_RT1_
+ 1524 0090 0346     		mov	r3, r0
+ 1525 0092 7B62     		str	r3, [r7, #36]
+ 1526 0094 7B6A     		ldr	r3, [r7, #36]
+ 1527 0096 0233     		adds	r3, r3, #2
+ 1528 0098 7B62     		str	r3, [r7, #36]
+ 1529 009a 07F10803 		add	r3, r7, #8
+ 1530 009e 1846     		mov	r0, r3
+ 1531 00a0 FFF7FEFF 		bl	_ZNK9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEE4baseEv
+ 1532 00a4 0346     		mov	r3, r0
+ 1533 00a6 1C68     		ldr	r4, [r3]
+ 1534 00a8 FB68     		ldr	r3, [r7, #12]
+ 1535 00aa 5D68     		ldr	r5, [r3, #4]
+ 1536 00ac FB68     		ldr	r3, [r7, #12]
+ 1537 00ae 1846     		mov	r0, r3
+ 1538 00b0 FFF7FEFF 		bl	_ZNSt12_Vector_baseItSaItEE19_M_get_Tp_allocatorEv
+ 1539 00b4 0346     		mov	r3, r0
+ 1540 00b6 7A6A     		ldr	r2, [r7, #36]
+ 1541 00b8 2946     		mov	r1, r5
+ 1542 00ba 2046     		mov	r0, r4
+ 1543 00bc FFF7FEFF 		bl	_ZSt34__uninitialized_move_if_noexcept_aIPtS0_SaItEET0_T_S3_S2_RT1_
+ 1544              	.LEHE4:
+ 1545 00c0 0346     		mov	r3, r0
+ 1546 00c2 7B62     		str	r3, [r7, #36]
+ 1547 00c4 FB68     		ldr	r3, [r7, #12]
+ 1548 00c6 1C68     		ldr	r4, [r3]
+ 1549 00c8 FB68     		ldr	r3, [r7, #12]
+ 1550 00ca 5D68     		ldr	r5, [r3, #4]
+ 1551 00cc FB68     		ldr	r3, [r7, #12]
+ 1552 00ce 1846     		mov	r0, r3
+ 1553 00d0 FFF7FEFF 		bl	_ZNSt12_Vector_baseItSaItEE19_M_get_Tp_allocatorEv
+ 1554 00d4 0346     		mov	r3, r0
+ 1555 00d6 1A46     		mov	r2, r3
+ 1556 00d8 2946     		mov	r1, r5
+ 1557 00da 2046     		mov	r0, r4
+ 1558              	.LEHB5:
+ 1559 00dc FFF7FEFF 		bl	_ZSt8_DestroyIPttEvT_S1_RSaIT0_E
+ 1560 00e0 F868     		ldr	r0, [r7, #12]
+ 1561 00e2 FB68     		ldr	r3, [r7, #12]
+ 1562 00e4 1968     		ldr	r1, [r3]
+ 1563 00e6 FB68     		ldr	r3, [r7, #12]
+ 1564 00e8 9B68     		ldr	r3, [r3, #8]
+ 1565 00ea 1A46     		mov	r2, r3
+ 1566 00ec FB68     		ldr	r3, [r7, #12]
+ 1567 00ee 1B68     		ldr	r3, [r3]
+ 1568 00f0 D31A     		subs	r3, r2, r3
+ 1569 00f2 5B10     		asrs	r3, r3, #1
+ 1570 00f4 1A46     		mov	r2, r3
+ 1571 00f6 FFF7FEFF 		bl	_ZNSt12_Vector_baseItSaItEE13_M_deallocateEPtj
+ 1572              	.LEHE5:
+ 1573 00fa FB68     		ldr	r3, [r7, #12]
+ 1574 00fc BA69     		ldr	r2, [r7, #24]
+ 1575 00fe 1A60     		str	r2, [r3]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 29
+
+
+ 1576 0100 FB68     		ldr	r3, [r7, #12]
+ 1577 0102 7A6A     		ldr	r2, [r7, #36]
+ 1578 0104 5A60     		str	r2, [r3, #4]
+ 1579 0106 3B6A     		ldr	r3, [r7, #32]
+ 1580 0108 5B00     		lsls	r3, r3, #1
+ 1581 010a BA69     		ldr	r2, [r7, #24]
+ 1582 010c 1A44     		add	r2, r2, r3
+ 1583 010e FB68     		ldr	r3, [r7, #12]
+ 1584 0110 9A60     		str	r2, [r3, #8]
+ 1585 0112 25E0     		b	.L98
+ 1586              	.L96:
+ 1587 0114 0346     		mov	r3, r0
+ 1588 0116 1846     		mov	r0, r3
+ 1589 0118 FFF7FEFF 		bl	__cxa_begin_catch
+ 1590 011c 7B6A     		ldr	r3, [r7, #36]
+ 1591 011e 002B     		cmp	r3, #0
+ 1592 0120 08D1     		bne	.L93
+ 1593 0122 F868     		ldr	r0, [r7, #12]
+ 1594 0124 FB69     		ldr	r3, [r7, #28]
+ 1595 0126 5B00     		lsls	r3, r3, #1
+ 1596 0128 BA69     		ldr	r2, [r7, #24]
+ 1597 012a 1344     		add	r3, r3, r2
+ 1598 012c 1946     		mov	r1, r3
+ 1599              	.LEHB6:
+ 1600 012e FFF7FEFF 		bl	_ZNSt16allocator_traitsISaItEE7destroyItEEvRS0_PT_
+ 1601 0132 09E0     		b	.L94
+ 1602              	.L93:
+ 1603 0134 FB68     		ldr	r3, [r7, #12]
+ 1604 0136 1846     		mov	r0, r3
+ 1605 0138 FFF7FEFF 		bl	_ZNSt12_Vector_baseItSaItEE19_M_get_Tp_allocatorEv
+ 1606 013c 0346     		mov	r3, r0
+ 1607 013e 1A46     		mov	r2, r3
+ 1608 0140 796A     		ldr	r1, [r7, #36]
+ 1609 0142 B869     		ldr	r0, [r7, #24]
+ 1610 0144 FFF7FEFF 		bl	_ZSt8_DestroyIPttEvT_S1_RSaIT0_E
+ 1611              	.L94:
+ 1612 0148 FB68     		ldr	r3, [r7, #12]
+ 1613 014a 3A6A     		ldr	r2, [r7, #32]
+ 1614 014c B969     		ldr	r1, [r7, #24]
+ 1615 014e 1846     		mov	r0, r3
+ 1616 0150 FFF7FEFF 		bl	_ZNSt12_Vector_baseItSaItEE13_M_deallocateEPtj
+ 1617 0154 FFF7FEFF 		bl	__cxa_rethrow
+ 1618              	.LEHE6:
+ 1619              	.L97:
+ 1620 0158 FFF7FEFF 		bl	__cxa_end_catch
+ 1621              	.LEHB7:
+ 1622 015c FFF7FEFF 		bl	__cxa_end_cleanup
+ 1623              	.LEHE7:
+ 1624              	.L98:
+ 1625 0160 2837     		adds	r7, r7, #40
+ 1626 0162 BD46     		mov	sp, r7
+ 1627              		@ sp needed
+ 1628 0164 B0BD     		pop	{r4, r5, r7, pc}
+ 1629              	.L100:
+ 1630 0166 00BF     		.align	2
+ 1631              	.L99:
+ 1632 0168 2C000000 		.word	.LC3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 30
+
+
+ 1633              		.personality	__gxx_personality_v0
+ 1634              		.handlerdata
+ 1635              		.align	2
+ 1636              	.LLSDA1328:
+ 1637 000c FF       		.byte	0xff
+ 1638 000d 10       		.byte	0x10
+ 1639 000e 25       		.uleb128 .LLSDATT1328-.LLSDATTD1328
+ 1640              	.LLSDATTD1328:
+ 1641 000f 01       		.byte	0x1
+ 1642 0010 1A       		.uleb128 .LLSDACSE1328-.LLSDACSB1328
+ 1643              	.LLSDACSB1328:
+ 1644 0011 12       		.uleb128 .LEHB3-.LFB1328
+ 1645 0012 30       		.uleb128 .LEHE3-.LEHB3
+ 1646 0013 00       		.uleb128 0
+ 1647 0014 00       		.uleb128 0
+ 1648 0015 8C01     		.uleb128 .LEHB4-.LFB1328
+ 1649 0017 34       		.uleb128 .LEHE4-.LEHB4
+ 1650 0018 9402     		.uleb128 .L96-.LFB1328
+ 1651 001a 01       		.uleb128 0x1
+ 1652 001b DC01     		.uleb128 .LEHB5-.LFB1328
+ 1653 001d 1E       		.uleb128 .LEHE5-.LEHB5
+ 1654 001e 00       		.uleb128 0
+ 1655 001f 00       		.uleb128 0
+ 1656 0020 AE02     		.uleb128 .LEHB6-.LFB1328
+ 1657 0022 2A       		.uleb128 .LEHE6-.LEHB6
+ 1658 0023 D802     		.uleb128 .L97-.LFB1328
+ 1659 0025 00       		.uleb128 0
+ 1660 0026 DC02     		.uleb128 .LEHB7-.LFB1328
+ 1661 0028 04       		.uleb128 .LEHE7-.LEHB7
+ 1662 0029 00       		.uleb128 0
+ 1663 002a 00       		.uleb128 0
+ 1664              	.LLSDACSE1328:
+ 1665 002b 01       		.byte	0x1
+ 1666 002c 00       		.byte	0
+ 1667 002d 000000   		.align	2
+ 1668 0030 00000000 		.word	0
+ 1669              	.LLSDATT1328:
+ 1670              		.section	.text._ZNSt6vectorItSaItEE17_M_realloc_insertIJtEEEvN9__gnu_cxx17__normal_iteratorIPtS1_E
+ 1671              		.fnend
+ 1672              		.size	_ZNSt6vectorItSaItEE17_M_realloc_insertIJtEEEvN9__gnu_cxx17__normal_iteratorIPtS1_EEDpOT_, .
+ 1673              		.section	.text._ZNSaItEC2Ev,"axG",%progbits,_ZNSaItEC5Ev,comdat
+ 1674              		.align	1
+ 1675              		.weak	_ZNSaItEC2Ev
+ 1676              		.syntax unified
+ 1677              		.thumb
+ 1678              		.thumb_func
+ 1679              		.fpu fpv4-sp-d16
+ 1680              		.type	_ZNSaItEC2Ev, %function
+ 1681              	_ZNSaItEC2Ev:
+ 1682              		.fnstart
+ 1683              	.LFB1330:
+ 1684              		@ args = 0, pretend = 0, frame = 8
+ 1685              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1686 0000 80B5     		push	{r7, lr}
+ 1687 0002 82B0     		sub	sp, sp, #8
+ 1688 0004 00AF     		add	r7, sp, #0
+ 1689 0006 7860     		str	r0, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 31
+
+
+ 1690 0008 7868     		ldr	r0, [r7, #4]
+ 1691 000a FFF7FEFF 		bl	_ZN9__gnu_cxx13new_allocatorItEC2Ev
+ 1692 000e 7B68     		ldr	r3, [r7, #4]
+ 1693 0010 1846     		mov	r0, r3
+ 1694 0012 0837     		adds	r7, r7, #8
+ 1695 0014 BD46     		mov	sp, r7
+ 1696              		@ sp needed
+ 1697 0016 80BD     		pop	{r7, pc}
+ 1698              		.cantunwind
+ 1699              		.fnend
+ 1700              		.size	_ZNSaItEC2Ev, .-_ZNSaItEC2Ev
+ 1701              		.weak	_ZNSaItEC1Ev
+ 1702              		.thumb_set _ZNSaItEC1Ev,_ZNSaItEC2Ev
+ 1703              		.section	.text._ZN9__gnu_cxx13new_allocatorItED2Ev,"axG",%progbits,_ZN9__gnu_cxx13new_allocatorItE
+ 1704              		.align	1
+ 1705              		.weak	_ZN9__gnu_cxx13new_allocatorItED2Ev
+ 1706              		.syntax unified
+ 1707              		.thumb
+ 1708              		.thumb_func
+ 1709              		.fpu fpv4-sp-d16
+ 1710              		.type	_ZN9__gnu_cxx13new_allocatorItED2Ev, %function
+ 1711              	_ZN9__gnu_cxx13new_allocatorItED2Ev:
+ 1712              		.fnstart
+ 1713              	.LFB1333:
+ 1714              		@ args = 0, pretend = 0, frame = 8
+ 1715              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1716              		@ link register save eliminated.
+ 1717 0000 80B4     		push	{r7}
+ 1718 0002 83B0     		sub	sp, sp, #12
+ 1719 0004 00AF     		add	r7, sp, #0
+ 1720 0006 7860     		str	r0, [r7, #4]
+ 1721 0008 7B68     		ldr	r3, [r7, #4]
+ 1722 000a 1846     		mov	r0, r3
+ 1723 000c 0C37     		adds	r7, r7, #12
+ 1724 000e BD46     		mov	sp, r7
+ 1725              		@ sp needed
+ 1726 0010 5DF8047B 		ldr	r7, [sp], #4
+ 1727 0014 7047     		bx	lr
+ 1728              		.cantunwind
+ 1729              		.fnend
+ 1730              		.size	_ZN9__gnu_cxx13new_allocatorItED2Ev, .-_ZN9__gnu_cxx13new_allocatorItED2Ev
+ 1731              		.weak	_ZN9__gnu_cxx13new_allocatorItED1Ev
+ 1732              		.thumb_set _ZN9__gnu_cxx13new_allocatorItED1Ev,_ZN9__gnu_cxx13new_allocatorItED2Ev
+ 1733              		.section	.text._ZNSt16allocator_traitsISaItEE10deallocateERS0_Ptj,"axG",%progbits,_ZNSt16allocator
+ 1734              		.align	1
+ 1735              		.weak	_ZNSt16allocator_traitsISaItEE10deallocateERS0_Ptj
+ 1736              		.syntax unified
+ 1737              		.thumb
+ 1738              		.thumb_func
+ 1739              		.fpu fpv4-sp-d16
+ 1740              		.type	_ZNSt16allocator_traitsISaItEE10deallocateERS0_Ptj, %function
+ 1741              	_ZNSt16allocator_traitsISaItEE10deallocateERS0_Ptj:
+ 1742              		.fnstart
+ 1743              	.LFB1335:
+ 1744              		@ args = 0, pretend = 0, frame = 16
+ 1745              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1746 0000 80B5     		push	{r7, lr}
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 32
+
+
+ 1747 0002 84B0     		sub	sp, sp, #16
+ 1748 0004 00AF     		add	r7, sp, #0
+ 1749 0006 F860     		str	r0, [r7, #12]
+ 1750 0008 B960     		str	r1, [r7, #8]
+ 1751 000a 7A60     		str	r2, [r7, #4]
+ 1752 000c 7A68     		ldr	r2, [r7, #4]
+ 1753 000e B968     		ldr	r1, [r7, #8]
+ 1754 0010 F868     		ldr	r0, [r7, #12]
+ 1755 0012 FFF7FEFF 		bl	_ZN9__gnu_cxx13new_allocatorItE10deallocateEPtj
+ 1756 0016 00BF     		nop
+ 1757 0018 1037     		adds	r7, r7, #16
+ 1758 001a BD46     		mov	sp, r7
+ 1759              		@ sp needed
+ 1760 001c 80BD     		pop	{r7, pc}
+ 1761              		.cantunwind
+ 1762              		.fnend
+ 1763              		.size	_ZNSt16allocator_traitsISaItEE10deallocateERS0_Ptj, .-_ZNSt16allocator_traitsISaItEE10deallo
+ 1764              		.section	.text._ZNSt12_Destroy_auxILb1EE9__destroyIPtEEvT_S3_,"axG",%progbits,_ZNSt12_Destroy_auxI
+ 1765              		.align	1
+ 1766              		.weak	_ZNSt12_Destroy_auxILb1EE9__destroyIPtEEvT_S3_
+ 1767              		.syntax unified
+ 1768              		.thumb
+ 1769              		.thumb_func
+ 1770              		.fpu fpv4-sp-d16
+ 1771              		.type	_ZNSt12_Destroy_auxILb1EE9__destroyIPtEEvT_S3_, %function
+ 1772              	_ZNSt12_Destroy_auxILb1EE9__destroyIPtEEvT_S3_:
+ 1773              		.fnstart
+ 1774              	.LFB1336:
+ 1775              		@ args = 0, pretend = 0, frame = 8
+ 1776              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1777              		@ link register save eliminated.
+ 1778 0000 80B4     		push	{r7}
+ 1779 0002 83B0     		sub	sp, sp, #12
+ 1780 0004 00AF     		add	r7, sp, #0
+ 1781 0006 7860     		str	r0, [r7, #4]
+ 1782 0008 3960     		str	r1, [r7]
+ 1783 000a 00BF     		nop
+ 1784 000c 0C37     		adds	r7, r7, #12
+ 1785 000e BD46     		mov	sp, r7
+ 1786              		@ sp needed
+ 1787 0010 5DF8047B 		ldr	r7, [sp], #4
+ 1788 0014 7047     		bx	lr
+ 1789              		.cantunwind
+ 1790              		.fnend
+ 1791              		.size	_ZNSt12_Destroy_auxILb1EE9__destroyIPtEEvT_S3_, .-_ZNSt12_Destroy_auxILb1EE9__destroyIPtEEvT
+ 1792              		.section	.text._ZN9__gnu_cxx13new_allocatorItE9constructItJtEEEvPT_DpOT0_,"axG",%progbits,_ZN9__gn
+ 1793              		.align	1
+ 1794              		.weak	_ZN9__gnu_cxx13new_allocatorItE9constructItJtEEEvPT_DpOT0_
+ 1795              		.syntax unified
+ 1796              		.thumb
+ 1797              		.thumb_func
+ 1798              		.fpu fpv4-sp-d16
+ 1799              		.type	_ZN9__gnu_cxx13new_allocatorItE9constructItJtEEEvPT_DpOT0_, %function
+ 1800              	_ZN9__gnu_cxx13new_allocatorItE9constructItJtEEEvPT_DpOT0_:
+ 1801              		.fnstart
+ 1802              	.LFB1337:
+ 1803              		@ args = 0, pretend = 0, frame = 16
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 33
+
+
+ 1804              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1805 0000 90B5     		push	{r4, r7, lr}
+ 1806 0002 85B0     		sub	sp, sp, #20
+ 1807 0004 00AF     		add	r7, sp, #0
+ 1808 0006 F860     		str	r0, [r7, #12]
+ 1809 0008 B960     		str	r1, [r7, #8]
+ 1810 000a 7A60     		str	r2, [r7, #4]
+ 1811 000c 7868     		ldr	r0, [r7, #4]
+ 1812 000e FFF7FEFF 		bl	_ZSt7forwardItEOT_RNSt16remove_referenceIS0_E4typeE
+ 1813 0012 0346     		mov	r3, r0
+ 1814 0014 1C88     		ldrh	r4, [r3]
+ 1815 0016 BB68     		ldr	r3, [r7, #8]
+ 1816 0018 1946     		mov	r1, r3
+ 1817 001a 0220     		movs	r0, #2
+ 1818 001c FFF7FEFF 		bl	_ZnwjPv
+ 1819 0020 0346     		mov	r3, r0
+ 1820 0022 002B     		cmp	r3, #0
+ 1821 0024 01D0     		beq	.L110
+ 1822 0026 2246     		mov	r2, r4	@ movhi
+ 1823 0028 1A80     		strh	r2, [r3]	@ movhi
+ 1824              	.L110:
+ 1825 002a 00BF     		nop
+ 1826 002c 1437     		adds	r7, r7, #20
+ 1827 002e BD46     		mov	sp, r7
+ 1828              		@ sp needed
+ 1829 0030 90BD     		pop	{r4, r7, pc}
+ 1830              		.cantunwind
+ 1831              		.fnend
+ 1832              		.size	_ZN9__gnu_cxx13new_allocatorItE9constructItJtEEEvPT_DpOT0_, .-_ZN9__gnu_cxx13new_allocatorIt
+ 1833              		.section	.text._ZN9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEEC2ERKS1_,"axG",%progbits,_ZN9_
+ 1834              		.align	1
+ 1835              		.weak	_ZN9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEEC2ERKS1_
+ 1836              		.syntax unified
+ 1837              		.thumb
+ 1838              		.thumb_func
+ 1839              		.fpu fpv4-sp-d16
+ 1840              		.type	_ZN9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEEC2ERKS1_, %function
+ 1841              	_ZN9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEEC2ERKS1_:
+ 1842              		.fnstart
+ 1843              	.LFB1339:
+ 1844              		@ args = 0, pretend = 0, frame = 8
+ 1845              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1846              		@ link register save eliminated.
+ 1847 0000 80B4     		push	{r7}
+ 1848 0002 83B0     		sub	sp, sp, #12
+ 1849 0004 00AF     		add	r7, sp, #0
+ 1850 0006 7860     		str	r0, [r7, #4]
+ 1851 0008 3960     		str	r1, [r7]
+ 1852 000a 3B68     		ldr	r3, [r7]
+ 1853 000c 1A68     		ldr	r2, [r3]
+ 1854 000e 7B68     		ldr	r3, [r7, #4]
+ 1855 0010 1A60     		str	r2, [r3]
+ 1856 0012 7B68     		ldr	r3, [r7, #4]
+ 1857 0014 1846     		mov	r0, r3
+ 1858 0016 0C37     		adds	r7, r7, #12
+ 1859 0018 BD46     		mov	sp, r7
+ 1860              		@ sp needed
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 34
+
+
+ 1861 001a 5DF8047B 		ldr	r7, [sp], #4
+ 1862 001e 7047     		bx	lr
+ 1863              		.cantunwind
+ 1864              		.fnend
+ 1865              		.size	_ZN9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEEC2ERKS1_, .-_ZN9__gnu_cxx17__normal_ite
+ 1866              		.weak	_ZN9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEEC1ERKS1_
+ 1867              		.thumb_set _ZN9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEEC1ERKS1_,_ZN9__gnu_cxx17__normal_i
+ 1868              		.section	.text._ZNKSt6vectorItSaItEE12_M_check_lenEjPKc,"axG",%progbits,_ZNKSt6vectorItSaItEE12_M_
+ 1869              		.align	1
+ 1870              		.weak	_ZNKSt6vectorItSaItEE12_M_check_lenEjPKc
+ 1871              		.syntax unified
+ 1872              		.thumb
+ 1873              		.thumb_func
+ 1874              		.fpu fpv4-sp-d16
+ 1875              		.type	_ZNKSt6vectorItSaItEE12_M_check_lenEjPKc, %function
+ 1876              	_ZNKSt6vectorItSaItEE12_M_check_lenEjPKc:
+ 1877              		.fnstart
+ 1878              	.LFB1341:
+ 1879              		@ args = 0, pretend = 0, frame = 24
+ 1880              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1881 0000 90B5     		push	{r4, r7, lr}
+ 1882              		.save {r4, r7, lr}
+ 1883              		.pad #28
+ 1884 0002 87B0     		sub	sp, sp, #28
+ 1885              		.setfp r7, sp, #0
+ 1886 0004 00AF     		add	r7, sp, #0
+ 1887 0006 F860     		str	r0, [r7, #12]
+ 1888 0008 B960     		str	r1, [r7, #8]
+ 1889 000a 7A60     		str	r2, [r7, #4]
+ 1890 000c F868     		ldr	r0, [r7, #12]
+ 1891 000e FFF7FEFF 		bl	_ZNKSt6vectorItSaItEE8max_sizeEv
+ 1892 0012 0446     		mov	r4, r0
+ 1893 0014 F868     		ldr	r0, [r7, #12]
+ 1894 0016 FFF7FEFF 		bl	_ZNKSt6vectorItSaItEE4sizeEv
+ 1895 001a 0346     		mov	r3, r0
+ 1896 001c E21A     		subs	r2, r4, r3
+ 1897 001e BB68     		ldr	r3, [r7, #8]
+ 1898 0020 9A42     		cmp	r2, r3
+ 1899 0022 34BF     		ite	cc
+ 1900 0024 0123     		movcc	r3, #1
+ 1901 0026 0023     		movcs	r3, #0
+ 1902 0028 DBB2     		uxtb	r3, r3
+ 1903 002a 002B     		cmp	r3, #0
+ 1904 002c 02D0     		beq	.L114
+ 1905 002e 7868     		ldr	r0, [r7, #4]
+ 1906 0030 FFF7FEFF 		bl	_ZSt20__throw_length_errorPKc
+ 1907              	.L114:
+ 1908 0034 F868     		ldr	r0, [r7, #12]
+ 1909 0036 FFF7FEFF 		bl	_ZNKSt6vectorItSaItEE4sizeEv
+ 1910 003a 0446     		mov	r4, r0
+ 1911 003c F868     		ldr	r0, [r7, #12]
+ 1912 003e FFF7FEFF 		bl	_ZNKSt6vectorItSaItEE4sizeEv
+ 1913 0042 0346     		mov	r3, r0
+ 1914 0044 3B61     		str	r3, [r7, #16]
+ 1915 0046 07F10802 		add	r2, r7, #8
+ 1916 004a 07F11003 		add	r3, r7, #16
+ 1917 004e 1146     		mov	r1, r2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 35
+
+
+ 1918 0050 1846     		mov	r0, r3
+ 1919 0052 FFF7FEFF 		bl	_ZSt3maxIjERKT_S2_S2_
+ 1920 0056 0346     		mov	r3, r0
+ 1921 0058 1B68     		ldr	r3, [r3]
+ 1922 005a 2344     		add	r3, r3, r4
+ 1923 005c 7B61     		str	r3, [r7, #20]
+ 1924 005e F868     		ldr	r0, [r7, #12]
+ 1925 0060 FFF7FEFF 		bl	_ZNKSt6vectorItSaItEE4sizeEv
+ 1926 0064 0246     		mov	r2, r0
+ 1927 0066 7B69     		ldr	r3, [r7, #20]
+ 1928 0068 9342     		cmp	r3, r2
+ 1929 006a 06D3     		bcc	.L115
+ 1930 006c F868     		ldr	r0, [r7, #12]
+ 1931 006e FFF7FEFF 		bl	_ZNKSt6vectorItSaItEE8max_sizeEv
+ 1932 0072 0246     		mov	r2, r0
+ 1933 0074 7B69     		ldr	r3, [r7, #20]
+ 1934 0076 9342     		cmp	r3, r2
+ 1935 0078 04D9     		bls	.L116
+ 1936              	.L115:
+ 1937 007a F868     		ldr	r0, [r7, #12]
+ 1938 007c FFF7FEFF 		bl	_ZNKSt6vectorItSaItEE8max_sizeEv
+ 1939 0080 0346     		mov	r3, r0
+ 1940 0082 00E0     		b	.L117
+ 1941              	.L116:
+ 1942 0084 7B69     		ldr	r3, [r7, #20]
+ 1943              	.L117:
+ 1944 0086 1846     		mov	r0, r3
+ 1945 0088 1C37     		adds	r7, r7, #28
+ 1946 008a BD46     		mov	sp, r7
+ 1947              		@ sp needed
+ 1948 008c 90BD     		pop	{r4, r7, pc}
+ 1949              		.fnend
+ 1950              		.size	_ZNKSt6vectorItSaItEE12_M_check_lenEjPKc, .-_ZNKSt6vectorItSaItEE12_M_check_lenEjPKc
+ 1951              		.section	.text._ZNSt6vectorItSaItEE5beginEv,"axG",%progbits,_ZNSt6vectorItSaItEE5beginEv,comdat
+ 1952              		.align	1
+ 1953              		.weak	_ZNSt6vectorItSaItEE5beginEv
+ 1954              		.syntax unified
+ 1955              		.thumb
+ 1956              		.thumb_func
+ 1957              		.fpu fpv4-sp-d16
+ 1958              		.type	_ZNSt6vectorItSaItEE5beginEv, %function
+ 1959              	_ZNSt6vectorItSaItEE5beginEv:
+ 1960              		.fnstart
+ 1961              	.LFB1342:
+ 1962              		@ args = 0, pretend = 0, frame = 16
+ 1963              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1964 0000 80B5     		push	{r7, lr}
+ 1965 0002 84B0     		sub	sp, sp, #16
+ 1966 0004 00AF     		add	r7, sp, #0
+ 1967 0006 7860     		str	r0, [r7, #4]
+ 1968 0008 7A68     		ldr	r2, [r7, #4]
+ 1969 000a 07F10C03 		add	r3, r7, #12
+ 1970 000e 1146     		mov	r1, r2
+ 1971 0010 1846     		mov	r0, r3
+ 1972 0012 FFF7FEFF 		bl	_ZN9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEEC1ERKS1_
+ 1973 0016 FB68     		ldr	r3, [r7, #12]
+ 1974 0018 1846     		mov	r0, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 36
+
+
+ 1975 001a 1037     		adds	r7, r7, #16
+ 1976 001c BD46     		mov	sp, r7
+ 1977              		@ sp needed
+ 1978 001e 80BD     		pop	{r7, pc}
+ 1979              		.cantunwind
+ 1980              		.fnend
+ 1981              		.size	_ZNSt6vectorItSaItEE5beginEv, .-_ZNSt6vectorItSaItEE5beginEv
+ 1982              		.section	.text._ZN9__gnu_cxxmiIPtSt6vectorItSaItEEEENS_17__normal_iteratorIT_T0_E15difference_type
+ 1983              		.align	1
+ 1984              		.weak	_ZN9__gnu_cxxmiIPtSt6vectorItSaItEEEENS_17__normal_iteratorIT_T0_E15difference_typeERKS8_SB_
+ 1985              		.syntax unified
+ 1986              		.thumb
+ 1987              		.thumb_func
+ 1988              		.fpu fpv4-sp-d16
+ 1989              		.type	_ZN9__gnu_cxxmiIPtSt6vectorItSaItEEEENS_17__normal_iteratorIT_T0_E15difference_typeERKS8_SB_
+ 1990              	_ZN9__gnu_cxxmiIPtSt6vectorItSaItEEEENS_17__normal_iteratorIT_T0_E15difference_typeERKS8_SB_:
+ 1991              		.fnstart
+ 1992              	.LFB1343:
+ 1993              		@ args = 0, pretend = 0, frame = 8
+ 1994              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1995 0000 90B5     		push	{r4, r7, lr}
+ 1996 0002 83B0     		sub	sp, sp, #12
+ 1997 0004 00AF     		add	r7, sp, #0
+ 1998 0006 7860     		str	r0, [r7, #4]
+ 1999 0008 3960     		str	r1, [r7]
+ 2000 000a 7868     		ldr	r0, [r7, #4]
+ 2001 000c FFF7FEFF 		bl	_ZNK9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEE4baseEv
+ 2002 0010 0346     		mov	r3, r0
+ 2003 0012 1B68     		ldr	r3, [r3]
+ 2004 0014 1C46     		mov	r4, r3
+ 2005 0016 3868     		ldr	r0, [r7]
+ 2006 0018 FFF7FEFF 		bl	_ZNK9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEE4baseEv
+ 2007 001c 0346     		mov	r3, r0
+ 2008 001e 1B68     		ldr	r3, [r3]
+ 2009 0020 E31A     		subs	r3, r4, r3
+ 2010 0022 5B10     		asrs	r3, r3, #1
+ 2011 0024 1846     		mov	r0, r3
+ 2012 0026 0C37     		adds	r7, r7, #12
+ 2013 0028 BD46     		mov	sp, r7
+ 2014              		@ sp needed
+ 2015 002a 90BD     		pop	{r4, r7, pc}
+ 2016              		.cantunwind
+ 2017              		.fnend
+ 2018              		.size	_ZN9__gnu_cxxmiIPtSt6vectorItSaItEEEENS_17__normal_iteratorIT_T0_E15difference_typeERKS8_SB_
+ 2019              		.section	.text._ZNSt12_Vector_baseItSaItEE11_M_allocateEj,"axG",%progbits,_ZNSt12_Vector_baseItSaI
+ 2020              		.align	1
+ 2021              		.weak	_ZNSt12_Vector_baseItSaItEE11_M_allocateEj
+ 2022              		.syntax unified
+ 2023              		.thumb
+ 2024              		.thumb_func
+ 2025              		.fpu fpv4-sp-d16
+ 2026              		.type	_ZNSt12_Vector_baseItSaItEE11_M_allocateEj, %function
+ 2027              	_ZNSt12_Vector_baseItSaItEE11_M_allocateEj:
+ 2028              		.fnstart
+ 2029              	.LFB1344:
+ 2030              		@ args = 0, pretend = 0, frame = 8
+ 2031              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 37
+
+
+ 2032 0000 80B5     		push	{r7, lr}
+ 2033              		.save {r7, lr}
+ 2034              		.pad #8
+ 2035 0002 82B0     		sub	sp, sp, #8
+ 2036              		.setfp r7, sp, #0
+ 2037 0004 00AF     		add	r7, sp, #0
+ 2038 0006 7860     		str	r0, [r7, #4]
+ 2039 0008 3960     		str	r1, [r7]
+ 2040 000a 3B68     		ldr	r3, [r7]
+ 2041 000c 002B     		cmp	r3, #0
+ 2042 000e 06D0     		beq	.L124
+ 2043 0010 7B68     		ldr	r3, [r7, #4]
+ 2044 0012 3968     		ldr	r1, [r7]
+ 2045 0014 1846     		mov	r0, r3
+ 2046 0016 FFF7FEFF 		bl	_ZNSt16allocator_traitsISaItEE8allocateERS0_j
+ 2047 001a 0346     		mov	r3, r0
+ 2048 001c 00E0     		b	.L126
+ 2049              	.L124:
+ 2050 001e 0023     		movs	r3, #0
+ 2051              	.L126:
+ 2052 0020 1846     		mov	r0, r3
+ 2053 0022 0837     		adds	r7, r7, #8
+ 2054 0024 BD46     		mov	sp, r7
+ 2055              		@ sp needed
+ 2056 0026 80BD     		pop	{r7, pc}
+ 2057              		.fnend
+ 2058              		.size	_ZNSt12_Vector_baseItSaItEE11_M_allocateEj, .-_ZNSt12_Vector_baseItSaItEE11_M_allocateEj
+ 2059              		.section	.text._ZNK9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEE4baseEv,"axG",%progbits,_ZNK9
+ 2060              		.align	1
+ 2061              		.weak	_ZNK9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEE4baseEv
+ 2062              		.syntax unified
+ 2063              		.thumb
+ 2064              		.thumb_func
+ 2065              		.fpu fpv4-sp-d16
+ 2066              		.type	_ZNK9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEE4baseEv, %function
+ 2067              	_ZNK9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEE4baseEv:
+ 2068              		.fnstart
+ 2069              	.LFB1345:
+ 2070              		@ args = 0, pretend = 0, frame = 8
+ 2071              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2072              		@ link register save eliminated.
+ 2073 0000 80B4     		push	{r7}
+ 2074 0002 83B0     		sub	sp, sp, #12
+ 2075 0004 00AF     		add	r7, sp, #0
+ 2076 0006 7860     		str	r0, [r7, #4]
+ 2077 0008 7B68     		ldr	r3, [r7, #4]
+ 2078 000a 1846     		mov	r0, r3
+ 2079 000c 0C37     		adds	r7, r7, #12
+ 2080 000e BD46     		mov	sp, r7
+ 2081              		@ sp needed
+ 2082 0010 5DF8047B 		ldr	r7, [sp], #4
+ 2083 0014 7047     		bx	lr
+ 2084              		.cantunwind
+ 2085              		.fnend
+ 2086              		.size	_ZNK9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEE4baseEv, .-_ZNK9__gnu_cxx17__normal_it
+ 2087              		.section	.text._ZSt34__uninitialized_move_if_noexcept_aIPtS0_SaItEET0_T_S3_S2_RT1_,"axG",%progbits
+ 2088              		.align	1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 38
+
+
+ 2089              		.weak	_ZSt34__uninitialized_move_if_noexcept_aIPtS0_SaItEET0_T_S3_S2_RT1_
+ 2090              		.syntax unified
+ 2091              		.thumb
+ 2092              		.thumb_func
+ 2093              		.fpu fpv4-sp-d16
+ 2094              		.type	_ZSt34__uninitialized_move_if_noexcept_aIPtS0_SaItEET0_T_S3_S2_RT1_, %function
+ 2095              	_ZSt34__uninitialized_move_if_noexcept_aIPtS0_SaItEET0_T_S3_S2_RT1_:
+ 2096              		.fnstart
+ 2097              	.LFB1346:
+ 2098              		@ args = 0, pretend = 0, frame = 16
+ 2099              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2100 0000 90B5     		push	{r4, r7, lr}
+ 2101              		.save {r4, r7, lr}
+ 2102              		.pad #20
+ 2103 0002 85B0     		sub	sp, sp, #20
+ 2104              		.setfp r7, sp, #0
+ 2105 0004 00AF     		add	r7, sp, #0
+ 2106 0006 F860     		str	r0, [r7, #12]
+ 2107 0008 B960     		str	r1, [r7, #8]
+ 2108 000a 7A60     		str	r2, [r7, #4]
+ 2109 000c 3B60     		str	r3, [r7]
+ 2110 000e F868     		ldr	r0, [r7, #12]
+ 2111 0010 FFF7FEFF 		bl	_ZSt32__make_move_if_noexcept_iteratorItSt13move_iteratorIPtEET0_PT_
+ 2112 0014 0446     		mov	r4, r0
+ 2113 0016 B868     		ldr	r0, [r7, #8]
+ 2114 0018 FFF7FEFF 		bl	_ZSt32__make_move_if_noexcept_iteratorItSt13move_iteratorIPtEET0_PT_
+ 2115 001c 0146     		mov	r1, r0
+ 2116 001e 3B68     		ldr	r3, [r7]
+ 2117 0020 7A68     		ldr	r2, [r7, #4]
+ 2118 0022 2046     		mov	r0, r4
+ 2119 0024 FFF7FEFF 		bl	_ZSt22__uninitialized_copy_aISt13move_iteratorIPtES1_tET0_T_S4_S3_RSaIT1_E
+ 2120 0028 0346     		mov	r3, r0
+ 2121 002a 1846     		mov	r0, r3
+ 2122 002c 1437     		adds	r7, r7, #20
+ 2123 002e BD46     		mov	sp, r7
+ 2124              		@ sp needed
+ 2125 0030 90BD     		pop	{r4, r7, pc}
+ 2126              		.fnend
+ 2127              		.size	_ZSt34__uninitialized_move_if_noexcept_aIPtS0_SaItEET0_T_S3_S2_RT1_, .-_ZSt34__uninitialized
+ 2128              		.section	.text._ZNSt16allocator_traitsISaItEE7destroyItEEvRS0_PT_,"axG",%progbits,_ZNSt16allocator
+ 2129              		.align	1
+ 2130              		.weak	_ZNSt16allocator_traitsISaItEE7destroyItEEvRS0_PT_
+ 2131              		.syntax unified
+ 2132              		.thumb
+ 2133              		.thumb_func
+ 2134              		.fpu fpv4-sp-d16
+ 2135              		.type	_ZNSt16allocator_traitsISaItEE7destroyItEEvRS0_PT_, %function
+ 2136              	_ZNSt16allocator_traitsISaItEE7destroyItEEvRS0_PT_:
+ 2137              		.fnstart
+ 2138              	.LFB1347:
+ 2139              		@ args = 0, pretend = 0, frame = 8
+ 2140              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2141 0000 80B5     		push	{r7, lr}
+ 2142 0002 82B0     		sub	sp, sp, #8
+ 2143 0004 00AF     		add	r7, sp, #0
+ 2144 0006 7860     		str	r0, [r7, #4]
+ 2145 0008 3960     		str	r1, [r7]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 39
+
+
+ 2146 000a 3968     		ldr	r1, [r7]
+ 2147 000c 7868     		ldr	r0, [r7, #4]
+ 2148 000e FFF7FEFF 		bl	_ZN9__gnu_cxx13new_allocatorItE7destroyItEEvPT_
+ 2149 0012 00BF     		nop
+ 2150 0014 0837     		adds	r7, r7, #8
+ 2151 0016 BD46     		mov	sp, r7
+ 2152              		@ sp needed
+ 2153 0018 80BD     		pop	{r7, pc}
+ 2154              		.cantunwind
+ 2155              		.fnend
+ 2156              		.size	_ZNSt16allocator_traitsISaItEE7destroyItEEvRS0_PT_, .-_ZNSt16allocator_traitsISaItEE7destroy
+ 2157              		.section	.text._ZN9__gnu_cxx13new_allocatorItEC2Ev,"axG",%progbits,_ZN9__gnu_cxx13new_allocatorItE
+ 2158              		.align	1
+ 2159              		.weak	_ZN9__gnu_cxx13new_allocatorItEC2Ev
+ 2160              		.syntax unified
+ 2161              		.thumb
+ 2162              		.thumb_func
+ 2163              		.fpu fpv4-sp-d16
+ 2164              		.type	_ZN9__gnu_cxx13new_allocatorItEC2Ev, %function
+ 2165              	_ZN9__gnu_cxx13new_allocatorItEC2Ev:
+ 2166              		.fnstart
+ 2167              	.LFB1349:
+ 2168              		@ args = 0, pretend = 0, frame = 8
+ 2169              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2170              		@ link register save eliminated.
+ 2171 0000 80B4     		push	{r7}
+ 2172 0002 83B0     		sub	sp, sp, #12
+ 2173 0004 00AF     		add	r7, sp, #0
+ 2174 0006 7860     		str	r0, [r7, #4]
+ 2175 0008 7B68     		ldr	r3, [r7, #4]
+ 2176 000a 1846     		mov	r0, r3
+ 2177 000c 0C37     		adds	r7, r7, #12
+ 2178 000e BD46     		mov	sp, r7
+ 2179              		@ sp needed
+ 2180 0010 5DF8047B 		ldr	r7, [sp], #4
+ 2181 0014 7047     		bx	lr
+ 2182              		.cantunwind
+ 2183              		.fnend
+ 2184              		.size	_ZN9__gnu_cxx13new_allocatorItEC2Ev, .-_ZN9__gnu_cxx13new_allocatorItEC2Ev
+ 2185              		.weak	_ZN9__gnu_cxx13new_allocatorItEC1Ev
+ 2186              		.thumb_set _ZN9__gnu_cxx13new_allocatorItEC1Ev,_ZN9__gnu_cxx13new_allocatorItEC2Ev
+ 2187              		.section	.text._ZN9__gnu_cxx13new_allocatorItE10deallocateEPtj,"axG",%progbits,_ZN9__gnu_cxx13new_
+ 2188              		.align	1
+ 2189              		.weak	_ZN9__gnu_cxx13new_allocatorItE10deallocateEPtj
+ 2190              		.syntax unified
+ 2191              		.thumb
+ 2192              		.thumb_func
+ 2193              		.fpu fpv4-sp-d16
+ 2194              		.type	_ZN9__gnu_cxx13new_allocatorItE10deallocateEPtj, %function
+ 2195              	_ZN9__gnu_cxx13new_allocatorItE10deallocateEPtj:
+ 2196              		.fnstart
+ 2197              	.LFB1351:
+ 2198              		@ args = 0, pretend = 0, frame = 16
+ 2199              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2200 0000 80B5     		push	{r7, lr}
+ 2201 0002 84B0     		sub	sp, sp, #16
+ 2202 0004 00AF     		add	r7, sp, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 40
+
+
+ 2203 0006 F860     		str	r0, [r7, #12]
+ 2204 0008 B960     		str	r1, [r7, #8]
+ 2205 000a 7A60     		str	r2, [r7, #4]
+ 2206 000c B868     		ldr	r0, [r7, #8]
+ 2207 000e FFF7FEFF 		bl	_ZdlPv
+ 2208 0012 00BF     		nop
+ 2209 0014 1037     		adds	r7, r7, #16
+ 2210 0016 BD46     		mov	sp, r7
+ 2211              		@ sp needed
+ 2212 0018 80BD     		pop	{r7, pc}
+ 2213              		.cantunwind
+ 2214              		.fnend
+ 2215              		.size	_ZN9__gnu_cxx13new_allocatorItE10deallocateEPtj, .-_ZN9__gnu_cxx13new_allocatorItE10dealloca
+ 2216              		.section	.text._ZNKSt6vectorItSaItEE8max_sizeEv,"axG",%progbits,_ZNKSt6vectorItSaItEE8max_sizeEv,c
+ 2217              		.align	1
+ 2218              		.weak	_ZNKSt6vectorItSaItEE8max_sizeEv
+ 2219              		.syntax unified
+ 2220              		.thumb
+ 2221              		.thumb_func
+ 2222              		.fpu fpv4-sp-d16
+ 2223              		.type	_ZNKSt6vectorItSaItEE8max_sizeEv, %function
+ 2224              	_ZNKSt6vectorItSaItEE8max_sizeEv:
+ 2225              		.fnstart
+ 2226              	.LFB1352:
+ 2227              		@ args = 0, pretend = 0, frame = 8
+ 2228              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2229 0000 80B5     		push	{r7, lr}
+ 2230 0002 82B0     		sub	sp, sp, #8
+ 2231 0004 00AF     		add	r7, sp, #0
+ 2232 0006 7860     		str	r0, [r7, #4]
+ 2233 0008 7B68     		ldr	r3, [r7, #4]
+ 2234 000a 1846     		mov	r0, r3
+ 2235 000c FFF7FEFF 		bl	_ZNKSt12_Vector_baseItSaItEE19_M_get_Tp_allocatorEv
+ 2236 0010 0346     		mov	r3, r0
+ 2237 0012 1846     		mov	r0, r3
+ 2238 0014 FFF7FEFF 		bl	_ZNSt16allocator_traitsISaItEE8max_sizeERKS0_
+ 2239 0018 0346     		mov	r3, r0
+ 2240 001a 1846     		mov	r0, r3
+ 2241 001c 0837     		adds	r7, r7, #8
+ 2242 001e BD46     		mov	sp, r7
+ 2243              		@ sp needed
+ 2244 0020 80BD     		pop	{r7, pc}
+ 2245              		.cantunwind
+ 2246              		.fnend
+ 2247              		.size	_ZNKSt6vectorItSaItEE8max_sizeEv, .-_ZNKSt6vectorItSaItEE8max_sizeEv
+ 2248              		.section	.text._ZNKSt6vectorItSaItEE4sizeEv,"axG",%progbits,_ZNKSt6vectorItSaItEE4sizeEv,comdat
+ 2249              		.align	1
+ 2250              		.weak	_ZNKSt6vectorItSaItEE4sizeEv
+ 2251              		.syntax unified
+ 2252              		.thumb
+ 2253              		.thumb_func
+ 2254              		.fpu fpv4-sp-d16
+ 2255              		.type	_ZNKSt6vectorItSaItEE4sizeEv, %function
+ 2256              	_ZNKSt6vectorItSaItEE4sizeEv:
+ 2257              		.fnstart
+ 2258              	.LFB1353:
+ 2259              		@ args = 0, pretend = 0, frame = 8
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 41
+
+
+ 2260              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2261              		@ link register save eliminated.
+ 2262 0000 80B4     		push	{r7}
+ 2263 0002 83B0     		sub	sp, sp, #12
+ 2264 0004 00AF     		add	r7, sp, #0
+ 2265 0006 7860     		str	r0, [r7, #4]
+ 2266 0008 7B68     		ldr	r3, [r7, #4]
+ 2267 000a 5B68     		ldr	r3, [r3, #4]
+ 2268 000c 1A46     		mov	r2, r3
+ 2269 000e 7B68     		ldr	r3, [r7, #4]
+ 2270 0010 1B68     		ldr	r3, [r3]
+ 2271 0012 D31A     		subs	r3, r2, r3
+ 2272 0014 5B10     		asrs	r3, r3, #1
+ 2273 0016 1846     		mov	r0, r3
+ 2274 0018 0C37     		adds	r7, r7, #12
+ 2275 001a BD46     		mov	sp, r7
+ 2276              		@ sp needed
+ 2277 001c 5DF8047B 		ldr	r7, [sp], #4
+ 2278 0020 7047     		bx	lr
+ 2279              		.cantunwind
+ 2280              		.fnend
+ 2281              		.size	_ZNKSt6vectorItSaItEE4sizeEv, .-_ZNKSt6vectorItSaItEE4sizeEv
+ 2282              		.section	.text._ZSt3maxIjERKT_S2_S2_,"axG",%progbits,_ZSt3maxIjERKT_S2_S2_,comdat
+ 2283              		.align	1
+ 2284              		.weak	_ZSt3maxIjERKT_S2_S2_
+ 2285              		.syntax unified
+ 2286              		.thumb
+ 2287              		.thumb_func
+ 2288              		.fpu fpv4-sp-d16
+ 2289              		.type	_ZSt3maxIjERKT_S2_S2_, %function
+ 2290              	_ZSt3maxIjERKT_S2_S2_:
+ 2291              		.fnstart
+ 2292              	.LFB1354:
+ 2293              		@ args = 0, pretend = 0, frame = 8
+ 2294              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2295              		@ link register save eliminated.
+ 2296 0000 80B4     		push	{r7}
+ 2297 0002 83B0     		sub	sp, sp, #12
+ 2298 0004 00AF     		add	r7, sp, #0
+ 2299 0006 7860     		str	r0, [r7, #4]
+ 2300 0008 3960     		str	r1, [r7]
+ 2301 000a 7B68     		ldr	r3, [r7, #4]
+ 2302 000c 1A68     		ldr	r2, [r3]
+ 2303 000e 3B68     		ldr	r3, [r7]
+ 2304 0010 1B68     		ldr	r3, [r3]
+ 2305 0012 9A42     		cmp	r2, r3
+ 2306 0014 01D2     		bcs	.L140
+ 2307 0016 3B68     		ldr	r3, [r7]
+ 2308 0018 00E0     		b	.L141
+ 2309              	.L140:
+ 2310 001a 7B68     		ldr	r3, [r7, #4]
+ 2311              	.L141:
+ 2312 001c 1846     		mov	r0, r3
+ 2313 001e 0C37     		adds	r7, r7, #12
+ 2314 0020 BD46     		mov	sp, r7
+ 2315              		@ sp needed
+ 2316 0022 5DF8047B 		ldr	r7, [sp], #4
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 42
+
+
+ 2317 0026 7047     		bx	lr
+ 2318              		.cantunwind
+ 2319              		.fnend
+ 2320              		.size	_ZSt3maxIjERKT_S2_S2_, .-_ZSt3maxIjERKT_S2_S2_
+ 2321              		.section	.text._ZNSt16allocator_traitsISaItEE8allocateERS0_j,"axG",%progbits,_ZNSt16allocator_trai
+ 2322              		.align	1
+ 2323              		.weak	_ZNSt16allocator_traitsISaItEE8allocateERS0_j
+ 2324              		.syntax unified
+ 2325              		.thumb
+ 2326              		.thumb_func
+ 2327              		.fpu fpv4-sp-d16
+ 2328              		.type	_ZNSt16allocator_traitsISaItEE8allocateERS0_j, %function
+ 2329              	_ZNSt16allocator_traitsISaItEE8allocateERS0_j:
+ 2330              		.fnstart
+ 2331              	.LFB1355:
+ 2332              		@ args = 0, pretend = 0, frame = 8
+ 2333              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2334 0000 80B5     		push	{r7, lr}
+ 2335              		.save {r7, lr}
+ 2336              		.pad #8
+ 2337 0002 82B0     		sub	sp, sp, #8
+ 2338              		.setfp r7, sp, #0
+ 2339 0004 00AF     		add	r7, sp, #0
+ 2340 0006 7860     		str	r0, [r7, #4]
+ 2341 0008 3960     		str	r1, [r7]
+ 2342 000a 0022     		movs	r2, #0
+ 2343 000c 3968     		ldr	r1, [r7]
+ 2344 000e 7868     		ldr	r0, [r7, #4]
+ 2345 0010 FFF7FEFF 		bl	_ZN9__gnu_cxx13new_allocatorItE8allocateEjPKv
+ 2346 0014 0346     		mov	r3, r0
+ 2347 0016 1846     		mov	r0, r3
+ 2348 0018 0837     		adds	r7, r7, #8
+ 2349 001a BD46     		mov	sp, r7
+ 2350              		@ sp needed
+ 2351 001c 80BD     		pop	{r7, pc}
+ 2352              		.fnend
+ 2353              		.size	_ZNSt16allocator_traitsISaItEE8allocateERS0_j, .-_ZNSt16allocator_traitsISaItEE8allocateERS0
+ 2354              		.section	.text._ZSt32__make_move_if_noexcept_iteratorItSt13move_iteratorIPtEET0_PT_,"axG",%progbit
+ 2355              		.align	1
+ 2356              		.weak	_ZSt32__make_move_if_noexcept_iteratorItSt13move_iteratorIPtEET0_PT_
+ 2357              		.syntax unified
+ 2358              		.thumb
+ 2359              		.thumb_func
+ 2360              		.fpu fpv4-sp-d16
+ 2361              		.type	_ZSt32__make_move_if_noexcept_iteratorItSt13move_iteratorIPtEET0_PT_, %function
+ 2362              	_ZSt32__make_move_if_noexcept_iteratorItSt13move_iteratorIPtEET0_PT_:
+ 2363              		.fnstart
+ 2364              	.LFB1356:
+ 2365              		@ args = 0, pretend = 0, frame = 16
+ 2366              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2367 0000 80B5     		push	{r7, lr}
+ 2368 0002 84B0     		sub	sp, sp, #16
+ 2369 0004 00AF     		add	r7, sp, #0
+ 2370 0006 7860     		str	r0, [r7, #4]
+ 2371 0008 07F10C03 		add	r3, r7, #12
+ 2372 000c 7968     		ldr	r1, [r7, #4]
+ 2373 000e 1846     		mov	r0, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 43
+
+
+ 2374 0010 FFF7FEFF 		bl	_ZNSt13move_iteratorIPtEC1ES0_
+ 2375 0014 FB68     		ldr	r3, [r7, #12]
+ 2376 0016 1846     		mov	r0, r3
+ 2377 0018 1037     		adds	r7, r7, #16
+ 2378 001a BD46     		mov	sp, r7
+ 2379              		@ sp needed
+ 2380 001c 80BD     		pop	{r7, pc}
+ 2381              		.cantunwind
+ 2382              		.fnend
+ 2383              		.size	_ZSt32__make_move_if_noexcept_iteratorItSt13move_iteratorIPtEET0_PT_, .-_ZSt32__make_move_if
+ 2384              		.section	.text._ZSt22__uninitialized_copy_aISt13move_iteratorIPtES1_tET0_T_S4_S3_RSaIT1_E,"axG",%p
+ 2385              		.align	1
+ 2386              		.weak	_ZSt22__uninitialized_copy_aISt13move_iteratorIPtES1_tET0_T_S4_S3_RSaIT1_E
+ 2387              		.syntax unified
+ 2388              		.thumb
+ 2389              		.thumb_func
+ 2390              		.fpu fpv4-sp-d16
+ 2391              		.type	_ZSt22__uninitialized_copy_aISt13move_iteratorIPtES1_tET0_T_S4_S3_RSaIT1_E, %function
+ 2392              	_ZSt22__uninitialized_copy_aISt13move_iteratorIPtES1_tET0_T_S4_S3_RSaIT1_E:
+ 2393              		.fnstart
+ 2394              	.LFB1357:
+ 2395              		@ args = 0, pretend = 0, frame = 16
+ 2396              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2397 0000 80B5     		push	{r7, lr}
+ 2398              		.save {r7, lr}
+ 2399              		.pad #16
+ 2400 0002 84B0     		sub	sp, sp, #16
+ 2401              		.setfp r7, sp, #0
+ 2402 0004 00AF     		add	r7, sp, #0
+ 2403 0006 F860     		str	r0, [r7, #12]
+ 2404 0008 B960     		str	r1, [r7, #8]
+ 2405 000a 7A60     		str	r2, [r7, #4]
+ 2406 000c 3B60     		str	r3, [r7]
+ 2407 000e 7A68     		ldr	r2, [r7, #4]
+ 2408 0010 B968     		ldr	r1, [r7, #8]
+ 2409 0012 F868     		ldr	r0, [r7, #12]
+ 2410 0014 FFF7FEFF 		bl	_ZSt18uninitialized_copyISt13move_iteratorIPtES1_ET0_T_S4_S3_
+ 2411 0018 0346     		mov	r3, r0
+ 2412 001a 1846     		mov	r0, r3
+ 2413 001c 1037     		adds	r7, r7, #16
+ 2414 001e BD46     		mov	sp, r7
+ 2415              		@ sp needed
+ 2416 0020 80BD     		pop	{r7, pc}
+ 2417              		.fnend
+ 2418              		.size	_ZSt22__uninitialized_copy_aISt13move_iteratorIPtES1_tET0_T_S4_S3_RSaIT1_E, .-_ZSt22__uninit
+ 2419              		.section	.text._ZN9__gnu_cxx13new_allocatorItE7destroyItEEvPT_,"axG",%progbits,_ZN9__gnu_cxx13new_
+ 2420              		.align	1
+ 2421              		.weak	_ZN9__gnu_cxx13new_allocatorItE7destroyItEEvPT_
+ 2422              		.syntax unified
+ 2423              		.thumb
+ 2424              		.thumb_func
+ 2425              		.fpu fpv4-sp-d16
+ 2426              		.type	_ZN9__gnu_cxx13new_allocatorItE7destroyItEEvPT_, %function
+ 2427              	_ZN9__gnu_cxx13new_allocatorItE7destroyItEEvPT_:
+ 2428              		.fnstart
+ 2429              	.LFB1358:
+ 2430              		@ args = 0, pretend = 0, frame = 8
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 44
+
+
+ 2431              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2432              		@ link register save eliminated.
+ 2433 0000 80B4     		push	{r7}
+ 2434 0002 83B0     		sub	sp, sp, #12
+ 2435 0004 00AF     		add	r7, sp, #0
+ 2436 0006 7860     		str	r0, [r7, #4]
+ 2437 0008 3960     		str	r1, [r7]
+ 2438 000a 00BF     		nop
+ 2439 000c 0C37     		adds	r7, r7, #12
+ 2440 000e BD46     		mov	sp, r7
+ 2441              		@ sp needed
+ 2442 0010 5DF8047B 		ldr	r7, [sp], #4
+ 2443 0014 7047     		bx	lr
+ 2444              		.cantunwind
+ 2445              		.fnend
+ 2446              		.size	_ZN9__gnu_cxx13new_allocatorItE7destroyItEEvPT_, .-_ZN9__gnu_cxx13new_allocatorItE7destroyIt
+ 2447              		.section	.text._ZNSt16allocator_traitsISaItEE8max_sizeERKS0_,"axG",%progbits,_ZNSt16allocator_trai
+ 2448              		.align	1
+ 2449              		.weak	_ZNSt16allocator_traitsISaItEE8max_sizeERKS0_
+ 2450              		.syntax unified
+ 2451              		.thumb
+ 2452              		.thumb_func
+ 2453              		.fpu fpv4-sp-d16
+ 2454              		.type	_ZNSt16allocator_traitsISaItEE8max_sizeERKS0_, %function
+ 2455              	_ZNSt16allocator_traitsISaItEE8max_sizeERKS0_:
+ 2456              		.fnstart
+ 2457              	.LFB1359:
+ 2458              		@ args = 0, pretend = 0, frame = 8
+ 2459              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2460 0000 80B5     		push	{r7, lr}
+ 2461 0002 82B0     		sub	sp, sp, #8
+ 2462 0004 00AF     		add	r7, sp, #0
+ 2463 0006 7860     		str	r0, [r7, #4]
+ 2464 0008 7868     		ldr	r0, [r7, #4]
+ 2465 000a FFF7FEFF 		bl	_ZNK9__gnu_cxx13new_allocatorItE8max_sizeEv
+ 2466 000e 0346     		mov	r3, r0
+ 2467 0010 1846     		mov	r0, r3
+ 2468 0012 0837     		adds	r7, r7, #8
+ 2469 0014 BD46     		mov	sp, r7
+ 2470              		@ sp needed
+ 2471 0016 80BD     		pop	{r7, pc}
+ 2472              		.cantunwind
+ 2473              		.fnend
+ 2474              		.size	_ZNSt16allocator_traitsISaItEE8max_sizeERKS0_, .-_ZNSt16allocator_traitsISaItEE8max_sizeERKS
+ 2475              		.section	.text._ZNKSt12_Vector_baseItSaItEE19_M_get_Tp_allocatorEv,"axG",%progbits,_ZNKSt12_Vector
+ 2476              		.align	1
+ 2477              		.weak	_ZNKSt12_Vector_baseItSaItEE19_M_get_Tp_allocatorEv
+ 2478              		.syntax unified
+ 2479              		.thumb
+ 2480              		.thumb_func
+ 2481              		.fpu fpv4-sp-d16
+ 2482              		.type	_ZNKSt12_Vector_baseItSaItEE19_M_get_Tp_allocatorEv, %function
+ 2483              	_ZNKSt12_Vector_baseItSaItEE19_M_get_Tp_allocatorEv:
+ 2484              		.fnstart
+ 2485              	.LFB1360:
+ 2486              		@ args = 0, pretend = 0, frame = 8
+ 2487              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 45
+
+
+ 2488              		@ link register save eliminated.
+ 2489 0000 80B4     		push	{r7}
+ 2490 0002 83B0     		sub	sp, sp, #12
+ 2491 0004 00AF     		add	r7, sp, #0
+ 2492 0006 7860     		str	r0, [r7, #4]
+ 2493 0008 7B68     		ldr	r3, [r7, #4]
+ 2494 000a 1846     		mov	r0, r3
+ 2495 000c 0C37     		adds	r7, r7, #12
+ 2496 000e BD46     		mov	sp, r7
+ 2497              		@ sp needed
+ 2498 0010 5DF8047B 		ldr	r7, [sp], #4
+ 2499 0014 7047     		bx	lr
+ 2500              		.cantunwind
+ 2501              		.fnend
+ 2502              		.size	_ZNKSt12_Vector_baseItSaItEE19_M_get_Tp_allocatorEv, .-_ZNKSt12_Vector_baseItSaItEE19_M_get_
+ 2503              		.section	.text._ZN9__gnu_cxx13new_allocatorItE8allocateEjPKv,"axG",%progbits,_ZN9__gnu_cxx13new_al
+ 2504              		.align	1
+ 2505              		.weak	_ZN9__gnu_cxx13new_allocatorItE8allocateEjPKv
+ 2506              		.syntax unified
+ 2507              		.thumb
+ 2508              		.thumb_func
+ 2509              		.fpu fpv4-sp-d16
+ 2510              		.type	_ZN9__gnu_cxx13new_allocatorItE8allocateEjPKv, %function
+ 2511              	_ZN9__gnu_cxx13new_allocatorItE8allocateEjPKv:
+ 2512              		.fnstart
+ 2513              	.LFB1361:
+ 2514              		@ args = 0, pretend = 0, frame = 16
+ 2515              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2516 0000 80B5     		push	{r7, lr}
+ 2517              		.save {r7, lr}
+ 2518              		.pad #16
+ 2519 0002 84B0     		sub	sp, sp, #16
+ 2520              		.setfp r7, sp, #0
+ 2521 0004 00AF     		add	r7, sp, #0
+ 2522 0006 F860     		str	r0, [r7, #12]
+ 2523 0008 B960     		str	r1, [r7, #8]
+ 2524 000a 7A60     		str	r2, [r7, #4]
+ 2525 000c F868     		ldr	r0, [r7, #12]
+ 2526 000e FFF7FEFF 		bl	_ZNK9__gnu_cxx13new_allocatorItE8max_sizeEv
+ 2527 0012 0246     		mov	r2, r0
+ 2528 0014 BB68     		ldr	r3, [r7, #8]
+ 2529 0016 9342     		cmp	r3, r2
+ 2530 0018 8CBF     		ite	hi
+ 2531 001a 0123     		movhi	r3, #1
+ 2532 001c 0023     		movls	r3, #0
+ 2533 001e DBB2     		uxtb	r3, r3
+ 2534 0020 002B     		cmp	r3, #0
+ 2535 0022 01D0     		beq	.L154
+ 2536 0024 FFF7FEFF 		bl	_ZSt17__throw_bad_allocv
+ 2537              	.L154:
+ 2538 0028 BB68     		ldr	r3, [r7, #8]
+ 2539 002a 5B00     		lsls	r3, r3, #1
+ 2540 002c 1846     		mov	r0, r3
+ 2541 002e FFF7FEFF 		bl	_Znwj
+ 2542 0032 0346     		mov	r3, r0
+ 2543 0034 1846     		mov	r0, r3
+ 2544 0036 1037     		adds	r7, r7, #16
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 46
+
+
+ 2545 0038 BD46     		mov	sp, r7
+ 2546              		@ sp needed
+ 2547 003a 80BD     		pop	{r7, pc}
+ 2548              		.fnend
+ 2549              		.size	_ZN9__gnu_cxx13new_allocatorItE8allocateEjPKv, .-_ZN9__gnu_cxx13new_allocatorItE8allocateEjP
+ 2550              		.section	.text._ZNSt13move_iteratorIPtEC2ES0_,"axG",%progbits,_ZNSt13move_iteratorIPtEC5ES0_,comda
+ 2551              		.align	1
+ 2552              		.weak	_ZNSt13move_iteratorIPtEC2ES0_
+ 2553              		.syntax unified
+ 2554              		.thumb
+ 2555              		.thumb_func
+ 2556              		.fpu fpv4-sp-d16
+ 2557              		.type	_ZNSt13move_iteratorIPtEC2ES0_, %function
+ 2558              	_ZNSt13move_iteratorIPtEC2ES0_:
+ 2559              		.fnstart
+ 2560              	.LFB1363:
+ 2561              		@ args = 0, pretend = 0, frame = 8
+ 2562              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2563              		@ link register save eliminated.
+ 2564 0000 80B4     		push	{r7}
+ 2565 0002 83B0     		sub	sp, sp, #12
+ 2566 0004 00AF     		add	r7, sp, #0
+ 2567 0006 7860     		str	r0, [r7, #4]
+ 2568 0008 3960     		str	r1, [r7]
+ 2569 000a 7B68     		ldr	r3, [r7, #4]
+ 2570 000c 3A68     		ldr	r2, [r7]
+ 2571 000e 1A60     		str	r2, [r3]
+ 2572 0010 7B68     		ldr	r3, [r7, #4]
+ 2573 0012 1846     		mov	r0, r3
+ 2574 0014 0C37     		adds	r7, r7, #12
+ 2575 0016 BD46     		mov	sp, r7
+ 2576              		@ sp needed
+ 2577 0018 5DF8047B 		ldr	r7, [sp], #4
+ 2578 001c 7047     		bx	lr
+ 2579              		.cantunwind
+ 2580              		.fnend
+ 2581              		.size	_ZNSt13move_iteratorIPtEC2ES0_, .-_ZNSt13move_iteratorIPtEC2ES0_
+ 2582              		.weak	_ZNSt13move_iteratorIPtEC1ES0_
+ 2583              		.thumb_set _ZNSt13move_iteratorIPtEC1ES0_,_ZNSt13move_iteratorIPtEC2ES0_
+ 2584              		.section	.text._ZSt18uninitialized_copyISt13move_iteratorIPtES1_ET0_T_S4_S3_,"axG",%progbits,_ZSt1
+ 2585              		.align	1
+ 2586              		.weak	_ZSt18uninitialized_copyISt13move_iteratorIPtES1_ET0_T_S4_S3_
+ 2587              		.syntax unified
+ 2588              		.thumb
+ 2589              		.thumb_func
+ 2590              		.fpu fpv4-sp-d16
+ 2591              		.type	_ZSt18uninitialized_copyISt13move_iteratorIPtES1_ET0_T_S4_S3_, %function
+ 2592              	_ZSt18uninitialized_copyISt13move_iteratorIPtES1_ET0_T_S4_S3_:
+ 2593              		.fnstart
+ 2594              	.LFB1365:
+ 2595              		@ args = 0, pretend = 0, frame = 24
+ 2596              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2597 0000 80B5     		push	{r7, lr}
+ 2598              		.save {r7, lr}
+ 2599              		.pad #24
+ 2600 0002 86B0     		sub	sp, sp, #24
+ 2601              		.setfp r7, sp, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 47
+
+
+ 2602 0004 00AF     		add	r7, sp, #0
+ 2603 0006 F860     		str	r0, [r7, #12]
+ 2604 0008 B960     		str	r1, [r7, #8]
+ 2605 000a 7A60     		str	r2, [r7, #4]
+ 2606 000c 0123     		movs	r3, #1
+ 2607 000e FB75     		strb	r3, [r7, #23]
+ 2608 0010 7A68     		ldr	r2, [r7, #4]
+ 2609 0012 B968     		ldr	r1, [r7, #8]
+ 2610 0014 F868     		ldr	r0, [r7, #12]
+ 2611 0016 FFF7FEFF 		bl	_ZNSt20__uninitialized_copyILb1EE13__uninit_copyISt13move_iteratorIPtES3_EET0_T_S6_S5_
+ 2612 001a 0346     		mov	r3, r0
+ 2613 001c 1846     		mov	r0, r3
+ 2614 001e 1837     		adds	r7, r7, #24
+ 2615 0020 BD46     		mov	sp, r7
+ 2616              		@ sp needed
+ 2617 0022 80BD     		pop	{r7, pc}
+ 2618              		.fnend
+ 2619              		.size	_ZSt18uninitialized_copyISt13move_iteratorIPtES1_ET0_T_S4_S3_, .-_ZSt18uninitialized_copyISt
+ 2620              		.section	.text._ZNK9__gnu_cxx13new_allocatorItE8max_sizeEv,"axG",%progbits,_ZNK9__gnu_cxx13new_all
+ 2621              		.align	1
+ 2622              		.weak	_ZNK9__gnu_cxx13new_allocatorItE8max_sizeEv
+ 2623              		.syntax unified
+ 2624              		.thumb
+ 2625              		.thumb_func
+ 2626              		.fpu fpv4-sp-d16
+ 2627              		.type	_ZNK9__gnu_cxx13new_allocatorItE8max_sizeEv, %function
+ 2628              	_ZNK9__gnu_cxx13new_allocatorItE8max_sizeEv:
+ 2629              		.fnstart
+ 2630              	.LFB1366:
+ 2631              		@ args = 0, pretend = 0, frame = 8
+ 2632              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2633              		@ link register save eliminated.
+ 2634 0000 80B4     		push	{r7}
+ 2635 0002 83B0     		sub	sp, sp, #12
+ 2636 0004 00AF     		add	r7, sp, #0
+ 2637 0006 7860     		str	r0, [r7, #4]
+ 2638 0008 6FF00043 		mvn	r3, #-2147483648
+ 2639 000c 1846     		mov	r0, r3
+ 2640 000e 0C37     		adds	r7, r7, #12
+ 2641 0010 BD46     		mov	sp, r7
+ 2642              		@ sp needed
+ 2643 0012 5DF8047B 		ldr	r7, [sp], #4
+ 2644 0016 7047     		bx	lr
+ 2645              		.cantunwind
+ 2646              		.fnend
+ 2647              		.size	_ZNK9__gnu_cxx13new_allocatorItE8max_sizeEv, .-_ZNK9__gnu_cxx13new_allocatorItE8max_sizeEv
+ 2648              		.section	.text._ZNSt20__uninitialized_copyILb1EE13__uninit_copyISt13move_iteratorIPtES3_EET0_T_S6_
+ 2649              		.align	1
+ 2650              		.weak	_ZNSt20__uninitialized_copyILb1EE13__uninit_copyISt13move_iteratorIPtES3_EET0_T_S6_S5_
+ 2651              		.syntax unified
+ 2652              		.thumb
+ 2653              		.thumb_func
+ 2654              		.fpu fpv4-sp-d16
+ 2655              		.type	_ZNSt20__uninitialized_copyILb1EE13__uninit_copyISt13move_iteratorIPtES3_EET0_T_S6_S5_, %fun
+ 2656              	_ZNSt20__uninitialized_copyILb1EE13__uninit_copyISt13move_iteratorIPtES3_EET0_T_S6_S5_:
+ 2657              		.fnstart
+ 2658              	.LFB1367:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 48
+
+
+ 2659              		@ args = 0, pretend = 0, frame = 16
+ 2660              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2661 0000 80B5     		push	{r7, lr}
+ 2662              		.save {r7, lr}
+ 2663              		.pad #16
+ 2664 0002 84B0     		sub	sp, sp, #16
+ 2665              		.setfp r7, sp, #0
+ 2666 0004 00AF     		add	r7, sp, #0
+ 2667 0006 F860     		str	r0, [r7, #12]
+ 2668 0008 B960     		str	r1, [r7, #8]
+ 2669 000a 7A60     		str	r2, [r7, #4]
+ 2670 000c 7A68     		ldr	r2, [r7, #4]
+ 2671 000e B968     		ldr	r1, [r7, #8]
+ 2672 0010 F868     		ldr	r0, [r7, #12]
+ 2673 0012 FFF7FEFF 		bl	_ZSt4copyISt13move_iteratorIPtES1_ET0_T_S4_S3_
+ 2674 0016 0346     		mov	r3, r0
+ 2675 0018 1846     		mov	r0, r3
+ 2676 001a 1037     		adds	r7, r7, #16
+ 2677 001c BD46     		mov	sp, r7
+ 2678              		@ sp needed
+ 2679 001e 80BD     		pop	{r7, pc}
+ 2680              		.fnend
+ 2681              		.size	_ZNSt20__uninitialized_copyILb1EE13__uninit_copyISt13move_iteratorIPtES3_EET0_T_S6_S5_, .-_Z
+ 2682              		.section	.text._ZSt4copyISt13move_iteratorIPtES1_ET0_T_S4_S3_,"axG",%progbits,_ZSt4copyISt13move_i
+ 2683              		.align	1
+ 2684              		.weak	_ZSt4copyISt13move_iteratorIPtES1_ET0_T_S4_S3_
+ 2685              		.syntax unified
+ 2686              		.thumb
+ 2687              		.thumb_func
+ 2688              		.fpu fpv4-sp-d16
+ 2689              		.type	_ZSt4copyISt13move_iteratorIPtES1_ET0_T_S4_S3_, %function
+ 2690              	_ZSt4copyISt13move_iteratorIPtES1_ET0_T_S4_S3_:
+ 2691              		.fnstart
+ 2692              	.LFB1368:
+ 2693              		@ args = 0, pretend = 0, frame = 16
+ 2694              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2695 0000 90B5     		push	{r4, r7, lr}
+ 2696              		.save {r4, r7, lr}
+ 2697              		.pad #20
+ 2698 0002 85B0     		sub	sp, sp, #20
+ 2699              		.setfp r7, sp, #0
+ 2700 0004 00AF     		add	r7, sp, #0
+ 2701 0006 F860     		str	r0, [r7, #12]
+ 2702 0008 B960     		str	r1, [r7, #8]
+ 2703 000a 7A60     		str	r2, [r7, #4]
+ 2704 000c F868     		ldr	r0, [r7, #12]
+ 2705 000e FFF7FEFF 		bl	_ZSt12__miter_baseIPtEDTcl12__miter_basecldtfp_4baseEEESt13move_iteratorIT_E
+ 2706 0012 0446     		mov	r4, r0
+ 2707 0014 B868     		ldr	r0, [r7, #8]
+ 2708 0016 FFF7FEFF 		bl	_ZSt12__miter_baseIPtEDTcl12__miter_basecldtfp_4baseEEESt13move_iteratorIT_E
+ 2709 001a 0346     		mov	r3, r0
+ 2710 001c 7A68     		ldr	r2, [r7, #4]
+ 2711 001e 1946     		mov	r1, r3
+ 2712 0020 2046     		mov	r0, r4
+ 2713 0022 FFF7FEFF 		bl	_ZSt14__copy_move_a2ILb1EPtS0_ET1_T0_S2_S1_
+ 2714 0026 0346     		mov	r3, r0
+ 2715 0028 1846     		mov	r0, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 49
+
+
+ 2716 002a 1437     		adds	r7, r7, #20
+ 2717 002c BD46     		mov	sp, r7
+ 2718              		@ sp needed
+ 2719 002e 90BD     		pop	{r4, r7, pc}
+ 2720              		.fnend
+ 2721              		.size	_ZSt4copyISt13move_iteratorIPtES1_ET0_T_S4_S3_, .-_ZSt4copyISt13move_iteratorIPtES1_ET0_T_S4
+ 2722              		.section	.text._ZSt12__miter_baseIPtEDTcl12__miter_basecldtfp_4baseEEESt13move_iteratorIT_E,"axG",
+ 2723              		.align	1
+ 2724              		.weak	_ZSt12__miter_baseIPtEDTcl12__miter_basecldtfp_4baseEEESt13move_iteratorIT_E
+ 2725              		.syntax unified
+ 2726              		.thumb
+ 2727              		.thumb_func
+ 2728              		.fpu fpv4-sp-d16
+ 2729              		.type	_ZSt12__miter_baseIPtEDTcl12__miter_basecldtfp_4baseEEESt13move_iteratorIT_E, %function
+ 2730              	_ZSt12__miter_baseIPtEDTcl12__miter_basecldtfp_4baseEEESt13move_iteratorIT_E:
+ 2731              		.fnstart
+ 2732              	.LFB1369:
+ 2733              		@ args = 0, pretend = 0, frame = 8
+ 2734              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2735 0000 80B5     		push	{r7, lr}
+ 2736 0002 82B0     		sub	sp, sp, #8
+ 2737 0004 00AF     		add	r7, sp, #0
+ 2738 0006 7860     		str	r0, [r7, #4]
+ 2739 0008 3B1D     		adds	r3, r7, #4
+ 2740 000a 1846     		mov	r0, r3
+ 2741 000c FFF7FEFF 		bl	_ZNKSt13move_iteratorIPtE4baseEv
+ 2742 0010 0346     		mov	r3, r0
+ 2743 0012 1846     		mov	r0, r3
+ 2744 0014 FFF7FEFF 		bl	_ZSt12__miter_baseIPtET_S1_
+ 2745 0018 0346     		mov	r3, r0
+ 2746 001a 1846     		mov	r0, r3
+ 2747 001c 0837     		adds	r7, r7, #8
+ 2748 001e BD46     		mov	sp, r7
+ 2749              		@ sp needed
+ 2750 0020 80BD     		pop	{r7, pc}
+ 2751              		.cantunwind
+ 2752              		.fnend
+ 2753              		.size	_ZSt12__miter_baseIPtEDTcl12__miter_basecldtfp_4baseEEESt13move_iteratorIT_E, .-_ZSt12__mite
+ 2754              		.section	.text._ZSt14__copy_move_a2ILb1EPtS0_ET1_T0_S2_S1_,"axG",%progbits,_ZSt14__copy_move_a2ILb
+ 2755              		.align	1
+ 2756              		.weak	_ZSt14__copy_move_a2ILb1EPtS0_ET1_T0_S2_S1_
+ 2757              		.syntax unified
+ 2758              		.thumb
+ 2759              		.thumb_func
+ 2760              		.fpu fpv4-sp-d16
+ 2761              		.type	_ZSt14__copy_move_a2ILb1EPtS0_ET1_T0_S2_S1_, %function
+ 2762              	_ZSt14__copy_move_a2ILb1EPtS0_ET1_T0_S2_S1_:
+ 2763              		.fnstart
+ 2764              	.LFB1370:
+ 2765              		@ args = 0, pretend = 0, frame = 16
+ 2766              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2767 0000 B0B5     		push	{r4, r5, r7, lr}
+ 2768              		.save {r4, r5, r7, lr}
+ 2769              		.pad #16
+ 2770 0002 84B0     		sub	sp, sp, #16
+ 2771              		.setfp r7, sp, #0
+ 2772 0004 00AF     		add	r7, sp, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 50
+
+
+ 2773 0006 F860     		str	r0, [r7, #12]
+ 2774 0008 B960     		str	r1, [r7, #8]
+ 2775 000a 7A60     		str	r2, [r7, #4]
+ 2776 000c F868     		ldr	r0, [r7, #12]
+ 2777 000e FFF7FEFF 		bl	_ZSt12__niter_baseIPtET_S1_
+ 2778 0012 0446     		mov	r4, r0
+ 2779 0014 B868     		ldr	r0, [r7, #8]
+ 2780 0016 FFF7FEFF 		bl	_ZSt12__niter_baseIPtET_S1_
+ 2781 001a 0546     		mov	r5, r0
+ 2782 001c 7868     		ldr	r0, [r7, #4]
+ 2783 001e FFF7FEFF 		bl	_ZSt12__niter_baseIPtET_S1_
+ 2784 0022 0346     		mov	r3, r0
+ 2785 0024 1A46     		mov	r2, r3
+ 2786 0026 2946     		mov	r1, r5
+ 2787 0028 2046     		mov	r0, r4
+ 2788 002a FFF7FEFF 		bl	_ZSt13__copy_move_aILb1EPtS0_ET1_T0_S2_S1_
+ 2789 002e 0346     		mov	r3, r0
+ 2790 0030 1846     		mov	r0, r3
+ 2791 0032 1037     		adds	r7, r7, #16
+ 2792 0034 BD46     		mov	sp, r7
+ 2793              		@ sp needed
+ 2794 0036 B0BD     		pop	{r4, r5, r7, pc}
+ 2795              		.fnend
+ 2796              		.size	_ZSt14__copy_move_a2ILb1EPtS0_ET1_T0_S2_S1_, .-_ZSt14__copy_move_a2ILb1EPtS0_ET1_T0_S2_S1_
+ 2797              		.section	.text._ZNKSt13move_iteratorIPtE4baseEv,"axG",%progbits,_ZNKSt13move_iteratorIPtE4baseEv,c
+ 2798              		.align	1
+ 2799              		.weak	_ZNKSt13move_iteratorIPtE4baseEv
+ 2800              		.syntax unified
+ 2801              		.thumb
+ 2802              		.thumb_func
+ 2803              		.fpu fpv4-sp-d16
+ 2804              		.type	_ZNKSt13move_iteratorIPtE4baseEv, %function
+ 2805              	_ZNKSt13move_iteratorIPtE4baseEv:
+ 2806              		.fnstart
+ 2807              	.LFB1371:
+ 2808              		@ args = 0, pretend = 0, frame = 8
+ 2809              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2810              		@ link register save eliminated.
+ 2811 0000 80B4     		push	{r7}
+ 2812 0002 83B0     		sub	sp, sp, #12
+ 2813 0004 00AF     		add	r7, sp, #0
+ 2814 0006 7860     		str	r0, [r7, #4]
+ 2815 0008 7B68     		ldr	r3, [r7, #4]
+ 2816 000a 1B68     		ldr	r3, [r3]
+ 2817 000c 1846     		mov	r0, r3
+ 2818 000e 0C37     		adds	r7, r7, #12
+ 2819 0010 BD46     		mov	sp, r7
+ 2820              		@ sp needed
+ 2821 0012 5DF8047B 		ldr	r7, [sp], #4
+ 2822 0016 7047     		bx	lr
+ 2823              		.cantunwind
+ 2824              		.fnend
+ 2825              		.size	_ZNKSt13move_iteratorIPtE4baseEv, .-_ZNKSt13move_iteratorIPtE4baseEv
+ 2826              		.section	.text._ZSt12__miter_baseIPtET_S1_,"axG",%progbits,_ZSt12__miter_baseIPtET_S1_,comdat
+ 2827              		.align	1
+ 2828              		.weak	_ZSt12__miter_baseIPtET_S1_
+ 2829              		.syntax unified
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 51
+
+
+ 2830              		.thumb
+ 2831              		.thumb_func
+ 2832              		.fpu fpv4-sp-d16
+ 2833              		.type	_ZSt12__miter_baseIPtET_S1_, %function
+ 2834              	_ZSt12__miter_baseIPtET_S1_:
+ 2835              		.fnstart
+ 2836              	.LFB1372:
+ 2837              		@ args = 0, pretend = 0, frame = 8
+ 2838              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2839              		@ link register save eliminated.
+ 2840 0000 80B4     		push	{r7}
+ 2841 0002 83B0     		sub	sp, sp, #12
+ 2842 0004 00AF     		add	r7, sp, #0
+ 2843 0006 7860     		str	r0, [r7, #4]
+ 2844 0008 7B68     		ldr	r3, [r7, #4]
+ 2845 000a 1846     		mov	r0, r3
+ 2846 000c 0C37     		adds	r7, r7, #12
+ 2847 000e BD46     		mov	sp, r7
+ 2848              		@ sp needed
+ 2849 0010 5DF8047B 		ldr	r7, [sp], #4
+ 2850 0014 7047     		bx	lr
+ 2851              		.cantunwind
+ 2852              		.fnend
+ 2853              		.size	_ZSt12__miter_baseIPtET_S1_, .-_ZSt12__miter_baseIPtET_S1_
+ 2854              		.section	.text._ZSt12__niter_baseIPtET_S1_,"axG",%progbits,_ZSt12__niter_baseIPtET_S1_,comdat
+ 2855              		.align	1
+ 2856              		.weak	_ZSt12__niter_baseIPtET_S1_
+ 2857              		.syntax unified
+ 2858              		.thumb
+ 2859              		.thumb_func
+ 2860              		.fpu fpv4-sp-d16
+ 2861              		.type	_ZSt12__niter_baseIPtET_S1_, %function
+ 2862              	_ZSt12__niter_baseIPtET_S1_:
+ 2863              		.fnstart
+ 2864              	.LFB1373:
+ 2865              		@ args = 0, pretend = 0, frame = 8
+ 2866              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2867              		@ link register save eliminated.
+ 2868 0000 80B4     		push	{r7}
+ 2869 0002 83B0     		sub	sp, sp, #12
+ 2870 0004 00AF     		add	r7, sp, #0
+ 2871 0006 7860     		str	r0, [r7, #4]
+ 2872 0008 7B68     		ldr	r3, [r7, #4]
+ 2873 000a 1846     		mov	r0, r3
+ 2874 000c 0C37     		adds	r7, r7, #12
+ 2875 000e BD46     		mov	sp, r7
+ 2876              		@ sp needed
+ 2877 0010 5DF8047B 		ldr	r7, [sp], #4
+ 2878 0014 7047     		bx	lr
+ 2879              		.cantunwind
+ 2880              		.fnend
+ 2881              		.size	_ZSt12__niter_baseIPtET_S1_, .-_ZSt12__niter_baseIPtET_S1_
+ 2882              		.section	.text._ZSt13__copy_move_aILb1EPtS0_ET1_T0_S2_S1_,"axG",%progbits,_ZSt13__copy_move_aILb1E
+ 2883              		.align	1
+ 2884              		.weak	_ZSt13__copy_move_aILb1EPtS0_ET1_T0_S2_S1_
+ 2885              		.syntax unified
+ 2886              		.thumb
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 52
+
+
+ 2887              		.thumb_func
+ 2888              		.fpu fpv4-sp-d16
+ 2889              		.type	_ZSt13__copy_move_aILb1EPtS0_ET1_T0_S2_S1_, %function
+ 2890              	_ZSt13__copy_move_aILb1EPtS0_ET1_T0_S2_S1_:
+ 2891              		.fnstart
+ 2892              	.LFB1374:
+ 2893              		@ args = 0, pretend = 0, frame = 24
+ 2894              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2895 0000 80B5     		push	{r7, lr}
+ 2896 0002 86B0     		sub	sp, sp, #24
+ 2897 0004 00AF     		add	r7, sp, #0
+ 2898 0006 F860     		str	r0, [r7, #12]
+ 2899 0008 B960     		str	r1, [r7, #8]
+ 2900 000a 7A60     		str	r2, [r7, #4]
+ 2901 000c 0123     		movs	r3, #1
+ 2902 000e FB75     		strb	r3, [r7, #23]
+ 2903 0010 7A68     		ldr	r2, [r7, #4]
+ 2904 0012 B968     		ldr	r1, [r7, #8]
+ 2905 0014 F868     		ldr	r0, [r7, #12]
+ 2906 0016 FFF7FEFF 		bl	_ZNSt11__copy_moveILb1ELb1ESt26random_access_iterator_tagE8__copy_mItEEPT_PKS3_S6_S4_
+ 2907 001a 0346     		mov	r3, r0
+ 2908 001c 1846     		mov	r0, r3
+ 2909 001e 1837     		adds	r7, r7, #24
+ 2910 0020 BD46     		mov	sp, r7
+ 2911              		@ sp needed
+ 2912 0022 80BD     		pop	{r7, pc}
+ 2913              		.cantunwind
+ 2914              		.fnend
+ 2915              		.size	_ZSt13__copy_move_aILb1EPtS0_ET1_T0_S2_S1_, .-_ZSt13__copy_move_aILb1EPtS0_ET1_T0_S2_S1_
+ 2916              		.section	.text._ZNSt11__copy_moveILb1ELb1ESt26random_access_iterator_tagE8__copy_mItEEPT_PKS3_S6_S
+ 2917              		.align	1
+ 2918              		.weak	_ZNSt11__copy_moveILb1ELb1ESt26random_access_iterator_tagE8__copy_mItEEPT_PKS3_S6_S4_
+ 2919              		.syntax unified
+ 2920              		.thumb
+ 2921              		.thumb_func
+ 2922              		.fpu fpv4-sp-d16
+ 2923              		.type	_ZNSt11__copy_moveILb1ELb1ESt26random_access_iterator_tagE8__copy_mItEEPT_PKS3_S6_S4_, %func
+ 2924              	_ZNSt11__copy_moveILb1ELb1ESt26random_access_iterator_tagE8__copy_mItEEPT_PKS3_S6_S4_:
+ 2925              		.fnstart
+ 2926              	.LFB1375:
+ 2927              		@ args = 0, pretend = 0, frame = 24
+ 2928              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2929 0000 80B5     		push	{r7, lr}
+ 2930 0002 86B0     		sub	sp, sp, #24
+ 2931 0004 00AF     		add	r7, sp, #0
+ 2932 0006 F860     		str	r0, [r7, #12]
+ 2933 0008 B960     		str	r1, [r7, #8]
+ 2934 000a 7A60     		str	r2, [r7, #4]
+ 2935 000c BA68     		ldr	r2, [r7, #8]
+ 2936 000e FB68     		ldr	r3, [r7, #12]
+ 2937 0010 D31A     		subs	r3, r2, r3
+ 2938 0012 5B10     		asrs	r3, r3, #1
+ 2939 0014 7B61     		str	r3, [r7, #20]
+ 2940 0016 7B69     		ldr	r3, [r7, #20]
+ 2941 0018 002B     		cmp	r3, #0
+ 2942 001a 06D0     		beq	.L179
+ 2943 001c 7B69     		ldr	r3, [r7, #20]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 53
+
+
+ 2944 001e 5B00     		lsls	r3, r3, #1
+ 2945 0020 1A46     		mov	r2, r3
+ 2946 0022 F968     		ldr	r1, [r7, #12]
+ 2947 0024 7868     		ldr	r0, [r7, #4]
+ 2948 0026 FFF7FEFF 		bl	memmove
+ 2949              	.L179:
+ 2950 002a 7B69     		ldr	r3, [r7, #20]
+ 2951 002c 5B00     		lsls	r3, r3, #1
+ 2952 002e 7A68     		ldr	r2, [r7, #4]
+ 2953 0030 1344     		add	r3, r3, r2
+ 2954 0032 1846     		mov	r0, r3
+ 2955 0034 1837     		adds	r7, r7, #24
+ 2956 0036 BD46     		mov	sp, r7
+ 2957              		@ sp needed
+ 2958 0038 80BD     		pop	{r7, pc}
+ 2959              		.cantunwind
+ 2960              		.fnend
+ 2961              		.size	_ZNSt11__copy_moveILb1ELb1ESt26random_access_iterator_tagE8__copy_mItEEPT_PKS3_S6_S4_, .-_ZN
+ 2962              		.section	.rodata._ZZ11chSysUnlockE8__func__,"a",%progbits
+ 2963              		.align	2
+ 2964              		.type	_ZZ11chSysUnlockE8__func__, %object
+ 2965              		.size	_ZZ11chSysUnlockE8__func__, 12
+ 2966              	_ZZ11chSysUnlockE8__func__:
+ 2967 0000 63685379 		.ascii	"chSysUnlock\000"
+ 2967      73556E6C 
+ 2967      6F636B00 
+ 2968              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 54
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 Talos.cpp
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:15     .rodata._ZStL19piecewise_construct:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:18     .rodata._ZStL19piecewise_construct:0000000000000000 _ZStL19piecewise_construct
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:21     .text._ZnwjPv:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:28     .text._ZnwjPv:0000000000000000 _ZnwjPv
+          .ARM.exidx.text._ZnwjPv:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:50     .text.port_lock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:56     .text.port_lock:0000000000000000 port_lock
+        .ARM.exidx.text.port_lock:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:84     .text.port_unlock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:90     .text.port_unlock:0000000000000000 port_unlock
+      .ARM.exidx.text.port_unlock:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:118    .text.chSysLock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:124    .text.chSysLock:0000000000000000 chSysLock
+        .ARM.exidx.text.chSysLock:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:141    .text.chSysUnlock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:147    .text.chSysUnlock:0000000000000000 chSysUnlock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:180    .text.chSysUnlock:0000000000000034 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2966   .rodata._ZZ11chSysUnlockE8__func__:0000000000000000 _ZZ11chSysUnlockE8__func__
+      .ARM.exidx.text.chSysUnlock:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:185    .text.chVTGetSystemTimeX:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:191    .text.chVTGetSystemTimeX:0000000000000000 chVTGetSystemTimeX
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:209    .text.chVTGetSystemTimeX:0000000000000014 $d
+.ARM.exidx.text.chVTGetSystemTimeX:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:214    .text.chVTGetSystemTime:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:220    .text.chVTGetSystemTime:0000000000000000 chVTGetSystemTime
+.ARM.extab.text.chVTGetSystemTime:0000000000000000 $d
+.ARM.exidx.text.chVTGetSystemTime:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:248    .bss.bus:0000000000000000 bus
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:245    .bss.bus:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:255    .data.bus_lock:0000000000000000 bus_lock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:252    .data.bus_lock:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:266    .data.bus_condvar:0000000000000000 bus_condvar
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:263    .data.bus_condvar:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:274    .bss.parameter_root:0000000000000000 parameter_root
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:271    .bss.parameter_root:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:281    .bss.aseba_ns:0000000000000000 aseba_ns
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:278    .bss.aseba_ns:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:284    .text._ZL11load_configv:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:290    .text._ZL11load_configv:0000000000000000 _ZL11load_configv
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:308    .text._ZL11load_configv:0000000000000014 $d
+.ARM.exidx.text._ZL11load_configv:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:313    .rodata:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:320    .text.main:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:327    .text.main:0000000000000000 main
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:427    .text.main:0000000000000110 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:434    .text.main:000000000000012c $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:788    .text._ZNSt6vectorItSaItEEC2Ev:0000000000000000 _ZNSt6vectorItSaItEEC1Ev
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:914    .text._ZNSt6vectorItSaItEE9push_backEOt:0000000000000000 _ZNSt6vectorItSaItEE9push_backEOt
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:621    .text.main:00000000000002ec $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:630    .text.main:000000000000030c $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:948    .text._ZNSt6vectorItSaItEEixEj:0000000000000000 _ZNSt6vectorItSaItEEixEj
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:831    .text._ZNSt6vectorItSaItEED2Ev:0000000000000000 _ZNSt6vectorItSaItEED1Ev
+             .ARM.extab.text.main:0000000000000000 $d
+             .ARM.exidx.text.main:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:747    .data.__stack_chk_guard:0000000000000000 __stack_chk_guard
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 55
+
+
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:744    .data.__stack_chk_guard:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:754    .text._Z16__stack_chk_failv:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:761    .text._Z16__stack_chk_failv:0000000000000000 _Z16__stack_chk_failv
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:777    .text._Z16__stack_chk_failv:0000000000000010 $d
+.ARM.exidx.text._Z16__stack_chk_failv:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:781    .text._ZNSt6vectorItSaItEEC2Ev:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:788    .text._ZNSt6vectorItSaItEEC2Ev:0000000000000000 _ZNSt6vectorItSaItEEC2Ev
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1011   .text._ZNSt12_Vector_baseItSaItEEC2Ev:0000000000000000 _ZNSt12_Vector_baseItSaItEEC2Ev
+.ARM.extab.text._ZNSt6vectorItSaItEEC2Ev:0000000000000000 $d
+.ARM.exidx.text._ZNSt6vectorItSaItEEC2Ev:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:824    .text._ZNSt6vectorItSaItEED2Ev:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:831    .text._ZNSt6vectorItSaItEED2Ev:0000000000000000 _ZNSt6vectorItSaItEED2Ev
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1097   .text._ZNSt12_Vector_baseItSaItEE19_M_get_Tp_allocatorEv:0000000000000000 _ZNSt12_Vector_baseItSaItEE19_M_get_Tp_allocatorEv
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1125   .text._ZSt8_DestroyIPttEvT_S1_RSaIT0_E:0000000000000000 _ZSt8_DestroyIPttEvT_S1_RSaIT0_E
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1042   .text._ZNSt12_Vector_baseItSaItEED2Ev:0000000000000000 _ZNSt12_Vector_baseItSaItEED2Ev
+.ARM.extab.text._ZNSt6vectorItSaItEED2Ev:0000000000000000 $d
+.ARM.exidx.text._ZNSt6vectorItSaItEED2Ev:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:879    .text._ZSt4moveIRtEONSt16remove_referenceIT_E4typeEOS2_:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:886    .text._ZSt4moveIRtEONSt16remove_referenceIT_E4typeEOS2_:0000000000000000 _ZSt4moveIRtEONSt16remove_referenceIT_E4typeEOS2_
+.ARM.exidx.text._ZSt4moveIRtEONSt16remove_referenceIT_E4typeEOS2_:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:907    .text._ZNSt6vectorItSaItEE9push_backEOt:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1185   .text._ZNSt6vectorItSaItEE12emplace_backIJtEEEvDpOT_:0000000000000000 _ZNSt6vectorItSaItEE12emplace_backIJtEEEvDpOT_
+.ARM.extab.text._ZNSt6vectorItSaItEE9push_backEOt:0000000000000000 $d
+.ARM.exidx.text._ZNSt6vectorItSaItEE9push_backEOt:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:941    .text._ZNSt6vectorItSaItEEixEj:0000000000000000 $t
+.ARM.exidx.text._ZNSt6vectorItSaItEEixEj:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:974    .text._ZNSt12_Vector_baseItSaItEE12_Vector_implD2Ev:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:981    .text._ZNSt12_Vector_baseItSaItEE12_Vector_implD2Ev:0000000000000000 _ZNSt12_Vector_baseItSaItEE12_Vector_implD2Ev
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1286   .text._ZNSaItED2Ev:0000000000000000 _ZNSaItED2Ev
+.ARM.exidx.text._ZNSt12_Vector_baseItSaItEE12_Vector_implD2Ev:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:981    .text._ZNSt12_Vector_baseItSaItEE12_Vector_implD2Ev:0000000000000000 _ZNSt12_Vector_baseItSaItEE12_Vector_implD1Ev
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1004   .text._ZNSt12_Vector_baseItSaItEEC2Ev:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1247   .text._ZNSt12_Vector_baseItSaItEE12_Vector_implC2Ev:0000000000000000 _ZNSt12_Vector_baseItSaItEE12_Vector_implC1Ev
+.ARM.exidx.text._ZNSt12_Vector_baseItSaItEEC2Ev:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1011   .text._ZNSt12_Vector_baseItSaItEEC2Ev:0000000000000000 _ZNSt12_Vector_baseItSaItEEC1Ev
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1035   .text._ZNSt12_Vector_baseItSaItEED2Ev:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1316   .text._ZNSt12_Vector_baseItSaItEE13_M_deallocateEPtj:0000000000000000 _ZNSt12_Vector_baseItSaItEE13_M_deallocateEPtj
+.ARM.extab.text._ZNSt12_Vector_baseItSaItEED2Ev:0000000000000000 $d
+.ARM.exidx.text._ZNSt12_Vector_baseItSaItEED2Ev:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1042   .text._ZNSt12_Vector_baseItSaItEED2Ev:0000000000000000 _ZNSt12_Vector_baseItSaItEED1Ev
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1090   .text._ZNSt12_Vector_baseItSaItEE19_M_get_Tp_allocatorEv:0000000000000000 $t
+.ARM.exidx.text._ZNSt12_Vector_baseItSaItEE19_M_get_Tp_allocatorEv:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1118   .text._ZSt8_DestroyIPttEvT_S1_RSaIT0_E:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1354   .text._ZSt8_DestroyIPtEvT_S1_:0000000000000000 _ZSt8_DestroyIPtEvT_S1_
+.ARM.extab.text._ZSt8_DestroyIPttEvT_S1_RSaIT0_E:0000000000000000 $d
+.ARM.exidx.text._ZSt8_DestroyIPttEvT_S1_RSaIT0_E:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1150   .text._ZSt7forwardItEOT_RNSt16remove_referenceIS0_E4typeE:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1157   .text._ZSt7forwardItEOT_RNSt16remove_referenceIS0_E4typeE:0000000000000000 _ZSt7forwardItEOT_RNSt16remove_referenceIS0_E4typeE
+.ARM.exidx.text._ZSt7forwardItEOT_RNSt16remove_referenceIS0_E4typeE:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1178   .text._ZNSt6vectorItSaItEE12emplace_backIJtEEEvDpOT_:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1383   .text._ZNSt16allocator_traitsISaItEE9constructItJtEEEvRS0_PT_DpOT0_:0000000000000000 _ZNSt16allocator_traitsISaItEE9constructItJtEEEvRS0_PT_DpOT0_
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1417   .text._ZNSt6vectorItSaItEE3endEv:0000000000000000 _ZNSt6vectorItSaItEE3endEv
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1453   .text._ZNSt6vectorItSaItEE17_M_realloc_insertIJtEEEvN9__gnu_cxx17__normal_iteratorIPtS1_EEDpOT_:0000000000000000 _ZNSt6vectorItSaItEE17_M_realloc_insertIJtEEEvN9__gnu_cxx17__normal_iteratorIPtS1_EEDpOT_
+.ARM.extab.text._ZNSt6vectorItSaItEE12emplace_backIJtEEEvDpOT_:0000000000000000 $d
+.ARM.exidx.text._ZNSt6vectorItSaItEE12emplace_backIJtEEEvDpOT_:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1240   .text._ZNSt12_Vector_baseItSaItEE12_Vector_implC2Ev:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1247   .text._ZNSt12_Vector_baseItSaItEE12_Vector_implC2Ev:0000000000000000 _ZNSt12_Vector_baseItSaItEE12_Vector_implC2Ev
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 56
+
+
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1681   .text._ZNSaItEC2Ev:0000000000000000 _ZNSaItEC2Ev
+.ARM.exidx.text._ZNSt12_Vector_baseItSaItEE12_Vector_implC2Ev:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1279   .text._ZNSaItED2Ev:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1711   .text._ZN9__gnu_cxx13new_allocatorItED2Ev:0000000000000000 _ZN9__gnu_cxx13new_allocatorItED2Ev
+     .ARM.exidx.text._ZNSaItED2Ev:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1286   .text._ZNSaItED2Ev:0000000000000000 _ZNSaItED1Ev
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1309   .text._ZNSt12_Vector_baseItSaItEE13_M_deallocateEPtj:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1741   .text._ZNSt16allocator_traitsISaItEE10deallocateERS0_Ptj:0000000000000000 _ZNSt16allocator_traitsISaItEE10deallocateERS0_Ptj
+.ARM.extab.text._ZNSt12_Vector_baseItSaItEE13_M_deallocateEPtj:0000000000000000 $d
+.ARM.exidx.text._ZNSt12_Vector_baseItSaItEE13_M_deallocateEPtj:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1347   .text._ZSt8_DestroyIPtEvT_S1_:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1772   .text._ZNSt12_Destroy_auxILb1EE9__destroyIPtEEvT_S3_:0000000000000000 _ZNSt12_Destroy_auxILb1EE9__destroyIPtEEvT_S3_
+.ARM.exidx.text._ZSt8_DestroyIPtEvT_S1_:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1376   .text._ZNSt16allocator_traitsISaItEE9constructItJtEEEvRS0_PT_DpOT0_:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1800   .text._ZN9__gnu_cxx13new_allocatorItE9constructItJtEEEvPT_DpOT0_:0000000000000000 _ZN9__gnu_cxx13new_allocatorItE9constructItJtEEEvPT_DpOT0_
+.ARM.exidx.text._ZNSt16allocator_traitsISaItEE9constructItJtEEEvRS0_PT_DpOT0_:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1410   .text._ZNSt6vectorItSaItEE3endEv:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1841   .text._ZN9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEEC2ERKS1_:0000000000000000 _ZN9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEEC1ERKS1_
+.ARM.exidx.text._ZNSt6vectorItSaItEE3endEv:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1446   .text._ZNSt6vectorItSaItEE17_M_realloc_insertIJtEEEvN9__gnu_cxx17__normal_iteratorIPtS1_EEDpOT_:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1876   .text._ZNKSt6vectorItSaItEE12_M_check_lenEjPKc:0000000000000000 _ZNKSt6vectorItSaItEE12_M_check_lenEjPKc
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1959   .text._ZNSt6vectorItSaItEE5beginEv:0000000000000000 _ZNSt6vectorItSaItEE5beginEv
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1990   .text._ZN9__gnu_cxxmiIPtSt6vectorItSaItEEEENS_17__normal_iteratorIT_T0_E15difference_typeERKS8_SB_:0000000000000000 _ZN9__gnu_cxxmiIPtSt6vectorItSaItEEEENS_17__normal_iteratorIT_T0_E15difference_typeERKS8_SB_
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2027   .text._ZNSt12_Vector_baseItSaItEE11_M_allocateEj:0000000000000000 _ZNSt12_Vector_baseItSaItEE11_M_allocateEj
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2067   .text._ZNK9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEE4baseEv:0000000000000000 _ZNK9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEE4baseEv
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2095   .text._ZSt34__uninitialized_move_if_noexcept_aIPtS0_SaItEET0_T_S3_S2_RT1_:0000000000000000 _ZSt34__uninitialized_move_if_noexcept_aIPtS0_SaItEET0_T_S3_S2_RT1_
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2136   .text._ZNSt16allocator_traitsISaItEE7destroyItEEvRS0_PT_:0000000000000000 _ZNSt16allocator_traitsISaItEE7destroyItEEvRS0_PT_
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1632   .text._ZNSt6vectorItSaItEE17_M_realloc_insertIJtEEEvN9__gnu_cxx17__normal_iteratorIPtS1_EEDpOT_:0000000000000168 $d
+.ARM.extab.text._ZNSt6vectorItSaItEE17_M_realloc_insertIJtEEEvN9__gnu_cxx17__normal_iteratorIPtS1_EEDpOT_:0000000000000000 $d
+.ARM.exidx.text._ZNSt6vectorItSaItEE17_M_realloc_insertIJtEEEvN9__gnu_cxx17__normal_iteratorIPtS1_EEDpOT_:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1674   .text._ZNSaItEC2Ev:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2165   .text._ZN9__gnu_cxx13new_allocatorItEC2Ev:0000000000000000 _ZN9__gnu_cxx13new_allocatorItEC2Ev
+     .ARM.exidx.text._ZNSaItEC2Ev:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1681   .text._ZNSaItEC2Ev:0000000000000000 _ZNSaItEC1Ev
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1704   .text._ZN9__gnu_cxx13new_allocatorItED2Ev:0000000000000000 $t
+.ARM.exidx.text._ZN9__gnu_cxx13new_allocatorItED2Ev:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1711   .text._ZN9__gnu_cxx13new_allocatorItED2Ev:0000000000000000 _ZN9__gnu_cxx13new_allocatorItED1Ev
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1734   .text._ZNSt16allocator_traitsISaItEE10deallocateERS0_Ptj:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2195   .text._ZN9__gnu_cxx13new_allocatorItE10deallocateEPtj:0000000000000000 _ZN9__gnu_cxx13new_allocatorItE10deallocateEPtj
+.ARM.exidx.text._ZNSt16allocator_traitsISaItEE10deallocateERS0_Ptj:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1765   .text._ZNSt12_Destroy_auxILb1EE9__destroyIPtEEvT_S3_:0000000000000000 $t
+.ARM.exidx.text._ZNSt12_Destroy_auxILb1EE9__destroyIPtEEvT_S3_:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1793   .text._ZN9__gnu_cxx13new_allocatorItE9constructItJtEEEvPT_DpOT0_:0000000000000000 $t
+.ARM.exidx.text._ZN9__gnu_cxx13new_allocatorItE9constructItJtEEEvPT_DpOT0_:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1834   .text._ZN9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEEC2ERKS1_:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1841   .text._ZN9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEEC2ERKS1_:0000000000000000 _ZN9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEEC2ERKS1_
+.ARM.exidx.text._ZN9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEEC2ERKS1_:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1869   .text._ZNKSt6vectorItSaItEE12_M_check_lenEjPKc:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2224   .text._ZNKSt6vectorItSaItEE8max_sizeEv:0000000000000000 _ZNKSt6vectorItSaItEE8max_sizeEv
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2256   .text._ZNKSt6vectorItSaItEE4sizeEv:0000000000000000 _ZNKSt6vectorItSaItEE4sizeEv
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2290   .text._ZSt3maxIjERKT_S2_S2_:0000000000000000 _ZSt3maxIjERKT_S2_S2_
+.ARM.extab.text._ZNKSt6vectorItSaItEE12_M_check_lenEjPKc:0000000000000000 $d
+.ARM.exidx.text._ZNKSt6vectorItSaItEE12_M_check_lenEjPKc:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1952   .text._ZNSt6vectorItSaItEE5beginEv:0000000000000000 $t
+.ARM.exidx.text._ZNSt6vectorItSaItEE5beginEv:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:1983   .text._ZN9__gnu_cxxmiIPtSt6vectorItSaItEEEENS_17__normal_iteratorIT_T0_E15difference_typeERKS8_SB_:0000000000000000 $t
+.ARM.exidx.text._ZN9__gnu_cxxmiIPtSt6vectorItSaItEEEENS_17__normal_iteratorIT_T0_E15difference_typeERKS8_SB_:0000000000000000 $d
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 57
+
+
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2020   .text._ZNSt12_Vector_baseItSaItEE11_M_allocateEj:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2329   .text._ZNSt16allocator_traitsISaItEE8allocateERS0_j:0000000000000000 _ZNSt16allocator_traitsISaItEE8allocateERS0_j
+.ARM.extab.text._ZNSt12_Vector_baseItSaItEE11_M_allocateEj:0000000000000000 $d
+.ARM.exidx.text._ZNSt12_Vector_baseItSaItEE11_M_allocateEj:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2060   .text._ZNK9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEE4baseEv:0000000000000000 $t
+.ARM.exidx.text._ZNK9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEE4baseEv:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2088   .text._ZSt34__uninitialized_move_if_noexcept_aIPtS0_SaItEET0_T_S3_S2_RT1_:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2362   .text._ZSt32__make_move_if_noexcept_iteratorItSt13move_iteratorIPtEET0_PT_:0000000000000000 _ZSt32__make_move_if_noexcept_iteratorItSt13move_iteratorIPtEET0_PT_
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2392   .text._ZSt22__uninitialized_copy_aISt13move_iteratorIPtES1_tET0_T_S4_S3_RSaIT1_E:0000000000000000 _ZSt22__uninitialized_copy_aISt13move_iteratorIPtES1_tET0_T_S4_S3_RSaIT1_E
+.ARM.extab.text._ZSt34__uninitialized_move_if_noexcept_aIPtS0_SaItEET0_T_S3_S2_RT1_:0000000000000000 $d
+.ARM.exidx.text._ZSt34__uninitialized_move_if_noexcept_aIPtS0_SaItEET0_T_S3_S2_RT1_:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2129   .text._ZNSt16allocator_traitsISaItEE7destroyItEEvRS0_PT_:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2427   .text._ZN9__gnu_cxx13new_allocatorItE7destroyItEEvPT_:0000000000000000 _ZN9__gnu_cxx13new_allocatorItE7destroyItEEvPT_
+.ARM.exidx.text._ZNSt16allocator_traitsISaItEE7destroyItEEvRS0_PT_:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2158   .text._ZN9__gnu_cxx13new_allocatorItEC2Ev:0000000000000000 $t
+.ARM.exidx.text._ZN9__gnu_cxx13new_allocatorItEC2Ev:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2165   .text._ZN9__gnu_cxx13new_allocatorItEC2Ev:0000000000000000 _ZN9__gnu_cxx13new_allocatorItEC1Ev
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2188   .text._ZN9__gnu_cxx13new_allocatorItE10deallocateEPtj:0000000000000000 $t
+.ARM.exidx.text._ZN9__gnu_cxx13new_allocatorItE10deallocateEPtj:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2217   .text._ZNKSt6vectorItSaItEE8max_sizeEv:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2483   .text._ZNKSt12_Vector_baseItSaItEE19_M_get_Tp_allocatorEv:0000000000000000 _ZNKSt12_Vector_baseItSaItEE19_M_get_Tp_allocatorEv
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2455   .text._ZNSt16allocator_traitsISaItEE8max_sizeERKS0_:0000000000000000 _ZNSt16allocator_traitsISaItEE8max_sizeERKS0_
+.ARM.exidx.text._ZNKSt6vectorItSaItEE8max_sizeEv:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2249   .text._ZNKSt6vectorItSaItEE4sizeEv:0000000000000000 $t
+.ARM.exidx.text._ZNKSt6vectorItSaItEE4sizeEv:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2283   .text._ZSt3maxIjERKT_S2_S2_:0000000000000000 $t
+.ARM.exidx.text._ZSt3maxIjERKT_S2_S2_:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2322   .text._ZNSt16allocator_traitsISaItEE8allocateERS0_j:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2511   .text._ZN9__gnu_cxx13new_allocatorItE8allocateEjPKv:0000000000000000 _ZN9__gnu_cxx13new_allocatorItE8allocateEjPKv
+.ARM.extab.text._ZNSt16allocator_traitsISaItEE8allocateERS0_j:0000000000000000 $d
+.ARM.exidx.text._ZNSt16allocator_traitsISaItEE8allocateERS0_j:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2355   .text._ZSt32__make_move_if_noexcept_iteratorItSt13move_iteratorIPtEET0_PT_:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2558   .text._ZNSt13move_iteratorIPtEC2ES0_:0000000000000000 _ZNSt13move_iteratorIPtEC1ES0_
+.ARM.exidx.text._ZSt32__make_move_if_noexcept_iteratorItSt13move_iteratorIPtEET0_PT_:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2385   .text._ZSt22__uninitialized_copy_aISt13move_iteratorIPtES1_tET0_T_S4_S3_RSaIT1_E:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2592   .text._ZSt18uninitialized_copyISt13move_iteratorIPtES1_ET0_T_S4_S3_:0000000000000000 _ZSt18uninitialized_copyISt13move_iteratorIPtES1_ET0_T_S4_S3_
+.ARM.extab.text._ZSt22__uninitialized_copy_aISt13move_iteratorIPtES1_tET0_T_S4_S3_RSaIT1_E:0000000000000000 $d
+.ARM.exidx.text._ZSt22__uninitialized_copy_aISt13move_iteratorIPtES1_tET0_T_S4_S3_RSaIT1_E:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2420   .text._ZN9__gnu_cxx13new_allocatorItE7destroyItEEvPT_:0000000000000000 $t
+.ARM.exidx.text._ZN9__gnu_cxx13new_allocatorItE7destroyItEEvPT_:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2448   .text._ZNSt16allocator_traitsISaItEE8max_sizeERKS0_:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2628   .text._ZNK9__gnu_cxx13new_allocatorItE8max_sizeEv:0000000000000000 _ZNK9__gnu_cxx13new_allocatorItE8max_sizeEv
+.ARM.exidx.text._ZNSt16allocator_traitsISaItEE8max_sizeERKS0_:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2476   .text._ZNKSt12_Vector_baseItSaItEE19_M_get_Tp_allocatorEv:0000000000000000 $t
+.ARM.exidx.text._ZNKSt12_Vector_baseItSaItEE19_M_get_Tp_allocatorEv:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2504   .text._ZN9__gnu_cxx13new_allocatorItE8allocateEjPKv:0000000000000000 $t
+.ARM.extab.text._ZN9__gnu_cxx13new_allocatorItE8allocateEjPKv:0000000000000000 $d
+.ARM.exidx.text._ZN9__gnu_cxx13new_allocatorItE8allocateEjPKv:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2551   .text._ZNSt13move_iteratorIPtEC2ES0_:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2558   .text._ZNSt13move_iteratorIPtEC2ES0_:0000000000000000 _ZNSt13move_iteratorIPtEC2ES0_
+.ARM.exidx.text._ZNSt13move_iteratorIPtEC2ES0_:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2585   .text._ZSt18uninitialized_copyISt13move_iteratorIPtES1_ET0_T_S4_S3_:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2656   .text._ZNSt20__uninitialized_copyILb1EE13__uninit_copyISt13move_iteratorIPtES3_EET0_T_S6_S5_:0000000000000000 _ZNSt20__uninitialized_copyILb1EE13__uninit_copyISt13move_iteratorIPtES3_EET0_T_S6_S5_
+.ARM.extab.text._ZSt18uninitialized_copyISt13move_iteratorIPtES1_ET0_T_S4_S3_:0000000000000000 $d
+.ARM.exidx.text._ZSt18uninitialized_copyISt13move_iteratorIPtES1_ET0_T_S4_S3_:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2621   .text._ZNK9__gnu_cxx13new_allocatorItE8max_sizeEv:0000000000000000 $t
+.ARM.exidx.text._ZNK9__gnu_cxx13new_allocatorItE8max_sizeEv:0000000000000000 $d
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 58
+
+
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2649   .text._ZNSt20__uninitialized_copyILb1EE13__uninit_copyISt13move_iteratorIPtES3_EET0_T_S6_S5_:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2690   .text._ZSt4copyISt13move_iteratorIPtES1_ET0_T_S4_S3_:0000000000000000 _ZSt4copyISt13move_iteratorIPtES1_ET0_T_S4_S3_
+.ARM.extab.text._ZNSt20__uninitialized_copyILb1EE13__uninit_copyISt13move_iteratorIPtES3_EET0_T_S6_S5_:0000000000000000 $d
+.ARM.exidx.text._ZNSt20__uninitialized_copyILb1EE13__uninit_copyISt13move_iteratorIPtES3_EET0_T_S6_S5_:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2683   .text._ZSt4copyISt13move_iteratorIPtES1_ET0_T_S4_S3_:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2730   .text._ZSt12__miter_baseIPtEDTcl12__miter_basecldtfp_4baseEEESt13move_iteratorIT_E:0000000000000000 _ZSt12__miter_baseIPtEDTcl12__miter_basecldtfp_4baseEEESt13move_iteratorIT_E
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2762   .text._ZSt14__copy_move_a2ILb1EPtS0_ET1_T0_S2_S1_:0000000000000000 _ZSt14__copy_move_a2ILb1EPtS0_ET1_T0_S2_S1_
+.ARM.extab.text._ZSt4copyISt13move_iteratorIPtES1_ET0_T_S4_S3_:0000000000000000 $d
+.ARM.exidx.text._ZSt4copyISt13move_iteratorIPtES1_ET0_T_S4_S3_:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2723   .text._ZSt12__miter_baseIPtEDTcl12__miter_basecldtfp_4baseEEESt13move_iteratorIT_E:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2805   .text._ZNKSt13move_iteratorIPtE4baseEv:0000000000000000 _ZNKSt13move_iteratorIPtE4baseEv
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2834   .text._ZSt12__miter_baseIPtET_S1_:0000000000000000 _ZSt12__miter_baseIPtET_S1_
+.ARM.exidx.text._ZSt12__miter_baseIPtEDTcl12__miter_basecldtfp_4baseEEESt13move_iteratorIT_E:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2755   .text._ZSt14__copy_move_a2ILb1EPtS0_ET1_T0_S2_S1_:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2862   .text._ZSt12__niter_baseIPtET_S1_:0000000000000000 _ZSt12__niter_baseIPtET_S1_
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2890   .text._ZSt13__copy_move_aILb1EPtS0_ET1_T0_S2_S1_:0000000000000000 _ZSt13__copy_move_aILb1EPtS0_ET1_T0_S2_S1_
+.ARM.extab.text._ZSt14__copy_move_a2ILb1EPtS0_ET1_T0_S2_S1_:0000000000000000 $d
+.ARM.exidx.text._ZSt14__copy_move_a2ILb1EPtS0_ET1_T0_S2_S1_:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2798   .text._ZNKSt13move_iteratorIPtE4baseEv:0000000000000000 $t
+.ARM.exidx.text._ZNKSt13move_iteratorIPtE4baseEv:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2827   .text._ZSt12__miter_baseIPtET_S1_:0000000000000000 $t
+.ARM.exidx.text._ZSt12__miter_baseIPtET_S1_:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2855   .text._ZSt12__niter_baseIPtET_S1_:0000000000000000 $t
+.ARM.exidx.text._ZSt12__niter_baseIPtET_S1_:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2883   .text._ZSt13__copy_move_aILb1EPtS0_ET1_T0_S2_S1_:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2924   .text._ZNSt11__copy_moveILb1ELb1ESt26random_access_iterator_tagE8__copy_mItEEPT_PKS3_S6_S4_:0000000000000000 _ZNSt11__copy_moveILb1ELb1ESt26random_access_iterator_tagE8__copy_mItEEPT_PKS3_S6_S4_
+.ARM.exidx.text._ZSt13__copy_move_aILb1EPtS0_ET1_T0_S2_S1_:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2917   .text._ZNSt11__copy_moveILb1ELb1ESt26random_access_iterator_tagE8__copy_mItEEPT_PKS3_S6_S4_:0000000000000000 $t
+.ARM.exidx.text._ZNSt11__copy_moveILb1ELb1ESt26random_access_iterator_tagE8__copy_mItEEPT_PKS3_S6_S4_:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s:2963   .rodata._ZZ11chSysUnlockE8__func__:0000000000000000 $d
+                           .group:0000000000000000 _ZNSt6vectorItSaItEEC5Ev
+                           .group:0000000000000000 _ZNSt6vectorItSaItEED5Ev
+                           .group:0000000000000000 _ZNSt12_Vector_baseItSaItEE12_Vector_implD5Ev
+                           .group:0000000000000000 _ZNSt12_Vector_baseItSaItEEC5Ev
+                           .group:0000000000000000 _ZNSt12_Vector_baseItSaItEED5Ev
+                           .group:0000000000000000 _ZNSt12_Vector_baseItSaItEE12_Vector_implC5Ev
+                           .group:0000000000000000 _ZNSaItED5Ev
+                           .group:0000000000000000 _ZNSaItEC5Ev
+                           .group:0000000000000000 _ZN9__gnu_cxx13new_allocatorItED5Ev
+                           .group:0000000000000000 _ZN9__gnu_cxx17__normal_iteratorIPtSt6vectorItSaItEEEC5ERKS1_
+                           .group:0000000000000000 _ZN9__gnu_cxx13new_allocatorItEC5Ev
+                           .group:0000000000000000 _ZNSt13move_iteratorIPtEC5ES0_
+
+UNDEFINED SYMBOLS
+_stats_start_measure_crit_thd
+_dbg_check_lock
+__aeabi_unwind_cpp_pr0
+_dbg_check_unlock
+_stats_stop_measure_crit_thd
+chSysHalt
+ch
+__aeabi_unwind_cpp_pr1
+config_load
+_config_start
+halInit
+chSysInit
+mpu_init
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccLIAXO2.s 			page 59
+
+
+messagebus_init
+parameter_namespace_declare
+clear_leds
+set_body_led
+set_front_led
+usb_start
+dcmi_start
+cam_start
+motors_init
+proximity_start
+battery_level_start
+dac_start
+exti_start
+imu_start
+ir_remote_start
+spi_comm_start
+VL53L0X_start
+serial_start
+mic_start
+sdio_start
+playMelodyStart
+playSoundFileStart
+ground_start
+behaviors_start
+aseba_declare_parameters
+aseba_vm_init
+aseba_can_start
+set_led
+set_rgb_led
+messagebus_find_topic_blocking
+messagebus_topic_wait
+get_calibrated_prox
+vmState
+right_motor_set_speed
+left_motor_set_speed
+chThdSleepUntilWindowed
+__cxa_end_cleanup
+__gxx_personality_v0
+__cxa_begin_catch
+__cxa_rethrow
+__cxa_end_catch
+_ZSt20__throw_length_errorPKc
+_ZdlPv
+_ZSt17__throw_bad_allocv
+_Znwj
+memmove

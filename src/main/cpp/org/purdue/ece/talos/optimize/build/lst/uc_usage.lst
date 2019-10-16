@@ -1,0 +1,427 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczjjEc3.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"uc_usage.c"
+  14              		.section	.text.chprintf,"ax",%progbits
+  15              		.align	1
+  16              		.syntax unified
+  17              		.thumb
+  18              		.thumb_func
+  19              		.fpu fpv4-sp-d16
+  20              		.type	chprintf, %function
+  21              	chprintf:
+  22              		@ args = 4, pretend = 12, frame = 16
+  23              		@ frame_needed = 1, uses_anonymous_args = 1
+  24 0000 0EB4     		push	{r1, r2, r3}
+  25 0002 80B5     		push	{r7, lr}
+  26 0004 85B0     		sub	sp, sp, #20
+  27 0006 00AF     		add	r7, sp, #0
+  28 0008 7860     		str	r0, [r7, #4]
+  29 000a 07F12003 		add	r3, r7, #32
+  30 000e BB60     		str	r3, [r7, #8]
+  31 0010 BA68     		ldr	r2, [r7, #8]
+  32 0012 F969     		ldr	r1, [r7, #28]
+  33 0014 7868     		ldr	r0, [r7, #4]
+  34 0016 FFF7FEFF 		bl	chvprintf
+  35 001a F860     		str	r0, [r7, #12]
+  36 001c FB68     		ldr	r3, [r7, #12]
+  37 001e 1846     		mov	r0, r3
+  38 0020 1437     		adds	r7, r7, #20
+  39 0022 BD46     		mov	sp, r7
+  40              		@ sp needed
+  41 0024 BDE88040 		pop	{r7, lr}
+  42 0028 03B0     		add	sp, sp, #12
+  43 002a 7047     		bx	lr
+  44              		.size	chprintf, .-chprintf
+  45              		.global	__aeabi_uldivmod
+  46              		.section	.rodata
+  47              		.align	2
+  48              	.LC0:
+  49 0000 25313273 		.ascii	"%12s %u.%u%%\015\012\000"
+  49      2025752E 
+  49      25752525 
+  49      0D0A00
+  50 000f 00       		.align	2
+  51              	.LC1:
+  52 0010 63726974 		.ascii	"critical thd:%u.%u%%   critical isr:%u.%u%%\015\012"
+  52      6963616C 
+  52      20746864 
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczjjEc3.s 			page 2
+
+
+  52      3A25752E 
+  52      25752525 
+  53 003d 00       		.ascii	"\000"
+  54 003e 0000     		.align	2
+  55              	.LC2:
+  56 0040 0D0A00   		.ascii	"\015\012\000"
+  57              		.section	.text.printUcUsage,"ax",%progbits
+  58              		.align	1
+  59              		.global	printUcUsage
+  60              		.syntax unified
+  61              		.thumb
+  62              		.thumb_func
+  63              		.fpu fpv4-sp-d16
+  64              		.type	printUcUsage, %function
+  65              	printUcUsage:
+  66              		@ args = 0, pretend = 0, frame = 16
+  67              		@ frame_needed = 1, uses_anonymous_args = 0
+  68 0000 F0B5     		push	{r4, r5, r6, r7, lr}
+  69 0002 87B0     		sub	sp, sp, #28
+  70 0004 02AF     		add	r7, sp, #8
+  71 0006 7860     		str	r0, [r7, #4]
+  72 0008 B24A     		ldr	r2, .L6
+  73 000a 4FF00003 		mov	r3, #0
+  74 000e 4FF00004 		mov	r4, #0
+  75 0012 C2E90034 		strd	r3, [r2]
+  76 0016 FFF7FEFF 		bl	chRegFirstThread
+  77 001a F860     		str	r0, [r7, #12]
+  78              	.L4:
+  79 001c FB68     		ldr	r3, [r7, #12]
+  80 001e D3E91812 		ldrd	r1, [r3, #96]
+  81 0022 AC4B     		ldr	r3, .L6
+  82 0024 D3E90056 		ldrd	r5, [r3]
+  83 0028 6B18     		adds	r3, r5, r1
+  84 002a 46EB0204 		adc	r4, r6, r2
+  85 002e A94A     		ldr	r2, .L6
+  86 0030 C2E90034 		strd	r3, [r2]
+  87 0034 F868     		ldr	r0, [r7, #12]
+  88 0036 FFF7FEFF 		bl	chRegNextThread
+  89 003a F860     		str	r0, [r7, #12]
+  90 003c FB68     		ldr	r3, [r7, #12]
+  91 003e 002B     		cmp	r3, #0
+  92 0040 ECD1     		bne	.L4
+  93 0042 A54B     		ldr	r3, .L6+4
+  94 0044 03F59963 		add	r3, r3, #1224
+  95 0048 D3E90012 		ldrd	r1, [r3]
+  96 004c A14B     		ldr	r3, .L6
+  97 004e D3E90056 		ldrd	r5, [r3]
+  98 0052 6B18     		adds	r3, r5, r1
+  99 0054 46EB0204 		adc	r4, r6, r2
+ 100 0058 9E4A     		ldr	r2, .L6
+ 101 005a C2E90034 		strd	r3, [r2]
+ 102 005e 9E4B     		ldr	r3, .L6+4
+ 103 0060 03F59C63 		add	r3, r3, #1248
+ 104 0064 D3E90012 		ldrd	r1, [r3]
+ 105 0068 9A4B     		ldr	r3, .L6
+ 106 006a D3E90056 		ldrd	r5, [r3]
+ 107 006e 6B18     		adds	r3, r5, r1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczjjEc3.s 			page 3
+
+
+ 108 0070 46EB0204 		adc	r4, r6, r2
+ 109 0074 974A     		ldr	r2, .L6
+ 110 0076 C2E90034 		strd	r3, [r2]
+ 111 007a FFF7FEFF 		bl	chRegFirstThread
+ 112 007e F860     		str	r0, [r7, #12]
+ 113              	.L5:
+ 114 0080 FB68     		ldr	r3, [r7, #12]
+ 115 0082 D3E91856 		ldrd	r5, [r3, #96]
+ 116 0086 2B46     		mov	r3, r5
+ 117 0088 3446     		mov	r4, r6
+ 118 008a 4FF00001 		mov	r1, #0
+ 119 008e 4FF00002 		mov	r2, #0
+ 120 0092 A200     		lsls	r2, r4, #2
+ 121 0094 42EA9372 		orr	r2, r2, r3, lsr #30
+ 122 0098 9900     		lsls	r1, r3, #2
+ 123 009a 0B46     		mov	r3, r1
+ 124 009c 1446     		mov	r4, r2
+ 125 009e 5B19     		adds	r3, r3, r5
+ 126 00a0 44EB0604 		adc	r4, r4, r6
+ 127 00a4 4FF00001 		mov	r1, #0
+ 128 00a8 4FF00002 		mov	r2, #0
+ 129 00ac E200     		lsls	r2, r4, #3
+ 130 00ae 42EA5372 		orr	r2, r2, r3, lsr #29
+ 131 00b2 D900     		lsls	r1, r3, #3
+ 132 00b4 0B46     		mov	r3, r1
+ 133 00b6 1446     		mov	r4, r2
+ 134 00b8 5B1B     		subs	r3, r3, r5
+ 135 00ba 64EB0604 		sbc	r4, r4, r6
+ 136 00be 4FF00001 		mov	r1, #0
+ 137 00c2 4FF00002 		mov	r2, #0
+ 138 00c6 2201     		lsls	r2, r4, #4
+ 139 00c8 42EA1372 		orr	r2, r2, r3, lsr #28
+ 140 00cc 1901     		lsls	r1, r3, #4
+ 141 00ce 0B46     		mov	r3, r1
+ 142 00d0 1446     		mov	r4, r2
+ 143 00d2 5B19     		adds	r3, r3, r5
+ 144 00d4 44EB0604 		adc	r4, r4, r6
+ 145 00d8 4FF00001 		mov	r1, #0
+ 146 00dc 4FF00002 		mov	r2, #0
+ 147 00e0 2201     		lsls	r2, r4, #4
+ 148 00e2 42EA1372 		orr	r2, r2, r3, lsr #28
+ 149 00e6 1901     		lsls	r1, r3, #4
+ 150 00e8 0B46     		mov	r3, r1
+ 151 00ea 1446     		mov	r4, r2
+ 152 00ec 1846     		mov	r0, r3
+ 153 00ee 2146     		mov	r1, r4
+ 154 00f0 784B     		ldr	r3, .L6
+ 155 00f2 D3E90034 		ldrd	r3, [r3]
+ 156 00f6 1A46     		mov	r2, r3
+ 157 00f8 2346     		mov	r3, r4
+ 158 00fa FFF7FEFF 		bl	__aeabi_uldivmod
+ 159 00fe 0346     		mov	r3, r0
+ 160 0100 0C46     		mov	r4, r1
+ 161 0102 9AB2     		uxth	r2, r3
+ 162 0104 754B     		ldr	r3, .L6+8
+ 163 0106 1A80     		strh	r2, [r3]	@ movhi
+ 164 0108 FB68     		ldr	r3, [r7, #12]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczjjEc3.s 			page 4
+
+
+ 165 010a 9869     		ldr	r0, [r3, #24]
+ 166 010c 734B     		ldr	r3, .L6+8
+ 167 010e 1B88     		ldrh	r3, [r3]
+ 168 0110 734A     		ldr	r2, .L6+12
+ 169 0112 A2FB0323 		umull	r2, r3, r2, r3
+ 170 0116 5B09     		lsrs	r3, r3, #5
+ 171 0118 9BB2     		uxth	r3, r3
+ 172 011a 1C46     		mov	r4, r3
+ 173 011c 6F4B     		ldr	r3, .L6+8
+ 174 011e 1B88     		ldrh	r3, [r3]
+ 175 0120 6F4A     		ldr	r2, .L6+12
+ 176 0122 A2FB0312 		umull	r1, r2, r2, r3
+ 177 0126 5209     		lsrs	r2, r2, #5
+ 178 0128 6421     		movs	r1, #100
+ 179 012a 01FB02F2 		mul	r2, r1, r2
+ 180 012e 9B1A     		subs	r3, r3, r2
+ 181 0130 9BB2     		uxth	r3, r3
+ 182 0132 0093     		str	r3, [sp]
+ 183 0134 2346     		mov	r3, r4
+ 184 0136 0246     		mov	r2, r0
+ 185 0138 6A49     		ldr	r1, .L6+16
+ 186 013a 7868     		ldr	r0, [r7, #4]
+ 187 013c FFF7FEFF 		bl	chprintf
+ 188 0140 F868     		ldr	r0, [r7, #12]
+ 189 0142 FFF7FEFF 		bl	chRegNextThread
+ 190 0146 F860     		str	r0, [r7, #12]
+ 191 0148 FB68     		ldr	r3, [r7, #12]
+ 192 014a 002B     		cmp	r3, #0
+ 193 014c 98D1     		bne	.L5
+ 194 014e 624B     		ldr	r3, .L6+4
+ 195 0150 03F59963 		add	r3, r3, #1224
+ 196 0154 D3E90056 		ldrd	r5, [r3]
+ 197 0158 2B46     		mov	r3, r5
+ 198 015a 3446     		mov	r4, r6
+ 199 015c 4FF00001 		mov	r1, #0
+ 200 0160 4FF00002 		mov	r2, #0
+ 201 0164 A200     		lsls	r2, r4, #2
+ 202 0166 42EA9372 		orr	r2, r2, r3, lsr #30
+ 203 016a 9900     		lsls	r1, r3, #2
+ 204 016c 0B46     		mov	r3, r1
+ 205 016e 1446     		mov	r4, r2
+ 206 0170 5B19     		adds	r3, r3, r5
+ 207 0172 44EB0604 		adc	r4, r4, r6
+ 208 0176 4FF00001 		mov	r1, #0
+ 209 017a 4FF00002 		mov	r2, #0
+ 210 017e E200     		lsls	r2, r4, #3
+ 211 0180 42EA5372 		orr	r2, r2, r3, lsr #29
+ 212 0184 D900     		lsls	r1, r3, #3
+ 213 0186 0B46     		mov	r3, r1
+ 214 0188 1446     		mov	r4, r2
+ 215 018a 5B1B     		subs	r3, r3, r5
+ 216 018c 64EB0604 		sbc	r4, r4, r6
+ 217 0190 4FF00001 		mov	r1, #0
+ 218 0194 4FF00002 		mov	r2, #0
+ 219 0198 2201     		lsls	r2, r4, #4
+ 220 019a 42EA1372 		orr	r2, r2, r3, lsr #28
+ 221 019e 1901     		lsls	r1, r3, #4
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczjjEc3.s 			page 5
+
+
+ 222 01a0 0B46     		mov	r3, r1
+ 223 01a2 1446     		mov	r4, r2
+ 224 01a4 5B19     		adds	r3, r3, r5
+ 225 01a6 44EB0604 		adc	r4, r4, r6
+ 226 01aa 4FF00001 		mov	r1, #0
+ 227 01ae 4FF00002 		mov	r2, #0
+ 228 01b2 2201     		lsls	r2, r4, #4
+ 229 01b4 42EA1372 		orr	r2, r2, r3, lsr #28
+ 230 01b8 1901     		lsls	r1, r3, #4
+ 231 01ba 0B46     		mov	r3, r1
+ 232 01bc 1446     		mov	r4, r2
+ 233 01be 1846     		mov	r0, r3
+ 234 01c0 2146     		mov	r1, r4
+ 235 01c2 444B     		ldr	r3, .L6
+ 236 01c4 D3E90034 		ldrd	r3, [r3]
+ 237 01c8 1A46     		mov	r2, r3
+ 238 01ca 2346     		mov	r3, r4
+ 239 01cc FFF7FEFF 		bl	__aeabi_uldivmod
+ 240 01d0 0346     		mov	r3, r0
+ 241 01d2 0C46     		mov	r4, r1
+ 242 01d4 9AB2     		uxth	r2, r3
+ 243 01d6 414B     		ldr	r3, .L6+8
+ 244 01d8 1A80     		strh	r2, [r3]	@ movhi
+ 245 01da 3F4B     		ldr	r3, .L6+4
+ 246 01dc 03F59C63 		add	r3, r3, #1248
+ 247 01e0 D3E90056 		ldrd	r5, [r3]
+ 248 01e4 2B46     		mov	r3, r5
+ 249 01e6 3446     		mov	r4, r6
+ 250 01e8 4FF00001 		mov	r1, #0
+ 251 01ec 4FF00002 		mov	r2, #0
+ 252 01f0 A200     		lsls	r2, r4, #2
+ 253 01f2 42EA9372 		orr	r2, r2, r3, lsr #30
+ 254 01f6 9900     		lsls	r1, r3, #2
+ 255 01f8 0B46     		mov	r3, r1
+ 256 01fa 1446     		mov	r4, r2
+ 257 01fc 5B19     		adds	r3, r3, r5
+ 258 01fe 44EB0604 		adc	r4, r4, r6
+ 259 0202 4FF00001 		mov	r1, #0
+ 260 0206 4FF00002 		mov	r2, #0
+ 261 020a E200     		lsls	r2, r4, #3
+ 262 020c 42EA5372 		orr	r2, r2, r3, lsr #29
+ 263 0210 D900     		lsls	r1, r3, #3
+ 264 0212 0B46     		mov	r3, r1
+ 265 0214 1446     		mov	r4, r2
+ 266 0216 5B1B     		subs	r3, r3, r5
+ 267 0218 64EB0604 		sbc	r4, r4, r6
+ 268 021c 4FF00001 		mov	r1, #0
+ 269 0220 4FF00002 		mov	r2, #0
+ 270 0224 2201     		lsls	r2, r4, #4
+ 271 0226 42EA1372 		orr	r2, r2, r3, lsr #28
+ 272 022a 1901     		lsls	r1, r3, #4
+ 273 022c 0B46     		mov	r3, r1
+ 274 022e 1446     		mov	r4, r2
+ 275 0230 5B19     		adds	r3, r3, r5
+ 276 0232 44EB0604 		adc	r4, r4, r6
+ 277 0236 4FF00001 		mov	r1, #0
+ 278 023a 4FF00002 		mov	r2, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczjjEc3.s 			page 6
+
+
+ 279 023e 2201     		lsls	r2, r4, #4
+ 280 0240 42EA1372 		orr	r2, r2, r3, lsr #28
+ 281 0244 1901     		lsls	r1, r3, #4
+ 282 0246 0B46     		mov	r3, r1
+ 283 0248 1446     		mov	r4, r2
+ 284 024a 1846     		mov	r0, r3
+ 285 024c 2146     		mov	r1, r4
+ 286 024e 214B     		ldr	r3, .L6
+ 287 0250 D3E90034 		ldrd	r3, [r3]
+ 288 0254 1A46     		mov	r2, r3
+ 289 0256 2346     		mov	r3, r4
+ 290 0258 FFF7FEFF 		bl	__aeabi_uldivmod
+ 291 025c 0346     		mov	r3, r0
+ 292 025e 0C46     		mov	r4, r1
+ 293 0260 9AB2     		uxth	r2, r3
+ 294 0262 214B     		ldr	r3, .L6+20
+ 295 0264 1A80     		strh	r2, [r3]	@ movhi
+ 296 0266 1D4B     		ldr	r3, .L6+8
+ 297 0268 1B88     		ldrh	r3, [r3]
+ 298 026a 1D4A     		ldr	r2, .L6+12
+ 299 026c A2FB0323 		umull	r2, r3, r2, r3
+ 300 0270 5B09     		lsrs	r3, r3, #5
+ 301 0272 9BB2     		uxth	r3, r3
+ 302 0274 1C46     		mov	r4, r3
+ 303 0276 194B     		ldr	r3, .L6+8
+ 304 0278 1B88     		ldrh	r3, [r3]
+ 305 027a 194A     		ldr	r2, .L6+12
+ 306 027c A2FB0312 		umull	r1, r2, r2, r3
+ 307 0280 5209     		lsrs	r2, r2, #5
+ 308 0282 6421     		movs	r1, #100
+ 309 0284 01FB02F2 		mul	r2, r1, r2
+ 310 0288 9B1A     		subs	r3, r3, r2
+ 311 028a 9BB2     		uxth	r3, r3
+ 312 028c 1D46     		mov	r5, r3
+ 313 028e 164B     		ldr	r3, .L6+20
+ 314 0290 1B88     		ldrh	r3, [r3]
+ 315 0292 134A     		ldr	r2, .L6+12
+ 316 0294 A2FB0323 		umull	r2, r3, r2, r3
+ 317 0298 5B09     		lsrs	r3, r3, #5
+ 318 029a 9BB2     		uxth	r3, r3
+ 319 029c 1846     		mov	r0, r3
+ 320 029e 124B     		ldr	r3, .L6+20
+ 321 02a0 1B88     		ldrh	r3, [r3]
+ 322 02a2 0F4A     		ldr	r2, .L6+12
+ 323 02a4 A2FB0312 		umull	r1, r2, r2, r3
+ 324 02a8 5209     		lsrs	r2, r2, #5
+ 325 02aa 6421     		movs	r1, #100
+ 326 02ac 01FB02F2 		mul	r2, r1, r2
+ 327 02b0 9B1A     		subs	r3, r3, r2
+ 328 02b2 9BB2     		uxth	r3, r3
+ 329 02b4 0193     		str	r3, [sp, #4]
+ 330 02b6 0090     		str	r0, [sp]
+ 331 02b8 2B46     		mov	r3, r5
+ 332 02ba 2246     		mov	r2, r4
+ 333 02bc 0B49     		ldr	r1, .L6+24
+ 334 02be 7868     		ldr	r0, [r7, #4]
+ 335 02c0 FFF7FEFF 		bl	chprintf
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczjjEc3.s 			page 7
+
+
+ 336 02c4 0A49     		ldr	r1, .L6+28
+ 337 02c6 7868     		ldr	r0, [r7, #4]
+ 338 02c8 FFF7FEFF 		bl	chprintf
+ 339 02cc 00BF     		nop
+ 340 02ce 1437     		adds	r7, r7, #20
+ 341 02d0 BD46     		mov	sp, r7
+ 342              		@ sp needed
+ 343 02d2 F0BD     		pop	{r4, r5, r6, r7, pc}
+ 344              	.L7:
+ 345              		.align	2
+ 346              	.L6:
+ 347 02d4 00000000 		.word	sum.7868
+ 348 02d8 00000000 		.word	ch
+ 349 02dc 00000000 		.word	tmp1.7869
+ 350 02e0 1F85EB51 		.word	1374389535
+ 351 02e4 00000000 		.word	.LC0
+ 352 02e8 00000000 		.word	tmp2.7870
+ 353 02ec 10000000 		.word	.LC1
+ 354 02f0 40000000 		.word	.LC2
+ 355              		.size	printUcUsage, .-printUcUsage
+ 356              		.section	.bss.sum.7868,"aw",%nobits
+ 357              		.align	3
+ 358              		.type	sum.7868, %object
+ 359              		.size	sum.7868, 8
+ 360              	sum.7868:
+ 361 0000 00000000 		.space	8
+ 361      00000000 
+ 362              		.section	.bss.tmp1.7869,"aw",%nobits
+ 363              		.align	1
+ 364              		.type	tmp1.7869, %object
+ 365              		.size	tmp1.7869, 2
+ 366              	tmp1.7869:
+ 367 0000 0000     		.space	2
+ 368              		.section	.bss.tmp2.7870,"aw",%nobits
+ 369              		.align	1
+ 370              		.type	tmp2.7870, %object
+ 371              		.size	tmp2.7870, 2
+ 372              	tmp2.7870:
+ 373 0000 0000     		.space	2
+ 374              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczjjEc3.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 uc_usage.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczjjEc3.s:15     .text.chprintf:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczjjEc3.s:21     .text.chprintf:0000000000000000 chprintf
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczjjEc3.s:47     .rodata:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczjjEc3.s:58     .text.printUcUsage:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczjjEc3.s:65     .text.printUcUsage:0000000000000000 printUcUsage
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczjjEc3.s:347    .text.printUcUsage:00000000000002d4 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczjjEc3.s:360    .bss.sum.7868:0000000000000000 sum.7868
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczjjEc3.s:366    .bss.tmp1.7869:0000000000000000 tmp1.7869
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczjjEc3.s:372    .bss.tmp2.7870:0000000000000000 tmp2.7870
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczjjEc3.s:357    .bss.sum.7868:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczjjEc3.s:363    .bss.tmp1.7869:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczjjEc3.s:369    .bss.tmp2.7870:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+chvprintf
+__aeabi_uldivmod
+chRegFirstThread
+chRegNextThread
+ch

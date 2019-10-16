@@ -1,0 +1,343 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccDFkw0R.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"pal_lld.c"
+  14              		.section	.text.initgpio,"ax",%progbits
+  15              		.align	1
+  16              		.syntax unified
+  17              		.thumb
+  18              		.thumb_func
+  19              		.fpu fpv4-sp-d16
+  20              		.type	initgpio, %function
+  21              	initgpio:
+  22              		@ args = 0, pretend = 0, frame = 8
+  23              		@ frame_needed = 1, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 80B4     		push	{r7}
+  26 0002 83B0     		sub	sp, sp, #12
+  27 0004 00AF     		add	r7, sp, #0
+  28 0006 7860     		str	r0, [r7, #4]
+  29 0008 3960     		str	r1, [r7]
+  30 000a 3B68     		ldr	r3, [r7]
+  31 000c 5A68     		ldr	r2, [r3, #4]
+  32 000e 7B68     		ldr	r3, [r7, #4]
+  33 0010 5A60     		str	r2, [r3, #4]
+  34 0012 3B68     		ldr	r3, [r7]
+  35 0014 9A68     		ldr	r2, [r3, #8]
+  36 0016 7B68     		ldr	r3, [r7, #4]
+  37 0018 9A60     		str	r2, [r3, #8]
+  38 001a 3B68     		ldr	r3, [r7]
+  39 001c DA68     		ldr	r2, [r3, #12]
+  40 001e 7B68     		ldr	r3, [r7, #4]
+  41 0020 DA60     		str	r2, [r3, #12]
+  42 0022 3B68     		ldr	r3, [r7]
+  43 0024 1A69     		ldr	r2, [r3, #16]
+  44 0026 7B68     		ldr	r3, [r7, #4]
+  45 0028 5A61     		str	r2, [r3, #20]
+  46 002a 3B68     		ldr	r3, [r7]
+  47 002c 5A69     		ldr	r2, [r3, #20]
+  48 002e 7B68     		ldr	r3, [r7, #4]
+  49 0030 1A62     		str	r2, [r3, #32]
+  50 0032 3B68     		ldr	r3, [r7]
+  51 0034 9A69     		ldr	r2, [r3, #24]
+  52 0036 7B68     		ldr	r3, [r7, #4]
+  53 0038 5A62     		str	r2, [r3, #36]
+  54 003a 3B68     		ldr	r3, [r7]
+  55 003c 1A68     		ldr	r2, [r3]
+  56 003e 7B68     		ldr	r3, [r7, #4]
+  57 0040 1A60     		str	r2, [r3]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccDFkw0R.s 			page 2
+
+
+  58 0042 00BF     		nop
+  59 0044 0C37     		adds	r7, r7, #12
+  60 0046 BD46     		mov	sp, r7
+  61              		@ sp needed
+  62 0048 5DF8047B 		ldr	r7, [sp], #4
+  63 004c 7047     		bx	lr
+  64              		.size	initgpio, .-initgpio
+  65              		.section	.text._pal_lld_init,"ax",%progbits
+  66              		.align	1
+  67              		.global	_pal_lld_init
+  68              		.syntax unified
+  69              		.thumb
+  70              		.thumb_func
+  71              		.fpu fpv4-sp-d16
+  72              		.type	_pal_lld_init, %function
+  73              	_pal_lld_init:
+  74              		@ args = 0, pretend = 0, frame = 8
+  75              		@ frame_needed = 1, uses_anonymous_args = 0
+  76 0000 80B5     		push	{r7, lr}
+  77 0002 82B0     		sub	sp, sp, #8
+  78 0004 00AF     		add	r7, sp, #0
+  79 0006 7860     		str	r0, [r7, #4]
+  80 0008 244B     		ldr	r3, .L3
+  81 000a 1B6B     		ldr	r3, [r3, #48]
+  82 000c 234A     		ldr	r2, .L3
+  83 000e 6FEA5323 		mvn	r3, r3, lsr #9
+  84 0012 6FEA4323 		mvn	r3, r3, lsl #9
+  85 0016 1363     		str	r3, [r2, #48]
+  86 0018 204B     		ldr	r3, .L3
+  87 001a 1B6D     		ldr	r3, [r3, #80]
+  88 001c 1F4A     		ldr	r2, .L3
+  89 001e 6FEA5323 		mvn	r3, r3, lsr #9
+  90 0022 6FEA4323 		mvn	r3, r3, lsl #9
+  91 0026 1365     		str	r3, [r2, #80]
+  92 0028 7B68     		ldr	r3, [r7, #4]
+  93 002a 1946     		mov	r1, r3
+  94 002c 1C48     		ldr	r0, .L3+4
+  95 002e FFF7FEFF 		bl	initgpio
+  96 0032 7B68     		ldr	r3, [r7, #4]
+  97 0034 1C33     		adds	r3, r3, #28
+  98 0036 1946     		mov	r1, r3
+  99 0038 1A48     		ldr	r0, .L3+8
+ 100 003a FFF7FEFF 		bl	initgpio
+ 101 003e 7B68     		ldr	r3, [r7, #4]
+ 102 0040 3833     		adds	r3, r3, #56
+ 103 0042 1946     		mov	r1, r3
+ 104 0044 1848     		ldr	r0, .L3+12
+ 105 0046 FFF7FEFF 		bl	initgpio
+ 106 004a 7B68     		ldr	r3, [r7, #4]
+ 107 004c 5433     		adds	r3, r3, #84
+ 108 004e 1946     		mov	r1, r3
+ 109 0050 1648     		ldr	r0, .L3+16
+ 110 0052 FFF7FEFF 		bl	initgpio
+ 111 0056 7B68     		ldr	r3, [r7, #4]
+ 112 0058 7033     		adds	r3, r3, #112
+ 113 005a 1946     		mov	r1, r3
+ 114 005c 1448     		ldr	r0, .L3+20
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccDFkw0R.s 			page 3
+
+
+ 115 005e FFF7FEFF 		bl	initgpio
+ 116 0062 7B68     		ldr	r3, [r7, #4]
+ 117 0064 8C33     		adds	r3, r3, #140
+ 118 0066 1946     		mov	r1, r3
+ 119 0068 1248     		ldr	r0, .L3+24
+ 120 006a FFF7FEFF 		bl	initgpio
+ 121 006e 7B68     		ldr	r3, [r7, #4]
+ 122 0070 A833     		adds	r3, r3, #168
+ 123 0072 1946     		mov	r1, r3
+ 124 0074 1048     		ldr	r0, .L3+28
+ 125 0076 FFF7FEFF 		bl	initgpio
+ 126 007a 7B68     		ldr	r3, [r7, #4]
+ 127 007c C433     		adds	r3, r3, #196
+ 128 007e 1946     		mov	r1, r3
+ 129 0080 0E48     		ldr	r0, .L3+32
+ 130 0082 FFF7FEFF 		bl	initgpio
+ 131 0086 7B68     		ldr	r3, [r7, #4]
+ 132 0088 E033     		adds	r3, r3, #224
+ 133 008a 1946     		mov	r1, r3
+ 134 008c 0C48     		ldr	r0, .L3+36
+ 135 008e FFF7FEFF 		bl	initgpio
+ 136 0092 00BF     		nop
+ 137 0094 0837     		adds	r7, r7, #8
+ 138 0096 BD46     		mov	sp, r7
+ 139              		@ sp needed
+ 140 0098 80BD     		pop	{r7, pc}
+ 141              	.L4:
+ 142 009a 00BF     		.align	2
+ 143              	.L3:
+ 144 009c 00380240 		.word	1073887232
+ 145 00a0 00000240 		.word	1073872896
+ 146 00a4 00040240 		.word	1073873920
+ 147 00a8 00080240 		.word	1073874944
+ 148 00ac 000C0240 		.word	1073875968
+ 149 00b0 00100240 		.word	1073876992
+ 150 00b4 00140240 		.word	1073878016
+ 151 00b8 00180240 		.word	1073879040
+ 152 00bc 001C0240 		.word	1073880064
+ 153 00c0 00200240 		.word	1073881088
+ 154              		.size	_pal_lld_init, .-_pal_lld_init
+ 155              		.section	.text._pal_lld_setgroupmode,"ax",%progbits
+ 156              		.align	1
+ 157              		.global	_pal_lld_setgroupmode
+ 158              		.syntax unified
+ 159              		.thumb
+ 160              		.thumb_func
+ 161              		.fpu fpv4-sp-d16
+ 162              		.type	_pal_lld_setgroupmode, %function
+ 163              	_pal_lld_setgroupmode:
+ 164              		@ args = 0, pretend = 0, frame = 56
+ 165              		@ frame_needed = 1, uses_anonymous_args = 0
+ 166              		@ link register save eliminated.
+ 167 0000 80B4     		push	{r7}
+ 168 0002 8FB0     		sub	sp, sp, #60
+ 169 0004 00AF     		add	r7, sp, #0
+ 170 0006 F860     		str	r0, [r7, #12]
+ 171 0008 B960     		str	r1, [r7, #8]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccDFkw0R.s 			page 4
+
+
+ 172 000a 7A60     		str	r2, [r7, #4]
+ 173 000c 7B68     		ldr	r3, [r7, #4]
+ 174 000e 03F00303 		and	r3, r3, #3
+ 175 0012 7B63     		str	r3, [r7, #52]
+ 176 0014 7B68     		ldr	r3, [r7, #4]
+ 177 0016 9B08     		lsrs	r3, r3, #2
+ 178 0018 03F00103 		and	r3, r3, #1
+ 179 001c 3B63     		str	r3, [r7, #48]
+ 180 001e 7B68     		ldr	r3, [r7, #4]
+ 181 0020 DB08     		lsrs	r3, r3, #3
+ 182 0022 03F00303 		and	r3, r3, #3
+ 183 0026 FB62     		str	r3, [r7, #44]
+ 184 0028 7B68     		ldr	r3, [r7, #4]
+ 185 002a 5B09     		lsrs	r3, r3, #5
+ 186 002c 03F00303 		and	r3, r3, #3
+ 187 0030 BB62     		str	r3, [r7, #40]
+ 188 0032 7B68     		ldr	r3, [r7, #4]
+ 189 0034 DB09     		lsrs	r3, r3, #7
+ 190 0036 03F00F03 		and	r3, r3, #15
+ 191 003a 3B62     		str	r3, [r7, #32]
+ 192 003c 0023     		movs	r3, #0
+ 193 003e 7B62     		str	r3, [r7, #36]
+ 194              	.L11:
+ 195 0040 BB68     		ldr	r3, [r7, #8]
+ 196 0042 03F00103 		and	r3, r3, #1
+ 197 0046 002B     		cmp	r3, #0
+ 198 0048 54D0     		beq	.L6
+ 199 004a 7B6A     		ldr	r3, [r7, #36]
+ 200 004c 03F00703 		and	r3, r3, #7
+ 201 0050 9B00     		lsls	r3, r3, #2
+ 202 0052 3A6A     		ldr	r2, [r7, #32]
+ 203 0054 02FA03F3 		lsl	r3, r2, r3
+ 204 0058 FB61     		str	r3, [r7, #28]
+ 205 005a 7B6A     		ldr	r3, [r7, #36]
+ 206 005c 03F00703 		and	r3, r3, #7
+ 207 0060 9B00     		lsls	r3, r3, #2
+ 208 0062 0F22     		movs	r2, #15
+ 209 0064 02FA03F3 		lsl	r3, r2, r3
+ 210 0068 BB61     		str	r3, [r7, #24]
+ 211 006a 7B6A     		ldr	r3, [r7, #36]
+ 212 006c 072B     		cmp	r3, #7
+ 213 006e 09D8     		bhi	.L7
+ 214 0070 FB68     		ldr	r3, [r7, #12]
+ 215 0072 1A6A     		ldr	r2, [r3, #32]
+ 216 0074 BB69     		ldr	r3, [r7, #24]
+ 217 0076 DB43     		mvns	r3, r3
+ 218 0078 1A40     		ands	r2, r2, r3
+ 219 007a FB69     		ldr	r3, [r7, #28]
+ 220 007c 1A43     		orrs	r2, r2, r3
+ 221 007e FB68     		ldr	r3, [r7, #12]
+ 222 0080 1A62     		str	r2, [r3, #32]
+ 223 0082 08E0     		b	.L8
+ 224              	.L7:
+ 225 0084 FB68     		ldr	r3, [r7, #12]
+ 226 0086 5A6A     		ldr	r2, [r3, #36]
+ 227 0088 BB69     		ldr	r3, [r7, #24]
+ 228 008a DB43     		mvns	r3, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccDFkw0R.s 			page 5
+
+
+ 229 008c 1A40     		ands	r2, r2, r3
+ 230 008e FB69     		ldr	r3, [r7, #28]
+ 231 0090 1A43     		orrs	r2, r2, r3
+ 232 0092 FB68     		ldr	r3, [r7, #12]
+ 233 0094 5A62     		str	r2, [r3, #36]
+ 234              	.L8:
+ 235 0096 0122     		movs	r2, #1
+ 236 0098 7B6A     		ldr	r3, [r7, #36]
+ 237 009a 02FA03F3 		lsl	r3, r2, r3
+ 238 009e 7B61     		str	r3, [r7, #20]
+ 239 00a0 FB68     		ldr	r3, [r7, #12]
+ 240 00a2 5A68     		ldr	r2, [r3, #4]
+ 241 00a4 7B69     		ldr	r3, [r7, #20]
+ 242 00a6 DB43     		mvns	r3, r3
+ 243 00a8 1A40     		ands	r2, r2, r3
+ 244 00aa 3B6B     		ldr	r3, [r7, #48]
+ 245 00ac 1A43     		orrs	r2, r2, r3
+ 246 00ae FB68     		ldr	r3, [r7, #12]
+ 247 00b0 5A60     		str	r2, [r3, #4]
+ 248 00b2 7B6A     		ldr	r3, [r7, #36]
+ 249 00b4 5B00     		lsls	r3, r3, #1
+ 250 00b6 0322     		movs	r2, #3
+ 251 00b8 02FA03F3 		lsl	r3, r2, r3
+ 252 00bc 3B61     		str	r3, [r7, #16]
+ 253 00be FB68     		ldr	r3, [r7, #12]
+ 254 00c0 9A68     		ldr	r2, [r3, #8]
+ 255 00c2 3B69     		ldr	r3, [r7, #16]
+ 256 00c4 DB43     		mvns	r3, r3
+ 257 00c6 1A40     		ands	r2, r2, r3
+ 258 00c8 FB6A     		ldr	r3, [r7, #44]
+ 259 00ca 1A43     		orrs	r2, r2, r3
+ 260 00cc FB68     		ldr	r3, [r7, #12]
+ 261 00ce 9A60     		str	r2, [r3, #8]
+ 262 00d0 FB68     		ldr	r3, [r7, #12]
+ 263 00d2 DA68     		ldr	r2, [r3, #12]
+ 264 00d4 3B69     		ldr	r3, [r7, #16]
+ 265 00d6 DB43     		mvns	r3, r3
+ 266 00d8 1A40     		ands	r2, r2, r3
+ 267 00da BB6A     		ldr	r3, [r7, #40]
+ 268 00dc 1A43     		orrs	r2, r2, r3
+ 269 00de FB68     		ldr	r3, [r7, #12]
+ 270 00e0 DA60     		str	r2, [r3, #12]
+ 271 00e2 FB68     		ldr	r3, [r7, #12]
+ 272 00e4 1A68     		ldr	r2, [r3]
+ 273 00e6 3B69     		ldr	r3, [r7, #16]
+ 274 00e8 DB43     		mvns	r3, r3
+ 275 00ea 1A40     		ands	r2, r2, r3
+ 276 00ec 7B6B     		ldr	r3, [r7, #52]
+ 277 00ee 1A43     		orrs	r2, r2, r3
+ 278 00f0 FB68     		ldr	r3, [r7, #12]
+ 279 00f2 1A60     		str	r2, [r3]
+ 280              	.L6:
+ 281 00f4 BB68     		ldr	r3, [r7, #8]
+ 282 00f6 5B08     		lsrs	r3, r3, #1
+ 283 00f8 BB60     		str	r3, [r7, #8]
+ 284 00fa BB68     		ldr	r3, [r7, #8]
+ 285 00fc 002B     		cmp	r3, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccDFkw0R.s 			page 6
+
+
+ 286 00fe 0FD0     		beq	.L13
+ 287 0100 3B6B     		ldr	r3, [r7, #48]
+ 288 0102 5B00     		lsls	r3, r3, #1
+ 289 0104 3B63     		str	r3, [r7, #48]
+ 290 0106 FB6A     		ldr	r3, [r7, #44]
+ 291 0108 9B00     		lsls	r3, r3, #2
+ 292 010a FB62     		str	r3, [r7, #44]
+ 293 010c BB6A     		ldr	r3, [r7, #40]
+ 294 010e 9B00     		lsls	r3, r3, #2
+ 295 0110 BB62     		str	r3, [r7, #40]
+ 296 0112 7B6B     		ldr	r3, [r7, #52]
+ 297 0114 9B00     		lsls	r3, r3, #2
+ 298 0116 7B63     		str	r3, [r7, #52]
+ 299 0118 7B6A     		ldr	r3, [r7, #36]
+ 300 011a 0133     		adds	r3, r3, #1
+ 301 011c 7B62     		str	r3, [r7, #36]
+ 302 011e 8FE7     		b	.L11
+ 303              	.L13:
+ 304 0120 00BF     		nop
+ 305 0122 3C37     		adds	r7, r7, #60
+ 306 0124 BD46     		mov	sp, r7
+ 307              		@ sp needed
+ 308 0126 5DF8047B 		ldr	r7, [sp], #4
+ 309 012a 7047     		bx	lr
+ 310              		.size	_pal_lld_setgroupmode, .-_pal_lld_setgroupmode
+ 311              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccDFkw0R.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 pal_lld.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccDFkw0R.s:15     .text.initgpio:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccDFkw0R.s:21     .text.initgpio:0000000000000000 initgpio
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccDFkw0R.s:66     .text._pal_lld_init:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccDFkw0R.s:73     .text._pal_lld_init:0000000000000000 _pal_lld_init
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccDFkw0R.s:144    .text._pal_lld_init:000000000000009c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccDFkw0R.s:156    .text._pal_lld_setgroupmode:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccDFkw0R.s:163    .text._pal_lld_setgroupmode:0000000000000000 _pal_lld_setgroupmode
+
+NO UNDEFINED SYMBOLS

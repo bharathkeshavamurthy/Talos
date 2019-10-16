@@ -1,0 +1,323 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccyo8y5c.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"hal_lld.c"
+  14              		.global	SystemCoreClock
+  15              		.section	.data.SystemCoreClock,"aw",%progbits
+  16              		.align	2
+  17              		.type	SystemCoreClock, %object
+  18              		.size	SystemCoreClock, 4
+  19              	SystemCoreClock:
+  20 0000 007A030A 		.word	168000000
+  21              		.section	.text.hal_lld_backup_domain_init,"ax",%progbits
+  22              		.align	1
+  23              		.syntax unified
+  24              		.thumb
+  25              		.thumb_func
+  26              		.fpu fpv4-sp-d16
+  27              		.type	hal_lld_backup_domain_init, %function
+  28              	hal_lld_backup_domain_init:
+  29              		@ args = 0, pretend = 0, frame = 0
+  30              		@ frame_needed = 1, uses_anonymous_args = 0
+  31              		@ link register save eliminated.
+  32 0000 80B4     		push	{r7}
+  33 0002 00AF     		add	r7, sp, #0
+  34 0004 0F4B     		ldr	r3, .L3
+  35 0006 1B68     		ldr	r3, [r3]
+  36 0008 0E4A     		ldr	r2, .L3
+  37 000a 43F48073 		orr	r3, r3, #256
+  38 000e 1360     		str	r3, [r2]
+  39 0010 0D4B     		ldr	r3, .L3+4
+  40 0012 1B6F     		ldr	r3, [r3, #112]
+  41 0014 03F44073 		and	r3, r3, #768
+  42 0018 B3F5007F 		cmp	r3, #512
+  43 001c 06D0     		beq	.L2
+  44 001e 0A4B     		ldr	r3, .L3+4
+  45 0020 4FF48032 		mov	r2, #65536
+  46 0024 1A67     		str	r2, [r3, #112]
+  47 0026 084B     		ldr	r3, .L3+4
+  48 0028 0022     		movs	r2, #0
+  49 002a 1A67     		str	r2, [r3, #112]
+  50              	.L2:
+  51 002c 054B     		ldr	r3, .L3
+  52 002e 5B68     		ldr	r3, [r3, #4]
+  53 0030 044A     		ldr	r2, .L3
+  54 0032 23F40073 		bic	r3, r3, #512
+  55 0036 5360     		str	r3, [r2, #4]
+  56 0038 00BF     		nop
+  57 003a BD46     		mov	sp, r7
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccyo8y5c.s 			page 2
+
+
+  58              		@ sp needed
+  59 003c 5DF8047B 		ldr	r7, [sp], #4
+  60 0040 7047     		bx	lr
+  61              	.L4:
+  62 0042 00BF     		.align	2
+  63              	.L3:
+  64 0044 00700040 		.word	1073770496
+  65 0048 00380240 		.word	1073887232
+  66              		.size	hal_lld_backup_domain_init, .-hal_lld_backup_domain_init
+  67              		.section	.text.hal_lld_init,"ax",%progbits
+  68              		.align	1
+  69              		.global	hal_lld_init
+  70              		.syntax unified
+  71              		.thumb
+  72              		.thumb_func
+  73              		.fpu fpv4-sp-d16
+  74              		.type	hal_lld_init, %function
+  75              	hal_lld_init:
+  76              		@ args = 0, pretend = 0, frame = 0
+  77              		@ frame_needed = 1, uses_anonymous_args = 0
+  78 0000 80B5     		push	{r7, lr}
+  79 0002 00AF     		add	r7, sp, #0
+  80 0004 174B     		ldr	r3, .L6
+  81 0006 1B69     		ldr	r3, [r3, #16]
+  82 0008 164B     		ldr	r3, .L6
+  83 000a 4FF0FF32 		mov	r2, #-1
+  84 000e 1A61     		str	r2, [r3, #16]
+  85 0010 144B     		ldr	r3, .L6
+  86 0012 0022     		movs	r2, #0
+  87 0014 1A61     		str	r2, [r3, #16]
+  88 0016 134B     		ldr	r3, .L6
+  89 0018 5B69     		ldr	r3, [r3, #20]
+  90 001a 124B     		ldr	r3, .L6
+  91 001c 4FF0FF32 		mov	r2, #-1
+  92 0020 5A61     		str	r2, [r3, #20]
+  93 0022 104B     		ldr	r3, .L6
+  94 0024 0022     		movs	r2, #0
+  95 0026 5A61     		str	r2, [r3, #20]
+  96 0028 0E4B     		ldr	r3, .L6
+  97 002a 1B6A     		ldr	r3, [r3, #32]
+  98 002c 0D4A     		ldr	r2, .L6
+  99 002e 63F08053 		orn	r3, r3, #268435456
+ 100 0032 1362     		str	r3, [r2, #32]
+ 101 0034 0B4B     		ldr	r3, .L6
+ 102 0036 0022     		movs	r2, #0
+ 103 0038 1A62     		str	r2, [r3, #32]
+ 104 003a 0A4B     		ldr	r3, .L6
+ 105 003c 5B6A     		ldr	r3, [r3, #36]
+ 106 003e 094B     		ldr	r3, .L6
+ 107 0040 4FF0FF32 		mov	r2, #-1
+ 108 0044 5A62     		str	r2, [r3, #36]
+ 109 0046 074B     		ldr	r3, .L6
+ 110 0048 0022     		movs	r2, #0
+ 111 004a 5A62     		str	r2, [r3, #36]
+ 112 004c 054B     		ldr	r3, .L6
+ 113 004e 1B6C     		ldr	r3, [r3, #64]
+ 114 0050 044A     		ldr	r2, .L6
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccyo8y5c.s 			page 3
+
+
+ 115 0052 43F08053 		orr	r3, r3, #268435456
+ 116 0056 1364     		str	r3, [r2, #64]
+ 117 0058 FFF7FEFF 		bl	hal_lld_backup_domain_init
+ 118 005c FFF7FEFF 		bl	dmaInit
+ 119 0060 00BF     		nop
+ 120 0062 80BD     		pop	{r7, pc}
+ 121              	.L7:
+ 122              		.align	2
+ 123              	.L6:
+ 124 0064 00380240 		.word	1073887232
+ 125              		.size	hal_lld_init, .-hal_lld_init
+ 126              		.section	.text.stm32_clock_init,"ax",%progbits
+ 127              		.align	1
+ 128              		.global	stm32_clock_init
+ 129              		.syntax unified
+ 130              		.thumb
+ 131              		.thumb_func
+ 132              		.fpu fpv4-sp-d16
+ 133              		.type	stm32_clock_init, %function
+ 134              	stm32_clock_init:
+ 135              		@ args = 0, pretend = 0, frame = 0
+ 136              		@ frame_needed = 1, uses_anonymous_args = 0
+ 137              		@ link register save eliminated.
+ 138 0000 80B4     		push	{r7}
+ 139 0002 00AF     		add	r7, sp, #0
+ 140 0004 4A4B     		ldr	r3, .L17
+ 141 0006 4FF08052 		mov	r2, #268435456
+ 142 000a 1A64     		str	r2, [r3, #64]
+ 143 000c 494B     		ldr	r3, .L17+4
+ 144 000e 4FF44042 		mov	r2, #49152
+ 145 0012 1A60     		str	r2, [r3]
+ 146 0014 464B     		ldr	r3, .L17
+ 147 0016 1B68     		ldr	r3, [r3]
+ 148 0018 454A     		ldr	r2, .L17
+ 149 001a 43F00103 		orr	r3, r3, #1
+ 150 001e 1360     		str	r3, [r2]
+ 151 0020 00BF     		nop
+ 152              	.L9:
+ 153 0022 434B     		ldr	r3, .L17
+ 154 0024 1B68     		ldr	r3, [r3]
+ 155 0026 03F00203 		and	r3, r3, #2
+ 156 002a 002B     		cmp	r3, #0
+ 157 002c F9D0     		beq	.L9
+ 158 002e 404B     		ldr	r3, .L17
+ 159 0030 9B68     		ldr	r3, [r3, #8]
+ 160 0032 3F4A     		ldr	r2, .L17
+ 161 0034 23F00303 		bic	r3, r3, #3
+ 162 0038 9360     		str	r3, [r2, #8]
+ 163 003a 3D4B     		ldr	r3, .L17
+ 164 003c 3C4A     		ldr	r2, .L17
+ 165 003e 9B68     		ldr	r3, [r3, #8]
+ 166 0040 9360     		str	r3, [r2, #8]
+ 167 0042 00BF     		nop
+ 168              	.L10:
+ 169 0044 3A4B     		ldr	r3, .L17
+ 170 0046 9B68     		ldr	r3, [r3, #8]
+ 171 0048 03F00C03 		and	r3, r3, #12
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccyo8y5c.s 			page 4
+
+
+ 172 004c 002B     		cmp	r3, #0
+ 173 004e F9D1     		bne	.L10
+ 174 0050 374B     		ldr	r3, .L17
+ 175 0052 1B68     		ldr	r3, [r3]
+ 176 0054 364A     		ldr	r2, .L17
+ 177 0056 03F0F903 		and	r3, r3, #249
+ 178 005a 1360     		str	r3, [r2]
+ 179 005c 344B     		ldr	r3, .L17
+ 180 005e 0022     		movs	r2, #0
+ 181 0060 9A60     		str	r2, [r3, #8]
+ 182 0062 334B     		ldr	r3, .L17
+ 183 0064 1B68     		ldr	r3, [r3]
+ 184 0066 324A     		ldr	r2, .L17
+ 185 0068 43F4A023 		orr	r3, r3, #327680
+ 186 006c 1360     		str	r3, [r2]
+ 187 006e 00BF     		nop
+ 188              	.L11:
+ 189 0070 2F4B     		ldr	r3, .L17
+ 190 0072 1B68     		ldr	r3, [r3]
+ 191 0074 03F40033 		and	r3, r3, #131072
+ 192 0078 002B     		cmp	r3, #0
+ 193 007a F9D0     		beq	.L11
+ 194 007c 2C4B     		ldr	r3, .L17
+ 195 007e 5B6F     		ldr	r3, [r3, #116]
+ 196 0080 2B4A     		ldr	r2, .L17
+ 197 0082 43F00103 		orr	r3, r3, #1
+ 198 0086 5367     		str	r3, [r2, #116]
+ 199 0088 00BF     		nop
+ 200              	.L12:
+ 201 008a 294B     		ldr	r3, .L17
+ 202 008c 5B6F     		ldr	r3, [r3, #116]
+ 203 008e 03F00203 		and	r3, r3, #2
+ 204 0092 002B     		cmp	r3, #0
+ 205 0094 F9D0     		beq	.L12
+ 206 0096 264B     		ldr	r3, .L17
+ 207 0098 274A     		ldr	r2, .L17+8
+ 208 009a 5A60     		str	r2, [r3, #4]
+ 209 009c 244B     		ldr	r3, .L17
+ 210 009e 1B68     		ldr	r3, [r3]
+ 211 00a0 234A     		ldr	r2, .L17
+ 212 00a2 43F08073 		orr	r3, r3, #16777216
+ 213 00a6 1360     		str	r3, [r2]
+ 214 00a8 00BF     		nop
+ 215              	.L13:
+ 216 00aa 224B     		ldr	r3, .L17+4
+ 217 00ac 5B68     		ldr	r3, [r3, #4]
+ 218 00ae 03F48043 		and	r3, r3, #16384
+ 219 00b2 002B     		cmp	r3, #0
+ 220 00b4 F9D0     		beq	.L13
+ 221 00b6 00BF     		nop
+ 222              	.L14:
+ 223 00b8 1D4B     		ldr	r3, .L17
+ 224 00ba 1B68     		ldr	r3, [r3]
+ 225 00bc 03F00073 		and	r3, r3, #33554432
+ 226 00c0 002B     		cmp	r3, #0
+ 227 00c2 F9D0     		beq	.L14
+ 228 00c4 1A4B     		ldr	r3, .L17
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccyo8y5c.s 			page 5
+
+
+ 229 00c6 1D4A     		ldr	r2, .L17+12
+ 230 00c8 C3F88420 		str	r2, [r3, #132]
+ 231 00cc 184B     		ldr	r3, .L17
+ 232 00ce 1B68     		ldr	r3, [r3]
+ 233 00d0 174A     		ldr	r2, .L17
+ 234 00d2 43F08063 		orr	r3, r3, #67108864
+ 235 00d6 1360     		str	r3, [r2]
+ 236 00d8 00BF     		nop
+ 237              	.L15:
+ 238 00da 154B     		ldr	r3, .L17
+ 239 00dc 1B68     		ldr	r3, [r3]
+ 240 00de 03F00063 		and	r3, r3, #134217728
+ 241 00e2 002B     		cmp	r3, #0
+ 242 00e4 F9D0     		beq	.L15
+ 243 00e6 124B     		ldr	r3, .L17
+ 244 00e8 154A     		ldr	r2, .L17+16
+ 245 00ea 9A60     		str	r2, [r3, #8]
+ 246 00ec 154B     		ldr	r3, .L17+20
+ 247 00ee 40F20572 		movw	r2, #1797
+ 248 00f2 1A60     		str	r2, [r3]
+ 249 00f4 0E4B     		ldr	r3, .L17
+ 250 00f6 9B68     		ldr	r3, [r3, #8]
+ 251 00f8 0D4A     		ldr	r2, .L17
+ 252 00fa 43F00203 		orr	r3, r3, #2
+ 253 00fe 9360     		str	r3, [r2, #8]
+ 254 0100 00BF     		nop
+ 255              	.L16:
+ 256 0102 0B4B     		ldr	r3, .L17
+ 257 0104 9B68     		ldr	r3, [r3, #8]
+ 258 0106 03F00C03 		and	r3, r3, #12
+ 259 010a 082B     		cmp	r3, #8
+ 260 010c F9D1     		bne	.L16
+ 261 010e 084B     		ldr	r3, .L17
+ 262 0110 5B6C     		ldr	r3, [r3, #68]
+ 263 0112 074A     		ldr	r2, .L17
+ 264 0114 43F48043 		orr	r3, r3, #16384
+ 265 0118 5364     		str	r3, [r2, #68]
+ 266 011a 054B     		ldr	r3, .L17
+ 267 011c 5B6E     		ldr	r3, [r3, #100]
+ 268 011e 044A     		ldr	r2, .L17
+ 269 0120 43F48043 		orr	r3, r3, #16384
+ 270 0124 5366     		str	r3, [r2, #100]
+ 271 0126 00BF     		nop
+ 272 0128 BD46     		mov	sp, r7
+ 273              		@ sp needed
+ 274 012a 5DF8047B 		ldr	r7, [sp], #4
+ 275 012e 7047     		bx	lr
+ 276              	.L18:
+ 277              		.align	2
+ 278              	.L17:
+ 279 0130 00380240 		.word	1073887232
+ 280 0134 00700040 		.word	1073770496
+ 281 0138 18544007 		.word	121656344
+ 282 013c 00300060 		.word	1610625024
+ 283 0140 00940838 		.word	940086272
+ 284 0144 003C0240 		.word	1073888256
+ 285              		.size	stm32_clock_init, .-stm32_clock_init
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccyo8y5c.s 			page 6
+
+
+ 286              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccyo8y5c.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 hal_lld.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccyo8y5c.s:19     .data.SystemCoreClock:0000000000000000 SystemCoreClock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccyo8y5c.s:16     .data.SystemCoreClock:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccyo8y5c.s:22     .text.hal_lld_backup_domain_init:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccyo8y5c.s:28     .text.hal_lld_backup_domain_init:0000000000000000 hal_lld_backup_domain_init
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccyo8y5c.s:64     .text.hal_lld_backup_domain_init:0000000000000044 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccyo8y5c.s:68     .text.hal_lld_init:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccyo8y5c.s:75     .text.hal_lld_init:0000000000000000 hal_lld_init
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccyo8y5c.s:124    .text.hal_lld_init:0000000000000064 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccyo8y5c.s:127    .text.stm32_clock_init:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccyo8y5c.s:134    .text.stm32_clock_init:0000000000000000 stm32_clock_init
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccyo8y5c.s:279    .text.stm32_clock_init:0000000000000130 $d
+
+UNDEFINED SYMBOLS
+dmaInit

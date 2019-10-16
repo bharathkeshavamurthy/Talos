@@ -1,0 +1,1136 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"ir_remote.c"
+  14              		.section	.text.port_lock,"ax",%progbits
+  15              		.align	1
+  16              		.syntax unified
+  17              		.thumb
+  18              		.thumb_func
+  19              		.fpu fpv4-sp-d16
+  20              		.type	port_lock, %function
+  21              	port_lock:
+  22              		@ args = 0, pretend = 0, frame = 8
+  23              		@ frame_needed = 1, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 80B4     		push	{r7}
+  26 0002 83B0     		sub	sp, sp, #12
+  27 0004 00AF     		add	r7, sp, #0
+  28 0006 2023     		movs	r3, #32
+  29 0008 7B60     		str	r3, [r7, #4]
+  30 000a 7B68     		ldr	r3, [r7, #4]
+  31              		.syntax unified
+  32              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  33 000c 83F31188 		MSR basepri, r3
+  34              	@ 0 "" 2
+  35              		.thumb
+  36              		.syntax unified
+  37 0010 00BF     		nop
+  38 0012 0C37     		adds	r7, r7, #12
+  39 0014 BD46     		mov	sp, r7
+  40              		@ sp needed
+  41 0016 5DF8047B 		ldr	r7, [sp], #4
+  42 001a 7047     		bx	lr
+  43              		.size	port_lock, .-port_lock
+  44              		.section	.text.port_unlock,"ax",%progbits
+  45              		.align	1
+  46              		.syntax unified
+  47              		.thumb
+  48              		.thumb_func
+  49              		.fpu fpv4-sp-d16
+  50              		.type	port_unlock, %function
+  51              	port_unlock:
+  52              		@ args = 0, pretend = 0, frame = 8
+  53              		@ frame_needed = 1, uses_anonymous_args = 0
+  54              		@ link register save eliminated.
+  55 0000 80B4     		push	{r7}
+  56 0002 83B0     		sub	sp, sp, #12
+  57 0004 00AF     		add	r7, sp, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s 			page 2
+
+
+  58 0006 0023     		movs	r3, #0
+  59 0008 7B60     		str	r3, [r7, #4]
+  60 000a 7B68     		ldr	r3, [r7, #4]
+  61              		.syntax unified
+  62              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  63 000c 83F31188 		MSR basepri, r3
+  64              	@ 0 "" 2
+  65              		.thumb
+  66              		.syntax unified
+  67 0010 00BF     		nop
+  68 0012 0C37     		adds	r7, r7, #12
+  69 0014 BD46     		mov	sp, r7
+  70              		@ sp needed
+  71 0016 5DF8047B 		ldr	r7, [sp], #4
+  72 001a 7047     		bx	lr
+  73              		.size	port_unlock, .-port_unlock
+  74              		.section	.text.chSysLock,"ax",%progbits
+  75              		.align	1
+  76              		.syntax unified
+  77              		.thumb
+  78              		.thumb_func
+  79              		.fpu fpv4-sp-d16
+  80              		.type	chSysLock, %function
+  81              	chSysLock:
+  82              		@ args = 0, pretend = 0, frame = 0
+  83              		@ frame_needed = 1, uses_anonymous_args = 0
+  84 0000 80B5     		push	{r7, lr}
+  85 0002 00AF     		add	r7, sp, #0
+  86 0004 FFF7FEFF 		bl	port_lock
+  87 0008 FFF7FEFF 		bl	_stats_start_measure_crit_thd
+  88 000c FFF7FEFF 		bl	_dbg_check_lock
+  89 0010 00BF     		nop
+  90 0012 80BD     		pop	{r7, pc}
+  91              		.size	chSysLock, .-chSysLock
+  92              		.section	.text.chSysUnlock,"ax",%progbits
+  93              		.align	1
+  94              		.syntax unified
+  95              		.thumb
+  96              		.thumb_func
+  97              		.fpu fpv4-sp-d16
+  98              		.type	chSysUnlock, %function
+  99              	chSysUnlock:
+ 100              		@ args = 0, pretend = 0, frame = 0
+ 101              		@ frame_needed = 1, uses_anonymous_args = 0
+ 102 0000 80B5     		push	{r7, lr}
+ 103 0002 00AF     		add	r7, sp, #0
+ 104 0004 FFF7FEFF 		bl	_dbg_check_unlock
+ 105 0008 FFF7FEFF 		bl	_stats_stop_measure_crit_thd
+ 106 000c 094B     		ldr	r3, .L6
+ 107 000e 1B68     		ldr	r3, [r3]
+ 108 0010 084A     		ldr	r2, .L6
+ 109 0012 9342     		cmp	r3, r2
+ 110 0014 0AD0     		beq	.L5
+ 111 0016 074B     		ldr	r3, .L6
+ 112 0018 9B69     		ldr	r3, [r3, #24]
+ 113 001a 9A68     		ldr	r2, [r3, #8]
+ 114 001c 054B     		ldr	r3, .L6
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s 			page 3
+
+
+ 115 001e 1B68     		ldr	r3, [r3]
+ 116 0020 9B68     		ldr	r3, [r3, #8]
+ 117 0022 9A42     		cmp	r2, r3
+ 118 0024 02D2     		bcs	.L5
+ 119 0026 0448     		ldr	r0, .L6+4
+ 120 0028 FFF7FEFF 		bl	chSysHalt
+ 121              	.L5:
+ 122 002c FFF7FEFF 		bl	port_unlock
+ 123 0030 00BF     		nop
+ 124 0032 80BD     		pop	{r7, pc}
+ 125              	.L7:
+ 126              		.align	2
+ 127              	.L6:
+ 128 0034 00000000 		.word	ch
+ 129 0038 00000000 		.word	__func__.7153
+ 130              		.size	chSysUnlock, .-chSysUnlock
+ 131              		.section	.text.chVTGetSystemTimeX,"ax",%progbits
+ 132              		.align	1
+ 133              		.syntax unified
+ 134              		.thumb
+ 135              		.thumb_func
+ 136              		.fpu fpv4-sp-d16
+ 137              		.type	chVTGetSystemTimeX, %function
+ 138              	chVTGetSystemTimeX:
+ 139              		@ args = 0, pretend = 0, frame = 0
+ 140              		@ frame_needed = 1, uses_anonymous_args = 0
+ 141              		@ link register save eliminated.
+ 142 0000 80B4     		push	{r7}
+ 143 0002 00AF     		add	r7, sp, #0
+ 144 0004 034B     		ldr	r3, .L10
+ 145 0006 9B6A     		ldr	r3, [r3, #40]
+ 146 0008 1846     		mov	r0, r3
+ 147 000a BD46     		mov	sp, r7
+ 148              		@ sp needed
+ 149 000c 5DF8047B 		ldr	r7, [sp], #4
+ 150 0010 7047     		bx	lr
+ 151              	.L11:
+ 152 0012 00BF     		.align	2
+ 153              	.L10:
+ 154 0014 00000000 		.word	ch
+ 155              		.size	chVTGetSystemTimeX, .-chVTGetSystemTimeX
+ 156              		.section	.text.chVTGetSystemTime,"ax",%progbits
+ 157              		.align	1
+ 158              		.syntax unified
+ 159              		.thumb
+ 160              		.thumb_func
+ 161              		.fpu fpv4-sp-d16
+ 162              		.type	chVTGetSystemTime, %function
+ 163              	chVTGetSystemTime:
+ 164              		@ args = 0, pretend = 0, frame = 8
+ 165              		@ frame_needed = 1, uses_anonymous_args = 0
+ 166 0000 80B5     		push	{r7, lr}
+ 167 0002 82B0     		sub	sp, sp, #8
+ 168 0004 00AF     		add	r7, sp, #0
+ 169 0006 FFF7FEFF 		bl	chSysLock
+ 170 000a FFF7FEFF 		bl	chVTGetSystemTimeX
+ 171 000e 7860     		str	r0, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s 			page 4
+
+
+ 172 0010 FFF7FEFF 		bl	chSysUnlock
+ 173 0014 7B68     		ldr	r3, [r7, #4]
+ 174 0016 1846     		mov	r0, r3
+ 175 0018 0837     		adds	r7, r7, #8
+ 176 001a BD46     		mov	sp, r7
+ 177              		@ sp needed
+ 178 001c 80BD     		pop	{r7, pc}
+ 179              		.size	chVTGetSystemTime, .-chVTGetSystemTime
+ 180              		.section	.text.chRegSetThreadName,"ax",%progbits
+ 181              		.align	1
+ 182              		.syntax unified
+ 183              		.thumb
+ 184              		.thumb_func
+ 185              		.fpu fpv4-sp-d16
+ 186              		.type	chRegSetThreadName, %function
+ 187              	chRegSetThreadName:
+ 188              		@ args = 0, pretend = 0, frame = 8
+ 189              		@ frame_needed = 1, uses_anonymous_args = 0
+ 190              		@ link register save eliminated.
+ 191 0000 80B4     		push	{r7}
+ 192 0002 83B0     		sub	sp, sp, #12
+ 193 0004 00AF     		add	r7, sp, #0
+ 194 0006 7860     		str	r0, [r7, #4]
+ 195 0008 044B     		ldr	r3, .L15
+ 196 000a 9B69     		ldr	r3, [r3, #24]
+ 197 000c 7A68     		ldr	r2, [r7, #4]
+ 198 000e 9A61     		str	r2, [r3, #24]
+ 199 0010 00BF     		nop
+ 200 0012 0C37     		adds	r7, r7, #12
+ 201 0014 BD46     		mov	sp, r7
+ 202              		@ sp needed
+ 203 0016 5DF8047B 		ldr	r7, [sp], #4
+ 204 001a 7047     		bx	lr
+ 205              	.L16:
+ 206              		.align	2
+ 207              	.L15:
+ 208 001c 00000000 		.word	ch
+ 209              		.size	chRegSetThreadName, .-chRegSetThreadName
+ 210              		.section	.bss.ir_remote_values,"aw",%nobits
+ 211              		.align	2
+ 212              		.type	ir_remote_values, %object
+ 213              		.size	ir_remote_values, 3
+ 214              	ir_remote_values:
+ 215 0000 000000   		.space	3
+ 216              		.global	trans
+ 217              		.section	.rodata.trans,"a",%progbits
+ 218              		.align	2
+ 219              		.type	trans, %object
+ 220              		.size	trans, 4
+ 221              	trans:
+ 222 0000 01       		.byte	1
+ 223 0001 91       		.byte	-111
+ 224 0002 9B       		.byte	-101
+ 225 0003 FB       		.byte	-5
+ 226              		.section	.text.reset_counter_gpt,"ax",%progbits
+ 227              		.align	1
+ 228              		.syntax unified
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s 			page 5
+
+
+ 229              		.thumb
+ 230              		.thumb_func
+ 231              		.fpu fpv4-sp-d16
+ 232              		.type	reset_counter_gpt, %function
+ 233              	reset_counter_gpt:
+ 234              		@ args = 0, pretend = 0, frame = 8
+ 235              		@ frame_needed = 1, uses_anonymous_args = 0
+ 236              		@ link register save eliminated.
+ 237 0000 80B4     		push	{r7}
+ 238 0002 83B0     		sub	sp, sp, #12
+ 239 0004 00AF     		add	r7, sp, #0
+ 240 0006 7860     		str	r0, [r7, #4]
+ 241 0008 7B68     		ldr	r3, [r7, #4]
+ 242 000a DB68     		ldr	r3, [r3, #12]
+ 243 000c 0022     		movs	r2, #0
+ 244 000e 5A62     		str	r2, [r3, #36]
+ 245 0010 00BF     		nop
+ 246 0012 0C37     		adds	r7, r7, #12
+ 247 0014 BD46     		mov	sp, r7
+ 248              		@ sp needed
+ 249 0016 5DF8047B 		ldr	r7, [sp], #4
+ 250 001a 7047     		bx	lr
+ 251              		.size	reset_counter_gpt, .-reset_counter_gpt
+ 252              		.section	.text.RC5_reset,"ax",%progbits
+ 253              		.align	1
+ 254              		.syntax unified
+ 255              		.thumb
+ 256              		.thumb_func
+ 257              		.fpu fpv4-sp-d16
+ 258              		.type	RC5_reset, %function
+ 259              	RC5_reset:
+ 260              		@ args = 0, pretend = 0, frame = 8
+ 261              		@ frame_needed = 1, uses_anonymous_args = 0
+ 262              		@ link register save eliminated.
+ 263 0000 80B4     		push	{r7}
+ 264 0002 83B0     		sub	sp, sp, #12
+ 265 0004 00AF     		add	r7, sp, #0
+ 266 0006 7860     		str	r0, [r7, #4]
+ 267 0008 7B68     		ldr	r3, [r7, #4]
+ 268 000a 0122     		movs	r2, #1
+ 269 000c 5A70     		strb	r2, [r3, #1]
+ 270 000e 7B68     		ldr	r3, [r7, #4]
+ 271 0010 0122     		movs	r2, #1
+ 272 0012 DA60     		str	r2, [r3, #12]
+ 273 0014 7B68     		ldr	r3, [r7, #4]
+ 274 0016 0122     		movs	r2, #1
+ 275 0018 1A61     		str	r2, [r3, #16]
+ 276 001a 7B68     		ldr	r3, [r7, #4]
+ 277 001c 0022     		movs	r2, #0
+ 278 001e 5A60     		str	r2, [r3, #4]
+ 279 0020 00BF     		nop
+ 280 0022 0C37     		adds	r7, r7, #12
+ 281 0024 BD46     		mov	sp, r7
+ 282              		@ sp needed
+ 283 0026 5DF8047B 		ldr	r7, [sp], #4
+ 284 002a 7047     		bx	lr
+ 285              		.size	RC5_reset, .-RC5_reset
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s 			page 6
+
+
+ 286              		.section	.text.RC5_decodeEvent,"ax",%progbits
+ 287              		.align	1
+ 288              		.syntax unified
+ 289              		.thumb
+ 290              		.thumb_func
+ 291              		.fpu fpv4-sp-d16
+ 292              		.type	RC5_decodeEvent, %function
+ 293              	RC5_decodeEvent:
+ 294              		@ args = 0, pretend = 0, frame = 16
+ 295              		@ frame_needed = 1, uses_anonymous_args = 0
+ 296 0000 80B5     		push	{r7, lr}
+ 297 0002 84B0     		sub	sp, sp, #16
+ 298 0004 00AF     		add	r7, sp, #0
+ 299 0006 7860     		str	r0, [r7, #4]
+ 300 0008 0B46     		mov	r3, r1
+ 301 000a FB70     		strb	r3, [r7, #3]
+ 302 000c 7B68     		ldr	r3, [r7, #4]
+ 303 000e 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+ 304 0010 1A46     		mov	r2, r3
+ 305 0012 1B4B     		ldr	r3, .L24
+ 306 0014 9B5C     		ldrb	r3, [r3, r2]	@ zero_extendqisi2
+ 307 0016 1A46     		mov	r2, r3
+ 308 0018 FB78     		ldrb	r3, [r7, #3]	@ zero_extendqisi2
+ 309 001a 42FA03F3 		asr	r3, r2, r3
+ 310 001e DBB2     		uxtb	r3, r3
+ 311 0020 03F00303 		and	r3, r3, #3
+ 312 0024 FB73     		strb	r3, [r7, #15]
+ 313 0026 7B68     		ldr	r3, [r7, #4]
+ 314 0028 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+ 315 002a FA7B     		ldrb	r2, [r7, #15]	@ zero_extendqisi2
+ 316 002c 9A42     		cmp	r2, r3
+ 317 002e 03D1     		bne	.L20
+ 318 0030 7868     		ldr	r0, [r7, #4]
+ 319 0032 FFF7FEFF 		bl	RC5_reset
+ 320 0036 1EE0     		b	.L23
+ 321              	.L20:
+ 322 0038 7B68     		ldr	r3, [r7, #4]
+ 323 003a FA7B     		ldrb	r2, [r7, #15]
+ 324 003c 5A70     		strb	r2, [r3, #1]
+ 325 003e FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 326 0040 022B     		cmp	r3, #2
+ 327 0042 0AD1     		bne	.L22
+ 328 0044 7B68     		ldr	r3, [r7, #4]
+ 329 0046 1B69     		ldr	r3, [r3, #16]
+ 330 0048 5A00     		lsls	r2, r3, #1
+ 331 004a 7B68     		ldr	r3, [r7, #4]
+ 332 004c 1A61     		str	r2, [r3, #16]
+ 333 004e 7B68     		ldr	r3, [r7, #4]
+ 334 0050 DB68     		ldr	r3, [r3, #12]
+ 335 0052 5A1C     		adds	r2, r3, #1
+ 336 0054 7B68     		ldr	r3, [r7, #4]
+ 337 0056 DA60     		str	r2, [r3, #12]
+ 338 0058 0DE0     		b	.L23
+ 339              	.L22:
+ 340 005a FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 341 005c 012B     		cmp	r3, #1
+ 342 005e 0AD1     		bne	.L23
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s 			page 7
+
+
+ 343 0060 7B68     		ldr	r3, [r7, #4]
+ 344 0062 1B69     		ldr	r3, [r3, #16]
+ 345 0064 5B00     		lsls	r3, r3, #1
+ 346 0066 5A1C     		adds	r2, r3, #1
+ 347 0068 7B68     		ldr	r3, [r7, #4]
+ 348 006a 1A61     		str	r2, [r3, #16]
+ 349 006c 7B68     		ldr	r3, [r7, #4]
+ 350 006e DB68     		ldr	r3, [r3, #12]
+ 351 0070 5A1C     		adds	r2, r3, #1
+ 352 0072 7B68     		ldr	r3, [r7, #4]
+ 353 0074 DA60     		str	r2, [r3, #12]
+ 354              	.L23:
+ 355 0076 00BF     		nop
+ 356 0078 1037     		adds	r7, r7, #16
+ 357 007a BD46     		mov	sp, r7
+ 358              		@ sp needed
+ 359 007c 80BD     		pop	{r7, pc}
+ 360              	.L25:
+ 361 007e 00BF     		.align	2
+ 362              	.L24:
+ 363 0080 00000000 		.word	trans
+ 364              		.size	RC5_decodeEvent, .-RC5_decodeEvent
+ 365              		.section	.text.RC5_decodePulse,"ax",%progbits
+ 366              		.align	1
+ 367              		.syntax unified
+ 368              		.thumb
+ 369              		.thumb_func
+ 370              		.fpu fpv4-sp-d16
+ 371              		.type	RC5_decodePulse, %function
+ 372              	RC5_decodePulse:
+ 373              		@ args = 0, pretend = 0, frame = 16
+ 374              		@ frame_needed = 1, uses_anonymous_args = 0
+ 375 0000 80B5     		push	{r7, lr}
+ 376 0002 84B0     		sub	sp, sp, #16
+ 377 0004 00AF     		add	r7, sp, #0
+ 378 0006 F860     		str	r0, [r7, #12]
+ 379 0008 0B46     		mov	r3, r1
+ 380 000a 7A60     		str	r2, [r7, #4]
+ 381 000c FB72     		strb	r3, [r7, #11]
+ 382 000e 7B68     		ldr	r3, [r7, #4]
+ 383 0010 B3F5DE7F 		cmp	r3, #444
+ 384 0014 0FD3     		bcc	.L27
+ 385 0016 7B68     		ldr	r3, [r7, #4]
+ 386 0018 40F23552 		movw	r2, #1333
+ 387 001c 9342     		cmp	r3, r2
+ 388 001e 0AD8     		bhi	.L27
+ 389 0020 FB7A     		ldrb	r3, [r7, #11]	@ zero_extendqisi2
+ 390 0022 002B     		cmp	r3, #0
+ 391 0024 01D0     		beq	.L28
+ 392 0026 0223     		movs	r3, #2
+ 393 0028 00E0     		b	.L29
+ 394              	.L28:
+ 395 002a 0023     		movs	r3, #0
+ 396              	.L29:
+ 397 002c 1946     		mov	r1, r3
+ 398 002e F868     		ldr	r0, [r7, #12]
+ 399 0030 FFF7FEFF 		bl	RC5_decodeEvent
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s 			page 8
+
+
+ 400 0034 17E0     		b	.L30
+ 401              	.L27:
+ 402 0036 7B68     		ldr	r3, [r7, #4]
+ 403 0038 40F23552 		movw	r2, #1333
+ 404 003c 9342     		cmp	r3, r2
+ 405 003e 0FD9     		bls	.L31
+ 406 0040 7B68     		ldr	r3, [r7, #4]
+ 407 0042 40F6AE02 		movw	r2, #2222
+ 408 0046 9342     		cmp	r3, r2
+ 409 0048 0AD8     		bhi	.L31
+ 410 004a FB7A     		ldrb	r3, [r7, #11]	@ zero_extendqisi2
+ 411 004c 002B     		cmp	r3, #0
+ 412 004e 01D0     		beq	.L32
+ 413 0050 0623     		movs	r3, #6
+ 414 0052 00E0     		b	.L33
+ 415              	.L32:
+ 416 0054 0423     		movs	r3, #4
+ 417              	.L33:
+ 418 0056 1946     		mov	r1, r3
+ 419 0058 F868     		ldr	r0, [r7, #12]
+ 420 005a FFF7FEFF 		bl	RC5_decodeEvent
+ 421 005e 02E0     		b	.L30
+ 422              	.L31:
+ 423 0060 F868     		ldr	r0, [r7, #12]
+ 424 0062 FFF7FEFF 		bl	RC5_reset
+ 425              	.L30:
+ 426 0066 00BF     		nop
+ 427 0068 1037     		adds	r7, r7, #16
+ 428 006a BD46     		mov	sp, r7
+ 429              		@ sp needed
+ 430 006c 80BD     		pop	{r7, pc}
+ 431              		.size	RC5_decodePulse, .-RC5_decodePulse
+ 432              		.section	.text.RC5_read_message,"ax",%progbits
+ 433              		.align	1
+ 434              		.syntax unified
+ 435              		.thumb
+ 436              		.thumb_func
+ 437              		.fpu fpv4-sp-d16
+ 438              		.type	RC5_read_message, %function
+ 439              	RC5_read_message:
+ 440              		@ args = 0, pretend = 0, frame = 24
+ 441              		@ frame_needed = 1, uses_anonymous_args = 0
+ 442 0000 80B5     		push	{r7, lr}
+ 443 0002 86B0     		sub	sp, sp, #24
+ 444 0004 00AF     		add	r7, sp, #0
+ 445 0006 7860     		str	r0, [r7, #4]
+ 446 0008 3960     		str	r1, [r7]
+ 447 000a 1B4B     		ldr	r3, .L38
+ 448 000c 1B69     		ldr	r3, [r3, #16]
+ 449 000e DB08     		lsrs	r3, r3, #3
+ 450 0010 03F00103 		and	r3, r3, #1
+ 451 0014 7B61     		str	r3, [r7, #20]
+ 452 0016 7B68     		ldr	r3, [r7, #4]
+ 453 0018 9B68     		ldr	r3, [r3, #8]
+ 454 001a 7A69     		ldr	r2, [r7, #20]
+ 455 001c 9A42     		cmp	r2, r3
+ 456 001e 15D0     		beq	.L35
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s 			page 9
+
+
+ 457 0020 164B     		ldr	r3, .L38+4
+ 458 0022 DB68     		ldr	r3, [r3, #12]
+ 459 0024 5B6A     		ldr	r3, [r3, #36]
+ 460 0026 3B61     		str	r3, [r7, #16]
+ 461 0028 7B68     		ldr	r3, [r7, #4]
+ 462 002a 5B68     		ldr	r3, [r3, #4]
+ 463 002c 3A69     		ldr	r2, [r7, #16]
+ 464 002e D31A     		subs	r3, r2, r3
+ 465 0030 FB60     		str	r3, [r7, #12]
+ 466 0032 7B68     		ldr	r3, [r7, #4]
+ 467 0034 7A69     		ldr	r2, [r7, #20]
+ 468 0036 9A60     		str	r2, [r3, #8]
+ 469 0038 1048     		ldr	r0, .L38+4
+ 470 003a FFF7FEFF 		bl	reset_counter_gpt
+ 471 003e 7B69     		ldr	r3, [r7, #20]
+ 472 0040 DBB2     		uxtb	r3, r3
+ 473 0042 FA68     		ldr	r2, [r7, #12]
+ 474 0044 1946     		mov	r1, r3
+ 475 0046 7868     		ldr	r0, [r7, #4]
+ 476 0048 FFF7FEFF 		bl	RC5_decodePulse
+ 477              	.L35:
+ 478 004c 7B68     		ldr	r3, [r7, #4]
+ 479 004e DB68     		ldr	r3, [r3, #12]
+ 480 0050 0E2B     		cmp	r3, #14
+ 481 0052 0BD1     		bne	.L36
+ 482 0054 7B68     		ldr	r3, [r7, #4]
+ 483 0056 1A69     		ldr	r2, [r3, #16]
+ 484 0058 3B68     		ldr	r3, [r7]
+ 485 005a 1A60     		str	r2, [r3]
+ 486 005c 7B68     		ldr	r3, [r7, #4]
+ 487 005e 0022     		movs	r2, #0
+ 488 0060 1A61     		str	r2, [r3, #16]
+ 489 0062 7B68     		ldr	r3, [r7, #4]
+ 490 0064 0022     		movs	r2, #0
+ 491 0066 DA60     		str	r2, [r3, #12]
+ 492 0068 0123     		movs	r3, #1
+ 493 006a 00E0     		b	.L37
+ 494              	.L36:
+ 495 006c 0023     		movs	r3, #0
+ 496              	.L37:
+ 497 006e 1846     		mov	r0, r3
+ 498 0070 1837     		adds	r7, r7, #24
+ 499 0072 BD46     		mov	sp, r7
+ 500              		@ sp needed
+ 501 0074 80BD     		pop	{r7, pc}
+ 502              	.L39:
+ 503 0076 00BF     		.align	2
+ 504              	.L38:
+ 505 0078 000C0240 		.word	1073875968
+ 506 007c 00000000 		.word	GPTD11
+ 507              		.size	RC5_read_message, .-RC5_read_message
+ 508              		.section	.text.RC5_read,"ax",%progbits
+ 509              		.align	1
+ 510              		.syntax unified
+ 511              		.thumb
+ 512              		.thumb_func
+ 513              		.fpu fpv4-sp-d16
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s 			page 10
+
+
+ 514              		.type	RC5_read, %function
+ 515              	RC5_read:
+ 516              		@ args = 0, pretend = 0, frame = 24
+ 517              		@ frame_needed = 1, uses_anonymous_args = 0
+ 518 0000 80B5     		push	{r7, lr}
+ 519 0002 86B0     		sub	sp, sp, #24
+ 520 0004 00AF     		add	r7, sp, #0
+ 521 0006 F860     		str	r0, [r7, #12]
+ 522 0008 B960     		str	r1, [r7, #8]
+ 523 000a 7A60     		str	r2, [r7, #4]
+ 524 000c 3B60     		str	r3, [r7]
+ 525 000e 07F11003 		add	r3, r7, #16
+ 526 0012 1946     		mov	r1, r3
+ 527 0014 F868     		ldr	r0, [r7, #12]
+ 528 0016 FFF7FEFF 		bl	RC5_read_message
+ 529 001a 0346     		mov	r3, r0
+ 530 001c 002B     		cmp	r3, #0
+ 531 001e 22D0     		beq	.L41
+ 532 0020 3B69     		ldr	r3, [r7, #16]
+ 533 0022 DB0A     		lsrs	r3, r3, #11
+ 534 0024 DBB2     		uxtb	r3, r3
+ 535 0026 03F00103 		and	r3, r3, #1
+ 536 002a DAB2     		uxtb	r2, r3
+ 537 002c BB68     		ldr	r3, [r7, #8]
+ 538 002e 1A70     		strb	r2, [r3]
+ 539 0030 3B69     		ldr	r3, [r7, #16]
+ 540 0032 9B09     		lsrs	r3, r3, #6
+ 541 0034 DBB2     		uxtb	r3, r3
+ 542 0036 03F01F03 		and	r3, r3, #31
+ 543 003a DAB2     		uxtb	r2, r3
+ 544 003c 7B68     		ldr	r3, [r7, #4]
+ 545 003e 1A70     		strb	r2, [r3]
+ 546 0040 3B69     		ldr	r3, [r7, #16]
+ 547 0042 DB43     		mvns	r3, r3
+ 548 0044 5B09     		lsrs	r3, r3, #5
+ 549 0046 DBB2     		uxtb	r3, r3
+ 550 0048 23F07F03 		bic	r3, r3, #127
+ 551 004c FB75     		strb	r3, [r7, #23]
+ 552 004e 3B69     		ldr	r3, [r7, #16]
+ 553 0050 DBB2     		uxtb	r3, r3
+ 554 0052 03F03F03 		and	r3, r3, #63
+ 555 0056 DAB2     		uxtb	r2, r3
+ 556 0058 FB7D     		ldrb	r3, [r7, #23]
+ 557 005a 1343     		orrs	r3, r3, r2
+ 558 005c DAB2     		uxtb	r2, r3
+ 559 005e 3B68     		ldr	r3, [r7]
+ 560 0060 1A70     		strb	r2, [r3]
+ 561 0062 0123     		movs	r3, #1
+ 562 0064 00E0     		b	.L43
+ 563              	.L41:
+ 564 0066 0023     		movs	r3, #0
+ 565              	.L43:
+ 566 0068 1846     		mov	r0, r3
+ 567 006a 1837     		adds	r7, r7, #24
+ 568 006c BD46     		mov	sp, r7
+ 569              		@ sp needed
+ 570 006e 80BD     		pop	{r7, pc}
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s 			page 11
+
+
+ 571              		.size	RC5_read, .-RC5_read
+ 572              		.section	.rodata.gpt11cfg,"a",%progbits
+ 573              		.align	2
+ 574              		.type	gpt11cfg, %object
+ 575              		.size	gpt11cfg, 16
+ 576              	gpt11cfg:
+ 577 0000 40420F00 		.word	1000000
+ 578 0004 00000000 		.word	0
+ 579 0008 00000000 		.word	0
+ 580 000c 00000000 		.word	0
+ 581              		.section	.rodata
+ 582              		.align	2
+ 583              	.LC0:
+ 584 0000 2F69725F 		.ascii	"/ir_remote\000"
+ 584      72656D6F 
+ 584      746500
+ 585              		.section	.text.remote_motion_thd,"ax",%progbits
+ 586              		.align	1
+ 587              		.syntax unified
+ 588              		.thumb
+ 589              		.thumb_func
+ 590              		.fpu fpv4-sp-d16
+ 591              		.type	remote_motion_thd, %function
+ 592              	remote_motion_thd:
+ 593              		@ args = 0, pretend = 0, frame = 24
+ 594              		@ frame_needed = 1, uses_anonymous_args = 0
+ 595 0000 80B5     		push	{r7, lr}
+ 596 0002 86B0     		sub	sp, sp, #24
+ 597 0004 00AF     		add	r7, sp, #0
+ 598 0006 7860     		str	r0, [r7, #4]
+ 599 0008 5348     		ldr	r0, .L57
+ 600 000a FFF7FEFF 		bl	chRegSetThreadName
+ 601 000e 5349     		ldr	r1, .L57+4
+ 602 0010 5348     		ldr	r0, .L57+8
+ 603 0012 FFF7FEFF 		bl	messagebus_find_topic_blocking
+ 604 0016 7861     		str	r0, [r7, #20]
+ 605              	.L56:
+ 606 0018 FFF7FEFF 		bl	chVTGetSystemTime
+ 607 001c 3861     		str	r0, [r7, #16]
+ 608 001e 07F10C03 		add	r3, r7, #12
+ 609 0022 0322     		movs	r2, #3
+ 610 0024 1946     		mov	r1, r3
+ 611 0026 7869     		ldr	r0, [r7, #20]
+ 612 0028 FFF7FEFF 		bl	messagebus_topic_wait
+ 613 002c BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 614 002e 013B     		subs	r3, r3, #1
+ 615 0030 202B     		cmp	r3, #32
+ 616 0032 00F28A80 		bhi	.L45
+ 617 0036 01A2     		adr	r2, .L47
+ 618 0038 52F823F0 		ldr	pc, [r2, r3, lsl #2]
+ 619              		.p2align 2
+ 620              	.L47:
+ 621 003c 1F010000 		.word	.L46+1
+ 622 0040 CF000000 		.word	.L48+1
+ 623 0044 0F010000 		.word	.L49+1
+ 624 0048 FF000000 		.word	.L50+1
+ 625 004c C1000000 		.word	.L51+1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s 			page 12
+
+
+ 626 0050 EF000000 		.word	.L52+1
+ 627 0054 3D010000 		.word	.L53+1
+ 628 0058 E1000000 		.word	.L54+1
+ 629 005c 2F010000 		.word	.L55+1
+ 630 0060 4B010000 		.word	.L45+1
+ 631 0064 4B010000 		.word	.L45+1
+ 632 0068 C1000000 		.word	.L51+1
+ 633 006c 4B010000 		.word	.L45+1
+ 634 0070 4B010000 		.word	.L45+1
+ 635 0074 4B010000 		.word	.L45+1
+ 636 0078 EF000000 		.word	.L52+1
+ 637 007c FF000000 		.word	.L50+1
+ 638 0080 4B010000 		.word	.L45+1
+ 639 0084 4B010000 		.word	.L45+1
+ 640 0088 4B010000 		.word	.L45+1
+ 641 008c 4B010000 		.word	.L45+1
+ 642 0090 4B010000 		.word	.L45+1
+ 643 0094 4B010000 		.word	.L45+1
+ 644 0098 4B010000 		.word	.L45+1
+ 645 009c 4B010000 		.word	.L45+1
+ 646 00a0 4B010000 		.word	.L45+1
+ 647 00a4 4B010000 		.word	.L45+1
+ 648 00a8 4B010000 		.word	.L45+1
+ 649 00ac 4B010000 		.word	.L45+1
+ 650 00b0 4B010000 		.word	.L45+1
+ 651 00b4 4B010000 		.word	.L45+1
+ 652 00b8 CF000000 		.word	.L48+1
+ 653 00bc E1000000 		.word	.L54+1
+ 654              		.p2align 1
+ 655              	.L51:
+ 656 00c0 0020     		movs	r0, #0
+ 657 00c2 FFF7FEFF 		bl	left_motor_set_speed
+ 658 00c6 0020     		movs	r0, #0
+ 659 00c8 FFF7FEFF 		bl	right_motor_set_speed
+ 660 00cc 3DE0     		b	.L45
+ 661              	.L48:
+ 662 00ce 4FF41670 		mov	r0, #600
+ 663 00d2 FFF7FEFF 		bl	left_motor_set_speed
+ 664 00d6 4FF41670 		mov	r0, #600
+ 665 00da FFF7FEFF 		bl	right_motor_set_speed
+ 666 00de 34E0     		b	.L45
+ 667              	.L54:
+ 668 00e0 2048     		ldr	r0, .L57+12
+ 669 00e2 FFF7FEFF 		bl	left_motor_set_speed
+ 670 00e6 1F48     		ldr	r0, .L57+12
+ 671 00e8 FFF7FEFF 		bl	right_motor_set_speed
+ 672 00ec 2DE0     		b	.L45
+ 673              	.L52:
+ 674 00ee 4FF41670 		mov	r0, #600
+ 675 00f2 FFF7FEFF 		bl	left_motor_set_speed
+ 676 00f6 1B48     		ldr	r0, .L57+12
+ 677 00f8 FFF7FEFF 		bl	right_motor_set_speed
+ 678 00fc 25E0     		b	.L45
+ 679              	.L50:
+ 680 00fe 1948     		ldr	r0, .L57+12
+ 681 0100 FFF7FEFF 		bl	left_motor_set_speed
+ 682 0104 4FF41670 		mov	r0, #600
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s 			page 13
+
+
+ 683 0108 FFF7FEFF 		bl	right_motor_set_speed
+ 684 010c 1DE0     		b	.L45
+ 685              	.L49:
+ 686 010e 4FF41670 		mov	r0, #600
+ 687 0112 FFF7FEFF 		bl	left_motor_set_speed
+ 688 0116 0020     		movs	r0, #0
+ 689 0118 FFF7FEFF 		bl	right_motor_set_speed
+ 690 011c 15E0     		b	.L45
+ 691              	.L46:
+ 692 011e 0020     		movs	r0, #0
+ 693 0120 FFF7FEFF 		bl	left_motor_set_speed
+ 694 0124 4FF41670 		mov	r0, #600
+ 695 0128 FFF7FEFF 		bl	right_motor_set_speed
+ 696 012c 0DE0     		b	.L45
+ 697              	.L55:
+ 698 012e 0D48     		ldr	r0, .L57+12
+ 699 0130 FFF7FEFF 		bl	left_motor_set_speed
+ 700 0134 0020     		movs	r0, #0
+ 701 0136 FFF7FEFF 		bl	right_motor_set_speed
+ 702 013a 06E0     		b	.L45
+ 703              	.L53:
+ 704 013c 0020     		movs	r0, #0
+ 705 013e FFF7FEFF 		bl	left_motor_set_speed
+ 706 0142 0848     		ldr	r0, .L57+12
+ 707 0144 FFF7FEFF 		bl	right_motor_set_speed
+ 708 0148 00BF     		nop
+ 709              	.L45:
+ 710 014a 3B69     		ldr	r3, [r7, #16]
+ 711 014c C833     		adds	r3, r3, #200
+ 712 014e 1946     		mov	r1, r3
+ 713 0150 3869     		ldr	r0, [r7, #16]
+ 714 0152 FFF7FEFF 		bl	chThdSleepUntilWindowed
+ 715 0156 5FE7     		b	.L56
+ 716              	.L58:
+ 717              		.align	2
+ 718              	.L57:
+ 719 0158 00000000 		.word	__FUNCTION__.11424
+ 720 015c 00000000 		.word	.LC0
+ 721 0160 00000000 		.word	bus
+ 722 0164 A8FDFFFF 		.word	-600
+ 723              		.size	remote_motion_thd, .-remote_motion_thd
+ 724              		.section	.text.remote_cmd_recv_thd,"ax",%progbits
+ 725              		.align	1
+ 726              		.syntax unified
+ 727              		.thumb
+ 728              		.thumb_func
+ 729              		.fpu fpv4-sp-d16
+ 730              		.type	remote_cmd_recv_thd, %function
+ 731              	remote_cmd_recv_thd:
+ 732              		@ args = 0, pretend = 0, frame = 168
+ 733              		@ frame_needed = 1, uses_anonymous_args = 0
+ 734 0000 80B5     		push	{r7, lr}
+ 735 0002 ACB0     		sub	sp, sp, #176
+ 736 0004 02AF     		add	r7, sp, #8
+ 737 0006 7860     		str	r0, [r7, #4]
+ 738 0008 2648     		ldr	r0, .L62
+ 739 000a FFF7FEFF 		bl	chRegSetThreadName
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s 			page 14
+
+
+ 740 000e 07F19401 		add	r1, r7, #148
+ 741 0012 0223     		movs	r3, #2
+ 742 0014 0222     		movs	r2, #2
+ 743 0016 2448     		ldr	r0, .L62+4
+ 744 0018 FFF7FEFF 		bl	chEvtRegisterMaskWithFlags
+ 745 001c 07F18003 		add	r3, r7, #128
+ 746 0020 1846     		mov	r0, r3
+ 747 0022 FFF7FEFF 		bl	RC5_reset
+ 748 0026 07F11003 		add	r3, r7, #16
+ 749 002a 3B61     		str	r3, [r7, #16]
+ 750 002c 07F11003 		add	r3, r7, #16
+ 751 0030 7B61     		str	r3, [r7, #20]
+ 752 0032 0023     		movs	r3, #0
+ 753 0034 BB61     		str	r3, [r7, #24]
+ 754 0036 0023     		movs	r3, #0
+ 755 0038 FB61     		str	r3, [r7, #28]
+ 756 003a 0023     		movs	r3, #0
+ 757 003c 3B62     		str	r3, [r7, #32]
+ 758 003e 07F10803 		add	r3, r7, #8
+ 759 0042 BB60     		str	r3, [r7, #8]
+ 760 0044 07F10803 		add	r3, r7, #8
+ 761 0048 FB60     		str	r3, [r7, #12]
+ 762 004a 07F10802 		add	r2, r7, #8
+ 763 004e 07F11001 		add	r1, r7, #16
+ 764 0052 07F12400 		add	r0, r7, #36
+ 765 0056 0323     		movs	r3, #3
+ 766 0058 0093     		str	r3, [sp]
+ 767 005a 144B     		ldr	r3, .L62+8
+ 768 005c FFF7FEFF 		bl	messagebus_topic_init
+ 769 0060 07F12403 		add	r3, r7, #36
+ 770 0064 124A     		ldr	r2, .L62+12
+ 771 0066 1946     		mov	r1, r3
+ 772 0068 1248     		ldr	r0, .L62+16
+ 773 006a FFF7FEFF 		bl	messagebus_advertise_topic
+ 774              	.L61:
+ 775 006e 0220     		movs	r0, #2
+ 776 0070 FFF7FEFF 		bl	chEvtWaitAny
+ 777 0074 07F19403 		add	r3, r7, #148
+ 778 0078 1846     		mov	r0, r3
+ 779 007a FFF7FEFF 		bl	chEvtGetAndClearFlags
+ 780 007e 07F18000 		add	r0, r7, #128
+ 781 0082 0D4B     		ldr	r3, .L62+20
+ 782 0084 0D4A     		ldr	r2, .L62+24
+ 783 0086 0949     		ldr	r1, .L62+8
+ 784 0088 FFF7FEFF 		bl	RC5_read
+ 785 008c 0346     		mov	r3, r0
+ 786 008e 002B     		cmp	r3, #0
+ 787 0090 EDD0     		beq	.L61
+ 788 0092 07F12403 		add	r3, r7, #36
+ 789 0096 0322     		movs	r2, #3
+ 790 0098 0449     		ldr	r1, .L62+8
+ 791 009a 1846     		mov	r0, r3
+ 792 009c FFF7FEFF 		bl	messagebus_topic_publish
+ 793 00a0 E5E7     		b	.L61
+ 794              	.L63:
+ 795 00a2 00BF     		.align	2
+ 796              	.L62:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s 			page 15
+
+
+ 797 00a4 00000000 		.word	__FUNCTION__.11447
+ 798 00a8 00000000 		.word	exti_events
+ 799 00ac 00000000 		.word	ir_remote_values
+ 800 00b0 00000000 		.word	.LC0
+ 801 00b4 00000000 		.word	bus
+ 802 00b8 02000000 		.word	ir_remote_values+2
+ 803 00bc 01000000 		.word	ir_remote_values+1
+ 804              		.size	remote_cmd_recv_thd, .-remote_cmd_recv_thd
+ 805              		.section	.text.ir_remote_start,"ax",%progbits
+ 806              		.align	1
+ 807              		.global	ir_remote_start
+ 808              		.syntax unified
+ 809              		.thumb
+ 810              		.thumb_func
+ 811              		.fpu fpv4-sp-d16
+ 812              		.type	ir_remote_start, %function
+ 813              	ir_remote_start:
+ 814              		@ args = 0, pretend = 0, frame = 0
+ 815              		@ frame_needed = 1, uses_anonymous_args = 0
+ 816 0000 80B5     		push	{r7, lr}
+ 817 0002 82B0     		sub	sp, sp, #8
+ 818 0004 02AF     		add	r7, sp, #8
+ 819 0006 0F49     		ldr	r1, .L65
+ 820 0008 0F48     		ldr	r0, .L65+4
+ 821 000a FFF7FEFF 		bl	gptStart
+ 822 000e 4FF6FF71 		movw	r1, #65535
+ 823 0012 0D48     		ldr	r0, .L65+4
+ 824 0014 FFF7FEFF 		bl	gptStartContinuous
+ 825 0018 0023     		movs	r3, #0
+ 826 001a 0093     		str	r3, [sp]
+ 827 001c 0B4B     		ldr	r3, .L65+8
+ 828 001e 4022     		movs	r2, #64
+ 829 0020 4FF41E71 		mov	r1, #632
+ 830 0024 0A48     		ldr	r0, .L65+12
+ 831 0026 FFF7FEFF 		bl	chThdCreateStatic
+ 832 002a 0023     		movs	r3, #0
+ 833 002c 0093     		str	r3, [sp]
+ 834 002e 094B     		ldr	r3, .L65+16
+ 835 0030 4022     		movs	r2, #64
+ 836 0032 4FF4FC71 		mov	r1, #504
+ 837 0036 0848     		ldr	r0, .L65+20
+ 838 0038 FFF7FEFF 		bl	chThdCreateStatic
+ 839 003c 00BF     		nop
+ 840 003e BD46     		mov	sp, r7
+ 841              		@ sp needed
+ 842 0040 80BD     		pop	{r7, pc}
+ 843              	.L66:
+ 844 0042 00BF     		.align	2
+ 845              	.L65:
+ 846 0044 00000000 		.word	gpt11cfg
+ 847 0048 00000000 		.word	GPTD11
+ 848 004c 00000000 		.word	remote_cmd_recv_thd
+ 849 0050 00000000 		.word	remote_cmd_recv_thd_wa.11457
+ 850 0054 00000000 		.word	remote_motion_thd
+ 851 0058 00000000 		.word	remote_motion_thd_wa.11458
+ 852              		.size	ir_remote_start, .-ir_remote_start
+ 853              		.section	.text.ir_remote_get_toggle,"ax",%progbits
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s 			page 16
+
+
+ 854              		.align	1
+ 855              		.global	ir_remote_get_toggle
+ 856              		.syntax unified
+ 857              		.thumb
+ 858              		.thumb_func
+ 859              		.fpu fpv4-sp-d16
+ 860              		.type	ir_remote_get_toggle, %function
+ 861              	ir_remote_get_toggle:
+ 862              		@ args = 0, pretend = 0, frame = 0
+ 863              		@ frame_needed = 1, uses_anonymous_args = 0
+ 864              		@ link register save eliminated.
+ 865 0000 80B4     		push	{r7}
+ 866 0002 00AF     		add	r7, sp, #0
+ 867 0004 034B     		ldr	r3, .L69
+ 868 0006 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 869 0008 1846     		mov	r0, r3
+ 870 000a BD46     		mov	sp, r7
+ 871              		@ sp needed
+ 872 000c 5DF8047B 		ldr	r7, [sp], #4
+ 873 0010 7047     		bx	lr
+ 874              	.L70:
+ 875 0012 00BF     		.align	2
+ 876              	.L69:
+ 877 0014 00000000 		.word	ir_remote_values
+ 878              		.size	ir_remote_get_toggle, .-ir_remote_get_toggle
+ 879              		.section	.text.ir_remote_get_address,"ax",%progbits
+ 880              		.align	1
+ 881              		.global	ir_remote_get_address
+ 882              		.syntax unified
+ 883              		.thumb
+ 884              		.thumb_func
+ 885              		.fpu fpv4-sp-d16
+ 886              		.type	ir_remote_get_address, %function
+ 887              	ir_remote_get_address:
+ 888              		@ args = 0, pretend = 0, frame = 0
+ 889              		@ frame_needed = 1, uses_anonymous_args = 0
+ 890              		@ link register save eliminated.
+ 891 0000 80B4     		push	{r7}
+ 892 0002 00AF     		add	r7, sp, #0
+ 893 0004 034B     		ldr	r3, .L73
+ 894 0006 5B78     		ldrb	r3, [r3, #1]	@ zero_extendqisi2
+ 895 0008 1846     		mov	r0, r3
+ 896 000a BD46     		mov	sp, r7
+ 897              		@ sp needed
+ 898 000c 5DF8047B 		ldr	r7, [sp], #4
+ 899 0010 7047     		bx	lr
+ 900              	.L74:
+ 901 0012 00BF     		.align	2
+ 902              	.L73:
+ 903 0014 00000000 		.word	ir_remote_values
+ 904              		.size	ir_remote_get_address, .-ir_remote_get_address
+ 905              		.section	.text.ir_remote_get_data,"ax",%progbits
+ 906              		.align	1
+ 907              		.global	ir_remote_get_data
+ 908              		.syntax unified
+ 909              		.thumb
+ 910              		.thumb_func
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s 			page 17
+
+
+ 911              		.fpu fpv4-sp-d16
+ 912              		.type	ir_remote_get_data, %function
+ 913              	ir_remote_get_data:
+ 914              		@ args = 0, pretend = 0, frame = 0
+ 915              		@ frame_needed = 1, uses_anonymous_args = 0
+ 916              		@ link register save eliminated.
+ 917 0000 80B4     		push	{r7}
+ 918 0002 00AF     		add	r7, sp, #0
+ 919 0004 034B     		ldr	r3, .L77
+ 920 0006 9B78     		ldrb	r3, [r3, #2]	@ zero_extendqisi2
+ 921 0008 1846     		mov	r0, r3
+ 922 000a BD46     		mov	sp, r7
+ 923              		@ sp needed
+ 924 000c 5DF8047B 		ldr	r7, [sp], #4
+ 925 0010 7047     		bx	lr
+ 926              	.L78:
+ 927 0012 00BF     		.align	2
+ 928              	.L77:
+ 929 0014 00000000 		.word	ir_remote_values
+ 930              		.size	ir_remote_get_data, .-ir_remote_get_data
+ 931              		.section	.rodata.__FUNCTION__.11424,"a",%progbits
+ 932              		.align	2
+ 933              		.type	__FUNCTION__.11424, %object
+ 934              		.size	__FUNCTION__.11424, 18
+ 935              	__FUNCTION__.11424:
+ 936 0000 72656D6F 		.ascii	"remote_motion_thd\000"
+ 936      74655F6D 
+ 936      6F74696F 
+ 936      6E5F7468 
+ 936      6400
+ 937              		.section	.rodata.__func__.7153,"a",%progbits
+ 938              		.align	2
+ 939              		.type	__func__.7153, %object
+ 940              		.size	__func__.7153, 12
+ 941              	__func__.7153:
+ 942 0000 63685379 		.ascii	"chSysUnlock\000"
+ 942      73556E6C 
+ 942      6F636B00 
+ 943              		.section	.rodata.__FUNCTION__.11447,"a",%progbits
+ 944              		.align	2
+ 945              		.type	__FUNCTION__.11447, %object
+ 946              		.size	__FUNCTION__.11447, 20
+ 947              	__FUNCTION__.11447:
+ 948 0000 72656D6F 		.ascii	"remote_cmd_recv_thd\000"
+ 948      74655F63 
+ 948      6D645F72 
+ 948      6563765F 
+ 948      74686400 
+ 949              		.section	.bss.remote_cmd_recv_thd_wa.11457,"aw",%nobits
+ 950              		.align	3
+ 951              		.type	remote_cmd_recv_thd_wa.11457, %object
+ 952              		.size	remote_cmd_recv_thd_wa.11457, 632
+ 953              	remote_cmd_recv_thd_wa.11457:
+ 954 0000 00000000 		.space	632
+ 954      00000000 
+ 954      00000000 
+ 954      00000000 
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s 			page 18
+
+
+ 954      00000000 
+ 955              		.section	.bss.remote_motion_thd_wa.11458,"aw",%nobits
+ 956              		.align	3
+ 957              		.type	remote_motion_thd_wa.11458, %object
+ 958              		.size	remote_motion_thd_wa.11458, 504
+ 959              	remote_motion_thd_wa.11458:
+ 960 0000 00000000 		.space	504
+ 960      00000000 
+ 960      00000000 
+ 960      00000000 
+ 960      00000000 
+ 961              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s 			page 19
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 ir_remote.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:15     .text.port_lock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:21     .text.port_lock:0000000000000000 port_lock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:45     .text.port_unlock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:51     .text.port_unlock:0000000000000000 port_unlock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:75     .text.chSysLock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:81     .text.chSysLock:0000000000000000 chSysLock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:93     .text.chSysUnlock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:99     .text.chSysUnlock:0000000000000000 chSysUnlock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:128    .text.chSysUnlock:0000000000000034 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:941    .rodata.__func__.7153:0000000000000000 __func__.7153
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:132    .text.chVTGetSystemTimeX:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:138    .text.chVTGetSystemTimeX:0000000000000000 chVTGetSystemTimeX
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:154    .text.chVTGetSystemTimeX:0000000000000014 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:157    .text.chVTGetSystemTime:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:163    .text.chVTGetSystemTime:0000000000000000 chVTGetSystemTime
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:181    .text.chRegSetThreadName:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:187    .text.chRegSetThreadName:0000000000000000 chRegSetThreadName
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:208    .text.chRegSetThreadName:000000000000001c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:211    .bss.ir_remote_values:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:214    .bss.ir_remote_values:0000000000000000 ir_remote_values
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:221    .rodata.trans:0000000000000000 trans
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:218    .rodata.trans:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:227    .text.reset_counter_gpt:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:233    .text.reset_counter_gpt:0000000000000000 reset_counter_gpt
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:253    .text.RC5_reset:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:259    .text.RC5_reset:0000000000000000 RC5_reset
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:287    .text.RC5_decodeEvent:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:293    .text.RC5_decodeEvent:0000000000000000 RC5_decodeEvent
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:363    .text.RC5_decodeEvent:0000000000000080 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:366    .text.RC5_decodePulse:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:372    .text.RC5_decodePulse:0000000000000000 RC5_decodePulse
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:433    .text.RC5_read_message:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:439    .text.RC5_read_message:0000000000000000 RC5_read_message
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:505    .text.RC5_read_message:0000000000000078 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:509    .text.RC5_read:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:515    .text.RC5_read:0000000000000000 RC5_read
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:573    .rodata.gpt11cfg:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:576    .rodata.gpt11cfg:0000000000000000 gpt11cfg
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:582    .rodata:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:586    .text.remote_motion_thd:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:592    .text.remote_motion_thd:0000000000000000 remote_motion_thd
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:621    .text.remote_motion_thd:000000000000003c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:654    .text.remote_motion_thd:00000000000000c0 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:719    .text.remote_motion_thd:0000000000000158 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:935    .rodata.__FUNCTION__.11424:0000000000000000 __FUNCTION__.11424
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:725    .text.remote_cmd_recv_thd:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:731    .text.remote_cmd_recv_thd:0000000000000000 remote_cmd_recv_thd
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:797    .text.remote_cmd_recv_thd:00000000000000a4 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:947    .rodata.__FUNCTION__.11447:0000000000000000 __FUNCTION__.11447
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:806    .text.ir_remote_start:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:813    .text.ir_remote_start:0000000000000000 ir_remote_start
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:846    .text.ir_remote_start:0000000000000044 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:953    .bss.remote_cmd_recv_thd_wa.11457:0000000000000000 remote_cmd_recv_thd_wa.11457
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:959    .bss.remote_motion_thd_wa.11458:0000000000000000 remote_motion_thd_wa.11458
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:854    .text.ir_remote_get_toggle:0000000000000000 $t
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s 			page 20
+
+
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:861    .text.ir_remote_get_toggle:0000000000000000 ir_remote_get_toggle
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:877    .text.ir_remote_get_toggle:0000000000000014 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:880    .text.ir_remote_get_address:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:887    .text.ir_remote_get_address:0000000000000000 ir_remote_get_address
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:903    .text.ir_remote_get_address:0000000000000014 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:906    .text.ir_remote_get_data:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:913    .text.ir_remote_get_data:0000000000000000 ir_remote_get_data
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:929    .text.ir_remote_get_data:0000000000000014 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:932    .rodata.__FUNCTION__.11424:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:938    .rodata.__func__.7153:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:944    .rodata.__FUNCTION__.11447:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:950    .bss.remote_cmd_recv_thd_wa.11457:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccQhp0WX.s:956    .bss.remote_motion_thd_wa.11458:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+_stats_start_measure_crit_thd
+_dbg_check_lock
+_dbg_check_unlock
+_stats_stop_measure_crit_thd
+chSysHalt
+ch
+GPTD11
+messagebus_find_topic_blocking
+messagebus_topic_wait
+left_motor_set_speed
+right_motor_set_speed
+chThdSleepUntilWindowed
+bus
+chEvtRegisterMaskWithFlags
+messagebus_topic_init
+messagebus_advertise_topic
+chEvtWaitAny
+chEvtGetAndClearFlags
+messagebus_topic_publish
+exti_events
+gptStart
+gptStartContinuous
+chThdCreateStatic

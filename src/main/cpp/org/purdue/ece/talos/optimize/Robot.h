@@ -21,8 +21,6 @@ public:
 
 	Robot();
 
-	~Robot();
-
 	/// The Motors
 	void setRightMotorSpeed(int speed);
 	void setLeftMotorSpeed(int speed);

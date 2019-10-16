@@ -1,0 +1,1474 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"hal_mmcsd.c"
+  14              		.section	.text._mmcsd_get_slice,"ax",%progbits
+  15              		.align	1
+  16              		.global	_mmcsd_get_slice
+  17              		.syntax unified
+  18              		.thumb
+  19              		.thumb_func
+  20              		.fpu fpv4-sp-d16
+  21              		.type	_mmcsd_get_slice, %function
+  22              	_mmcsd_get_slice:
+  23              		@ args = 0, pretend = 0, frame = 32
+  24              		@ frame_needed = 1, uses_anonymous_args = 0
+  25 0000 80B5     		push	{r7, lr}
+  26 0002 88B0     		sub	sp, sp, #32
+  27 0004 00AF     		add	r7, sp, #0
+  28 0006 F860     		str	r0, [r7, #12]
+  29 0008 B960     		str	r1, [r7, #8]
+  30 000a 7A60     		str	r2, [r7, #4]
+  31 000c BA68     		ldr	r2, [r7, #8]
+  32 000e 7B68     		ldr	r3, [r7, #4]
+  33 0010 9A42     		cmp	r2, r3
+  34 0012 04D3     		bcc	.L2
+  35 0014 BA68     		ldr	r2, [r7, #8]
+  36 0016 7B68     		ldr	r3, [r7, #4]
+  37 0018 D31A     		subs	r3, r2, r3
+  38 001a 1F2B     		cmp	r3, #31
+  39 001c 02D9     		bls	.L3
+  40              	.L2:
+  41 001e 1E48     		ldr	r0, .L6
+  42 0020 FFF7FEFF 		bl	chSysHalt
+  43              	.L3:
+  44 0024 7B68     		ldr	r3, [r7, #4]
+  45 0026 5B09     		lsrs	r3, r3, #5
+  46 0028 FB61     		str	r3, [r7, #28]
+  47 002a 7B68     		ldr	r3, [r7, #4]
+  48 002c 03F01F03 		and	r3, r3, #31
+  49 0030 BB61     		str	r3, [r7, #24]
+  50 0032 BB68     		ldr	r3, [r7, #8]
+  51 0034 5B09     		lsrs	r3, r3, #5
+  52 0036 7B61     		str	r3, [r7, #20]
+  53 0038 BB68     		ldr	r3, [r7, #8]
+  54 003a 03F01F03 		and	r3, r3, #31
+  55 003e 0133     		adds	r3, r3, #1
+  56 0040 0122     		movs	r2, #1
+  57 0042 02FA03F3 		lsl	r3, r2, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s 			page 2
+
+
+  58 0046 013B     		subs	r3, r3, #1
+  59 0048 3B61     		str	r3, [r7, #16]
+  60 004a FA69     		ldr	r2, [r7, #28]
+  61 004c 7B69     		ldr	r3, [r7, #20]
+  62 004e 9A42     		cmp	r2, r3
+  63 0050 14D2     		bcs	.L4
+  64 0052 FB69     		ldr	r3, [r7, #28]
+  65 0054 9B00     		lsls	r3, r3, #2
+  66 0056 FA68     		ldr	r2, [r7, #12]
+  67 0058 1344     		add	r3, r3, r2
+  68 005a 1A68     		ldr	r2, [r3]
+  69 005c BB69     		ldr	r3, [r7, #24]
+  70 005e DA40     		lsrs	r2, r2, r3
+  71 0060 7B69     		ldr	r3, [r7, #20]
+  72 0062 9B00     		lsls	r3, r3, #2
+  73 0064 F968     		ldr	r1, [r7, #12]
+  74 0066 0B44     		add	r3, r3, r1
+  75 0068 1968     		ldr	r1, [r3]
+  76 006a 3B69     		ldr	r3, [r7, #16]
+  77 006c 1940     		ands	r1, r1, r3
+  78 006e BB69     		ldr	r3, [r7, #24]
+  79 0070 C3F12003 		rsb	r3, r3, #32
+  80 0074 01FA03F3 		lsl	r3, r1, r3
+  81 0078 1343     		orrs	r3, r3, r2
+  82 007a 09E0     		b	.L5
+  83              	.L4:
+  84 007c FB69     		ldr	r3, [r7, #28]
+  85 007e 9B00     		lsls	r3, r3, #2
+  86 0080 FA68     		ldr	r2, [r7, #12]
+  87 0082 1344     		add	r3, r3, r2
+  88 0084 1A68     		ldr	r2, [r3]
+  89 0086 3B69     		ldr	r3, [r7, #16]
+  90 0088 1A40     		ands	r2, r2, r3
+  91 008a BB69     		ldr	r3, [r7, #24]
+  92 008c 22FA03F3 		lsr	r3, r2, r3
+  93              	.L5:
+  94 0090 1846     		mov	r0, r3
+  95 0092 2037     		adds	r7, r7, #32
+  96 0094 BD46     		mov	sp, r7
+  97              		@ sp needed
+  98 0096 80BD     		pop	{r7, pc}
+  99              	.L7:
+ 100              		.align	2
+ 101              	.L6:
+ 102 0098 00000000 		.word	__func__.9847
+ 103              		.size	_mmcsd_get_slice, .-_mmcsd_get_slice
+ 104              		.section	.text._mmcsd_get_capacity,"ax",%progbits
+ 105              		.align	1
+ 106              		.global	_mmcsd_get_capacity
+ 107              		.syntax unified
+ 108              		.thumb
+ 109              		.thumb_func
+ 110              		.fpu fpv4-sp-d16
+ 111              		.type	_mmcsd_get_capacity, %function
+ 112              	_mmcsd_get_capacity:
+ 113              		@ args = 0, pretend = 0, frame = 24
+ 114              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s 			page 3
+
+
+ 115 0000 80B5     		push	{r7, lr}
+ 116 0002 86B0     		sub	sp, sp, #24
+ 117 0004 00AF     		add	r7, sp, #0
+ 118 0006 7860     		str	r0, [r7, #4]
+ 119 0008 7B68     		ldr	r3, [r7, #4]
+ 120 000a 002B     		cmp	r3, #0
+ 121 000c 02D1     		bne	.L9
+ 122 000e 1C48     		ldr	r0, .L15
+ 123 0010 FFF7FEFF 		bl	chSysHalt
+ 124              	.L9:
+ 125 0014 7E22     		movs	r2, #126
+ 126 0016 7F21     		movs	r1, #127
+ 127 0018 7868     		ldr	r0, [r7, #4]
+ 128 001a FFF7FEFF 		bl	_mmcsd_get_slice
+ 129 001e 0346     		mov	r3, r0
+ 130 0020 002B     		cmp	r3, #0
+ 131 0022 04D0     		beq	.L11
+ 132 0024 012B     		cmp	r3, #1
+ 133 0026 1ED0     		beq	.L12
+ 134 0028 00BF     		nop
+ 135 002a 0023     		movs	r3, #0
+ 136 002c 23E0     		b	.L13
+ 137              	.L11:
+ 138 002e 3E22     		movs	r2, #62
+ 139 0030 4921     		movs	r1, #73
+ 140 0032 7868     		ldr	r0, [r7, #4]
+ 141 0034 FFF7FEFF 		bl	_mmcsd_get_slice
+ 142 0038 7861     		str	r0, [r7, #20]
+ 143 003a 2F22     		movs	r2, #47
+ 144 003c 3121     		movs	r1, #49
+ 145 003e 7868     		ldr	r0, [r7, #4]
+ 146 0040 FFF7FEFF 		bl	_mmcsd_get_slice
+ 147 0044 3861     		str	r0, [r7, #16]
+ 148 0046 5022     		movs	r2, #80
+ 149 0048 5321     		movs	r1, #83
+ 150 004a 7868     		ldr	r0, [r7, #4]
+ 151 004c FFF7FEFF 		bl	_mmcsd_get_slice
+ 152 0050 F860     		str	r0, [r7, #12]
+ 153 0052 7B69     		ldr	r3, [r7, #20]
+ 154 0054 5A1C     		adds	r2, r3, #1
+ 155 0056 3B69     		ldr	r3, [r7, #16]
+ 156 0058 0233     		adds	r3, r3, #2
+ 157 005a 9A40     		lsls	r2, r2, r3
+ 158 005c FB68     		ldr	r3, [r7, #12]
+ 159 005e 093B     		subs	r3, r3, #9
+ 160 0060 02FA03F3 		lsl	r3, r2, r3
+ 161 0064 07E0     		b	.L13
+ 162              	.L12:
+ 163 0066 3022     		movs	r2, #48
+ 164 0068 4521     		movs	r1, #69
+ 165 006a 7868     		ldr	r0, [r7, #4]
+ 166 006c FFF7FEFF 		bl	_mmcsd_get_slice
+ 167 0070 0346     		mov	r3, r0
+ 168 0072 0133     		adds	r3, r3, #1
+ 169 0074 9B02     		lsls	r3, r3, #10
+ 170              	.L13:
+ 171 0076 1846     		mov	r0, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s 			page 4
+
+
+ 172 0078 1837     		adds	r7, r7, #24
+ 173 007a BD46     		mov	sp, r7
+ 174              		@ sp needed
+ 175 007c 80BD     		pop	{r7, pc}
+ 176              	.L16:
+ 177 007e 00BF     		.align	2
+ 178              	.L15:
+ 179 0080 00000000 		.word	__func__.9854
+ 180              		.size	_mmcsd_get_capacity, .-_mmcsd_get_capacity
+ 181              		.section	.text._mmcsd_get_capacity_ext,"ax",%progbits
+ 182              		.align	1
+ 183              		.global	_mmcsd_get_capacity_ext
+ 184              		.syntax unified
+ 185              		.thumb
+ 186              		.thumb_func
+ 187              		.fpu fpv4-sp-d16
+ 188              		.type	_mmcsd_get_capacity_ext, %function
+ 189              	_mmcsd_get_capacity_ext:
+ 190              		@ args = 0, pretend = 0, frame = 8
+ 191              		@ frame_needed = 1, uses_anonymous_args = 0
+ 192 0000 80B5     		push	{r7, lr}
+ 193 0002 82B0     		sub	sp, sp, #8
+ 194 0004 00AF     		add	r7, sp, #0
+ 195 0006 7860     		str	r0, [r7, #4]
+ 196 0008 7B68     		ldr	r3, [r7, #4]
+ 197 000a 002B     		cmp	r3, #0
+ 198 000c 02D1     		bne	.L18
+ 199 000e 0C48     		ldr	r0, .L20
+ 200 0010 FFF7FEFF 		bl	chSysHalt
+ 201              	.L18:
+ 202 0014 7B68     		ldr	r3, [r7, #4]
+ 203 0016 D733     		adds	r3, r3, #215
+ 204 0018 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 205 001a 1A06     		lsls	r2, r3, #24
+ 206 001c 7B68     		ldr	r3, [r7, #4]
+ 207 001e D633     		adds	r3, r3, #214
+ 208 0020 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 209 0022 1B04     		lsls	r3, r3, #16
+ 210 0024 1A44     		add	r2, r2, r3
+ 211 0026 7B68     		ldr	r3, [r7, #4]
+ 212 0028 D533     		adds	r3, r3, #213
+ 213 002a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 214 002c 1B02     		lsls	r3, r3, #8
+ 215 002e 1344     		add	r3, r3, r2
+ 216 0030 7A68     		ldr	r2, [r7, #4]
+ 217 0032 D432     		adds	r2, r2, #212
+ 218 0034 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+ 219 0036 1344     		add	r3, r3, r2
+ 220 0038 1846     		mov	r0, r3
+ 221 003a 0837     		adds	r7, r7, #8
+ 222 003c BD46     		mov	sp, r7
+ 223              		@ sp needed
+ 224 003e 80BD     		pop	{r7, pc}
+ 225              	.L21:
+ 226              		.align	2
+ 227              	.L20:
+ 228 0040 00000000 		.word	__func__.9862
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s 			page 5
+
+
+ 229              		.size	_mmcsd_get_capacity_ext, .-_mmcsd_get_capacity_ext
+ 230              		.section	.text._mmcsd_unpack_sdc_cid,"ax",%progbits
+ 231              		.align	1
+ 232              		.global	_mmcsd_unpack_sdc_cid
+ 233              		.syntax unified
+ 234              		.thumb
+ 235              		.thumb_func
+ 236              		.fpu fpv4-sp-d16
+ 237              		.type	_mmcsd_unpack_sdc_cid, %function
+ 238              	_mmcsd_unpack_sdc_cid:
+ 239              		@ args = 0, pretend = 0, frame = 16
+ 240              		@ frame_needed = 1, uses_anonymous_args = 0
+ 241 0000 80B5     		push	{r7, lr}
+ 242 0002 84B0     		sub	sp, sp, #16
+ 243 0004 00AF     		add	r7, sp, #0
+ 244 0006 7860     		str	r0, [r7, #4]
+ 245 0008 3960     		str	r1, [r7]
+ 246 000a 7B68     		ldr	r3, [r7, #4]
+ 247 000c 002B     		cmp	r3, #0
+ 248 000e 02D0     		beq	.L23
+ 249 0010 3B68     		ldr	r3, [r7]
+ 250 0012 002B     		cmp	r3, #0
+ 251 0014 02D1     		bne	.L24
+ 252              	.L23:
+ 253 0016 4048     		ldr	r0, .L25
+ 254 0018 FFF7FEFF 		bl	chSysHalt
+ 255              	.L24:
+ 256 001c 7B68     		ldr	r3, [r7, #4]
+ 257 001e 0833     		adds	r3, r3, #8
+ 258 0020 FB60     		str	r3, [r7, #12]
+ 259 0022 0122     		movs	r2, #1
+ 260 0024 0721     		movs	r1, #7
+ 261 0026 F868     		ldr	r0, [r7, #12]
+ 262 0028 FFF7FEFF 		bl	_mmcsd_get_slice
+ 263 002c 0346     		mov	r3, r0
+ 264 002e DAB2     		uxtb	r2, r3
+ 265 0030 3B68     		ldr	r3, [r7]
+ 266 0032 1A75     		strb	r2, [r3, #20]
+ 267 0034 0C22     		movs	r2, #12
+ 268 0036 1321     		movs	r1, #19
+ 269 0038 F868     		ldr	r0, [r7, #12]
+ 270 003a FFF7FEFF 		bl	_mmcsd_get_slice
+ 271 003e 0346     		mov	r3, r0
+ 272 0040 9BB2     		uxth	r3, r3
+ 273 0042 03F5FA63 		add	r3, r3, #2000
+ 274 0046 9AB2     		uxth	r2, r3
+ 275 0048 3B68     		ldr	r3, [r7]
+ 276 004a 5A82     		strh	r2, [r3, #18]	@ movhi
+ 277 004c 0822     		movs	r2, #8
+ 278 004e 0B21     		movs	r1, #11
+ 279 0050 F868     		ldr	r0, [r7, #12]
+ 280 0052 FFF7FEFF 		bl	_mmcsd_get_slice
+ 281 0056 0346     		mov	r3, r0
+ 282 0058 DAB2     		uxtb	r2, r3
+ 283 005a 3B68     		ldr	r3, [r7]
+ 284 005c 1A74     		strb	r2, [r3, #16]
+ 285 005e 7822     		movs	r2, #120
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s 			page 6
+
+
+ 286 0060 7F21     		movs	r1, #127
+ 287 0062 F868     		ldr	r0, [r7, #12]
+ 288 0064 FFF7FEFF 		bl	_mmcsd_get_slice
+ 289 0068 0346     		mov	r3, r0
+ 290 006a DAB2     		uxtb	r2, r3
+ 291 006c 3B68     		ldr	r3, [r7]
+ 292 006e 1A70     		strb	r2, [r3]
+ 293 0070 6822     		movs	r2, #104
+ 294 0072 7721     		movs	r1, #119
+ 295 0074 F868     		ldr	r0, [r7, #12]
+ 296 0076 FFF7FEFF 		bl	_mmcsd_get_slice
+ 297 007a 0346     		mov	r3, r0
+ 298 007c 9AB2     		uxth	r2, r3
+ 299 007e 3B68     		ldr	r3, [r7]
+ 300 0080 5A80     		strh	r2, [r3, #2]	@ movhi
+ 301 0082 4022     		movs	r2, #64
+ 302 0084 4721     		movs	r1, #71
+ 303 0086 F868     		ldr	r0, [r7, #12]
+ 304 0088 FFF7FEFF 		bl	_mmcsd_get_slice
+ 305 008c 0346     		mov	r3, r0
+ 306 008e DAB2     		uxtb	r2, r3
+ 307 0090 3B68     		ldr	r3, [r7]
+ 308 0092 1A72     		strb	r2, [r3, #8]
+ 309 0094 4822     		movs	r2, #72
+ 310 0096 4F21     		movs	r1, #79
+ 311 0098 F868     		ldr	r0, [r7, #12]
+ 312 009a FFF7FEFF 		bl	_mmcsd_get_slice
+ 313 009e 0346     		mov	r3, r0
+ 314 00a0 DAB2     		uxtb	r2, r3
+ 315 00a2 3B68     		ldr	r3, [r7]
+ 316 00a4 DA71     		strb	r2, [r3, #7]
+ 317 00a6 5022     		movs	r2, #80
+ 318 00a8 5721     		movs	r1, #87
+ 319 00aa F868     		ldr	r0, [r7, #12]
+ 320 00ac FFF7FEFF 		bl	_mmcsd_get_slice
+ 321 00b0 0346     		mov	r3, r0
+ 322 00b2 DAB2     		uxtb	r2, r3
+ 323 00b4 3B68     		ldr	r3, [r7]
+ 324 00b6 9A71     		strb	r2, [r3, #6]
+ 325 00b8 5822     		movs	r2, #88
+ 326 00ba 5F21     		movs	r1, #95
+ 327 00bc F868     		ldr	r0, [r7, #12]
+ 328 00be FFF7FEFF 		bl	_mmcsd_get_slice
+ 329 00c2 0346     		mov	r3, r0
+ 330 00c4 DAB2     		uxtb	r2, r3
+ 331 00c6 3B68     		ldr	r3, [r7]
+ 332 00c8 5A71     		strb	r2, [r3, #5]
+ 333 00ca 6022     		movs	r2, #96
+ 334 00cc 6721     		movs	r1, #103
+ 335 00ce F868     		ldr	r0, [r7, #12]
+ 336 00d0 FFF7FEFF 		bl	_mmcsd_get_slice
+ 337 00d4 0346     		mov	r3, r0
+ 338 00d6 DAB2     		uxtb	r2, r3
+ 339 00d8 3B68     		ldr	r3, [r7]
+ 340 00da 1A71     		strb	r2, [r3, #4]
+ 341 00dc 3C22     		movs	r2, #60
+ 342 00de 3F21     		movs	r1, #63
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s 			page 7
+
+
+ 343 00e0 F868     		ldr	r0, [r7, #12]
+ 344 00e2 FFF7FEFF 		bl	_mmcsd_get_slice
+ 345 00e6 0346     		mov	r3, r0
+ 346 00e8 DAB2     		uxtb	r2, r3
+ 347 00ea 3B68     		ldr	r3, [r7]
+ 348 00ec 5A72     		strb	r2, [r3, #9]
+ 349 00ee 3822     		movs	r2, #56
+ 350 00f0 3B21     		movs	r1, #59
+ 351 00f2 F868     		ldr	r0, [r7, #12]
+ 352 00f4 FFF7FEFF 		bl	_mmcsd_get_slice
+ 353 00f8 0346     		mov	r3, r0
+ 354 00fa DAB2     		uxtb	r2, r3
+ 355 00fc 3B68     		ldr	r3, [r7]
+ 356 00fe 9A72     		strb	r2, [r3, #10]
+ 357 0100 1822     		movs	r2, #24
+ 358 0102 3721     		movs	r1, #55
+ 359 0104 F868     		ldr	r0, [r7, #12]
+ 360 0106 FFF7FEFF 		bl	_mmcsd_get_slice
+ 361 010a 0246     		mov	r2, r0
+ 362 010c 3B68     		ldr	r3, [r7]
+ 363 010e DA60     		str	r2, [r3, #12]
+ 364 0110 00BF     		nop
+ 365 0112 1037     		adds	r7, r7, #16
+ 366 0114 BD46     		mov	sp, r7
+ 367              		@ sp needed
+ 368 0116 80BD     		pop	{r7, pc}
+ 369              	.L26:
+ 370              		.align	2
+ 371              	.L25:
+ 372 0118 00000000 		.word	__func__.9868
+ 373              		.size	_mmcsd_unpack_sdc_cid, .-_mmcsd_unpack_sdc_cid
+ 374              		.section	.text._mmcsd_unpack_mmc_cid,"ax",%progbits
+ 375              		.align	1
+ 376              		.global	_mmcsd_unpack_mmc_cid
+ 377              		.syntax unified
+ 378              		.thumb
+ 379              		.thumb_func
+ 380              		.fpu fpv4-sp-d16
+ 381              		.type	_mmcsd_unpack_mmc_cid, %function
+ 382              	_mmcsd_unpack_mmc_cid:
+ 383              		@ args = 0, pretend = 0, frame = 16
+ 384              		@ frame_needed = 1, uses_anonymous_args = 0
+ 385 0000 80B5     		push	{r7, lr}
+ 386 0002 84B0     		sub	sp, sp, #16
+ 387 0004 00AF     		add	r7, sp, #0
+ 388 0006 7860     		str	r0, [r7, #4]
+ 389 0008 3960     		str	r1, [r7]
+ 390 000a 7B68     		ldr	r3, [r7, #4]
+ 391 000c 002B     		cmp	r3, #0
+ 392 000e 02D0     		beq	.L28
+ 393 0010 3B68     		ldr	r3, [r7]
+ 394 0012 002B     		cmp	r3, #0
+ 395 0014 02D1     		bne	.L29
+ 396              	.L28:
+ 397 0016 4548     		ldr	r0, .L30
+ 398 0018 FFF7FEFF 		bl	chSysHalt
+ 399              	.L29:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s 			page 8
+
+
+ 400 001c 7B68     		ldr	r3, [r7, #4]
+ 401 001e 0833     		adds	r3, r3, #8
+ 402 0020 FB60     		str	r3, [r7, #12]
+ 403 0022 0122     		movs	r2, #1
+ 404 0024 0721     		movs	r1, #7
+ 405 0026 F868     		ldr	r0, [r7, #12]
+ 406 0028 FFF7FEFF 		bl	_mmcsd_get_slice
+ 407 002c 0346     		mov	r3, r0
+ 408 002e DAB2     		uxtb	r2, r3
+ 409 0030 3B68     		ldr	r3, [r7]
+ 410 0032 1A75     		strb	r2, [r3, #20]
+ 411 0034 0822     		movs	r2, #8
+ 412 0036 0B21     		movs	r1, #11
+ 413 0038 F868     		ldr	r0, [r7, #12]
+ 414 003a FFF7FEFF 		bl	_mmcsd_get_slice
+ 415 003e 0346     		mov	r3, r0
+ 416 0040 9BB2     		uxth	r3, r3
+ 417 0042 03F2CD73 		addw	r3, r3, #1997
+ 418 0046 9AB2     		uxth	r2, r3
+ 419 0048 3B68     		ldr	r3, [r7]
+ 420 004a 5A82     		strh	r2, [r3, #18]	@ movhi
+ 421 004c 0C22     		movs	r2, #12
+ 422 004e 0F21     		movs	r1, #15
+ 423 0050 F868     		ldr	r0, [r7, #12]
+ 424 0052 FFF7FEFF 		bl	_mmcsd_get_slice
+ 425 0056 0346     		mov	r3, r0
+ 426 0058 DAB2     		uxtb	r2, r3
+ 427 005a 3B68     		ldr	r3, [r7]
+ 428 005c 1A74     		strb	r2, [r3, #16]
+ 429 005e 7822     		movs	r2, #120
+ 430 0060 7F21     		movs	r1, #127
+ 431 0062 F868     		ldr	r0, [r7, #12]
+ 432 0064 FFF7FEFF 		bl	_mmcsd_get_slice
+ 433 0068 0346     		mov	r3, r0
+ 434 006a DAB2     		uxtb	r2, r3
+ 435 006c 3B68     		ldr	r3, [r7]
+ 436 006e 1A70     		strb	r2, [r3]
+ 437 0070 6822     		movs	r2, #104
+ 438 0072 7721     		movs	r1, #119
+ 439 0074 F868     		ldr	r0, [r7, #12]
+ 440 0076 FFF7FEFF 		bl	_mmcsd_get_slice
+ 441 007a 0346     		mov	r3, r0
+ 442 007c 9AB2     		uxth	r2, r3
+ 443 007e 3B68     		ldr	r3, [r7]
+ 444 0080 5A80     		strh	r2, [r3, #2]	@ movhi
+ 445 0082 3822     		movs	r2, #56
+ 446 0084 3F21     		movs	r1, #63
+ 447 0086 F868     		ldr	r0, [r7, #12]
+ 448 0088 FFF7FEFF 		bl	_mmcsd_get_slice
+ 449 008c 0346     		mov	r3, r0
+ 450 008e DAB2     		uxtb	r2, r3
+ 451 0090 3B68     		ldr	r3, [r7]
+ 452 0092 5A72     		strb	r2, [r3, #9]
+ 453 0094 4022     		movs	r2, #64
+ 454 0096 4721     		movs	r1, #71
+ 455 0098 F868     		ldr	r0, [r7, #12]
+ 456 009a FFF7FEFF 		bl	_mmcsd_get_slice
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s 			page 9
+
+
+ 457 009e 0346     		mov	r3, r0
+ 458 00a0 DAB2     		uxtb	r2, r3
+ 459 00a2 3B68     		ldr	r3, [r7]
+ 460 00a4 1A72     		strb	r2, [r3, #8]
+ 461 00a6 4822     		movs	r2, #72
+ 462 00a8 4F21     		movs	r1, #79
+ 463 00aa F868     		ldr	r0, [r7, #12]
+ 464 00ac FFF7FEFF 		bl	_mmcsd_get_slice
+ 465 00b0 0346     		mov	r3, r0
+ 466 00b2 DAB2     		uxtb	r2, r3
+ 467 00b4 3B68     		ldr	r3, [r7]
+ 468 00b6 DA71     		strb	r2, [r3, #7]
+ 469 00b8 5022     		movs	r2, #80
+ 470 00ba 5721     		movs	r1, #87
+ 471 00bc F868     		ldr	r0, [r7, #12]
+ 472 00be FFF7FEFF 		bl	_mmcsd_get_slice
+ 473 00c2 0346     		mov	r3, r0
+ 474 00c4 DAB2     		uxtb	r2, r3
+ 475 00c6 3B68     		ldr	r3, [r7]
+ 476 00c8 9A71     		strb	r2, [r3, #6]
+ 477 00ca 5822     		movs	r2, #88
+ 478 00cc 5F21     		movs	r1, #95
+ 479 00ce F868     		ldr	r0, [r7, #12]
+ 480 00d0 FFF7FEFF 		bl	_mmcsd_get_slice
+ 481 00d4 0346     		mov	r3, r0
+ 482 00d6 DAB2     		uxtb	r2, r3
+ 483 00d8 3B68     		ldr	r3, [r7]
+ 484 00da 5A71     		strb	r2, [r3, #5]
+ 485 00dc 6022     		movs	r2, #96
+ 486 00de 6721     		movs	r1, #103
+ 487 00e0 F868     		ldr	r0, [r7, #12]
+ 488 00e2 FFF7FEFF 		bl	_mmcsd_get_slice
+ 489 00e6 0346     		mov	r3, r0
+ 490 00e8 DAB2     		uxtb	r2, r3
+ 491 00ea 3B68     		ldr	r3, [r7]
+ 492 00ec 1A71     		strb	r2, [r3, #4]
+ 493 00ee 3422     		movs	r2, #52
+ 494 00f0 3721     		movs	r1, #55
+ 495 00f2 F868     		ldr	r0, [r7, #12]
+ 496 00f4 FFF7FEFF 		bl	_mmcsd_get_slice
+ 497 00f8 0346     		mov	r3, r0
+ 498 00fa DAB2     		uxtb	r2, r3
+ 499 00fc 3B68     		ldr	r3, [r7]
+ 500 00fe 9A72     		strb	r2, [r3, #10]
+ 501 0100 3022     		movs	r2, #48
+ 502 0102 3321     		movs	r1, #51
+ 503 0104 F868     		ldr	r0, [r7, #12]
+ 504 0106 FFF7FEFF 		bl	_mmcsd_get_slice
+ 505 010a 0346     		mov	r3, r0
+ 506 010c DAB2     		uxtb	r2, r3
+ 507 010e 3B68     		ldr	r3, [r7]
+ 508 0110 DA72     		strb	r2, [r3, #11]
+ 509 0112 1022     		movs	r2, #16
+ 510 0114 2F21     		movs	r1, #47
+ 511 0116 F868     		ldr	r0, [r7, #12]
+ 512 0118 FFF7FEFF 		bl	_mmcsd_get_slice
+ 513 011c 0246     		mov	r2, r0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s 			page 10
+
+
+ 514 011e 3B68     		ldr	r3, [r7]
+ 515 0120 DA60     		str	r2, [r3, #12]
+ 516 0122 00BF     		nop
+ 517 0124 1037     		adds	r7, r7, #16
+ 518 0126 BD46     		mov	sp, r7
+ 519              		@ sp needed
+ 520 0128 80BD     		pop	{r7, pc}
+ 521              	.L31:
+ 522 012a 00BF     		.align	2
+ 523              	.L30:
+ 524 012c 00000000 		.word	__func__.9874
+ 525              		.size	_mmcsd_unpack_mmc_cid, .-_mmcsd_unpack_mmc_cid
+ 526              		.section	.text._mmcsd_unpack_csd_mmc,"ax",%progbits
+ 527              		.align	1
+ 528              		.global	_mmcsd_unpack_csd_mmc
+ 529              		.syntax unified
+ 530              		.thumb
+ 531              		.thumb_func
+ 532              		.fpu fpv4-sp-d16
+ 533              		.type	_mmcsd_unpack_csd_mmc, %function
+ 534              	_mmcsd_unpack_csd_mmc:
+ 535              		@ args = 0, pretend = 0, frame = 16
+ 536              		@ frame_needed = 1, uses_anonymous_args = 0
+ 537 0000 80B5     		push	{r7, lr}
+ 538 0002 84B0     		sub	sp, sp, #16
+ 539 0004 00AF     		add	r7, sp, #0
+ 540 0006 7860     		str	r0, [r7, #4]
+ 541 0008 3960     		str	r1, [r7]
+ 542 000a 7B68     		ldr	r3, [r7, #4]
+ 543 000c 002B     		cmp	r3, #0
+ 544 000e 02D0     		beq	.L33
+ 545 0010 3B68     		ldr	r3, [r7]
+ 546 0012 002B     		cmp	r3, #0
+ 547 0014 02D1     		bne	.L34
+ 548              	.L33:
+ 549 0016 9348     		ldr	r0, .L35
+ 550 0018 FFF7FEFF 		bl	chSysHalt
+ 551              	.L34:
+ 552 001c 7B68     		ldr	r3, [r7, #4]
+ 553 001e 1833     		adds	r3, r3, #24
+ 554 0020 FB60     		str	r3, [r7, #12]
+ 555 0022 3E22     		movs	r2, #62
+ 556 0024 4921     		movs	r1, #73
+ 557 0026 F868     		ldr	r0, [r7, #12]
+ 558 0028 FFF7FEFF 		bl	_mmcsd_get_slice
+ 559 002c 0346     		mov	r3, r0
+ 560 002e 9AB2     		uxth	r2, r3
+ 561 0030 3B68     		ldr	r3, [r7]
+ 562 0032 DA81     		strh	r2, [r3, #14]	@ movhi
+ 563 0034 2F22     		movs	r2, #47
+ 564 0036 3121     		movs	r1, #49
+ 565 0038 F868     		ldr	r0, [r7, #12]
+ 566 003a FFF7FEFF 		bl	_mmcsd_get_slice
+ 567 003e 0346     		mov	r3, r0
+ 568 0040 DAB2     		uxtb	r2, r3
+ 569 0042 3B68     		ldr	r3, [r7]
+ 570 0044 1A75     		strb	r2, [r3, #20]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s 			page 11
+
+
+ 571 0046 5422     		movs	r2, #84
+ 572 0048 5F21     		movs	r1, #95
+ 573 004a F868     		ldr	r0, [r7, #12]
+ 574 004c FFF7FEFF 		bl	_mmcsd_get_slice
+ 575 0050 0346     		mov	r3, r0
+ 576 0052 9AB2     		uxth	r2, r3
+ 577 0054 3B68     		ldr	r3, [r7]
+ 578 0056 DA80     		strh	r2, [r3, #6]	@ movhi
+ 579 0058 0E22     		movs	r2, #14
+ 580 005a 0E21     		movs	r1, #14
+ 581 005c F868     		ldr	r0, [r7, #12]
+ 582 005e FFF7FEFF 		bl	_mmcsd_get_slice
+ 583 0062 0346     		mov	r3, r0
+ 584 0064 DAB2     		uxtb	r2, r3
+ 585 0066 3B68     		ldr	r3, [r7]
+ 586 0068 DA77     		strb	r2, [r3, #31]
+ 587 006a 0122     		movs	r2, #1
+ 588 006c 0721     		movs	r1, #7
+ 589 006e F868     		ldr	r0, [r7, #12]
+ 590 0070 FFF7FEFF 		bl	_mmcsd_get_slice
+ 591 0074 0346     		mov	r3, r0
+ 592 0076 DAB2     		uxtb	r2, r3
+ 593 0078 3B68     		ldr	r3, [r7]
+ 594 007a 83F82420 		strb	r2, [r3, #36]
+ 595 007e 7E22     		movs	r2, #126
+ 596 0080 7F21     		movs	r1, #127
+ 597 0082 F868     		ldr	r0, [r7, #12]
+ 598 0084 FFF7FEFF 		bl	_mmcsd_get_slice
+ 599 0088 0346     		mov	r3, r0
+ 600 008a DAB2     		uxtb	r2, r3
+ 601 008c 3B68     		ldr	r3, [r7]
+ 602 008e 1A70     		strb	r2, [r3]
+ 603 0090 4C22     		movs	r2, #76
+ 604 0092 4C21     		movs	r1, #76
+ 605 0094 F868     		ldr	r0, [r7, #12]
+ 606 0096 FFF7FEFF 		bl	_mmcsd_get_slice
+ 607 009a 0346     		mov	r3, r0
+ 608 009c DAB2     		uxtb	r2, r3
+ 609 009e 3B68     		ldr	r3, [r7]
+ 610 00a0 1A73     		strb	r2, [r3, #12]
+ 611 00a2 0822     		movs	r2, #8
+ 612 00a4 0921     		movs	r1, #9
+ 613 00a6 F868     		ldr	r0, [r7, #12]
+ 614 00a8 FFF7FEFF 		bl	_mmcsd_get_slice
+ 615 00ac 0346     		mov	r3, r0
+ 616 00ae DAB2     		uxtb	r2, r3
+ 617 00b0 3B68     		ldr	r3, [r7]
+ 618 00b2 83F82320 		strb	r2, [r3, #35]
+ 619 00b6 2522     		movs	r2, #37
+ 620 00b8 2921     		movs	r1, #41
+ 621 00ba F868     		ldr	r0, [r7, #12]
+ 622 00bc FFF7FEFF 		bl	_mmcsd_get_slice
+ 623 00c0 0346     		mov	r3, r0
+ 624 00c2 DAB2     		uxtb	r2, r3
+ 625 00c4 3B68     		ldr	r3, [r7]
+ 626 00c6 9A75     		strb	r2, [r3, #22]
+ 627 00c8 2A22     		movs	r2, #42
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s 			page 12
+
+
+ 628 00ca 2E21     		movs	r1, #46
+ 629 00cc F868     		ldr	r0, [r7, #12]
+ 630 00ce FFF7FEFF 		bl	_mmcsd_get_slice
+ 631 00d2 0346     		mov	r3, r0
+ 632 00d4 DAB2     		uxtb	r2, r3
+ 633 00d6 3B68     		ldr	r3, [r7]
+ 634 00d8 5A75     		strb	r2, [r3, #21]
+ 635 00da 0A22     		movs	r2, #10
+ 636 00dc 0B21     		movs	r1, #11
+ 637 00de F868     		ldr	r0, [r7, #12]
+ 638 00e0 FFF7FEFF 		bl	_mmcsd_get_slice
+ 639 00e4 0346     		mov	r3, r0
+ 640 00e6 DAB2     		uxtb	r2, r3
+ 641 00e8 3B68     		ldr	r3, [r7]
+ 642 00ea 83F82220 		strb	r2, [r3, #34]
+ 643 00ee 0F22     		movs	r2, #15
+ 644 00f0 0F21     		movs	r1, #15
+ 645 00f2 F868     		ldr	r0, [r7, #12]
+ 646 00f4 FFF7FEFF 		bl	_mmcsd_get_slice
+ 647 00f8 0346     		mov	r3, r0
+ 648 00fa DAB2     		uxtb	r2, r3
+ 649 00fc 3B68     		ldr	r3, [r7]
+ 650 00fe 9A77     		strb	r2, [r3, #30]
+ 651 0100 6822     		movs	r2, #104
+ 652 0102 6F21     		movs	r1, #111
+ 653 0104 F868     		ldr	r0, [r7, #12]
+ 654 0106 FFF7FEFF 		bl	_mmcsd_get_slice
+ 655 010a 0346     		mov	r3, r0
+ 656 010c DAB2     		uxtb	r2, r3
+ 657 010e 3B68     		ldr	r3, [r7]
+ 658 0110 DA70     		strb	r2, [r3, #3]
+ 659 0112 0D22     		movs	r2, #13
+ 660 0114 0D21     		movs	r1, #13
+ 661 0116 F868     		ldr	r0, [r7, #12]
+ 662 0118 FFF7FEFF 		bl	_mmcsd_get_slice
+ 663 011c 0346     		mov	r3, r0
+ 664 011e DAB2     		uxtb	r2, r3
+ 665 0120 3B68     		ldr	r3, [r7]
+ 666 0122 83F82020 		strb	r2, [r3, #32]
+ 667 0126 1A22     		movs	r2, #26
+ 668 0128 1C21     		movs	r1, #28
+ 669 012a F868     		ldr	r0, [r7, #12]
+ 670 012c FFF7FEFF 		bl	_mmcsd_get_slice
+ 671 0130 0346     		mov	r3, r0
+ 672 0132 DAB2     		uxtb	r2, r3
+ 673 0134 3B68     		ldr	r3, [r7]
+ 674 0136 9A76     		strb	r2, [r3, #26]
+ 675 0138 5022     		movs	r2, #80
+ 676 013a 5321     		movs	r1, #83
+ 677 013c F868     		ldr	r0, [r7, #12]
+ 678 013e FFF7FEFF 		bl	_mmcsd_get_slice
+ 679 0142 0346     		mov	r3, r0
+ 680 0144 DAB2     		uxtb	r2, r3
+ 681 0146 3B68     		ldr	r3, [r7]
+ 682 0148 1A72     		strb	r2, [r3, #8]
+ 683 014a 4F22     		movs	r2, #79
+ 684 014c 4F21     		movs	r1, #79
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s 			page 13
+
+
+ 685 014e F868     		ldr	r0, [r7, #12]
+ 686 0150 FFF7FEFF 		bl	_mmcsd_get_slice
+ 687 0154 0346     		mov	r3, r0
+ 688 0156 DAB2     		uxtb	r2, r3
+ 689 0158 3B68     		ldr	r3, [r7]
+ 690 015a 5A72     		strb	r2, [r3, #9]
+ 691 015c 4D22     		movs	r2, #77
+ 692 015e 4D21     		movs	r1, #77
+ 693 0160 F868     		ldr	r0, [r7, #12]
+ 694 0162 FFF7FEFF 		bl	_mmcsd_get_slice
+ 695 0166 0346     		mov	r3, r0
+ 696 0168 DAB2     		uxtb	r2, r3
+ 697 016a 3B68     		ldr	r3, [r7]
+ 698 016c DA72     		strb	r2, [r3, #11]
+ 699 016e 7A22     		movs	r2, #122
+ 700 0170 7D21     		movs	r1, #125
+ 701 0172 F868     		ldr	r0, [r7, #12]
+ 702 0174 FFF7FEFF 		bl	_mmcsd_get_slice
+ 703 0178 0346     		mov	r3, r0
+ 704 017a DAB2     		uxtb	r2, r3
+ 705 017c 3B68     		ldr	r3, [r7]
+ 706 017e 5A70     		strb	r2, [r3, #1]
+ 707 0180 7022     		movs	r2, #112
+ 708 0182 7721     		movs	r1, #119
+ 709 0184 F868     		ldr	r0, [r7, #12]
+ 710 0186 FFF7FEFF 		bl	_mmcsd_get_slice
+ 711 018a 0346     		mov	r3, r0
+ 712 018c DAB2     		uxtb	r2, r3
+ 713 018e 3B68     		ldr	r3, [r7]
+ 714 0190 9A70     		strb	r2, [r3, #2]
+ 715 0192 0C22     		movs	r2, #12
+ 716 0194 0C21     		movs	r1, #12
+ 717 0196 F868     		ldr	r0, [r7, #12]
+ 718 0198 FFF7FEFF 		bl	_mmcsd_get_slice
+ 719 019c 0346     		mov	r3, r0
+ 720 019e DAB2     		uxtb	r2, r3
+ 721 01a0 3B68     		ldr	r3, [r7]
+ 722 01a2 83F82120 		strb	r2, [r3, #33]
+ 723 01a6 6022     		movs	r2, #96
+ 724 01a8 6721     		movs	r1, #103
+ 725 01aa F868     		ldr	r0, [r7, #12]
+ 726 01ac FFF7FEFF 		bl	_mmcsd_get_slice
+ 727 01b0 0346     		mov	r3, r0
+ 728 01b2 DAB2     		uxtb	r2, r3
+ 729 01b4 3B68     		ldr	r3, [r7]
+ 730 01b6 1A71     		strb	r2, [r3, #4]
+ 731 01b8 3822     		movs	r2, #56
+ 732 01ba 3A21     		movs	r1, #58
+ 733 01bc F868     		ldr	r0, [r7, #12]
+ 734 01be FFF7FEFF 		bl	_mmcsd_get_slice
+ 735 01c2 0346     		mov	r3, r0
+ 736 01c4 DAB2     		uxtb	r2, r3
+ 737 01c6 3B68     		ldr	r3, [r7]
+ 738 01c8 5A74     		strb	r2, [r3, #17]
+ 739 01ca 3B22     		movs	r2, #59
+ 740 01cc 3D21     		movs	r1, #61
+ 741 01ce F868     		ldr	r0, [r7, #12]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s 			page 14
+
+
+ 742 01d0 FFF7FEFF 		bl	_mmcsd_get_slice
+ 743 01d4 0346     		mov	r3, r0
+ 744 01d6 DAB2     		uxtb	r2, r3
+ 745 01d8 3B68     		ldr	r3, [r7]
+ 746 01da 1A74     		strb	r2, [r3, #16]
+ 747 01dc 3222     		movs	r2, #50
+ 748 01de 3421     		movs	r1, #52
+ 749 01e0 F868     		ldr	r0, [r7, #12]
+ 750 01e2 FFF7FEFF 		bl	_mmcsd_get_slice
+ 751 01e6 0346     		mov	r3, r0
+ 752 01e8 DAB2     		uxtb	r2, r3
+ 753 01ea 3B68     		ldr	r3, [r7]
+ 754 01ec DA74     		strb	r2, [r3, #19]
+ 755 01ee 3522     		movs	r2, #53
+ 756 01f0 3721     		movs	r1, #55
+ 757 01f2 F868     		ldr	r0, [r7, #12]
+ 758 01f4 FFF7FEFF 		bl	_mmcsd_get_slice
+ 759 01f8 0346     		mov	r3, r0
+ 760 01fa DAB2     		uxtb	r2, r3
+ 761 01fc 3B68     		ldr	r3, [r7]
+ 762 01fe 9A74     		strb	r2, [r3, #18]
+ 763 0200 1F22     		movs	r2, #31
+ 764 0202 1F21     		movs	r1, #31
+ 765 0204 F868     		ldr	r0, [r7, #12]
+ 766 0206 FFF7FEFF 		bl	_mmcsd_get_slice
+ 767 020a 0346     		mov	r3, r0
+ 768 020c DAB2     		uxtb	r2, r3
+ 769 020e 3B68     		ldr	r3, [r7]
+ 770 0210 1A76     		strb	r2, [r3, #24]
+ 771 0212 2022     		movs	r2, #32
+ 772 0214 2421     		movs	r1, #36
+ 773 0216 F868     		ldr	r0, [r7, #12]
+ 774 0218 FFF7FEFF 		bl	_mmcsd_get_slice
+ 775 021c 0346     		mov	r3, r0
+ 776 021e DAB2     		uxtb	r2, r3
+ 777 0220 3B68     		ldr	r3, [r7]
+ 778 0222 DA75     		strb	r2, [r3, #23]
+ 779 0224 1622     		movs	r2, #22
+ 780 0226 1921     		movs	r1, #25
+ 781 0228 F868     		ldr	r0, [r7, #12]
+ 782 022a FFF7FEFF 		bl	_mmcsd_get_slice
+ 783 022e 0346     		mov	r3, r0
+ 784 0230 DAB2     		uxtb	r2, r3
+ 785 0232 3B68     		ldr	r3, [r7]
+ 786 0234 DA76     		strb	r2, [r3, #27]
+ 787 0236 1522     		movs	r2, #21
+ 788 0238 1521     		movs	r1, #21
+ 789 023a F868     		ldr	r0, [r7, #12]
+ 790 023c FFF7FEFF 		bl	_mmcsd_get_slice
+ 791 0240 0346     		mov	r3, r0
+ 792 0242 DAB2     		uxtb	r2, r3
+ 793 0244 3B68     		ldr	r3, [r7]
+ 794 0246 1A77     		strb	r2, [r3, #28]
+ 795 0248 4E22     		movs	r2, #78
+ 796 024a 4E21     		movs	r1, #78
+ 797 024c F868     		ldr	r0, [r7, #12]
+ 798 024e FFF7FEFF 		bl	_mmcsd_get_slice
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s 			page 15
+
+
+ 799 0252 0346     		mov	r3, r0
+ 800 0254 DAB2     		uxtb	r2, r3
+ 801 0256 3B68     		ldr	r3, [r7]
+ 802 0258 9A72     		strb	r2, [r3, #10]
+ 803 025a 00BF     		nop
+ 804 025c 1037     		adds	r7, r7, #16
+ 805 025e BD46     		mov	sp, r7
+ 806              		@ sp needed
+ 807 0260 80BD     		pop	{r7, pc}
+ 808              	.L36:
+ 809 0262 00BF     		.align	2
+ 810              	.L35:
+ 811 0264 00000000 		.word	__func__.9880
+ 812              		.size	_mmcsd_unpack_csd_mmc, .-_mmcsd_unpack_csd_mmc
+ 813              		.section	.text._mmcsd_unpack_csd_v10,"ax",%progbits
+ 814              		.align	1
+ 815              		.global	_mmcsd_unpack_csd_v10
+ 816              		.syntax unified
+ 817              		.thumb
+ 818              		.thumb_func
+ 819              		.fpu fpv4-sp-d16
+ 820              		.type	_mmcsd_unpack_csd_v10, %function
+ 821              	_mmcsd_unpack_csd_v10:
+ 822              		@ args = 0, pretend = 0, frame = 16
+ 823              		@ frame_needed = 1, uses_anonymous_args = 0
+ 824 0000 80B5     		push	{r7, lr}
+ 825 0002 84B0     		sub	sp, sp, #16
+ 826 0004 00AF     		add	r7, sp, #0
+ 827 0006 7860     		str	r0, [r7, #4]
+ 828 0008 3960     		str	r1, [r7]
+ 829 000a 7B68     		ldr	r3, [r7, #4]
+ 830 000c 002B     		cmp	r3, #0
+ 831 000e 02D1     		bne	.L38
+ 832 0010 7548     		ldr	r0, .L39
+ 833 0012 FFF7FEFF 		bl	chSysHalt
+ 834              	.L38:
+ 835 0016 7B68     		ldr	r3, [r7, #4]
+ 836 0018 1833     		adds	r3, r3, #24
+ 837 001a FB60     		str	r3, [r7, #12]
+ 838 001c 3E22     		movs	r2, #62
+ 839 001e 4921     		movs	r1, #73
+ 840 0020 F868     		ldr	r0, [r7, #12]
+ 841 0022 FFF7FEFF 		bl	_mmcsd_get_slice
+ 842 0026 0346     		mov	r3, r0
+ 843 0028 9AB2     		uxth	r2, r3
+ 844 002a 3B68     		ldr	r3, [r7]
+ 845 002c 9A81     		strh	r2, [r3, #12]	@ movhi
+ 846 002e 2F22     		movs	r2, #47
+ 847 0030 3121     		movs	r1, #49
+ 848 0032 F868     		ldr	r0, [r7, #12]
+ 849 0034 FFF7FEFF 		bl	_mmcsd_get_slice
+ 850 0038 0346     		mov	r3, r0
+ 851 003a DAB2     		uxtb	r2, r3
+ 852 003c 3B68     		ldr	r3, [r7]
+ 853 003e 9A74     		strb	r2, [r3, #18]
+ 854 0040 5422     		movs	r2, #84
+ 855 0042 5F21     		movs	r1, #95
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s 			page 16
+
+
+ 856 0044 F868     		ldr	r0, [r7, #12]
+ 857 0046 FFF7FEFF 		bl	_mmcsd_get_slice
+ 858 004a 0346     		mov	r3, r0
+ 859 004c 9AB2     		uxth	r2, r3
+ 860 004e 3B68     		ldr	r3, [r7]
+ 861 0050 9A80     		strh	r2, [r3, #4]	@ movhi
+ 862 0052 0E22     		movs	r2, #14
+ 863 0054 0E21     		movs	r1, #14
+ 864 0056 F868     		ldr	r0, [r7, #12]
+ 865 0058 FFF7FEFF 		bl	_mmcsd_get_slice
+ 866 005c 0346     		mov	r3, r0
+ 867 005e DAB2     		uxtb	r2, r3
+ 868 0060 3B68     		ldr	r3, [r7]
+ 869 0062 DA76     		strb	r2, [r3, #27]
+ 870 0064 0122     		movs	r2, #1
+ 871 0066 0721     		movs	r1, #7
+ 872 0068 F868     		ldr	r0, [r7, #12]
+ 873 006a FFF7FEFF 		bl	_mmcsd_get_slice
+ 874 006e 0346     		mov	r3, r0
+ 875 0070 DAB2     		uxtb	r2, r3
+ 876 0072 3B68     		ldr	r3, [r7]
+ 877 0074 DA77     		strb	r2, [r3, #31]
+ 878 0076 7E22     		movs	r2, #126
+ 879 0078 7F21     		movs	r1, #127
+ 880 007a F868     		ldr	r0, [r7, #12]
+ 881 007c FFF7FEFF 		bl	_mmcsd_get_slice
+ 882 0080 0346     		mov	r3, r0
+ 883 0082 DAB2     		uxtb	r2, r3
+ 884 0084 3B68     		ldr	r3, [r7]
+ 885 0086 1A70     		strb	r2, [r3]
+ 886 0088 4C22     		movs	r2, #76
+ 887 008a 4C21     		movs	r1, #76
+ 888 008c F868     		ldr	r0, [r7, #12]
+ 889 008e FFF7FEFF 		bl	_mmcsd_get_slice
+ 890 0092 0346     		mov	r3, r0
+ 891 0094 DAB2     		uxtb	r2, r3
+ 892 0096 3B68     		ldr	r3, [r7]
+ 893 0098 9A72     		strb	r2, [r3, #10]
+ 894 009a 2E22     		movs	r2, #46
+ 895 009c 2E21     		movs	r1, #46
+ 896 009e F868     		ldr	r0, [r7, #12]
+ 897 00a0 FFF7FEFF 		bl	_mmcsd_get_slice
+ 898 00a4 0346     		mov	r3, r0
+ 899 00a6 DAB2     		uxtb	r2, r3
+ 900 00a8 3B68     		ldr	r3, [r7]
+ 901 00aa DA74     		strb	r2, [r3, #19]
+ 902 00ac 2722     		movs	r2, #39
+ 903 00ae 2D21     		movs	r1, #45
+ 904 00b0 F868     		ldr	r0, [r7, #12]
+ 905 00b2 FFF7FEFF 		bl	_mmcsd_get_slice
+ 906 00b6 0346     		mov	r3, r0
+ 907 00b8 DAB2     		uxtb	r2, r3
+ 908 00ba 3B68     		ldr	r3, [r7]
+ 909 00bc 1A75     		strb	r2, [r3, #20]
+ 910 00be 0A22     		movs	r2, #10
+ 911 00c0 0B21     		movs	r1, #11
+ 912 00c2 F868     		ldr	r0, [r7, #12]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s 			page 17
+
+
+ 913 00c4 FFF7FEFF 		bl	_mmcsd_get_slice
+ 914 00c8 0346     		mov	r3, r0
+ 915 00ca DAB2     		uxtb	r2, r3
+ 916 00cc 3B68     		ldr	r3, [r7]
+ 917 00ce 9A77     		strb	r2, [r3, #30]
+ 918 00d0 0F22     		movs	r2, #15
+ 919 00d2 0F21     		movs	r1, #15
+ 920 00d4 F868     		ldr	r0, [r7, #12]
+ 921 00d6 FFF7FEFF 		bl	_mmcsd_get_slice
+ 922 00da 0346     		mov	r3, r0
+ 923 00dc DAB2     		uxtb	r2, r3
+ 924 00de 3B68     		ldr	r3, [r7]
+ 925 00e0 9A76     		strb	r2, [r3, #26]
+ 926 00e2 6822     		movs	r2, #104
+ 927 00e4 6F21     		movs	r1, #111
+ 928 00e6 F868     		ldr	r0, [r7, #12]
+ 929 00e8 FFF7FEFF 		bl	_mmcsd_get_slice
+ 930 00ec 0346     		mov	r3, r0
+ 931 00ee DAB2     		uxtb	r2, r3
+ 932 00f0 3B68     		ldr	r3, [r7]
+ 933 00f2 9A70     		strb	r2, [r3, #2]
+ 934 00f4 0D22     		movs	r2, #13
+ 935 00f6 0D21     		movs	r1, #13
+ 936 00f8 F868     		ldr	r0, [r7, #12]
+ 937 00fa FFF7FEFF 		bl	_mmcsd_get_slice
+ 938 00fe 0346     		mov	r3, r0
+ 939 0100 DAB2     		uxtb	r2, r3
+ 940 0102 3B68     		ldr	r3, [r7]
+ 941 0104 1A77     		strb	r2, [r3, #28]
+ 942 0106 1A22     		movs	r2, #26
+ 943 0108 1C21     		movs	r1, #28
+ 944 010a F868     		ldr	r0, [r7, #12]
+ 945 010c FFF7FEFF 		bl	_mmcsd_get_slice
+ 946 0110 0346     		mov	r3, r0
+ 947 0112 DAB2     		uxtb	r2, r3
+ 948 0114 3B68     		ldr	r3, [r7]
+ 949 0116 DA75     		strb	r2, [r3, #23]
+ 950 0118 5022     		movs	r2, #80
+ 951 011a 5321     		movs	r1, #83
+ 952 011c F868     		ldr	r0, [r7, #12]
+ 953 011e FFF7FEFF 		bl	_mmcsd_get_slice
+ 954 0122 0346     		mov	r3, r0
+ 955 0124 DAB2     		uxtb	r2, r3
+ 956 0126 3B68     		ldr	r3, [r7]
+ 957 0128 9A71     		strb	r2, [r3, #6]
+ 958 012a 4F22     		movs	r2, #79
+ 959 012c 4F21     		movs	r1, #79
+ 960 012e F868     		ldr	r0, [r7, #12]
+ 961 0130 FFF7FEFF 		bl	_mmcsd_get_slice
+ 962 0134 0346     		mov	r3, r0
+ 963 0136 DAB2     		uxtb	r2, r3
+ 964 0138 3B68     		ldr	r3, [r7]
+ 965 013a DA71     		strb	r2, [r3, #7]
+ 966 013c 4D22     		movs	r2, #77
+ 967 013e 4D21     		movs	r1, #77
+ 968 0140 F868     		ldr	r0, [r7, #12]
+ 969 0142 FFF7FEFF 		bl	_mmcsd_get_slice
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s 			page 18
+
+
+ 970 0146 0346     		mov	r3, r0
+ 971 0148 DAB2     		uxtb	r2, r3
+ 972 014a 3B68     		ldr	r3, [r7]
+ 973 014c 5A72     		strb	r2, [r3, #9]
+ 974 014e 7022     		movs	r2, #112
+ 975 0150 7721     		movs	r1, #119
+ 976 0152 F868     		ldr	r0, [r7, #12]
+ 977 0154 FFF7FEFF 		bl	_mmcsd_get_slice
+ 978 0158 0346     		mov	r3, r0
+ 979 015a DAB2     		uxtb	r2, r3
+ 980 015c 3B68     		ldr	r3, [r7]
+ 981 015e 5A70     		strb	r2, [r3, #1]
+ 982 0160 0C22     		movs	r2, #12
+ 983 0162 0C21     		movs	r1, #12
+ 984 0164 F868     		ldr	r0, [r7, #12]
+ 985 0166 FFF7FEFF 		bl	_mmcsd_get_slice
+ 986 016a 0346     		mov	r3, r0
+ 987 016c DAB2     		uxtb	r2, r3
+ 988 016e 3B68     		ldr	r3, [r7]
+ 989 0170 5A77     		strb	r2, [r3, #29]
+ 990 0172 6022     		movs	r2, #96
+ 991 0174 6721     		movs	r1, #103
+ 992 0176 F868     		ldr	r0, [r7, #12]
+ 993 0178 FFF7FEFF 		bl	_mmcsd_get_slice
+ 994 017c 0346     		mov	r3, r0
+ 995 017e DAB2     		uxtb	r2, r3
+ 996 0180 3B68     		ldr	r3, [r7]
+ 997 0182 DA70     		strb	r2, [r3, #3]
+ 998 0184 1F22     		movs	r2, #31
+ 999 0186 1F21     		movs	r1, #31
+ 1000 0188 F868     		ldr	r0, [r7, #12]
+ 1001 018a FFF7FEFF 		bl	_mmcsd_get_slice
+ 1002 018e 0346     		mov	r3, r0
+ 1003 0190 DAB2     		uxtb	r2, r3
+ 1004 0192 3B68     		ldr	r3, [r7]
+ 1005 0194 9A75     		strb	r2, [r3, #22]
+ 1006 0196 2022     		movs	r2, #32
+ 1007 0198 2621     		movs	r1, #38
+ 1008 019a F868     		ldr	r0, [r7, #12]
+ 1009 019c FFF7FEFF 		bl	_mmcsd_get_slice
+ 1010 01a0 0346     		mov	r3, r0
+ 1011 01a2 DAB2     		uxtb	r2, r3
+ 1012 01a4 3B68     		ldr	r3, [r7]
+ 1013 01a6 5A75     		strb	r2, [r3, #21]
+ 1014 01a8 0C22     		movs	r2, #12
+ 1015 01aa 1921     		movs	r1, #25
+ 1016 01ac F868     		ldr	r0, [r7, #12]
+ 1017 01ae FFF7FEFF 		bl	_mmcsd_get_slice
+ 1018 01b2 0346     		mov	r3, r0
+ 1019 01b4 DAB2     		uxtb	r2, r3
+ 1020 01b6 3B68     		ldr	r3, [r7]
+ 1021 01b8 1A76     		strb	r2, [r3, #24]
+ 1022 01ba 1522     		movs	r2, #21
+ 1023 01bc 1521     		movs	r1, #21
+ 1024 01be F868     		ldr	r0, [r7, #12]
+ 1025 01c0 FFF7FEFF 		bl	_mmcsd_get_slice
+ 1026 01c4 0346     		mov	r3, r0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s 			page 19
+
+
+ 1027 01c6 DAB2     		uxtb	r2, r3
+ 1028 01c8 3B68     		ldr	r3, [r7]
+ 1029 01ca 5A76     		strb	r2, [r3, #25]
+ 1030 01cc 4E22     		movs	r2, #78
+ 1031 01ce 4E21     		movs	r1, #78
+ 1032 01d0 F868     		ldr	r0, [r7, #12]
+ 1033 01d2 FFF7FEFF 		bl	_mmcsd_get_slice
+ 1034 01d6 0346     		mov	r3, r0
+ 1035 01d8 DAB2     		uxtb	r2, r3
+ 1036 01da 3B68     		ldr	r3, [r7]
+ 1037 01dc 1A72     		strb	r2, [r3, #8]
+ 1038 01de 00BF     		nop
+ 1039 01e0 1037     		adds	r7, r7, #16
+ 1040 01e2 BD46     		mov	sp, r7
+ 1041              		@ sp needed
+ 1042 01e4 80BD     		pop	{r7, pc}
+ 1043              	.L40:
+ 1044 01e6 00BF     		.align	2
+ 1045              	.L39:
+ 1046 01e8 00000000 		.word	__func__.9886
+ 1047              		.size	_mmcsd_unpack_csd_v10, .-_mmcsd_unpack_csd_v10
+ 1048              		.section	.text._mmcsd_unpack_csd_v20,"ax",%progbits
+ 1049              		.align	1
+ 1050              		.global	_mmcsd_unpack_csd_v20
+ 1051              		.syntax unified
+ 1052              		.thumb
+ 1053              		.thumb_func
+ 1054              		.fpu fpv4-sp-d16
+ 1055              		.type	_mmcsd_unpack_csd_v20, %function
+ 1056              	_mmcsd_unpack_csd_v20:
+ 1057              		@ args = 0, pretend = 0, frame = 16
+ 1058              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1059 0000 80B5     		push	{r7, lr}
+ 1060 0002 84B0     		sub	sp, sp, #16
+ 1061 0004 00AF     		add	r7, sp, #0
+ 1062 0006 7860     		str	r0, [r7, #4]
+ 1063 0008 3960     		str	r1, [r7]
+ 1064 000a 7B68     		ldr	r3, [r7, #4]
+ 1065 000c 002B     		cmp	r3, #0
+ 1066 000e 02D1     		bne	.L42
+ 1067 0010 7048     		ldr	r0, .L43
+ 1068 0012 FFF7FEFF 		bl	chSysHalt
+ 1069              	.L42:
+ 1070 0016 7B68     		ldr	r3, [r7, #4]
+ 1071 0018 1833     		adds	r3, r3, #24
+ 1072 001a FB60     		str	r3, [r7, #12]
+ 1073 001c 3022     		movs	r2, #48
+ 1074 001e 4521     		movs	r1, #69
+ 1075 0020 F868     		ldr	r0, [r7, #12]
+ 1076 0022 FFF7FEFF 		bl	_mmcsd_get_slice
+ 1077 0026 0246     		mov	r2, r0
+ 1078 0028 3B68     		ldr	r3, [r7]
+ 1079 002a DA60     		str	r2, [r3, #12]
+ 1080 002c 0122     		movs	r2, #1
+ 1081 002e 0721     		movs	r1, #7
+ 1082 0030 F868     		ldr	r0, [r7, #12]
+ 1083 0032 FFF7FEFF 		bl	_mmcsd_get_slice
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s 			page 20
+
+
+ 1084 0036 0346     		mov	r3, r0
+ 1085 0038 DAB2     		uxtb	r2, r3
+ 1086 003a 3B68     		ldr	r3, [r7]
+ 1087 003c 1A77     		strb	r2, [r3, #28]
+ 1088 003e 5422     		movs	r2, #84
+ 1089 0040 5F21     		movs	r1, #95
+ 1090 0042 F868     		ldr	r0, [r7, #12]
+ 1091 0044 FFF7FEFF 		bl	_mmcsd_get_slice
+ 1092 0048 0346     		mov	r3, r0
+ 1093 004a 9AB2     		uxth	r2, r3
+ 1094 004c 3B68     		ldr	r3, [r7]
+ 1095 004e 9A80     		strh	r2, [r3, #4]	@ movhi
+ 1096 0050 0E22     		movs	r2, #14
+ 1097 0052 0E21     		movs	r1, #14
+ 1098 0054 F868     		ldr	r0, [r7, #12]
+ 1099 0056 FFF7FEFF 		bl	_mmcsd_get_slice
+ 1100 005a 0346     		mov	r3, r0
+ 1101 005c DAB2     		uxtb	r2, r3
+ 1102 005e 3B68     		ldr	r3, [r7]
+ 1103 0060 1A76     		strb	r2, [r3, #24]
+ 1104 0062 7E22     		movs	r2, #126
+ 1105 0064 7F21     		movs	r1, #127
+ 1106 0066 F868     		ldr	r0, [r7, #12]
+ 1107 0068 FFF7FEFF 		bl	_mmcsd_get_slice
+ 1108 006c 0346     		mov	r3, r0
+ 1109 006e DAB2     		uxtb	r2, r3
+ 1110 0070 3B68     		ldr	r3, [r7]
+ 1111 0072 1A70     		strb	r2, [r3]
+ 1112 0074 4C22     		movs	r2, #76
+ 1113 0076 4C21     		movs	r1, #76
+ 1114 0078 F868     		ldr	r0, [r7, #12]
+ 1115 007a FFF7FEFF 		bl	_mmcsd_get_slice
+ 1116 007e 0346     		mov	r3, r0
+ 1117 0080 DAB2     		uxtb	r2, r3
+ 1118 0082 3B68     		ldr	r3, [r7]
+ 1119 0084 9A72     		strb	r2, [r3, #10]
+ 1120 0086 2E22     		movs	r2, #46
+ 1121 0088 2E21     		movs	r1, #46
+ 1122 008a F868     		ldr	r0, [r7, #12]
+ 1123 008c FFF7FEFF 		bl	_mmcsd_get_slice
+ 1124 0090 0346     		mov	r3, r0
+ 1125 0092 DAB2     		uxtb	r2, r3
+ 1126 0094 3B68     		ldr	r3, [r7]
+ 1127 0096 1A74     		strb	r2, [r3, #16]
+ 1128 0098 0A22     		movs	r2, #10
+ 1129 009a 0B21     		movs	r1, #11
+ 1130 009c F868     		ldr	r0, [r7, #12]
+ 1131 009e FFF7FEFF 		bl	_mmcsd_get_slice
+ 1132 00a2 0346     		mov	r3, r0
+ 1133 00a4 DAB2     		uxtb	r2, r3
+ 1134 00a6 3B68     		ldr	r3, [r7]
+ 1135 00a8 DA76     		strb	r2, [r3, #27]
+ 1136 00aa 0F22     		movs	r2, #15
+ 1137 00ac 0F21     		movs	r1, #15
+ 1138 00ae F868     		ldr	r0, [r7, #12]
+ 1139 00b0 FFF7FEFF 		bl	_mmcsd_get_slice
+ 1140 00b4 0346     		mov	r3, r0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s 			page 21
+
+
+ 1141 00b6 DAB2     		uxtb	r2, r3
+ 1142 00b8 3B68     		ldr	r3, [r7]
+ 1143 00ba DA75     		strb	r2, [r3, #23]
+ 1144 00bc 6822     		movs	r2, #104
+ 1145 00be 6F21     		movs	r1, #111
+ 1146 00c0 F868     		ldr	r0, [r7, #12]
+ 1147 00c2 FFF7FEFF 		bl	_mmcsd_get_slice
+ 1148 00c6 0346     		mov	r3, r0
+ 1149 00c8 DAB2     		uxtb	r2, r3
+ 1150 00ca 3B68     		ldr	r3, [r7]
+ 1151 00cc 9A70     		strb	r2, [r3, #2]
+ 1152 00ce 0D22     		movs	r2, #13
+ 1153 00d0 0D21     		movs	r1, #13
+ 1154 00d2 F868     		ldr	r0, [r7, #12]
+ 1155 00d4 FFF7FEFF 		bl	_mmcsd_get_slice
+ 1156 00d8 0346     		mov	r3, r0
+ 1157 00da DAB2     		uxtb	r2, r3
+ 1158 00dc 3B68     		ldr	r3, [r7]
+ 1159 00de 5A76     		strb	r2, [r3, #25]
+ 1160 00e0 1A22     		movs	r2, #26
+ 1161 00e2 1C21     		movs	r1, #28
+ 1162 00e4 F868     		ldr	r0, [r7, #12]
+ 1163 00e6 FFF7FEFF 		bl	_mmcsd_get_slice
+ 1164 00ea 0346     		mov	r3, r0
+ 1165 00ec DAB2     		uxtb	r2, r3
+ 1166 00ee 3B68     		ldr	r3, [r7]
+ 1167 00f0 1A75     		strb	r2, [r3, #20]
+ 1168 00f2 5022     		movs	r2, #80
+ 1169 00f4 5321     		movs	r1, #83
+ 1170 00f6 F868     		ldr	r0, [r7, #12]
+ 1171 00f8 FFF7FEFF 		bl	_mmcsd_get_slice
+ 1172 00fc 0346     		mov	r3, r0
+ 1173 00fe DAB2     		uxtb	r2, r3
+ 1174 0100 3B68     		ldr	r3, [r7]
+ 1175 0102 9A71     		strb	r2, [r3, #6]
+ 1176 0104 4F22     		movs	r2, #79
+ 1177 0106 4F21     		movs	r1, #79
+ 1178 0108 F868     		ldr	r0, [r7, #12]
+ 1179 010a FFF7FEFF 		bl	_mmcsd_get_slice
+ 1180 010e 0346     		mov	r3, r0
+ 1181 0110 DAB2     		uxtb	r2, r3
+ 1182 0112 3B68     		ldr	r3, [r7]
+ 1183 0114 DA71     		strb	r2, [r3, #7]
+ 1184 0116 4D22     		movs	r2, #77
+ 1185 0118 4D21     		movs	r1, #77
+ 1186 011a F868     		ldr	r0, [r7, #12]
+ 1187 011c FFF7FEFF 		bl	_mmcsd_get_slice
+ 1188 0120 0346     		mov	r3, r0
+ 1189 0122 DAB2     		uxtb	r2, r3
+ 1190 0124 3B68     		ldr	r3, [r7]
+ 1191 0126 5A72     		strb	r2, [r3, #9]
+ 1192 0128 2722     		movs	r2, #39
+ 1193 012a 2D21     		movs	r1, #45
+ 1194 012c F868     		ldr	r0, [r7, #12]
+ 1195 012e FFF7FEFF 		bl	_mmcsd_get_slice
+ 1196 0132 0346     		mov	r3, r0
+ 1197 0134 DAB2     		uxtb	r2, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s 			page 22
+
+
+ 1198 0136 3B68     		ldr	r3, [r7]
+ 1199 0138 5A74     		strb	r2, [r3, #17]
+ 1200 013a 7022     		movs	r2, #112
+ 1201 013c 7721     		movs	r1, #119
+ 1202 013e F868     		ldr	r0, [r7, #12]
+ 1203 0140 FFF7FEFF 		bl	_mmcsd_get_slice
+ 1204 0144 0346     		mov	r3, r0
+ 1205 0146 DAB2     		uxtb	r2, r3
+ 1206 0148 3B68     		ldr	r3, [r7]
+ 1207 014a 5A70     		strb	r2, [r3, #1]
+ 1208 014c 0C22     		movs	r2, #12
+ 1209 014e 0C21     		movs	r1, #12
+ 1210 0150 F868     		ldr	r0, [r7, #12]
+ 1211 0152 FFF7FEFF 		bl	_mmcsd_get_slice
+ 1212 0156 0346     		mov	r3, r0
+ 1213 0158 DAB2     		uxtb	r2, r3
+ 1214 015a 3B68     		ldr	r3, [r7]
+ 1215 015c 9A76     		strb	r2, [r3, #26]
+ 1216 015e 6022     		movs	r2, #96
+ 1217 0160 6721     		movs	r1, #103
+ 1218 0162 F868     		ldr	r0, [r7, #12]
+ 1219 0164 FFF7FEFF 		bl	_mmcsd_get_slice
+ 1220 0168 0346     		mov	r3, r0
+ 1221 016a DAB2     		uxtb	r2, r3
+ 1222 016c 3B68     		ldr	r3, [r7]
+ 1223 016e DA70     		strb	r2, [r3, #3]
+ 1224 0170 1F22     		movs	r2, #31
+ 1225 0172 1F21     		movs	r1, #31
+ 1226 0174 F868     		ldr	r0, [r7, #12]
+ 1227 0176 FFF7FEFF 		bl	_mmcsd_get_slice
+ 1228 017a 0346     		mov	r3, r0
+ 1229 017c DAB2     		uxtb	r2, r3
+ 1230 017e 3B68     		ldr	r3, [r7]
+ 1231 0180 DA74     		strb	r2, [r3, #19]
+ 1232 0182 2022     		movs	r2, #32
+ 1233 0184 2621     		movs	r1, #38
+ 1234 0186 F868     		ldr	r0, [r7, #12]
+ 1235 0188 FFF7FEFF 		bl	_mmcsd_get_slice
+ 1236 018c 0346     		mov	r3, r0
+ 1237 018e DAB2     		uxtb	r2, r3
+ 1238 0190 3B68     		ldr	r3, [r7]
+ 1239 0192 9A74     		strb	r2, [r3, #18]
+ 1240 0194 0C22     		movs	r2, #12
+ 1241 0196 1921     		movs	r1, #25
+ 1242 0198 F868     		ldr	r0, [r7, #12]
+ 1243 019a FFF7FEFF 		bl	_mmcsd_get_slice
+ 1244 019e 0346     		mov	r3, r0
+ 1245 01a0 DAB2     		uxtb	r2, r3
+ 1246 01a2 3B68     		ldr	r3, [r7]
+ 1247 01a4 5A75     		strb	r2, [r3, #21]
+ 1248 01a6 1522     		movs	r2, #21
+ 1249 01a8 1521     		movs	r1, #21
+ 1250 01aa F868     		ldr	r0, [r7, #12]
+ 1251 01ac FFF7FEFF 		bl	_mmcsd_get_slice
+ 1252 01b0 0346     		mov	r3, r0
+ 1253 01b2 DAB2     		uxtb	r2, r3
+ 1254 01b4 3B68     		ldr	r3, [r7]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s 			page 23
+
+
+ 1255 01b6 9A75     		strb	r2, [r3, #22]
+ 1256 01b8 4E22     		movs	r2, #78
+ 1257 01ba 4E21     		movs	r1, #78
+ 1258 01bc F868     		ldr	r0, [r7, #12]
+ 1259 01be FFF7FEFF 		bl	_mmcsd_get_slice
+ 1260 01c2 0346     		mov	r3, r0
+ 1261 01c4 DAB2     		uxtb	r2, r3
+ 1262 01c6 3B68     		ldr	r3, [r7]
+ 1263 01c8 1A72     		strb	r2, [r3, #8]
+ 1264 01ca 00BF     		nop
+ 1265 01cc 1037     		adds	r7, r7, #16
+ 1266 01ce BD46     		mov	sp, r7
+ 1267              		@ sp needed
+ 1268 01d0 80BD     		pop	{r7, pc}
+ 1269              	.L44:
+ 1270 01d2 00BF     		.align	2
+ 1271              	.L43:
+ 1272 01d4 00000000 		.word	__func__.9892
+ 1273              		.size	_mmcsd_unpack_csd_v20, .-_mmcsd_unpack_csd_v20
+ 1274              		.section	.rodata.__func__.9847,"a",%progbits
+ 1275              		.align	2
+ 1276              		.type	__func__.9847, %object
+ 1277              		.size	__func__.9847, 17
+ 1278              	__func__.9847:
+ 1279 0000 5F6D6D63 		.ascii	"_mmcsd_get_slice\000"
+ 1279      73645F67 
+ 1279      65745F73 
+ 1279      6C696365 
+ 1279      00
+ 1280              		.section	.rodata.__func__.9854,"a",%progbits
+ 1281              		.align	2
+ 1282              		.type	__func__.9854, %object
+ 1283              		.size	__func__.9854, 20
+ 1284              	__func__.9854:
+ 1285 0000 5F6D6D63 		.ascii	"_mmcsd_get_capacity\000"
+ 1285      73645F67 
+ 1285      65745F63 
+ 1285      61706163 
+ 1285      69747900 
+ 1286              		.section	.rodata.__func__.9862,"a",%progbits
+ 1287              		.align	2
+ 1288              		.type	__func__.9862, %object
+ 1289              		.size	__func__.9862, 24
+ 1290              	__func__.9862:
+ 1291 0000 5F6D6D63 		.ascii	"_mmcsd_get_capacity_ext\000"
+ 1291      73645F67 
+ 1291      65745F63 
+ 1291      61706163 
+ 1291      6974795F 
+ 1292              		.section	.rodata.__func__.9868,"a",%progbits
+ 1293              		.align	2
+ 1294              		.type	__func__.9868, %object
+ 1295              		.size	__func__.9868, 22
+ 1296              	__func__.9868:
+ 1297 0000 5F6D6D63 		.ascii	"_mmcsd_unpack_sdc_cid\000"
+ 1297      73645F75 
+ 1297      6E706163 
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s 			page 24
+
+
+ 1297      6B5F7364 
+ 1297      635F6369 
+ 1298              		.section	.rodata.__func__.9874,"a",%progbits
+ 1299              		.align	2
+ 1300              		.type	__func__.9874, %object
+ 1301              		.size	__func__.9874, 22
+ 1302              	__func__.9874:
+ 1303 0000 5F6D6D63 		.ascii	"_mmcsd_unpack_mmc_cid\000"
+ 1303      73645F75 
+ 1303      6E706163 
+ 1303      6B5F6D6D 
+ 1303      635F6369 
+ 1304              		.section	.rodata.__func__.9880,"a",%progbits
+ 1305              		.align	2
+ 1306              		.type	__func__.9880, %object
+ 1307              		.size	__func__.9880, 22
+ 1308              	__func__.9880:
+ 1309 0000 5F6D6D63 		.ascii	"_mmcsd_unpack_csd_mmc\000"
+ 1309      73645F75 
+ 1309      6E706163 
+ 1309      6B5F6373 
+ 1309      645F6D6D 
+ 1310              		.section	.rodata.__func__.9886,"a",%progbits
+ 1311              		.align	2
+ 1312              		.type	__func__.9886, %object
+ 1313              		.size	__func__.9886, 22
+ 1314              	__func__.9886:
+ 1315 0000 5F6D6D63 		.ascii	"_mmcsd_unpack_csd_v10\000"
+ 1315      73645F75 
+ 1315      6E706163 
+ 1315      6B5F6373 
+ 1315      645F7631 
+ 1316              		.section	.rodata.__func__.9892,"a",%progbits
+ 1317              		.align	2
+ 1318              		.type	__func__.9892, %object
+ 1319              		.size	__func__.9892, 22
+ 1320              	__func__.9892:
+ 1321 0000 5F6D6D63 		.ascii	"_mmcsd_unpack_csd_v20\000"
+ 1321      73645F75 
+ 1321      6E706163 
+ 1321      6B5F6373 
+ 1321      645F7632 
+ 1322              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s 			page 25
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 hal_mmcsd.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:15     .text._mmcsd_get_slice:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:22     .text._mmcsd_get_slice:0000000000000000 _mmcsd_get_slice
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:102    .text._mmcsd_get_slice:0000000000000098 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:1278   .rodata.__func__.9847:0000000000000000 __func__.9847
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:105    .text._mmcsd_get_capacity:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:112    .text._mmcsd_get_capacity:0000000000000000 _mmcsd_get_capacity
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:179    .text._mmcsd_get_capacity:0000000000000080 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:1284   .rodata.__func__.9854:0000000000000000 __func__.9854
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:182    .text._mmcsd_get_capacity_ext:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:189    .text._mmcsd_get_capacity_ext:0000000000000000 _mmcsd_get_capacity_ext
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:228    .text._mmcsd_get_capacity_ext:0000000000000040 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:1290   .rodata.__func__.9862:0000000000000000 __func__.9862
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:231    .text._mmcsd_unpack_sdc_cid:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:238    .text._mmcsd_unpack_sdc_cid:0000000000000000 _mmcsd_unpack_sdc_cid
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:372    .text._mmcsd_unpack_sdc_cid:0000000000000118 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:1296   .rodata.__func__.9868:0000000000000000 __func__.9868
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:375    .text._mmcsd_unpack_mmc_cid:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:382    .text._mmcsd_unpack_mmc_cid:0000000000000000 _mmcsd_unpack_mmc_cid
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:524    .text._mmcsd_unpack_mmc_cid:000000000000012c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:1302   .rodata.__func__.9874:0000000000000000 __func__.9874
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:527    .text._mmcsd_unpack_csd_mmc:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:534    .text._mmcsd_unpack_csd_mmc:0000000000000000 _mmcsd_unpack_csd_mmc
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:811    .text._mmcsd_unpack_csd_mmc:0000000000000264 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:1308   .rodata.__func__.9880:0000000000000000 __func__.9880
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:814    .text._mmcsd_unpack_csd_v10:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:821    .text._mmcsd_unpack_csd_v10:0000000000000000 _mmcsd_unpack_csd_v10
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:1046   .text._mmcsd_unpack_csd_v10:00000000000001e8 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:1314   .rodata.__func__.9886:0000000000000000 __func__.9886
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:1049   .text._mmcsd_unpack_csd_v20:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:1056   .text._mmcsd_unpack_csd_v20:0000000000000000 _mmcsd_unpack_csd_v20
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:1272   .text._mmcsd_unpack_csd_v20:00000000000001d4 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:1320   .rodata.__func__.9892:0000000000000000 __func__.9892
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:1275   .rodata.__func__.9847:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:1281   .rodata.__func__.9854:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:1287   .rodata.__func__.9862:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:1293   .rodata.__func__.9868:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:1299   .rodata.__func__.9874:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:1305   .rodata.__func__.9880:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:1311   .rodata.__func__.9886:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccvZgUyN.s:1317   .rodata.__func__.9892:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+chSysHalt

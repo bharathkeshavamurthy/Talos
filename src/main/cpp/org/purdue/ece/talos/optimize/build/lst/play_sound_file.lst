@@ -1,0 +1,1224 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"play_sound_file.c"
+  14              		.section	.text.port_lock,"ax",%progbits
+  15              		.align	1
+  16              		.syntax unified
+  17              		.thumb
+  18              		.thumb_func
+  19              		.fpu fpv4-sp-d16
+  20              		.type	port_lock, %function
+  21              	port_lock:
+  22              		@ args = 0, pretend = 0, frame = 8
+  23              		@ frame_needed = 1, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 80B4     		push	{r7}
+  26 0002 83B0     		sub	sp, sp, #12
+  27 0004 00AF     		add	r7, sp, #0
+  28 0006 2023     		movs	r3, #32
+  29 0008 7B60     		str	r3, [r7, #4]
+  30 000a 7B68     		ldr	r3, [r7, #4]
+  31              		.syntax unified
+  32              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  33 000c 83F31188 		MSR basepri, r3
+  34              	@ 0 "" 2
+  35              		.thumb
+  36              		.syntax unified
+  37 0010 00BF     		nop
+  38 0012 0C37     		adds	r7, r7, #12
+  39 0014 BD46     		mov	sp, r7
+  40              		@ sp needed
+  41 0016 5DF8047B 		ldr	r7, [sp], #4
+  42 001a 7047     		bx	lr
+  43              		.size	port_lock, .-port_lock
+  44              		.section	.text.port_unlock,"ax",%progbits
+  45              		.align	1
+  46              		.syntax unified
+  47              		.thumb
+  48              		.thumb_func
+  49              		.fpu fpv4-sp-d16
+  50              		.type	port_unlock, %function
+  51              	port_unlock:
+  52              		@ args = 0, pretend = 0, frame = 8
+  53              		@ frame_needed = 1, uses_anonymous_args = 0
+  54              		@ link register save eliminated.
+  55 0000 80B4     		push	{r7}
+  56 0002 83B0     		sub	sp, sp, #12
+  57 0004 00AF     		add	r7, sp, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s 			page 2
+
+
+  58 0006 0023     		movs	r3, #0
+  59 0008 7B60     		str	r3, [r7, #4]
+  60 000a 7B68     		ldr	r3, [r7, #4]
+  61              		.syntax unified
+  62              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  63 000c 83F31188 		MSR basepri, r3
+  64              	@ 0 "" 2
+  65              		.thumb
+  66              		.syntax unified
+  67 0010 00BF     		nop
+  68 0012 0C37     		adds	r7, r7, #12
+  69 0014 BD46     		mov	sp, r7
+  70              		@ sp needed
+  71 0016 5DF8047B 		ldr	r7, [sp], #4
+  72 001a 7047     		bx	lr
+  73              		.size	port_unlock, .-port_unlock
+  74              		.section	.text.port_lock_from_isr,"ax",%progbits
+  75              		.align	1
+  76              		.syntax unified
+  77              		.thumb
+  78              		.thumb_func
+  79              		.fpu fpv4-sp-d16
+  80              		.type	port_lock_from_isr, %function
+  81              	port_lock_from_isr:
+  82              		@ args = 0, pretend = 0, frame = 0
+  83              		@ frame_needed = 1, uses_anonymous_args = 0
+  84 0000 80B5     		push	{r7, lr}
+  85 0002 00AF     		add	r7, sp, #0
+  86 0004 FFF7FEFF 		bl	port_lock
+  87 0008 00BF     		nop
+  88 000a 80BD     		pop	{r7, pc}
+  89              		.size	port_lock_from_isr, .-port_lock_from_isr
+  90              		.section	.text.port_unlock_from_isr,"ax",%progbits
+  91              		.align	1
+  92              		.syntax unified
+  93              		.thumb
+  94              		.thumb_func
+  95              		.fpu fpv4-sp-d16
+  96              		.type	port_unlock_from_isr, %function
+  97              	port_unlock_from_isr:
+  98              		@ args = 0, pretend = 0, frame = 0
+  99              		@ frame_needed = 1, uses_anonymous_args = 0
+ 100 0000 80B5     		push	{r7, lr}
+ 101 0002 00AF     		add	r7, sp, #0
+ 102 0004 FFF7FEFF 		bl	port_unlock
+ 103 0008 00BF     		nop
+ 104 000a 80BD     		pop	{r7, pc}
+ 105              		.size	port_unlock_from_isr, .-port_unlock_from_isr
+ 106              		.section	.text.chSysLock,"ax",%progbits
+ 107              		.align	1
+ 108              		.syntax unified
+ 109              		.thumb
+ 110              		.thumb_func
+ 111              		.fpu fpv4-sp-d16
+ 112              		.type	chSysLock, %function
+ 113              	chSysLock:
+ 114              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s 			page 3
+
+
+ 115              		@ frame_needed = 1, uses_anonymous_args = 0
+ 116 0000 80B5     		push	{r7, lr}
+ 117 0002 00AF     		add	r7, sp, #0
+ 118 0004 FFF7FEFF 		bl	port_lock
+ 119 0008 FFF7FEFF 		bl	_stats_start_measure_crit_thd
+ 120 000c FFF7FEFF 		bl	_dbg_check_lock
+ 121 0010 00BF     		nop
+ 122 0012 80BD     		pop	{r7, pc}
+ 123              		.size	chSysLock, .-chSysLock
+ 124              		.section	.text.chSysUnlock,"ax",%progbits
+ 125              		.align	1
+ 126              		.syntax unified
+ 127              		.thumb
+ 128              		.thumb_func
+ 129              		.fpu fpv4-sp-d16
+ 130              		.type	chSysUnlock, %function
+ 131              	chSysUnlock:
+ 132              		@ args = 0, pretend = 0, frame = 0
+ 133              		@ frame_needed = 1, uses_anonymous_args = 0
+ 134 0000 80B5     		push	{r7, lr}
+ 135 0002 00AF     		add	r7, sp, #0
+ 136 0004 FFF7FEFF 		bl	_dbg_check_unlock
+ 137 0008 FFF7FEFF 		bl	_stats_stop_measure_crit_thd
+ 138 000c 094B     		ldr	r3, .L8
+ 139 000e 1B68     		ldr	r3, [r3]
+ 140 0010 084A     		ldr	r2, .L8
+ 141 0012 9342     		cmp	r3, r2
+ 142 0014 0AD0     		beq	.L7
+ 143 0016 074B     		ldr	r3, .L8
+ 144 0018 9B69     		ldr	r3, [r3, #24]
+ 145 001a 9A68     		ldr	r2, [r3, #8]
+ 146 001c 054B     		ldr	r3, .L8
+ 147 001e 1B68     		ldr	r3, [r3]
+ 148 0020 9B68     		ldr	r3, [r3, #8]
+ 149 0022 9A42     		cmp	r2, r3
+ 150 0024 02D2     		bcs	.L7
+ 151 0026 0448     		ldr	r0, .L8+4
+ 152 0028 FFF7FEFF 		bl	chSysHalt
+ 153              	.L7:
+ 154 002c FFF7FEFF 		bl	port_unlock
+ 155 0030 00BF     		nop
+ 156 0032 80BD     		pop	{r7, pc}
+ 157              	.L9:
+ 158              		.align	2
+ 159              	.L8:
+ 160 0034 00000000 		.word	ch
+ 161 0038 00000000 		.word	__func__.7153
+ 162              		.size	chSysUnlock, .-chSysUnlock
+ 163              		.section	.text.chSysLockFromISR,"ax",%progbits
+ 164              		.align	1
+ 165              		.syntax unified
+ 166              		.thumb
+ 167              		.thumb_func
+ 168              		.fpu fpv4-sp-d16
+ 169              		.type	chSysLockFromISR, %function
+ 170              	chSysLockFromISR:
+ 171              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s 			page 4
+
+
+ 172              		@ frame_needed = 1, uses_anonymous_args = 0
+ 173 0000 80B5     		push	{r7, lr}
+ 174 0002 00AF     		add	r7, sp, #0
+ 175 0004 FFF7FEFF 		bl	port_lock_from_isr
+ 176 0008 FFF7FEFF 		bl	_stats_start_measure_crit_isr
+ 177 000c FFF7FEFF 		bl	_dbg_check_lock_from_isr
+ 178 0010 00BF     		nop
+ 179 0012 80BD     		pop	{r7, pc}
+ 180              		.size	chSysLockFromISR, .-chSysLockFromISR
+ 181              		.section	.text.chSysUnlockFromISR,"ax",%progbits
+ 182              		.align	1
+ 183              		.syntax unified
+ 184              		.thumb
+ 185              		.thumb_func
+ 186              		.fpu fpv4-sp-d16
+ 187              		.type	chSysUnlockFromISR, %function
+ 188              	chSysUnlockFromISR:
+ 189              		@ args = 0, pretend = 0, frame = 0
+ 190              		@ frame_needed = 1, uses_anonymous_args = 0
+ 191 0000 80B5     		push	{r7, lr}
+ 192 0002 00AF     		add	r7, sp, #0
+ 193 0004 FFF7FEFF 		bl	_dbg_check_unlock_from_isr
+ 194 0008 FFF7FEFF 		bl	_stats_stop_measure_crit_isr
+ 195 000c FFF7FEFF 		bl	port_unlock_from_isr
+ 196 0010 00BF     		nop
+ 197 0012 80BD     		pop	{r7, pc}
+ 198              		.size	chSysUnlockFromISR, .-chSysUnlockFromISR
+ 199              		.section	.text.chRegSetThreadName,"ax",%progbits
+ 200              		.align	1
+ 201              		.syntax unified
+ 202              		.thumb
+ 203              		.thumb_func
+ 204              		.fpu fpv4-sp-d16
+ 205              		.type	chRegSetThreadName, %function
+ 206              	chRegSetThreadName:
+ 207              		@ args = 0, pretend = 0, frame = 8
+ 208              		@ frame_needed = 1, uses_anonymous_args = 0
+ 209              		@ link register save eliminated.
+ 210 0000 80B4     		push	{r7}
+ 211 0002 83B0     		sub	sp, sp, #12
+ 212 0004 00AF     		add	r7, sp, #0
+ 213 0006 7860     		str	r0, [r7, #4]
+ 214 0008 044B     		ldr	r3, .L13
+ 215 000a 9B69     		ldr	r3, [r3, #24]
+ 216 000c 7A68     		ldr	r2, [r7, #4]
+ 217 000e 9A61     		str	r2, [r3, #24]
+ 218 0010 00BF     		nop
+ 219 0012 0C37     		adds	r7, r7, #12
+ 220 0014 BD46     		mov	sp, r7
+ 221              		@ sp needed
+ 222 0016 5DF8047B 		ldr	r7, [sp], #4
+ 223 001a 7047     		bx	lr
+ 224              	.L14:
+ 225              		.align	2
+ 226              	.L13:
+ 227 001c 00000000 		.word	ch
+ 228              		.size	chRegSetThreadName, .-chRegSetThreadName
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s 			page 5
+
+
+ 229              		.section	.text.chBSemWait,"ax",%progbits
+ 230              		.align	1
+ 231              		.syntax unified
+ 232              		.thumb
+ 233              		.thumb_func
+ 234              		.fpu fpv4-sp-d16
+ 235              		.type	chBSemWait, %function
+ 236              	chBSemWait:
+ 237              		@ args = 0, pretend = 0, frame = 8
+ 238              		@ frame_needed = 1, uses_anonymous_args = 0
+ 239 0000 80B5     		push	{r7, lr}
+ 240 0002 82B0     		sub	sp, sp, #8
+ 241 0004 00AF     		add	r7, sp, #0
+ 242 0006 7860     		str	r0, [r7, #4]
+ 243 0008 7B68     		ldr	r3, [r7, #4]
+ 244 000a 1846     		mov	r0, r3
+ 245 000c FFF7FEFF 		bl	chSemWait
+ 246 0010 0346     		mov	r3, r0
+ 247 0012 1846     		mov	r0, r3
+ 248 0014 0837     		adds	r7, r7, #8
+ 249 0016 BD46     		mov	sp, r7
+ 250              		@ sp needed
+ 251 0018 80BD     		pop	{r7, pc}
+ 252              		.size	chBSemWait, .-chBSemWait
+ 253              		.section	.text.chBSemSignalI,"ax",%progbits
+ 254              		.align	1
+ 255              		.syntax unified
+ 256              		.thumb
+ 257              		.thumb_func
+ 258              		.fpu fpv4-sp-d16
+ 259              		.type	chBSemSignalI, %function
+ 260              	chBSemSignalI:
+ 261              		@ args = 0, pretend = 0, frame = 8
+ 262              		@ frame_needed = 1, uses_anonymous_args = 0
+ 263 0000 80B5     		push	{r7, lr}
+ 264 0002 82B0     		sub	sp, sp, #8
+ 265 0004 00AF     		add	r7, sp, #0
+ 266 0006 7860     		str	r0, [r7, #4]
+ 267 0008 FFF7FEFF 		bl	chDbgCheckClassI
+ 268 000c 7B68     		ldr	r3, [r7, #4]
+ 269 000e 9B68     		ldr	r3, [r3, #8]
+ 270 0010 002B     		cmp	r3, #0
+ 271 0012 03DC     		bgt	.L19
+ 272 0014 7B68     		ldr	r3, [r7, #4]
+ 273 0016 1846     		mov	r0, r3
+ 274 0018 FFF7FEFF 		bl	chSemSignalI
+ 275              	.L19:
+ 276 001c 00BF     		nop
+ 277 001e 0837     		adds	r7, r7, #8
+ 278 0020 BD46     		mov	sp, r7
+ 279              		@ sp needed
+ 280 0022 80BD     		pop	{r7, pc}
+ 281              		.size	chBSemSignalI, .-chBSemSignalI
+ 282              		.section	.bss.sound_buffer1,"aw",%nobits
+ 283              		.align	2
+ 284              		.type	sound_buffer1, %object
+ 285              		.size	sound_buffer1, 512
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s 			page 6
+
+
+ 286              	sound_buffer1:
+ 287 0000 00000000 		.space	512
+ 287      00000000 
+ 287      00000000 
+ 287      00000000 
+ 287      00000000 
+ 288              		.section	.bss.sound_buffer2,"aw",%nobits
+ 289              		.align	2
+ 290              		.type	sound_buffer2, %object
+ 291              		.size	sound_buffer2, 512
+ 292              	sound_buffer2:
+ 293 0000 00000000 		.space	512
+ 293      00000000 
+ 293      00000000 
+ 293      00000000 
+ 293      00000000 
+ 294              		.section	.data.play_sound_file_lock,"aw",%progbits
+ 295              		.align	2
+ 296              		.type	play_sound_file_lock, %object
+ 297              		.size	play_sound_file_lock, 20
+ 298              	play_sound_file_lock:
+ 299 0000 00000000 		.word	play_sound_file_lock
+ 300 0004 00000000 		.word	play_sound_file_lock
+ 301 0008 00000000 		.word	0
+ 302 000c 00000000 		.word	0
+ 303 0010 00000000 		.word	0
+ 304              		.section	.data.play_sound_file_condvar,"aw",%progbits
+ 305              		.align	2
+ 306              		.type	play_sound_file_condvar, %object
+ 307              		.size	play_sound_file_condvar, 8
+ 308              	play_sound_file_condvar:
+ 309 0000 00000000 		.word	play_sound_file_condvar
+ 310 0004 00000000 		.word	play_sound_file_condvar
+ 311              		.section	.data.change_buffer,"aw",%progbits
+ 312              		.align	2
+ 313              		.type	change_buffer, %object
+ 314              		.size	change_buffer, 12
+ 315              	change_buffer:
+ 316 0000 00000000 		.word	change_buffer
+ 317 0004 00000000 		.word	change_buffer
+ 318 0008 00000000 		.word	0
+ 319              		.section	.data.dac_stopped,"aw",%progbits
+ 320              		.align	2
+ 321              		.type	dac_stopped, %object
+ 322              		.size	dac_stopped, 12
+ 323              	dac_stopped:
+ 324 0000 00000000 		.word	dac_stopped
+ 325 0004 00000000 		.word	dac_stopped
+ 326 0008 00000000 		.word	0
+ 327              		.section	.bss.play_sound_file_ref,"aw",%nobits
+ 328              		.align	2
+ 329              		.type	play_sound_file_ref, %object
+ 330              		.size	play_sound_file_ref, 4
+ 331              	play_sound_file_ref:
+ 332 0000 00000000 		.space	4
+ 333              		.section	.bss.play,"aw",%nobits
+ 334              		.type	play, %object
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s 			page 7
+
+
+ 335              		.size	play, 1
+ 336              	play:
+ 337 0000 00       		.space	1
+ 338              		.section	.data.sound_file_volume,"aw",%progbits
+ 339              		.type	sound_file_volume, %object
+ 340              		.size	sound_file_volume, 1
+ 341              	sound_file_volume:
+ 342 0000 14       		.byte	20
+ 343              		.section	.data.samp_freq,"aw",%progbits
+ 344              		.align	2
+ 345              		.type	samp_freq, %object
+ 346              		.size	samp_freq, 4
+ 347              	samp_freq:
+ 348 0000 44AC0000 		.word	44100
+ 349              		.section	.bss.wav_max_value,"aw",%nobits
+ 350              		.align	1
+ 351              		.type	wav_max_value, %object
+ 352              		.size	wav_max_value, 2
+ 353              	wav_max_value:
+ 354 0000 0000     		.space	2
+ 355              		.section	.bss.sample_conv_temp,"aw",%nobits
+ 356              		.align	2
+ 357              		.type	sample_conv_temp, %object
+ 358              		.size	sample_conv_temp, 4
+ 359              	sample_conv_temp:
+ 360 0000 00000000 		.space	4
+ 361              		.section	.bss.buffer_to_read,"aw",%nobits
+ 362              		.align	2
+ 363              		.type	buffer_to_read, %object
+ 364              		.size	buffer_to_read, 4
+ 365              	buffer_to_read:
+ 366 0000 00000000 		.space	4
+ 367              		.section	.bss.size_buffer_to_read,"aw",%nobits
+ 368              		.align	2
+ 369              		.type	size_buffer_to_read, %object
+ 370              		.size	size_buffer_to_read, 4
+ 371              	size_buffer_to_read:
+ 372 0000 00000000 		.space	4
+ 373              		.section	.text.end_cb,"ax",%progbits
+ 374              		.align	1
+ 375              		.syntax unified
+ 376              		.thumb
+ 377              		.thumb_func
+ 378              		.fpu fpv4-sp-d16
+ 379              		.type	end_cb, %function
+ 380              	end_cb:
+ 381              		@ args = 0, pretend = 0, frame = 16
+ 382              		@ frame_needed = 1, uses_anonymous_args = 0
+ 383 0000 80B5     		push	{r7, lr}
+ 384 0002 84B0     		sub	sp, sp, #16
+ 385 0004 00AF     		add	r7, sp, #0
+ 386 0006 F860     		str	r0, [r7, #12]
+ 387 0008 B960     		str	r1, [r7, #8]
+ 388 000a 7A60     		str	r2, [r7, #4]
+ 389 000c BB68     		ldr	r3, [r7, #8]
+ 390 000e 244A     		ldr	r2, .L31
+ 391 0010 9342     		cmp	r3, r2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s 			page 8
+
+
+ 392 0012 40D0     		beq	.L30
+ 393 0014 BB68     		ldr	r3, [r7, #8]
+ 394 0016 234A     		ldr	r2, .L31+4
+ 395 0018 9342     		cmp	r3, r2
+ 396 001a 3CD0     		beq	.L30
+ 397 001c 224B     		ldr	r3, .L31+8
+ 398 001e 1B68     		ldr	r3, [r3]
+ 399 0020 1F4A     		ldr	r2, .L31
+ 400 0022 9342     		cmp	r3, r2
+ 401 0024 03D1     		bne	.L24
+ 402 0026 204B     		ldr	r3, .L31+8
+ 403 0028 1E4A     		ldr	r2, .L31+4
+ 404 002a 1A60     		str	r2, [r3]
+ 405 002c 02E0     		b	.L25
+ 406              	.L24:
+ 407 002e 1E4B     		ldr	r3, .L31+8
+ 408 0030 1B4A     		ldr	r2, .L31
+ 409 0032 1A60     		str	r2, [r3]
+ 410              	.L25:
+ 411 0034 FFF7FEFF 		bl	chSysLockFromISR
+ 412 0038 1C4B     		ldr	r3, .L31+12
+ 413 003a 1B68     		ldr	r3, [r3]
+ 414 003c 002B     		cmp	r3, #0
+ 415 003e 22D0     		beq	.L26
+ 416 0040 1A4B     		ldr	r3, .L31+12
+ 417 0042 1B68     		ldr	r3, [r3]
+ 418 0044 012B     		cmp	r3, #1
+ 419 0046 0AD9     		bls	.L27
+ 420 0048 184B     		ldr	r3, .L31+12
+ 421 004a 1B68     		ldr	r3, [r3]
+ 422 004c 03F00103 		and	r3, r3, #1
+ 423 0050 002B     		cmp	r3, #0
+ 424 0052 04D0     		beq	.L27
+ 425 0054 154B     		ldr	r3, .L31+12
+ 426 0056 1B68     		ldr	r3, [r3]
+ 427 0058 013B     		subs	r3, r3, #1
+ 428 005a 144A     		ldr	r2, .L31+12
+ 429 005c 1360     		str	r3, [r2]
+ 430              	.L27:
+ 431 005e 124B     		ldr	r3, .L31+8
+ 432 0060 1868     		ldr	r0, [r3]
+ 433 0062 124B     		ldr	r3, .L31+12
+ 434 0064 1968     		ldr	r1, [r3]
+ 435 0066 124B     		ldr	r3, .L31+16
+ 436 0068 1B68     		ldr	r3, [r3]
+ 437 006a 1A46     		mov	r2, r3
+ 438 006c FFF7FEFF 		bl	dac_change_bufferI
+ 439 0070 0E4B     		ldr	r3, .L31+12
+ 440 0072 1B68     		ldr	r3, [r3]
+ 441 0074 FF2B     		cmp	r3, #255
+ 442 0076 02D8     		bhi	.L28
+ 443 0078 0C4B     		ldr	r3, .L31+12
+ 444 007a 0022     		movs	r2, #0
+ 445 007c 1A60     		str	r2, [r3]
+ 446              	.L28:
+ 447 007e 0D48     		ldr	r0, .L31+20
+ 448 0080 FFF7FEFF 		bl	chBSemSignalI
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s 			page 9
+
+
+ 449 0084 04E0     		b	.L29
+ 450              	.L26:
+ 451 0086 FFF7FEFF 		bl	dac_stopI
+ 452 008a 0B48     		ldr	r0, .L31+24
+ 453 008c FFF7FEFF 		bl	chBSemSignalI
+ 454              	.L29:
+ 455 0090 FFF7FEFF 		bl	chSysUnlockFromISR
+ 456 0094 00E0     		b	.L20
+ 457              	.L30:
+ 458 0096 00BF     		nop
+ 459              	.L20:
+ 460 0098 1037     		adds	r7, r7, #16
+ 461 009a BD46     		mov	sp, r7
+ 462              		@ sp needed
+ 463 009c 80BD     		pop	{r7, pc}
+ 464              	.L32:
+ 465 009e 00BF     		.align	2
+ 466              	.L31:
+ 467 00a0 00000000 		.word	sound_buffer1
+ 468 00a4 00000000 		.word	sound_buffer2
+ 469 00a8 00000000 		.word	buffer_to_read
+ 470 00ac 00000000 		.word	size_buffer_to_read
+ 471 00b0 00000000 		.word	samp_freq
+ 472 00b4 00000000 		.word	change_buffer
+ 473 00b8 00000000 		.word	dac_stopped
+ 474              		.size	end_cb, .-end_cb
+ 475              		.section	.text.playWAVFile,"ax",%progbits
+ 476              		.align	1
+ 477              		.global	playWAVFile
+ 478              		.syntax unified
+ 479              		.thumb
+ 480              		.thumb_func
+ 481              		.fpu fpv4-sp-d16
+ 482              		.type	playWAVFile, %function
+ 483              	playWAVFile:
+ 484              		@ args = 0, pretend = 0, frame = 576
+ 485              		@ frame_needed = 1, uses_anonymous_args = 0
+ 486 0000 80B5     		push	{r7, lr}
+ 487 0002 ADF5107D 		sub	sp, sp, #576
+ 488 0006 00AF     		add	r7, sp, #0
+ 489 0008 3B1D     		adds	r3, r7, #4
+ 490 000a 1860     		str	r0, [r3]
+ 491 000c 07F10803 		add	r3, r7, #8
+ 492 0010 0022     		movs	r2, #0
+ 493 0012 1A60     		str	r2, [r3]
+ 494 0014 0123     		movs	r3, #1
+ 495 0016 87F83F32 		strb	r3, [r7, #575]
+ 496 001a 0023     		movs	r3, #0
+ 497 001c C7F83832 		str	r3, [r7, #568]
+ 498 0020 0023     		movs	r3, #0
+ 499 0022 A7F83632 		strh	r3, [r7, #566]	@ movhi
+ 500 0026 FFF7FEFF 		bl	mountSDCard
+ 501 002a 0346     		mov	r3, r0
+ 502 002c 83F00103 		eor	r3, r3, #1
+ 503 0030 DBB2     		uxtb	r3, r3
+ 504 0032 002B     		cmp	r3, #0
+ 505 0034 01D0     		beq	.L34
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s 			page 10
+
+
+ 506 0036 0123     		movs	r3, #1
+ 507 0038 14E1     		b	.L54
+ 508              	.L34:
+ 509 003a 3B1D     		adds	r3, r7, #4
+ 510 003c 07F10C00 		add	r0, r7, #12
+ 511 0040 0122     		movs	r2, #1
+ 512 0042 1968     		ldr	r1, [r3]
+ 513 0044 FFF7FEFF 		bl	f_open
+ 514 0048 0346     		mov	r3, r0
+ 515 004a 87F83532 		strb	r3, [r7, #565]
+ 516 004e 97F83532 		ldrb	r3, [r7, #565]	@ zero_extendqisi2
+ 517 0052 002B     		cmp	r3, #0
+ 518 0054 01D0     		beq	.L36
+ 519 0056 0123     		movs	r3, #1
+ 520 0058 04E1     		b	.L54
+ 521              	.L36:
+ 522 005a 854B     		ldr	r3, .L55
+ 523 005c 854A     		ldr	r2, .L55+4
+ 524 005e 1A60     		str	r2, [r3]
+ 525 0060 844B     		ldr	r3, .L55+4
+ 526 0062 C7F83832 		str	r3, [r7, #568]
+ 527 0066 07F10803 		add	r3, r7, #8
+ 528 006a 07F10C00 		add	r0, r7, #12
+ 529 006e 2C22     		movs	r2, #44
+ 530 0070 D7F83812 		ldr	r1, [r7, #568]
+ 531 0074 FFF7FEFF 		bl	f_read
+ 532 0078 0346     		mov	r3, r0
+ 533 007a 87F83532 		strb	r3, [r7, #565]
+ 534 007e 97F83532 		ldrb	r3, [r7, #565]	@ zero_extendqisi2
+ 535 0082 002B     		cmp	r3, #0
+ 536 0084 06D0     		beq	.L37
+ 537 0086 07F10C03 		add	r3, r7, #12
+ 538 008a 1846     		mov	r0, r3
+ 539 008c FFF7FEFF 		bl	f_close
+ 540 0090 0123     		movs	r3, #1
+ 541 0092 E7E0     		b	.L54
+ 542              	.L37:
+ 543 0094 784B     		ldr	r3, .L55+8
+ 544 0096 0022     		movs	r2, #0
+ 545 0098 1A80     		strh	r2, [r3]	@ movhi
+ 546              	.L42:
+ 547 009a 07F10803 		add	r3, r7, #8
+ 548 009e 07F10C00 		add	r0, r7, #12
+ 549 00a2 4FF40072 		mov	r2, #512
+ 550 00a6 D7F83812 		ldr	r1, [r7, #568]
+ 551 00aa FFF7FEFF 		bl	f_read
+ 552 00ae 0346     		mov	r3, r0
+ 553 00b0 87F83532 		strb	r3, [r7, #565]
+ 554 00b4 97F83532 		ldrb	r3, [r7, #565]	@ zero_extendqisi2
+ 555 00b8 002B     		cmp	r3, #0
+ 556 00ba 06D0     		beq	.L38
+ 557 00bc 07F10C03 		add	r3, r7, #12
+ 558 00c0 1846     		mov	r0, r3
+ 559 00c2 FFF7FEFF 		bl	f_close
+ 560 00c6 0123     		movs	r3, #1
+ 561 00c8 CCE0     		b	.L54
+ 562              	.L38:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s 			page 11
+
+
+ 563 00ca 07F10803 		add	r3, r7, #8
+ 564 00ce 1B68     		ldr	r3, [r3]
+ 565 00d0 5B08     		lsrs	r3, r3, #1
+ 566 00d2 6A4A     		ldr	r2, .L55+12
+ 567 00d4 1360     		str	r3, [r2]
+ 568 00d6 0023     		movs	r3, #0
+ 569 00d8 A7F83632 		strh	r3, [r7, #566]	@ movhi
+ 570 00dc 21E0     		b	.L39
+ 571              	.L41:
+ 572 00de B7F83632 		ldrh	r3, [r7, #566]
+ 573 00e2 5B00     		lsls	r3, r3, #1
+ 574 00e4 D7F83822 		ldr	r2, [r7, #568]
+ 575 00e8 1344     		add	r3, r3, r2
+ 576 00ea 1B88     		ldrh	r3, [r3]
+ 577 00ec 1BB2     		sxth	r3, r3
+ 578 00ee 002B     		cmp	r3, #0
+ 579 00f0 B8BF     		it	lt
+ 580 00f2 5B42     		rsblt	r3, r3, #0
+ 581 00f4 604A     		ldr	r2, .L55+8
+ 582 00f6 1288     		ldrh	r2, [r2]
+ 583 00f8 9342     		cmp	r3, r2
+ 584 00fa 0DDD     		ble	.L40
+ 585 00fc B7F83632 		ldrh	r3, [r7, #566]
+ 586 0100 5B00     		lsls	r3, r3, #1
+ 587 0102 D7F83822 		ldr	r2, [r7, #568]
+ 588 0106 1344     		add	r3, r3, r2
+ 589 0108 1B88     		ldrh	r3, [r3]
+ 590 010a 1BB2     		sxth	r3, r3
+ 591 010c 002B     		cmp	r3, #0
+ 592 010e B8BF     		it	lt
+ 593 0110 5B42     		rsblt	r3, r3, #0
+ 594 0112 9AB2     		uxth	r2, r3
+ 595 0114 584B     		ldr	r3, .L55+8
+ 596 0116 1A80     		strh	r2, [r3]	@ movhi
+ 597              	.L40:
+ 598 0118 B7F83632 		ldrh	r3, [r7, #566]
+ 599 011c 0133     		adds	r3, r3, #1
+ 600 011e A7F83632 		strh	r3, [r7, #566]	@ movhi
+ 601              	.L39:
+ 602 0122 B7F83622 		ldrh	r2, [r7, #566]
+ 603 0126 554B     		ldr	r3, .L55+12
+ 604 0128 1B68     		ldr	r3, [r3]
+ 605 012a 9A42     		cmp	r2, r3
+ 606 012c D7D3     		bcc	.L41
+ 607 012e 534B     		ldr	r3, .L55+12
+ 608 0130 1B68     		ldr	r3, [r3]
+ 609 0132 FF2B     		cmp	r3, #255
+ 610 0134 B1D8     		bhi	.L42
+ 611 0136 07F10C03 		add	r3, r7, #12
+ 612 013a 2C21     		movs	r1, #44
+ 613 013c 1846     		mov	r0, r3
+ 614 013e FFF7FEFF 		bl	f_lseek
+ 615              	.L53:
+ 616 0142 4F4B     		ldr	r3, .L55+16
+ 617 0144 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 618 0146 83F00103 		eor	r3, r3, #1
+ 619 014a DBB2     		uxtb	r3, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s 			page 12
+
+
+ 620 014c 002B     		cmp	r3, #0
+ 621 014e 02D0     		beq	.L43
+ 622 0150 FFF7FEFF 		bl	dac_stop
+ 623 0154 80E0     		b	.L44
+ 624              	.L43:
+ 625 0156 07F10803 		add	r3, r7, #8
+ 626 015a 07F10C00 		add	r0, r7, #12
+ 627 015e 4FF40072 		mov	r2, #512
+ 628 0162 D7F83812 		ldr	r1, [r7, #568]
+ 629 0166 FFF7FEFF 		bl	f_read
+ 630 016a 0346     		mov	r3, r0
+ 631 016c 87F83532 		strb	r3, [r7, #565]
+ 632 0170 97F83532 		ldrb	r3, [r7, #565]	@ zero_extendqisi2
+ 633 0174 002B     		cmp	r3, #0
+ 634 0176 06D0     		beq	.L45
+ 635 0178 07F10C03 		add	r3, r7, #12
+ 636 017c 1846     		mov	r0, r3
+ 637 017e FFF7FEFF 		bl	f_close
+ 638 0182 0123     		movs	r3, #1
+ 639 0184 6EE0     		b	.L54
+ 640              	.L45:
+ 641 0186 07F10803 		add	r3, r7, #8
+ 642 018a 1B68     		ldr	r3, [r3]
+ 643 018c 5B08     		lsrs	r3, r3, #1
+ 644 018e 3B4A     		ldr	r2, .L55+12
+ 645 0190 1360     		str	r3, [r2]
+ 646 0192 0023     		movs	r3, #0
+ 647 0194 A7F83632 		strh	r3, [r7, #566]	@ movhi
+ 648 0198 2CE0     		b	.L46
+ 649              	.L47:
+ 650 019a B7F83632 		ldrh	r3, [r7, #566]
+ 651 019e 5B00     		lsls	r3, r3, #1
+ 652 01a0 D7F83822 		ldr	r2, [r7, #568]
+ 653 01a4 1344     		add	r3, r3, r2
+ 654 01a6 1B88     		ldrh	r3, [r3]
+ 655 01a8 1BB2     		sxth	r3, r3
+ 656 01aa DB02     		lsls	r3, r3, #11
+ 657 01ac 354A     		ldr	r2, .L55+20
+ 658 01ae 1360     		str	r3, [r2]
+ 659 01b0 354B     		ldr	r3, .L55+24
+ 660 01b2 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 661 01b4 1A46     		mov	r2, r3
+ 662 01b6 334B     		ldr	r3, .L55+20
+ 663 01b8 1B68     		ldr	r3, [r3]
+ 664 01ba 03FB02F2 		mul	r2, r3, r2
+ 665 01be 2E4B     		ldr	r3, .L55+8
+ 666 01c0 1B88     		ldrh	r3, [r3]
+ 667 01c2 1946     		mov	r1, r3
+ 668 01c4 6423     		movs	r3, #100
+ 669 01c6 03FB01F3 		mul	r3, r3, r1
+ 670 01ca 92FBF3F3 		sdiv	r3, r2, r3
+ 671 01ce 03F50063 		add	r3, r3, #2048
+ 672 01d2 2C4A     		ldr	r2, .L55+20
+ 673 01d4 1360     		str	r3, [r2]
+ 674 01d6 2B4B     		ldr	r3, .L55+20
+ 675 01d8 1968     		ldr	r1, [r3]
+ 676 01da B7F83632 		ldrh	r3, [r7, #566]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s 			page 13
+
+
+ 677 01de 5B00     		lsls	r3, r3, #1
+ 678 01e0 D7F83822 		ldr	r2, [r7, #568]
+ 679 01e4 1344     		add	r3, r3, r2
+ 680 01e6 8AB2     		uxth	r2, r1
+ 681 01e8 1A80     		strh	r2, [r3]	@ movhi
+ 682 01ea B7F83632 		ldrh	r3, [r7, #566]
+ 683 01ee 0133     		adds	r3, r3, #1
+ 684 01f0 A7F83632 		strh	r3, [r7, #566]	@ movhi
+ 685              	.L46:
+ 686 01f4 B7F83622 		ldrh	r2, [r7, #566]
+ 687 01f8 204B     		ldr	r3, .L55+12
+ 688 01fa 1B68     		ldr	r3, [r3]
+ 689 01fc 9A42     		cmp	r2, r3
+ 690 01fe CCD3     		bcc	.L47
+ 691 0200 97F83F32 		ldrb	r3, [r7, #575]	@ zero_extendqisi2
+ 692 0204 002B     		cmp	r3, #0
+ 693 0206 13D0     		beq	.L48
+ 694 0208 194B     		ldr	r3, .L55
+ 695 020a 1868     		ldr	r0, [r3]
+ 696 020c 1B4B     		ldr	r3, .L55+12
+ 697 020e 1968     		ldr	r1, [r3]
+ 698 0210 1E4B     		ldr	r3, .L55+28
+ 699 0212 1A68     		ldr	r2, [r3]
+ 700 0214 1E4B     		ldr	r3, .L55+32
+ 701 0216 FFF7FEFF 		bl	dac_play_buffer
+ 702 021a 184B     		ldr	r3, .L55+12
+ 703 021c 1B68     		ldr	r3, [r3]
+ 704 021e FF2B     		cmp	r3, #255
+ 705 0220 02D8     		bhi	.L49
+ 706 0222 164B     		ldr	r3, .L55+12
+ 707 0224 0022     		movs	r2, #0
+ 708 0226 1A60     		str	r2, [r3]
+ 709              	.L49:
+ 710 0228 0023     		movs	r3, #0
+ 711 022a 87F83F32 		strb	r3, [r7, #575]
+ 712 022e 02E0     		b	.L50
+ 713              	.L48:
+ 714 0230 1848     		ldr	r0, .L55+36
+ 715 0232 FFF7FEFF 		bl	chBSemWait
+ 716              	.L50:
+ 717 0236 D7F83832 		ldr	r3, [r7, #568]
+ 718 023a 0E4A     		ldr	r2, .L55+4
+ 719 023c 9342     		cmp	r3, r2
+ 720 023e 03D1     		bne	.L51
+ 721 0240 154B     		ldr	r3, .L55+40
+ 722 0242 C7F83832 		str	r3, [r7, #568]
+ 723 0246 02E0     		b	.L52
+ 724              	.L51:
+ 725 0248 0A4B     		ldr	r3, .L55+4
+ 726 024a C7F83832 		str	r3, [r7, #568]
+ 727              	.L52:
+ 728 024e 0B4B     		ldr	r3, .L55+12
+ 729 0250 1B68     		ldr	r3, [r3]
+ 730 0252 FF2B     		cmp	r3, #255
+ 731 0254 3FF675AF 		bhi	.L53
+ 732              	.L44:
+ 733 0258 07F10C03 		add	r3, r7, #12
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s 			page 14
+
+
+ 734 025c 1846     		mov	r0, r3
+ 735 025e FFF7FEFF 		bl	f_close
+ 736 0262 0023     		movs	r3, #0
+ 737              	.L54:
+ 738 0264 1846     		mov	r0, r3
+ 739 0266 07F51077 		add	r7, r7, #576
+ 740 026a BD46     		mov	sp, r7
+ 741              		@ sp needed
+ 742 026c 80BD     		pop	{r7, pc}
+ 743              	.L56:
+ 744 026e 00BF     		.align	2
+ 745              	.L55:
+ 746 0270 00000000 		.word	buffer_to_read
+ 747 0274 00000000 		.word	sound_buffer1
+ 748 0278 00000000 		.word	wav_max_value
+ 749 027c 00000000 		.word	size_buffer_to_read
+ 750 0280 00000000 		.word	play
+ 751 0284 00000000 		.word	sample_conv_temp
+ 752 0288 00000000 		.word	sound_file_volume
+ 753 028c 00000000 		.word	samp_freq
+ 754 0290 00000000 		.word	end_cb
+ 755 0294 00000000 		.word	change_buffer
+ 756 0298 00000000 		.word	sound_buffer2
+ 757              		.size	playWAVFile, .-playWAVFile
+ 758              		.section	.bss.waPlaySoundFileThd,"aw",%nobits
+ 759              		.align	3
+ 760              		.type	waPlaySoundFileThd, %object
+ 761              		.size	waPlaySoundFileThd, 1912
+ 762              	waPlaySoundFileThd:
+ 763 0000 00000000 		.space	1912
+ 763      00000000 
+ 763      00000000 
+ 763      00000000 
+ 763      00000000 
+ 764              		.section	.rodata
+ 765              		.align	2
+ 766              	.LC0:
+ 767 0000 506C6179 		.ascii	"PlaySoundFile Thd\000"
+ 767      536F756E 
+ 767      6446696C 
+ 767      65205468 
+ 767      6400
+ 768              		.section	.text.PlaySoundFileThd,"ax",%progbits
+ 769              		.align	1
+ 770              		.syntax unified
+ 771              		.thumb
+ 772              		.thumb_func
+ 773              		.fpu fpv4-sp-d16
+ 774              		.type	PlaySoundFileThd, %function
+ 775              	PlaySoundFileThd:
+ 776              		@ args = 0, pretend = 0, frame = 16
+ 777              		@ frame_needed = 1, uses_anonymous_args = 0
+ 778 0000 80B5     		push	{r7, lr}
+ 779 0002 84B0     		sub	sp, sp, #16
+ 780 0004 00AF     		add	r7, sp, #0
+ 781 0006 7860     		str	r0, [r7, #4]
+ 782 0008 1048     		ldr	r0, .L60
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s 			page 15
+
+
+ 783 000a FFF7FEFF 		bl	chRegSetThreadName
+ 784 000e 0023     		movs	r3, #0
+ 785 0010 FB60     		str	r3, [r7, #12]
+ 786              	.L59:
+ 787 0012 FFF7FEFF 		bl	chSysLock
+ 788 0016 0E48     		ldr	r0, .L60+4
+ 789 0018 FFF7FEFF 		bl	chThdSuspendS
+ 790 001c 0346     		mov	r3, r0
+ 791 001e FB60     		str	r3, [r7, #12]
+ 792 0020 FFF7FEFF 		bl	chSysUnlock
+ 793 0024 F868     		ldr	r0, [r7, #12]
+ 794 0026 FFF7FEFF 		bl	playWAVFile
+ 795 002a 0346     		mov	r3, r0
+ 796 002c 002B     		cmp	r3, #0
+ 797 002e 02D1     		bne	.L58
+ 798 0030 0848     		ldr	r0, .L60+8
+ 799 0032 FFF7FEFF 		bl	chBSemWait
+ 800              	.L58:
+ 801 0036 084B     		ldr	r3, .L60+12
+ 802 0038 0022     		movs	r2, #0
+ 803 003a 1A70     		strb	r2, [r3]
+ 804 003c 0A20     		movs	r0, #10
+ 805 003e FFF7FEFF 		bl	chThdSleep
+ 806 0042 0648     		ldr	r0, .L60+16
+ 807 0044 FFF7FEFF 		bl	chCondBroadcast
+ 808 0048 E3E7     		b	.L59
+ 809              	.L61:
+ 810 004a 00BF     		.align	2
+ 811              	.L60:
+ 812 004c 00000000 		.word	.LC0
+ 813 0050 00000000 		.word	play_sound_file_ref
+ 814 0054 00000000 		.word	dac_stopped
+ 815 0058 00000000 		.word	play
+ 816 005c 00000000 		.word	play_sound_file_condvar
+ 817              		.size	PlaySoundFileThd, .-PlaySoundFileThd
+ 818              		.section	.text.playSoundFileStart,"ax",%progbits
+ 819              		.align	1
+ 820              		.global	playSoundFileStart
+ 821              		.syntax unified
+ 822              		.thumb
+ 823              		.thumb_func
+ 824              		.fpu fpv4-sp-d16
+ 825              		.type	playSoundFileStart, %function
+ 826              	playSoundFileStart:
+ 827              		@ args = 0, pretend = 0, frame = 0
+ 828              		@ frame_needed = 1, uses_anonymous_args = 0
+ 829 0000 80B5     		push	{r7, lr}
+ 830 0002 82B0     		sub	sp, sp, #8
+ 831 0004 02AF     		add	r7, sp, #8
+ 832 0006 0023     		movs	r3, #0
+ 833 0008 0093     		str	r3, [sp]
+ 834 000a 054B     		ldr	r3, .L63
+ 835 000c 4022     		movs	r2, #64
+ 836 000e 4FF4EF61 		mov	r1, #1912
+ 837 0012 0448     		ldr	r0, .L63+4
+ 838 0014 FFF7FEFF 		bl	chThdCreateStatic
+ 839 0018 00BF     		nop
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s 			page 16
+
+
+ 840 001a BD46     		mov	sp, r7
+ 841              		@ sp needed
+ 842 001c 80BD     		pop	{r7, pc}
+ 843              	.L64:
+ 844 001e 00BF     		.align	2
+ 845              	.L63:
+ 846 0020 00000000 		.word	PlaySoundFileThd
+ 847 0024 00000000 		.word	waPlaySoundFileThd
+ 848              		.size	playSoundFileStart, .-playSoundFileStart
+ 849              		.section	.text.playSoundFile,"ax",%progbits
+ 850              		.align	1
+ 851              		.global	playSoundFile
+ 852              		.syntax unified
+ 853              		.thumb
+ 854              		.thumb_func
+ 855              		.fpu fpv4-sp-d16
+ 856              		.type	playSoundFile, %function
+ 857              	playSoundFile:
+ 858              		@ args = 0, pretend = 0, frame = 16
+ 859              		@ frame_needed = 1, uses_anonymous_args = 0
+ 860 0000 80B5     		push	{r7, lr}
+ 861 0002 84B0     		sub	sp, sp, #16
+ 862 0004 00AF     		add	r7, sp, #0
+ 863 0006 F860     		str	r0, [r7, #12]
+ 864 0008 0B46     		mov	r3, r1
+ 865 000a 7A60     		str	r2, [r7, #4]
+ 866 000c FB72     		strb	r3, [r7, #11]
+ 867 000e FB68     		ldr	r3, [r7, #12]
+ 868 0010 002B     		cmp	r3, #0
+ 869 0012 22D0     		beq	.L71
+ 870 0014 134A     		ldr	r2, .L72
+ 871 0016 7B68     		ldr	r3, [r7, #4]
+ 872 0018 1360     		str	r3, [r2]
+ 873 001a FB7A     		ldrb	r3, [r7, #11]	@ zero_extendqisi2
+ 874 001c 002B     		cmp	r3, #0
+ 875 001e 0CD1     		bne	.L68
+ 876 0020 114B     		ldr	r3, .L72+4
+ 877 0022 1B68     		ldr	r3, [r3]
+ 878 0024 002B     		cmp	r3, #0
+ 879 0026 19D0     		beq	.L65
+ 880 0028 104B     		ldr	r3, .L72+8
+ 881 002a 0122     		movs	r2, #1
+ 882 002c 1A70     		strb	r2, [r3]
+ 883 002e FB68     		ldr	r3, [r7, #12]
+ 884 0030 1946     		mov	r1, r3
+ 885 0032 0D48     		ldr	r0, .L72+4
+ 886 0034 FFF7FEFF 		bl	chThdResume
+ 887 0038 10E0     		b	.L65
+ 888              	.L68:
+ 889 003a FB7A     		ldrb	r3, [r7, #11]	@ zero_extendqisi2
+ 890 003c 022B     		cmp	r3, #2
+ 891 003e 01D1     		bne	.L70
+ 892 0040 FFF7FEFF 		bl	stopCurrentSoundFile
+ 893              	.L70:
+ 894 0044 FFF7FEFF 		bl	waitSoundFileHasFinished
+ 895 0048 084B     		ldr	r3, .L72+8
+ 896 004a 0122     		movs	r2, #1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s 			page 17
+
+
+ 897 004c 1A70     		strb	r2, [r3]
+ 898 004e FB68     		ldr	r3, [r7, #12]
+ 899 0050 1946     		mov	r1, r3
+ 900 0052 0548     		ldr	r0, .L72+4
+ 901 0054 FFF7FEFF 		bl	chThdResume
+ 902 0058 00E0     		b	.L65
+ 903              	.L71:
+ 904 005a 00BF     		nop
+ 905              	.L65:
+ 906 005c 1037     		adds	r7, r7, #16
+ 907 005e BD46     		mov	sp, r7
+ 908              		@ sp needed
+ 909 0060 80BD     		pop	{r7, pc}
+ 910              	.L73:
+ 911 0062 00BF     		.align	2
+ 912              	.L72:
+ 913 0064 00000000 		.word	samp_freq
+ 914 0068 00000000 		.word	play_sound_file_ref
+ 915 006c 00000000 		.word	play
+ 916              		.size	playSoundFile, .-playSoundFile
+ 917              		.section	.text.stopCurrentSoundFile,"ax",%progbits
+ 918              		.align	1
+ 919              		.global	stopCurrentSoundFile
+ 920              		.syntax unified
+ 921              		.thumb
+ 922              		.thumb_func
+ 923              		.fpu fpv4-sp-d16
+ 924              		.type	stopCurrentSoundFile, %function
+ 925              	stopCurrentSoundFile:
+ 926              		@ args = 0, pretend = 0, frame = 0
+ 927              		@ frame_needed = 1, uses_anonymous_args = 0
+ 928              		@ link register save eliminated.
+ 929 0000 80B4     		push	{r7}
+ 930 0002 00AF     		add	r7, sp, #0
+ 931 0004 034B     		ldr	r3, .L75
+ 932 0006 0022     		movs	r2, #0
+ 933 0008 1A70     		strb	r2, [r3]
+ 934 000a 00BF     		nop
+ 935 000c BD46     		mov	sp, r7
+ 936              		@ sp needed
+ 937 000e 5DF8047B 		ldr	r7, [sp], #4
+ 938 0012 7047     		bx	lr
+ 939              	.L76:
+ 940              		.align	2
+ 941              	.L75:
+ 942 0014 00000000 		.word	play
+ 943              		.size	stopCurrentSoundFile, .-stopCurrentSoundFile
+ 944              		.section	.text.waitSoundFileHasFinished,"ax",%progbits
+ 945              		.align	1
+ 946              		.global	waitSoundFileHasFinished
+ 947              		.syntax unified
+ 948              		.thumb
+ 949              		.thumb_func
+ 950              		.fpu fpv4-sp-d16
+ 951              		.type	waitSoundFileHasFinished, %function
+ 952              	waitSoundFileHasFinished:
+ 953              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s 			page 18
+
+
+ 954              		@ frame_needed = 1, uses_anonymous_args = 0
+ 955 0000 80B5     		push	{r7, lr}
+ 956 0002 00AF     		add	r7, sp, #0
+ 957 0004 074B     		ldr	r3, .L80
+ 958 0006 1B68     		ldr	r3, [r3]
+ 959 0008 002B     		cmp	r3, #0
+ 960 000a 08D1     		bne	.L79
+ 961 000c 0648     		ldr	r0, .L80+4
+ 962 000e FFF7FEFF 		bl	chMtxLock
+ 963 0012 0648     		ldr	r0, .L80+8
+ 964 0014 FFF7FEFF 		bl	chCondWait
+ 965 0018 0348     		ldr	r0, .L80+4
+ 966 001a FFF7FEFF 		bl	chMtxUnlock
+ 967              	.L79:
+ 968 001e 00BF     		nop
+ 969 0020 80BD     		pop	{r7, pc}
+ 970              	.L81:
+ 971 0022 00BF     		.align	2
+ 972              	.L80:
+ 973 0024 00000000 		.word	play_sound_file_ref
+ 974 0028 00000000 		.word	play_sound_file_lock
+ 975 002c 00000000 		.word	play_sound_file_condvar
+ 976              		.size	waitSoundFileHasFinished, .-waitSoundFileHasFinished
+ 977              		.section	.text.setSoundFileVolume,"ax",%progbits
+ 978              		.align	1
+ 979              		.global	setSoundFileVolume
+ 980              		.syntax unified
+ 981              		.thumb
+ 982              		.thumb_func
+ 983              		.fpu fpv4-sp-d16
+ 984              		.type	setSoundFileVolume, %function
+ 985              	setSoundFileVolume:
+ 986              		@ args = 0, pretend = 0, frame = 8
+ 987              		@ frame_needed = 1, uses_anonymous_args = 0
+ 988              		@ link register save eliminated.
+ 989 0000 80B4     		push	{r7}
+ 990 0002 83B0     		sub	sp, sp, #12
+ 991 0004 00AF     		add	r7, sp, #0
+ 992 0006 0346     		mov	r3, r0
+ 993 0008 FB71     		strb	r3, [r7, #7]
+ 994 000a FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 995 000c 642B     		cmp	r3, #100
+ 996 000e 01D9     		bls	.L83
+ 997 0010 6423     		movs	r3, #100
+ 998 0012 FB71     		strb	r3, [r7, #7]
+ 999              	.L83:
+ 1000 0014 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 1001 0016 002B     		cmp	r3, #0
+ 1002 0018 01D1     		bne	.L84
+ 1003 001a 0123     		movs	r3, #1
+ 1004 001c FB71     		strb	r3, [r7, #7]
+ 1005              	.L84:
+ 1006 001e 044A     		ldr	r2, .L85
+ 1007 0020 FB79     		ldrb	r3, [r7, #7]
+ 1008 0022 1370     		strb	r3, [r2]
+ 1009 0024 00BF     		nop
+ 1010 0026 0C37     		adds	r7, r7, #12
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s 			page 19
+
+
+ 1011 0028 BD46     		mov	sp, r7
+ 1012              		@ sp needed
+ 1013 002a 5DF8047B 		ldr	r7, [sp], #4
+ 1014 002e 7047     		bx	lr
+ 1015              	.L86:
+ 1016              		.align	2
+ 1017              	.L85:
+ 1018 0030 00000000 		.word	sound_file_volume
+ 1019              		.size	setSoundFileVolume, .-setSoundFileVolume
+ 1020              		.section	.rodata.__func__.7153,"a",%progbits
+ 1021              		.align	2
+ 1022              		.type	__func__.7153, %object
+ 1023              		.size	__func__.7153, 12
+ 1024              	__func__.7153:
+ 1025 0000 63685379 		.ascii	"chSysUnlock\000"
+ 1025      73556E6C 
+ 1025      6F636B00 
+ 1026              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s 			page 20
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 play_sound_file.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:15     .text.port_lock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:21     .text.port_lock:0000000000000000 port_lock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:45     .text.port_unlock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:51     .text.port_unlock:0000000000000000 port_unlock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:75     .text.port_lock_from_isr:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:81     .text.port_lock_from_isr:0000000000000000 port_lock_from_isr
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:91     .text.port_unlock_from_isr:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:97     .text.port_unlock_from_isr:0000000000000000 port_unlock_from_isr
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:107    .text.chSysLock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:113    .text.chSysLock:0000000000000000 chSysLock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:125    .text.chSysUnlock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:131    .text.chSysUnlock:0000000000000000 chSysUnlock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:160    .text.chSysUnlock:0000000000000034 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:1024   .rodata.__func__.7153:0000000000000000 __func__.7153
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:164    .text.chSysLockFromISR:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:170    .text.chSysLockFromISR:0000000000000000 chSysLockFromISR
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:182    .text.chSysUnlockFromISR:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:188    .text.chSysUnlockFromISR:0000000000000000 chSysUnlockFromISR
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:200    .text.chRegSetThreadName:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:206    .text.chRegSetThreadName:0000000000000000 chRegSetThreadName
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:227    .text.chRegSetThreadName:000000000000001c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:230    .text.chBSemWait:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:236    .text.chBSemWait:0000000000000000 chBSemWait
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:254    .text.chBSemSignalI:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:260    .text.chBSemSignalI:0000000000000000 chBSemSignalI
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:283    .bss.sound_buffer1:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:286    .bss.sound_buffer1:0000000000000000 sound_buffer1
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:289    .bss.sound_buffer2:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:292    .bss.sound_buffer2:0000000000000000 sound_buffer2
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:295    .data.play_sound_file_lock:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:298    .data.play_sound_file_lock:0000000000000000 play_sound_file_lock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:305    .data.play_sound_file_condvar:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:308    .data.play_sound_file_condvar:0000000000000000 play_sound_file_condvar
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:312    .data.change_buffer:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:315    .data.change_buffer:0000000000000000 change_buffer
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:320    .data.dac_stopped:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:323    .data.dac_stopped:0000000000000000 dac_stopped
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:328    .bss.play_sound_file_ref:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:331    .bss.play_sound_file_ref:0000000000000000 play_sound_file_ref
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:336    .bss.play:0000000000000000 play
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:337    .bss.play:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:341    .data.sound_file_volume:0000000000000000 sound_file_volume
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:344    .data.samp_freq:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:347    .data.samp_freq:0000000000000000 samp_freq
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:350    .bss.wav_max_value:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:353    .bss.wav_max_value:0000000000000000 wav_max_value
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:356    .bss.sample_conv_temp:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:359    .bss.sample_conv_temp:0000000000000000 sample_conv_temp
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:362    .bss.buffer_to_read:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:365    .bss.buffer_to_read:0000000000000000 buffer_to_read
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:368    .bss.size_buffer_to_read:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:371    .bss.size_buffer_to_read:0000000000000000 size_buffer_to_read
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:374    .text.end_cb:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:380    .text.end_cb:0000000000000000 end_cb
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:467    .text.end_cb:00000000000000a0 $d
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s 			page 21
+
+
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:476    .text.playWAVFile:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:483    .text.playWAVFile:0000000000000000 playWAVFile
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:746    .text.playWAVFile:0000000000000270 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:759    .bss.waPlaySoundFileThd:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:762    .bss.waPlaySoundFileThd:0000000000000000 waPlaySoundFileThd
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:765    .rodata:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:769    .text.PlaySoundFileThd:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:775    .text.PlaySoundFileThd:0000000000000000 PlaySoundFileThd
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:812    .text.PlaySoundFileThd:000000000000004c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:819    .text.playSoundFileStart:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:826    .text.playSoundFileStart:0000000000000000 playSoundFileStart
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:846    .text.playSoundFileStart:0000000000000020 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:850    .text.playSoundFile:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:857    .text.playSoundFile:0000000000000000 playSoundFile
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:925    .text.stopCurrentSoundFile:0000000000000000 stopCurrentSoundFile
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:952    .text.waitSoundFileHasFinished:0000000000000000 waitSoundFileHasFinished
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:913    .text.playSoundFile:0000000000000064 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:918    .text.stopCurrentSoundFile:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:942    .text.stopCurrentSoundFile:0000000000000014 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:945    .text.waitSoundFileHasFinished:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:973    .text.waitSoundFileHasFinished:0000000000000024 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:978    .text.setSoundFileVolume:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:985    .text.setSoundFileVolume:0000000000000000 setSoundFileVolume
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:1018   .text.setSoundFileVolume:0000000000000030 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s:1021   .rodata.__func__.7153:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+_stats_start_measure_crit_thd
+_dbg_check_lock
+_dbg_check_unlock
+_stats_stop_measure_crit_thd
+chSysHalt
+ch
+_stats_start_measure_crit_isr
+_dbg_check_lock_from_isr
+_dbg_check_unlock_from_isr
+_stats_stop_measure_crit_isr
+chSemWait
+chDbgCheckClassI
+chSemSignalI
+dac_change_bufferI
+dac_stopI
+mountSDCard
+f_open
+f_read
+f_close
+f_lseek
+dac_stop
+dac_play_buffer
+chThdSuspendS
+chThdSleep
+chCondBroadcast
+chThdCreateStatic
+chThdResume
+chMtxLock
+chCondWait
+chMtxUnlock
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqVIq3q.s 			page 22
+
+

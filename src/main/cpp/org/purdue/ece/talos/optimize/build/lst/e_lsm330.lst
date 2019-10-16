@@ -1,0 +1,369 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"e_lsm330.c"
+  14              		.section	.text.initAccAndGyro,"ax",%progbits
+  15              		.align	1
+  16              		.global	initAccAndGyro
+  17              		.syntax unified
+  18              		.thumb
+  19              		.thumb_func
+  20              		.fpu fpv4-sp-d16
+  21              		.type	initAccAndGyro, %function
+  22              	initAccAndGyro:
+  23              		@ args = 0, pretend = 0, frame = 0
+  24              		@ frame_needed = 1, uses_anonymous_args = 0
+  25              		@ link register save eliminated.
+  26 0000 80B4     		push	{r7}
+  27 0002 00AF     		add	r7, sp, #0
+  28 0004 00BF     		nop
+  29 0006 BD46     		mov	sp, r7
+  30              		@ sp needed
+  31 0008 5DF8047B 		ldr	r7, [sp], #4
+  32 000c 7047     		bx	lr
+  33              		.size	initAccAndGyro, .-initAccAndGyro
+  34              		.section	.text.getAllAxesGyroRaw,"ax",%progbits
+  35              		.align	1
+  36              		.global	getAllAxesGyroRaw
+  37              		.syntax unified
+  38              		.thumb
+  39              		.thumb_func
+  40              		.fpu fpv4-sp-d16
+  41              		.type	getAllAxesGyroRaw, %function
+  42              	getAllAxesGyroRaw:
+  43              		@ args = 0, pretend = 0, frame = 8
+  44              		@ frame_needed = 1, uses_anonymous_args = 0
+  45 0000 80B5     		push	{r7, lr}
+  46 0002 82B0     		sub	sp, sp, #8
+  47 0004 00AF     		add	r7, sp, #0
+  48 0006 7860     		str	r0, [r7, #4]
+  49 0008 0120     		movs	r0, #1
+  50 000a FFF7FEFF 		bl	get_gyro
+  51 000e 0346     		mov	r3, r0
+  52 0010 DBB2     		uxtb	r3, r3
+  53 0012 5B42     		negs	r3, r3
+  54 0014 DAB2     		uxtb	r2, r3
+  55 0016 7B68     		ldr	r3, [r7, #4]
+  56 0018 1A70     		strb	r2, [r3]
+  57 001a 0020     		movs	r0, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s 			page 2
+
+
+  58 001c FFF7FEFF 		bl	get_gyro
+  59 0020 0346     		mov	r3, r0
+  60 0022 1A46     		mov	r2, r3
+  61 0024 7B68     		ldr	r3, [r7, #4]
+  62 0026 0133     		adds	r3, r3, #1
+  63 0028 D2B2     		uxtb	r2, r2
+  64 002a 1A70     		strb	r2, [r3]
+  65 002c 0220     		movs	r0, #2
+  66 002e FFF7FEFF 		bl	get_gyro
+  67 0032 0346     		mov	r3, r0
+  68 0034 1A46     		mov	r2, r3
+  69 0036 7B68     		ldr	r3, [r7, #4]
+  70 0038 0233     		adds	r3, r3, #2
+  71 003a D2B2     		uxtb	r2, r2
+  72 003c 1A70     		strb	r2, [r3]
+  73 003e 00BF     		nop
+  74 0040 0837     		adds	r7, r7, #8
+  75 0042 BD46     		mov	sp, r7
+  76              		@ sp needed
+  77 0044 80BD     		pop	{r7, pc}
+  78              		.size	getAllAxesGyroRaw, .-getAllAxesGyroRaw
+  79              		.section	.text.getAllAxesGyro,"ax",%progbits
+  80              		.align	1
+  81              		.global	getAllAxesGyro
+  82              		.syntax unified
+  83              		.thumb
+  84              		.thumb_func
+  85              		.fpu fpv4-sp-d16
+  86              		.type	getAllAxesGyro, %function
+  87              	getAllAxesGyro:
+  88              		@ args = 0, pretend = 0, frame = 24
+  89              		@ frame_needed = 1, uses_anonymous_args = 0
+  90 0000 90B5     		push	{r4, r7, lr}
+  91 0002 87B0     		sub	sp, sp, #28
+  92 0004 00AF     		add	r7, sp, #0
+  93 0006 F860     		str	r0, [r7, #12]
+  94 0008 B960     		str	r1, [r7, #8]
+  95 000a 7A60     		str	r2, [r7, #4]
+  96 000c 07F11003 		add	r3, r7, #16
+  97 0010 1846     		mov	r0, r3
+  98 0012 FFF7FEFF 		bl	get_gyro_all
+  99 0016 0120     		movs	r0, #1
+ 100 0018 FFF7FEFF 		bl	get_gyro_offset
+ 101 001c 0346     		mov	r3, r0
+ 102 001e 1A46     		mov	r2, r3
+ 103 0020 B7F91230 		ldrsh	r3, [r7, #18]
+ 104 0024 D21A     		subs	r2, r2, r3
+ 105 0026 FB68     		ldr	r3, [r7, #12]
+ 106 0028 1A60     		str	r2, [r3]
+ 107 002a B7F91030 		ldrsh	r3, [r7, #16]
+ 108 002e 1C46     		mov	r4, r3
+ 109 0030 0020     		movs	r0, #0
+ 110 0032 FFF7FEFF 		bl	get_gyro_offset
+ 111 0036 0346     		mov	r3, r0
+ 112 0038 E21A     		subs	r2, r4, r3
+ 113 003a BB68     		ldr	r3, [r7, #8]
+ 114 003c 1A60     		str	r2, [r3]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s 			page 3
+
+
+ 115 003e B7F91430 		ldrsh	r3, [r7, #20]
+ 116 0042 1C46     		mov	r4, r3
+ 117 0044 0220     		movs	r0, #2
+ 118 0046 FFF7FEFF 		bl	get_gyro_offset
+ 119 004a 0346     		mov	r3, r0
+ 120 004c E21A     		subs	r2, r4, r3
+ 121 004e 7B68     		ldr	r3, [r7, #4]
+ 122 0050 1A60     		str	r2, [r3]
+ 123 0052 00BF     		nop
+ 124 0054 1C37     		adds	r7, r7, #28
+ 125 0056 BD46     		mov	sp, r7
+ 126              		@ sp needed
+ 127 0058 90BD     		pop	{r4, r7, pc}
+ 128              		.size	getAllAxesGyro, .-getAllAxesGyro
+ 129              		.section	.text.getXAxisGyro,"ax",%progbits
+ 130              		.align	1
+ 131              		.global	getXAxisGyro
+ 132              		.syntax unified
+ 133              		.thumb
+ 134              		.thumb_func
+ 135              		.fpu fpv4-sp-d16
+ 136              		.type	getXAxisGyro, %function
+ 137              	getXAxisGyro:
+ 138              		@ args = 0, pretend = 0, frame = 0
+ 139              		@ frame_needed = 1, uses_anonymous_args = 0
+ 140 0000 98B5     		push	{r3, r4, r7, lr}
+ 141 0002 00AF     		add	r7, sp, #0
+ 142 0004 0120     		movs	r0, #1
+ 143 0006 FFF7FEFF 		bl	get_gyro_offset
+ 144 000a 0346     		mov	r3, r0
+ 145 000c 1C46     		mov	r4, r3
+ 146 000e 0120     		movs	r0, #1
+ 147 0010 FFF7FEFF 		bl	get_gyro
+ 148 0014 0346     		mov	r3, r0
+ 149 0016 E31A     		subs	r3, r4, r3
+ 150 0018 1846     		mov	r0, r3
+ 151 001a 98BD     		pop	{r3, r4, r7, pc}
+ 152              		.size	getXAxisGyro, .-getXAxisGyro
+ 153              		.section	.text.getYAxisGyro,"ax",%progbits
+ 154              		.align	1
+ 155              		.global	getYAxisGyro
+ 156              		.syntax unified
+ 157              		.thumb
+ 158              		.thumb_func
+ 159              		.fpu fpv4-sp-d16
+ 160              		.type	getYAxisGyro, %function
+ 161              	getYAxisGyro:
+ 162              		@ args = 0, pretend = 0, frame = 0
+ 163              		@ frame_needed = 1, uses_anonymous_args = 0
+ 164 0000 98B5     		push	{r3, r4, r7, lr}
+ 165 0002 00AF     		add	r7, sp, #0
+ 166 0004 0020     		movs	r0, #0
+ 167 0006 FFF7FEFF 		bl	get_gyro
+ 168 000a 0346     		mov	r3, r0
+ 169 000c 1C46     		mov	r4, r3
+ 170 000e 0020     		movs	r0, #0
+ 171 0010 FFF7FEFF 		bl	get_gyro_offset
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s 			page 4
+
+
+ 172 0014 0346     		mov	r3, r0
+ 173 0016 E31A     		subs	r3, r4, r3
+ 174 0018 1846     		mov	r0, r3
+ 175 001a 98BD     		pop	{r3, r4, r7, pc}
+ 176              		.size	getYAxisGyro, .-getYAxisGyro
+ 177              		.section	.text.getZAxisGyro,"ax",%progbits
+ 178              		.align	1
+ 179              		.global	getZAxisGyro
+ 180              		.syntax unified
+ 181              		.thumb
+ 182              		.thumb_func
+ 183              		.fpu fpv4-sp-d16
+ 184              		.type	getZAxisGyro, %function
+ 185              	getZAxisGyro:
+ 186              		@ args = 0, pretend = 0, frame = 0
+ 187              		@ frame_needed = 1, uses_anonymous_args = 0
+ 188 0000 98B5     		push	{r3, r4, r7, lr}
+ 189 0002 00AF     		add	r7, sp, #0
+ 190 0004 0220     		movs	r0, #2
+ 191 0006 FFF7FEFF 		bl	get_gyro
+ 192 000a 0346     		mov	r3, r0
+ 193 000c 1C46     		mov	r4, r3
+ 194 000e 0220     		movs	r0, #2
+ 195 0010 FFF7FEFF 		bl	get_gyro_offset
+ 196 0014 0346     		mov	r3, r0
+ 197 0016 E31A     		subs	r3, r4, r3
+ 198 0018 1846     		mov	r0, r3
+ 199 001a 98BD     		pop	{r3, r4, r7, pc}
+ 200              		.size	getZAxisGyro, .-getZAxisGyro
+ 201              		.section	.text.getTemperature,"ax",%progbits
+ 202              		.align	1
+ 203              		.global	getTemperature
+ 204              		.syntax unified
+ 205              		.thumb
+ 206              		.thumb_func
+ 207              		.fpu fpv4-sp-d16
+ 208              		.type	getTemperature, %function
+ 209              	getTemperature:
+ 210              		@ args = 0, pretend = 0, frame = 8
+ 211              		@ frame_needed = 1, uses_anonymous_args = 0
+ 212 0000 80B5     		push	{r7, lr}
+ 213 0002 82B0     		sub	sp, sp, #8
+ 214 0004 00AF     		add	r7, sp, #0
+ 215 0006 FFF7FEFF 		bl	get_temperature
+ 216 000a F0EE407A 		vmov.f32	s15, s0
+ 217 000e FDEEE77A 		vcvt.s32.f32	s15, s15
+ 218 0012 C7ED017A 		vstr.32	s15, [r7, #4]	@ int
+ 219 0016 3B79     		ldrb	r3, [r7, #4]
+ 220 0018 5BB2     		sxtb	r3, r3
+ 221 001a 1846     		mov	r0, r3
+ 222 001c 0837     		adds	r7, r7, #8
+ 223 001e BD46     		mov	sp, r7
+ 224              		@ sp needed
+ 225 0020 80BD     		pop	{r7, pc}
+ 226              		.size	getTemperature, .-getTemperature
+ 227              		.section	.text.calibrateGyroscope,"ax",%progbits
+ 228              		.align	1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s 			page 5
+
+
+ 229              		.global	calibrateGyroscope
+ 230              		.syntax unified
+ 231              		.thumb
+ 232              		.thumb_func
+ 233              		.fpu fpv4-sp-d16
+ 234              		.type	calibrateGyroscope, %function
+ 235              	calibrateGyroscope:
+ 236              		@ args = 0, pretend = 0, frame = 8
+ 237              		@ frame_needed = 1, uses_anonymous_args = 0
+ 238 0000 80B5     		push	{r7, lr}
+ 239 0002 82B0     		sub	sp, sp, #8
+ 240 0004 00AF     		add	r7, sp, #0
+ 241 0006 7860     		str	r0, [r7, #4]
+ 242 0008 FFF7FEFF 		bl	calibrate_gyro
+ 243 000c 00BF     		nop
+ 244 000e 0837     		adds	r7, r7, #8
+ 245 0010 BD46     		mov	sp, r7
+ 246              		@ sp needed
+ 247 0012 80BD     		pop	{r7, pc}
+ 248              		.size	calibrateGyroscope, .-calibrateGyroscope
+ 249              		.section	.text.rawToDps,"ax",%progbits
+ 250              		.align	1
+ 251              		.global	rawToDps
+ 252              		.syntax unified
+ 253              		.thumb
+ 254              		.thumb_func
+ 255              		.fpu fpv4-sp-d16
+ 256              		.type	rawToDps, %function
+ 257              	rawToDps:
+ 258              		@ args = 0, pretend = 0, frame = 8
+ 259              		@ frame_needed = 1, uses_anonymous_args = 0
+ 260              		@ link register save eliminated.
+ 261 0000 80B4     		push	{r7}
+ 262 0002 83B0     		sub	sp, sp, #12
+ 263 0004 00AF     		add	r7, sp, #0
+ 264 0006 7860     		str	r0, [r7, #4]
+ 265 0008 7B68     		ldr	r3, [r7, #4]
+ 266 000a 07EE903A 		vmov	s15, r3	@ int
+ 267 000e F8EEE77A 		vcvt.f32.s32	s15, s15
+ 268 0012 9FED057A 		vldr.32	s14, .L16
+ 269 0016 67EE877A 		vmul.f32	s15, s15, s14
+ 270 001a B0EE670A 		vmov.f32	s0, s15
+ 271 001e 0C37     		adds	r7, r7, #12
+ 272 0020 BD46     		mov	sp, r7
+ 273              		@ sp needed
+ 274 0022 5DF8047B 		ldr	r7, [sp], #4
+ 275 0026 7047     		bx	lr
+ 276              	.L17:
+ 277              		.align	2
+ 278              	.L16:
+ 279 0028 2D23FA3B 		.word	1006248749
+ 280              		.size	rawToDps, .-rawToDps
+ 281              		.section	.text.rawToDpms,"ax",%progbits
+ 282              		.align	1
+ 283              		.global	rawToDpms
+ 284              		.syntax unified
+ 285              		.thumb
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s 			page 6
+
+
+ 286              		.thumb_func
+ 287              		.fpu fpv4-sp-d16
+ 288              		.type	rawToDpms, %function
+ 289              	rawToDpms:
+ 290              		@ args = 0, pretend = 0, frame = 8
+ 291              		@ frame_needed = 1, uses_anonymous_args = 0
+ 292              		@ link register save eliminated.
+ 293 0000 80B4     		push	{r7}
+ 294 0002 83B0     		sub	sp, sp, #12
+ 295 0004 00AF     		add	r7, sp, #0
+ 296 0006 7860     		str	r0, [r7, #4]
+ 297 0008 7B68     		ldr	r3, [r7, #4]
+ 298 000a 07EE903A 		vmov	s15, r3	@ int
+ 299 000e F8EEE77A 		vcvt.f32.s32	s15, s15
+ 300 0012 9FED087A 		vldr.32	s14, .L20
+ 301 0016 67EE877A 		vmul.f32	s15, s15, s14
+ 302 001a 9FED077A 		vldr.32	s14, .L20+4
+ 303 001e C7EE876A 		vdiv.f32	s13, s15, s14
+ 304 0022 F0EE667A 		vmov.f32	s15, s13
+ 305 0026 B0EE670A 		vmov.f32	s0, s15
+ 306 002a 0C37     		adds	r7, r7, #12
+ 307 002c BD46     		mov	sp, r7
+ 308              		@ sp needed
+ 309 002e 5DF8047B 		ldr	r7, [sp], #4
+ 310 0032 7047     		bx	lr
+ 311              	.L21:
+ 312              		.align	2
+ 313              	.L20:
+ 314 0034 2D23FA3B 		.word	1006248749
+ 315 0038 00007A44 		.word	1148846080
+ 316              		.size	rawToDpms, .-rawToDpms
+ 317              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s 			page 7
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 e_lsm330.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s:15     .text.initAccAndGyro:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s:22     .text.initAccAndGyro:0000000000000000 initAccAndGyro
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s:35     .text.getAllAxesGyroRaw:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s:42     .text.getAllAxesGyroRaw:0000000000000000 getAllAxesGyroRaw
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s:80     .text.getAllAxesGyro:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s:87     .text.getAllAxesGyro:0000000000000000 getAllAxesGyro
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s:130    .text.getXAxisGyro:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s:137    .text.getXAxisGyro:0000000000000000 getXAxisGyro
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s:154    .text.getYAxisGyro:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s:161    .text.getYAxisGyro:0000000000000000 getYAxisGyro
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s:178    .text.getZAxisGyro:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s:185    .text.getZAxisGyro:0000000000000000 getZAxisGyro
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s:202    .text.getTemperature:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s:209    .text.getTemperature:0000000000000000 getTemperature
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s:228    .text.calibrateGyroscope:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s:235    .text.calibrateGyroscope:0000000000000000 calibrateGyroscope
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s:250    .text.rawToDps:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s:257    .text.rawToDps:0000000000000000 rawToDps
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s:279    .text.rawToDps:0000000000000028 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s:282    .text.rawToDpms:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s:289    .text.rawToDpms:0000000000000000 rawToDpms
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccFFIreq.s:314    .text.rawToDpms:0000000000000034 $d
+
+UNDEFINED SYMBOLS
+get_gyro
+get_gyro_all
+get_gyro_offset
+get_temperature
+calibrate_gyro

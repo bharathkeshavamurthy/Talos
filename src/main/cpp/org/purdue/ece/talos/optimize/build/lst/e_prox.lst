@@ -1,0 +1,152 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbGmXg8.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"e_prox.c"
+  14              		.section	.text.e_calibrate_ir,"ax",%progbits
+  15              		.align	1
+  16              		.global	e_calibrate_ir
+  17              		.syntax unified
+  18              		.thumb
+  19              		.thumb_func
+  20              		.fpu fpv4-sp-d16
+  21              		.type	e_calibrate_ir, %function
+  22              	e_calibrate_ir:
+  23              		@ args = 0, pretend = 0, frame = 0
+  24              		@ frame_needed = 1, uses_anonymous_args = 0
+  25 0000 80B5     		push	{r7, lr}
+  26 0002 00AF     		add	r7, sp, #0
+  27 0004 FFF7FEFF 		bl	calibrate_ir
+  28 0008 00BF     		nop
+  29 000a 80BD     		pop	{r7, pc}
+  30              		.size	e_calibrate_ir, .-e_calibrate_ir
+  31              		.section	.text.e_get_prox,"ax",%progbits
+  32              		.align	1
+  33              		.global	e_get_prox
+  34              		.syntax unified
+  35              		.thumb
+  36              		.thumb_func
+  37              		.fpu fpv4-sp-d16
+  38              		.type	e_get_prox, %function
+  39              	e_get_prox:
+  40              		@ args = 0, pretend = 0, frame = 8
+  41              		@ frame_needed = 1, uses_anonymous_args = 0
+  42 0000 80B5     		push	{r7, lr}
+  43 0002 82B0     		sub	sp, sp, #8
+  44 0004 00AF     		add	r7, sp, #0
+  45 0006 7860     		str	r0, [r7, #4]
+  46 0008 7B68     		ldr	r3, [r7, #4]
+  47 000a 072B     		cmp	r3, #7
+  48 000c 01D9     		bls	.L3
+  49 000e 0023     		movs	r3, #0
+  50 0010 03E0     		b	.L4
+  51              	.L3:
+  52 0012 7868     		ldr	r0, [r7, #4]
+  53 0014 FFF7FEFF 		bl	get_prox
+  54 0018 0346     		mov	r3, r0
+  55              	.L4:
+  56 001a 1846     		mov	r0, r3
+  57 001c 0837     		adds	r7, r7, #8
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbGmXg8.s 			page 2
+
+
+  58 001e BD46     		mov	sp, r7
+  59              		@ sp needed
+  60 0020 80BD     		pop	{r7, pc}
+  61              		.size	e_get_prox, .-e_get_prox
+  62              		.section	.text.e_get_calibrated_prox,"ax",%progbits
+  63              		.align	1
+  64              		.global	e_get_calibrated_prox
+  65              		.syntax unified
+  66              		.thumb
+  67              		.thumb_func
+  68              		.fpu fpv4-sp-d16
+  69              		.type	e_get_calibrated_prox, %function
+  70              	e_get_calibrated_prox:
+  71              		@ args = 0, pretend = 0, frame = 8
+  72              		@ frame_needed = 1, uses_anonymous_args = 0
+  73 0000 80B5     		push	{r7, lr}
+  74 0002 82B0     		sub	sp, sp, #8
+  75 0004 00AF     		add	r7, sp, #0
+  76 0006 7860     		str	r0, [r7, #4]
+  77 0008 7B68     		ldr	r3, [r7, #4]
+  78 000a 072B     		cmp	r3, #7
+  79 000c 01D9     		bls	.L6
+  80 000e 0023     		movs	r3, #0
+  81 0010 03E0     		b	.L7
+  82              	.L6:
+  83 0012 7868     		ldr	r0, [r7, #4]
+  84 0014 FFF7FEFF 		bl	get_calibrated_prox
+  85 0018 0346     		mov	r3, r0
+  86              	.L7:
+  87 001a 1846     		mov	r0, r3
+  88 001c 0837     		adds	r7, r7, #8
+  89 001e BD46     		mov	sp, r7
+  90              		@ sp needed
+  91 0020 80BD     		pop	{r7, pc}
+  92              		.size	e_get_calibrated_prox, .-e_get_calibrated_prox
+  93              		.section	.text.e_get_ambient_light,"ax",%progbits
+  94              		.align	1
+  95              		.global	e_get_ambient_light
+  96              		.syntax unified
+  97              		.thumb
+  98              		.thumb_func
+  99              		.fpu fpv4-sp-d16
+ 100              		.type	e_get_ambient_light, %function
+ 101              	e_get_ambient_light:
+ 102              		@ args = 0, pretend = 0, frame = 8
+ 103              		@ frame_needed = 1, uses_anonymous_args = 0
+ 104 0000 80B5     		push	{r7, lr}
+ 105 0002 82B0     		sub	sp, sp, #8
+ 106 0004 00AF     		add	r7, sp, #0
+ 107 0006 7860     		str	r0, [r7, #4]
+ 108 0008 7B68     		ldr	r3, [r7, #4]
+ 109 000a 072B     		cmp	r3, #7
+ 110 000c 01D9     		bls	.L9
+ 111 000e 0023     		movs	r3, #0
+ 112 0010 03E0     		b	.L10
+ 113              	.L9:
+ 114 0012 7868     		ldr	r0, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbGmXg8.s 			page 3
+
+
+ 115 0014 FFF7FEFF 		bl	get_ambient_light
+ 116 0018 0346     		mov	r3, r0
+ 117              	.L10:
+ 118 001a 1846     		mov	r0, r3
+ 119 001c 0837     		adds	r7, r7, #8
+ 120 001e BD46     		mov	sp, r7
+ 121              		@ sp needed
+ 122 0020 80BD     		pop	{r7, pc}
+ 123              		.size	e_get_ambient_light, .-e_get_ambient_light
+ 124              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbGmXg8.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 e_prox.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbGmXg8.s:15     .text.e_calibrate_ir:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbGmXg8.s:22     .text.e_calibrate_ir:0000000000000000 e_calibrate_ir
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbGmXg8.s:32     .text.e_get_prox:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbGmXg8.s:39     .text.e_get_prox:0000000000000000 e_get_prox
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbGmXg8.s:63     .text.e_get_calibrated_prox:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbGmXg8.s:70     .text.e_get_calibrated_prox:0000000000000000 e_get_calibrated_prox
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbGmXg8.s:94     .text.e_get_ambient_light:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbGmXg8.s:101    .text.e_get_ambient_light:0000000000000000 e_get_ambient_light
+
+UNDEFINED SYMBOLS
+calibrate_ir
+get_prox
+get_calibrated_prox
+get_ambient_light

@@ -1,0 +1,786 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"aseba_node.c"
+  14              		.section	.text.NVIC_SystemReset,"ax",%progbits
+  15              		.align	1
+  16              		.syntax unified
+  17              		.thumb
+  18              		.thumb_func
+  19              		.fpu fpv4-sp-d16
+  20              		.type	NVIC_SystemReset, %function
+  21              	NVIC_SystemReset:
+  22              		@ args = 0, pretend = 0, frame = 0
+  23              		@ frame_needed = 1, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 80B4     		push	{r7}
+  26 0002 00AF     		add	r7, sp, #0
+  27              		.syntax unified
+  28              	@ 382 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmInstr.h" 1
+  29 0004 BFF34F8F 		dsb
+  30              	@ 0 "" 2
+  31              		.thumb
+  32              		.syntax unified
+  33 0008 054B     		ldr	r3, .L3
+  34 000a DB68     		ldr	r3, [r3, #12]
+  35 000c 03F4E062 		and	r2, r3, #1792
+  36 0010 0349     		ldr	r1, .L3
+  37 0012 044B     		ldr	r3, .L3+4
+  38 0014 1343     		orrs	r3, r3, r2
+  39 0016 CB60     		str	r3, [r1, #12]
+  40              		.syntax unified
+  41              	@ 382 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmInstr.h" 1
+  42 0018 BFF34F8F 		dsb
+  43              	@ 0 "" 2
+  44              		.thumb
+  45              		.syntax unified
+  46              	.L2:
+  47 001c FEE7     		b	.L2
+  48              	.L4:
+  49 001e 00BF     		.align	2
+  50              	.L3:
+  51 0020 00ED00E0 		.word	-536810240
+  52 0024 0400FA05 		.word	100270084
+  53              		.size	NVIC_SystemReset, .-NVIC_SystemReset
+  54              		.section	.text.chRegSetThreadName,"ax",%progbits
+  55              		.align	1
+  56              		.syntax unified
+  57              		.thumb
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s 			page 2
+
+
+  58              		.thumb_func
+  59              		.fpu fpv4-sp-d16
+  60              		.type	chRegSetThreadName, %function
+  61              	chRegSetThreadName:
+  62              		@ args = 0, pretend = 0, frame = 8
+  63              		@ frame_needed = 1, uses_anonymous_args = 0
+  64              		@ link register save eliminated.
+  65 0000 80B4     		push	{r7}
+  66 0002 83B0     		sub	sp, sp, #12
+  67 0004 00AF     		add	r7, sp, #0
+  68 0006 7860     		str	r0, [r7, #4]
+  69 0008 044B     		ldr	r3, .L6
+  70 000a 9B69     		ldr	r3, [r3, #24]
+  71 000c 7A68     		ldr	r2, [r7, #4]
+  72 000e 9A61     		str	r2, [r3, #24]
+  73 0010 00BF     		nop
+  74 0012 0C37     		adds	r7, r7, #12
+  75 0014 BD46     		mov	sp, r7
+  76              		@ sp needed
+  77 0016 5DF8047B 		ldr	r7, [sp], #4
+  78 001a 7047     		bx	lr
+  79              	.L7:
+  80              		.align	2
+  81              	.L6:
+  82 001c 00000000 		.word	ch
+  83              		.size	chRegSetThreadName, .-chRegSetThreadName
+  84              		.global	events_flags
+  85              		.section	.bss.events_flags,"aw",%nobits
+  86              		.align	2
+  87              		.type	events_flags, %object
+  88              		.size	events_flags, 4
+  89              	events_flags:
+  90 0000 00000000 		.space	4
+  91              		.section	.bss.vmBytecode,"aw",%nobits
+  92              		.align	2
+  93              		.type	vmBytecode, %object
+  94              		.size	vmBytecode, 3068
+  95              	vmBytecode:
+  96 0000 00000000 		.space	3068
+  96      00000000 
+  96      00000000 
+  96      00000000 
+  96      00000000 
+  97              		.section	.bss.vmStack,"aw",%nobits
+  98              		.align	2
+  99              		.type	vmStack, %object
+ 100              		.size	vmStack, 256
+ 101              	vmStack:
+ 102 0000 00000000 		.space	256
+ 102      00000000 
+ 102      00000000 
+ 102      00000000 
+ 102      00000000 
+ 103              		.section	.bss.nodeId_param,"aw",%nobits
+ 104              		.align	2
+ 105              		.type	nodeId_param, %object
+ 106              		.size	nodeId_param, 24
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s 			page 3
+
+
+ 107              	nodeId_param:
+ 108 0000 00000000 		.space	24
+ 108      00000000 
+ 108      00000000 
+ 108      00000000 
+ 108      00000000 
+ 109              		.global	vmState
+ 110              		.section	.data.vmState,"aw",%progbits
+ 111              		.align	2
+ 112              		.type	vmState, %object
+ 113              		.size	vmState, 64
+ 114              	vmState:
+ 115 0000 0000     		.short	0
+ 116 0002 FE05     		.short	1534
+ 117 0004 00000000 		.word	vmBytecode
+ 118 0008 3B01     		.short	315
+ 119 000a 0000     		.space	2
+ 120 000c 00000000 		.word	vmVariables
+ 121 0010 8000     		.short	128
+ 122 0012 0000     		.space	2
+ 123 0014 00000000 		.word	vmStack
+ 124 0018 0000     		.short	0
+ 125 001a 0000     		.short	0
+ 126 001c 0000     		.short	0
+ 127 001e 0000     		.short	0
+ 128 0020 00000000 		.space	30
+ 128      00000000 
+ 128      00000000 
+ 128      00000000 
+ 128      00000000 
+ 129 003e 0000     		.short	0
+ 130              		.section	.rodata
+ 131              		.align	2
+ 132              	.LC0:
+ 133 0000 61736562 		.ascii	"aseba\000"
+ 133      6100
+ 134              		.section	.text.aseba_vm_thd,"ax",%progbits
+ 135              		.align	1
+ 136              		.syntax unified
+ 137              		.thumb
+ 138              		.thumb_func
+ 139              		.fpu fpv4-sp-d16
+ 140              		.type	aseba_vm_thd, %function
+ 141              	aseba_vm_thd:
+ 142              		@ args = 0, pretend = 0, frame = 16
+ 143              		@ frame_needed = 1, uses_anonymous_args = 0
+ 144 0000 80B5     		push	{r7, lr}
+ 145 0002 84B0     		sub	sp, sp, #16
+ 146 0004 00AF     		add	r7, sp, #0
+ 147 0006 7860     		str	r0, [r7, #4]
+ 148 0008 2748     		ldr	r0, .L15
+ 149 000a FFF7FEFF 		bl	chRegSetThreadName
+ 150 000e 4FF6FF71 		movw	r1, #65535
+ 151 0012 2648     		ldr	r0, .L15+4
+ 152 0014 FFF7FEFF 		bl	AsebaVMSetupEvent
+ 153              	.L12:
+ 154 0018 FFF7FEFF 		bl	chThdYield
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s 			page 4
+
+
+ 155 001c 2348     		ldr	r0, .L15+4
+ 156 001e FFF7FEFF 		bl	aseba_read_variables_from_system
+ 157 0022 4FF47A71 		mov	r1, #1000
+ 158 0026 2148     		ldr	r0, .L15+4
+ 159 0028 FFF7FEFF 		bl	AsebaVMRun
+ 160 002c 1F48     		ldr	r0, .L15+4
+ 161 002e FFF7FEFF 		bl	AsebaProcessIncomingEvents
+ 162 0032 1E48     		ldr	r0, .L15+4
+ 163 0034 FFF7FEFF 		bl	aseba_write_variables_to_system
+ 164 0038 1C4B     		ldr	r3, .L15+4
+ 165 003a 1B8B     		ldrh	r3, [r3, #24]
+ 166 003c 03F00203 		and	r3, r3, #2
+ 167 0040 002B     		cmp	r3, #0
+ 168 0042 2CD1     		bne	.L13
+ 169 0044 194B     		ldr	r3, .L15+4
+ 170 0046 1B8B     		ldrh	r3, [r3, #24]
+ 171 0048 03F00103 		and	r3, r3, #1
+ 172 004c 002B     		cmp	r3, #0
+ 173 004e 28D1     		bne	.L14
+ 174 0050 174B     		ldr	r3, .L15+8
+ 175 0052 1B68     		ldr	r3, [r3]
+ 176 0054 1846     		mov	r0, r3
+ 177 0056 FFF7FEFF 		bl	ffs
+ 178 005a 0346     		mov	r3, r0
+ 179 005c 013B     		subs	r3, r3, #1
+ 180 005e FB60     		str	r3, [r7, #12]
+ 181 0060 FB68     		ldr	r3, [r7, #12]
+ 182 0062 B3F1FF3F 		cmp	r3, #-1
+ 183 0066 D7D0     		beq	.L12
+ 184 0068 0122     		movs	r2, #1
+ 185 006a FB68     		ldr	r3, [r7, #12]
+ 186 006c 02FA03F3 		lsl	r3, r2, r3
+ 187 0070 DB43     		mvns	r3, r3
+ 188 0072 1A46     		mov	r2, r3
+ 189 0074 0E4B     		ldr	r3, .L15+8
+ 190 0076 1B68     		ldr	r3, [r3]
+ 191 0078 1340     		ands	r3, r3, r2
+ 192 007a 0D4A     		ldr	r2, .L15+8
+ 193 007c 1360     		str	r3, [r2]
+ 194 007e 0B4B     		ldr	r3, .L15+4
+ 195 0080 1B88     		ldrh	r3, [r3]
+ 196 0082 1AB2     		sxth	r2, r3
+ 197 0084 0B4B     		ldr	r3, .L15+12
+ 198 0086 5A80     		strh	r2, [r3, #2]	@ movhi
+ 199 0088 FB68     		ldr	r3, [r7, #12]
+ 200 008a 9AB2     		uxth	r2, r3
+ 201 008c 6FF00103 		mvn	r3, #1
+ 202 0090 9B1A     		subs	r3, r3, r2
+ 203 0092 9BB2     		uxth	r3, r3
+ 204 0094 1946     		mov	r1, r3
+ 205 0096 0548     		ldr	r0, .L15+4
+ 206 0098 FFF7FEFF 		bl	AsebaVMSetupEvent
+ 207 009c BCE7     		b	.L12
+ 208              	.L13:
+ 209 009e 00BF     		nop
+ 210 00a0 BAE7     		b	.L12
+ 211              	.L14:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s 			page 5
+
+
+ 212 00a2 00BF     		nop
+ 213 00a4 B8E7     		b	.L12
+ 214              	.L16:
+ 215 00a6 00BF     		.align	2
+ 216              	.L15:
+ 217 00a8 00000000 		.word	.LC0
+ 218 00ac 00000000 		.word	vmState
+ 219 00b0 00000000 		.word	events_flags
+ 220 00b4 00000000 		.word	vmVariables
+ 221              		.size	aseba_vm_thd, .-aseba_vm_thd
+ 222              		.section	.text.aseba_vm_init,"ax",%progbits
+ 223              		.align	1
+ 224              		.global	aseba_vm_init
+ 225              		.syntax unified
+ 226              		.thumb
+ 227              		.thumb_func
+ 228              		.fpu fpv4-sp-d16
+ 229              		.type	aseba_vm_init, %function
+ 230              	aseba_vm_init:
+ 231              		@ args = 0, pretend = 0, frame = 8
+ 232              		@ frame_needed = 1, uses_anonymous_args = 0
+ 233 0000 80B5     		push	{r7, lr}
+ 234 0002 82B0     		sub	sp, sp, #8
+ 235 0004 00AF     		add	r7, sp, #0
+ 236 0006 1348     		ldr	r0, .L19
+ 237 0008 FFF7FEFF 		bl	parameter_integer_get
+ 238 000c 0346     		mov	r3, r0
+ 239 000e 9AB2     		uxth	r2, r3
+ 240 0010 114B     		ldr	r3, .L19+4
+ 241 0012 1A80     		strh	r2, [r3]	@ movhi
+ 242 0014 1048     		ldr	r0, .L19+4
+ 243 0016 FFF7FEFF 		bl	AsebaVMInit
+ 244 001a 104B     		ldr	r3, .L19+8
+ 245 001c 7B60     		str	r3, [r7, #4]
+ 246 001e 7B68     		ldr	r3, [r7, #4]
+ 247 0020 1B88     		ldrh	r3, [r3]	@ unaligned
+ 248 0022 9BB2     		uxth	r3, r3
+ 249 0024 7B80     		strh	r3, [r7, #2]	@ movhi
+ 250 0026 7B68     		ldr	r3, [r7, #4]
+ 251 0028 0233     		adds	r3, r3, #2
+ 252 002a 7B60     		str	r3, [r7, #4]
+ 253 002c 7B88     		ldrh	r3, [r7, #2]
+ 254 002e 4FF6FF72 		movw	r2, #65535
+ 255 0032 9342     		cmp	r3, r2
+ 256 0034 06D0     		beq	.L18
+ 257 0036 084B     		ldr	r3, .L19+4
+ 258 0038 5B68     		ldr	r3, [r3, #4]
+ 259 003a 7A88     		ldrh	r2, [r7, #2]
+ 260 003c 7968     		ldr	r1, [r7, #4]
+ 261 003e 1846     		mov	r0, r3
+ 262 0040 FFF7FEFF 		bl	memcpy
+ 263              	.L18:
+ 264 0044 4FF4FA70 		mov	r0, #500
+ 265 0048 FFF7FEFF 		bl	chThdSleep
+ 266 004c 00BF     		nop
+ 267 004e 0837     		adds	r7, r7, #8
+ 268 0050 BD46     		mov	sp, r7
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s 			page 6
+
+
+ 269              		@ sp needed
+ 270 0052 80BD     		pop	{r7, pc}
+ 271              	.L20:
+ 272              		.align	2
+ 273              	.L19:
+ 274 0054 00000000 		.word	nodeId_param
+ 275 0058 00000000 		.word	vmState
+ 276 005c 00000000 		.word	_aseba_bytecode_start
+ 277              		.size	aseba_vm_init, .-aseba_vm_init
+ 278              		.section	.rodata
+ 279 0006 0000     		.align	2
+ 280              	.LC1:
+ 281 0008 696400   		.ascii	"id\000"
+ 282              		.section	.text.aseba_declare_parameters,"ax",%progbits
+ 283              		.align	1
+ 284              		.global	aseba_declare_parameters
+ 285              		.syntax unified
+ 286              		.thumb
+ 287              		.thumb_func
+ 288              		.fpu fpv4-sp-d16
+ 289              		.type	aseba_declare_parameters, %function
+ 290              	aseba_declare_parameters:
+ 291              		@ args = 0, pretend = 0, frame = 8
+ 292              		@ frame_needed = 1, uses_anonymous_args = 0
+ 293 0000 80B5     		push	{r7, lr}
+ 294 0002 82B0     		sub	sp, sp, #8
+ 295 0004 00AF     		add	r7, sp, #0
+ 296 0006 7860     		str	r0, [r7, #4]
+ 297 0008 2A23     		movs	r3, #42
+ 298 000a 064A     		ldr	r2, .L22
+ 299 000c 7968     		ldr	r1, [r7, #4]
+ 300 000e 0648     		ldr	r0, .L22+4
+ 301 0010 FFF7FEFF 		bl	parameter_integer_declare_with_default
+ 302 0014 7868     		ldr	r0, [r7, #4]
+ 303 0016 FFF7FEFF 		bl	aseba_variables_init
+ 304 001a 00BF     		nop
+ 305 001c 0837     		adds	r7, r7, #8
+ 306 001e BD46     		mov	sp, r7
+ 307              		@ sp needed
+ 308 0020 80BD     		pop	{r7, pc}
+ 309              	.L23:
+ 310 0022 00BF     		.align	2
+ 311              	.L22:
+ 312 0024 08000000 		.word	.LC1
+ 313 0028 00000000 		.word	nodeId_param
+ 314              		.size	aseba_declare_parameters, .-aseba_declare_parameters
+ 315              		.section	.text.aseba_vm_start,"ax",%progbits
+ 316              		.align	1
+ 317              		.global	aseba_vm_start
+ 318              		.syntax unified
+ 319              		.thumb
+ 320              		.thumb_func
+ 321              		.fpu fpv4-sp-d16
+ 322              		.type	aseba_vm_start, %function
+ 323              	aseba_vm_start:
+ 324              		@ args = 0, pretend = 0, frame = 0
+ 325              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s 			page 7
+
+
+ 326 0000 80B5     		push	{r7, lr}
+ 327 0002 82B0     		sub	sp, sp, #8
+ 328 0004 02AF     		add	r7, sp, #8
+ 329 0006 0023     		movs	r3, #0
+ 330 0008 0093     		str	r3, [sp]
+ 331 000a 054B     		ldr	r3, .L25
+ 332 000c 0222     		movs	r2, #2
+ 333 000e 4FF4AF61 		mov	r1, #1400
+ 334 0012 0448     		ldr	r0, .L25+4
+ 335 0014 FFF7FEFF 		bl	chThdCreateStatic
+ 336 0018 00BF     		nop
+ 337 001a BD46     		mov	sp, r7
+ 338              		@ sp needed
+ 339 001c 80BD     		pop	{r7, pc}
+ 340              	.L26:
+ 341 001e 00BF     		.align	2
+ 342              	.L25:
+ 343 0020 00000000 		.word	aseba_vm_thd
+ 344 0024 00000000 		.word	aseba_vm_thd_wa.12182
+ 345              		.size	aseba_vm_start, .-aseba_vm_start
+ 346              		.section	.text.AsebaIdle,"ax",%progbits
+ 347              		.align	1
+ 348              		.global	AsebaIdle
+ 349              		.syntax unified
+ 350              		.thumb
+ 351              		.thumb_func
+ 352              		.fpu fpv4-sp-d16
+ 353              		.type	AsebaIdle, %function
+ 354              	AsebaIdle:
+ 355              		@ args = 0, pretend = 0, frame = 0
+ 356              		@ frame_needed = 1, uses_anonymous_args = 0
+ 357 0000 80B5     		push	{r7, lr}
+ 358 0002 00AF     		add	r7, sp, #0
+ 359 0004 FFF7FEFF 		bl	chThdYield
+ 360 0008 00BF     		nop
+ 361 000a 80BD     		pop	{r7, pc}
+ 362              		.size	AsebaIdle, .-AsebaIdle
+ 363              		.section	.text.AsebaPutVmToSleep,"ax",%progbits
+ 364              		.align	1
+ 365              		.global	AsebaPutVmToSleep
+ 366              		.syntax unified
+ 367              		.thumb
+ 368              		.thumb_func
+ 369              		.fpu fpv4-sp-d16
+ 370              		.type	AsebaPutVmToSleep, %function
+ 371              	AsebaPutVmToSleep:
+ 372              		@ args = 0, pretend = 0, frame = 8
+ 373              		@ frame_needed = 1, uses_anonymous_args = 0
+ 374 0000 80B5     		push	{r7, lr}
+ 375 0002 82B0     		sub	sp, sp, #8
+ 376 0004 00AF     		add	r7, sp, #0
+ 377 0006 7860     		str	r0, [r7, #4]
+ 378 0008 4FF47A70 		mov	r0, #1000
+ 379 000c FFF7FEFF 		bl	chThdSleep
+ 380 0010 00BF     		nop
+ 381 0012 0837     		adds	r7, r7, #8
+ 382 0014 BD46     		mov	sp, r7
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s 			page 8
+
+
+ 383              		@ sp needed
+ 384 0016 80BD     		pop	{r7, pc}
+ 385              		.size	AsebaPutVmToSleep, .-AsebaPutVmToSleep
+ 386              		.section	.text.AsebaResetIntoBootloader,"ax",%progbits
+ 387              		.align	1
+ 388              		.global	AsebaResetIntoBootloader
+ 389              		.syntax unified
+ 390              		.thumb
+ 391              		.thumb_func
+ 392              		.fpu fpv4-sp-d16
+ 393              		.type	AsebaResetIntoBootloader, %function
+ 394              	AsebaResetIntoBootloader:
+ 395              		@ args = 0, pretend = 0, frame = 8
+ 396              		@ frame_needed = 1, uses_anonymous_args = 0
+ 397 0000 80B5     		push	{r7, lr}
+ 398 0002 82B0     		sub	sp, sp, #8
+ 399 0004 00AF     		add	r7, sp, #0
+ 400 0006 7860     		str	r0, [r7, #4]
+ 401 0008 FFF7FEFF 		bl	NVIC_SystemReset
+ 402 000c 00BF     		nop
+ 403 000e 0837     		adds	r7, r7, #8
+ 404 0010 BD46     		mov	sp, r7
+ 405              		@ sp needed
+ 406 0012 80BD     		pop	{r7, pc}
+ 407              		.size	AsebaResetIntoBootloader, .-AsebaResetIntoBootloader
+ 408              		.section	.rodata
+ 409 000b 00       		.align	2
+ 410              	.LC2:
+ 411 000c 496E7661 		.ascii	"Invalid native function.\000"
+ 411      6C696420 
+ 411      6E617469 
+ 411      76652066 
+ 411      756E6374 
+ 412              		.section	.text.AsebaNativeFunction,"ax",%progbits
+ 413              		.align	1
+ 414              		.global	AsebaNativeFunction
+ 415              		.syntax unified
+ 416              		.thumb
+ 417              		.thumb_func
+ 418              		.fpu fpv4-sp-d16
+ 419              		.type	AsebaNativeFunction, %function
+ 420              	AsebaNativeFunction:
+ 421              		@ args = 0, pretend = 0, frame = 8
+ 422              		@ frame_needed = 1, uses_anonymous_args = 0
+ 423 0000 80B5     		push	{r7, lr}
+ 424 0002 82B0     		sub	sp, sp, #8
+ 425 0004 00AF     		add	r7, sp, #0
+ 426 0006 7860     		str	r0, [r7, #4]
+ 427 0008 0B46     		mov	r3, r1
+ 428 000a 7B80     		strh	r3, [r7, #2]	@ movhi
+ 429 000c 7A88     		ldrh	r2, [r7, #2]
+ 430 000e 094B     		ldr	r3, .L34
+ 431 0010 1B68     		ldr	r3, [r3]
+ 432 0012 9A42     		cmp	r2, r3
+ 433 0014 06DA     		bge	.L31
+ 434 0016 7B88     		ldrh	r3, [r7, #2]
+ 435 0018 074A     		ldr	r2, .L34+4
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s 			page 9
+
+
+ 436 001a 52F82330 		ldr	r3, [r2, r3, lsl #2]
+ 437 001e 7868     		ldr	r0, [r7, #4]
+ 438 0020 9847     		blx	r3
+ 439 0022 03E0     		b	.L33
+ 440              	.L31:
+ 441 0024 0549     		ldr	r1, .L34+8
+ 442 0026 7868     		ldr	r0, [r7, #4]
+ 443 0028 FFF7FEFF 		bl	AsebaVMEmitNodeSpecificError
+ 444              	.L33:
+ 445 002c 00BF     		nop
+ 446 002e 0837     		adds	r7, r7, #8
+ 447 0030 BD46     		mov	sp, r7
+ 448              		@ sp needed
+ 449 0032 80BD     		pop	{r7, pc}
+ 450              	.L35:
+ 451              		.align	2
+ 452              	.L34:
+ 453 0034 00000000 		.word	nativeFunctions_length
+ 454 0038 00000000 		.word	nativeFunctions
+ 455 003c 0C000000 		.word	.LC2
+ 456              		.size	AsebaNativeFunction, .-AsebaNativeFunction
+ 457              		.section	.text.AsebaGetNativeFunctionsDescriptions,"ax",%progbits
+ 458              		.align	1
+ 459              		.global	AsebaGetNativeFunctionsDescriptions
+ 460              		.syntax unified
+ 461              		.thumb
+ 462              		.thumb_func
+ 463              		.fpu fpv4-sp-d16
+ 464              		.type	AsebaGetNativeFunctionsDescriptions, %function
+ 465              	AsebaGetNativeFunctionsDescriptions:
+ 466              		@ args = 0, pretend = 0, frame = 8
+ 467              		@ frame_needed = 1, uses_anonymous_args = 0
+ 468              		@ link register save eliminated.
+ 469 0000 80B4     		push	{r7}
+ 470 0002 83B0     		sub	sp, sp, #12
+ 471 0004 00AF     		add	r7, sp, #0
+ 472 0006 7860     		str	r0, [r7, #4]
+ 473 0008 034B     		ldr	r3, .L38
+ 474 000a 1846     		mov	r0, r3
+ 475 000c 0C37     		adds	r7, r7, #12
+ 476 000e BD46     		mov	sp, r7
+ 477              		@ sp needed
+ 478 0010 5DF8047B 		ldr	r7, [sp], #4
+ 479 0014 7047     		bx	lr
+ 480              	.L39:
+ 481 0016 00BF     		.align	2
+ 482              	.L38:
+ 483 0018 00000000 		.word	nativeFunctionsDescription
+ 484              		.size	AsebaGetNativeFunctionsDescriptions, .-AsebaGetNativeFunctionsDescriptions
+ 485              		.section	.text.AsebaGetVMDescription,"ax",%progbits
+ 486              		.align	1
+ 487              		.global	AsebaGetVMDescription
+ 488              		.syntax unified
+ 489              		.thumb
+ 490              		.thumb_func
+ 491              		.fpu fpv4-sp-d16
+ 492              		.type	AsebaGetVMDescription, %function
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s 			page 10
+
+
+ 493              	AsebaGetVMDescription:
+ 494              		@ args = 0, pretend = 0, frame = 8
+ 495              		@ frame_needed = 1, uses_anonymous_args = 0
+ 496              		@ link register save eliminated.
+ 497 0000 80B4     		push	{r7}
+ 498 0002 83B0     		sub	sp, sp, #12
+ 499 0004 00AF     		add	r7, sp, #0
+ 500 0006 7860     		str	r0, [r7, #4]
+ 501 0008 034B     		ldr	r3, .L42
+ 502 000a 1846     		mov	r0, r3
+ 503 000c 0C37     		adds	r7, r7, #12
+ 504 000e BD46     		mov	sp, r7
+ 505              		@ sp needed
+ 506 0010 5DF8047B 		ldr	r7, [sp], #4
+ 507 0014 7047     		bx	lr
+ 508              	.L43:
+ 509 0016 00BF     		.align	2
+ 510              	.L42:
+ 511 0018 00000000 		.word	vmDescription
+ 512              		.size	AsebaGetVMDescription, .-AsebaGetVMDescription
+ 513              		.section	.text.AsebaGetLocalEventsDescriptions,"ax",%progbits
+ 514              		.align	1
+ 515              		.global	AsebaGetLocalEventsDescriptions
+ 516              		.syntax unified
+ 517              		.thumb
+ 518              		.thumb_func
+ 519              		.fpu fpv4-sp-d16
+ 520              		.type	AsebaGetLocalEventsDescriptions, %function
+ 521              	AsebaGetLocalEventsDescriptions:
+ 522              		@ args = 0, pretend = 0, frame = 8
+ 523              		@ frame_needed = 1, uses_anonymous_args = 0
+ 524              		@ link register save eliminated.
+ 525 0000 80B4     		push	{r7}
+ 526 0002 83B0     		sub	sp, sp, #12
+ 527 0004 00AF     		add	r7, sp, #0
+ 528 0006 7860     		str	r0, [r7, #4]
+ 529 0008 034B     		ldr	r3, .L46
+ 530 000a 1846     		mov	r0, r3
+ 531 000c 0C37     		adds	r7, r7, #12
+ 532 000e BD46     		mov	sp, r7
+ 533              		@ sp needed
+ 534 0010 5DF8047B 		ldr	r7, [sp], #4
+ 535 0014 7047     		bx	lr
+ 536              	.L47:
+ 537 0016 00BF     		.align	2
+ 538              	.L46:
+ 539 0018 00000000 		.word	localEvents
+ 540              		.size	AsebaGetLocalEventsDescriptions, .-AsebaGetLocalEventsDescriptions
+ 541              		.section	.text.AsebaShouldDropPacket,"ax",%progbits
+ 542              		.align	1
+ 543              		.global	AsebaShouldDropPacket
+ 544              		.syntax unified
+ 545              		.thumb
+ 546              		.thumb_func
+ 547              		.fpu fpv4-sp-d16
+ 548              		.type	AsebaShouldDropPacket, %function
+ 549              	AsebaShouldDropPacket:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s 			page 11
+
+
+ 550              		@ args = 0, pretend = 0, frame = 8
+ 551              		@ frame_needed = 1, uses_anonymous_args = 0
+ 552 0000 80B5     		push	{r7, lr}
+ 553 0002 82B0     		sub	sp, sp, #8
+ 554 0004 00AF     		add	r7, sp, #0
+ 555 0006 0346     		mov	r3, r0
+ 556 0008 3960     		str	r1, [r7]
+ 557 000a FB80     		strh	r3, [r7, #6]	@ movhi
+ 558 000c FFF7FEFF 		bl	aseba_is_bridge
+ 559 0010 0346     		mov	r3, r0
+ 560 0012 002B     		cmp	r3, #0
+ 561 0014 01D0     		beq	.L49
+ 562 0016 0023     		movs	r3, #0
+ 563 0018 06E0     		b	.L50
+ 564              	.L49:
+ 565 001a FB88     		ldrh	r3, [r7, #6]
+ 566 001c 3A68     		ldr	r2, [r7]
+ 567 001e 1946     		mov	r1, r3
+ 568 0020 0348     		ldr	r0, .L51
+ 569 0022 FFF7FEFF 		bl	AsebaVMShouldDropPacket
+ 570 0026 0346     		mov	r3, r0
+ 571              	.L50:
+ 572 0028 1846     		mov	r0, r3
+ 573 002a 0837     		adds	r7, r7, #8
+ 574 002c BD46     		mov	sp, r7
+ 575              		@ sp needed
+ 576 002e 80BD     		pop	{r7, pc}
+ 577              	.L52:
+ 578              		.align	2
+ 579              	.L51:
+ 580 0030 00000000 		.word	vmState
+ 581              		.size	AsebaShouldDropPacket, .-AsebaShouldDropPacket
+ 582              		.section	.text.AsebaWriteBytecode,"ax",%progbits
+ 583              		.align	1
+ 584              		.global	AsebaWriteBytecode
+ 585              		.syntax unified
+ 586              		.thumb
+ 587              		.thumb_func
+ 588              		.fpu fpv4-sp-d16
+ 589              		.type	AsebaWriteBytecode, %function
+ 590              	AsebaWriteBytecode:
+ 591              		@ args = 0, pretend = 0, frame = 8
+ 592              		@ frame_needed = 1, uses_anonymous_args = 0
+ 593 0000 80B5     		push	{r7, lr}
+ 594 0002 82B0     		sub	sp, sp, #8
+ 595 0004 00AF     		add	r7, sp, #0
+ 596 0006 7860     		str	r0, [r7, #4]
+ 597 0008 FFF7FEFF 		bl	flash_unlock
+ 598 000c 0B48     		ldr	r0, .L54
+ 599 000e FFF7FEFF 		bl	flash_sector_erase
+ 600 0012 7B68     		ldr	r3, [r7, #4]
+ 601 0014 0233     		adds	r3, r3, #2
+ 602 0016 0222     		movs	r2, #2
+ 603 0018 1946     		mov	r1, r3
+ 604 001a 0848     		ldr	r0, .L54
+ 605 001c FFF7FEFF 		bl	flash_write
+ 606 0020 0748     		ldr	r0, .L54+4
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s 			page 12
+
+
+ 607 0022 7B68     		ldr	r3, [r7, #4]
+ 608 0024 5968     		ldr	r1, [r3, #4]
+ 609 0026 7B68     		ldr	r3, [r7, #4]
+ 610 0028 5B88     		ldrh	r3, [r3, #2]
+ 611 002a 1A46     		mov	r2, r3
+ 612 002c FFF7FEFF 		bl	flash_write
+ 613 0030 FFF7FEFF 		bl	flash_lock
+ 614 0034 00BF     		nop
+ 615 0036 0837     		adds	r7, r7, #8
+ 616 0038 BD46     		mov	sp, r7
+ 617              		@ sp needed
+ 618 003a 80BD     		pop	{r7, pc}
+ 619              	.L55:
+ 620              		.align	2
+ 621              	.L54:
+ 622 003c 00000000 		.word	_aseba_bytecode_start
+ 623 0040 02000000 		.word	_aseba_bytecode_start+2
+ 624              		.size	AsebaWriteBytecode, .-AsebaWriteBytecode
+ 625              		.section	.bss.aseba_vm_thd_wa.12182,"aw",%nobits
+ 626              		.align	3
+ 627              		.type	aseba_vm_thd_wa.12182, %object
+ 628              		.size	aseba_vm_thd_wa.12182, 1400
+ 629              	aseba_vm_thd_wa.12182:
+ 630 0000 00000000 		.space	1400
+ 630      00000000 
+ 630      00000000 
+ 630      00000000 
+ 630      00000000 
+ 631              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s 			page 13
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 aseba_node.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:15     .text.NVIC_SystemReset:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:21     .text.NVIC_SystemReset:0000000000000000 NVIC_SystemReset
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:51     .text.NVIC_SystemReset:0000000000000020 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:55     .text.chRegSetThreadName:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:61     .text.chRegSetThreadName:0000000000000000 chRegSetThreadName
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:82     .text.chRegSetThreadName:000000000000001c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:89     .bss.events_flags:0000000000000000 events_flags
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:86     .bss.events_flags:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:92     .bss.vmBytecode:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:95     .bss.vmBytecode:0000000000000000 vmBytecode
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:98     .bss.vmStack:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:101    .bss.vmStack:0000000000000000 vmStack
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:104    .bss.nodeId_param:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:107    .bss.nodeId_param:0000000000000000 nodeId_param
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:114    .data.vmState:0000000000000000 vmState
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:111    .data.vmState:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:131    .rodata:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:135    .text.aseba_vm_thd:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:141    .text.aseba_vm_thd:0000000000000000 aseba_vm_thd
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:217    .text.aseba_vm_thd:00000000000000a8 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:223    .text.aseba_vm_init:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:230    .text.aseba_vm_init:0000000000000000 aseba_vm_init
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:274    .text.aseba_vm_init:0000000000000054 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:283    .text.aseba_declare_parameters:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:290    .text.aseba_declare_parameters:0000000000000000 aseba_declare_parameters
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:312    .text.aseba_declare_parameters:0000000000000024 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:316    .text.aseba_vm_start:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:323    .text.aseba_vm_start:0000000000000000 aseba_vm_start
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:343    .text.aseba_vm_start:0000000000000020 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:629    .bss.aseba_vm_thd_wa.12182:0000000000000000 aseba_vm_thd_wa.12182
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:347    .text.AsebaIdle:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:354    .text.AsebaIdle:0000000000000000 AsebaIdle
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:364    .text.AsebaPutVmToSleep:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:371    .text.AsebaPutVmToSleep:0000000000000000 AsebaPutVmToSleep
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:387    .text.AsebaResetIntoBootloader:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:394    .text.AsebaResetIntoBootloader:0000000000000000 AsebaResetIntoBootloader
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:413    .text.AsebaNativeFunction:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:420    .text.AsebaNativeFunction:0000000000000000 AsebaNativeFunction
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:453    .text.AsebaNativeFunction:0000000000000034 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:458    .text.AsebaGetNativeFunctionsDescriptions:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:465    .text.AsebaGetNativeFunctionsDescriptions:0000000000000000 AsebaGetNativeFunctionsDescriptions
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:483    .text.AsebaGetNativeFunctionsDescriptions:0000000000000018 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:486    .text.AsebaGetVMDescription:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:493    .text.AsebaGetVMDescription:0000000000000000 AsebaGetVMDescription
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:511    .text.AsebaGetVMDescription:0000000000000018 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:514    .text.AsebaGetLocalEventsDescriptions:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:521    .text.AsebaGetLocalEventsDescriptions:0000000000000000 AsebaGetLocalEventsDescriptions
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:539    .text.AsebaGetLocalEventsDescriptions:0000000000000018 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:542    .text.AsebaShouldDropPacket:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:549    .text.AsebaShouldDropPacket:0000000000000000 AsebaShouldDropPacket
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:580    .text.AsebaShouldDropPacket:0000000000000030 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:583    .text.AsebaWriteBytecode:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:590    .text.AsebaWriteBytecode:0000000000000000 AsebaWriteBytecode
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:622    .text.AsebaWriteBytecode:000000000000003c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s:626    .bss.aseba_vm_thd_wa.12182:0000000000000000 $d
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccBiCXgH.s 			page 14
+
+
+
+UNDEFINED SYMBOLS
+ch
+vmVariables
+AsebaVMSetupEvent
+chThdYield
+aseba_read_variables_from_system
+AsebaVMRun
+AsebaProcessIncomingEvents
+aseba_write_variables_to_system
+ffs
+parameter_integer_get
+AsebaVMInit
+memcpy
+chThdSleep
+_aseba_bytecode_start
+parameter_integer_declare_with_default
+aseba_variables_init
+chThdCreateStatic
+AsebaVMEmitNodeSpecificError
+nativeFunctions_length
+nativeFunctions
+nativeFunctionsDescription
+vmDescription
+localEvents
+aseba_is_bridge
+AsebaVMShouldDropPacket
+flash_unlock
+flash_sector_erase
+flash_write
+flash_lock

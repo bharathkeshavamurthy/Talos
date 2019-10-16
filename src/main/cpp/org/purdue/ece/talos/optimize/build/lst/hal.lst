@@ -1,0 +1,108 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccgiXTr1.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"hal.c"
+  14              		.section	.text.osalInit,"ax",%progbits
+  15              		.align	1
+  16              		.syntax unified
+  17              		.thumb
+  18              		.thumb_func
+  19              		.fpu fpv4-sp-d16
+  20              		.type	osalInit, %function
+  21              	osalInit:
+  22              		@ args = 0, pretend = 0, frame = 0
+  23              		@ frame_needed = 1, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 80B4     		push	{r7}
+  26 0002 00AF     		add	r7, sp, #0
+  27 0004 00BF     		nop
+  28 0006 BD46     		mov	sp, r7
+  29              		@ sp needed
+  30 0008 5DF8047B 		ldr	r7, [sp], #4
+  31 000c 7047     		bx	lr
+  32              		.size	osalInit, .-osalInit
+  33              		.section	.text.halInit,"ax",%progbits
+  34              		.align	1
+  35              		.global	halInit
+  36              		.syntax unified
+  37              		.thumb
+  38              		.thumb_func
+  39              		.fpu fpv4-sp-d16
+  40              		.type	halInit, %function
+  41              	halInit:
+  42              		@ args = 0, pretend = 0, frame = 0
+  43              		@ frame_needed = 1, uses_anonymous_args = 0
+  44 0000 80B5     		push	{r7, lr}
+  45 0002 00AF     		add	r7, sp, #0
+  46 0004 FFF7FEFF 		bl	osalInit
+  47 0008 FFF7FEFF 		bl	hal_lld_init
+  48 000c 1148     		ldr	r0, .L3
+  49 000e FFF7FEFF 		bl	_pal_lld_init
+  50 0012 FFF7FEFF 		bl	adcInit
+  51 0016 FFF7FEFF 		bl	canInit
+  52 001a FFF7FEFF 		bl	dacInit
+  53 001e FFF7FEFF 		bl	extInit
+  54 0022 FFF7FEFF 		bl	gptInit
+  55 0026 FFF7FEFF 		bl	i2cInit
+  56 002a FFF7FEFF 		bl	i2sInit
+  57 002e FFF7FEFF 		bl	pwmInit
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccgiXTr1.s 			page 2
+
+
+  58 0032 FFF7FEFF 		bl	sdInit
+  59 0036 FFF7FEFF 		bl	sdcInit
+  60 003a FFF7FEFF 		bl	spiInit
+  61 003e FFF7FEFF 		bl	usbInit
+  62 0042 FFF7FEFF 		bl	sduInit
+  63 0046 FFF7FEFF 		bl	boardInit
+  64 004a FFF7FEFF 		bl	stInit
+  65 004e 00BF     		nop
+  66 0050 80BD     		pop	{r7, pc}
+  67              	.L4:
+  68 0052 00BF     		.align	2
+  69              	.L3:
+  70 0054 00000000 		.word	pal_default_config
+  71              		.size	halInit, .-halInit
+  72              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccgiXTr1.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 hal.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccgiXTr1.s:15     .text.osalInit:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccgiXTr1.s:21     .text.osalInit:0000000000000000 osalInit
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccgiXTr1.s:34     .text.halInit:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccgiXTr1.s:41     .text.halInit:0000000000000000 halInit
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccgiXTr1.s:70     .text.halInit:0000000000000054 $d
+
+UNDEFINED SYMBOLS
+hal_lld_init
+_pal_lld_init
+adcInit
+canInit
+dacInit
+extInit
+gptInit
+i2cInit
+i2sInit
+pwmInit
+sdInit
+sdcInit
+spiInit
+usbInit
+sduInit
+boardInit
+stInit
+pal_default_config

@@ -1,0 +1,431 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccozAxpZ.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"ext_lld.c"
+  14              		.global	EXTD1
+  15              		.section	.bss.EXTD1,"aw",%nobits
+  16              		.align	2
+  17              		.type	EXTD1, %object
+  18              		.size	EXTD1, 8
+  19              	EXTD1:
+  20 0000 00000000 		.space	8
+  20      00000000 
+  21              		.section	.text.ext_lld_init,"ax",%progbits
+  22              		.align	1
+  23              		.global	ext_lld_init
+  24              		.syntax unified
+  25              		.thumb
+  26              		.thumb_func
+  27              		.fpu fpv4-sp-d16
+  28              		.type	ext_lld_init, %function
+  29              	ext_lld_init:
+  30              		@ args = 0, pretend = 0, frame = 0
+  31              		@ frame_needed = 1, uses_anonymous_args = 0
+  32 0000 80B5     		push	{r7, lr}
+  33 0002 00AF     		add	r7, sp, #0
+  34 0004 0248     		ldr	r0, .L2
+  35 0006 FFF7FEFF 		bl	extObjectInit
+  36 000a 00BF     		nop
+  37 000c 80BD     		pop	{r7, pc}
+  38              	.L3:
+  39 000e 00BF     		.align	2
+  40              	.L2:
+  41 0010 00000000 		.word	EXTD1
+  42              		.size	ext_lld_init, .-ext_lld_init
+  43              		.section	.text.ext_lld_start,"ax",%progbits
+  44              		.align	1
+  45              		.global	ext_lld_start
+  46              		.syntax unified
+  47              		.thumb
+  48              		.thumb_func
+  49              		.fpu fpv4-sp-d16
+  50              		.type	ext_lld_start, %function
+  51              	ext_lld_start:
+  52              		@ args = 0, pretend = 0, frame = 16
+  53              		@ frame_needed = 1, uses_anonymous_args = 0
+  54 0000 80B5     		push	{r7, lr}
+  55 0002 84B0     		sub	sp, sp, #16
+  56 0004 00AF     		add	r7, sp, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccozAxpZ.s 			page 2
+
+
+  57 0006 7860     		str	r0, [r7, #4]
+  58 0008 7B68     		ldr	r3, [r7, #4]
+  59 000a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  60 000c 012B     		cmp	r3, #1
+  61 000e 01D1     		bne	.L5
+  62 0010 FFF7FEFF 		bl	ext_lld_exti_irq_enable
+  63              	.L5:
+  64 0014 0023     		movs	r3, #0
+  65 0016 FB60     		str	r3, [r7, #12]
+  66 0018 14E0     		b	.L6
+  67              	.L9:
+  68 001a 7B68     		ldr	r3, [r7, #4]
+  69 001c 5B68     		ldr	r3, [r3, #4]
+  70 001e FA68     		ldr	r2, [r7, #12]
+  71 0020 53F83230 		ldr	r3, [r3, r2, lsl #3]
+  72 0024 03F00403 		and	r3, r3, #4
+  73 0028 002B     		cmp	r3, #0
+  74 002a 04D0     		beq	.L7
+  75 002c F968     		ldr	r1, [r7, #12]
+  76 002e 7868     		ldr	r0, [r7, #4]
+  77 0030 FFF7FEFF 		bl	ext_lld_channel_enable
+  78 0034 03E0     		b	.L8
+  79              	.L7:
+  80 0036 F968     		ldr	r1, [r7, #12]
+  81 0038 7868     		ldr	r0, [r7, #4]
+  82 003a FFF7FEFF 		bl	ext_lld_channel_disable
+  83              	.L8:
+  84 003e FB68     		ldr	r3, [r7, #12]
+  85 0040 0133     		adds	r3, r3, #1
+  86 0042 FB60     		str	r3, [r7, #12]
+  87              	.L6:
+  88 0044 FB68     		ldr	r3, [r7, #12]
+  89 0046 162B     		cmp	r3, #22
+  90 0048 E7D9     		bls	.L9
+  91 004a 00BF     		nop
+  92 004c 1037     		adds	r7, r7, #16
+  93 004e BD46     		mov	sp, r7
+  94              		@ sp needed
+  95 0050 80BD     		pop	{r7, pc}
+  96              		.size	ext_lld_start, .-ext_lld_start
+  97              		.section	.text.ext_lld_stop,"ax",%progbits
+  98              		.align	1
+  99              		.global	ext_lld_stop
+ 100              		.syntax unified
+ 101              		.thumb
+ 102              		.thumb_func
+ 103              		.fpu fpv4-sp-d16
+ 104              		.type	ext_lld_stop, %function
+ 105              	ext_lld_stop:
+ 106              		@ args = 0, pretend = 0, frame = 8
+ 107              		@ frame_needed = 1, uses_anonymous_args = 0
+ 108 0000 80B5     		push	{r7, lr}
+ 109 0002 82B0     		sub	sp, sp, #8
+ 110 0004 00AF     		add	r7, sp, #0
+ 111 0006 7860     		str	r0, [r7, #4]
+ 112 0008 7B68     		ldr	r3, [r7, #4]
+ 113 000a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccozAxpZ.s 			page 3
+
+
+ 114 000c 022B     		cmp	r3, #2
+ 115 000e 01D1     		bne	.L11
+ 116 0010 FFF7FEFF 		bl	ext_lld_exti_irq_disable
+ 117              	.L11:
+ 118 0014 064B     		ldr	r3, .L12
+ 119 0016 0022     		movs	r2, #0
+ 120 0018 5A60     		str	r2, [r3, #4]
+ 121 001a 054B     		ldr	r3, .L12
+ 122 001c 0022     		movs	r2, #0
+ 123 001e 1A60     		str	r2, [r3]
+ 124 0020 034B     		ldr	r3, .L12
+ 125 0022 4FF0FF32 		mov	r2, #-1
+ 126 0026 5A61     		str	r2, [r3, #20]
+ 127 0028 00BF     		nop
+ 128 002a 0837     		adds	r7, r7, #8
+ 129 002c BD46     		mov	sp, r7
+ 130              		@ sp needed
+ 131 002e 80BD     		pop	{r7, pc}
+ 132              	.L13:
+ 133              		.align	2
+ 134              	.L12:
+ 135 0030 003C0140 		.word	1073822720
+ 136              		.size	ext_lld_stop, .-ext_lld_stop
+ 137              		.section	.text.ext_lld_channel_enable,"ax",%progbits
+ 138              		.align	1
+ 139              		.global	ext_lld_channel_enable
+ 140              		.syntax unified
+ 141              		.thumb
+ 142              		.thumb_func
+ 143              		.fpu fpv4-sp-d16
+ 144              		.type	ext_lld_channel_enable, %function
+ 145              	ext_lld_channel_enable:
+ 146              		@ args = 0, pretend = 0, frame = 24
+ 147              		@ frame_needed = 1, uses_anonymous_args = 0
+ 148              		@ link register save eliminated.
+ 149 0000 80B4     		push	{r7}
+ 150 0002 87B0     		sub	sp, sp, #28
+ 151 0004 00AF     		add	r7, sp, #0
+ 152 0006 7860     		str	r0, [r7, #4]
+ 153 0008 3960     		str	r1, [r7]
+ 154 000a 3B68     		ldr	r3, [r7]
+ 155 000c 0F2B     		cmp	r3, #15
+ 156 000e 28D8     		bhi	.L15
+ 157 0010 3B68     		ldr	r3, [r7]
+ 158 0012 9B08     		lsrs	r3, r3, #2
+ 159 0014 7B61     		str	r3, [r7, #20]
+ 160 0016 3B68     		ldr	r3, [r7]
+ 161 0018 03F00303 		and	r3, r3, #3
+ 162 001c 9B00     		lsls	r3, r3, #2
+ 163 001e 0F22     		movs	r2, #15
+ 164 0020 02FA03F3 		lsl	r3, r2, r3
+ 165 0024 DB43     		mvns	r3, r3
+ 166 0026 3B61     		str	r3, [r7, #16]
+ 167 0028 7B68     		ldr	r3, [r7, #4]
+ 168 002a 5B68     		ldr	r3, [r3, #4]
+ 169 002c 3A68     		ldr	r2, [r7]
+ 170 002e 53F83230 		ldr	r3, [r3, r2, lsl #3]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccozAxpZ.s 			page 4
+
+
+ 171 0032 1B09     		lsrs	r3, r3, #4
+ 172 0034 03F00F02 		and	r2, r3, #15
+ 173 0038 3B68     		ldr	r3, [r7]
+ 174 003a 03F00303 		and	r3, r3, #3
+ 175 003e 9B00     		lsls	r3, r3, #2
+ 176 0040 02FA03F3 		lsl	r3, r2, r3
+ 177 0044 FB60     		str	r3, [r7, #12]
+ 178 0046 424A     		ldr	r2, .L23
+ 179 0048 7B69     		ldr	r3, [r7, #20]
+ 180 004a 0233     		adds	r3, r3, #2
+ 181 004c 52F82320 		ldr	r2, [r2, r3, lsl #2]
+ 182 0050 3B69     		ldr	r3, [r7, #16]
+ 183 0052 1A40     		ands	r2, r2, r3
+ 184 0054 3E49     		ldr	r1, .L23
+ 185 0056 FB68     		ldr	r3, [r7, #12]
+ 186 0058 1A43     		orrs	r2, r2, r3
+ 187 005a 7B69     		ldr	r3, [r7, #20]
+ 188 005c 0233     		adds	r3, r3, #2
+ 189 005e 41F82320 		str	r2, [r1, r3, lsl #2]
+ 190              	.L15:
+ 191 0062 7B68     		ldr	r3, [r7, #4]
+ 192 0064 5B68     		ldr	r3, [r3, #4]
+ 193 0066 3A68     		ldr	r2, [r7]
+ 194 0068 53F83230 		ldr	r3, [r3, r2, lsl #3]
+ 195 006c 03F00103 		and	r3, r3, #1
+ 196 0070 002B     		cmp	r3, #0
+ 197 0072 0AD0     		beq	.L16
+ 198 0074 374B     		ldr	r3, .L23+4
+ 199 0076 9B68     		ldr	r3, [r3, #8]
+ 200 0078 0121     		movs	r1, #1
+ 201 007a 3A68     		ldr	r2, [r7]
+ 202 007c 01FA02F2 		lsl	r2, r1, r2
+ 203 0080 1146     		mov	r1, r2
+ 204 0082 344A     		ldr	r2, .L23+4
+ 205 0084 0B43     		orrs	r3, r3, r1
+ 206 0086 9360     		str	r3, [r2, #8]
+ 207 0088 0AE0     		b	.L17
+ 208              	.L16:
+ 209 008a 324B     		ldr	r3, .L23+4
+ 210 008c 9B68     		ldr	r3, [r3, #8]
+ 211 008e 0121     		movs	r1, #1
+ 212 0090 3A68     		ldr	r2, [r7]
+ 213 0092 01FA02F2 		lsl	r2, r1, r2
+ 214 0096 D243     		mvns	r2, r2
+ 215 0098 1146     		mov	r1, r2
+ 216 009a 2E4A     		ldr	r2, .L23+4
+ 217 009c 0B40     		ands	r3, r3, r1
+ 218 009e 9360     		str	r3, [r2, #8]
+ 219              	.L17:
+ 220 00a0 7B68     		ldr	r3, [r7, #4]
+ 221 00a2 5B68     		ldr	r3, [r3, #4]
+ 222 00a4 3A68     		ldr	r2, [r7]
+ 223 00a6 53F83230 		ldr	r3, [r3, r2, lsl #3]
+ 224 00aa 03F00203 		and	r3, r3, #2
+ 225 00ae 002B     		cmp	r3, #0
+ 226 00b0 0AD0     		beq	.L18
+ 227 00b2 284B     		ldr	r3, .L23+4
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccozAxpZ.s 			page 5
+
+
+ 228 00b4 DB68     		ldr	r3, [r3, #12]
+ 229 00b6 0121     		movs	r1, #1
+ 230 00b8 3A68     		ldr	r2, [r7]
+ 231 00ba 01FA02F2 		lsl	r2, r1, r2
+ 232 00be 1146     		mov	r1, r2
+ 233 00c0 244A     		ldr	r2, .L23+4
+ 234 00c2 0B43     		orrs	r3, r3, r1
+ 235 00c4 D360     		str	r3, [r2, #12]
+ 236 00c6 0AE0     		b	.L19
+ 237              	.L18:
+ 238 00c8 224B     		ldr	r3, .L23+4
+ 239 00ca DB68     		ldr	r3, [r3, #12]
+ 240 00cc 0121     		movs	r1, #1
+ 241 00ce 3A68     		ldr	r2, [r7]
+ 242 00d0 01FA02F2 		lsl	r2, r1, r2
+ 243 00d4 D243     		mvns	r2, r2
+ 244 00d6 1146     		mov	r1, r2
+ 245 00d8 1E4A     		ldr	r2, .L23+4
+ 246 00da 0B40     		ands	r3, r3, r1
+ 247 00dc D360     		str	r3, [r2, #12]
+ 248              	.L19:
+ 249 00de 7B68     		ldr	r3, [r7, #4]
+ 250 00e0 5A68     		ldr	r2, [r3, #4]
+ 251 00e2 3B68     		ldr	r3, [r7]
+ 252 00e4 DB00     		lsls	r3, r3, #3
+ 253 00e6 1344     		add	r3, r3, r2
+ 254 00e8 5B68     		ldr	r3, [r3, #4]
+ 255 00ea 002B     		cmp	r3, #0
+ 256 00ec 15D0     		beq	.L20
+ 257 00ee 194B     		ldr	r3, .L23+4
+ 258 00f0 1B68     		ldr	r3, [r3]
+ 259 00f2 0121     		movs	r1, #1
+ 260 00f4 3A68     		ldr	r2, [r7]
+ 261 00f6 01FA02F2 		lsl	r2, r1, r2
+ 262 00fa 1146     		mov	r1, r2
+ 263 00fc 154A     		ldr	r2, .L23+4
+ 264 00fe 0B43     		orrs	r3, r3, r1
+ 265 0100 1360     		str	r3, [r2]
+ 266 0102 144B     		ldr	r3, .L23+4
+ 267 0104 5B68     		ldr	r3, [r3, #4]
+ 268 0106 0121     		movs	r1, #1
+ 269 0108 3A68     		ldr	r2, [r7]
+ 270 010a 01FA02F2 		lsl	r2, r1, r2
+ 271 010e D243     		mvns	r2, r2
+ 272 0110 1146     		mov	r1, r2
+ 273 0112 104A     		ldr	r2, .L23+4
+ 274 0114 0B40     		ands	r3, r3, r1
+ 275 0116 5360     		str	r3, [r2, #4]
+ 276 0118 14E0     		b	.L22
+ 277              	.L20:
+ 278 011a 0E4B     		ldr	r3, .L23+4
+ 279 011c 5B68     		ldr	r3, [r3, #4]
+ 280 011e 0121     		movs	r1, #1
+ 281 0120 3A68     		ldr	r2, [r7]
+ 282 0122 01FA02F2 		lsl	r2, r1, r2
+ 283 0126 1146     		mov	r1, r2
+ 284 0128 0A4A     		ldr	r2, .L23+4
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccozAxpZ.s 			page 6
+
+
+ 285 012a 0B43     		orrs	r3, r3, r1
+ 286 012c 5360     		str	r3, [r2, #4]
+ 287 012e 094B     		ldr	r3, .L23+4
+ 288 0130 1B68     		ldr	r3, [r3]
+ 289 0132 0121     		movs	r1, #1
+ 290 0134 3A68     		ldr	r2, [r7]
+ 291 0136 01FA02F2 		lsl	r2, r1, r2
+ 292 013a D243     		mvns	r2, r2
+ 293 013c 1146     		mov	r1, r2
+ 294 013e 054A     		ldr	r2, .L23+4
+ 295 0140 0B40     		ands	r3, r3, r1
+ 296 0142 1360     		str	r3, [r2]
+ 297              	.L22:
+ 298 0144 00BF     		nop
+ 299 0146 1C37     		adds	r7, r7, #28
+ 300 0148 BD46     		mov	sp, r7
+ 301              		@ sp needed
+ 302 014a 5DF8047B 		ldr	r7, [sp], #4
+ 303 014e 7047     		bx	lr
+ 304              	.L24:
+ 305              		.align	2
+ 306              	.L23:
+ 307 0150 00380140 		.word	1073821696
+ 308 0154 003C0140 		.word	1073822720
+ 309              		.size	ext_lld_channel_enable, .-ext_lld_channel_enable
+ 310              		.section	.text.ext_lld_channel_disable,"ax",%progbits
+ 311              		.align	1
+ 312              		.global	ext_lld_channel_disable
+ 313              		.syntax unified
+ 314              		.thumb
+ 315              		.thumb_func
+ 316              		.fpu fpv4-sp-d16
+ 317              		.type	ext_lld_channel_disable, %function
+ 318              	ext_lld_channel_disable:
+ 319              		@ args = 0, pretend = 0, frame = 8
+ 320              		@ frame_needed = 1, uses_anonymous_args = 0
+ 321              		@ link register save eliminated.
+ 322 0000 80B4     		push	{r7}
+ 323 0002 83B0     		sub	sp, sp, #12
+ 324 0004 00AF     		add	r7, sp, #0
+ 325 0006 7860     		str	r0, [r7, #4]
+ 326 0008 3960     		str	r1, [r7]
+ 327 000a 1B4B     		ldr	r3, .L26
+ 328 000c 1B68     		ldr	r3, [r3]
+ 329 000e 0121     		movs	r1, #1
+ 330 0010 3A68     		ldr	r2, [r7]
+ 331 0012 01FA02F2 		lsl	r2, r1, r2
+ 332 0016 D243     		mvns	r2, r2
+ 333 0018 1146     		mov	r1, r2
+ 334 001a 174A     		ldr	r2, .L26
+ 335 001c 0B40     		ands	r3, r3, r1
+ 336 001e 1360     		str	r3, [r2]
+ 337 0020 154B     		ldr	r3, .L26
+ 338 0022 5B68     		ldr	r3, [r3, #4]
+ 339 0024 0121     		movs	r1, #1
+ 340 0026 3A68     		ldr	r2, [r7]
+ 341 0028 01FA02F2 		lsl	r2, r1, r2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccozAxpZ.s 			page 7
+
+
+ 342 002c D243     		mvns	r2, r2
+ 343 002e 1146     		mov	r1, r2
+ 344 0030 114A     		ldr	r2, .L26
+ 345 0032 0B40     		ands	r3, r3, r1
+ 346 0034 5360     		str	r3, [r2, #4]
+ 347 0036 104B     		ldr	r3, .L26
+ 348 0038 9B68     		ldr	r3, [r3, #8]
+ 349 003a 0121     		movs	r1, #1
+ 350 003c 3A68     		ldr	r2, [r7]
+ 351 003e 01FA02F2 		lsl	r2, r1, r2
+ 352 0042 D243     		mvns	r2, r2
+ 353 0044 1146     		mov	r1, r2
+ 354 0046 0C4A     		ldr	r2, .L26
+ 355 0048 0B40     		ands	r3, r3, r1
+ 356 004a 9360     		str	r3, [r2, #8]
+ 357 004c 0A4B     		ldr	r3, .L26
+ 358 004e DB68     		ldr	r3, [r3, #12]
+ 359 0050 0121     		movs	r1, #1
+ 360 0052 3A68     		ldr	r2, [r7]
+ 361 0054 01FA02F2 		lsl	r2, r1, r2
+ 362 0058 D243     		mvns	r2, r2
+ 363 005a 1146     		mov	r1, r2
+ 364 005c 064A     		ldr	r2, .L26
+ 365 005e 0B40     		ands	r3, r3, r1
+ 366 0060 D360     		str	r3, [r2, #12]
+ 367 0062 0122     		movs	r2, #1
+ 368 0064 3B68     		ldr	r3, [r7]
+ 369 0066 9A40     		lsls	r2, r2, r3
+ 370 0068 034B     		ldr	r3, .L26
+ 371 006a 5A61     		str	r2, [r3, #20]
+ 372 006c 00BF     		nop
+ 373 006e 0C37     		adds	r7, r7, #12
+ 374 0070 BD46     		mov	sp, r7
+ 375              		@ sp needed
+ 376 0072 5DF8047B 		ldr	r7, [sp], #4
+ 377 0076 7047     		bx	lr
+ 378              	.L27:
+ 379              		.align	2
+ 380              	.L26:
+ 381 0078 003C0140 		.word	1073822720
+ 382              		.size	ext_lld_channel_disable, .-ext_lld_channel_disable
+ 383              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccozAxpZ.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 ext_lld.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccozAxpZ.s:19     .bss.EXTD1:0000000000000000 EXTD1
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccozAxpZ.s:16     .bss.EXTD1:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccozAxpZ.s:22     .text.ext_lld_init:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccozAxpZ.s:29     .text.ext_lld_init:0000000000000000 ext_lld_init
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccozAxpZ.s:41     .text.ext_lld_init:0000000000000010 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccozAxpZ.s:44     .text.ext_lld_start:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccozAxpZ.s:51     .text.ext_lld_start:0000000000000000 ext_lld_start
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccozAxpZ.s:145    .text.ext_lld_channel_enable:0000000000000000 ext_lld_channel_enable
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccozAxpZ.s:318    .text.ext_lld_channel_disable:0000000000000000 ext_lld_channel_disable
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccozAxpZ.s:98     .text.ext_lld_stop:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccozAxpZ.s:105    .text.ext_lld_stop:0000000000000000 ext_lld_stop
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccozAxpZ.s:135    .text.ext_lld_stop:0000000000000030 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccozAxpZ.s:138    .text.ext_lld_channel_enable:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccozAxpZ.s:307    .text.ext_lld_channel_enable:0000000000000150 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccozAxpZ.s:311    .text.ext_lld_channel_disable:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccozAxpZ.s:381    .text.ext_lld_channel_disable:0000000000000078 $d
+
+UNDEFINED SYMBOLS
+extObjectInit
+ext_lld_exti_irq_enable
+ext_lld_exti_irq_disable

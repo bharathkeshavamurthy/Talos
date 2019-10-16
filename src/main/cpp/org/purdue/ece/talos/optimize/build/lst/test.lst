@@ -1,0 +1,1989 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"test.c"
+  14              		.section	.text.port_lock,"ax",%progbits
+  15              		.align	1
+  16              		.syntax unified
+  17              		.thumb
+  18              		.thumb_func
+  19              		.fpu fpv4-sp-d16
+  20              		.type	port_lock, %function
+  21              	port_lock:
+  22              		@ args = 0, pretend = 0, frame = 8
+  23              		@ frame_needed = 1, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 80B4     		push	{r7}
+  26 0002 83B0     		sub	sp, sp, #12
+  27 0004 00AF     		add	r7, sp, #0
+  28 0006 2023     		movs	r3, #32
+  29 0008 7B60     		str	r3, [r7, #4]
+  30 000a 7B68     		ldr	r3, [r7, #4]
+  31              		.syntax unified
+  32              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  33 000c 83F31188 		MSR basepri, r3
+  34              	@ 0 "" 2
+  35              		.thumb
+  36              		.syntax unified
+  37 0010 00BF     		nop
+  38 0012 0C37     		adds	r7, r7, #12
+  39 0014 BD46     		mov	sp, r7
+  40              		@ sp needed
+  41 0016 5DF8047B 		ldr	r7, [sp], #4
+  42 001a 7047     		bx	lr
+  43              		.size	port_lock, .-port_lock
+  44              		.section	.text.port_unlock,"ax",%progbits
+  45              		.align	1
+  46              		.syntax unified
+  47              		.thumb
+  48              		.thumb_func
+  49              		.fpu fpv4-sp-d16
+  50              		.type	port_unlock, %function
+  51              	port_unlock:
+  52              		@ args = 0, pretend = 0, frame = 8
+  53              		@ frame_needed = 1, uses_anonymous_args = 0
+  54              		@ link register save eliminated.
+  55 0000 80B4     		push	{r7}
+  56 0002 83B0     		sub	sp, sp, #12
+  57 0004 00AF     		add	r7, sp, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 2
+
+
+  58 0006 0023     		movs	r3, #0
+  59 0008 7B60     		str	r3, [r7, #4]
+  60 000a 7B68     		ldr	r3, [r7, #4]
+  61              		.syntax unified
+  62              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  63 000c 83F31188 		MSR basepri, r3
+  64              	@ 0 "" 2
+  65              		.thumb
+  66              		.syntax unified
+  67 0010 00BF     		nop
+  68 0012 0C37     		adds	r7, r7, #12
+  69 0014 BD46     		mov	sp, r7
+  70              		@ sp needed
+  71 0016 5DF8047B 		ldr	r7, [sp], #4
+  72 001a 7047     		bx	lr
+  73              		.size	port_unlock, .-port_unlock
+  74              		.section	.text.chSysLock,"ax",%progbits
+  75              		.align	1
+  76              		.syntax unified
+  77              		.thumb
+  78              		.thumb_func
+  79              		.fpu fpv4-sp-d16
+  80              		.type	chSysLock, %function
+  81              	chSysLock:
+  82              		@ args = 0, pretend = 0, frame = 0
+  83              		@ frame_needed = 1, uses_anonymous_args = 0
+  84 0000 80B5     		push	{r7, lr}
+  85 0002 00AF     		add	r7, sp, #0
+  86 0004 FFF7FEFF 		bl	port_lock
+  87 0008 FFF7FEFF 		bl	_stats_start_measure_crit_thd
+  88 000c FFF7FEFF 		bl	_dbg_check_lock
+  89 0010 00BF     		nop
+  90 0012 80BD     		pop	{r7, pc}
+  91              		.size	chSysLock, .-chSysLock
+  92              		.section	.text.chSysUnlock,"ax",%progbits
+  93              		.align	1
+  94              		.syntax unified
+  95              		.thumb
+  96              		.thumb_func
+  97              		.fpu fpv4-sp-d16
+  98              		.type	chSysUnlock, %function
+  99              	chSysUnlock:
+ 100              		@ args = 0, pretend = 0, frame = 0
+ 101              		@ frame_needed = 1, uses_anonymous_args = 0
+ 102 0000 80B5     		push	{r7, lr}
+ 103 0002 00AF     		add	r7, sp, #0
+ 104 0004 FFF7FEFF 		bl	_dbg_check_unlock
+ 105 0008 FFF7FEFF 		bl	_stats_stop_measure_crit_thd
+ 106 000c 094B     		ldr	r3, .L6
+ 107 000e 1B68     		ldr	r3, [r3]
+ 108 0010 084A     		ldr	r2, .L6
+ 109 0012 9342     		cmp	r3, r2
+ 110 0014 0AD0     		beq	.L5
+ 111 0016 074B     		ldr	r3, .L6
+ 112 0018 9B69     		ldr	r3, [r3, #24]
+ 113 001a 9A68     		ldr	r2, [r3, #8]
+ 114 001c 054B     		ldr	r3, .L6
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 3
+
+
+ 115 001e 1B68     		ldr	r3, [r3]
+ 116 0020 9B68     		ldr	r3, [r3, #8]
+ 117 0022 9A42     		cmp	r2, r3
+ 118 0024 02D2     		bcs	.L5
+ 119 0026 0448     		ldr	r0, .L6+4
+ 120 0028 FFF7FEFF 		bl	chSysHalt
+ 121              	.L5:
+ 122 002c FFF7FEFF 		bl	port_unlock
+ 123 0030 00BF     		nop
+ 124 0032 80BD     		pop	{r7, pc}
+ 125              	.L7:
+ 126              		.align	2
+ 127              	.L6:
+ 128 0034 00000000 		.word	ch
+ 129 0038 00000000 		.word	__func__.7153
+ 130              		.size	chSysUnlock, .-chSysUnlock
+ 131              		.section	.text.chVTGetSystemTimeX,"ax",%progbits
+ 132              		.align	1
+ 133              		.syntax unified
+ 134              		.thumb
+ 135              		.thumb_func
+ 136              		.fpu fpv4-sp-d16
+ 137              		.type	chVTGetSystemTimeX, %function
+ 138              	chVTGetSystemTimeX:
+ 139              		@ args = 0, pretend = 0, frame = 0
+ 140              		@ frame_needed = 1, uses_anonymous_args = 0
+ 141              		@ link register save eliminated.
+ 142 0000 80B4     		push	{r7}
+ 143 0002 00AF     		add	r7, sp, #0
+ 144 0004 034B     		ldr	r3, .L10
+ 145 0006 9B6A     		ldr	r3, [r3, #40]
+ 146 0008 1846     		mov	r0, r3
+ 147 000a BD46     		mov	sp, r7
+ 148              		@ sp needed
+ 149 000c 5DF8047B 		ldr	r7, [sp], #4
+ 150 0010 7047     		bx	lr
+ 151              	.L11:
+ 152 0012 00BF     		.align	2
+ 153              	.L10:
+ 154 0014 00000000 		.word	ch
+ 155              		.size	chVTGetSystemTimeX, .-chVTGetSystemTimeX
+ 156              		.section	.text.chVTGetSystemTime,"ax",%progbits
+ 157              		.align	1
+ 158              		.syntax unified
+ 159              		.thumb
+ 160              		.thumb_func
+ 161              		.fpu fpv4-sp-d16
+ 162              		.type	chVTGetSystemTime, %function
+ 163              	chVTGetSystemTime:
+ 164              		@ args = 0, pretend = 0, frame = 8
+ 165              		@ frame_needed = 1, uses_anonymous_args = 0
+ 166 0000 80B5     		push	{r7, lr}
+ 167 0002 82B0     		sub	sp, sp, #8
+ 168 0004 00AF     		add	r7, sp, #0
+ 169 0006 FFF7FEFF 		bl	chSysLock
+ 170 000a FFF7FEFF 		bl	chVTGetSystemTimeX
+ 171 000e 7860     		str	r0, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 4
+
+
+ 172 0010 FFF7FEFF 		bl	chSysUnlock
+ 173 0014 7B68     		ldr	r3, [r7, #4]
+ 174 0016 1846     		mov	r0, r3
+ 175 0018 0837     		adds	r7, r7, #8
+ 176 001a BD46     		mov	sp, r7
+ 177              		@ sp needed
+ 178 001c 80BD     		pop	{r7, pc}
+ 179              		.size	chVTGetSystemTime, .-chVTGetSystemTime
+ 180              		.section	.text.chVTIsTimeWithinX,"ax",%progbits
+ 181              		.align	1
+ 182              		.syntax unified
+ 183              		.thumb
+ 184              		.thumb_func
+ 185              		.fpu fpv4-sp-d16
+ 186              		.type	chVTIsTimeWithinX, %function
+ 187              	chVTIsTimeWithinX:
+ 188              		@ args = 0, pretend = 0, frame = 16
+ 189              		@ frame_needed = 1, uses_anonymous_args = 0
+ 190              		@ link register save eliminated.
+ 191 0000 80B4     		push	{r7}
+ 192 0002 85B0     		sub	sp, sp, #20
+ 193 0004 00AF     		add	r7, sp, #0
+ 194 0006 F860     		str	r0, [r7, #12]
+ 195 0008 B960     		str	r1, [r7, #8]
+ 196 000a 7A60     		str	r2, [r7, #4]
+ 197 000c FA68     		ldr	r2, [r7, #12]
+ 198 000e BB68     		ldr	r3, [r7, #8]
+ 199 0010 D21A     		subs	r2, r2, r3
+ 200 0012 7968     		ldr	r1, [r7, #4]
+ 201 0014 BB68     		ldr	r3, [r7, #8]
+ 202 0016 CB1A     		subs	r3, r1, r3
+ 203 0018 9A42     		cmp	r2, r3
+ 204 001a 34BF     		ite	cc
+ 205 001c 0123     		movcc	r3, #1
+ 206 001e 0023     		movcs	r3, #0
+ 207 0020 DBB2     		uxtb	r3, r3
+ 208 0022 1846     		mov	r0, r3
+ 209 0024 1437     		adds	r7, r7, #20
+ 210 0026 BD46     		mov	sp, r7
+ 211              		@ sp needed
+ 212 0028 5DF8047B 		ldr	r7, [sp], #4
+ 213 002c 7047     		bx	lr
+ 214              		.size	chVTIsTimeWithinX, .-chVTIsTimeWithinX
+ 215              		.section	.text.chVTIsSystemTimeWithin,"ax",%progbits
+ 216              		.align	1
+ 217              		.syntax unified
+ 218              		.thumb
+ 219              		.thumb_func
+ 220              		.fpu fpv4-sp-d16
+ 221              		.type	chVTIsSystemTimeWithin, %function
+ 222              	chVTIsSystemTimeWithin:
+ 223              		@ args = 0, pretend = 0, frame = 8
+ 224              		@ frame_needed = 1, uses_anonymous_args = 0
+ 225 0000 80B5     		push	{r7, lr}
+ 226 0002 82B0     		sub	sp, sp, #8
+ 227 0004 00AF     		add	r7, sp, #0
+ 228 0006 7860     		str	r0, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 5
+
+
+ 229 0008 3960     		str	r1, [r7]
+ 230 000a FFF7FEFF 		bl	chVTGetSystemTime
+ 231 000e 0346     		mov	r3, r0
+ 232 0010 3A68     		ldr	r2, [r7]
+ 233 0012 7968     		ldr	r1, [r7, #4]
+ 234 0014 1846     		mov	r0, r3
+ 235 0016 FFF7FEFF 		bl	chVTIsTimeWithinX
+ 236 001a 0346     		mov	r3, r0
+ 237 001c 1846     		mov	r0, r3
+ 238 001e 0837     		adds	r7, r7, #8
+ 239 0020 BD46     		mov	sp, r7
+ 240              		@ sp needed
+ 241 0022 80BD     		pop	{r7, pc}
+ 242              		.size	chVTIsSystemTimeWithin, .-chVTIsSystemTimeWithin
+ 243              		.section	.text.chVTIsArmedI,"ax",%progbits
+ 244              		.align	1
+ 245              		.syntax unified
+ 246              		.thumb
+ 247              		.thumb_func
+ 248              		.fpu fpv4-sp-d16
+ 249              		.type	chVTIsArmedI, %function
+ 250              	chVTIsArmedI:
+ 251              		@ args = 0, pretend = 0, frame = 8
+ 252              		@ frame_needed = 1, uses_anonymous_args = 0
+ 253 0000 80B5     		push	{r7, lr}
+ 254 0002 82B0     		sub	sp, sp, #8
+ 255 0004 00AF     		add	r7, sp, #0
+ 256 0006 7860     		str	r0, [r7, #4]
+ 257 0008 FFF7FEFF 		bl	chDbgCheckClassI
+ 258 000c 7B68     		ldr	r3, [r7, #4]
+ 259 000e DB68     		ldr	r3, [r3, #12]
+ 260 0010 002B     		cmp	r3, #0
+ 261 0012 14BF     		ite	ne
+ 262 0014 0123     		movne	r3, #1
+ 263 0016 0023     		moveq	r3, #0
+ 264 0018 DBB2     		uxtb	r3, r3
+ 265 001a 1846     		mov	r0, r3
+ 266 001c 0837     		adds	r7, r7, #8
+ 267 001e BD46     		mov	sp, r7
+ 268              		@ sp needed
+ 269 0020 80BD     		pop	{r7, pc}
+ 270              		.size	chVTIsArmedI, .-chVTIsArmedI
+ 271              		.section	.text.chVTResetI,"ax",%progbits
+ 272              		.align	1
+ 273              		.syntax unified
+ 274              		.thumb
+ 275              		.thumb_func
+ 276              		.fpu fpv4-sp-d16
+ 277              		.type	chVTResetI, %function
+ 278              	chVTResetI:
+ 279              		@ args = 0, pretend = 0, frame = 8
+ 280              		@ frame_needed = 1, uses_anonymous_args = 0
+ 281 0000 80B5     		push	{r7, lr}
+ 282 0002 82B0     		sub	sp, sp, #8
+ 283 0004 00AF     		add	r7, sp, #0
+ 284 0006 7860     		str	r0, [r7, #4]
+ 285 0008 7868     		ldr	r0, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 6
+
+
+ 286 000a FFF7FEFF 		bl	chVTIsArmedI
+ 287 000e 0346     		mov	r3, r0
+ 288 0010 002B     		cmp	r3, #0
+ 289 0012 02D0     		beq	.L22
+ 290 0014 7868     		ldr	r0, [r7, #4]
+ 291 0016 FFF7FEFF 		bl	chVTDoResetI
+ 292              	.L22:
+ 293 001a 00BF     		nop
+ 294 001c 0837     		adds	r7, r7, #8
+ 295 001e BD46     		mov	sp, r7
+ 296              		@ sp needed
+ 297 0020 80BD     		pop	{r7, pc}
+ 298              		.size	chVTResetI, .-chVTResetI
+ 299              		.section	.text.chVTSetI,"ax",%progbits
+ 300              		.align	1
+ 301              		.syntax unified
+ 302              		.thumb
+ 303              		.thumb_func
+ 304              		.fpu fpv4-sp-d16
+ 305              		.type	chVTSetI, %function
+ 306              	chVTSetI:
+ 307              		@ args = 0, pretend = 0, frame = 16
+ 308              		@ frame_needed = 1, uses_anonymous_args = 0
+ 309 0000 80B5     		push	{r7, lr}
+ 310 0002 84B0     		sub	sp, sp, #16
+ 311 0004 00AF     		add	r7, sp, #0
+ 312 0006 F860     		str	r0, [r7, #12]
+ 313 0008 B960     		str	r1, [r7, #8]
+ 314 000a 7A60     		str	r2, [r7, #4]
+ 315 000c 3B60     		str	r3, [r7]
+ 316 000e F868     		ldr	r0, [r7, #12]
+ 317 0010 FFF7FEFF 		bl	chVTResetI
+ 318 0014 3B68     		ldr	r3, [r7]
+ 319 0016 7A68     		ldr	r2, [r7, #4]
+ 320 0018 B968     		ldr	r1, [r7, #8]
+ 321 001a F868     		ldr	r0, [r7, #12]
+ 322 001c FFF7FEFF 		bl	chVTDoSetI
+ 323 0020 00BF     		nop
+ 324 0022 1037     		adds	r7, r7, #16
+ 325 0024 BD46     		mov	sp, r7
+ 326              		@ sp needed
+ 327 0026 80BD     		pop	{r7, pc}
+ 328              		.size	chVTSetI, .-chVTSetI
+ 329              		.section	.text.chVTSet,"ax",%progbits
+ 330              		.align	1
+ 331              		.syntax unified
+ 332              		.thumb
+ 333              		.thumb_func
+ 334              		.fpu fpv4-sp-d16
+ 335              		.type	chVTSet, %function
+ 336              	chVTSet:
+ 337              		@ args = 0, pretend = 0, frame = 16
+ 338              		@ frame_needed = 1, uses_anonymous_args = 0
+ 339 0000 80B5     		push	{r7, lr}
+ 340 0002 84B0     		sub	sp, sp, #16
+ 341 0004 00AF     		add	r7, sp, #0
+ 342 0006 F860     		str	r0, [r7, #12]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 7
+
+
+ 343 0008 B960     		str	r1, [r7, #8]
+ 344 000a 7A60     		str	r2, [r7, #4]
+ 345 000c 3B60     		str	r3, [r7]
+ 346 000e FFF7FEFF 		bl	chSysLock
+ 347 0012 3B68     		ldr	r3, [r7]
+ 348 0014 7A68     		ldr	r2, [r7, #4]
+ 349 0016 B968     		ldr	r1, [r7, #8]
+ 350 0018 F868     		ldr	r0, [r7, #12]
+ 351 001a FFF7FEFF 		bl	chVTSetI
+ 352 001e FFF7FEFF 		bl	chSysUnlock
+ 353 0022 00BF     		nop
+ 354 0024 1037     		adds	r7, r7, #16
+ 355 0026 BD46     		mov	sp, r7
+ 356              		@ sp needed
+ 357 0028 80BD     		pop	{r7, pc}
+ 358              		.size	chVTSet, .-chVTSet
+ 359              		.section	.text.chThdGetSelfX,"ax",%progbits
+ 360              		.align	1
+ 361              		.syntax unified
+ 362              		.thumb
+ 363              		.thumb_func
+ 364              		.fpu fpv4-sp-d16
+ 365              		.type	chThdGetSelfX, %function
+ 366              	chThdGetSelfX:
+ 367              		@ args = 0, pretend = 0, frame = 0
+ 368              		@ frame_needed = 1, uses_anonymous_args = 0
+ 369              		@ link register save eliminated.
+ 370 0000 80B4     		push	{r7}
+ 371 0002 00AF     		add	r7, sp, #0
+ 372 0004 034B     		ldr	r3, .L27
+ 373 0006 9B69     		ldr	r3, [r3, #24]
+ 374 0008 1846     		mov	r0, r3
+ 375 000a BD46     		mov	sp, r7
+ 376              		@ sp needed
+ 377 000c 5DF8047B 		ldr	r7, [sp], #4
+ 378 0010 7047     		bx	lr
+ 379              	.L28:
+ 380 0012 00BF     		.align	2
+ 381              	.L27:
+ 382 0014 00000000 		.word	ch
+ 383              		.size	chThdGetSelfX, .-chThdGetSelfX
+ 384              		.section	.text.chThdGetTicksX,"ax",%progbits
+ 385              		.align	1
+ 386              		.syntax unified
+ 387              		.thumb
+ 388              		.thumb_func
+ 389              		.fpu fpv4-sp-d16
+ 390              		.type	chThdGetTicksX, %function
+ 391              	chThdGetTicksX:
+ 392              		@ args = 0, pretend = 0, frame = 8
+ 393              		@ frame_needed = 1, uses_anonymous_args = 0
+ 394              		@ link register save eliminated.
+ 395 0000 80B4     		push	{r7}
+ 396 0002 83B0     		sub	sp, sp, #12
+ 397 0004 00AF     		add	r7, sp, #0
+ 398 0006 7860     		str	r0, [r7, #4]
+ 399 0008 7B68     		ldr	r3, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 8
+
+
+ 400 000a 5B6A     		ldr	r3, [r3, #36]
+ 401 000c 1846     		mov	r0, r3
+ 402 000e 0C37     		adds	r7, r7, #12
+ 403 0010 BD46     		mov	sp, r7
+ 404              		@ sp needed
+ 405 0012 5DF8047B 		ldr	r7, [sp], #4
+ 406 0016 7047     		bx	lr
+ 407              		.size	chThdGetTicksX, .-chThdGetTicksX
+ 408              		.section	.data.patterns,"aw",%progbits
+ 409              		.align	2
+ 410              		.type	patterns, %object
+ 411              		.size	patterns, 52
+ 412              	patterns:
+ 413 0000 00000000 		.word	patternsys
+ 414 0004 00000000 		.word	patternthd
+ 415 0008 00000000 		.word	patternsem
+ 416 000c 00000000 		.word	patternmtx
+ 417 0010 00000000 		.word	patternmsg
+ 418 0014 00000000 		.word	patternmbox
+ 419 0018 00000000 		.word	patternevt
+ 420 001c 00000000 		.word	patternheap
+ 421 0020 00000000 		.word	patternpools
+ 422 0024 00000000 		.word	patterndyn
+ 423 0028 00000000 		.word	patternqueues
+ 424 002c 00000000 		.word	patternbmk
+ 425 0030 00000000 		.word	0
+ 426              		.global	test_global_fail
+ 427              		.section	.bss.test_global_fail,"aw",%nobits
+ 428              		.type	test_global_fail, %object
+ 429              		.size	test_global_fail, 1
+ 430              	test_global_fail:
+ 431 0000 00       		.space	1
+ 432              		.section	.bss.local_fail,"aw",%nobits
+ 433              		.type	local_fail, %object
+ 434              		.size	local_fail, 1
+ 435              	local_fail:
+ 436 0000 00       		.space	1
+ 437              		.section	.bss.failpoint,"aw",%nobits
+ 438              		.align	2
+ 439              		.type	failpoint, %object
+ 440              		.size	failpoint, 4
+ 441              	failpoint:
+ 442 0000 00000000 		.space	4
+ 443              		.section	.bss.tokens_buffer,"aw",%nobits
+ 444              		.align	2
+ 445              		.type	tokens_buffer, %object
+ 446              		.size	tokens_buffer, 16
+ 447              	tokens_buffer:
+ 448 0000 00000000 		.space	16
+ 448      00000000 
+ 448      00000000 
+ 448      00000000 
+ 449              		.section	.bss.tokp,"aw",%nobits
+ 450              		.align	2
+ 451              		.type	tokp, %object
+ 452              		.size	tokp, 4
+ 453              	tokp:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 9
+
+
+ 454 0000 00000000 		.space	4
+ 455              		.global	test
+ 456              		.section	.bss.test,"aw",%nobits
+ 457              		.align	3
+ 458              		.type	test, %object
+ 459              		.size	test, 2520
+ 460              	test:
+ 461 0000 00000000 		.space	2520
+ 461      00000000 
+ 461      00000000 
+ 461      00000000 
+ 461      00000000 
+ 462              		.global	threads
+ 463              		.section	.bss.threads,"aw",%nobits
+ 464              		.align	2
+ 465              		.type	threads, %object
+ 466              		.size	threads, 20
+ 467              	threads:
+ 468 0000 00000000 		.space	20
+ 468      00000000 
+ 468      00000000 
+ 468      00000000 
+ 468      00000000 
+ 469              		.global	wa
+ 470              		.section	.rodata.wa,"a",%progbits
+ 471              		.align	2
+ 472              		.type	wa, %object
+ 473              		.size	wa, 20
+ 474              	wa:
+ 475 0000 00000000 		.word	test
+ 476 0004 F8010000 		.word	test+504
+ 477 0008 F0030000 		.word	test+1008
+ 478 000c E8050000 		.word	test+1512
+ 479 0010 E0070000 		.word	test+2016
+ 480              		.section	.bss.chp,"aw",%nobits
+ 481              		.align	2
+ 482              		.type	chp, %object
+ 483              		.size	chp, 4
+ 484              	chp:
+ 485 0000 00000000 		.space	4
+ 486              		.section	.text.test_printn,"ax",%progbits
+ 487              		.align	1
+ 488              		.global	test_printn
+ 489              		.syntax unified
+ 490              		.thumb
+ 491              		.thumb_func
+ 492              		.fpu fpv4-sp-d16
+ 493              		.type	test_printn, %function
+ 494              	test_printn:
+ 495              		@ args = 0, pretend = 0, frame = 32
+ 496              		@ frame_needed = 1, uses_anonymous_args = 0
+ 497 0000 80B5     		push	{r7, lr}
+ 498 0002 88B0     		sub	sp, sp, #32
+ 499 0004 00AF     		add	r7, sp, #0
+ 500 0006 7860     		str	r0, [r7, #4]
+ 501 0008 7B68     		ldr	r3, [r7, #4]
+ 502 000a 002B     		cmp	r3, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 10
+
+
+ 503 000c 09D1     		bne	.L32
+ 504 000e 1F4B     		ldr	r3, .L39
+ 505 0010 1B68     		ldr	r3, [r3]
+ 506 0012 1B68     		ldr	r3, [r3]
+ 507 0014 9B68     		ldr	r3, [r3, #8]
+ 508 0016 1D4A     		ldr	r2, .L39
+ 509 0018 1268     		ldr	r2, [r2]
+ 510 001a 3021     		movs	r1, #48
+ 511 001c 1046     		mov	r0, r2
+ 512 001e 9847     		blx	r3
+ 513 0020 30E0     		b	.L38
+ 514              	.L32:
+ 515 0022 07F10C03 		add	r3, r7, #12
+ 516 0026 FB61     		str	r3, [r7, #28]
+ 517 0028 16E0     		b	.L34
+ 518              	.L35:
+ 519 002a 7968     		ldr	r1, [r7, #4]
+ 520 002c 184B     		ldr	r3, .L39+4
+ 521 002e A3FB0123 		umull	r2, r3, r3, r1
+ 522 0032 DA08     		lsrs	r2, r3, #3
+ 523 0034 1346     		mov	r3, r2
+ 524 0036 9B00     		lsls	r3, r3, #2
+ 525 0038 1344     		add	r3, r3, r2
+ 526 003a 5B00     		lsls	r3, r3, #1
+ 527 003c CA1A     		subs	r2, r1, r3
+ 528 003e D2B2     		uxtb	r2, r2
+ 529 0040 FB69     		ldr	r3, [r7, #28]
+ 530 0042 591C     		adds	r1, r3, #1
+ 531 0044 F961     		str	r1, [r7, #28]
+ 532 0046 3032     		adds	r2, r2, #48
+ 533 0048 D2B2     		uxtb	r2, r2
+ 534 004a 1A70     		strb	r2, [r3]
+ 535 004c 7B68     		ldr	r3, [r7, #4]
+ 536 004e 104A     		ldr	r2, .L39+4
+ 537 0050 A2FB0323 		umull	r2, r3, r2, r3
+ 538 0054 DB08     		lsrs	r3, r3, #3
+ 539 0056 7B60     		str	r3, [r7, #4]
+ 540              	.L34:
+ 541 0058 7B68     		ldr	r3, [r7, #4]
+ 542 005a 002B     		cmp	r3, #0
+ 543 005c E5D1     		bne	.L35
+ 544 005e 0CE0     		b	.L36
+ 545              	.L37:
+ 546 0060 0A4B     		ldr	r3, .L39
+ 547 0062 1B68     		ldr	r3, [r3]
+ 548 0064 1B68     		ldr	r3, [r3]
+ 549 0066 9B68     		ldr	r3, [r3, #8]
+ 550 0068 084A     		ldr	r2, .L39
+ 551 006a 1068     		ldr	r0, [r2]
+ 552 006c FA69     		ldr	r2, [r7, #28]
+ 553 006e 013A     		subs	r2, r2, #1
+ 554 0070 FA61     		str	r2, [r7, #28]
+ 555 0072 FA69     		ldr	r2, [r7, #28]
+ 556 0074 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+ 557 0076 1146     		mov	r1, r2
+ 558 0078 9847     		blx	r3
+ 559              	.L36:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 11
+
+
+ 560 007a 07F10C03 		add	r3, r7, #12
+ 561 007e FA69     		ldr	r2, [r7, #28]
+ 562 0080 9A42     		cmp	r2, r3
+ 563 0082 EDD8     		bhi	.L37
+ 564              	.L38:
+ 565 0084 00BF     		nop
+ 566 0086 2037     		adds	r7, r7, #32
+ 567 0088 BD46     		mov	sp, r7
+ 568              		@ sp needed
+ 569 008a 80BD     		pop	{r7, pc}
+ 570              	.L40:
+ 571              		.align	2
+ 572              	.L39:
+ 573 008c 00000000 		.word	chp
+ 574 0090 CDCCCCCC 		.word	-858993459
+ 575              		.size	test_printn, .-test_printn
+ 576              		.section	.text.test_print,"ax",%progbits
+ 577              		.align	1
+ 578              		.global	test_print
+ 579              		.syntax unified
+ 580              		.thumb
+ 581              		.thumb_func
+ 582              		.fpu fpv4-sp-d16
+ 583              		.type	test_print, %function
+ 584              	test_print:
+ 585              		@ args = 0, pretend = 0, frame = 8
+ 586              		@ frame_needed = 1, uses_anonymous_args = 0
+ 587 0000 80B5     		push	{r7, lr}
+ 588 0002 82B0     		sub	sp, sp, #8
+ 589 0004 00AF     		add	r7, sp, #0
+ 590 0006 7860     		str	r0, [r7, #4]
+ 591 0008 0BE0     		b	.L42
+ 592              	.L43:
+ 593 000a 0A4B     		ldr	r3, .L44
+ 594 000c 1B68     		ldr	r3, [r3]
+ 595 000e 1B68     		ldr	r3, [r3]
+ 596 0010 9A68     		ldr	r2, [r3, #8]
+ 597 0012 084B     		ldr	r3, .L44
+ 598 0014 1868     		ldr	r0, [r3]
+ 599 0016 7B68     		ldr	r3, [r7, #4]
+ 600 0018 591C     		adds	r1, r3, #1
+ 601 001a 7960     		str	r1, [r7, #4]
+ 602 001c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 603 001e 1946     		mov	r1, r3
+ 604 0020 9047     		blx	r2
+ 605              	.L42:
+ 606 0022 7B68     		ldr	r3, [r7, #4]
+ 607 0024 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 608 0026 002B     		cmp	r3, #0
+ 609 0028 EFD1     		bne	.L43
+ 610 002a 00BF     		nop
+ 611 002c 0837     		adds	r7, r7, #8
+ 612 002e BD46     		mov	sp, r7
+ 613              		@ sp needed
+ 614 0030 80BD     		pop	{r7, pc}
+ 615              	.L45:
+ 616 0032 00BF     		.align	2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 12
+
+
+ 617              	.L44:
+ 618 0034 00000000 		.word	chp
+ 619              		.size	test_print, .-test_print
+ 620              		.section	.rodata
+ 621              		.align	2
+ 622              	.LC0:
+ 623 0000 0D0A00   		.ascii	"\015\012\000"
+ 624              		.section	.text.test_println,"ax",%progbits
+ 625              		.align	1
+ 626              		.global	test_println
+ 627              		.syntax unified
+ 628              		.thumb
+ 629              		.thumb_func
+ 630              		.fpu fpv4-sp-d16
+ 631              		.type	test_println, %function
+ 632              	test_println:
+ 633              		@ args = 0, pretend = 0, frame = 8
+ 634              		@ frame_needed = 1, uses_anonymous_args = 0
+ 635 0000 80B5     		push	{r7, lr}
+ 636 0002 82B0     		sub	sp, sp, #8
+ 637 0004 00AF     		add	r7, sp, #0
+ 638 0006 7860     		str	r0, [r7, #4]
+ 639 0008 7868     		ldr	r0, [r7, #4]
+ 640 000a FFF7FEFF 		bl	test_print
+ 641 000e 064B     		ldr	r3, .L47
+ 642 0010 1B68     		ldr	r3, [r3]
+ 643 0012 1B68     		ldr	r3, [r3]
+ 644 0014 1B68     		ldr	r3, [r3]
+ 645 0016 044A     		ldr	r2, .L47
+ 646 0018 1068     		ldr	r0, [r2]
+ 647 001a 0222     		movs	r2, #2
+ 648 001c 0349     		ldr	r1, .L47+4
+ 649 001e 9847     		blx	r3
+ 650 0020 00BF     		nop
+ 651 0022 0837     		adds	r7, r7, #8
+ 652 0024 BD46     		mov	sp, r7
+ 653              		@ sp needed
+ 654 0026 80BD     		pop	{r7, pc}
+ 655              	.L48:
+ 656              		.align	2
+ 657              	.L47:
+ 658 0028 00000000 		.word	chp
+ 659 002c 00000000 		.word	.LC0
+ 660              		.size	test_println, .-test_println
+ 661              		.section	.text.clear_tokens,"ax",%progbits
+ 662              		.align	1
+ 663              		.syntax unified
+ 664              		.thumb
+ 665              		.thumb_func
+ 666              		.fpu fpv4-sp-d16
+ 667              		.type	clear_tokens, %function
+ 668              	clear_tokens:
+ 669              		@ args = 0, pretend = 0, frame = 0
+ 670              		@ frame_needed = 1, uses_anonymous_args = 0
+ 671              		@ link register save eliminated.
+ 672 0000 80B4     		push	{r7}
+ 673 0002 00AF     		add	r7, sp, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 13
+
+
+ 674 0004 034B     		ldr	r3, .L50
+ 675 0006 044A     		ldr	r2, .L50+4
+ 676 0008 1A60     		str	r2, [r3]
+ 677 000a 00BF     		nop
+ 678 000c BD46     		mov	sp, r7
+ 679              		@ sp needed
+ 680 000e 5DF8047B 		ldr	r7, [sp], #4
+ 681 0012 7047     		bx	lr
+ 682              	.L51:
+ 683              		.align	2
+ 684              	.L50:
+ 685 0014 00000000 		.word	tokp
+ 686 0018 00000000 		.word	tokens_buffer
+ 687              		.size	clear_tokens, .-clear_tokens
+ 688              		.section	.text.print_tokens,"ax",%progbits
+ 689              		.align	1
+ 690              		.syntax unified
+ 691              		.thumb
+ 692              		.thumb_func
+ 693              		.fpu fpv4-sp-d16
+ 694              		.type	print_tokens, %function
+ 695              	print_tokens:
+ 696              		@ args = 0, pretend = 0, frame = 8
+ 697              		@ frame_needed = 1, uses_anonymous_args = 0
+ 698 0000 80B5     		push	{r7, lr}
+ 699 0002 82B0     		sub	sp, sp, #8
+ 700 0004 00AF     		add	r7, sp, #0
+ 701 0006 0C4B     		ldr	r3, .L55
+ 702 0008 7B60     		str	r3, [r7, #4]
+ 703 000a 0BE0     		b	.L53
+ 704              	.L54:
+ 705 000c 0B4B     		ldr	r3, .L55+4
+ 706 000e 1B68     		ldr	r3, [r3]
+ 707 0010 1B68     		ldr	r3, [r3]
+ 708 0012 9A68     		ldr	r2, [r3, #8]
+ 709 0014 094B     		ldr	r3, .L55+4
+ 710 0016 1868     		ldr	r0, [r3]
+ 711 0018 7B68     		ldr	r3, [r7, #4]
+ 712 001a 591C     		adds	r1, r3, #1
+ 713 001c 7960     		str	r1, [r7, #4]
+ 714 001e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 715 0020 1946     		mov	r1, r3
+ 716 0022 9047     		blx	r2
+ 717              	.L53:
+ 718 0024 064B     		ldr	r3, .L55+8
+ 719 0026 1B68     		ldr	r3, [r3]
+ 720 0028 7A68     		ldr	r2, [r7, #4]
+ 721 002a 9A42     		cmp	r2, r3
+ 722 002c EED3     		bcc	.L54
+ 723 002e 00BF     		nop
+ 724 0030 0837     		adds	r7, r7, #8
+ 725 0032 BD46     		mov	sp, r7
+ 726              		@ sp needed
+ 727 0034 80BD     		pop	{r7, pc}
+ 728              	.L56:
+ 729 0036 00BF     		.align	2
+ 730              	.L55:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 14
+
+
+ 731 0038 00000000 		.word	tokens_buffer
+ 732 003c 00000000 		.word	chp
+ 733 0040 00000000 		.word	tokp
+ 734              		.size	print_tokens, .-print_tokens
+ 735              		.section	.text.test_emit_token,"ax",%progbits
+ 736              		.align	1
+ 737              		.global	test_emit_token
+ 738              		.syntax unified
+ 739              		.thumb
+ 740              		.thumb_func
+ 741              		.fpu fpv4-sp-d16
+ 742              		.type	test_emit_token, %function
+ 743              	test_emit_token:
+ 744              		@ args = 0, pretend = 0, frame = 8
+ 745              		@ frame_needed = 1, uses_anonymous_args = 0
+ 746 0000 80B5     		push	{r7, lr}
+ 747 0002 82B0     		sub	sp, sp, #8
+ 748 0004 00AF     		add	r7, sp, #0
+ 749 0006 0346     		mov	r3, r0
+ 750 0008 FB71     		strb	r3, [r7, #7]
+ 751 000a FFF7FEFF 		bl	chSysLock
+ 752 000e 064B     		ldr	r3, .L58
+ 753 0010 1B68     		ldr	r3, [r3]
+ 754 0012 5A1C     		adds	r2, r3, #1
+ 755 0014 0449     		ldr	r1, .L58
+ 756 0016 0A60     		str	r2, [r1]
+ 757 0018 FA79     		ldrb	r2, [r7, #7]
+ 758 001a 1A70     		strb	r2, [r3]
+ 759 001c FFF7FEFF 		bl	chSysUnlock
+ 760 0020 00BF     		nop
+ 761 0022 0837     		adds	r7, r7, #8
+ 762 0024 BD46     		mov	sp, r7
+ 763              		@ sp needed
+ 764 0026 80BD     		pop	{r7, pc}
+ 765              	.L59:
+ 766              		.align	2
+ 767              	.L58:
+ 768 0028 00000000 		.word	tokp
+ 769              		.size	test_emit_token, .-test_emit_token
+ 770              		.section	.text._test_fail,"ax",%progbits
+ 771              		.align	1
+ 772              		.global	_test_fail
+ 773              		.syntax unified
+ 774              		.thumb
+ 775              		.thumb_func
+ 776              		.fpu fpv4-sp-d16
+ 777              		.type	_test_fail, %function
+ 778              	_test_fail:
+ 779              		@ args = 0, pretend = 0, frame = 8
+ 780              		@ frame_needed = 1, uses_anonymous_args = 0
+ 781              		@ link register save eliminated.
+ 782 0000 80B4     		push	{r7}
+ 783 0002 83B0     		sub	sp, sp, #12
+ 784 0004 00AF     		add	r7, sp, #0
+ 785 0006 7860     		str	r0, [r7, #4]
+ 786 0008 074B     		ldr	r3, .L62
+ 787 000a 0122     		movs	r2, #1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 15
+
+
+ 788 000c 1A70     		strb	r2, [r3]
+ 789 000e 074B     		ldr	r3, .L62+4
+ 790 0010 0122     		movs	r2, #1
+ 791 0012 1A70     		strb	r2, [r3]
+ 792 0014 064A     		ldr	r2, .L62+8
+ 793 0016 7B68     		ldr	r3, [r7, #4]
+ 794 0018 1360     		str	r3, [r2]
+ 795 001a 0123     		movs	r3, #1
+ 796 001c 1846     		mov	r0, r3
+ 797 001e 0C37     		adds	r7, r7, #12
+ 798 0020 BD46     		mov	sp, r7
+ 799              		@ sp needed
+ 800 0022 5DF8047B 		ldr	r7, [sp], #4
+ 801 0026 7047     		bx	lr
+ 802              	.L63:
+ 803              		.align	2
+ 804              	.L62:
+ 805 0028 00000000 		.word	test_global_fail
+ 806 002c 00000000 		.word	local_fail
+ 807 0030 00000000 		.word	failpoint
+ 808              		.size	_test_fail, .-_test_fail
+ 809              		.section	.text._test_assert,"ax",%progbits
+ 810              		.align	1
+ 811              		.global	_test_assert
+ 812              		.syntax unified
+ 813              		.thumb
+ 814              		.thumb_func
+ 815              		.fpu fpv4-sp-d16
+ 816              		.type	_test_assert, %function
+ 817              	_test_assert:
+ 818              		@ args = 0, pretend = 0, frame = 8
+ 819              		@ frame_needed = 1, uses_anonymous_args = 0
+ 820 0000 80B5     		push	{r7, lr}
+ 821 0002 82B0     		sub	sp, sp, #8
+ 822 0004 00AF     		add	r7, sp, #0
+ 823 0006 7860     		str	r0, [r7, #4]
+ 824 0008 0B46     		mov	r3, r1
+ 825 000a FB70     		strb	r3, [r7, #3]
+ 826 000c FB78     		ldrb	r3, [r7, #3]
+ 827 000e 83F00103 		eor	r3, r3, #1
+ 828 0012 DBB2     		uxtb	r3, r3
+ 829 0014 002B     		cmp	r3, #0
+ 830 0016 04D0     		beq	.L65
+ 831 0018 7868     		ldr	r0, [r7, #4]
+ 832 001a FFF7FEFF 		bl	_test_fail
+ 833 001e 0346     		mov	r3, r0
+ 834 0020 00E0     		b	.L66
+ 835              	.L65:
+ 836 0022 0023     		movs	r3, #0
+ 837              	.L66:
+ 838 0024 1846     		mov	r0, r3
+ 839 0026 0837     		adds	r7, r7, #8
+ 840 0028 BD46     		mov	sp, r7
+ 841              		@ sp needed
+ 842 002a 80BD     		pop	{r7, pc}
+ 843              		.size	_test_assert, .-_test_assert
+ 844              		.section	.text._test_assert_sequence,"ax",%progbits
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 16
+
+
+ 845              		.align	1
+ 846              		.global	_test_assert_sequence
+ 847              		.syntax unified
+ 848              		.thumb
+ 849              		.thumb_func
+ 850              		.fpu fpv4-sp-d16
+ 851              		.type	_test_assert_sequence, %function
+ 852              	_test_assert_sequence:
+ 853              		@ args = 0, pretend = 0, frame = 16
+ 854              		@ frame_needed = 1, uses_anonymous_args = 0
+ 855 0000 80B5     		push	{r7, lr}
+ 856 0002 84B0     		sub	sp, sp, #16
+ 857 0004 00AF     		add	r7, sp, #0
+ 858 0006 7860     		str	r0, [r7, #4]
+ 859 0008 3960     		str	r1, [r7]
+ 860 000a 134B     		ldr	r3, .L72
+ 861 000c FB60     		str	r3, [r7, #12]
+ 862 000e 0EE0     		b	.L68
+ 863              	.L70:
+ 864 0010 FB68     		ldr	r3, [r7, #12]
+ 865 0012 5A1C     		adds	r2, r3, #1
+ 866 0014 FA60     		str	r2, [r7, #12]
+ 867 0016 1A78     		ldrb	r2, [r3]	@ zero_extendqisi2
+ 868 0018 3B68     		ldr	r3, [r7]
+ 869 001a 591C     		adds	r1, r3, #1
+ 870 001c 3960     		str	r1, [r7]
+ 871 001e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 872 0020 9A42     		cmp	r2, r3
+ 873 0022 04D0     		beq	.L68
+ 874 0024 7868     		ldr	r0, [r7, #4]
+ 875 0026 FFF7FEFF 		bl	_test_fail
+ 876 002a 0346     		mov	r3, r0
+ 877 002c 10E0     		b	.L69
+ 878              	.L68:
+ 879 002e 0B4B     		ldr	r3, .L72+4
+ 880 0030 1B68     		ldr	r3, [r3]
+ 881 0032 FA68     		ldr	r2, [r7, #12]
+ 882 0034 9A42     		cmp	r2, r3
+ 883 0036 EBD3     		bcc	.L70
+ 884 0038 3B68     		ldr	r3, [r7]
+ 885 003a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 886 003c 002B     		cmp	r3, #0
+ 887 003e 04D0     		beq	.L71
+ 888 0040 7868     		ldr	r0, [r7, #4]
+ 889 0042 FFF7FEFF 		bl	_test_fail
+ 890 0046 0346     		mov	r3, r0
+ 891 0048 02E0     		b	.L69
+ 892              	.L71:
+ 893 004a FFF7FEFF 		bl	clear_tokens
+ 894 004e 0023     		movs	r3, #0
+ 895              	.L69:
+ 896 0050 1846     		mov	r0, r3
+ 897 0052 1037     		adds	r7, r7, #16
+ 898 0054 BD46     		mov	sp, r7
+ 899              		@ sp needed
+ 900 0056 80BD     		pop	{r7, pc}
+ 901              	.L73:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 17
+
+
+ 902              		.align	2
+ 903              	.L72:
+ 904 0058 00000000 		.word	tokens_buffer
+ 905 005c 00000000 		.word	tokp
+ 906              		.size	_test_assert_sequence, .-_test_assert_sequence
+ 907              		.section	.text._test_assert_time_window,"ax",%progbits
+ 908              		.align	1
+ 909              		.global	_test_assert_time_window
+ 910              		.syntax unified
+ 911              		.thumb
+ 912              		.thumb_func
+ 913              		.fpu fpv4-sp-d16
+ 914              		.type	_test_assert_time_window, %function
+ 915              	_test_assert_time_window:
+ 916              		@ args = 0, pretend = 0, frame = 16
+ 917              		@ frame_needed = 1, uses_anonymous_args = 0
+ 918 0000 80B5     		push	{r7, lr}
+ 919 0002 84B0     		sub	sp, sp, #16
+ 920 0004 00AF     		add	r7, sp, #0
+ 921 0006 F860     		str	r0, [r7, #12]
+ 922 0008 B960     		str	r1, [r7, #8]
+ 923 000a 7A60     		str	r2, [r7, #4]
+ 924 000c 7968     		ldr	r1, [r7, #4]
+ 925 000e B868     		ldr	r0, [r7, #8]
+ 926 0010 FFF7FEFF 		bl	chVTIsSystemTimeWithin
+ 927 0014 0346     		mov	r3, r0
+ 928 0016 1946     		mov	r1, r3
+ 929 0018 F868     		ldr	r0, [r7, #12]
+ 930 001a FFF7FEFF 		bl	_test_assert
+ 931 001e 0346     		mov	r3, r0
+ 932 0020 1846     		mov	r0, r3
+ 933 0022 1037     		adds	r7, r7, #16
+ 934 0024 BD46     		mov	sp, r7
+ 935              		@ sp needed
+ 936 0026 80BD     		pop	{r7, pc}
+ 937              		.size	_test_assert_time_window, .-_test_assert_time_window
+ 938              		.section	.text.test_terminate_threads,"ax",%progbits
+ 939              		.align	1
+ 940              		.global	test_terminate_threads
+ 941              		.syntax unified
+ 942              		.thumb
+ 943              		.thumb_func
+ 944              		.fpu fpv4-sp-d16
+ 945              		.type	test_terminate_threads, %function
+ 946              	test_terminate_threads:
+ 947              		@ args = 0, pretend = 0, frame = 8
+ 948              		@ frame_needed = 1, uses_anonymous_args = 0
+ 949 0000 80B5     		push	{r7, lr}
+ 950 0002 82B0     		sub	sp, sp, #8
+ 951 0004 00AF     		add	r7, sp, #0
+ 952 0006 0023     		movs	r3, #0
+ 953 0008 7B60     		str	r3, [r7, #4]
+ 954 000a 0FE0     		b	.L77
+ 955              	.L79:
+ 956 000c 0B4A     		ldr	r2, .L80
+ 957 000e 7B68     		ldr	r3, [r7, #4]
+ 958 0010 52F82330 		ldr	r3, [r2, r3, lsl #2]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 18
+
+
+ 959 0014 002B     		cmp	r3, #0
+ 960 0016 06D0     		beq	.L78
+ 961 0018 084A     		ldr	r2, .L80
+ 962 001a 7B68     		ldr	r3, [r7, #4]
+ 963 001c 52F82330 		ldr	r3, [r2, r3, lsl #2]
+ 964 0020 1846     		mov	r0, r3
+ 965 0022 FFF7FEFF 		bl	chThdTerminate
+ 966              	.L78:
+ 967 0026 7B68     		ldr	r3, [r7, #4]
+ 968 0028 0133     		adds	r3, r3, #1
+ 969 002a 7B60     		str	r3, [r7, #4]
+ 970              	.L77:
+ 971 002c 7B68     		ldr	r3, [r7, #4]
+ 972 002e 042B     		cmp	r3, #4
+ 973 0030 ECDD     		ble	.L79
+ 974 0032 00BF     		nop
+ 975 0034 0837     		adds	r7, r7, #8
+ 976 0036 BD46     		mov	sp, r7
+ 977              		@ sp needed
+ 978 0038 80BD     		pop	{r7, pc}
+ 979              	.L81:
+ 980 003a 00BF     		.align	2
+ 981              	.L80:
+ 982 003c 00000000 		.word	threads
+ 983              		.size	test_terminate_threads, .-test_terminate_threads
+ 984              		.section	.text.test_wait_threads,"ax",%progbits
+ 985              		.align	1
+ 986              		.global	test_wait_threads
+ 987              		.syntax unified
+ 988              		.thumb
+ 989              		.thumb_func
+ 990              		.fpu fpv4-sp-d16
+ 991              		.type	test_wait_threads, %function
+ 992              	test_wait_threads:
+ 993              		@ args = 0, pretend = 0, frame = 8
+ 994              		@ frame_needed = 1, uses_anonymous_args = 0
+ 995 0000 80B5     		push	{r7, lr}
+ 996 0002 82B0     		sub	sp, sp, #8
+ 997 0004 00AF     		add	r7, sp, #0
+ 998 0006 0023     		movs	r3, #0
+ 999 0008 7B60     		str	r3, [r7, #4]
+ 1000 000a 14E0     		b	.L83
+ 1001              	.L85:
+ 1002 000c 0D4A     		ldr	r2, .L86
+ 1003 000e 7B68     		ldr	r3, [r7, #4]
+ 1004 0010 52F82330 		ldr	r3, [r2, r3, lsl #2]
+ 1005 0014 002B     		cmp	r3, #0
+ 1006 0016 0BD0     		beq	.L84
+ 1007 0018 0A4A     		ldr	r2, .L86
+ 1008 001a 7B68     		ldr	r3, [r7, #4]
+ 1009 001c 52F82330 		ldr	r3, [r2, r3, lsl #2]
+ 1010 0020 1846     		mov	r0, r3
+ 1011 0022 FFF7FEFF 		bl	chThdWait
+ 1012 0026 074A     		ldr	r2, .L86
+ 1013 0028 7B68     		ldr	r3, [r7, #4]
+ 1014 002a 0021     		movs	r1, #0
+ 1015 002c 42F82310 		str	r1, [r2, r3, lsl #2]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 19
+
+
+ 1016              	.L84:
+ 1017 0030 7B68     		ldr	r3, [r7, #4]
+ 1018 0032 0133     		adds	r3, r3, #1
+ 1019 0034 7B60     		str	r3, [r7, #4]
+ 1020              	.L83:
+ 1021 0036 7B68     		ldr	r3, [r7, #4]
+ 1022 0038 042B     		cmp	r3, #4
+ 1023 003a E7DD     		ble	.L85
+ 1024 003c 00BF     		nop
+ 1025 003e 0837     		adds	r7, r7, #8
+ 1026 0040 BD46     		mov	sp, r7
+ 1027              		@ sp needed
+ 1028 0042 80BD     		pop	{r7, pc}
+ 1029              	.L87:
+ 1030              		.align	2
+ 1031              	.L86:
+ 1032 0044 00000000 		.word	threads
+ 1033              		.size	test_wait_threads, .-test_wait_threads
+ 1034              		.section	.text.test_cpu_pulse,"ax",%progbits
+ 1035              		.align	1
+ 1036              		.global	test_cpu_pulse
+ 1037              		.syntax unified
+ 1038              		.thumb
+ 1039              		.thumb_func
+ 1040              		.fpu fpv4-sp-d16
+ 1041              		.type	test_cpu_pulse, %function
+ 1042              	test_cpu_pulse:
+ 1043              		@ args = 0, pretend = 0, frame = 24
+ 1044              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1045 0000 80B5     		push	{r7, lr}
+ 1046 0002 86B0     		sub	sp, sp, #24
+ 1047 0004 00AF     		add	r7, sp, #0
+ 1048 0006 7860     		str	r0, [r7, #4]
+ 1049 0008 FFF7FEFF 		bl	chThdGetSelfX
+ 1050 000c 0346     		mov	r3, r0
+ 1051 000e 1846     		mov	r0, r3
+ 1052 0010 FFF7FEFF 		bl	chThdGetTicksX
+ 1053 0014 7861     		str	r0, [r7, #20]
+ 1054 0016 7B68     		ldr	r3, [r7, #4]
+ 1055 0018 4FF47A72 		mov	r2, #1000
+ 1056 001c 02FB03F3 		mul	r3, r2, r3
+ 1057 0020 03F2E733 		addw	r3, r3, #999
+ 1058 0024 1A4A     		ldr	r2, .L97
+ 1059 0026 A2FB0323 		umull	r2, r3, r2, r3
+ 1060 002a 9B09     		lsrs	r3, r3, #6
+ 1061 002c 7A69     		ldr	r2, [r7, #20]
+ 1062 002e 1344     		add	r3, r3, r2
+ 1063 0030 3B61     		str	r3, [r7, #16]
+ 1064              	.L96:
+ 1065 0032 FFF7FEFF 		bl	chThdGetSelfX
+ 1066 0036 0346     		mov	r3, r0
+ 1067 0038 1846     		mov	r0, r3
+ 1068 003a FFF7FEFF 		bl	chThdGetTicksX
+ 1069 003e F860     		str	r0, [r7, #12]
+ 1070 0040 3A69     		ldr	r2, [r7, #16]
+ 1071 0042 7B69     		ldr	r3, [r7, #20]
+ 1072 0044 9A42     		cmp	r2, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 20
+
+
+ 1073 0046 0ED9     		bls	.L89
+ 1074 0048 FA68     		ldr	r2, [r7, #12]
+ 1075 004a 7B69     		ldr	r3, [r7, #20]
+ 1076 004c 9A42     		cmp	r2, r3
+ 1077 004e 05D3     		bcc	.L90
+ 1078 0050 FA68     		ldr	r2, [r7, #12]
+ 1079 0052 3B69     		ldr	r3, [r7, #16]
+ 1080 0054 9A42     		cmp	r2, r3
+ 1081 0056 01D2     		bcs	.L90
+ 1082 0058 0123     		movs	r3, #1
+ 1083 005a 00E0     		b	.L91
+ 1084              	.L90:
+ 1085 005c 0023     		movs	r3, #0
+ 1086              	.L91:
+ 1087 005e 03F00103 		and	r3, r3, #1
+ 1088 0062 DBB2     		uxtb	r3, r3
+ 1089 0064 0DE0     		b	.L92
+ 1090              	.L89:
+ 1091 0066 FA68     		ldr	r2, [r7, #12]
+ 1092 0068 7B69     		ldr	r3, [r7, #20]
+ 1093 006a 9A42     		cmp	r2, r3
+ 1094 006c 03D2     		bcs	.L93
+ 1095 006e FA68     		ldr	r2, [r7, #12]
+ 1096 0070 3B69     		ldr	r3, [r7, #16]
+ 1097 0072 9A42     		cmp	r2, r3
+ 1098 0074 01D2     		bcs	.L94
+ 1099              	.L93:
+ 1100 0076 0123     		movs	r3, #1
+ 1101 0078 00E0     		b	.L95
+ 1102              	.L94:
+ 1103 007a 0023     		movs	r3, #0
+ 1104              	.L95:
+ 1105 007c 03F00103 		and	r3, r3, #1
+ 1106 0080 DBB2     		uxtb	r3, r3
+ 1107              	.L92:
+ 1108 0082 002B     		cmp	r3, #0
+ 1109 0084 D5D1     		bne	.L96
+ 1110 0086 00BF     		nop
+ 1111 0088 1837     		adds	r7, r7, #24
+ 1112 008a BD46     		mov	sp, r7
+ 1113              		@ sp needed
+ 1114 008c 80BD     		pop	{r7, pc}
+ 1115              	.L98:
+ 1116 008e 00BF     		.align	2
+ 1117              	.L97:
+ 1118 0090 D34D6210 		.word	274877907
+ 1119              		.size	test_cpu_pulse, .-test_cpu_pulse
+ 1120              		.section	.text.test_wait_tick,"ax",%progbits
+ 1121              		.align	1
+ 1122              		.global	test_wait_tick
+ 1123              		.syntax unified
+ 1124              		.thumb
+ 1125              		.thumb_func
+ 1126              		.fpu fpv4-sp-d16
+ 1127              		.type	test_wait_tick, %function
+ 1128              	test_wait_tick:
+ 1129              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 21
+
+
+ 1130              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1131 0000 80B5     		push	{r7, lr}
+ 1132 0002 00AF     		add	r7, sp, #0
+ 1133 0004 0120     		movs	r0, #1
+ 1134 0006 FFF7FEFF 		bl	chThdSleep
+ 1135 000a FFF7FEFF 		bl	chVTGetSystemTime
+ 1136 000e 0346     		mov	r3, r0
+ 1137 0010 1846     		mov	r0, r3
+ 1138 0012 80BD     		pop	{r7, pc}
+ 1139              		.size	test_wait_tick, .-test_wait_tick
+ 1140              		.global	test_timer_done
+ 1141              		.section	.bss.test_timer_done,"aw",%nobits
+ 1142              		.type	test_timer_done, %object
+ 1143              		.size	test_timer_done, 1
+ 1144              	test_timer_done:
+ 1145 0000 00       		.space	1
+ 1146              		.section	.bss.vt,"aw",%nobits
+ 1147              		.align	2
+ 1148              		.type	vt, %object
+ 1149              		.size	vt, 20
+ 1150              	vt:
+ 1151 0000 00000000 		.space	20
+ 1151      00000000 
+ 1151      00000000 
+ 1151      00000000 
+ 1151      00000000 
+ 1152              		.section	.text.tmr,"ax",%progbits
+ 1153              		.align	1
+ 1154              		.syntax unified
+ 1155              		.thumb
+ 1156              		.thumb_func
+ 1157              		.fpu fpv4-sp-d16
+ 1158              		.type	tmr, %function
+ 1159              	tmr:
+ 1160              		@ args = 0, pretend = 0, frame = 8
+ 1161              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1162              		@ link register save eliminated.
+ 1163 0000 80B4     		push	{r7}
+ 1164 0002 83B0     		sub	sp, sp, #12
+ 1165 0004 00AF     		add	r7, sp, #0
+ 1166 0006 7860     		str	r0, [r7, #4]
+ 1167 0008 044B     		ldr	r3, .L102
+ 1168 000a 0122     		movs	r2, #1
+ 1169 000c 1A70     		strb	r2, [r3]
+ 1170 000e 00BF     		nop
+ 1171 0010 0C37     		adds	r7, r7, #12
+ 1172 0012 BD46     		mov	sp, r7
+ 1173              		@ sp needed
+ 1174 0014 5DF8047B 		ldr	r7, [sp], #4
+ 1175 0018 7047     		bx	lr
+ 1176              	.L103:
+ 1177 001a 00BF     		.align	2
+ 1178              	.L102:
+ 1179 001c 00000000 		.word	test_timer_done
+ 1180              		.size	tmr, .-tmr
+ 1181              		.section	.text.test_start_timer,"ax",%progbits
+ 1182              		.align	1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 22
+
+
+ 1183              		.global	test_start_timer
+ 1184              		.syntax unified
+ 1185              		.thumb
+ 1186              		.thumb_func
+ 1187              		.fpu fpv4-sp-d16
+ 1188              		.type	test_start_timer, %function
+ 1189              	test_start_timer:
+ 1190              		@ args = 0, pretend = 0, frame = 16
+ 1191              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1192 0000 80B5     		push	{r7, lr}
+ 1193 0002 84B0     		sub	sp, sp, #16
+ 1194 0004 00AF     		add	r7, sp, #0
+ 1195 0006 7860     		str	r0, [r7, #4]
+ 1196 0008 7B68     		ldr	r3, [r7, #4]
+ 1197 000a 4FF47A72 		mov	r2, #1000
+ 1198 000e 02FB03F3 		mul	r3, r2, r3
+ 1199 0012 03F2E733 		addw	r3, r3, #999
+ 1200 0016 094A     		ldr	r2, .L105
+ 1201 0018 A2FB0323 		umull	r2, r3, r2, r3
+ 1202 001c 9B09     		lsrs	r3, r3, #6
+ 1203 001e FB60     		str	r3, [r7, #12]
+ 1204 0020 074B     		ldr	r3, .L105+4
+ 1205 0022 0022     		movs	r2, #0
+ 1206 0024 1A70     		strb	r2, [r3]
+ 1207 0026 0023     		movs	r3, #0
+ 1208 0028 064A     		ldr	r2, .L105+8
+ 1209 002a F968     		ldr	r1, [r7, #12]
+ 1210 002c 0648     		ldr	r0, .L105+12
+ 1211 002e FFF7FEFF 		bl	chVTSet
+ 1212 0032 00BF     		nop
+ 1213 0034 1037     		adds	r7, r7, #16
+ 1214 0036 BD46     		mov	sp, r7
+ 1215              		@ sp needed
+ 1216 0038 80BD     		pop	{r7, pc}
+ 1217              	.L106:
+ 1218 003a 00BF     		.align	2
+ 1219              	.L105:
+ 1220 003c D34D6210 		.word	274877907
+ 1221 0040 00000000 		.word	test_timer_done
+ 1222 0044 00000000 		.word	tmr
+ 1223 0048 00000000 		.word	vt
+ 1224              		.size	test_start_timer, .-test_start_timer
+ 1225              		.section	.text.execute_test,"ax",%progbits
+ 1226              		.align	1
+ 1227              		.syntax unified
+ 1228              		.thumb
+ 1229              		.thumb_func
+ 1230              		.fpu fpv4-sp-d16
+ 1231              		.type	execute_test, %function
+ 1232              	execute_test:
+ 1233              		@ args = 0, pretend = 0, frame = 16
+ 1234              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1235 0000 80B5     		push	{r7, lr}
+ 1236 0002 84B0     		sub	sp, sp, #16
+ 1237 0004 00AF     		add	r7, sp, #0
+ 1238 0006 7860     		str	r0, [r7, #4]
+ 1239 0008 FFF7FEFF 		bl	clear_tokens
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 23
+
+
+ 1240 000c 134B     		ldr	r3, .L112
+ 1241 000e 0022     		movs	r2, #0
+ 1242 0010 1A70     		strb	r2, [r3]
+ 1243 0012 0023     		movs	r3, #0
+ 1244 0014 FB60     		str	r3, [r7, #12]
+ 1245 0016 07E0     		b	.L108
+ 1246              	.L109:
+ 1247 0018 114A     		ldr	r2, .L112+4
+ 1248 001a FB68     		ldr	r3, [r7, #12]
+ 1249 001c 0021     		movs	r1, #0
+ 1250 001e 42F82310 		str	r1, [r2, r3, lsl #2]
+ 1251 0022 FB68     		ldr	r3, [r7, #12]
+ 1252 0024 0133     		adds	r3, r3, #1
+ 1253 0026 FB60     		str	r3, [r7, #12]
+ 1254              	.L108:
+ 1255 0028 FB68     		ldr	r3, [r7, #12]
+ 1256 002a 042B     		cmp	r3, #4
+ 1257 002c F4DD     		ble	.L109
+ 1258 002e 7B68     		ldr	r3, [r7, #4]
+ 1259 0030 5B68     		ldr	r3, [r3, #4]
+ 1260 0032 002B     		cmp	r3, #0
+ 1261 0034 02D0     		beq	.L110
+ 1262 0036 7B68     		ldr	r3, [r7, #4]
+ 1263 0038 5B68     		ldr	r3, [r3, #4]
+ 1264 003a 9847     		blx	r3
+ 1265              	.L110:
+ 1266 003c 7B68     		ldr	r3, [r7, #4]
+ 1267 003e DB68     		ldr	r3, [r3, #12]
+ 1268 0040 9847     		blx	r3
+ 1269 0042 7B68     		ldr	r3, [r7, #4]
+ 1270 0044 9B68     		ldr	r3, [r3, #8]
+ 1271 0046 002B     		cmp	r3, #0
+ 1272 0048 02D0     		beq	.L111
+ 1273 004a 7B68     		ldr	r3, [r7, #4]
+ 1274 004c 9B68     		ldr	r3, [r3, #8]
+ 1275 004e 9847     		blx	r3
+ 1276              	.L111:
+ 1277 0050 FFF7FEFF 		bl	test_wait_threads
+ 1278 0054 00BF     		nop
+ 1279 0056 1037     		adds	r7, r7, #16
+ 1280 0058 BD46     		mov	sp, r7
+ 1281              		@ sp needed
+ 1282 005a 80BD     		pop	{r7, pc}
+ 1283              	.L113:
+ 1284              		.align	2
+ 1285              	.L112:
+ 1286 005c 00000000 		.word	local_fail
+ 1287 0060 00000000 		.word	threads
+ 1288              		.size	execute_test, .-execute_test
+ 1289              		.section	.text.print_line,"ax",%progbits
+ 1290              		.align	1
+ 1291              		.syntax unified
+ 1292              		.thumb
+ 1293              		.thumb_func
+ 1294              		.fpu fpv4-sp-d16
+ 1295              		.type	print_line, %function
+ 1296              	print_line:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 24
+
+
+ 1297              		@ args = 0, pretend = 0, frame = 8
+ 1298              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1299 0000 80B5     		push	{r7, lr}
+ 1300 0002 82B0     		sub	sp, sp, #8
+ 1301 0004 00AF     		add	r7, sp, #0
+ 1302 0006 0023     		movs	r3, #0
+ 1303 0008 7B60     		str	r3, [r7, #4]
+ 1304 000a 0BE0     		b	.L115
+ 1305              	.L116:
+ 1306 000c 0D4B     		ldr	r3, .L117
+ 1307 000e 1B68     		ldr	r3, [r3]
+ 1308 0010 1B68     		ldr	r3, [r3]
+ 1309 0012 9B68     		ldr	r3, [r3, #8]
+ 1310 0014 0B4A     		ldr	r2, .L117
+ 1311 0016 1268     		ldr	r2, [r2]
+ 1312 0018 2D21     		movs	r1, #45
+ 1313 001a 1046     		mov	r0, r2
+ 1314 001c 9847     		blx	r3
+ 1315 001e 7B68     		ldr	r3, [r7, #4]
+ 1316 0020 0133     		adds	r3, r3, #1
+ 1317 0022 7B60     		str	r3, [r7, #4]
+ 1318              	.L115:
+ 1319 0024 7B68     		ldr	r3, [r7, #4]
+ 1320 0026 4B2B     		cmp	r3, #75
+ 1321 0028 F0D9     		bls	.L116
+ 1322 002a 064B     		ldr	r3, .L117
+ 1323 002c 1B68     		ldr	r3, [r3]
+ 1324 002e 1B68     		ldr	r3, [r3]
+ 1325 0030 1B68     		ldr	r3, [r3]
+ 1326 0032 044A     		ldr	r2, .L117
+ 1327 0034 1068     		ldr	r0, [r2]
+ 1328 0036 0222     		movs	r2, #2
+ 1329 0038 0349     		ldr	r1, .L117+4
+ 1330 003a 9847     		blx	r3
+ 1331 003c 00BF     		nop
+ 1332 003e 0837     		adds	r7, r7, #8
+ 1333 0040 BD46     		mov	sp, r7
+ 1334              		@ sp needed
+ 1335 0042 80BD     		pop	{r7, pc}
+ 1336              	.L118:
+ 1337              		.align	2
+ 1338              	.L117:
+ 1339 0044 00000000 		.word	chp
+ 1340 0048 00000000 		.word	.LC0
+ 1341              		.size	print_line, .-print_line
+ 1342              		.section	.rodata
+ 1343 0003 00       		.align	2
+ 1344              	.LC1:
+ 1345 0004 00       		.ascii	"\000"
+ 1346 0005 000000   		.align	2
+ 1347              	.LC2:
+ 1348 0008 2A2A2A20 		.ascii	"*** ChibiOS/RT test suite\000"
+ 1348      43686962 
+ 1348      694F532F 
+ 1348      52542074 
+ 1348      65737420 
+ 1349 0022 0000     		.align	2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 25
+
+
+ 1350              	.LC3:
+ 1351 0024 2A2A2A00 		.ascii	"***\000"
+ 1352              		.align	2
+ 1353              	.LC4:
+ 1354 0028 2A2A2A20 		.ascii	"*** Kernel:       \000"
+ 1354      4B65726E 
+ 1354      656C3A20 
+ 1354      20202020 
+ 1354      202000
+ 1355 003b 00       		.align	2
+ 1356              	.LC5:
+ 1357 003c 332E302E 		.ascii	"3.0.0\000"
+ 1357      3000
+ 1358 0042 0000     		.align	2
+ 1359              	.LC6:
+ 1360 0044 2A2A2A20 		.ascii	"*** Compiled:     \000"
+ 1360      436F6D70 
+ 1360      696C6564 
+ 1360      3A202020 
+ 1360      202000
+ 1361 0057 00       		.align	2
+ 1362              	.LC7:
+ 1363 0058 4F637420 		.ascii	"Oct 16 2019 - 03:29:15\000"
+ 1363      31362032 
+ 1363      30313920 
+ 1363      2D203033 
+ 1363      3A32393A 
+ 1364 006f 00       		.align	2
+ 1365              	.LC8:
+ 1366 0070 2A2A2A20 		.ascii	"*** Compiler:     \000"
+ 1366      436F6D70 
+ 1366      696C6572 
+ 1366      3A202020 
+ 1366      202000
+ 1367 0083 00       		.align	2
+ 1368              	.LC9:
+ 1369 0084 47434320 		.ascii	"GCC 7.2.1 20170904 (release) [ARM/embedded-7-branch"
+ 1369      372E322E 
+ 1369      31203230 
+ 1369      31373039 
+ 1369      30342028 
+ 1370 00b7 20726576 		.ascii	" revision 255204]\000"
+ 1370      6973696F 
+ 1370      6E203235 
+ 1370      35323034 
+ 1370      5D00
+ 1371 00c9 000000   		.align	2
+ 1372              	.LC10:
+ 1373 00cc 2A2A2A20 		.ascii	"*** Architecture: \000"
+ 1373      41726368 
+ 1373      69746563 
+ 1373      74757265 
+ 1373      3A2000
+ 1374 00df 00       		.align	2
+ 1375              	.LC11:
+ 1376 00e0 41524D76 		.ascii	"ARMv7-ME\000"
+ 1376      372D4D45 
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 26
+
+
+ 1376      00
+ 1377 00e9 000000   		.align	2
+ 1378              	.LC12:
+ 1379 00ec 2A2A2A20 		.ascii	"*** Core Variant: \000"
+ 1379      436F7265 
+ 1379      20566172 
+ 1379      69616E74 
+ 1379      3A2000
+ 1380 00ff 00       		.align	2
+ 1381              	.LC13:
+ 1382 0100 436F7274 		.ascii	"Cortex-M4F\000"
+ 1382      65782D4D 
+ 1382      344600
+ 1383 010b 00       		.align	2
+ 1384              	.LC14:
+ 1385 010c 2A2A2A20 		.ascii	"*** Port Info:    \000"
+ 1385      506F7274 
+ 1385      20496E66 
+ 1385      6F3A2020 
+ 1385      202000
+ 1386 011f 00       		.align	2
+ 1387              	.LC15:
+ 1388 0120 41647661 		.ascii	"Advanced kernel mode\000"
+ 1388      6E636564 
+ 1388      206B6572 
+ 1388      6E656C20 
+ 1388      6D6F6465 
+ 1389 0135 000000   		.align	2
+ 1390              	.LC16:
+ 1391 0138 2A2A2A20 		.ascii	"*** Platform:     \000"
+ 1391      506C6174 
+ 1391      666F726D 
+ 1391      3A202020 
+ 1391      202000
+ 1392 014b 00       		.align	2
+ 1393              	.LC17:
+ 1394 014c 53544D33 		.ascii	"STM32F407 High Performance with DSP and FPU\000"
+ 1394      32463430 
+ 1394      37204869 
+ 1394      67682050 
+ 1394      6572666F 
+ 1395              		.align	2
+ 1396              	.LC18:
+ 1397 0178 2A2A2A20 		.ascii	"*** Test Board:   \000"
+ 1397      54657374 
+ 1397      20426F61 
+ 1397      72643A20 
+ 1397      202000
+ 1398 018b 00       		.align	2
+ 1399              	.LC19:
+ 1400 018c 47435472 		.ascii	"GCTronic-MobotsEPFL e-puck V2.0_F\000"
+ 1400      6F6E6963 
+ 1400      2D4D6F62 
+ 1400      6F747345 
+ 1400      50464C20 
+ 1401 01ae 0000     		.align	2
+ 1402              	.LC20:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 27
+
+
+ 1403 01b0 2D2D2D20 		.ascii	"--- Test Case \000"
+ 1403      54657374 
+ 1403      20436173 
+ 1403      652000
+ 1404 01bf 00       		.align	2
+ 1405              	.LC21:
+ 1406 01c0 2E00     		.ascii	".\000"
+ 1407 01c2 0000     		.align	2
+ 1408              	.LC22:
+ 1409 01c4 202800   		.ascii	" (\000"
+ 1410 01c7 00       		.align	2
+ 1411              	.LC23:
+ 1412 01c8 2900     		.ascii	")\000"
+ 1413 01ca 0000     		.align	2
+ 1414              	.LC24:
+ 1415 01cc 2D2D2D20 		.ascii	"--- Result: FAILURE (#\000"
+ 1415      52657375 
+ 1415      6C743A20 
+ 1415      4641494C 
+ 1415      55524520 
+ 1416 01e3 00       		.align	2
+ 1417              	.LC25:
+ 1418 01e4 205B00   		.ascii	" [\000"
+ 1419 01e7 00       		.align	2
+ 1420              	.LC26:
+ 1421 01e8 5D2900   		.ascii	"])\000"
+ 1422 01eb 00       		.align	2
+ 1423              	.LC27:
+ 1424 01ec 2D2D2D20 		.ascii	"--- Result: SUCCESS\000"
+ 1424      52657375 
+ 1424      6C743A20 
+ 1424      53554343 
+ 1424      45535300 
+ 1425              		.align	2
+ 1426              	.LC28:
+ 1427 0200 46696E61 		.ascii	"Final result: \000"
+ 1427      6C207265 
+ 1427      73756C74 
+ 1427      3A2000
+ 1428 020f 00       		.align	2
+ 1429              	.LC29:
+ 1430 0210 4641494C 		.ascii	"FAILURE\000"
+ 1430      55524500 
+ 1431              		.align	2
+ 1432              	.LC30:
+ 1433 0218 53554343 		.ascii	"SUCCESS\000"
+ 1433      45535300 
+ 1434              		.section	.text.TestThread,"ax",%progbits
+ 1435              		.align	1
+ 1436              		.global	TestThread
+ 1437              		.syntax unified
+ 1438              		.thumb
+ 1439              		.thumb_func
+ 1440              		.fpu fpv4-sp-d16
+ 1441              		.type	TestThread, %function
+ 1442              	TestThread:
+ 1443              		@ args = 0, pretend = 0, frame = 16
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 28
+
+
+ 1444              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1445 0000 80B5     		push	{r7, lr}
+ 1446 0002 84B0     		sub	sp, sp, #16
+ 1447 0004 00AF     		add	r7, sp, #0
+ 1448 0006 7860     		str	r0, [r7, #4]
+ 1449 0008 5F4A     		ldr	r2, .L129
+ 1450 000a 7B68     		ldr	r3, [r7, #4]
+ 1451 000c 1360     		str	r3, [r2]
+ 1452 000e 5F48     		ldr	r0, .L129+4
+ 1453 0010 FFF7FEFF 		bl	test_println
+ 1454 0014 5E48     		ldr	r0, .L129+8
+ 1455 0016 FFF7FEFF 		bl	test_println
+ 1456 001a 5E48     		ldr	r0, .L129+12
+ 1457 001c FFF7FEFF 		bl	test_println
+ 1458 0020 5D48     		ldr	r0, .L129+16
+ 1459 0022 FFF7FEFF 		bl	test_print
+ 1460 0026 5D48     		ldr	r0, .L129+20
+ 1461 0028 FFF7FEFF 		bl	test_println
+ 1462 002c 5C48     		ldr	r0, .L129+24
+ 1463 002e FFF7FEFF 		bl	test_print
+ 1464 0032 5C48     		ldr	r0, .L129+28
+ 1465 0034 FFF7FEFF 		bl	test_println
+ 1466 0038 5B48     		ldr	r0, .L129+32
+ 1467 003a FFF7FEFF 		bl	test_print
+ 1468 003e 5B48     		ldr	r0, .L129+36
+ 1469 0040 FFF7FEFF 		bl	test_println
+ 1470 0044 5A48     		ldr	r0, .L129+40
+ 1471 0046 FFF7FEFF 		bl	test_print
+ 1472 004a 5A48     		ldr	r0, .L129+44
+ 1473 004c FFF7FEFF 		bl	test_println
+ 1474 0050 5948     		ldr	r0, .L129+48
+ 1475 0052 FFF7FEFF 		bl	test_print
+ 1476 0056 5948     		ldr	r0, .L129+52
+ 1477 0058 FFF7FEFF 		bl	test_println
+ 1478 005c 5848     		ldr	r0, .L129+56
+ 1479 005e FFF7FEFF 		bl	test_print
+ 1480 0062 5848     		ldr	r0, .L129+60
+ 1481 0064 FFF7FEFF 		bl	test_println
+ 1482 0068 5748     		ldr	r0, .L129+64
+ 1483 006a FFF7FEFF 		bl	test_print
+ 1484 006e 5748     		ldr	r0, .L129+68
+ 1485 0070 FFF7FEFF 		bl	test_println
+ 1486 0074 5648     		ldr	r0, .L129+72
+ 1487 0076 FFF7FEFF 		bl	test_print
+ 1488 007a 5648     		ldr	r0, .L129+76
+ 1489 007c FFF7FEFF 		bl	test_println
+ 1490 0080 4248     		ldr	r0, .L129+4
+ 1491 0082 FFF7FEFF 		bl	test_println
+ 1492 0086 544B     		ldr	r3, .L129+80
+ 1493 0088 0022     		movs	r2, #0
+ 1494 008a 1A70     		strb	r2, [r3]
+ 1495 008c 0023     		movs	r3, #0
+ 1496 008e FB60     		str	r3, [r7, #12]
+ 1497 0090 5CE0     		b	.L120
+ 1498              	.L125:
+ 1499 0092 0023     		movs	r3, #0
+ 1500 0094 BB60     		str	r3, [r7, #8]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 29
+
+
+ 1501 0096 4CE0     		b	.L121
+ 1502              	.L124:
+ 1503 0098 FFF7FEFF 		bl	print_line
+ 1504 009c 4F48     		ldr	r0, .L129+84
+ 1505 009e FFF7FEFF 		bl	test_print
+ 1506 00a2 FB68     		ldr	r3, [r7, #12]
+ 1507 00a4 0133     		adds	r3, r3, #1
+ 1508 00a6 1846     		mov	r0, r3
+ 1509 00a8 FFF7FEFF 		bl	test_printn
+ 1510 00ac 4C48     		ldr	r0, .L129+88
+ 1511 00ae FFF7FEFF 		bl	test_print
+ 1512 00b2 BB68     		ldr	r3, [r7, #8]
+ 1513 00b4 0133     		adds	r3, r3, #1
+ 1514 00b6 1846     		mov	r0, r3
+ 1515 00b8 FFF7FEFF 		bl	test_printn
+ 1516 00bc 4948     		ldr	r0, .L129+92
+ 1517 00be FFF7FEFF 		bl	test_print
+ 1518 00c2 494A     		ldr	r2, .L129+96
+ 1519 00c4 FB68     		ldr	r3, [r7, #12]
+ 1520 00c6 52F82320 		ldr	r2, [r2, r3, lsl #2]
+ 1521 00ca BB68     		ldr	r3, [r7, #8]
+ 1522 00cc 9B00     		lsls	r3, r3, #2
+ 1523 00ce 1344     		add	r3, r3, r2
+ 1524 00d0 1B68     		ldr	r3, [r3]
+ 1525 00d2 1B68     		ldr	r3, [r3]
+ 1526 00d4 1846     		mov	r0, r3
+ 1527 00d6 FFF7FEFF 		bl	test_print
+ 1528 00da 4448     		ldr	r0, .L129+100
+ 1529 00dc FFF7FEFF 		bl	test_println
+ 1530 00e0 C820     		movs	r0, #200
+ 1531 00e2 FFF7FEFF 		bl	chThdSleep
+ 1532 00e6 404A     		ldr	r2, .L129+96
+ 1533 00e8 FB68     		ldr	r3, [r7, #12]
+ 1534 00ea 52F82320 		ldr	r2, [r2, r3, lsl #2]
+ 1535 00ee BB68     		ldr	r3, [r7, #8]
+ 1536 00f0 9B00     		lsls	r3, r3, #2
+ 1537 00f2 1344     		add	r3, r3, r2
+ 1538 00f4 1B68     		ldr	r3, [r3]
+ 1539 00f6 1846     		mov	r0, r3
+ 1540 00f8 FFF7FEFF 		bl	execute_test
+ 1541 00fc 3C4B     		ldr	r3, .L129+104
+ 1542 00fe 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1543 0100 002B     		cmp	r3, #0
+ 1544 0102 10D0     		beq	.L122
+ 1545 0104 3B48     		ldr	r0, .L129+108
+ 1546 0106 FFF7FEFF 		bl	test_print
+ 1547 010a 3B4B     		ldr	r3, .L129+112
+ 1548 010c 1B68     		ldr	r3, [r3]
+ 1549 010e 1846     		mov	r0, r3
+ 1550 0110 FFF7FEFF 		bl	test_printn
+ 1551 0114 3948     		ldr	r0, .L129+116
+ 1552 0116 FFF7FEFF 		bl	test_print
+ 1553 011a FFF7FEFF 		bl	print_tokens
+ 1554 011e 3848     		ldr	r0, .L129+120
+ 1555 0120 FFF7FEFF 		bl	test_println
+ 1556 0124 02E0     		b	.L123
+ 1557              	.L122:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 30
+
+
+ 1558 0126 3748     		ldr	r0, .L129+124
+ 1559 0128 FFF7FEFF 		bl	test_println
+ 1560              	.L123:
+ 1561 012c BB68     		ldr	r3, [r7, #8]
+ 1562 012e 0133     		adds	r3, r3, #1
+ 1563 0130 BB60     		str	r3, [r7, #8]
+ 1564              	.L121:
+ 1565 0132 2D4A     		ldr	r2, .L129+96
+ 1566 0134 FB68     		ldr	r3, [r7, #12]
+ 1567 0136 52F82320 		ldr	r2, [r2, r3, lsl #2]
+ 1568 013a BB68     		ldr	r3, [r7, #8]
+ 1569 013c 9B00     		lsls	r3, r3, #2
+ 1570 013e 1344     		add	r3, r3, r2
+ 1571 0140 1B68     		ldr	r3, [r3]
+ 1572 0142 002B     		cmp	r3, #0
+ 1573 0144 A8D1     		bne	.L124
+ 1574 0146 FB68     		ldr	r3, [r7, #12]
+ 1575 0148 0133     		adds	r3, r3, #1
+ 1576 014a FB60     		str	r3, [r7, #12]
+ 1577              	.L120:
+ 1578 014c 264A     		ldr	r2, .L129+96
+ 1579 014e FB68     		ldr	r3, [r7, #12]
+ 1580 0150 52F82330 		ldr	r3, [r2, r3, lsl #2]
+ 1581 0154 002B     		cmp	r3, #0
+ 1582 0156 9CD1     		bne	.L125
+ 1583 0158 FFF7FEFF 		bl	print_line
+ 1584 015c 0B48     		ldr	r0, .L129+4
+ 1585 015e FFF7FEFF 		bl	test_println
+ 1586 0162 2948     		ldr	r0, .L129+128
+ 1587 0164 FFF7FEFF 		bl	test_print
+ 1588 0168 1B4B     		ldr	r3, .L129+80
+ 1589 016a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 1590 016c 002B     		cmp	r3, #0
+ 1591 016e 03D0     		beq	.L126
+ 1592 0170 2648     		ldr	r0, .L129+132
+ 1593 0172 FFF7FEFF 		bl	test_println
+ 1594 0176 02E0     		b	.L128
+ 1595              	.L126:
+ 1596 0178 2548     		ldr	r0, .L129+136
+ 1597 017a FFF7FEFF 		bl	test_println
+ 1598              	.L128:
+ 1599 017e 00BF     		nop
+ 1600 0180 1037     		adds	r7, r7, #16
+ 1601 0182 BD46     		mov	sp, r7
+ 1602              		@ sp needed
+ 1603 0184 80BD     		pop	{r7, pc}
+ 1604              	.L130:
+ 1605 0186 00BF     		.align	2
+ 1606              	.L129:
+ 1607 0188 00000000 		.word	chp
+ 1608 018c 04000000 		.word	.LC1
+ 1609 0190 08000000 		.word	.LC2
+ 1610 0194 24000000 		.word	.LC3
+ 1611 0198 28000000 		.word	.LC4
+ 1612 019c 3C000000 		.word	.LC5
+ 1613 01a0 44000000 		.word	.LC6
+ 1614 01a4 58000000 		.word	.LC7
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 31
+
+
+ 1615 01a8 70000000 		.word	.LC8
+ 1616 01ac 84000000 		.word	.LC9
+ 1617 01b0 CC000000 		.word	.LC10
+ 1618 01b4 E0000000 		.word	.LC11
+ 1619 01b8 EC000000 		.word	.LC12
+ 1620 01bc 00010000 		.word	.LC13
+ 1621 01c0 0C010000 		.word	.LC14
+ 1622 01c4 20010000 		.word	.LC15
+ 1623 01c8 38010000 		.word	.LC16
+ 1624 01cc 4C010000 		.word	.LC17
+ 1625 01d0 78010000 		.word	.LC18
+ 1626 01d4 8C010000 		.word	.LC19
+ 1627 01d8 00000000 		.word	test_global_fail
+ 1628 01dc B0010000 		.word	.LC20
+ 1629 01e0 C0010000 		.word	.LC21
+ 1630 01e4 C4010000 		.word	.LC22
+ 1631 01e8 00000000 		.word	patterns
+ 1632 01ec C8010000 		.word	.LC23
+ 1633 01f0 00000000 		.word	local_fail
+ 1634 01f4 CC010000 		.word	.LC24
+ 1635 01f8 00000000 		.word	failpoint
+ 1636 01fc E4010000 		.word	.LC25
+ 1637 0200 E8010000 		.word	.LC26
+ 1638 0204 EC010000 		.word	.LC27
+ 1639 0208 00020000 		.word	.LC28
+ 1640 020c 10020000 		.word	.LC29
+ 1641 0210 18020000 		.word	.LC30
+ 1642              		.size	TestThread, .-TestThread
+ 1643              		.section	.rodata.__func__.7153,"a",%progbits
+ 1644              		.align	2
+ 1645              		.type	__func__.7153, %object
+ 1646              		.size	__func__.7153, 12
+ 1647              	__func__.7153:
+ 1648 0000 63685379 		.ascii	"chSysUnlock\000"
+ 1648      73556E6C 
+ 1648      6F636B00 
+ 1649              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 32
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 test.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:15     .text.port_lock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:21     .text.port_lock:0000000000000000 port_lock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:45     .text.port_unlock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:51     .text.port_unlock:0000000000000000 port_unlock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:75     .text.chSysLock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:81     .text.chSysLock:0000000000000000 chSysLock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:93     .text.chSysUnlock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:99     .text.chSysUnlock:0000000000000000 chSysUnlock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:128    .text.chSysUnlock:0000000000000034 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1647   .rodata.__func__.7153:0000000000000000 __func__.7153
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:132    .text.chVTGetSystemTimeX:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:138    .text.chVTGetSystemTimeX:0000000000000000 chVTGetSystemTimeX
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:154    .text.chVTGetSystemTimeX:0000000000000014 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:157    .text.chVTGetSystemTime:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:163    .text.chVTGetSystemTime:0000000000000000 chVTGetSystemTime
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:181    .text.chVTIsTimeWithinX:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:187    .text.chVTIsTimeWithinX:0000000000000000 chVTIsTimeWithinX
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:216    .text.chVTIsSystemTimeWithin:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:222    .text.chVTIsSystemTimeWithin:0000000000000000 chVTIsSystemTimeWithin
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:244    .text.chVTIsArmedI:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:250    .text.chVTIsArmedI:0000000000000000 chVTIsArmedI
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:272    .text.chVTResetI:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:278    .text.chVTResetI:0000000000000000 chVTResetI
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:300    .text.chVTSetI:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:306    .text.chVTSetI:0000000000000000 chVTSetI
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:330    .text.chVTSet:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:336    .text.chVTSet:0000000000000000 chVTSet
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:360    .text.chThdGetSelfX:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:366    .text.chThdGetSelfX:0000000000000000 chThdGetSelfX
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:382    .text.chThdGetSelfX:0000000000000014 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:385    .text.chThdGetTicksX:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:391    .text.chThdGetTicksX:0000000000000000 chThdGetTicksX
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:409    .data.patterns:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:412    .data.patterns:0000000000000000 patterns
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:430    .bss.test_global_fail:0000000000000000 test_global_fail
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:431    .bss.test_global_fail:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:435    .bss.local_fail:0000000000000000 local_fail
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:436    .bss.local_fail:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:438    .bss.failpoint:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:441    .bss.failpoint:0000000000000000 failpoint
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:444    .bss.tokens_buffer:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:447    .bss.tokens_buffer:0000000000000000 tokens_buffer
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:450    .bss.tokp:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:453    .bss.tokp:0000000000000000 tokp
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:460    .bss.test:0000000000000000 test
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:457    .bss.test:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:467    .bss.threads:0000000000000000 threads
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:464    .bss.threads:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:474    .rodata.wa:0000000000000000 wa
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:471    .rodata.wa:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:481    .bss.chp:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:484    .bss.chp:0000000000000000 chp
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:487    .text.test_printn:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:494    .text.test_printn:0000000000000000 test_printn
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:573    .text.test_printn:000000000000008c $d
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 33
+
+
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:577    .text.test_print:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:584    .text.test_print:0000000000000000 test_print
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:618    .text.test_print:0000000000000034 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:621    .rodata:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:625    .text.test_println:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:632    .text.test_println:0000000000000000 test_println
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:658    .text.test_println:0000000000000028 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:662    .text.clear_tokens:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:668    .text.clear_tokens:0000000000000000 clear_tokens
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:685    .text.clear_tokens:0000000000000014 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:689    .text.print_tokens:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:695    .text.print_tokens:0000000000000000 print_tokens
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:731    .text.print_tokens:0000000000000038 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:736    .text.test_emit_token:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:743    .text.test_emit_token:0000000000000000 test_emit_token
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:768    .text.test_emit_token:0000000000000028 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:771    .text._test_fail:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:778    .text._test_fail:0000000000000000 _test_fail
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:805    .text._test_fail:0000000000000028 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:810    .text._test_assert:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:817    .text._test_assert:0000000000000000 _test_assert
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:845    .text._test_assert_sequence:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:852    .text._test_assert_sequence:0000000000000000 _test_assert_sequence
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:904    .text._test_assert_sequence:0000000000000058 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:908    .text._test_assert_time_window:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:915    .text._test_assert_time_window:0000000000000000 _test_assert_time_window
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:939    .text.test_terminate_threads:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:946    .text.test_terminate_threads:0000000000000000 test_terminate_threads
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:982    .text.test_terminate_threads:000000000000003c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:985    .text.test_wait_threads:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:992    .text.test_wait_threads:0000000000000000 test_wait_threads
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1032   .text.test_wait_threads:0000000000000044 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1035   .text.test_cpu_pulse:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1042   .text.test_cpu_pulse:0000000000000000 test_cpu_pulse
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1118   .text.test_cpu_pulse:0000000000000090 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1121   .text.test_wait_tick:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1128   .text.test_wait_tick:0000000000000000 test_wait_tick
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1144   .bss.test_timer_done:0000000000000000 test_timer_done
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1145   .bss.test_timer_done:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1147   .bss.vt:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1150   .bss.vt:0000000000000000 vt
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1153   .text.tmr:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1159   .text.tmr:0000000000000000 tmr
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1179   .text.tmr:000000000000001c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1182   .text.test_start_timer:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1189   .text.test_start_timer:0000000000000000 test_start_timer
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1220   .text.test_start_timer:000000000000003c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1226   .text.execute_test:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1232   .text.execute_test:0000000000000000 execute_test
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1286   .text.execute_test:000000000000005c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1290   .text.print_line:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1296   .text.print_line:0000000000000000 print_line
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1339   .text.print_line:0000000000000044 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1435   .text.TestThread:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1442   .text.TestThread:0000000000000000 TestThread
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1607   .text.TestThread:0000000000000188 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s:1644   .rodata.__func__.7153:0000000000000000 $d
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccNdDRic.s 			page 34
+
+
+
+UNDEFINED SYMBOLS
+_stats_start_measure_crit_thd
+_dbg_check_lock
+_dbg_check_unlock
+_stats_stop_measure_crit_thd
+chSysHalt
+ch
+chDbgCheckClassI
+chVTDoResetI
+chVTDoSetI
+patternsys
+patternthd
+patternsem
+patternmtx
+patternmsg
+patternmbox
+patternevt
+patternheap
+patternpools
+patterndyn
+patternqueues
+patternbmk
+chThdTerminate
+chThdWait
+chThdSleep

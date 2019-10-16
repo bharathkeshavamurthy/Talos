@@ -1,0 +1,827 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"gpt.c"
+  14              		.section	.text.port_lock,"ax",%progbits
+  15              		.align	1
+  16              		.syntax unified
+  17              		.thumb
+  18              		.thumb_func
+  19              		.fpu fpv4-sp-d16
+  20              		.type	port_lock, %function
+  21              	port_lock:
+  22              		@ args = 0, pretend = 0, frame = 8
+  23              		@ frame_needed = 1, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 80B4     		push	{r7}
+  26 0002 83B0     		sub	sp, sp, #12
+  27 0004 00AF     		add	r7, sp, #0
+  28 0006 2023     		movs	r3, #32
+  29 0008 7B60     		str	r3, [r7, #4]
+  30 000a 7B68     		ldr	r3, [r7, #4]
+  31              		.syntax unified
+  32              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  33 000c 83F31188 		MSR basepri, r3
+  34              	@ 0 "" 2
+  35              		.thumb
+  36              		.syntax unified
+  37 0010 00BF     		nop
+  38 0012 0C37     		adds	r7, r7, #12
+  39 0014 BD46     		mov	sp, r7
+  40              		@ sp needed
+  41 0016 5DF8047B 		ldr	r7, [sp], #4
+  42 001a 7047     		bx	lr
+  43              		.size	port_lock, .-port_lock
+  44              		.section	.text.port_unlock,"ax",%progbits
+  45              		.align	1
+  46              		.syntax unified
+  47              		.thumb
+  48              		.thumb_func
+  49              		.fpu fpv4-sp-d16
+  50              		.type	port_unlock, %function
+  51              	port_unlock:
+  52              		@ args = 0, pretend = 0, frame = 8
+  53              		@ frame_needed = 1, uses_anonymous_args = 0
+  54              		@ link register save eliminated.
+  55 0000 80B4     		push	{r7}
+  56 0002 83B0     		sub	sp, sp, #12
+  57 0004 00AF     		add	r7, sp, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s 			page 2
+
+
+  58 0006 0023     		movs	r3, #0
+  59 0008 7B60     		str	r3, [r7, #4]
+  60 000a 7B68     		ldr	r3, [r7, #4]
+  61              		.syntax unified
+  62              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  63 000c 83F31188 		MSR basepri, r3
+  64              	@ 0 "" 2
+  65              		.thumb
+  66              		.syntax unified
+  67 0010 00BF     		nop
+  68 0012 0C37     		adds	r7, r7, #12
+  69 0014 BD46     		mov	sp, r7
+  70              		@ sp needed
+  71 0016 5DF8047B 		ldr	r7, [sp], #4
+  72 001a 7047     		bx	lr
+  73              		.size	port_unlock, .-port_unlock
+  74              		.section	.text.chSysLock,"ax",%progbits
+  75              		.align	1
+  76              		.syntax unified
+  77              		.thumb
+  78              		.thumb_func
+  79              		.fpu fpv4-sp-d16
+  80              		.type	chSysLock, %function
+  81              	chSysLock:
+  82              		@ args = 0, pretend = 0, frame = 0
+  83              		@ frame_needed = 1, uses_anonymous_args = 0
+  84 0000 80B5     		push	{r7, lr}
+  85 0002 00AF     		add	r7, sp, #0
+  86 0004 FFF7FEFF 		bl	port_lock
+  87 0008 FFF7FEFF 		bl	_stats_start_measure_crit_thd
+  88 000c FFF7FEFF 		bl	_dbg_check_lock
+  89 0010 00BF     		nop
+  90 0012 80BD     		pop	{r7, pc}
+  91              		.size	chSysLock, .-chSysLock
+  92              		.section	.text.chSysUnlock,"ax",%progbits
+  93              		.align	1
+  94              		.syntax unified
+  95              		.thumb
+  96              		.thumb_func
+  97              		.fpu fpv4-sp-d16
+  98              		.type	chSysUnlock, %function
+  99              	chSysUnlock:
+ 100              		@ args = 0, pretend = 0, frame = 0
+ 101              		@ frame_needed = 1, uses_anonymous_args = 0
+ 102 0000 80B5     		push	{r7, lr}
+ 103 0002 00AF     		add	r7, sp, #0
+ 104 0004 FFF7FEFF 		bl	_dbg_check_unlock
+ 105 0008 FFF7FEFF 		bl	_stats_stop_measure_crit_thd
+ 106 000c 094B     		ldr	r3, .L6
+ 107 000e 1B68     		ldr	r3, [r3]
+ 108 0010 084A     		ldr	r2, .L6
+ 109 0012 9342     		cmp	r3, r2
+ 110 0014 0AD0     		beq	.L5
+ 111 0016 074B     		ldr	r3, .L6
+ 112 0018 9B69     		ldr	r3, [r3, #24]
+ 113 001a 9A68     		ldr	r2, [r3, #8]
+ 114 001c 054B     		ldr	r3, .L6
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s 			page 3
+
+
+ 115 001e 1B68     		ldr	r3, [r3]
+ 116 0020 9B68     		ldr	r3, [r3, #8]
+ 117 0022 9A42     		cmp	r2, r3
+ 118 0024 02D2     		bcs	.L5
+ 119 0026 0448     		ldr	r0, .L6+4
+ 120 0028 FFF7FEFF 		bl	chSysHalt
+ 121              	.L5:
+ 122 002c FFF7FEFF 		bl	port_unlock
+ 123 0030 00BF     		nop
+ 124 0032 80BD     		pop	{r7, pc}
+ 125              	.L7:
+ 126              		.align	2
+ 127              	.L6:
+ 128 0034 00000000 		.word	ch
+ 129 0038 00000000 		.word	__func__.7153
+ 130              		.size	chSysUnlock, .-chSysUnlock
+ 131              		.section	.text.osalSysLock,"ax",%progbits
+ 132              		.align	1
+ 133              		.syntax unified
+ 134              		.thumb
+ 135              		.thumb_func
+ 136              		.fpu fpv4-sp-d16
+ 137              		.type	osalSysLock, %function
+ 138              	osalSysLock:
+ 139              		@ args = 0, pretend = 0, frame = 0
+ 140              		@ frame_needed = 1, uses_anonymous_args = 0
+ 141 0000 80B5     		push	{r7, lr}
+ 142 0002 00AF     		add	r7, sp, #0
+ 143 0004 FFF7FEFF 		bl	chSysLock
+ 144 0008 00BF     		nop
+ 145 000a 80BD     		pop	{r7, pc}
+ 146              		.size	osalSysLock, .-osalSysLock
+ 147              		.section	.text.osalSysUnlock,"ax",%progbits
+ 148              		.align	1
+ 149              		.syntax unified
+ 150              		.thumb
+ 151              		.thumb_func
+ 152              		.fpu fpv4-sp-d16
+ 153              		.type	osalSysUnlock, %function
+ 154              	osalSysUnlock:
+ 155              		@ args = 0, pretend = 0, frame = 0
+ 156              		@ frame_needed = 1, uses_anonymous_args = 0
+ 157 0000 80B5     		push	{r7, lr}
+ 158 0002 00AF     		add	r7, sp, #0
+ 159 0004 FFF7FEFF 		bl	chSysUnlock
+ 160 0008 00BF     		nop
+ 161 000a 80BD     		pop	{r7, pc}
+ 162              		.size	osalSysUnlock, .-osalSysUnlock
+ 163              		.section	.text.gptInit,"ax",%progbits
+ 164              		.align	1
+ 165              		.global	gptInit
+ 166              		.syntax unified
+ 167              		.thumb
+ 168              		.thumb_func
+ 169              		.fpu fpv4-sp-d16
+ 170              		.type	gptInit, %function
+ 171              	gptInit:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s 			page 4
+
+
+ 172              		@ args = 0, pretend = 0, frame = 0
+ 173              		@ frame_needed = 1, uses_anonymous_args = 0
+ 174 0000 80B5     		push	{r7, lr}
+ 175 0002 00AF     		add	r7, sp, #0
+ 176 0004 FFF7FEFF 		bl	gpt_lld_init
+ 177 0008 00BF     		nop
+ 178 000a 80BD     		pop	{r7, pc}
+ 179              		.size	gptInit, .-gptInit
+ 180              		.section	.text.gptObjectInit,"ax",%progbits
+ 181              		.align	1
+ 182              		.global	gptObjectInit
+ 183              		.syntax unified
+ 184              		.thumb
+ 185              		.thumb_func
+ 186              		.fpu fpv4-sp-d16
+ 187              		.type	gptObjectInit, %function
+ 188              	gptObjectInit:
+ 189              		@ args = 0, pretend = 0, frame = 8
+ 190              		@ frame_needed = 1, uses_anonymous_args = 0
+ 191              		@ link register save eliminated.
+ 192 0000 80B4     		push	{r7}
+ 193 0002 83B0     		sub	sp, sp, #12
+ 194 0004 00AF     		add	r7, sp, #0
+ 195 0006 7860     		str	r0, [r7, #4]
+ 196 0008 7B68     		ldr	r3, [r7, #4]
+ 197 000a 0122     		movs	r2, #1
+ 198 000c 1A70     		strb	r2, [r3]
+ 199 000e 7B68     		ldr	r3, [r7, #4]
+ 200 0010 0022     		movs	r2, #0
+ 201 0012 5A60     		str	r2, [r3, #4]
+ 202 0014 00BF     		nop
+ 203 0016 0C37     		adds	r7, r7, #12
+ 204 0018 BD46     		mov	sp, r7
+ 205              		@ sp needed
+ 206 001a 5DF8047B 		ldr	r7, [sp], #4
+ 207 001e 7047     		bx	lr
+ 208              		.size	gptObjectInit, .-gptObjectInit
+ 209              		.section	.text.gptStart,"ax",%progbits
+ 210              		.align	1
+ 211              		.global	gptStart
+ 212              		.syntax unified
+ 213              		.thumb
+ 214              		.thumb_func
+ 215              		.fpu fpv4-sp-d16
+ 216              		.type	gptStart, %function
+ 217              	gptStart:
+ 218              		@ args = 0, pretend = 0, frame = 8
+ 219              		@ frame_needed = 1, uses_anonymous_args = 0
+ 220 0000 80B5     		push	{r7, lr}
+ 221 0002 82B0     		sub	sp, sp, #8
+ 222 0004 00AF     		add	r7, sp, #0
+ 223 0006 7860     		str	r0, [r7, #4]
+ 224 0008 3960     		str	r1, [r7]
+ 225 000a 7B68     		ldr	r3, [r7, #4]
+ 226 000c 002B     		cmp	r3, #0
+ 227 000e 02D0     		beq	.L13
+ 228 0010 3B68     		ldr	r3, [r7]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s 			page 5
+
+
+ 229 0012 002B     		cmp	r3, #0
+ 230 0014 02D1     		bne	.L14
+ 231              	.L13:
+ 232 0016 0F48     		ldr	r0, .L16
+ 233 0018 FFF7FEFF 		bl	chSysHalt
+ 234              	.L14:
+ 235 001c FFF7FEFF 		bl	osalSysLock
+ 236 0020 7B68     		ldr	r3, [r7, #4]
+ 237 0022 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 238 0024 012B     		cmp	r3, #1
+ 239 0026 06D0     		beq	.L15
+ 240 0028 7B68     		ldr	r3, [r7, #4]
+ 241 002a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 242 002c 022B     		cmp	r3, #2
+ 243 002e 02D0     		beq	.L15
+ 244 0030 0848     		ldr	r0, .L16
+ 245 0032 FFF7FEFF 		bl	chSysHalt
+ 246              	.L15:
+ 247 0036 7B68     		ldr	r3, [r7, #4]
+ 248 0038 3A68     		ldr	r2, [r7]
+ 249 003a 5A60     		str	r2, [r3, #4]
+ 250 003c 7868     		ldr	r0, [r7, #4]
+ 251 003e FFF7FEFF 		bl	gpt_lld_start
+ 252 0042 7B68     		ldr	r3, [r7, #4]
+ 253 0044 0222     		movs	r2, #2
+ 254 0046 1A70     		strb	r2, [r3]
+ 255 0048 FFF7FEFF 		bl	osalSysUnlock
+ 256 004c 00BF     		nop
+ 257 004e 0837     		adds	r7, r7, #8
+ 258 0050 BD46     		mov	sp, r7
+ 259              		@ sp needed
+ 260 0052 80BD     		pop	{r7, pc}
+ 261              	.L17:
+ 262              		.align	2
+ 263              	.L16:
+ 264 0054 00000000 		.word	__func__.9848
+ 265              		.size	gptStart, .-gptStart
+ 266              		.section	.text.gptStop,"ax",%progbits
+ 267              		.align	1
+ 268              		.global	gptStop
+ 269              		.syntax unified
+ 270              		.thumb
+ 271              		.thumb_func
+ 272              		.fpu fpv4-sp-d16
+ 273              		.type	gptStop, %function
+ 274              	gptStop:
+ 275              		@ args = 0, pretend = 0, frame = 8
+ 276              		@ frame_needed = 1, uses_anonymous_args = 0
+ 277 0000 80B5     		push	{r7, lr}
+ 278 0002 82B0     		sub	sp, sp, #8
+ 279 0004 00AF     		add	r7, sp, #0
+ 280 0006 7860     		str	r0, [r7, #4]
+ 281 0008 7B68     		ldr	r3, [r7, #4]
+ 282 000a 002B     		cmp	r3, #0
+ 283 000c 02D1     		bne	.L19
+ 284 000e 0E48     		ldr	r0, .L21
+ 285 0010 FFF7FEFF 		bl	chSysHalt
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s 			page 6
+
+
+ 286              	.L19:
+ 287 0014 FFF7FEFF 		bl	osalSysLock
+ 288 0018 7B68     		ldr	r3, [r7, #4]
+ 289 001a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 290 001c 012B     		cmp	r3, #1
+ 291 001e 06D0     		beq	.L20
+ 292 0020 7B68     		ldr	r3, [r7, #4]
+ 293 0022 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 294 0024 022B     		cmp	r3, #2
+ 295 0026 02D0     		beq	.L20
+ 296 0028 0748     		ldr	r0, .L21
+ 297 002a FFF7FEFF 		bl	chSysHalt
+ 298              	.L20:
+ 299 002e 7868     		ldr	r0, [r7, #4]
+ 300 0030 FFF7FEFF 		bl	gpt_lld_stop
+ 301 0034 7B68     		ldr	r3, [r7, #4]
+ 302 0036 0122     		movs	r2, #1
+ 303 0038 1A70     		strb	r2, [r3]
+ 304 003a FFF7FEFF 		bl	osalSysUnlock
+ 305 003e 00BF     		nop
+ 306 0040 0837     		adds	r7, r7, #8
+ 307 0042 BD46     		mov	sp, r7
+ 308              		@ sp needed
+ 309 0044 80BD     		pop	{r7, pc}
+ 310              	.L22:
+ 311 0046 00BF     		.align	2
+ 312              	.L21:
+ 313 0048 00000000 		.word	__func__.9852
+ 314              		.size	gptStop, .-gptStop
+ 315              		.section	.text.gptChangeInterval,"ax",%progbits
+ 316              		.align	1
+ 317              		.global	gptChangeInterval
+ 318              		.syntax unified
+ 319              		.thumb
+ 320              		.thumb_func
+ 321              		.fpu fpv4-sp-d16
+ 322              		.type	gptChangeInterval, %function
+ 323              	gptChangeInterval:
+ 324              		@ args = 0, pretend = 0, frame = 8
+ 325              		@ frame_needed = 1, uses_anonymous_args = 0
+ 326 0000 80B5     		push	{r7, lr}
+ 327 0002 82B0     		sub	sp, sp, #8
+ 328 0004 00AF     		add	r7, sp, #0
+ 329 0006 7860     		str	r0, [r7, #4]
+ 330 0008 3960     		str	r1, [r7]
+ 331 000a 7B68     		ldr	r3, [r7, #4]
+ 332 000c 002B     		cmp	r3, #0
+ 333 000e 02D1     		bne	.L24
+ 334 0010 0B48     		ldr	r0, .L26
+ 335 0012 FFF7FEFF 		bl	chSysHalt
+ 336              	.L24:
+ 337 0016 FFF7FEFF 		bl	osalSysLock
+ 338 001a 7B68     		ldr	r3, [r7, #4]
+ 339 001c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 340 001e 032B     		cmp	r3, #3
+ 341 0020 02D0     		beq	.L25
+ 342 0022 0748     		ldr	r0, .L26
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s 			page 7
+
+
+ 343 0024 FFF7FEFF 		bl	chSysHalt
+ 344              	.L25:
+ 345 0028 7B68     		ldr	r3, [r7, #4]
+ 346 002a DB68     		ldr	r3, [r3, #12]
+ 347 002c 3A68     		ldr	r2, [r7]
+ 348 002e 013A     		subs	r2, r2, #1
+ 349 0030 DA62     		str	r2, [r3, #44]
+ 350 0032 FFF7FEFF 		bl	osalSysUnlock
+ 351 0036 00BF     		nop
+ 352 0038 0837     		adds	r7, r7, #8
+ 353 003a BD46     		mov	sp, r7
+ 354              		@ sp needed
+ 355 003c 80BD     		pop	{r7, pc}
+ 356              	.L27:
+ 357 003e 00BF     		.align	2
+ 358              	.L26:
+ 359 0040 00000000 		.word	__func__.9857
+ 360              		.size	gptChangeInterval, .-gptChangeInterval
+ 361              		.section	.text.gptStartContinuous,"ax",%progbits
+ 362              		.align	1
+ 363              		.global	gptStartContinuous
+ 364              		.syntax unified
+ 365              		.thumb
+ 366              		.thumb_func
+ 367              		.fpu fpv4-sp-d16
+ 368              		.type	gptStartContinuous, %function
+ 369              	gptStartContinuous:
+ 370              		@ args = 0, pretend = 0, frame = 8
+ 371              		@ frame_needed = 1, uses_anonymous_args = 0
+ 372 0000 80B5     		push	{r7, lr}
+ 373 0002 82B0     		sub	sp, sp, #8
+ 374 0004 00AF     		add	r7, sp, #0
+ 375 0006 7860     		str	r0, [r7, #4]
+ 376 0008 3960     		str	r1, [r7]
+ 377 000a FFF7FEFF 		bl	osalSysLock
+ 378 000e 3968     		ldr	r1, [r7]
+ 379 0010 7868     		ldr	r0, [r7, #4]
+ 380 0012 FFF7FEFF 		bl	gptStartContinuousI
+ 381 0016 FFF7FEFF 		bl	osalSysUnlock
+ 382 001a 00BF     		nop
+ 383 001c 0837     		adds	r7, r7, #8
+ 384 001e BD46     		mov	sp, r7
+ 385              		@ sp needed
+ 386 0020 80BD     		pop	{r7, pc}
+ 387              		.size	gptStartContinuous, .-gptStartContinuous
+ 388              		.section	.text.gptStartContinuousI,"ax",%progbits
+ 389              		.align	1
+ 390              		.global	gptStartContinuousI
+ 391              		.syntax unified
+ 392              		.thumb
+ 393              		.thumb_func
+ 394              		.fpu fpv4-sp-d16
+ 395              		.type	gptStartContinuousI, %function
+ 396              	gptStartContinuousI:
+ 397              		@ args = 0, pretend = 0, frame = 8
+ 398              		@ frame_needed = 1, uses_anonymous_args = 0
+ 399 0000 80B5     		push	{r7, lr}
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s 			page 8
+
+
+ 400 0002 82B0     		sub	sp, sp, #8
+ 401 0004 00AF     		add	r7, sp, #0
+ 402 0006 7860     		str	r0, [r7, #4]
+ 403 0008 3960     		str	r1, [r7]
+ 404 000a FFF7FEFF 		bl	chDbgCheckClassI
+ 405 000e 7B68     		ldr	r3, [r7, #4]
+ 406 0010 002B     		cmp	r3, #0
+ 407 0012 02D1     		bne	.L32
+ 408 0014 0A48     		ldr	r0, .L33
+ 409 0016 FFF7FEFF 		bl	chSysHalt
+ 410              	.L32:
+ 411 001a 7B68     		ldr	r3, [r7, #4]
+ 412 001c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 413 001e 022B     		cmp	r3, #2
+ 414 0020 02D0     		beq	.L31
+ 415 0022 0748     		ldr	r0, .L33
+ 416 0024 FFF7FEFF 		bl	chSysHalt
+ 417              	.L31:
+ 418 0028 7B68     		ldr	r3, [r7, #4]
+ 419 002a 0322     		movs	r2, #3
+ 420 002c 1A70     		strb	r2, [r3]
+ 421 002e 3968     		ldr	r1, [r7]
+ 422 0030 7868     		ldr	r0, [r7, #4]
+ 423 0032 FFF7FEFF 		bl	gpt_lld_start_timer
+ 424 0036 00BF     		nop
+ 425 0038 0837     		adds	r7, r7, #8
+ 426 003a BD46     		mov	sp, r7
+ 427              		@ sp needed
+ 428 003c 80BD     		pop	{r7, pc}
+ 429              	.L34:
+ 430 003e 00BF     		.align	2
+ 431              	.L33:
+ 432 0040 00000000 		.word	__func__.9866
+ 433              		.size	gptStartContinuousI, .-gptStartContinuousI
+ 434              		.section	.text.gptStartOneShot,"ax",%progbits
+ 435              		.align	1
+ 436              		.global	gptStartOneShot
+ 437              		.syntax unified
+ 438              		.thumb
+ 439              		.thumb_func
+ 440              		.fpu fpv4-sp-d16
+ 441              		.type	gptStartOneShot, %function
+ 442              	gptStartOneShot:
+ 443              		@ args = 0, pretend = 0, frame = 8
+ 444              		@ frame_needed = 1, uses_anonymous_args = 0
+ 445 0000 80B5     		push	{r7, lr}
+ 446 0002 82B0     		sub	sp, sp, #8
+ 447 0004 00AF     		add	r7, sp, #0
+ 448 0006 7860     		str	r0, [r7, #4]
+ 449 0008 3960     		str	r1, [r7]
+ 450 000a FFF7FEFF 		bl	osalSysLock
+ 451 000e 3968     		ldr	r1, [r7]
+ 452 0010 7868     		ldr	r0, [r7, #4]
+ 453 0012 FFF7FEFF 		bl	gptStartOneShotI
+ 454 0016 FFF7FEFF 		bl	osalSysUnlock
+ 455 001a 00BF     		nop
+ 456 001c 0837     		adds	r7, r7, #8
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s 			page 9
+
+
+ 457 001e BD46     		mov	sp, r7
+ 458              		@ sp needed
+ 459 0020 80BD     		pop	{r7, pc}
+ 460              		.size	gptStartOneShot, .-gptStartOneShot
+ 461              		.section	.text.gptStartOneShotI,"ax",%progbits
+ 462              		.align	1
+ 463              		.global	gptStartOneShotI
+ 464              		.syntax unified
+ 465              		.thumb
+ 466              		.thumb_func
+ 467              		.fpu fpv4-sp-d16
+ 468              		.type	gptStartOneShotI, %function
+ 469              	gptStartOneShotI:
+ 470              		@ args = 0, pretend = 0, frame = 8
+ 471              		@ frame_needed = 1, uses_anonymous_args = 0
+ 472 0000 80B5     		push	{r7, lr}
+ 473 0002 82B0     		sub	sp, sp, #8
+ 474 0004 00AF     		add	r7, sp, #0
+ 475 0006 7860     		str	r0, [r7, #4]
+ 476 0008 3960     		str	r1, [r7]
+ 477 000a FFF7FEFF 		bl	chDbgCheckClassI
+ 478 000e 7B68     		ldr	r3, [r7, #4]
+ 479 0010 002B     		cmp	r3, #0
+ 480 0012 02D1     		bne	.L40
+ 481 0014 0E48     		ldr	r0, .L42
+ 482 0016 FFF7FEFF 		bl	chSysHalt
+ 483              	.L40:
+ 484 001a 7B68     		ldr	r3, [r7, #4]
+ 485 001c 5B68     		ldr	r3, [r3, #4]
+ 486 001e 5B68     		ldr	r3, [r3, #4]
+ 487 0020 002B     		cmp	r3, #0
+ 488 0022 02D1     		bne	.L41
+ 489 0024 0A48     		ldr	r0, .L42
+ 490 0026 FFF7FEFF 		bl	chSysHalt
+ 491              	.L41:
+ 492 002a 7B68     		ldr	r3, [r7, #4]
+ 493 002c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 494 002e 022B     		cmp	r3, #2
+ 495 0030 02D0     		beq	.L39
+ 496 0032 0748     		ldr	r0, .L42
+ 497 0034 FFF7FEFF 		bl	chSysHalt
+ 498              	.L39:
+ 499 0038 7B68     		ldr	r3, [r7, #4]
+ 500 003a 0422     		movs	r2, #4
+ 501 003c 1A70     		strb	r2, [r3]
+ 502 003e 3968     		ldr	r1, [r7]
+ 503 0040 7868     		ldr	r0, [r7, #4]
+ 504 0042 FFF7FEFF 		bl	gpt_lld_start_timer
+ 505 0046 00BF     		nop
+ 506 0048 0837     		adds	r7, r7, #8
+ 507 004a BD46     		mov	sp, r7
+ 508              		@ sp needed
+ 509 004c 80BD     		pop	{r7, pc}
+ 510              	.L43:
+ 511 004e 00BF     		.align	2
+ 512              	.L42:
+ 513 0050 00000000 		.word	__func__.9875
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s 			page 10
+
+
+ 514              		.size	gptStartOneShotI, .-gptStartOneShotI
+ 515              		.section	.text.gptStopTimer,"ax",%progbits
+ 516              		.align	1
+ 517              		.global	gptStopTimer
+ 518              		.syntax unified
+ 519              		.thumb
+ 520              		.thumb_func
+ 521              		.fpu fpv4-sp-d16
+ 522              		.type	gptStopTimer, %function
+ 523              	gptStopTimer:
+ 524              		@ args = 0, pretend = 0, frame = 8
+ 525              		@ frame_needed = 1, uses_anonymous_args = 0
+ 526 0000 80B5     		push	{r7, lr}
+ 527 0002 82B0     		sub	sp, sp, #8
+ 528 0004 00AF     		add	r7, sp, #0
+ 529 0006 7860     		str	r0, [r7, #4]
+ 530 0008 FFF7FEFF 		bl	osalSysLock
+ 531 000c 7868     		ldr	r0, [r7, #4]
+ 532 000e FFF7FEFF 		bl	gptStopTimerI
+ 533 0012 FFF7FEFF 		bl	osalSysUnlock
+ 534 0016 00BF     		nop
+ 535 0018 0837     		adds	r7, r7, #8
+ 536 001a BD46     		mov	sp, r7
+ 537              		@ sp needed
+ 538 001c 80BD     		pop	{r7, pc}
+ 539              		.size	gptStopTimer, .-gptStopTimer
+ 540              		.section	.text.gptStopTimerI,"ax",%progbits
+ 541              		.align	1
+ 542              		.global	gptStopTimerI
+ 543              		.syntax unified
+ 544              		.thumb
+ 545              		.thumb_func
+ 546              		.fpu fpv4-sp-d16
+ 547              		.type	gptStopTimerI, %function
+ 548              	gptStopTimerI:
+ 549              		@ args = 0, pretend = 0, frame = 8
+ 550              		@ frame_needed = 1, uses_anonymous_args = 0
+ 551 0000 80B5     		push	{r7, lr}
+ 552 0002 82B0     		sub	sp, sp, #8
+ 553 0004 00AF     		add	r7, sp, #0
+ 554 0006 7860     		str	r0, [r7, #4]
+ 555 0008 FFF7FEFF 		bl	chDbgCheckClassI
+ 556 000c 7B68     		ldr	r3, [r7, #4]
+ 557 000e 002B     		cmp	r3, #0
+ 558 0010 02D1     		bne	.L48
+ 559 0012 0E48     		ldr	r0, .L49
+ 560 0014 FFF7FEFF 		bl	chSysHalt
+ 561              	.L48:
+ 562 0018 7B68     		ldr	r3, [r7, #4]
+ 563 001a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 564 001c 022B     		cmp	r3, #2
+ 565 001e 0AD0     		beq	.L47
+ 566 0020 7B68     		ldr	r3, [r7, #4]
+ 567 0022 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 568 0024 032B     		cmp	r3, #3
+ 569 0026 06D0     		beq	.L47
+ 570 0028 7B68     		ldr	r3, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s 			page 11
+
+
+ 571 002a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 572 002c 042B     		cmp	r3, #4
+ 573 002e 02D0     		beq	.L47
+ 574 0030 0648     		ldr	r0, .L49
+ 575 0032 FFF7FEFF 		bl	chSysHalt
+ 576              	.L47:
+ 577 0036 7B68     		ldr	r3, [r7, #4]
+ 578 0038 0222     		movs	r2, #2
+ 579 003a 1A70     		strb	r2, [r3]
+ 580 003c 7868     		ldr	r0, [r7, #4]
+ 581 003e FFF7FEFF 		bl	gpt_lld_stop_timer
+ 582 0042 00BF     		nop
+ 583 0044 0837     		adds	r7, r7, #8
+ 584 0046 BD46     		mov	sp, r7
+ 585              		@ sp needed
+ 586 0048 80BD     		pop	{r7, pc}
+ 587              	.L50:
+ 588 004a 00BF     		.align	2
+ 589              	.L49:
+ 590 004c 00000000 		.word	__func__.9882
+ 591              		.size	gptStopTimerI, .-gptStopTimerI
+ 592              		.section	.text.gptPolledDelay,"ax",%progbits
+ 593              		.align	1
+ 594              		.global	gptPolledDelay
+ 595              		.syntax unified
+ 596              		.thumb
+ 597              		.thumb_func
+ 598              		.fpu fpv4-sp-d16
+ 599              		.type	gptPolledDelay, %function
+ 600              	gptPolledDelay:
+ 601              		@ args = 0, pretend = 0, frame = 8
+ 602              		@ frame_needed = 1, uses_anonymous_args = 0
+ 603 0000 80B5     		push	{r7, lr}
+ 604 0002 82B0     		sub	sp, sp, #8
+ 605 0004 00AF     		add	r7, sp, #0
+ 606 0006 7860     		str	r0, [r7, #4]
+ 607 0008 3960     		str	r1, [r7]
+ 608 000a 7B68     		ldr	r3, [r7, #4]
+ 609 000c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 610 000e 022B     		cmp	r3, #2
+ 611 0010 02D0     		beq	.L52
+ 612 0012 0848     		ldr	r0, .L53
+ 613 0014 FFF7FEFF 		bl	chSysHalt
+ 614              	.L52:
+ 615 0018 7B68     		ldr	r3, [r7, #4]
+ 616 001a 0422     		movs	r2, #4
+ 617 001c 1A70     		strb	r2, [r3]
+ 618 001e 3968     		ldr	r1, [r7]
+ 619 0020 7868     		ldr	r0, [r7, #4]
+ 620 0022 FFF7FEFF 		bl	gpt_lld_polled_delay
+ 621 0026 7B68     		ldr	r3, [r7, #4]
+ 622 0028 0222     		movs	r2, #2
+ 623 002a 1A70     		strb	r2, [r3]
+ 624 002c 00BF     		nop
+ 625 002e 0837     		adds	r7, r7, #8
+ 626 0030 BD46     		mov	sp, r7
+ 627              		@ sp needed
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s 			page 12
+
+
+ 628 0032 80BD     		pop	{r7, pc}
+ 629              	.L54:
+ 630              		.align	2
+ 631              	.L53:
+ 632 0034 00000000 		.word	__func__.9887
+ 633              		.size	gptPolledDelay, .-gptPolledDelay
+ 634              		.section	.rodata.__func__.9848,"a",%progbits
+ 635              		.align	2
+ 636              		.type	__func__.9848, %object
+ 637              		.size	__func__.9848, 9
+ 638              	__func__.9848:
+ 639 0000 67707453 		.ascii	"gptStart\000"
+ 639      74617274 
+ 639      00
+ 640              		.section	.rodata.__func__.7153,"a",%progbits
+ 641              		.align	2
+ 642              		.type	__func__.7153, %object
+ 643              		.size	__func__.7153, 12
+ 644              	__func__.7153:
+ 645 0000 63685379 		.ascii	"chSysUnlock\000"
+ 645      73556E6C 
+ 645      6F636B00 
+ 646              		.section	.rodata.__func__.9852,"a",%progbits
+ 647              		.align	2
+ 648              		.type	__func__.9852, %object
+ 649              		.size	__func__.9852, 8
+ 650              	__func__.9852:
+ 651 0000 67707453 		.ascii	"gptStop\000"
+ 651      746F7000 
+ 652              		.section	.rodata.__func__.9857,"a",%progbits
+ 653              		.align	2
+ 654              		.type	__func__.9857, %object
+ 655              		.size	__func__.9857, 18
+ 656              	__func__.9857:
+ 657 0000 67707443 		.ascii	"gptChangeInterval\000"
+ 657      68616E67 
+ 657      65496E74 
+ 657      65727661 
+ 657      6C00
+ 658              		.section	.rodata.__func__.9866,"a",%progbits
+ 659              		.align	2
+ 660              		.type	__func__.9866, %object
+ 661              		.size	__func__.9866, 20
+ 662              	__func__.9866:
+ 663 0000 67707453 		.ascii	"gptStartContinuousI\000"
+ 663      74617274 
+ 663      436F6E74 
+ 663      696E756F 
+ 663      75734900 
+ 664              		.section	.rodata.__func__.9875,"a",%progbits
+ 665              		.align	2
+ 666              		.type	__func__.9875, %object
+ 667              		.size	__func__.9875, 17
+ 668              	__func__.9875:
+ 669 0000 67707453 		.ascii	"gptStartOneShotI\000"
+ 669      74617274 
+ 669      4F6E6553 
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s 			page 13
+
+
+ 669      686F7449 
+ 669      00
+ 670              		.section	.rodata.__func__.9882,"a",%progbits
+ 671              		.align	2
+ 672              		.type	__func__.9882, %object
+ 673              		.size	__func__.9882, 14
+ 674              	__func__.9882:
+ 675 0000 67707453 		.ascii	"gptStopTimerI\000"
+ 675      746F7054 
+ 675      696D6572 
+ 675      4900
+ 676              		.section	.rodata.__func__.9887,"a",%progbits
+ 677              		.align	2
+ 678              		.type	__func__.9887, %object
+ 679              		.size	__func__.9887, 15
+ 680              	__func__.9887:
+ 681 0000 67707450 		.ascii	"gptPolledDelay\000"
+ 681      6F6C6C65 
+ 681      6444656C 
+ 681      617900
+ 682              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s 			page 14
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 gpt.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:15     .text.port_lock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:21     .text.port_lock:0000000000000000 port_lock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:45     .text.port_unlock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:51     .text.port_unlock:0000000000000000 port_unlock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:75     .text.chSysLock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:81     .text.chSysLock:0000000000000000 chSysLock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:93     .text.chSysUnlock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:99     .text.chSysUnlock:0000000000000000 chSysUnlock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:128    .text.chSysUnlock:0000000000000034 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:644    .rodata.__func__.7153:0000000000000000 __func__.7153
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:132    .text.osalSysLock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:138    .text.osalSysLock:0000000000000000 osalSysLock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:148    .text.osalSysUnlock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:154    .text.osalSysUnlock:0000000000000000 osalSysUnlock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:164    .text.gptInit:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:171    .text.gptInit:0000000000000000 gptInit
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:181    .text.gptObjectInit:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:188    .text.gptObjectInit:0000000000000000 gptObjectInit
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:210    .text.gptStart:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:217    .text.gptStart:0000000000000000 gptStart
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:264    .text.gptStart:0000000000000054 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:638    .rodata.__func__.9848:0000000000000000 __func__.9848
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:267    .text.gptStop:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:274    .text.gptStop:0000000000000000 gptStop
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:313    .text.gptStop:0000000000000048 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:650    .rodata.__func__.9852:0000000000000000 __func__.9852
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:316    .text.gptChangeInterval:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:323    .text.gptChangeInterval:0000000000000000 gptChangeInterval
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:359    .text.gptChangeInterval:0000000000000040 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:656    .rodata.__func__.9857:0000000000000000 __func__.9857
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:362    .text.gptStartContinuous:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:369    .text.gptStartContinuous:0000000000000000 gptStartContinuous
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:396    .text.gptStartContinuousI:0000000000000000 gptStartContinuousI
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:389    .text.gptStartContinuousI:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:432    .text.gptStartContinuousI:0000000000000040 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:662    .rodata.__func__.9866:0000000000000000 __func__.9866
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:435    .text.gptStartOneShot:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:442    .text.gptStartOneShot:0000000000000000 gptStartOneShot
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:469    .text.gptStartOneShotI:0000000000000000 gptStartOneShotI
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:462    .text.gptStartOneShotI:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:513    .text.gptStartOneShotI:0000000000000050 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:668    .rodata.__func__.9875:0000000000000000 __func__.9875
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:516    .text.gptStopTimer:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:523    .text.gptStopTimer:0000000000000000 gptStopTimer
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:548    .text.gptStopTimerI:0000000000000000 gptStopTimerI
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:541    .text.gptStopTimerI:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:590    .text.gptStopTimerI:000000000000004c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:674    .rodata.__func__.9882:0000000000000000 __func__.9882
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:593    .text.gptPolledDelay:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:600    .text.gptPolledDelay:0000000000000000 gptPolledDelay
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:632    .text.gptPolledDelay:0000000000000034 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:680    .rodata.__func__.9887:0000000000000000 __func__.9887
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:635    .rodata.__func__.9848:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:641    .rodata.__func__.7153:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:647    .rodata.__func__.9852:0000000000000000 $d
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s 			page 15
+
+
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:653    .rodata.__func__.9857:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:659    .rodata.__func__.9866:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:665    .rodata.__func__.9875:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:671    .rodata.__func__.9882:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccOoGxhA.s:677    .rodata.__func__.9887:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+_stats_start_measure_crit_thd
+_dbg_check_lock
+_dbg_check_unlock
+_stats_stop_measure_crit_thd
+chSysHalt
+ch
+gpt_lld_init
+gpt_lld_start
+gpt_lld_stop
+chDbgCheckClassI
+gpt_lld_start_timer
+gpt_lld_stop_timer
+gpt_lld_polled_delay

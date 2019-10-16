@@ -19,10 +19,6 @@ Robot::Robot() {
 	/* Nothing to do */
 }
 
-Robot::~Robot() {
-	/* Nothing to do */
-}
-
 void Robot::setRightMotorSpeed(int speed) {
 	right_motor_set_speed(speed);
 }

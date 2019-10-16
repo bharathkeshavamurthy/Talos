@@ -1,0 +1,492 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"vl53l0x_i2c_platform.c"
+  14              		.section	.text.VL53L0X_write_multi,"ax",%progbits
+  15              		.align	1
+  16              		.global	VL53L0X_write_multi
+  17              		.syntax unified
+  18              		.thumb
+  19              		.thumb_func
+  20              		.fpu fpv4-sp-d16
+  21              		.type	VL53L0X_write_multi, %function
+  22              	VL53L0X_write_multi:
+  23              		@ args = 0, pretend = 0, frame = 64
+  24              		@ frame_needed = 1, uses_anonymous_args = 0
+  25 0000 80B5     		push	{r7, lr}
+  26 0002 94B0     		sub	sp, sp, #80
+  27 0004 04AF     		add	r7, sp, #16
+  28 0006 BA60     		str	r2, [r7, #8]
+  29 0008 7B60     		str	r3, [r7, #4]
+  30 000a 0346     		mov	r3, r0
+  31 000c FB73     		strb	r3, [r7, #15]
+  32 000e 0B46     		mov	r3, r1
+  33 0010 BB73     		strb	r3, [r7, #14]
+  34 0012 3223     		movs	r3, #50
+  35 0014 FB63     		str	r3, [r7, #60]
+  36 0016 0023     		movs	r3, #0
+  37 0018 BB63     		str	r3, [r7, #56]
+  38 001a 7B68     		ldr	r3, [r7, #4]
+  39 001c DBB2     		uxtb	r3, r3
+  40 001e 0133     		adds	r3, r3, #1
+  41 0020 87F83730 		strb	r3, [r7, #55]
+  42 0024 BB7B     		ldrb	r3, [r7, #14]
+  43 0026 3B75     		strb	r3, [r7, #20]
+  44 0028 0DE0     		b	.L2
+  45              	.L3:
+  46 002a 7B68     		ldr	r3, [r7, #4]
+  47 002c 013B     		subs	r3, r3, #1
+  48 002e BA68     		ldr	r2, [r7, #8]
+  49 0030 1344     		add	r3, r3, r2
+  50 0032 1978     		ldrb	r1, [r3]	@ zero_extendqisi2
+  51 0034 07F11402 		add	r2, r7, #20
+  52 0038 7B68     		ldr	r3, [r7, #4]
+  53 003a 1344     		add	r3, r3, r2
+  54 003c 0A46     		mov	r2, r1
+  55 003e 1A70     		strb	r2, [r3]
+  56 0040 7B68     		ldr	r3, [r7, #4]
+  57 0042 013B     		subs	r3, r3, #1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s 			page 2
+
+
+  58 0044 7B60     		str	r3, [r7, #4]
+  59              	.L2:
+  60 0046 7B68     		ldr	r3, [r7, #4]
+  61 0048 002B     		cmp	r3, #0
+  62 004a EED1     		bne	.L3
+  63 004c 1748     		ldr	r0, .L8
+  64 004e FFF7FEFF 		bl	i2cAcquireBus
+  65 0052 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+  66 0054 5B08     		lsrs	r3, r3, #1
+  67 0056 DBB2     		uxtb	r3, r3
+  68 0058 99B2     		uxth	r1, r3
+  69 005a 97F83700 		ldrb	r0, [r7, #55]	@ zero_extendqisi2
+  70 005e 07F11402 		add	r2, r7, #20
+  71 0062 FB6B     		ldr	r3, [r7, #60]
+  72 0064 0293     		str	r3, [sp, #8]
+  73 0066 0023     		movs	r3, #0
+  74 0068 0193     		str	r3, [sp, #4]
+  75 006a 07F11403 		add	r3, r7, #20
+  76 006e 0093     		str	r3, [sp]
+  77 0070 0346     		mov	r3, r0
+  78 0072 0E48     		ldr	r0, .L8
+  79 0074 FFF7FEFF 		bl	i2cMasterTransmitTimeout
+  80 0078 B863     		str	r0, [r7, #56]
+  81 007a BB6B     		ldr	r3, [r7, #56]
+  82 007c 002B     		cmp	r3, #0
+  83 007e 0DD0     		beq	.L4
+  84 0080 0A4B     		ldr	r3, .L8
+  85 0082 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  86 0084 052B     		cmp	r3, #5
+  87 0086 03D1     		bne	.L5
+  88 0088 FFF7FEFF 		bl	i2c_stop
+  89 008c FFF7FEFF 		bl	i2c_start
+  90              	.L5:
+  91 0090 0648     		ldr	r0, .L8
+  92 0092 FFF7FEFF 		bl	i2cReleaseBus
+  93 0096 6FF01303 		mvn	r3, #19
+  94 009a 03E0     		b	.L7
+  95              	.L4:
+  96 009c 0348     		ldr	r0, .L8
+  97 009e FFF7FEFF 		bl	i2cReleaseBus
+  98 00a2 0023     		movs	r3, #0
+  99              	.L7:
+ 100 00a4 1846     		mov	r0, r3
+ 101 00a6 4037     		adds	r7, r7, #64
+ 102 00a8 BD46     		mov	sp, r7
+ 103              		@ sp needed
+ 104 00aa 80BD     		pop	{r7, pc}
+ 105              	.L9:
+ 106              		.align	2
+ 107              	.L8:
+ 108 00ac 00000000 		.word	I2CD1
+ 109              		.size	VL53L0X_write_multi, .-VL53L0X_write_multi
+ 110              		.section	.text.VL53L0X_read_multi,"ax",%progbits
+ 111              		.align	1
+ 112              		.global	VL53L0X_read_multi
+ 113              		.syntax unified
+ 114              		.thumb
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s 			page 3
+
+
+ 115              		.thumb_func
+ 116              		.fpu fpv4-sp-d16
+ 117              		.type	VL53L0X_read_multi, %function
+ 118              	VL53L0X_read_multi:
+ 119              		@ args = 0, pretend = 0, frame = 32
+ 120              		@ frame_needed = 1, uses_anonymous_args = 0
+ 121 0000 80B5     		push	{r7, lr}
+ 122 0002 8CB0     		sub	sp, sp, #48
+ 123 0004 04AF     		add	r7, sp, #16
+ 124 0006 BA60     		str	r2, [r7, #8]
+ 125 0008 7B60     		str	r3, [r7, #4]
+ 126 000a 0346     		mov	r3, r0
+ 127 000c FB73     		strb	r3, [r7, #15]
+ 128 000e 0B46     		mov	r3, r1
+ 129 0010 BB73     		strb	r3, [r7, #14]
+ 130 0012 3223     		movs	r3, #50
+ 131 0014 FB61     		str	r3, [r7, #28]
+ 132 0016 0023     		movs	r3, #0
+ 133 0018 BB61     		str	r3, [r7, #24]
+ 134 001a BB7B     		ldrb	r3, [r7, #14]
+ 135 001c 3B75     		strb	r3, [r7, #20]
+ 136 001e 1648     		ldr	r0, .L15
+ 137 0020 FFF7FEFF 		bl	i2cAcquireBus
+ 138 0024 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 139 0026 5B08     		lsrs	r3, r3, #1
+ 140 0028 DBB2     		uxtb	r3, r3
+ 141 002a 99B2     		uxth	r1, r3
+ 142 002c 07F11402 		add	r2, r7, #20
+ 143 0030 FB69     		ldr	r3, [r7, #28]
+ 144 0032 0293     		str	r3, [sp, #8]
+ 145 0034 7B68     		ldr	r3, [r7, #4]
+ 146 0036 0193     		str	r3, [sp, #4]
+ 147 0038 BB68     		ldr	r3, [r7, #8]
+ 148 003a 0093     		str	r3, [sp]
+ 149 003c 0123     		movs	r3, #1
+ 150 003e 0E48     		ldr	r0, .L15
+ 151 0040 FFF7FEFF 		bl	i2cMasterTransmitTimeout
+ 152 0044 B861     		str	r0, [r7, #24]
+ 153 0046 BB69     		ldr	r3, [r7, #24]
+ 154 0048 002B     		cmp	r3, #0
+ 155 004a 0DD0     		beq	.L11
+ 156 004c 0A4B     		ldr	r3, .L15
+ 157 004e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 158 0050 052B     		cmp	r3, #5
+ 159 0052 03D1     		bne	.L12
+ 160 0054 FFF7FEFF 		bl	i2c_stop
+ 161 0058 FFF7FEFF 		bl	i2c_start
+ 162              	.L12:
+ 163 005c 0648     		ldr	r0, .L15
+ 164 005e FFF7FEFF 		bl	i2cReleaseBus
+ 165 0062 6FF01303 		mvn	r3, #19
+ 166 0066 03E0     		b	.L14
+ 167              	.L11:
+ 168 0068 0348     		ldr	r0, .L15
+ 169 006a FFF7FEFF 		bl	i2cReleaseBus
+ 170 006e 0023     		movs	r3, #0
+ 171              	.L14:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s 			page 4
+
+
+ 172 0070 1846     		mov	r0, r3
+ 173 0072 2037     		adds	r7, r7, #32
+ 174 0074 BD46     		mov	sp, r7
+ 175              		@ sp needed
+ 176 0076 80BD     		pop	{r7, pc}
+ 177              	.L16:
+ 178              		.align	2
+ 179              	.L15:
+ 180 0078 00000000 		.word	I2CD1
+ 181              		.size	VL53L0X_read_multi, .-VL53L0X_read_multi
+ 182              		.section	.text.VL53L0X_write_byte,"ax",%progbits
+ 183              		.align	1
+ 184              		.global	VL53L0X_write_byte
+ 185              		.syntax unified
+ 186              		.thumb
+ 187              		.thumb_func
+ 188              		.fpu fpv4-sp-d16
+ 189              		.type	VL53L0X_write_byte, %function
+ 190              	VL53L0X_write_byte:
+ 191              		@ args = 0, pretend = 0, frame = 8
+ 192              		@ frame_needed = 1, uses_anonymous_args = 0
+ 193 0000 80B5     		push	{r7, lr}
+ 194 0002 82B0     		sub	sp, sp, #8
+ 195 0004 00AF     		add	r7, sp, #0
+ 196 0006 0346     		mov	r3, r0
+ 197 0008 FB71     		strb	r3, [r7, #7]
+ 198 000a 0B46     		mov	r3, r1
+ 199 000c BB71     		strb	r3, [r7, #6]
+ 200 000e 1346     		mov	r3, r2
+ 201 0010 7B71     		strb	r3, [r7, #5]
+ 202 0012 7A1D     		adds	r2, r7, #5
+ 203 0014 B979     		ldrb	r1, [r7, #6]	@ zero_extendqisi2
+ 204 0016 F879     		ldrb	r0, [r7, #7]	@ zero_extendqisi2
+ 205 0018 0123     		movs	r3, #1
+ 206 001a FFF7FEFF 		bl	VL53L0X_write_multi
+ 207 001e 0346     		mov	r3, r0
+ 208 0020 1846     		mov	r0, r3
+ 209 0022 0837     		adds	r7, r7, #8
+ 210 0024 BD46     		mov	sp, r7
+ 211              		@ sp needed
+ 212 0026 80BD     		pop	{r7, pc}
+ 213              		.size	VL53L0X_write_byte, .-VL53L0X_write_byte
+ 214              		.section	.text.VL53L0X_write_word,"ax",%progbits
+ 215              		.align	1
+ 216              		.global	VL53L0X_write_word
+ 217              		.syntax unified
+ 218              		.thumb
+ 219              		.thumb_func
+ 220              		.fpu fpv4-sp-d16
+ 221              		.type	VL53L0X_write_word, %function
+ 222              	VL53L0X_write_word:
+ 223              		@ args = 0, pretend = 0, frame = 16
+ 224              		@ frame_needed = 1, uses_anonymous_args = 0
+ 225 0000 80B5     		push	{r7, lr}
+ 226 0002 84B0     		sub	sp, sp, #16
+ 227 0004 00AF     		add	r7, sp, #0
+ 228 0006 0346     		mov	r3, r0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s 			page 5
+
+
+ 229 0008 FB71     		strb	r3, [r7, #7]
+ 230 000a 0B46     		mov	r3, r1
+ 231 000c BB71     		strb	r3, [r7, #6]
+ 232 000e 1346     		mov	r3, r2	@ movhi
+ 233 0010 BB80     		strh	r3, [r7, #4]	@ movhi
+ 234 0012 BB88     		ldrh	r3, [r7, #4]	@ movhi
+ 235 0014 DBB2     		uxtb	r3, r3
+ 236 0016 7B73     		strb	r3, [r7, #13]
+ 237 0018 BB88     		ldrh	r3, [r7, #4]
+ 238 001a 1B0A     		lsrs	r3, r3, #8
+ 239 001c 9BB2     		uxth	r3, r3
+ 240 001e DBB2     		uxtb	r3, r3
+ 241 0020 3B73     		strb	r3, [r7, #12]
+ 242 0022 07F10C02 		add	r2, r7, #12
+ 243 0026 B979     		ldrb	r1, [r7, #6]	@ zero_extendqisi2
+ 244 0028 F879     		ldrb	r0, [r7, #7]	@ zero_extendqisi2
+ 245 002a 0223     		movs	r3, #2
+ 246 002c FFF7FEFF 		bl	VL53L0X_write_multi
+ 247 0030 0346     		mov	r3, r0
+ 248 0032 1846     		mov	r0, r3
+ 249 0034 1037     		adds	r7, r7, #16
+ 250 0036 BD46     		mov	sp, r7
+ 251              		@ sp needed
+ 252 0038 80BD     		pop	{r7, pc}
+ 253              		.size	VL53L0X_write_word, .-VL53L0X_write_word
+ 254              		.section	.text.VL53L0X_write_dword,"ax",%progbits
+ 255              		.align	1
+ 256              		.global	VL53L0X_write_dword
+ 257              		.syntax unified
+ 258              		.thumb
+ 259              		.thumb_func
+ 260              		.fpu fpv4-sp-d16
+ 261              		.type	VL53L0X_write_dword, %function
+ 262              	VL53L0X_write_dword:
+ 263              		@ args = 0, pretend = 0, frame = 16
+ 264              		@ frame_needed = 1, uses_anonymous_args = 0
+ 265 0000 80B5     		push	{r7, lr}
+ 266 0002 84B0     		sub	sp, sp, #16
+ 267 0004 00AF     		add	r7, sp, #0
+ 268 0006 0346     		mov	r3, r0
+ 269 0008 3A60     		str	r2, [r7]
+ 270 000a FB71     		strb	r3, [r7, #7]
+ 271 000c 0B46     		mov	r3, r1
+ 272 000e BB71     		strb	r3, [r7, #6]
+ 273 0010 3B68     		ldr	r3, [r7]
+ 274 0012 DBB2     		uxtb	r3, r3
+ 275 0014 FB73     		strb	r3, [r7, #15]
+ 276 0016 3B68     		ldr	r3, [r7]
+ 277 0018 1B0A     		lsrs	r3, r3, #8
+ 278 001a DBB2     		uxtb	r3, r3
+ 279 001c BB73     		strb	r3, [r7, #14]
+ 280 001e 3B68     		ldr	r3, [r7]
+ 281 0020 1B0C     		lsrs	r3, r3, #16
+ 282 0022 DBB2     		uxtb	r3, r3
+ 283 0024 7B73     		strb	r3, [r7, #13]
+ 284 0026 3B68     		ldr	r3, [r7]
+ 285 0028 1B0E     		lsrs	r3, r3, #24
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s 			page 6
+
+
+ 286 002a DBB2     		uxtb	r3, r3
+ 287 002c 3B73     		strb	r3, [r7, #12]
+ 288 002e 07F10C02 		add	r2, r7, #12
+ 289 0032 B979     		ldrb	r1, [r7, #6]	@ zero_extendqisi2
+ 290 0034 F879     		ldrb	r0, [r7, #7]	@ zero_extendqisi2
+ 291 0036 0423     		movs	r3, #4
+ 292 0038 FFF7FEFF 		bl	VL53L0X_write_multi
+ 293 003c 0346     		mov	r3, r0
+ 294 003e 1846     		mov	r0, r3
+ 295 0040 1037     		adds	r7, r7, #16
+ 296 0042 BD46     		mov	sp, r7
+ 297              		@ sp needed
+ 298 0044 80BD     		pop	{r7, pc}
+ 299              		.size	VL53L0X_write_dword, .-VL53L0X_write_dword
+ 300              		.section	.text.VL53L0X_read_byte,"ax",%progbits
+ 301              		.align	1
+ 302              		.global	VL53L0X_read_byte
+ 303              		.syntax unified
+ 304              		.thumb
+ 305              		.thumb_func
+ 306              		.fpu fpv4-sp-d16
+ 307              		.type	VL53L0X_read_byte, %function
+ 308              	VL53L0X_read_byte:
+ 309              		@ args = 0, pretend = 0, frame = 8
+ 310              		@ frame_needed = 1, uses_anonymous_args = 0
+ 311 0000 80B5     		push	{r7, lr}
+ 312 0002 82B0     		sub	sp, sp, #8
+ 313 0004 00AF     		add	r7, sp, #0
+ 314 0006 0346     		mov	r3, r0
+ 315 0008 3A60     		str	r2, [r7]
+ 316 000a FB71     		strb	r3, [r7, #7]
+ 317 000c 0B46     		mov	r3, r1
+ 318 000e BB71     		strb	r3, [r7, #6]
+ 319 0010 B979     		ldrb	r1, [r7, #6]	@ zero_extendqisi2
+ 320 0012 F879     		ldrb	r0, [r7, #7]	@ zero_extendqisi2
+ 321 0014 0123     		movs	r3, #1
+ 322 0016 3A68     		ldr	r2, [r7]
+ 323 0018 FFF7FEFF 		bl	VL53L0X_read_multi
+ 324 001c 0346     		mov	r3, r0
+ 325 001e 1846     		mov	r0, r3
+ 326 0020 0837     		adds	r7, r7, #8
+ 327 0022 BD46     		mov	sp, r7
+ 328              		@ sp needed
+ 329 0024 80BD     		pop	{r7, pc}
+ 330              		.size	VL53L0X_read_byte, .-VL53L0X_read_byte
+ 331              		.section	.text.VL53L0X_read_word,"ax",%progbits
+ 332              		.align	1
+ 333              		.global	VL53L0X_read_word
+ 334              		.syntax unified
+ 335              		.thumb
+ 336              		.thumb_func
+ 337              		.fpu fpv4-sp-d16
+ 338              		.type	VL53L0X_read_word, %function
+ 339              	VL53L0X_read_word:
+ 340              		@ args = 0, pretend = 0, frame = 16
+ 341              		@ frame_needed = 1, uses_anonymous_args = 0
+ 342 0000 80B5     		push	{r7, lr}
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s 			page 7
+
+
+ 343 0002 84B0     		sub	sp, sp, #16
+ 344 0004 00AF     		add	r7, sp, #0
+ 345 0006 0346     		mov	r3, r0
+ 346 0008 3A60     		str	r2, [r7]
+ 347 000a FB71     		strb	r3, [r7, #7]
+ 348 000c 0B46     		mov	r3, r1
+ 349 000e BB71     		strb	r3, [r7, #6]
+ 350 0010 07F10802 		add	r2, r7, #8
+ 351 0014 B979     		ldrb	r1, [r7, #6]	@ zero_extendqisi2
+ 352 0016 F879     		ldrb	r0, [r7, #7]	@ zero_extendqisi2
+ 353 0018 0223     		movs	r3, #2
+ 354 001a FFF7FEFF 		bl	VL53L0X_read_multi
+ 355 001e F860     		str	r0, [r7, #12]
+ 356 0020 3B7A     		ldrb	r3, [r7, #8]	@ zero_extendqisi2
+ 357 0022 7B81     		strh	r3, [r7, #10]	@ movhi
+ 358 0024 7B89     		ldrh	r3, [r7, #10]	@ movhi
+ 359 0026 1B02     		lsls	r3, r3, #8
+ 360 0028 7B81     		strh	r3, [r7, #10]	@ movhi
+ 361 002a 7B7A     		ldrb	r3, [r7, #9]	@ zero_extendqisi2
+ 362 002c 9AB2     		uxth	r2, r3
+ 363 002e 7B89     		ldrh	r3, [r7, #10]	@ movhi
+ 364 0030 1343     		orrs	r3, r3, r2
+ 365 0032 7B81     		strh	r3, [r7, #10]	@ movhi
+ 366 0034 3B68     		ldr	r3, [r7]
+ 367 0036 7A89     		ldrh	r2, [r7, #10]	@ movhi
+ 368 0038 1A80     		strh	r2, [r3]	@ movhi
+ 369 003a FB68     		ldr	r3, [r7, #12]
+ 370 003c 1846     		mov	r0, r3
+ 371 003e 1037     		adds	r7, r7, #16
+ 372 0040 BD46     		mov	sp, r7
+ 373              		@ sp needed
+ 374 0042 80BD     		pop	{r7, pc}
+ 375              		.size	VL53L0X_read_word, .-VL53L0X_read_word
+ 376              		.section	.text.VL53L0X_read_dword,"ax",%progbits
+ 377              		.align	1
+ 378              		.global	VL53L0X_read_dword
+ 379              		.syntax unified
+ 380              		.thumb
+ 381              		.thumb_func
+ 382              		.fpu fpv4-sp-d16
+ 383              		.type	VL53L0X_read_dword, %function
+ 384              	VL53L0X_read_dword:
+ 385              		@ args = 0, pretend = 0, frame = 24
+ 386              		@ frame_needed = 1, uses_anonymous_args = 0
+ 387 0000 80B5     		push	{r7, lr}
+ 388 0002 86B0     		sub	sp, sp, #24
+ 389 0004 00AF     		add	r7, sp, #0
+ 390 0006 0346     		mov	r3, r0
+ 391 0008 3A60     		str	r2, [r7]
+ 392 000a FB71     		strb	r3, [r7, #7]
+ 393 000c 0B46     		mov	r3, r1
+ 394 000e BB71     		strb	r3, [r7, #6]
+ 395 0010 07F10C02 		add	r2, r7, #12
+ 396 0014 B979     		ldrb	r1, [r7, #6]	@ zero_extendqisi2
+ 397 0016 F879     		ldrb	r0, [r7, #7]	@ zero_extendqisi2
+ 398 0018 0423     		movs	r3, #4
+ 399 001a FFF7FEFF 		bl	VL53L0X_read_multi
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s 			page 8
+
+
+ 400 001e 7861     		str	r0, [r7, #20]
+ 401 0020 3B7B     		ldrb	r3, [r7, #12]	@ zero_extendqisi2
+ 402 0022 3B61     		str	r3, [r7, #16]
+ 403 0024 3B69     		ldr	r3, [r7, #16]
+ 404 0026 1B02     		lsls	r3, r3, #8
+ 405 0028 3B61     		str	r3, [r7, #16]
+ 406 002a 7B7B     		ldrb	r3, [r7, #13]	@ zero_extendqisi2
+ 407 002c 1A46     		mov	r2, r3
+ 408 002e 3B69     		ldr	r3, [r7, #16]
+ 409 0030 1343     		orrs	r3, r3, r2
+ 410 0032 3B61     		str	r3, [r7, #16]
+ 411 0034 3B69     		ldr	r3, [r7, #16]
+ 412 0036 1B02     		lsls	r3, r3, #8
+ 413 0038 3B61     		str	r3, [r7, #16]
+ 414 003a BB7B     		ldrb	r3, [r7, #14]	@ zero_extendqisi2
+ 415 003c 1A46     		mov	r2, r3
+ 416 003e 3B69     		ldr	r3, [r7, #16]
+ 417 0040 1343     		orrs	r3, r3, r2
+ 418 0042 3B61     		str	r3, [r7, #16]
+ 419 0044 3B69     		ldr	r3, [r7, #16]
+ 420 0046 1B02     		lsls	r3, r3, #8
+ 421 0048 3B61     		str	r3, [r7, #16]
+ 422 004a FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 423 004c 1A46     		mov	r2, r3
+ 424 004e 3B69     		ldr	r3, [r7, #16]
+ 425 0050 1343     		orrs	r3, r3, r2
+ 426 0052 3B61     		str	r3, [r7, #16]
+ 427 0054 3B68     		ldr	r3, [r7]
+ 428 0056 3A69     		ldr	r2, [r7, #16]
+ 429 0058 1A60     		str	r2, [r3]
+ 430 005a 7B69     		ldr	r3, [r7, #20]
+ 431 005c 1846     		mov	r0, r3
+ 432 005e 1837     		adds	r7, r7, #24
+ 433 0060 BD46     		mov	sp, r7
+ 434              		@ sp needed
+ 435 0062 80BD     		pop	{r7, pc}
+ 436              		.size	VL53L0X_read_dword, .-VL53L0X_read_dword
+ 437              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 vl53l0x_i2c_platform.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s:15     .text.VL53L0X_write_multi:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s:22     .text.VL53L0X_write_multi:0000000000000000 VL53L0X_write_multi
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s:108    .text.VL53L0X_write_multi:00000000000000ac $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s:111    .text.VL53L0X_read_multi:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s:118    .text.VL53L0X_read_multi:0000000000000000 VL53L0X_read_multi
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s:180    .text.VL53L0X_read_multi:0000000000000078 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s:183    .text.VL53L0X_write_byte:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s:190    .text.VL53L0X_write_byte:0000000000000000 VL53L0X_write_byte
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s:215    .text.VL53L0X_write_word:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s:222    .text.VL53L0X_write_word:0000000000000000 VL53L0X_write_word
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s:255    .text.VL53L0X_write_dword:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s:262    .text.VL53L0X_write_dword:0000000000000000 VL53L0X_write_dword
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s:301    .text.VL53L0X_read_byte:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s:308    .text.VL53L0X_read_byte:0000000000000000 VL53L0X_read_byte
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s:332    .text.VL53L0X_read_word:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s:339    .text.VL53L0X_read_word:0000000000000000 VL53L0X_read_word
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s:377    .text.VL53L0X_read_dword:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccsxbh4Y.s:384    .text.VL53L0X_read_dword:0000000000000000 VL53L0X_read_dword
+
+UNDEFINED SYMBOLS
+i2cAcquireBus
+i2cMasterTransmitTimeout
+i2c_stop
+i2c_start
+i2cReleaseBus
+I2CD1

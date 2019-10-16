@@ -1,0 +1,2728 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"parameter.c"
+  14              		.section	.text.port_lock,"ax",%progbits
+  15              		.align	1
+  16              		.syntax unified
+  17              		.thumb
+  18              		.thumb_func
+  19              		.fpu fpv4-sp-d16
+  20              		.type	port_lock, %function
+  21              	port_lock:
+  22              		@ args = 0, pretend = 0, frame = 8
+  23              		@ frame_needed = 1, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 80B4     		push	{r7}
+  26 0002 83B0     		sub	sp, sp, #12
+  27 0004 00AF     		add	r7, sp, #0
+  28 0006 2023     		movs	r3, #32
+  29 0008 7B60     		str	r3, [r7, #4]
+  30 000a 7B68     		ldr	r3, [r7, #4]
+  31              		.syntax unified
+  32              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  33 000c 83F31188 		MSR basepri, r3
+  34              	@ 0 "" 2
+  35              		.thumb
+  36              		.syntax unified
+  37 0010 00BF     		nop
+  38 0012 0C37     		adds	r7, r7, #12
+  39 0014 BD46     		mov	sp, r7
+  40              		@ sp needed
+  41 0016 5DF8047B 		ldr	r7, [sp], #4
+  42 001a 7047     		bx	lr
+  43              		.size	port_lock, .-port_lock
+  44              		.section	.text.port_unlock,"ax",%progbits
+  45              		.align	1
+  46              		.syntax unified
+  47              		.thumb
+  48              		.thumb_func
+  49              		.fpu fpv4-sp-d16
+  50              		.type	port_unlock, %function
+  51              	port_unlock:
+  52              		@ args = 0, pretend = 0, frame = 8
+  53              		@ frame_needed = 1, uses_anonymous_args = 0
+  54              		@ link register save eliminated.
+  55 0000 80B4     		push	{r7}
+  56 0002 83B0     		sub	sp, sp, #12
+  57 0004 00AF     		add	r7, sp, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 2
+
+
+  58 0006 0023     		movs	r3, #0
+  59 0008 7B60     		str	r3, [r7, #4]
+  60 000a 7B68     		ldr	r3, [r7, #4]
+  61              		.syntax unified
+  62              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  63 000c 83F31188 		MSR basepri, r3
+  64              	@ 0 "" 2
+  65              		.thumb
+  66              		.syntax unified
+  67 0010 00BF     		nop
+  68 0012 0C37     		adds	r7, r7, #12
+  69 0014 BD46     		mov	sp, r7
+  70              		@ sp needed
+  71 0016 5DF8047B 		ldr	r7, [sp], #4
+  72 001a 7047     		bx	lr
+  73              		.size	port_unlock, .-port_unlock
+  74              		.section	.text.chSysLock,"ax",%progbits
+  75              		.align	1
+  76              		.syntax unified
+  77              		.thumb
+  78              		.thumb_func
+  79              		.fpu fpv4-sp-d16
+  80              		.type	chSysLock, %function
+  81              	chSysLock:
+  82              		@ args = 0, pretend = 0, frame = 0
+  83              		@ frame_needed = 1, uses_anonymous_args = 0
+  84 0000 80B5     		push	{r7, lr}
+  85 0002 00AF     		add	r7, sp, #0
+  86 0004 FFF7FEFF 		bl	port_lock
+  87 0008 FFF7FEFF 		bl	_stats_start_measure_crit_thd
+  88 000c FFF7FEFF 		bl	_dbg_check_lock
+  89 0010 00BF     		nop
+  90 0012 80BD     		pop	{r7, pc}
+  91              		.size	chSysLock, .-chSysLock
+  92              		.section	.text.chSysUnlock,"ax",%progbits
+  93              		.align	1
+  94              		.syntax unified
+  95              		.thumb
+  96              		.thumb_func
+  97              		.fpu fpv4-sp-d16
+  98              		.type	chSysUnlock, %function
+  99              	chSysUnlock:
+ 100              		@ args = 0, pretend = 0, frame = 0
+ 101              		@ frame_needed = 1, uses_anonymous_args = 0
+ 102 0000 80B5     		push	{r7, lr}
+ 103 0002 00AF     		add	r7, sp, #0
+ 104 0004 FFF7FEFF 		bl	_dbg_check_unlock
+ 105 0008 FFF7FEFF 		bl	_stats_stop_measure_crit_thd
+ 106 000c 094B     		ldr	r3, .L6
+ 107 000e 1B68     		ldr	r3, [r3]
+ 108 0010 084A     		ldr	r2, .L6
+ 109 0012 9342     		cmp	r3, r2
+ 110 0014 0AD0     		beq	.L5
+ 111 0016 074B     		ldr	r3, .L6
+ 112 0018 9B69     		ldr	r3, [r3, #24]
+ 113 001a 9A68     		ldr	r2, [r3, #8]
+ 114 001c 054B     		ldr	r3, .L6
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 3
+
+
+ 115 001e 1B68     		ldr	r3, [r3]
+ 116 0020 9B68     		ldr	r3, [r3, #8]
+ 117 0022 9A42     		cmp	r2, r3
+ 118 0024 02D2     		bcs	.L5
+ 119 0026 0448     		ldr	r0, .L6+4
+ 120 0028 FFF7FEFF 		bl	chSysHalt
+ 121              	.L5:
+ 122 002c FFF7FEFF 		bl	port_unlock
+ 123 0030 00BF     		nop
+ 124 0032 80BD     		pop	{r7, pc}
+ 125              	.L7:
+ 126              		.align	2
+ 127              	.L6:
+ 128 0034 00000000 		.word	ch
+ 129 0038 00000000 		.word	__func__.8162
+ 130              		.size	chSysUnlock, .-chSysUnlock
+ 131              		.section	.text.id_split,"ax",%progbits
+ 132              		.align	1
+ 133              		.syntax unified
+ 134              		.thumb
+ 135              		.thumb_func
+ 136              		.fpu fpv4-sp-d16
+ 137              		.type	id_split, %function
+ 138              	id_split:
+ 139              		@ args = 0, pretend = 0, frame = 16
+ 140              		@ frame_needed = 1, uses_anonymous_args = 0
+ 141              		@ link register save eliminated.
+ 142 0000 80B4     		push	{r7}
+ 143 0002 85B0     		sub	sp, sp, #20
+ 144 0004 00AF     		add	r7, sp, #0
+ 145 0006 7860     		str	r0, [r7, #4]
+ 146 0008 3960     		str	r1, [r7]
+ 147 000a 0023     		movs	r3, #0
+ 148 000c FB60     		str	r3, [r7, #12]
+ 149 000e 0023     		movs	r3, #0
+ 150 0010 FB60     		str	r3, [r7, #12]
+ 151 0012 0AE0     		b	.L9
+ 152              	.L12:
+ 153 0014 FB68     		ldr	r3, [r7, #12]
+ 154 0016 7A68     		ldr	r2, [r7, #4]
+ 155 0018 1344     		add	r3, r3, r2
+ 156 001a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 157 001c 2F2B     		cmp	r3, #47
+ 158 001e 01D1     		bne	.L10
+ 159 0020 FB68     		ldr	r3, [r7, #12]
+ 160 0022 07E0     		b	.L11
+ 161              	.L10:
+ 162 0024 FB68     		ldr	r3, [r7, #12]
+ 163 0026 0133     		adds	r3, r3, #1
+ 164 0028 FB60     		str	r3, [r7, #12]
+ 165              	.L9:
+ 166 002a FA68     		ldr	r2, [r7, #12]
+ 167 002c 3B68     		ldr	r3, [r7]
+ 168 002e 9A42     		cmp	r2, r3
+ 169 0030 F0DB     		blt	.L12
+ 170 0032 3B68     		ldr	r3, [r7]
+ 171              	.L11:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 4
+
+
+ 172 0034 1846     		mov	r0, r3
+ 173 0036 1437     		adds	r7, r7, #20
+ 174 0038 BD46     		mov	sp, r7
+ 175              		@ sp needed
+ 176 003a 5DF8047B 		ldr	r7, [sp], #4
+ 177 003e 7047     		bx	lr
+ 178              		.size	id_split, .-id_split
+ 179              		.section	.text.get_subnamespace,"ax",%progbits
+ 180              		.align	1
+ 181              		.syntax unified
+ 182              		.thumb
+ 183              		.thumb_func
+ 184              		.fpu fpv4-sp-d16
+ 185              		.type	get_subnamespace, %function
+ 186              	get_subnamespace:
+ 187              		@ args = 0, pretend = 0, frame = 24
+ 188              		@ frame_needed = 1, uses_anonymous_args = 0
+ 189 0000 80B5     		push	{r7, lr}
+ 190 0002 86B0     		sub	sp, sp, #24
+ 191 0004 00AF     		add	r7, sp, #0
+ 192 0006 F860     		str	r0, [r7, #12]
+ 193 0008 B960     		str	r1, [r7, #8]
+ 194 000a 7A60     		str	r2, [r7, #4]
+ 195 000c 7B68     		ldr	r3, [r7, #4]
+ 196 000e 002B     		cmp	r3, #0
+ 197 0010 01D1     		bne	.L14
+ 198 0012 FB68     		ldr	r3, [r7, #12]
+ 199 0014 21E0     		b	.L15
+ 200              	.L14:
+ 201 0016 FFF7FEFF 		bl	chSysLock
+ 202 001a FB68     		ldr	r3, [r7, #12]
+ 203 001c DB68     		ldr	r3, [r3, #12]
+ 204 001e 7B61     		str	r3, [r7, #20]
+ 205 0020 FFF7FEFF 		bl	chSysUnlock
+ 206 0024 13E0     		b	.L16
+ 207              	.L19:
+ 208 0026 7B69     		ldr	r3, [r7, #20]
+ 209 0028 1B68     		ldr	r3, [r3]
+ 210 002a 7A68     		ldr	r2, [r7, #4]
+ 211 002c 1946     		mov	r1, r3
+ 212 002e B868     		ldr	r0, [r7, #8]
+ 213 0030 FFF7FEFF 		bl	strncmp
+ 214 0034 0346     		mov	r3, r0
+ 215 0036 002B     		cmp	r3, #0
+ 216 0038 06D1     		bne	.L17
+ 217 003a 7B69     		ldr	r3, [r7, #20]
+ 218 003c 1A68     		ldr	r2, [r3]
+ 219 003e 7B68     		ldr	r3, [r7, #4]
+ 220 0040 1344     		add	r3, r3, r2
+ 221 0042 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 222 0044 002B     		cmp	r3, #0
+ 223 0046 06D0     		beq	.L20
+ 224              	.L17:
+ 225 0048 7B69     		ldr	r3, [r7, #20]
+ 226 004a 1B69     		ldr	r3, [r3, #16]
+ 227 004c 7B61     		str	r3, [r7, #20]
+ 228              	.L16:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 5
+
+
+ 229 004e 7B69     		ldr	r3, [r7, #20]
+ 230 0050 002B     		cmp	r3, #0
+ 231 0052 E8D1     		bne	.L19
+ 232 0054 00E0     		b	.L18
+ 233              	.L20:
+ 234 0056 00BF     		nop
+ 235              	.L18:
+ 236 0058 7B69     		ldr	r3, [r7, #20]
+ 237              	.L15:
+ 238 005a 1846     		mov	r0, r3
+ 239 005c 1837     		adds	r7, r7, #24
+ 240 005e BD46     		mov	sp, r7
+ 241              		@ sp needed
+ 242 0060 80BD     		pop	{r7, pc}
+ 243              		.size	get_subnamespace, .-get_subnamespace
+ 244              		.section	.text.get_parameter,"ax",%progbits
+ 245              		.align	1
+ 246              		.syntax unified
+ 247              		.thumb
+ 248              		.thumb_func
+ 249              		.fpu fpv4-sp-d16
+ 250              		.type	get_parameter, %function
+ 251              	get_parameter:
+ 252              		@ args = 0, pretend = 0, frame = 24
+ 253              		@ frame_needed = 1, uses_anonymous_args = 0
+ 254 0000 80B5     		push	{r7, lr}
+ 255 0002 86B0     		sub	sp, sp, #24
+ 256 0004 00AF     		add	r7, sp, #0
+ 257 0006 F860     		str	r0, [r7, #12]
+ 258 0008 B960     		str	r1, [r7, #8]
+ 259 000a 7A60     		str	r2, [r7, #4]
+ 260 000c 7B68     		ldr	r3, [r7, #4]
+ 261 000e 002B     		cmp	r3, #0
+ 262 0010 01D1     		bne	.L22
+ 263 0012 0023     		movs	r3, #0
+ 264 0014 21E0     		b	.L23
+ 265              	.L22:
+ 266 0016 FFF7FEFF 		bl	chSysLock
+ 267 001a FB68     		ldr	r3, [r7, #12]
+ 268 001c 5B69     		ldr	r3, [r3, #20]
+ 269 001e 7B61     		str	r3, [r7, #20]
+ 270 0020 FFF7FEFF 		bl	chSysUnlock
+ 271 0024 13E0     		b	.L24
+ 272              	.L27:
+ 273 0026 7B69     		ldr	r3, [r7, #20]
+ 274 0028 1B68     		ldr	r3, [r3]
+ 275 002a 7A68     		ldr	r2, [r7, #4]
+ 276 002c 1946     		mov	r1, r3
+ 277 002e B868     		ldr	r0, [r7, #8]
+ 278 0030 FFF7FEFF 		bl	strncmp
+ 279 0034 0346     		mov	r3, r0
+ 280 0036 002B     		cmp	r3, #0
+ 281 0038 06D1     		bne	.L25
+ 282 003a 7B69     		ldr	r3, [r7, #20]
+ 283 003c 1A68     		ldr	r2, [r3]
+ 284 003e 7B68     		ldr	r3, [r7, #4]
+ 285 0040 1344     		add	r3, r3, r2
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 6
+
+
+ 286 0042 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 287 0044 002B     		cmp	r3, #0
+ 288 0046 06D0     		beq	.L28
+ 289              	.L25:
+ 290 0048 7B69     		ldr	r3, [r7, #20]
+ 291 004a 9B68     		ldr	r3, [r3, #8]
+ 292 004c 7B61     		str	r3, [r7, #20]
+ 293              	.L24:
+ 294 004e 7B69     		ldr	r3, [r7, #20]
+ 295 0050 002B     		cmp	r3, #0
+ 296 0052 E8D1     		bne	.L27
+ 297 0054 00E0     		b	.L26
+ 298              	.L28:
+ 299 0056 00BF     		nop
+ 300              	.L26:
+ 301 0058 7B69     		ldr	r3, [r7, #20]
+ 302              	.L23:
+ 303 005a 1846     		mov	r0, r3
+ 304 005c 1837     		adds	r7, r7, #24
+ 305 005e BD46     		mov	sp, r7
+ 306              		@ sp needed
+ 307 0060 80BD     		pop	{r7, pc}
+ 308              		.size	get_parameter, .-get_parameter
+ 309              		.section	.text.parameter_namespace_declare,"ax",%progbits
+ 310              		.align	1
+ 311              		.global	parameter_namespace_declare
+ 312              		.syntax unified
+ 313              		.thumb
+ 314              		.thumb_func
+ 315              		.fpu fpv4-sp-d16
+ 316              		.type	parameter_namespace_declare, %function
+ 317              	parameter_namespace_declare:
+ 318              		@ args = 0, pretend = 0, frame = 16
+ 319              		@ frame_needed = 1, uses_anonymous_args = 0
+ 320 0000 80B5     		push	{r7, lr}
+ 321 0002 84B0     		sub	sp, sp, #16
+ 322 0004 00AF     		add	r7, sp, #0
+ 323 0006 F860     		str	r0, [r7, #12]
+ 324 0008 B960     		str	r1, [r7, #8]
+ 325 000a 7A60     		str	r2, [r7, #4]
+ 326 000c FB68     		ldr	r3, [r7, #12]
+ 327 000e 7A68     		ldr	r2, [r7, #4]
+ 328 0010 1A60     		str	r2, [r3]
+ 329 0012 FB68     		ldr	r3, [r7, #12]
+ 330 0014 0022     		movs	r2, #0
+ 331 0016 5A60     		str	r2, [r3, #4]
+ 332 0018 FB68     		ldr	r3, [r7, #12]
+ 333 001a BA68     		ldr	r2, [r7, #8]
+ 334 001c 9A60     		str	r2, [r3, #8]
+ 335 001e FB68     		ldr	r3, [r7, #12]
+ 336 0020 0022     		movs	r2, #0
+ 337 0022 DA60     		str	r2, [r3, #12]
+ 338 0024 FB68     		ldr	r3, [r7, #12]
+ 339 0026 0022     		movs	r2, #0
+ 340 0028 5A61     		str	r2, [r3, #20]
+ 341 002a BB68     		ldr	r3, [r7, #8]
+ 342 002c 002B     		cmp	r3, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 7
+
+
+ 343 002e 0DD0     		beq	.L30
+ 344 0030 FFF7FEFF 		bl	chSysLock
+ 345 0034 FB68     		ldr	r3, [r7, #12]
+ 346 0036 9B68     		ldr	r3, [r3, #8]
+ 347 0038 DA68     		ldr	r2, [r3, #12]
+ 348 003a FB68     		ldr	r3, [r7, #12]
+ 349 003c 1A61     		str	r2, [r3, #16]
+ 350 003e FB68     		ldr	r3, [r7, #12]
+ 351 0040 9B68     		ldr	r3, [r3, #8]
+ 352 0042 FA68     		ldr	r2, [r7, #12]
+ 353 0044 DA60     		str	r2, [r3, #12]
+ 354 0046 FFF7FEFF 		bl	chSysUnlock
+ 355 004a 02E0     		b	.L32
+ 356              	.L30:
+ 357 004c FB68     		ldr	r3, [r7, #12]
+ 358 004e 0022     		movs	r2, #0
+ 359 0050 1A61     		str	r2, [r3, #16]
+ 360              	.L32:
+ 361 0052 00BF     		nop
+ 362 0054 1037     		adds	r7, r7, #16
+ 363 0056 BD46     		mov	sp, r7
+ 364              		@ sp needed
+ 365 0058 80BD     		pop	{r7, pc}
+ 366              		.size	parameter_namespace_declare, .-parameter_namespace_declare
+ 367              		.section	.text._parameter_namespace_find_w_id_len,"ax",%progbits
+ 368              		.align	1
+ 369              		.global	_parameter_namespace_find_w_id_len
+ 370              		.syntax unified
+ 371              		.thumb
+ 372              		.thumb_func
+ 373              		.fpu fpv4-sp-d16
+ 374              		.type	_parameter_namespace_find_w_id_len, %function
+ 375              	_parameter_namespace_find_w_id_len:
+ 376              		@ args = 0, pretend = 0, frame = 32
+ 377              		@ frame_needed = 1, uses_anonymous_args = 0
+ 378 0000 80B5     		push	{r7, lr}
+ 379 0002 88B0     		sub	sp, sp, #32
+ 380 0004 00AF     		add	r7, sp, #0
+ 381 0006 F860     		str	r0, [r7, #12]
+ 382 0008 B960     		str	r1, [r7, #8]
+ 383 000a 7A60     		str	r2, [r7, #4]
+ 384 000c FB68     		ldr	r3, [r7, #12]
+ 385 000e FB61     		str	r3, [r7, #28]
+ 386 0010 0023     		movs	r3, #0
+ 387 0012 BB61     		str	r3, [r7, #24]
+ 388 0014 17E0     		b	.L34
+ 389              	.L36:
+ 390 0016 BA68     		ldr	r2, [r7, #8]
+ 391 0018 BB69     		ldr	r3, [r7, #24]
+ 392 001a D018     		adds	r0, r2, r3
+ 393 001c 7A68     		ldr	r2, [r7, #4]
+ 394 001e BB69     		ldr	r3, [r7, #24]
+ 395 0020 D31A     		subs	r3, r2, r3
+ 396 0022 1946     		mov	r1, r3
+ 397 0024 FFF7FEFF 		bl	id_split
+ 398 0028 7861     		str	r0, [r7, #20]
+ 399 002a BA68     		ldr	r2, [r7, #8]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 8
+
+
+ 400 002c BB69     		ldr	r3, [r7, #24]
+ 401 002e 1344     		add	r3, r3, r2
+ 402 0030 7A69     		ldr	r2, [r7, #20]
+ 403 0032 1946     		mov	r1, r3
+ 404 0034 F869     		ldr	r0, [r7, #28]
+ 405 0036 FFF7FEFF 		bl	get_subnamespace
+ 406 003a F861     		str	r0, [r7, #28]
+ 407 003c 7A69     		ldr	r2, [r7, #20]
+ 408 003e BB69     		ldr	r3, [r7, #24]
+ 409 0040 1344     		add	r3, r3, r2
+ 410 0042 0133     		adds	r3, r3, #1
+ 411 0044 BB61     		str	r3, [r7, #24]
+ 412              	.L34:
+ 413 0046 FB69     		ldr	r3, [r7, #28]
+ 414 0048 002B     		cmp	r3, #0
+ 415 004a 03D0     		beq	.L35
+ 416 004c BA69     		ldr	r2, [r7, #24]
+ 417 004e 7B68     		ldr	r3, [r7, #4]
+ 418 0050 9A42     		cmp	r2, r3
+ 419 0052 E0D3     		bcc	.L36
+ 420              	.L35:
+ 421 0054 FB69     		ldr	r3, [r7, #28]
+ 422 0056 1846     		mov	r0, r3
+ 423 0058 2037     		adds	r7, r7, #32
+ 424 005a BD46     		mov	sp, r7
+ 425              		@ sp needed
+ 426 005c 80BD     		pop	{r7, pc}
+ 427              		.size	_parameter_namespace_find_w_id_len, .-_parameter_namespace_find_w_id_len
+ 428              		.section	.text.parameter_namespace_find,"ax",%progbits
+ 429              		.align	1
+ 430              		.global	parameter_namespace_find
+ 431              		.syntax unified
+ 432              		.thumb
+ 433              		.thumb_func
+ 434              		.fpu fpv4-sp-d16
+ 435              		.type	parameter_namespace_find, %function
+ 436              	parameter_namespace_find:
+ 437              		@ args = 0, pretend = 0, frame = 8
+ 438              		@ frame_needed = 1, uses_anonymous_args = 0
+ 439 0000 80B5     		push	{r7, lr}
+ 440 0002 82B0     		sub	sp, sp, #8
+ 441 0004 00AF     		add	r7, sp, #0
+ 442 0006 7860     		str	r0, [r7, #4]
+ 443 0008 3960     		str	r1, [r7]
+ 444 000a 3868     		ldr	r0, [r7]
+ 445 000c FFF7FEFF 		bl	strlen
+ 446 0010 0346     		mov	r3, r0
+ 447 0012 1A46     		mov	r2, r3
+ 448 0014 3968     		ldr	r1, [r7]
+ 449 0016 7868     		ldr	r0, [r7, #4]
+ 450 0018 FFF7FEFF 		bl	_parameter_namespace_find_w_id_len
+ 451 001c 0346     		mov	r3, r0
+ 452 001e 1846     		mov	r0, r3
+ 453 0020 0837     		adds	r7, r7, #8
+ 454 0022 BD46     		mov	sp, r7
+ 455              		@ sp needed
+ 456 0024 80BD     		pop	{r7, pc}
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 9
+
+
+ 457              		.size	parameter_namespace_find, .-parameter_namespace_find
+ 458              		.section	.text._parameter_find_w_id_len,"ax",%progbits
+ 459              		.align	1
+ 460              		.global	_parameter_find_w_id_len
+ 461              		.syntax unified
+ 462              		.thumb
+ 463              		.thumb_func
+ 464              		.fpu fpv4-sp-d16
+ 465              		.type	_parameter_find_w_id_len, %function
+ 466              	_parameter_find_w_id_len:
+ 467              		@ args = 0, pretend = 0, frame = 32
+ 468              		@ frame_needed = 1, uses_anonymous_args = 0
+ 469 0000 80B5     		push	{r7, lr}
+ 470 0002 88B0     		sub	sp, sp, #32
+ 471 0004 00AF     		add	r7, sp, #0
+ 472 0006 F860     		str	r0, [r7, #12]
+ 473 0008 B960     		str	r1, [r7, #8]
+ 474 000a 7A60     		str	r2, [r7, #4]
+ 475 000c FB68     		ldr	r3, [r7, #12]
+ 476 000e FB61     		str	r3, [r7, #28]
+ 477 0010 0023     		movs	r3, #0
+ 478 0012 BB61     		str	r3, [r7, #24]
+ 479 0014 28E0     		b	.L41
+ 480              	.L45:
+ 481 0016 BA68     		ldr	r2, [r7, #8]
+ 482 0018 BB69     		ldr	r3, [r7, #24]
+ 483 001a D018     		adds	r0, r2, r3
+ 484 001c 7A68     		ldr	r2, [r7, #4]
+ 485 001e BB69     		ldr	r3, [r7, #24]
+ 486 0020 D31A     		subs	r3, r2, r3
+ 487 0022 1946     		mov	r1, r3
+ 488 0024 FFF7FEFF 		bl	id_split
+ 489 0028 7861     		str	r0, [r7, #20]
+ 490 002a 7A69     		ldr	r2, [r7, #20]
+ 491 002c BB69     		ldr	r3, [r7, #24]
+ 492 002e 1344     		add	r3, r3, r2
+ 493 0030 7A68     		ldr	r2, [r7, #4]
+ 494 0032 9A42     		cmp	r2, r3
+ 495 0034 09D9     		bls	.L42
+ 496 0036 BA68     		ldr	r2, [r7, #8]
+ 497 0038 BB69     		ldr	r3, [r7, #24]
+ 498 003a 1344     		add	r3, r3, r2
+ 499 003c 7A69     		ldr	r2, [r7, #20]
+ 500 003e 1946     		mov	r1, r3
+ 501 0040 F869     		ldr	r0, [r7, #28]
+ 502 0042 FFF7FEFF 		bl	get_subnamespace
+ 503 0046 F861     		str	r0, [r7, #28]
+ 504 0048 09E0     		b	.L46
+ 505              	.L42:
+ 506 004a BA68     		ldr	r2, [r7, #8]
+ 507 004c BB69     		ldr	r3, [r7, #24]
+ 508 004e 1344     		add	r3, r3, r2
+ 509 0050 7A69     		ldr	r2, [r7, #20]
+ 510 0052 1946     		mov	r1, r3
+ 511 0054 F869     		ldr	r0, [r7, #28]
+ 512 0056 FFF7FEFF 		bl	get_parameter
+ 513 005a 0346     		mov	r3, r0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 10
+
+
+ 514 005c 08E0     		b	.L44
+ 515              	.L46:
+ 516 005e 7A69     		ldr	r2, [r7, #20]
+ 517 0060 BB69     		ldr	r3, [r7, #24]
+ 518 0062 1344     		add	r3, r3, r2
+ 519 0064 0133     		adds	r3, r3, #1
+ 520 0066 BB61     		str	r3, [r7, #24]
+ 521              	.L41:
+ 522 0068 FB69     		ldr	r3, [r7, #28]
+ 523 006a 002B     		cmp	r3, #0
+ 524 006c D3D1     		bne	.L45
+ 525 006e 0023     		movs	r3, #0
+ 526              	.L44:
+ 527 0070 1846     		mov	r0, r3
+ 528 0072 2037     		adds	r7, r7, #32
+ 529 0074 BD46     		mov	sp, r7
+ 530              		@ sp needed
+ 531 0076 80BD     		pop	{r7, pc}
+ 532              		.size	_parameter_find_w_id_len, .-_parameter_find_w_id_len
+ 533              		.section	.text.parameter_find,"ax",%progbits
+ 534              		.align	1
+ 535              		.global	parameter_find
+ 536              		.syntax unified
+ 537              		.thumb
+ 538              		.thumb_func
+ 539              		.fpu fpv4-sp-d16
+ 540              		.type	parameter_find, %function
+ 541              	parameter_find:
+ 542              		@ args = 0, pretend = 0, frame = 8
+ 543              		@ frame_needed = 1, uses_anonymous_args = 0
+ 544 0000 80B5     		push	{r7, lr}
+ 545 0002 82B0     		sub	sp, sp, #8
+ 546 0004 00AF     		add	r7, sp, #0
+ 547 0006 7860     		str	r0, [r7, #4]
+ 548 0008 3960     		str	r1, [r7]
+ 549 000a 3868     		ldr	r0, [r7]
+ 550 000c FFF7FEFF 		bl	strlen
+ 551 0010 0346     		mov	r3, r0
+ 552 0012 1A46     		mov	r2, r3
+ 553 0014 3968     		ldr	r1, [r7]
+ 554 0016 7868     		ldr	r0, [r7, #4]
+ 555 0018 FFF7FEFF 		bl	_parameter_find_w_id_len
+ 556 001c 0346     		mov	r3, r0
+ 557 001e 1846     		mov	r0, r3
+ 558 0020 0837     		adds	r7, r7, #8
+ 559 0022 BD46     		mov	sp, r7
+ 560              		@ sp needed
+ 561 0024 80BD     		pop	{r7, pc}
+ 562              		.size	parameter_find, .-parameter_find
+ 563              		.section	.text._parameter_declare,"ax",%progbits
+ 564              		.align	1
+ 565              		.global	_parameter_declare
+ 566              		.syntax unified
+ 567              		.thumb
+ 568              		.thumb_func
+ 569              		.fpu fpv4-sp-d16
+ 570              		.type	_parameter_declare, %function
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 11
+
+
+ 571              	_parameter_declare:
+ 572              		@ args = 0, pretend = 0, frame = 16
+ 573              		@ frame_needed = 1, uses_anonymous_args = 0
+ 574 0000 80B5     		push	{r7, lr}
+ 575 0002 84B0     		sub	sp, sp, #16
+ 576 0004 00AF     		add	r7, sp, #0
+ 577 0006 F860     		str	r0, [r7, #12]
+ 578 0008 B960     		str	r1, [r7, #8]
+ 579 000a 7A60     		str	r2, [r7, #4]
+ 580 000c FB68     		ldr	r3, [r7, #12]
+ 581 000e 7A68     		ldr	r2, [r7, #4]
+ 582 0010 1A60     		str	r2, [r3]
+ 583 0012 FB68     		ldr	r3, [r7, #12]
+ 584 0014 BA68     		ldr	r2, [r7, #8]
+ 585 0016 5A60     		str	r2, [r3, #4]
+ 586 0018 FB68     		ldr	r3, [r7, #12]
+ 587 001a 0022     		movs	r2, #0
+ 588 001c 1A73     		strb	r2, [r3, #12]
+ 589 001e FB68     		ldr	r3, [r7, #12]
+ 590 0020 0022     		movs	r2, #0
+ 591 0022 5A73     		strb	r2, [r3, #13]
+ 592 0024 FFF7FEFF 		bl	chSysLock
+ 593 0028 FB68     		ldr	r3, [r7, #12]
+ 594 002a 5B68     		ldr	r3, [r3, #4]
+ 595 002c 5A69     		ldr	r2, [r3, #20]
+ 596 002e FB68     		ldr	r3, [r7, #12]
+ 597 0030 9A60     		str	r2, [r3, #8]
+ 598 0032 FB68     		ldr	r3, [r7, #12]
+ 599 0034 5B68     		ldr	r3, [r3, #4]
+ 600 0036 FA68     		ldr	r2, [r7, #12]
+ 601 0038 5A61     		str	r2, [r3, #20]
+ 602 003a FFF7FEFF 		bl	chSysUnlock
+ 603 003e 00BF     		nop
+ 604 0040 1037     		adds	r7, r7, #16
+ 605 0042 BD46     		mov	sp, r7
+ 606              		@ sp needed
+ 607 0044 80BD     		pop	{r7, pc}
+ 608              		.size	_parameter_declare, .-_parameter_declare
+ 609              		.section	.text.parameter_namespace_contains_changed,"ax",%progbits
+ 610              		.align	1
+ 611              		.global	parameter_namespace_contains_changed
+ 612              		.syntax unified
+ 613              		.thumb
+ 614              		.thumb_func
+ 615              		.fpu fpv4-sp-d16
+ 616              		.type	parameter_namespace_contains_changed, %function
+ 617              	parameter_namespace_contains_changed:
+ 618              		@ args = 0, pretend = 0, frame = 16
+ 619              		@ frame_needed = 1, uses_anonymous_args = 0
+ 620 0000 80B5     		push	{r7, lr}
+ 621 0002 84B0     		sub	sp, sp, #16
+ 622 0004 00AF     		add	r7, sp, #0
+ 623 0006 7860     		str	r0, [r7, #4]
+ 624 0008 FFF7FEFF 		bl	chSysLock
+ 625 000c 7B68     		ldr	r3, [r7, #4]
+ 626 000e 5B68     		ldr	r3, [r3, #4]
+ 627 0010 FB60     		str	r3, [r7, #12]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 12
+
+
+ 628 0012 FFF7FEFF 		bl	chSysUnlock
+ 629 0016 FB68     		ldr	r3, [r7, #12]
+ 630 0018 002B     		cmp	r3, #0
+ 631 001a 14BF     		ite	ne
+ 632 001c 0123     		movne	r3, #1
+ 633 001e 0023     		moveq	r3, #0
+ 634 0020 DBB2     		uxtb	r3, r3
+ 635 0022 1846     		mov	r0, r3
+ 636 0024 1037     		adds	r7, r7, #16
+ 637 0026 BD46     		mov	sp, r7
+ 638              		@ sp needed
+ 639 0028 80BD     		pop	{r7, pc}
+ 640              		.size	parameter_namespace_contains_changed, .-parameter_namespace_contains_changed
+ 641              		.section	.text.parameter_changed,"ax",%progbits
+ 642              		.align	1
+ 643              		.global	parameter_changed
+ 644              		.syntax unified
+ 645              		.thumb
+ 646              		.thumb_func
+ 647              		.fpu fpv4-sp-d16
+ 648              		.type	parameter_changed, %function
+ 649              	parameter_changed:
+ 650              		@ args = 0, pretend = 0, frame = 16
+ 651              		@ frame_needed = 1, uses_anonymous_args = 0
+ 652 0000 80B5     		push	{r7, lr}
+ 653 0002 84B0     		sub	sp, sp, #16
+ 654 0004 00AF     		add	r7, sp, #0
+ 655 0006 7860     		str	r0, [r7, #4]
+ 656 0008 FFF7FEFF 		bl	chSysLock
+ 657 000c 7B68     		ldr	r3, [r7, #4]
+ 658 000e 1B7B     		ldrb	r3, [r3, #12]
+ 659 0010 FB73     		strb	r3, [r7, #15]
+ 660 0012 FFF7FEFF 		bl	chSysUnlock
+ 661 0016 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 662 0018 1846     		mov	r0, r3
+ 663 001a 1037     		adds	r7, r7, #16
+ 664 001c BD46     		mov	sp, r7
+ 665              		@ sp needed
+ 666 001e 80BD     		pop	{r7, pc}
+ 667              		.size	parameter_changed, .-parameter_changed
+ 668              		.section	.text.parameter_defined,"ax",%progbits
+ 669              		.align	1
+ 670              		.global	parameter_defined
+ 671              		.syntax unified
+ 672              		.thumb
+ 673              		.thumb_func
+ 674              		.fpu fpv4-sp-d16
+ 675              		.type	parameter_defined, %function
+ 676              	parameter_defined:
+ 677              		@ args = 0, pretend = 0, frame = 16
+ 678              		@ frame_needed = 1, uses_anonymous_args = 0
+ 679 0000 80B5     		push	{r7, lr}
+ 680 0002 84B0     		sub	sp, sp, #16
+ 681 0004 00AF     		add	r7, sp, #0
+ 682 0006 7860     		str	r0, [r7, #4]
+ 683 0008 7B68     		ldr	r3, [r7, #4]
+ 684 000a 002B     		cmp	r3, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 13
+
+
+ 685 000c 01D1     		bne	.L55
+ 686 000e 0023     		movs	r3, #0
+ 687 0010 07E0     		b	.L56
+ 688              	.L55:
+ 689 0012 FFF7FEFF 		bl	chSysLock
+ 690 0016 7B68     		ldr	r3, [r7, #4]
+ 691 0018 5B7B     		ldrb	r3, [r3, #13]
+ 692 001a FB73     		strb	r3, [r7, #15]
+ 693 001c FFF7FEFF 		bl	chSysUnlock
+ 694 0020 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 695              	.L56:
+ 696 0022 1846     		mov	r0, r3
+ 697 0024 1037     		adds	r7, r7, #16
+ 698 0026 BD46     		mov	sp, r7
+ 699              		@ sp needed
+ 700 0028 80BD     		pop	{r7, pc}
+ 701              		.size	parameter_defined, .-parameter_defined
+ 702              		.section	.text._parameter_changed_set,"ax",%progbits
+ 703              		.align	1
+ 704              		.global	_parameter_changed_set
+ 705              		.syntax unified
+ 706              		.thumb
+ 707              		.thumb_func
+ 708              		.fpu fpv4-sp-d16
+ 709              		.type	_parameter_changed_set, %function
+ 710              	_parameter_changed_set:
+ 711              		@ args = 0, pretend = 0, frame = 16
+ 712              		@ frame_needed = 1, uses_anonymous_args = 0
+ 713 0000 80B5     		push	{r7, lr}
+ 714 0002 84B0     		sub	sp, sp, #16
+ 715 0004 00AF     		add	r7, sp, #0
+ 716 0006 7860     		str	r0, [r7, #4]
+ 717 0008 FFF7FEFF 		bl	chSysLock
+ 718 000c 7B68     		ldr	r3, [r7, #4]
+ 719 000e 1B7B     		ldrb	r3, [r3, #12]
+ 720 0010 FB72     		strb	r3, [r7, #11]
+ 721 0012 7B68     		ldr	r3, [r7, #4]
+ 722 0014 0122     		movs	r2, #1
+ 723 0016 1A73     		strb	r2, [r3, #12]
+ 724 0018 FFF7FEFF 		bl	chSysUnlock
+ 725 001c FB7A     		ldrb	r3, [r7, #11]	@ zero_extendqisi2
+ 726 001e 002B     		cmp	r3, #0
+ 727 0020 16D1     		bne	.L62
+ 728 0022 7B68     		ldr	r3, [r7, #4]
+ 729 0024 5B68     		ldr	r3, [r3, #4]
+ 730 0026 FB60     		str	r3, [r7, #12]
+ 731 0028 0BE0     		b	.L60
+ 732              	.L61:
+ 733 002a FFF7FEFF 		bl	chSysLock
+ 734 002e FB68     		ldr	r3, [r7, #12]
+ 735 0030 5B68     		ldr	r3, [r3, #4]
+ 736 0032 5A1C     		adds	r2, r3, #1
+ 737 0034 FB68     		ldr	r3, [r7, #12]
+ 738 0036 5A60     		str	r2, [r3, #4]
+ 739 0038 FFF7FEFF 		bl	chSysUnlock
+ 740 003c FB68     		ldr	r3, [r7, #12]
+ 741 003e 9B68     		ldr	r3, [r3, #8]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 14
+
+
+ 742 0040 FB60     		str	r3, [r7, #12]
+ 743              	.L60:
+ 744 0042 FB68     		ldr	r3, [r7, #12]
+ 745 0044 002B     		cmp	r3, #0
+ 746 0046 F0D1     		bne	.L61
+ 747 0048 7B68     		ldr	r3, [r7, #4]
+ 748 004a 0122     		movs	r2, #1
+ 749 004c 5A73     		strb	r2, [r3, #13]
+ 750 004e 00E0     		b	.L57
+ 751              	.L62:
+ 752 0050 00BF     		nop
+ 753              	.L57:
+ 754 0052 1037     		adds	r7, r7, #16
+ 755 0054 BD46     		mov	sp, r7
+ 756              		@ sp needed
+ 757 0056 80BD     		pop	{r7, pc}
+ 758              		.size	_parameter_changed_set, .-_parameter_changed_set
+ 759              		.section	.text._parameter_changed_clear,"ax",%progbits
+ 760              		.align	1
+ 761              		.global	_parameter_changed_clear
+ 762              		.syntax unified
+ 763              		.thumb
+ 764              		.thumb_func
+ 765              		.fpu fpv4-sp-d16
+ 766              		.type	_parameter_changed_clear, %function
+ 767              	_parameter_changed_clear:
+ 768              		@ args = 0, pretend = 0, frame = 16
+ 769              		@ frame_needed = 1, uses_anonymous_args = 0
+ 770 0000 80B5     		push	{r7, lr}
+ 771 0002 84B0     		sub	sp, sp, #16
+ 772 0004 00AF     		add	r7, sp, #0
+ 773 0006 7860     		str	r0, [r7, #4]
+ 774 0008 FFF7FEFF 		bl	chSysLock
+ 775 000c 7B68     		ldr	r3, [r7, #4]
+ 776 000e 1B7B     		ldrb	r3, [r3, #12]
+ 777 0010 FB72     		strb	r3, [r7, #11]
+ 778 0012 7B68     		ldr	r3, [r7, #4]
+ 779 0014 0022     		movs	r2, #0
+ 780 0016 1A73     		strb	r2, [r3, #12]
+ 781 0018 FFF7FEFF 		bl	chSysUnlock
+ 782 001c FB7A     		ldrb	r3, [r7, #11]
+ 783 001e 83F00103 		eor	r3, r3, #1
+ 784 0022 DBB2     		uxtb	r3, r3
+ 785 0024 002B     		cmp	r3, #0
+ 786 0026 13D1     		bne	.L68
+ 787 0028 7B68     		ldr	r3, [r7, #4]
+ 788 002a 5B68     		ldr	r3, [r3, #4]
+ 789 002c FB60     		str	r3, [r7, #12]
+ 790 002e 0BE0     		b	.L66
+ 791              	.L67:
+ 792 0030 FFF7FEFF 		bl	chSysLock
+ 793 0034 FB68     		ldr	r3, [r7, #12]
+ 794 0036 5B68     		ldr	r3, [r3, #4]
+ 795 0038 5A1E     		subs	r2, r3, #1
+ 796 003a FB68     		ldr	r3, [r7, #12]
+ 797 003c 5A60     		str	r2, [r3, #4]
+ 798 003e FFF7FEFF 		bl	chSysUnlock
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 15
+
+
+ 799 0042 FB68     		ldr	r3, [r7, #12]
+ 800 0044 9B68     		ldr	r3, [r3, #8]
+ 801 0046 FB60     		str	r3, [r7, #12]
+ 802              	.L66:
+ 803 0048 FB68     		ldr	r3, [r7, #12]
+ 804 004a 002B     		cmp	r3, #0
+ 805 004c F0D1     		bne	.L67
+ 806 004e 00E0     		b	.L63
+ 807              	.L68:
+ 808 0050 00BF     		nop
+ 809              	.L63:
+ 810 0052 1037     		adds	r7, r7, #16
+ 811 0054 BD46     		mov	sp, r7
+ 812              		@ sp needed
+ 813 0056 80BD     		pop	{r7, pc}
+ 814              		.size	_parameter_changed_clear, .-_parameter_changed_clear
+ 815              		.section	.text.parameter_scalar_declare,"ax",%progbits
+ 816              		.align	1
+ 817              		.global	parameter_scalar_declare
+ 818              		.syntax unified
+ 819              		.thumb
+ 820              		.thumb_func
+ 821              		.fpu fpv4-sp-d16
+ 822              		.type	parameter_scalar_declare, %function
+ 823              	parameter_scalar_declare:
+ 824              		@ args = 0, pretend = 0, frame = 16
+ 825              		@ frame_needed = 1, uses_anonymous_args = 0
+ 826 0000 80B5     		push	{r7, lr}
+ 827 0002 84B0     		sub	sp, sp, #16
+ 828 0004 00AF     		add	r7, sp, #0
+ 829 0006 F860     		str	r0, [r7, #12]
+ 830 0008 B960     		str	r1, [r7, #8]
+ 831 000a 7A60     		str	r2, [r7, #4]
+ 832 000c FB68     		ldr	r3, [r7, #12]
+ 833 000e 0122     		movs	r2, #1
+ 834 0010 9A73     		strb	r2, [r3, #14]
+ 835 0012 7A68     		ldr	r2, [r7, #4]
+ 836 0014 B968     		ldr	r1, [r7, #8]
+ 837 0016 F868     		ldr	r0, [r7, #12]
+ 838 0018 FFF7FEFF 		bl	_parameter_declare
+ 839 001c 00BF     		nop
+ 840 001e 1037     		adds	r7, r7, #16
+ 841 0020 BD46     		mov	sp, r7
+ 842              		@ sp needed
+ 843 0022 80BD     		pop	{r7, pc}
+ 844              		.size	parameter_scalar_declare, .-parameter_scalar_declare
+ 845              		.section	.text.parameter_scalar_declare_with_default,"ax",%progbits
+ 846              		.align	1
+ 847              		.global	parameter_scalar_declare_with_default
+ 848              		.syntax unified
+ 849              		.thumb
+ 850              		.thumb_func
+ 851              		.fpu fpv4-sp-d16
+ 852              		.type	parameter_scalar_declare_with_default, %function
+ 853              	parameter_scalar_declare_with_default:
+ 854              		@ args = 0, pretend = 0, frame = 16
+ 855              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 16
+
+
+ 856 0000 80B5     		push	{r7, lr}
+ 857 0002 84B0     		sub	sp, sp, #16
+ 858 0004 00AF     		add	r7, sp, #0
+ 859 0006 F860     		str	r0, [r7, #12]
+ 860 0008 B960     		str	r1, [r7, #8]
+ 861 000a 7A60     		str	r2, [r7, #4]
+ 862 000c 87ED000A 		vstr.32	s0, [r7]
+ 863 0010 FB68     		ldr	r3, [r7, #12]
+ 864 0012 3A68     		ldr	r2, [r7]	@ float
+ 865 0014 1A61     		str	r2, [r3, #16]	@ float
+ 866 0016 FB68     		ldr	r3, [r7, #12]
+ 867 0018 0122     		movs	r2, #1
+ 868 001a 9A73     		strb	r2, [r3, #14]
+ 869 001c 7A68     		ldr	r2, [r7, #4]
+ 870 001e B968     		ldr	r1, [r7, #8]
+ 871 0020 F868     		ldr	r0, [r7, #12]
+ 872 0022 FFF7FEFF 		bl	_parameter_declare
+ 873 0026 F868     		ldr	r0, [r7, #12]
+ 874 0028 FFF7FEFF 		bl	_parameter_changed_set
+ 875 002c 00BF     		nop
+ 876 002e 1037     		adds	r7, r7, #16
+ 877 0030 BD46     		mov	sp, r7
+ 878              		@ sp needed
+ 879 0032 80BD     		pop	{r7, pc}
+ 880              		.size	parameter_scalar_declare_with_default, .-parameter_scalar_declare_with_default
+ 881              		.section	.text.parameter_scalar_get,"ax",%progbits
+ 882              		.align	1
+ 883              		.global	parameter_scalar_get
+ 884              		.syntax unified
+ 885              		.thumb
+ 886              		.thumb_func
+ 887              		.fpu fpv4-sp-d16
+ 888              		.type	parameter_scalar_get, %function
+ 889              	parameter_scalar_get:
+ 890              		@ args = 0, pretend = 0, frame = 8
+ 891              		@ frame_needed = 1, uses_anonymous_args = 0
+ 892 0000 80B5     		push	{r7, lr}
+ 893 0002 82B0     		sub	sp, sp, #8
+ 894 0004 00AF     		add	r7, sp, #0
+ 895 0006 7860     		str	r0, [r7, #4]
+ 896 0008 7868     		ldr	r0, [r7, #4]
+ 897 000a FFF7FEFF 		bl	_parameter_changed_clear
+ 898 000e 7868     		ldr	r0, [r7, #4]
+ 899 0010 FFF7FEFF 		bl	parameter_scalar_read
+ 900 0014 F0EE407A 		vmov.f32	s15, s0
+ 901 0018 B0EE670A 		vmov.f32	s0, s15
+ 902 001c 0837     		adds	r7, r7, #8
+ 903 001e BD46     		mov	sp, r7
+ 904              		@ sp needed
+ 905 0020 80BD     		pop	{r7, pc}
+ 906              		.size	parameter_scalar_get, .-parameter_scalar_get
+ 907              		.section	.text.parameter_scalar_read,"ax",%progbits
+ 908              		.align	1
+ 909              		.global	parameter_scalar_read
+ 910              		.syntax unified
+ 911              		.thumb
+ 912              		.thumb_func
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 17
+
+
+ 913              		.fpu fpv4-sp-d16
+ 914              		.type	parameter_scalar_read, %function
+ 915              	parameter_scalar_read:
+ 916              		@ args = 0, pretend = 0, frame = 16
+ 917              		@ frame_needed = 1, uses_anonymous_args = 0
+ 918 0000 80B5     		push	{r7, lr}
+ 919 0002 84B0     		sub	sp, sp, #16
+ 920 0004 00AF     		add	r7, sp, #0
+ 921 0006 7860     		str	r0, [r7, #4]
+ 922 0008 7B68     		ldr	r3, [r7, #4]
+ 923 000a 9B7B     		ldrb	r3, [r3, #14]	@ zero_extendqisi2
+ 924 000c 012B     		cmp	r3, #1
+ 925 000e 02D0     		beq	.L74
+ 926 0010 0D48     		ldr	r0, .L77
+ 927 0012 FFF7FEFF 		bl	chSysHalt
+ 928              	.L74:
+ 929 0016 FFF7FEFF 		bl	chSysLock
+ 930 001a 7B68     		ldr	r3, [r7, #4]
+ 931 001c 5B7B     		ldrb	r3, [r3, #13]	@ zero_extendqisi2
+ 932 001e 83F00103 		eor	r3, r3, #1
+ 933 0022 DBB2     		uxtb	r3, r3
+ 934 0024 002B     		cmp	r3, #0
+ 935 0026 02D0     		beq	.L75
+ 936 0028 0748     		ldr	r0, .L77
+ 937 002a FFF7FEFF 		bl	chSysHalt
+ 938              	.L75:
+ 939 002e 7B68     		ldr	r3, [r7, #4]
+ 940 0030 1B69     		ldr	r3, [r3, #16]	@ float
+ 941 0032 FB60     		str	r3, [r7, #12]	@ float
+ 942 0034 FFF7FEFF 		bl	chSysUnlock
+ 943 0038 FB68     		ldr	r3, [r7, #12]	@ float
+ 944 003a 07EE903A 		vmov	s15, r3
+ 945 003e B0EE670A 		vmov.f32	s0, s15
+ 946 0042 1037     		adds	r7, r7, #16
+ 947 0044 BD46     		mov	sp, r7
+ 948              		@ sp needed
+ 949 0046 80BD     		pop	{r7, pc}
+ 950              	.L78:
+ 951              		.align	2
+ 952              	.L77:
+ 953 0048 00000000 		.word	__func__.9069
+ 954              		.size	parameter_scalar_read, .-parameter_scalar_read
+ 955              		.section	.text.parameter_scalar_set,"ax",%progbits
+ 956              		.align	1
+ 957              		.global	parameter_scalar_set
+ 958              		.syntax unified
+ 959              		.thumb
+ 960              		.thumb_func
+ 961              		.fpu fpv4-sp-d16
+ 962              		.type	parameter_scalar_set, %function
+ 963              	parameter_scalar_set:
+ 964              		@ args = 0, pretend = 0, frame = 8
+ 965              		@ frame_needed = 1, uses_anonymous_args = 0
+ 966 0000 80B5     		push	{r7, lr}
+ 967 0002 82B0     		sub	sp, sp, #8
+ 968 0004 00AF     		add	r7, sp, #0
+ 969 0006 7860     		str	r0, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 18
+
+
+ 970 0008 87ED000A 		vstr.32	s0, [r7]
+ 971 000c 7B68     		ldr	r3, [r7, #4]
+ 972 000e 9B7B     		ldrb	r3, [r3, #14]	@ zero_extendqisi2
+ 973 0010 012B     		cmp	r3, #1
+ 974 0012 02D0     		beq	.L80
+ 975 0014 0848     		ldr	r0, .L81
+ 976 0016 FFF7FEFF 		bl	chSysHalt
+ 977              	.L80:
+ 978 001a FFF7FEFF 		bl	chSysLock
+ 979 001e 7B68     		ldr	r3, [r7, #4]
+ 980 0020 3A68     		ldr	r2, [r7]	@ float
+ 981 0022 1A61     		str	r2, [r3, #16]	@ float
+ 982 0024 FFF7FEFF 		bl	chSysUnlock
+ 983 0028 7868     		ldr	r0, [r7, #4]
+ 984 002a FFF7FEFF 		bl	_parameter_changed_set
+ 985 002e 00BF     		nop
+ 986 0030 0837     		adds	r7, r7, #8
+ 987 0032 BD46     		mov	sp, r7
+ 988              		@ sp needed
+ 989 0034 80BD     		pop	{r7, pc}
+ 990              	.L82:
+ 991 0036 00BF     		.align	2
+ 992              	.L81:
+ 993 0038 00000000 		.word	__func__.9075
+ 994              		.size	parameter_scalar_set, .-parameter_scalar_set
+ 995              		.section	.text.parameter_integer_declare,"ax",%progbits
+ 996              		.align	1
+ 997              		.global	parameter_integer_declare
+ 998              		.syntax unified
+ 999              		.thumb
+ 1000              		.thumb_func
+ 1001              		.fpu fpv4-sp-d16
+ 1002              		.type	parameter_integer_declare, %function
+ 1003              	parameter_integer_declare:
+ 1004              		@ args = 0, pretend = 0, frame = 16
+ 1005              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1006 0000 80B5     		push	{r7, lr}
+ 1007 0002 84B0     		sub	sp, sp, #16
+ 1008 0004 00AF     		add	r7, sp, #0
+ 1009 0006 F860     		str	r0, [r7, #12]
+ 1010 0008 B960     		str	r1, [r7, #8]
+ 1011 000a 7A60     		str	r2, [r7, #4]
+ 1012 000c FB68     		ldr	r3, [r7, #12]
+ 1013 000e 0322     		movs	r2, #3
+ 1014 0010 9A73     		strb	r2, [r3, #14]
+ 1015 0012 7A68     		ldr	r2, [r7, #4]
+ 1016 0014 B968     		ldr	r1, [r7, #8]
+ 1017 0016 F868     		ldr	r0, [r7, #12]
+ 1018 0018 FFF7FEFF 		bl	_parameter_declare
+ 1019 001c 00BF     		nop
+ 1020 001e 1037     		adds	r7, r7, #16
+ 1021 0020 BD46     		mov	sp, r7
+ 1022              		@ sp needed
+ 1023 0022 80BD     		pop	{r7, pc}
+ 1024              		.size	parameter_integer_declare, .-parameter_integer_declare
+ 1025              		.section	.text.parameter_integer_declare_with_default,"ax",%progbits
+ 1026              		.align	1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 19
+
+
+ 1027              		.global	parameter_integer_declare_with_default
+ 1028              		.syntax unified
+ 1029              		.thumb
+ 1030              		.thumb_func
+ 1031              		.fpu fpv4-sp-d16
+ 1032              		.type	parameter_integer_declare_with_default, %function
+ 1033              	parameter_integer_declare_with_default:
+ 1034              		@ args = 0, pretend = 0, frame = 16
+ 1035              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1036 0000 80B5     		push	{r7, lr}
+ 1037 0002 84B0     		sub	sp, sp, #16
+ 1038 0004 00AF     		add	r7, sp, #0
+ 1039 0006 F860     		str	r0, [r7, #12]
+ 1040 0008 B960     		str	r1, [r7, #8]
+ 1041 000a 7A60     		str	r2, [r7, #4]
+ 1042 000c 3B60     		str	r3, [r7]
+ 1043 000e FB68     		ldr	r3, [r7, #12]
+ 1044 0010 3A68     		ldr	r2, [r7]
+ 1045 0012 1A61     		str	r2, [r3, #16]
+ 1046 0014 FB68     		ldr	r3, [r7, #12]
+ 1047 0016 0322     		movs	r2, #3
+ 1048 0018 9A73     		strb	r2, [r3, #14]
+ 1049 001a 7A68     		ldr	r2, [r7, #4]
+ 1050 001c B968     		ldr	r1, [r7, #8]
+ 1051 001e F868     		ldr	r0, [r7, #12]
+ 1052 0020 FFF7FEFF 		bl	_parameter_declare
+ 1053 0024 F868     		ldr	r0, [r7, #12]
+ 1054 0026 FFF7FEFF 		bl	_parameter_changed_set
+ 1055 002a 00BF     		nop
+ 1056 002c 1037     		adds	r7, r7, #16
+ 1057 002e BD46     		mov	sp, r7
+ 1058              		@ sp needed
+ 1059 0030 80BD     		pop	{r7, pc}
+ 1060              		.size	parameter_integer_declare_with_default, .-parameter_integer_declare_with_default
+ 1061              		.section	.text.parameter_integer_get,"ax",%progbits
+ 1062              		.align	1
+ 1063              		.global	parameter_integer_get
+ 1064              		.syntax unified
+ 1065              		.thumb
+ 1066              		.thumb_func
+ 1067              		.fpu fpv4-sp-d16
+ 1068              		.type	parameter_integer_get, %function
+ 1069              	parameter_integer_get:
+ 1070              		@ args = 0, pretend = 0, frame = 8
+ 1071              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1072 0000 80B5     		push	{r7, lr}
+ 1073 0002 82B0     		sub	sp, sp, #8
+ 1074 0004 00AF     		add	r7, sp, #0
+ 1075 0006 7860     		str	r0, [r7, #4]
+ 1076 0008 7868     		ldr	r0, [r7, #4]
+ 1077 000a FFF7FEFF 		bl	_parameter_changed_clear
+ 1078 000e 7868     		ldr	r0, [r7, #4]
+ 1079 0010 FFF7FEFF 		bl	parameter_integer_read
+ 1080 0014 0346     		mov	r3, r0
+ 1081 0016 1846     		mov	r0, r3
+ 1082 0018 0837     		adds	r7, r7, #8
+ 1083 001a BD46     		mov	sp, r7
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 20
+
+
+ 1084              		@ sp needed
+ 1085 001c 80BD     		pop	{r7, pc}
+ 1086              		.size	parameter_integer_get, .-parameter_integer_get
+ 1087              		.section	.text.parameter_integer_read,"ax",%progbits
+ 1088              		.align	1
+ 1089              		.global	parameter_integer_read
+ 1090              		.syntax unified
+ 1091              		.thumb
+ 1092              		.thumb_func
+ 1093              		.fpu fpv4-sp-d16
+ 1094              		.type	parameter_integer_read, %function
+ 1095              	parameter_integer_read:
+ 1096              		@ args = 0, pretend = 0, frame = 16
+ 1097              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1098 0000 80B5     		push	{r7, lr}
+ 1099 0002 84B0     		sub	sp, sp, #16
+ 1100 0004 00AF     		add	r7, sp, #0
+ 1101 0006 7860     		str	r0, [r7, #4]
+ 1102 0008 7B68     		ldr	r3, [r7, #4]
+ 1103 000a 9B7B     		ldrb	r3, [r3, #14]	@ zero_extendqisi2
+ 1104 000c 032B     		cmp	r3, #3
+ 1105 000e 02D0     		beq	.L88
+ 1106 0010 0C48     		ldr	r0, .L91
+ 1107 0012 FFF7FEFF 		bl	chSysHalt
+ 1108              	.L88:
+ 1109 0016 FFF7FEFF 		bl	chSysLock
+ 1110 001a 7B68     		ldr	r3, [r7, #4]
+ 1111 001c 5B7B     		ldrb	r3, [r3, #13]	@ zero_extendqisi2
+ 1112 001e 83F00103 		eor	r3, r3, #1
+ 1113 0022 DBB2     		uxtb	r3, r3
+ 1114 0024 002B     		cmp	r3, #0
+ 1115 0026 02D0     		beq	.L89
+ 1116 0028 0648     		ldr	r0, .L91
+ 1117 002a FFF7FEFF 		bl	chSysHalt
+ 1118              	.L89:
+ 1119 002e 7B68     		ldr	r3, [r7, #4]
+ 1120 0030 1B69     		ldr	r3, [r3, #16]
+ 1121 0032 FB60     		str	r3, [r7, #12]
+ 1122 0034 FFF7FEFF 		bl	chSysUnlock
+ 1123 0038 FB68     		ldr	r3, [r7, #12]
+ 1124 003a 1846     		mov	r0, r3
+ 1125 003c 1037     		adds	r7, r7, #16
+ 1126 003e BD46     		mov	sp, r7
+ 1127              		@ sp needed
+ 1128 0040 80BD     		pop	{r7, pc}
+ 1129              	.L92:
+ 1130 0042 00BF     		.align	2
+ 1131              	.L91:
+ 1132 0044 00000000 		.word	__func__.9093
+ 1133              		.size	parameter_integer_read, .-parameter_integer_read
+ 1134              		.section	.text.parameter_integer_set,"ax",%progbits
+ 1135              		.align	1
+ 1136              		.global	parameter_integer_set
+ 1137              		.syntax unified
+ 1138              		.thumb
+ 1139              		.thumb_func
+ 1140              		.fpu fpv4-sp-d16
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 21
+
+
+ 1141              		.type	parameter_integer_set, %function
+ 1142              	parameter_integer_set:
+ 1143              		@ args = 0, pretend = 0, frame = 8
+ 1144              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1145 0000 80B5     		push	{r7, lr}
+ 1146 0002 82B0     		sub	sp, sp, #8
+ 1147 0004 00AF     		add	r7, sp, #0
+ 1148 0006 7860     		str	r0, [r7, #4]
+ 1149 0008 3960     		str	r1, [r7]
+ 1150 000a 7B68     		ldr	r3, [r7, #4]
+ 1151 000c 9B7B     		ldrb	r3, [r3, #14]	@ zero_extendqisi2
+ 1152 000e 032B     		cmp	r3, #3
+ 1153 0010 02D0     		beq	.L94
+ 1154 0012 0848     		ldr	r0, .L95
+ 1155 0014 FFF7FEFF 		bl	chSysHalt
+ 1156              	.L94:
+ 1157 0018 FFF7FEFF 		bl	chSysLock
+ 1158 001c 7B68     		ldr	r3, [r7, #4]
+ 1159 001e 3A68     		ldr	r2, [r7]
+ 1160 0020 1A61     		str	r2, [r3, #16]
+ 1161 0022 FFF7FEFF 		bl	chSysUnlock
+ 1162 0026 7868     		ldr	r0, [r7, #4]
+ 1163 0028 FFF7FEFF 		bl	_parameter_changed_set
+ 1164 002c 00BF     		nop
+ 1165 002e 0837     		adds	r7, r7, #8
+ 1166 0030 BD46     		mov	sp, r7
+ 1167              		@ sp needed
+ 1168 0032 80BD     		pop	{r7, pc}
+ 1169              	.L96:
+ 1170              		.align	2
+ 1171              	.L95:
+ 1172 0034 00000000 		.word	__func__.9099
+ 1173              		.size	parameter_integer_set, .-parameter_integer_set
+ 1174              		.section	.text.parameter_boolean_declare,"ax",%progbits
+ 1175              		.align	1
+ 1176              		.global	parameter_boolean_declare
+ 1177              		.syntax unified
+ 1178              		.thumb
+ 1179              		.thumb_func
+ 1180              		.fpu fpv4-sp-d16
+ 1181              		.type	parameter_boolean_declare, %function
+ 1182              	parameter_boolean_declare:
+ 1183              		@ args = 0, pretend = 0, frame = 16
+ 1184              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1185 0000 80B5     		push	{r7, lr}
+ 1186 0002 84B0     		sub	sp, sp, #16
+ 1187 0004 00AF     		add	r7, sp, #0
+ 1188 0006 F860     		str	r0, [r7, #12]
+ 1189 0008 B960     		str	r1, [r7, #8]
+ 1190 000a 7A60     		str	r2, [r7, #4]
+ 1191 000c FB68     		ldr	r3, [r7, #12]
+ 1192 000e 0222     		movs	r2, #2
+ 1193 0010 9A73     		strb	r2, [r3, #14]
+ 1194 0012 7A68     		ldr	r2, [r7, #4]
+ 1195 0014 B968     		ldr	r1, [r7, #8]
+ 1196 0016 F868     		ldr	r0, [r7, #12]
+ 1197 0018 FFF7FEFF 		bl	_parameter_declare
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 22
+
+
+ 1198 001c 00BF     		nop
+ 1199 001e 1037     		adds	r7, r7, #16
+ 1200 0020 BD46     		mov	sp, r7
+ 1201              		@ sp needed
+ 1202 0022 80BD     		pop	{r7, pc}
+ 1203              		.size	parameter_boolean_declare, .-parameter_boolean_declare
+ 1204              		.section	.text.parameter_boolean_declare_with_default,"ax",%progbits
+ 1205              		.align	1
+ 1206              		.global	parameter_boolean_declare_with_default
+ 1207              		.syntax unified
+ 1208              		.thumb
+ 1209              		.thumb_func
+ 1210              		.fpu fpv4-sp-d16
+ 1211              		.type	parameter_boolean_declare_with_default, %function
+ 1212              	parameter_boolean_declare_with_default:
+ 1213              		@ args = 0, pretend = 0, frame = 16
+ 1214              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1215 0000 80B5     		push	{r7, lr}
+ 1216 0002 84B0     		sub	sp, sp, #16
+ 1217 0004 00AF     		add	r7, sp, #0
+ 1218 0006 F860     		str	r0, [r7, #12]
+ 1219 0008 B960     		str	r1, [r7, #8]
+ 1220 000a 7A60     		str	r2, [r7, #4]
+ 1221 000c FB70     		strb	r3, [r7, #3]
+ 1222 000e FB68     		ldr	r3, [r7, #12]
+ 1223 0010 FA78     		ldrb	r2, [r7, #3]
+ 1224 0012 1A74     		strb	r2, [r3, #16]
+ 1225 0014 FB68     		ldr	r3, [r7, #12]
+ 1226 0016 0222     		movs	r2, #2
+ 1227 0018 9A73     		strb	r2, [r3, #14]
+ 1228 001a 7A68     		ldr	r2, [r7, #4]
+ 1229 001c B968     		ldr	r1, [r7, #8]
+ 1230 001e F868     		ldr	r0, [r7, #12]
+ 1231 0020 FFF7FEFF 		bl	_parameter_declare
+ 1232 0024 F868     		ldr	r0, [r7, #12]
+ 1233 0026 FFF7FEFF 		bl	_parameter_changed_set
+ 1234 002a 00BF     		nop
+ 1235 002c 1037     		adds	r7, r7, #16
+ 1236 002e BD46     		mov	sp, r7
+ 1237              		@ sp needed
+ 1238 0030 80BD     		pop	{r7, pc}
+ 1239              		.size	parameter_boolean_declare_with_default, .-parameter_boolean_declare_with_default
+ 1240              		.section	.text.parameter_boolean_set,"ax",%progbits
+ 1241              		.align	1
+ 1242              		.global	parameter_boolean_set
+ 1243              		.syntax unified
+ 1244              		.thumb
+ 1245              		.thumb_func
+ 1246              		.fpu fpv4-sp-d16
+ 1247              		.type	parameter_boolean_set, %function
+ 1248              	parameter_boolean_set:
+ 1249              		@ args = 0, pretend = 0, frame = 8
+ 1250              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1251 0000 80B5     		push	{r7, lr}
+ 1252 0002 82B0     		sub	sp, sp, #8
+ 1253 0004 00AF     		add	r7, sp, #0
+ 1254 0006 7860     		str	r0, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 23
+
+
+ 1255 0008 0B46     		mov	r3, r1
+ 1256 000a FB70     		strb	r3, [r7, #3]
+ 1257 000c 7B68     		ldr	r3, [r7, #4]
+ 1258 000e 9B7B     		ldrb	r3, [r3, #14]	@ zero_extendqisi2
+ 1259 0010 022B     		cmp	r3, #2
+ 1260 0012 02D0     		beq	.L100
+ 1261 0014 0848     		ldr	r0, .L101
+ 1262 0016 FFF7FEFF 		bl	chSysHalt
+ 1263              	.L100:
+ 1264 001a FFF7FEFF 		bl	chSysLock
+ 1265 001e 7B68     		ldr	r3, [r7, #4]
+ 1266 0020 FA78     		ldrb	r2, [r7, #3]
+ 1267 0022 1A74     		strb	r2, [r3, #16]
+ 1268 0024 FFF7FEFF 		bl	chSysUnlock
+ 1269 0028 7868     		ldr	r0, [r7, #4]
+ 1270 002a FFF7FEFF 		bl	_parameter_changed_set
+ 1271 002e 00BF     		nop
+ 1272 0030 0837     		adds	r7, r7, #8
+ 1273 0032 BD46     		mov	sp, r7
+ 1274              		@ sp needed
+ 1275 0034 80BD     		pop	{r7, pc}
+ 1276              	.L102:
+ 1277 0036 00BF     		.align	2
+ 1278              	.L101:
+ 1279 0038 00000000 		.word	__func__.9115
+ 1280              		.size	parameter_boolean_set, .-parameter_boolean_set
+ 1281              		.section	.text.parameter_boolean_get,"ax",%progbits
+ 1282              		.align	1
+ 1283              		.global	parameter_boolean_get
+ 1284              		.syntax unified
+ 1285              		.thumb
+ 1286              		.thumb_func
+ 1287              		.fpu fpv4-sp-d16
+ 1288              		.type	parameter_boolean_get, %function
+ 1289              	parameter_boolean_get:
+ 1290              		@ args = 0, pretend = 0, frame = 8
+ 1291              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1292 0000 80B5     		push	{r7, lr}
+ 1293 0002 82B0     		sub	sp, sp, #8
+ 1294 0004 00AF     		add	r7, sp, #0
+ 1295 0006 7860     		str	r0, [r7, #4]
+ 1296 0008 7868     		ldr	r0, [r7, #4]
+ 1297 000a FFF7FEFF 		bl	_parameter_changed_clear
+ 1298 000e 7868     		ldr	r0, [r7, #4]
+ 1299 0010 FFF7FEFF 		bl	parameter_boolean_read
+ 1300 0014 0346     		mov	r3, r0
+ 1301 0016 1846     		mov	r0, r3
+ 1302 0018 0837     		adds	r7, r7, #8
+ 1303 001a BD46     		mov	sp, r7
+ 1304              		@ sp needed
+ 1305 001c 80BD     		pop	{r7, pc}
+ 1306              		.size	parameter_boolean_get, .-parameter_boolean_get
+ 1307              		.section	.text.parameter_boolean_read,"ax",%progbits
+ 1308              		.align	1
+ 1309              		.global	parameter_boolean_read
+ 1310              		.syntax unified
+ 1311              		.thumb
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 24
+
+
+ 1312              		.thumb_func
+ 1313              		.fpu fpv4-sp-d16
+ 1314              		.type	parameter_boolean_read, %function
+ 1315              	parameter_boolean_read:
+ 1316              		@ args = 0, pretend = 0, frame = 16
+ 1317              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1318 0000 80B5     		push	{r7, lr}
+ 1319 0002 84B0     		sub	sp, sp, #16
+ 1320 0004 00AF     		add	r7, sp, #0
+ 1321 0006 7860     		str	r0, [r7, #4]
+ 1322 0008 7B68     		ldr	r3, [r7, #4]
+ 1323 000a 9B7B     		ldrb	r3, [r3, #14]	@ zero_extendqisi2
+ 1324 000c 022B     		cmp	r3, #2
+ 1325 000e 02D0     		beq	.L106
+ 1326 0010 0C48     		ldr	r0, .L109
+ 1327 0012 FFF7FEFF 		bl	chSysHalt
+ 1328              	.L106:
+ 1329 0016 FFF7FEFF 		bl	chSysLock
+ 1330 001a 7B68     		ldr	r3, [r7, #4]
+ 1331 001c 5B7B     		ldrb	r3, [r3, #13]	@ zero_extendqisi2
+ 1332 001e 83F00103 		eor	r3, r3, #1
+ 1333 0022 DBB2     		uxtb	r3, r3
+ 1334 0024 002B     		cmp	r3, #0
+ 1335 0026 02D0     		beq	.L107
+ 1336 0028 0648     		ldr	r0, .L109
+ 1337 002a FFF7FEFF 		bl	chSysHalt
+ 1338              	.L107:
+ 1339 002e 7B68     		ldr	r3, [r7, #4]
+ 1340 0030 1B7C     		ldrb	r3, [r3, #16]
+ 1341 0032 FB73     		strb	r3, [r7, #15]
+ 1342 0034 FFF7FEFF 		bl	chSysUnlock
+ 1343 0038 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 1344 003a 1846     		mov	r0, r3
+ 1345 003c 1037     		adds	r7, r7, #16
+ 1346 003e BD46     		mov	sp, r7
+ 1347              		@ sp needed
+ 1348 0040 80BD     		pop	{r7, pc}
+ 1349              	.L110:
+ 1350 0042 00BF     		.align	2
+ 1351              	.L109:
+ 1352 0044 00000000 		.word	__func__.9122
+ 1353              		.size	parameter_boolean_read, .-parameter_boolean_read
+ 1354              		.section	.text.parameter_vector_declare,"ax",%progbits
+ 1355              		.align	1
+ 1356              		.global	parameter_vector_declare
+ 1357              		.syntax unified
+ 1358              		.thumb
+ 1359              		.thumb_func
+ 1360              		.fpu fpv4-sp-d16
+ 1361              		.type	parameter_vector_declare, %function
+ 1362              	parameter_vector_declare:
+ 1363              		@ args = 4, pretend = 0, frame = 16
+ 1364              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1365 0000 80B5     		push	{r7, lr}
+ 1366 0002 84B0     		sub	sp, sp, #16
+ 1367 0004 00AF     		add	r7, sp, #0
+ 1368 0006 F860     		str	r0, [r7, #12]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 25
+
+
+ 1369 0008 B960     		str	r1, [r7, #8]
+ 1370 000a 7A60     		str	r2, [r7, #4]
+ 1371 000c 3B60     		str	r3, [r7]
+ 1372 000e FB68     		ldr	r3, [r7, #12]
+ 1373 0010 0522     		movs	r2, #5
+ 1374 0012 9A73     		strb	r2, [r3, #14]
+ 1375 0014 FB68     		ldr	r3, [r7, #12]
+ 1376 0016 3A68     		ldr	r2, [r7]
+ 1377 0018 1A61     		str	r2, [r3, #16]
+ 1378 001a FB68     		ldr	r3, [r7, #12]
+ 1379 001c 3A8B     		ldrh	r2, [r7, #24]	@ movhi
+ 1380 001e DA82     		strh	r2, [r3, #22]	@ movhi
+ 1381 0020 7A68     		ldr	r2, [r7, #4]
+ 1382 0022 B968     		ldr	r1, [r7, #8]
+ 1383 0024 F868     		ldr	r0, [r7, #12]
+ 1384 0026 FFF7FEFF 		bl	_parameter_declare
+ 1385 002a 00BF     		nop
+ 1386 002c 1037     		adds	r7, r7, #16
+ 1387 002e BD46     		mov	sp, r7
+ 1388              		@ sp needed
+ 1389 0030 80BD     		pop	{r7, pc}
+ 1390              		.size	parameter_vector_declare, .-parameter_vector_declare
+ 1391              		.section	.text.parameter_vector_declare_with_default,"ax",%progbits
+ 1392              		.align	1
+ 1393              		.global	parameter_vector_declare_with_default
+ 1394              		.syntax unified
+ 1395              		.thumb
+ 1396              		.thumb_func
+ 1397              		.fpu fpv4-sp-d16
+ 1398              		.type	parameter_vector_declare_with_default, %function
+ 1399              	parameter_vector_declare_with_default:
+ 1400              		@ args = 4, pretend = 0, frame = 16
+ 1401              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1402 0000 80B5     		push	{r7, lr}
+ 1403 0002 86B0     		sub	sp, sp, #24
+ 1404 0004 02AF     		add	r7, sp, #8
+ 1405 0006 F860     		str	r0, [r7, #12]
+ 1406 0008 B960     		str	r1, [r7, #8]
+ 1407 000a 7A60     		str	r2, [r7, #4]
+ 1408 000c 3B60     		str	r3, [r7]
+ 1409 000e 3B8B     		ldrh	r3, [r7, #24]
+ 1410 0010 0093     		str	r3, [sp]
+ 1411 0012 3B68     		ldr	r3, [r7]
+ 1412 0014 7A68     		ldr	r2, [r7, #4]
+ 1413 0016 B968     		ldr	r1, [r7, #8]
+ 1414 0018 F868     		ldr	r0, [r7, #12]
+ 1415 001a FFF7FEFF 		bl	parameter_vector_declare
+ 1416 001e F868     		ldr	r0, [r7, #12]
+ 1417 0020 FFF7FEFF 		bl	_parameter_changed_set
+ 1418 0024 00BF     		nop
+ 1419 0026 1037     		adds	r7, r7, #16
+ 1420 0028 BD46     		mov	sp, r7
+ 1421              		@ sp needed
+ 1422 002a 80BD     		pop	{r7, pc}
+ 1423              		.size	parameter_vector_declare_with_default, .-parameter_vector_declare_with_default
+ 1424              		.section	.text.parameter_vector_dim,"ax",%progbits
+ 1425              		.align	1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 26
+
+
+ 1426              		.global	parameter_vector_dim
+ 1427              		.syntax unified
+ 1428              		.thumb
+ 1429              		.thumb_func
+ 1430              		.fpu fpv4-sp-d16
+ 1431              		.type	parameter_vector_dim, %function
+ 1432              	parameter_vector_dim:
+ 1433              		@ args = 0, pretend = 0, frame = 8
+ 1434              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1435 0000 80B5     		push	{r7, lr}
+ 1436 0002 82B0     		sub	sp, sp, #8
+ 1437 0004 00AF     		add	r7, sp, #0
+ 1438 0006 7860     		str	r0, [r7, #4]
+ 1439 0008 7B68     		ldr	r3, [r7, #4]
+ 1440 000a 9B7B     		ldrb	r3, [r3, #14]	@ zero_extendqisi2
+ 1441 000c 052B     		cmp	r3, #5
+ 1442 000e 02D0     		beq	.L114
+ 1443 0010 0448     		ldr	r0, .L116
+ 1444 0012 FFF7FEFF 		bl	chSysHalt
+ 1445              	.L114:
+ 1446 0016 7B68     		ldr	r3, [r7, #4]
+ 1447 0018 DB8A     		ldrh	r3, [r3, #22]
+ 1448 001a 1846     		mov	r0, r3
+ 1449 001c 0837     		adds	r7, r7, #8
+ 1450 001e BD46     		mov	sp, r7
+ 1451              		@ sp needed
+ 1452 0020 80BD     		pop	{r7, pc}
+ 1453              	.L117:
+ 1454 0022 00BF     		.align	2
+ 1455              	.L116:
+ 1456 0024 00000000 		.word	__func__.9141
+ 1457              		.size	parameter_vector_dim, .-parameter_vector_dim
+ 1458              		.section	.text.parameter_vector_get,"ax",%progbits
+ 1459              		.align	1
+ 1460              		.global	parameter_vector_get
+ 1461              		.syntax unified
+ 1462              		.thumb
+ 1463              		.thumb_func
+ 1464              		.fpu fpv4-sp-d16
+ 1465              		.type	parameter_vector_get, %function
+ 1466              	parameter_vector_get:
+ 1467              		@ args = 0, pretend = 0, frame = 8
+ 1468              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1469 0000 80B5     		push	{r7, lr}
+ 1470 0002 82B0     		sub	sp, sp, #8
+ 1471 0004 00AF     		add	r7, sp, #0
+ 1472 0006 7860     		str	r0, [r7, #4]
+ 1473 0008 3960     		str	r1, [r7]
+ 1474 000a 7868     		ldr	r0, [r7, #4]
+ 1475 000c FFF7FEFF 		bl	_parameter_changed_clear
+ 1476 0010 3968     		ldr	r1, [r7]
+ 1477 0012 7868     		ldr	r0, [r7, #4]
+ 1478 0014 FFF7FEFF 		bl	parameter_vector_read
+ 1479 0018 00BF     		nop
+ 1480 001a 0837     		adds	r7, r7, #8
+ 1481 001c BD46     		mov	sp, r7
+ 1482              		@ sp needed
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 27
+
+
+ 1483 001e 80BD     		pop	{r7, pc}
+ 1484              		.size	parameter_vector_get, .-parameter_vector_get
+ 1485              		.section	.text.parameter_vector_read,"ax",%progbits
+ 1486              		.align	1
+ 1487              		.global	parameter_vector_read
+ 1488              		.syntax unified
+ 1489              		.thumb
+ 1490              		.thumb_func
+ 1491              		.fpu fpv4-sp-d16
+ 1492              		.type	parameter_vector_read, %function
+ 1493              	parameter_vector_read:
+ 1494              		@ args = 0, pretend = 0, frame = 16
+ 1495              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1496 0000 80B5     		push	{r7, lr}
+ 1497 0002 84B0     		sub	sp, sp, #16
+ 1498 0004 00AF     		add	r7, sp, #0
+ 1499 0006 7860     		str	r0, [r7, #4]
+ 1500 0008 3960     		str	r1, [r7]
+ 1501 000a 7B68     		ldr	r3, [r7, #4]
+ 1502 000c 9B7B     		ldrb	r3, [r3, #14]	@ zero_extendqisi2
+ 1503 000e 052B     		cmp	r3, #5
+ 1504 0010 02D0     		beq	.L120
+ 1505 0012 1648     		ldr	r0, .L124
+ 1506 0014 FFF7FEFF 		bl	chSysHalt
+ 1507              	.L120:
+ 1508 0018 FFF7FEFF 		bl	chSysLock
+ 1509 001c 7B68     		ldr	r3, [r7, #4]
+ 1510 001e 5B7B     		ldrb	r3, [r3, #13]	@ zero_extendqisi2
+ 1511 0020 83F00103 		eor	r3, r3, #1
+ 1512 0024 DBB2     		uxtb	r3, r3
+ 1513 0026 002B     		cmp	r3, #0
+ 1514 0028 02D0     		beq	.L121
+ 1515 002a 1048     		ldr	r0, .L124
+ 1516 002c FFF7FEFF 		bl	chSysHalt
+ 1517              	.L121:
+ 1518 0030 0023     		movs	r3, #0
+ 1519 0032 FB60     		str	r3, [r7, #12]
+ 1520 0034 0DE0     		b	.L122
+ 1521              	.L123:
+ 1522 0036 7B68     		ldr	r3, [r7, #4]
+ 1523 0038 1A69     		ldr	r2, [r3, #16]
+ 1524 003a FB68     		ldr	r3, [r7, #12]
+ 1525 003c 9B00     		lsls	r3, r3, #2
+ 1526 003e 1A44     		add	r2, r2, r3
+ 1527 0040 FB68     		ldr	r3, [r7, #12]
+ 1528 0042 9B00     		lsls	r3, r3, #2
+ 1529 0044 3968     		ldr	r1, [r7]
+ 1530 0046 0B44     		add	r3, r3, r1
+ 1531 0048 1268     		ldr	r2, [r2]	@ float
+ 1532 004a 1A60     		str	r2, [r3]	@ float
+ 1533 004c FB68     		ldr	r3, [r7, #12]
+ 1534 004e 0133     		adds	r3, r3, #1
+ 1535 0050 FB60     		str	r3, [r7, #12]
+ 1536              	.L122:
+ 1537 0052 7B68     		ldr	r3, [r7, #4]
+ 1538 0054 DB8A     		ldrh	r3, [r3, #22]
+ 1539 0056 1A46     		mov	r2, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 28
+
+
+ 1540 0058 FB68     		ldr	r3, [r7, #12]
+ 1541 005a 9342     		cmp	r3, r2
+ 1542 005c EBDB     		blt	.L123
+ 1543 005e FFF7FEFF 		bl	chSysUnlock
+ 1544 0062 00BF     		nop
+ 1545 0064 1037     		adds	r7, r7, #16
+ 1546 0066 BD46     		mov	sp, r7
+ 1547              		@ sp needed
+ 1548 0068 80BD     		pop	{r7, pc}
+ 1549              	.L125:
+ 1550 006a 00BF     		.align	2
+ 1551              	.L124:
+ 1552 006c 00000000 		.word	__func__.9150
+ 1553              		.size	parameter_vector_read, .-parameter_vector_read
+ 1554              		.section	.text.parameter_vector_set,"ax",%progbits
+ 1555              		.align	1
+ 1556              		.global	parameter_vector_set
+ 1557              		.syntax unified
+ 1558              		.thumb
+ 1559              		.thumb_func
+ 1560              		.fpu fpv4-sp-d16
+ 1561              		.type	parameter_vector_set, %function
+ 1562              	parameter_vector_set:
+ 1563              		@ args = 0, pretend = 0, frame = 16
+ 1564              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1565 0000 80B5     		push	{r7, lr}
+ 1566 0002 84B0     		sub	sp, sp, #16
+ 1567 0004 00AF     		add	r7, sp, #0
+ 1568 0006 7860     		str	r0, [r7, #4]
+ 1569 0008 3960     		str	r1, [r7]
+ 1570 000a 7B68     		ldr	r3, [r7, #4]
+ 1571 000c 9B7B     		ldrb	r3, [r3, #14]	@ zero_extendqisi2
+ 1572 000e 052B     		cmp	r3, #5
+ 1573 0010 02D0     		beq	.L127
+ 1574 0012 1248     		ldr	r0, .L130
+ 1575 0014 FFF7FEFF 		bl	chSysHalt
+ 1576              	.L127:
+ 1577 0018 FFF7FEFF 		bl	chSysLock
+ 1578 001c 0023     		movs	r3, #0
+ 1579 001e FB60     		str	r3, [r7, #12]
+ 1580 0020 0DE0     		b	.L128
+ 1581              	.L129:
+ 1582 0022 FB68     		ldr	r3, [r7, #12]
+ 1583 0024 9B00     		lsls	r3, r3, #2
+ 1584 0026 3A68     		ldr	r2, [r7]
+ 1585 0028 1A44     		add	r2, r2, r3
+ 1586 002a 7B68     		ldr	r3, [r7, #4]
+ 1587 002c 1969     		ldr	r1, [r3, #16]
+ 1588 002e FB68     		ldr	r3, [r7, #12]
+ 1589 0030 9B00     		lsls	r3, r3, #2
+ 1590 0032 0B44     		add	r3, r3, r1
+ 1591 0034 1268     		ldr	r2, [r2]	@ float
+ 1592 0036 1A60     		str	r2, [r3]	@ float
+ 1593 0038 FB68     		ldr	r3, [r7, #12]
+ 1594 003a 0133     		adds	r3, r3, #1
+ 1595 003c FB60     		str	r3, [r7, #12]
+ 1596              	.L128:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 29
+
+
+ 1597 003e 7B68     		ldr	r3, [r7, #4]
+ 1598 0040 DB8A     		ldrh	r3, [r3, #22]
+ 1599 0042 1A46     		mov	r2, r3
+ 1600 0044 FB68     		ldr	r3, [r7, #12]
+ 1601 0046 9342     		cmp	r3, r2
+ 1602 0048 EBDB     		blt	.L129
+ 1603 004a FFF7FEFF 		bl	chSysUnlock
+ 1604 004e 7868     		ldr	r0, [r7, #4]
+ 1605 0050 FFF7FEFF 		bl	_parameter_changed_set
+ 1606 0054 00BF     		nop
+ 1607 0056 1037     		adds	r7, r7, #16
+ 1608 0058 BD46     		mov	sp, r7
+ 1609              		@ sp needed
+ 1610 005a 80BD     		pop	{r7, pc}
+ 1611              	.L131:
+ 1612              		.align	2
+ 1613              	.L130:
+ 1614 005c 00000000 		.word	__func__.9159
+ 1615              		.size	parameter_vector_set, .-parameter_vector_set
+ 1616              		.section	.text.parameter_variable_vector_declare,"ax",%progbits
+ 1617              		.align	1
+ 1618              		.global	parameter_variable_vector_declare
+ 1619              		.syntax unified
+ 1620              		.thumb
+ 1621              		.thumb_func
+ 1622              		.fpu fpv4-sp-d16
+ 1623              		.type	parameter_variable_vector_declare, %function
+ 1624              	parameter_variable_vector_declare:
+ 1625              		@ args = 4, pretend = 0, frame = 16
+ 1626              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1627 0000 80B5     		push	{r7, lr}
+ 1628 0002 84B0     		sub	sp, sp, #16
+ 1629 0004 00AF     		add	r7, sp, #0
+ 1630 0006 F860     		str	r0, [r7, #12]
+ 1631 0008 B960     		str	r1, [r7, #8]
+ 1632 000a 7A60     		str	r2, [r7, #4]
+ 1633 000c 3B60     		str	r3, [r7]
+ 1634 000e FB68     		ldr	r3, [r7, #12]
+ 1635 0010 0622     		movs	r2, #6
+ 1636 0012 9A73     		strb	r2, [r3, #14]
+ 1637 0014 FB68     		ldr	r3, [r7, #12]
+ 1638 0016 3A68     		ldr	r2, [r7]
+ 1639 0018 1A61     		str	r2, [r3, #16]
+ 1640 001a FB68     		ldr	r3, [r7, #12]
+ 1641 001c 3A8B     		ldrh	r2, [r7, #24]	@ movhi
+ 1642 001e 9A82     		strh	r2, [r3, #20]	@ movhi
+ 1643 0020 7A68     		ldr	r2, [r7, #4]
+ 1644 0022 B968     		ldr	r1, [r7, #8]
+ 1645 0024 F868     		ldr	r0, [r7, #12]
+ 1646 0026 FFF7FEFF 		bl	_parameter_declare
+ 1647 002a 00BF     		nop
+ 1648 002c 1037     		adds	r7, r7, #16
+ 1649 002e BD46     		mov	sp, r7
+ 1650              		@ sp needed
+ 1651 0030 80BD     		pop	{r7, pc}
+ 1652              		.size	parameter_variable_vector_declare, .-parameter_variable_vector_declare
+ 1653              		.section	.text.parameter_variable_vector_declare_with_default,"ax",%progbits
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 30
+
+
+ 1654              		.align	1
+ 1655              		.global	parameter_variable_vector_declare_with_default
+ 1656              		.syntax unified
+ 1657              		.thumb
+ 1658              		.thumb_func
+ 1659              		.fpu fpv4-sp-d16
+ 1660              		.type	parameter_variable_vector_declare_with_default, %function
+ 1661              	parameter_variable_vector_declare_with_default:
+ 1662              		@ args = 8, pretend = 0, frame = 16
+ 1663              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1664 0000 80B5     		push	{r7, lr}
+ 1665 0002 86B0     		sub	sp, sp, #24
+ 1666 0004 02AF     		add	r7, sp, #8
+ 1667 0006 F860     		str	r0, [r7, #12]
+ 1668 0008 B960     		str	r1, [r7, #8]
+ 1669 000a 7A60     		str	r2, [r7, #4]
+ 1670 000c 3B60     		str	r3, [r7]
+ 1671 000e 3B8B     		ldrh	r3, [r7, #24]
+ 1672 0010 0093     		str	r3, [sp]
+ 1673 0012 3B68     		ldr	r3, [r7]
+ 1674 0014 7A68     		ldr	r2, [r7, #4]
+ 1675 0016 B968     		ldr	r1, [r7, #8]
+ 1676 0018 F868     		ldr	r0, [r7, #12]
+ 1677 001a FFF7FEFF 		bl	parameter_variable_vector_declare
+ 1678 001e BA8B     		ldrh	r2, [r7, #28]
+ 1679 0020 3B8B     		ldrh	r3, [r7, #24]
+ 1680 0022 9A42     		cmp	r2, r3
+ 1681 0024 02D9     		bls	.L134
+ 1682 0026 0648     		ldr	r0, .L135
+ 1683 0028 FFF7FEFF 		bl	chSysHalt
+ 1684              	.L134:
+ 1685 002c FB68     		ldr	r3, [r7, #12]
+ 1686 002e BA8B     		ldrh	r2, [r7, #28]	@ movhi
+ 1687 0030 DA82     		strh	r2, [r3, #22]	@ movhi
+ 1688 0032 F868     		ldr	r0, [r7, #12]
+ 1689 0034 FFF7FEFF 		bl	_parameter_changed_set
+ 1690 0038 00BF     		nop
+ 1691 003a 1037     		adds	r7, r7, #16
+ 1692 003c BD46     		mov	sp, r7
+ 1693              		@ sp needed
+ 1694 003e 80BD     		pop	{r7, pc}
+ 1695              	.L136:
+ 1696              		.align	2
+ 1697              	.L135:
+ 1698 0040 00000000 		.word	__func__.9179
+ 1699              		.size	parameter_variable_vector_declare_with_default, .-parameter_variable_vector_declare_with_def
+ 1700              		.section	.text.parameter_variable_vector_max_dim,"ax",%progbits
+ 1701              		.align	1
+ 1702              		.global	parameter_variable_vector_max_dim
+ 1703              		.syntax unified
+ 1704              		.thumb
+ 1705              		.thumb_func
+ 1706              		.fpu fpv4-sp-d16
+ 1707              		.type	parameter_variable_vector_max_dim, %function
+ 1708              	parameter_variable_vector_max_dim:
+ 1709              		@ args = 0, pretend = 0, frame = 8
+ 1710              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 31
+
+
+ 1711 0000 80B5     		push	{r7, lr}
+ 1712 0002 82B0     		sub	sp, sp, #8
+ 1713 0004 00AF     		add	r7, sp, #0
+ 1714 0006 7860     		str	r0, [r7, #4]
+ 1715 0008 7B68     		ldr	r3, [r7, #4]
+ 1716 000a 9B7B     		ldrb	r3, [r3, #14]	@ zero_extendqisi2
+ 1717 000c 062B     		cmp	r3, #6
+ 1718 000e 02D0     		beq	.L138
+ 1719 0010 0448     		ldr	r0, .L140
+ 1720 0012 FFF7FEFF 		bl	chSysHalt
+ 1721              	.L138:
+ 1722 0016 7B68     		ldr	r3, [r7, #4]
+ 1723 0018 9B8A     		ldrh	r3, [r3, #20]
+ 1724 001a 1846     		mov	r0, r3
+ 1725 001c 0837     		adds	r7, r7, #8
+ 1726 001e BD46     		mov	sp, r7
+ 1727              		@ sp needed
+ 1728 0020 80BD     		pop	{r7, pc}
+ 1729              	.L141:
+ 1730 0022 00BF     		.align	2
+ 1731              	.L140:
+ 1732 0024 00000000 		.word	__func__.9183
+ 1733              		.size	parameter_variable_vector_max_dim, .-parameter_variable_vector_max_dim
+ 1734              		.section	.text.parameter_variable_vector_get,"ax",%progbits
+ 1735              		.align	1
+ 1736              		.global	parameter_variable_vector_get
+ 1737              		.syntax unified
+ 1738              		.thumb
+ 1739              		.thumb_func
+ 1740              		.fpu fpv4-sp-d16
+ 1741              		.type	parameter_variable_vector_get, %function
+ 1742              	parameter_variable_vector_get:
+ 1743              		@ args = 0, pretend = 0, frame = 8
+ 1744              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1745 0000 80B5     		push	{r7, lr}
+ 1746 0002 82B0     		sub	sp, sp, #8
+ 1747 0004 00AF     		add	r7, sp, #0
+ 1748 0006 7860     		str	r0, [r7, #4]
+ 1749 0008 3960     		str	r1, [r7]
+ 1750 000a 7868     		ldr	r0, [r7, #4]
+ 1751 000c FFF7FEFF 		bl	_parameter_changed_clear
+ 1752 0010 3968     		ldr	r1, [r7]
+ 1753 0012 7868     		ldr	r0, [r7, #4]
+ 1754 0014 FFF7FEFF 		bl	parameter_variable_vector_read
+ 1755 0018 0346     		mov	r3, r0
+ 1756 001a 1846     		mov	r0, r3
+ 1757 001c 0837     		adds	r7, r7, #8
+ 1758 001e BD46     		mov	sp, r7
+ 1759              		@ sp needed
+ 1760 0020 80BD     		pop	{r7, pc}
+ 1761              		.size	parameter_variable_vector_get, .-parameter_variable_vector_get
+ 1762              		.section	.text.parameter_variable_vector_read,"ax",%progbits
+ 1763              		.align	1
+ 1764              		.global	parameter_variable_vector_read
+ 1765              		.syntax unified
+ 1766              		.thumb
+ 1767              		.thumb_func
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 32
+
+
+ 1768              		.fpu fpv4-sp-d16
+ 1769              		.type	parameter_variable_vector_read, %function
+ 1770              	parameter_variable_vector_read:
+ 1771              		@ args = 0, pretend = 0, frame = 16
+ 1772              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1773 0000 80B5     		push	{r7, lr}
+ 1774 0002 84B0     		sub	sp, sp, #16
+ 1775 0004 00AF     		add	r7, sp, #0
+ 1776 0006 7860     		str	r0, [r7, #4]
+ 1777 0008 3960     		str	r1, [r7]
+ 1778 000a 7B68     		ldr	r3, [r7, #4]
+ 1779 000c 9B7B     		ldrb	r3, [r3, #14]	@ zero_extendqisi2
+ 1780 000e 062B     		cmp	r3, #6
+ 1781 0010 02D0     		beq	.L145
+ 1782 0012 1848     		ldr	r0, .L150
+ 1783 0014 FFF7FEFF 		bl	chSysHalt
+ 1784              	.L145:
+ 1785 0018 FFF7FEFF 		bl	chSysLock
+ 1786 001c 7B68     		ldr	r3, [r7, #4]
+ 1787 001e 5B7B     		ldrb	r3, [r3, #13]	@ zero_extendqisi2
+ 1788 0020 83F00103 		eor	r3, r3, #1
+ 1789 0024 DBB2     		uxtb	r3, r3
+ 1790 0026 002B     		cmp	r3, #0
+ 1791 0028 02D0     		beq	.L146
+ 1792 002a 1248     		ldr	r0, .L150
+ 1793 002c FFF7FEFF 		bl	chSysHalt
+ 1794              	.L146:
+ 1795 0030 0023     		movs	r3, #0
+ 1796 0032 FB60     		str	r3, [r7, #12]
+ 1797 0034 0DE0     		b	.L147
+ 1798              	.L148:
+ 1799 0036 7B68     		ldr	r3, [r7, #4]
+ 1800 0038 1A69     		ldr	r2, [r3, #16]
+ 1801 003a FB68     		ldr	r3, [r7, #12]
+ 1802 003c 9B00     		lsls	r3, r3, #2
+ 1803 003e 1A44     		add	r2, r2, r3
+ 1804 0040 FB68     		ldr	r3, [r7, #12]
+ 1805 0042 9B00     		lsls	r3, r3, #2
+ 1806 0044 3968     		ldr	r1, [r7]
+ 1807 0046 0B44     		add	r3, r3, r1
+ 1808 0048 1268     		ldr	r2, [r2]	@ float
+ 1809 004a 1A60     		str	r2, [r3]	@ float
+ 1810 004c FB68     		ldr	r3, [r7, #12]
+ 1811 004e 0133     		adds	r3, r3, #1
+ 1812 0050 FB60     		str	r3, [r7, #12]
+ 1813              	.L147:
+ 1814 0052 7B68     		ldr	r3, [r7, #4]
+ 1815 0054 DB8A     		ldrh	r3, [r3, #22]
+ 1816 0056 1A46     		mov	r2, r3
+ 1817 0058 FB68     		ldr	r3, [r7, #12]
+ 1818 005a 9342     		cmp	r3, r2
+ 1819 005c EBDB     		blt	.L148
+ 1820 005e 7B68     		ldr	r3, [r7, #4]
+ 1821 0060 DB8A     		ldrh	r3, [r3, #22]	@ movhi
+ 1822 0062 7B81     		strh	r3, [r7, #10]	@ movhi
+ 1823 0064 FFF7FEFF 		bl	chSysUnlock
+ 1824 0068 7B89     		ldrh	r3, [r7, #10]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 33
+
+
+ 1825 006a 1846     		mov	r0, r3
+ 1826 006c 1037     		adds	r7, r7, #16
+ 1827 006e BD46     		mov	sp, r7
+ 1828              		@ sp needed
+ 1829 0070 80BD     		pop	{r7, pc}
+ 1830              	.L151:
+ 1831 0072 00BF     		.align	2
+ 1832              	.L150:
+ 1833 0074 00000000 		.word	__func__.9192
+ 1834              		.size	parameter_variable_vector_read, .-parameter_variable_vector_read
+ 1835              		.section	.text.parameter_variable_vector_set,"ax",%progbits
+ 1836              		.align	1
+ 1837              		.global	parameter_variable_vector_set
+ 1838              		.syntax unified
+ 1839              		.thumb
+ 1840              		.thumb_func
+ 1841              		.fpu fpv4-sp-d16
+ 1842              		.type	parameter_variable_vector_set, %function
+ 1843              	parameter_variable_vector_set:
+ 1844              		@ args = 0, pretend = 0, frame = 24
+ 1845              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1846 0000 80B5     		push	{r7, lr}
+ 1847 0002 86B0     		sub	sp, sp, #24
+ 1848 0004 00AF     		add	r7, sp, #0
+ 1849 0006 F860     		str	r0, [r7, #12]
+ 1850 0008 B960     		str	r1, [r7, #8]
+ 1851 000a 1346     		mov	r3, r2
+ 1852 000c FB80     		strh	r3, [r7, #6]	@ movhi
+ 1853 000e FB68     		ldr	r3, [r7, #12]
+ 1854 0010 9B7B     		ldrb	r3, [r3, #14]	@ zero_extendqisi2
+ 1855 0012 062B     		cmp	r3, #6
+ 1856 0014 02D0     		beq	.L153
+ 1857 0016 1748     		ldr	r0, .L157
+ 1858 0018 FFF7FEFF 		bl	chSysHalt
+ 1859              	.L153:
+ 1860 001c FFF7FEFF 		bl	chSysLock
+ 1861 0020 FB68     		ldr	r3, [r7, #12]
+ 1862 0022 9B8A     		ldrh	r3, [r3, #20]
+ 1863 0024 FA88     		ldrh	r2, [r7, #6]
+ 1864 0026 9A42     		cmp	r2, r3
+ 1865 0028 02D9     		bls	.L154
+ 1866 002a 1248     		ldr	r0, .L157
+ 1867 002c FFF7FEFF 		bl	chSysHalt
+ 1868              	.L154:
+ 1869 0030 0023     		movs	r3, #0
+ 1870 0032 7B61     		str	r3, [r7, #20]
+ 1871 0034 0DE0     		b	.L155
+ 1872              	.L156:
+ 1873 0036 7B69     		ldr	r3, [r7, #20]
+ 1874 0038 9B00     		lsls	r3, r3, #2
+ 1875 003a BA68     		ldr	r2, [r7, #8]
+ 1876 003c 1A44     		add	r2, r2, r3
+ 1877 003e FB68     		ldr	r3, [r7, #12]
+ 1878 0040 1969     		ldr	r1, [r3, #16]
+ 1879 0042 7B69     		ldr	r3, [r7, #20]
+ 1880 0044 9B00     		lsls	r3, r3, #2
+ 1881 0046 0B44     		add	r3, r3, r1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 34
+
+
+ 1882 0048 1268     		ldr	r2, [r2]	@ float
+ 1883 004a 1A60     		str	r2, [r3]	@ float
+ 1884 004c 7B69     		ldr	r3, [r7, #20]
+ 1885 004e 0133     		adds	r3, r3, #1
+ 1886 0050 7B61     		str	r3, [r7, #20]
+ 1887              	.L155:
+ 1888 0052 FB88     		ldrh	r3, [r7, #6]
+ 1889 0054 7A69     		ldr	r2, [r7, #20]
+ 1890 0056 9A42     		cmp	r2, r3
+ 1891 0058 EDDB     		blt	.L156
+ 1892 005a FB68     		ldr	r3, [r7, #12]
+ 1893 005c FA88     		ldrh	r2, [r7, #6]	@ movhi
+ 1894 005e DA82     		strh	r2, [r3, #22]	@ movhi
+ 1895 0060 FFF7FEFF 		bl	chSysUnlock
+ 1896 0064 F868     		ldr	r0, [r7, #12]
+ 1897 0066 FFF7FEFF 		bl	_parameter_changed_set
+ 1898 006a 00BF     		nop
+ 1899 006c 1837     		adds	r7, r7, #24
+ 1900 006e BD46     		mov	sp, r7
+ 1901              		@ sp needed
+ 1902 0070 80BD     		pop	{r7, pc}
+ 1903              	.L158:
+ 1904 0072 00BF     		.align	2
+ 1905              	.L157:
+ 1906 0074 00000000 		.word	__func__.9203
+ 1907              		.size	parameter_variable_vector_set, .-parameter_variable_vector_set
+ 1908              		.section	.text.parameter_string_declare,"ax",%progbits
+ 1909              		.align	1
+ 1910              		.global	parameter_string_declare
+ 1911              		.syntax unified
+ 1912              		.thumb
+ 1913              		.thumb_func
+ 1914              		.fpu fpv4-sp-d16
+ 1915              		.type	parameter_string_declare, %function
+ 1916              	parameter_string_declare:
+ 1917              		@ args = 4, pretend = 0, frame = 16
+ 1918              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1919 0000 80B5     		push	{r7, lr}
+ 1920 0002 84B0     		sub	sp, sp, #16
+ 1921 0004 00AF     		add	r7, sp, #0
+ 1922 0006 F860     		str	r0, [r7, #12]
+ 1923 0008 B960     		str	r1, [r7, #8]
+ 1924 000a 7A60     		str	r2, [r7, #4]
+ 1925 000c 3B60     		str	r3, [r7]
+ 1926 000e FB68     		ldr	r3, [r7, #12]
+ 1927 0010 0422     		movs	r2, #4
+ 1928 0012 9A73     		strb	r2, [r3, #14]
+ 1929 0014 FB68     		ldr	r3, [r7, #12]
+ 1930 0016 3A68     		ldr	r2, [r7]
+ 1931 0018 1A61     		str	r2, [r3, #16]
+ 1932 001a FB68     		ldr	r3, [r7, #12]
+ 1933 001c 3A8B     		ldrh	r2, [r7, #24]	@ movhi
+ 1934 001e 9A82     		strh	r2, [r3, #20]	@ movhi
+ 1935 0020 7A68     		ldr	r2, [r7, #4]
+ 1936 0022 B968     		ldr	r1, [r7, #8]
+ 1937 0024 F868     		ldr	r0, [r7, #12]
+ 1938 0026 FFF7FEFF 		bl	_parameter_declare
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 35
+
+
+ 1939 002a 00BF     		nop
+ 1940 002c 1037     		adds	r7, r7, #16
+ 1941 002e BD46     		mov	sp, r7
+ 1942              		@ sp needed
+ 1943 0030 80BD     		pop	{r7, pc}
+ 1944              		.size	parameter_string_declare, .-parameter_string_declare
+ 1945              		.section	.text.parameter_string_declare_with_default,"ax",%progbits
+ 1946              		.align	1
+ 1947              		.global	parameter_string_declare_with_default
+ 1948              		.syntax unified
+ 1949              		.thumb
+ 1950              		.thumb_func
+ 1951              		.fpu fpv4-sp-d16
+ 1952              		.type	parameter_string_declare_with_default, %function
+ 1953              	parameter_string_declare_with_default:
+ 1954              		@ args = 8, pretend = 0, frame = 16
+ 1955              		@ frame_needed = 1, uses_anonymous_args = 0
+ 1956 0000 80B5     		push	{r7, lr}
+ 1957 0002 86B0     		sub	sp, sp, #24
+ 1958 0004 02AF     		add	r7, sp, #8
+ 1959 0006 F860     		str	r0, [r7, #12]
+ 1960 0008 B960     		str	r1, [r7, #8]
+ 1961 000a 7A60     		str	r2, [r7, #4]
+ 1962 000c 3B60     		str	r3, [r7]
+ 1963 000e 3B8B     		ldrh	r3, [r7, #24]
+ 1964 0010 0093     		str	r3, [sp]
+ 1965 0012 3B68     		ldr	r3, [r7]
+ 1966 0014 7A68     		ldr	r2, [r7, #4]
+ 1967 0016 B968     		ldr	r1, [r7, #8]
+ 1968 0018 F868     		ldr	r0, [r7, #12]
+ 1969 001a FFF7FEFF 		bl	parameter_string_declare
+ 1970 001e F869     		ldr	r0, [r7, #28]
+ 1971 0020 FFF7FEFF 		bl	strlen
+ 1972 0024 0346     		mov	r3, r0
+ 1973 0026 9AB2     		uxth	r2, r3
+ 1974 0028 FB68     		ldr	r3, [r7, #12]
+ 1975 002a DA82     		strh	r2, [r3, #22]	@ movhi
+ 1976 002c FB68     		ldr	r3, [r7, #12]
+ 1977 002e DB8A     		ldrh	r3, [r3, #22]
+ 1978 0030 3A8B     		ldrh	r2, [r7, #24]
+ 1979 0032 9A42     		cmp	r2, r3
+ 1980 0034 02D2     		bcs	.L161
+ 1981 0036 0848     		ldr	r0, .L162
+ 1982 0038 FFF7FEFF 		bl	chSysHalt
+ 1983              	.L161:
+ 1984 003c FB68     		ldr	r3, [r7, #12]
+ 1985 003e 1B69     		ldr	r3, [r3, #16]
+ 1986 0040 3A8B     		ldrh	r2, [r7, #24]
+ 1987 0042 F969     		ldr	r1, [r7, #28]
+ 1988 0044 1846     		mov	r0, r3
+ 1989 0046 FFF7FEFF 		bl	strncpy
+ 1990 004a F868     		ldr	r0, [r7, #12]
+ 1991 004c FFF7FEFF 		bl	_parameter_changed_set
+ 1992 0050 00BF     		nop
+ 1993 0052 1037     		adds	r7, r7, #16
+ 1994 0054 BD46     		mov	sp, r7
+ 1995              		@ sp needed
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 36
+
+
+ 1996 0056 80BD     		pop	{r7, pc}
+ 1997              	.L163:
+ 1998              		.align	2
+ 1999              	.L162:
+ 2000 0058 00000000 		.word	__func__.9223
+ 2001              		.size	parameter_string_declare_with_default, .-parameter_string_declare_with_default
+ 2002              		.section	.text.parameter_string_max_len,"ax",%progbits
+ 2003              		.align	1
+ 2004              		.global	parameter_string_max_len
+ 2005              		.syntax unified
+ 2006              		.thumb
+ 2007              		.thumb_func
+ 2008              		.fpu fpv4-sp-d16
+ 2009              		.type	parameter_string_max_len, %function
+ 2010              	parameter_string_max_len:
+ 2011              		@ args = 0, pretend = 0, frame = 8
+ 2012              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2013 0000 80B5     		push	{r7, lr}
+ 2014 0002 82B0     		sub	sp, sp, #8
+ 2015 0004 00AF     		add	r7, sp, #0
+ 2016 0006 7860     		str	r0, [r7, #4]
+ 2017 0008 7B68     		ldr	r3, [r7, #4]
+ 2018 000a 9B7B     		ldrb	r3, [r3, #14]	@ zero_extendqisi2
+ 2019 000c 042B     		cmp	r3, #4
+ 2020 000e 02D0     		beq	.L165
+ 2021 0010 0548     		ldr	r0, .L167
+ 2022 0012 FFF7FEFF 		bl	chSysHalt
+ 2023              	.L165:
+ 2024 0016 7B68     		ldr	r3, [r7, #4]
+ 2025 0018 9B8A     		ldrh	r3, [r3, #20]
+ 2026 001a 0133     		adds	r3, r3, #1
+ 2027 001c 9BB2     		uxth	r3, r3
+ 2028 001e 1846     		mov	r0, r3
+ 2029 0020 0837     		adds	r7, r7, #8
+ 2030 0022 BD46     		mov	sp, r7
+ 2031              		@ sp needed
+ 2032 0024 80BD     		pop	{r7, pc}
+ 2033              	.L168:
+ 2034 0026 00BF     		.align	2
+ 2035              	.L167:
+ 2036 0028 00000000 		.word	__func__.9227
+ 2037              		.size	parameter_string_max_len, .-parameter_string_max_len
+ 2038              		.section	.text.parameter_string_get,"ax",%progbits
+ 2039              		.align	1
+ 2040              		.global	parameter_string_get
+ 2041              		.syntax unified
+ 2042              		.thumb
+ 2043              		.thumb_func
+ 2044              		.fpu fpv4-sp-d16
+ 2045              		.type	parameter_string_get, %function
+ 2046              	parameter_string_get:
+ 2047              		@ args = 0, pretend = 0, frame = 16
+ 2048              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2049 0000 80B5     		push	{r7, lr}
+ 2050 0002 84B0     		sub	sp, sp, #16
+ 2051 0004 00AF     		add	r7, sp, #0
+ 2052 0006 F860     		str	r0, [r7, #12]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 37
+
+
+ 2053 0008 B960     		str	r1, [r7, #8]
+ 2054 000a 1346     		mov	r3, r2
+ 2055 000c FB80     		strh	r3, [r7, #6]	@ movhi
+ 2056 000e F868     		ldr	r0, [r7, #12]
+ 2057 0010 FFF7FEFF 		bl	_parameter_changed_clear
+ 2058 0014 FB88     		ldrh	r3, [r7, #6]
+ 2059 0016 1A46     		mov	r2, r3
+ 2060 0018 B968     		ldr	r1, [r7, #8]
+ 2061 001a F868     		ldr	r0, [r7, #12]
+ 2062 001c FFF7FEFF 		bl	parameter_string_read
+ 2063 0020 0346     		mov	r3, r0
+ 2064 0022 1846     		mov	r0, r3
+ 2065 0024 1037     		adds	r7, r7, #16
+ 2066 0026 BD46     		mov	sp, r7
+ 2067              		@ sp needed
+ 2068 0028 80BD     		pop	{r7, pc}
+ 2069              		.size	parameter_string_get, .-parameter_string_get
+ 2070              		.section	.text.parameter_string_read,"ax",%progbits
+ 2071              		.align	1
+ 2072              		.global	parameter_string_read
+ 2073              		.syntax unified
+ 2074              		.thumb
+ 2075              		.thumb_func
+ 2076              		.fpu fpv4-sp-d16
+ 2077              		.type	parameter_string_read, %function
+ 2078              	parameter_string_read:
+ 2079              		@ args = 0, pretend = 0, frame = 24
+ 2080              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2081 0000 80B5     		push	{r7, lr}
+ 2082 0002 86B0     		sub	sp, sp, #24
+ 2083 0004 00AF     		add	r7, sp, #0
+ 2084 0006 F860     		str	r0, [r7, #12]
+ 2085 0008 B960     		str	r1, [r7, #8]
+ 2086 000a 1346     		mov	r3, r2
+ 2087 000c FB80     		strh	r3, [r7, #6]	@ movhi
+ 2088 000e FB68     		ldr	r3, [r7, #12]
+ 2089 0010 9B7B     		ldrb	r3, [r3, #14]	@ zero_extendqisi2
+ 2090 0012 042B     		cmp	r3, #4
+ 2091 0014 02D0     		beq	.L172
+ 2092 0016 1C48     		ldr	r0, .L177
+ 2093 0018 FFF7FEFF 		bl	chSysHalt
+ 2094              	.L172:
+ 2095 001c FFF7FEFF 		bl	chSysLock
+ 2096 0020 FB68     		ldr	r3, [r7, #12]
+ 2097 0022 5B7B     		ldrb	r3, [r3, #13]	@ zero_extendqisi2
+ 2098 0024 83F00103 		eor	r3, r3, #1
+ 2099 0028 DBB2     		uxtb	r3, r3
+ 2100 002a 002B     		cmp	r3, #0
+ 2101 002c 02D0     		beq	.L173
+ 2102 002e 1648     		ldr	r0, .L177
+ 2103 0030 FFF7FEFF 		bl	chSysHalt
+ 2104              	.L173:
+ 2105 0034 FB68     		ldr	r3, [r7, #12]
+ 2106 0036 DB8A     		ldrh	r3, [r3, #22]	@ movhi
+ 2107 0038 FB82     		strh	r3, [r7, #22]	@ movhi
+ 2108 003a FA88     		ldrh	r2, [r7, #6]
+ 2109 003c FB8A     		ldrh	r3, [r7, #22]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 38
+
+
+ 2110 003e 9A42     		cmp	r2, r3
+ 2111 0040 0CD9     		bls	.L174
+ 2112 0042 FB68     		ldr	r3, [r7, #12]
+ 2113 0044 1B69     		ldr	r3, [r3, #16]
+ 2114 0046 FA8A     		ldrh	r2, [r7, #22]
+ 2115 0048 1946     		mov	r1, r3
+ 2116 004a B868     		ldr	r0, [r7, #8]
+ 2117 004c FFF7FEFF 		bl	memcpy
+ 2118 0050 FB8A     		ldrh	r3, [r7, #22]
+ 2119 0052 BA68     		ldr	r2, [r7, #8]
+ 2120 0054 1344     		add	r3, r3, r2
+ 2121 0056 0022     		movs	r2, #0
+ 2122 0058 1A70     		strb	r2, [r3]
+ 2123 005a 0DE0     		b	.L175
+ 2124              	.L174:
+ 2125 005c FB68     		ldr	r3, [r7, #12]
+ 2126 005e 1969     		ldr	r1, [r3, #16]
+ 2127 0060 FB88     		ldrh	r3, [r7, #6]
+ 2128 0062 013B     		subs	r3, r3, #1
+ 2129 0064 1A46     		mov	r2, r3
+ 2130 0066 B868     		ldr	r0, [r7, #8]
+ 2131 0068 FFF7FEFF 		bl	memcpy
+ 2132 006c FB88     		ldrh	r3, [r7, #6]
+ 2133 006e 013B     		subs	r3, r3, #1
+ 2134 0070 BA68     		ldr	r2, [r7, #8]
+ 2135 0072 1344     		add	r3, r3, r2
+ 2136 0074 0022     		movs	r2, #0
+ 2137 0076 1A70     		strb	r2, [r3]
+ 2138              	.L175:
+ 2139 0078 FFF7FEFF 		bl	chSysUnlock
+ 2140 007c FB8A     		ldrh	r3, [r7, #22]
+ 2141 007e 1846     		mov	r0, r3
+ 2142 0080 1837     		adds	r7, r7, #24
+ 2143 0082 BD46     		mov	sp, r7
+ 2144              		@ sp needed
+ 2145 0084 80BD     		pop	{r7, pc}
+ 2146              	.L178:
+ 2147 0086 00BF     		.align	2
+ 2148              	.L177:
+ 2149 0088 00000000 		.word	__func__.9238
+ 2150              		.size	parameter_string_read, .-parameter_string_read
+ 2151              		.section	.text.parameter_string_set,"ax",%progbits
+ 2152              		.align	1
+ 2153              		.global	parameter_string_set
+ 2154              		.syntax unified
+ 2155              		.thumb
+ 2156              		.thumb_func
+ 2157              		.fpu fpv4-sp-d16
+ 2158              		.type	parameter_string_set, %function
+ 2159              	parameter_string_set:
+ 2160              		@ args = 0, pretend = 0, frame = 8
+ 2161              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2162 0000 80B5     		push	{r7, lr}
+ 2163 0002 82B0     		sub	sp, sp, #8
+ 2164 0004 00AF     		add	r7, sp, #0
+ 2165 0006 7860     		str	r0, [r7, #4]
+ 2166 0008 3960     		str	r1, [r7]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 39
+
+
+ 2167 000a 3868     		ldr	r0, [r7]
+ 2168 000c FFF7FEFF 		bl	strlen
+ 2169 0010 0346     		mov	r3, r0
+ 2170 0012 9BB2     		uxth	r3, r3
+ 2171 0014 1A46     		mov	r2, r3
+ 2172 0016 3968     		ldr	r1, [r7]
+ 2173 0018 7868     		ldr	r0, [r7, #4]
+ 2174 001a FFF7FEFF 		bl	parameter_string_set_w_len
+ 2175 001e 00BF     		nop
+ 2176 0020 0837     		adds	r7, r7, #8
+ 2177 0022 BD46     		mov	sp, r7
+ 2178              		@ sp needed
+ 2179 0024 80BD     		pop	{r7, pc}
+ 2180              		.size	parameter_string_set, .-parameter_string_set
+ 2181              		.section	.text.parameter_string_set_w_len,"ax",%progbits
+ 2182              		.align	1
+ 2183              		.global	parameter_string_set_w_len
+ 2184              		.syntax unified
+ 2185              		.thumb
+ 2186              		.thumb_func
+ 2187              		.fpu fpv4-sp-d16
+ 2188              		.type	parameter_string_set_w_len, %function
+ 2189              	parameter_string_set_w_len:
+ 2190              		@ args = 0, pretend = 0, frame = 16
+ 2191              		@ frame_needed = 1, uses_anonymous_args = 0
+ 2192 0000 80B5     		push	{r7, lr}
+ 2193 0002 84B0     		sub	sp, sp, #16
+ 2194 0004 00AF     		add	r7, sp, #0
+ 2195 0006 F860     		str	r0, [r7, #12]
+ 2196 0008 B960     		str	r1, [r7, #8]
+ 2197 000a 1346     		mov	r3, r2
+ 2198 000c FB80     		strh	r3, [r7, #6]	@ movhi
+ 2199 000e FB68     		ldr	r3, [r7, #12]
+ 2200 0010 9B7B     		ldrb	r3, [r3, #14]	@ zero_extendqisi2
+ 2201 0012 042B     		cmp	r3, #4
+ 2202 0014 02D0     		beq	.L181
+ 2203 0016 1048     		ldr	r0, .L183
+ 2204 0018 FFF7FEFF 		bl	chSysHalt
+ 2205              	.L181:
+ 2206 001c FFF7FEFF 		bl	chSysLock
+ 2207 0020 FB68     		ldr	r3, [r7, #12]
+ 2208 0022 9B8A     		ldrh	r3, [r3, #20]
+ 2209 0024 FA88     		ldrh	r2, [r7, #6]
+ 2210 0026 9A42     		cmp	r2, r3
+ 2211 0028 02D9     		bls	.L182
+ 2212 002a 0B48     		ldr	r0, .L183
+ 2213 002c FFF7FEFF 		bl	chSysHalt
+ 2214              	.L182:
+ 2215 0030 FB68     		ldr	r3, [r7, #12]
+ 2216 0032 1B69     		ldr	r3, [r3, #16]
+ 2217 0034 FA88     		ldrh	r2, [r7, #6]
+ 2218 0036 B968     		ldr	r1, [r7, #8]
+ 2219 0038 1846     		mov	r0, r3
+ 2220 003a FFF7FEFF 		bl	memcpy
+ 2221 003e FB68     		ldr	r3, [r7, #12]
+ 2222 0040 FA88     		ldrh	r2, [r7, #6]	@ movhi
+ 2223 0042 DA82     		strh	r2, [r3, #22]	@ movhi
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 40
+
+
+ 2224 0044 FFF7FEFF 		bl	chSysUnlock
+ 2225 0048 F868     		ldr	r0, [r7, #12]
+ 2226 004a FFF7FEFF 		bl	_parameter_changed_set
+ 2227 004e 00BF     		nop
+ 2228 0050 1037     		adds	r7, r7, #16
+ 2229 0052 BD46     		mov	sp, r7
+ 2230              		@ sp needed
+ 2231 0054 80BD     		pop	{r7, pc}
+ 2232              	.L184:
+ 2233 0056 00BF     		.align	2
+ 2234              	.L183:
+ 2235 0058 00000000 		.word	__func__.9249
+ 2236              		.size	parameter_string_set_w_len, .-parameter_string_set_w_len
+ 2237              		.section	.rodata.__func__.8162,"a",%progbits
+ 2238              		.align	2
+ 2239              		.type	__func__.8162, %object
+ 2240              		.size	__func__.8162, 12
+ 2241              	__func__.8162:
+ 2242 0000 63685379 		.ascii	"chSysUnlock\000"
+ 2242      73556E6C 
+ 2242      6F636B00 
+ 2243              		.section	.rodata.__func__.9069,"a",%progbits
+ 2244              		.align	2
+ 2245              		.type	__func__.9069, %object
+ 2246              		.size	__func__.9069, 22
+ 2247              	__func__.9069:
+ 2248 0000 70617261 		.ascii	"parameter_scalar_read\000"
+ 2248      6D657465 
+ 2248      725F7363 
+ 2248      616C6172 
+ 2248      5F726561 
+ 2249              		.section	.rodata.__func__.9075,"a",%progbits
+ 2250              		.align	2
+ 2251              		.type	__func__.9075, %object
+ 2252              		.size	__func__.9075, 21
+ 2253              	__func__.9075:
+ 2254 0000 70617261 		.ascii	"parameter_scalar_set\000"
+ 2254      6D657465 
+ 2254      725F7363 
+ 2254      616C6172 
+ 2254      5F736574 
+ 2255              		.section	.rodata.__func__.9093,"a",%progbits
+ 2256              		.align	2
+ 2257              		.type	__func__.9093, %object
+ 2258              		.size	__func__.9093, 23
+ 2259              	__func__.9093:
+ 2260 0000 70617261 		.ascii	"parameter_integer_read\000"
+ 2260      6D657465 
+ 2260      725F696E 
+ 2260      74656765 
+ 2260      725F7265 
+ 2261              		.section	.rodata.__func__.9099,"a",%progbits
+ 2262              		.align	2
+ 2263              		.type	__func__.9099, %object
+ 2264              		.size	__func__.9099, 22
+ 2265              	__func__.9099:
+ 2266 0000 70617261 		.ascii	"parameter_integer_set\000"
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 41
+
+
+ 2266      6D657465 
+ 2266      725F696E 
+ 2266      74656765 
+ 2266      725F7365 
+ 2267              		.section	.rodata.__func__.9115,"a",%progbits
+ 2268              		.align	2
+ 2269              		.type	__func__.9115, %object
+ 2270              		.size	__func__.9115, 22
+ 2271              	__func__.9115:
+ 2272 0000 70617261 		.ascii	"parameter_boolean_set\000"
+ 2272      6D657465 
+ 2272      725F626F 
+ 2272      6F6C6561 
+ 2272      6E5F7365 
+ 2273              		.section	.rodata.__func__.9122,"a",%progbits
+ 2274              		.align	2
+ 2275              		.type	__func__.9122, %object
+ 2276              		.size	__func__.9122, 23
+ 2277              	__func__.9122:
+ 2278 0000 70617261 		.ascii	"parameter_boolean_read\000"
+ 2278      6D657465 
+ 2278      725F626F 
+ 2278      6F6C6561 
+ 2278      6E5F7265 
+ 2279              		.section	.rodata.__func__.9141,"a",%progbits
+ 2280              		.align	2
+ 2281              		.type	__func__.9141, %object
+ 2282              		.size	__func__.9141, 21
+ 2283              	__func__.9141:
+ 2284 0000 70617261 		.ascii	"parameter_vector_dim\000"
+ 2284      6D657465 
+ 2284      725F7665 
+ 2284      63746F72 
+ 2284      5F64696D 
+ 2285              		.section	.rodata.__func__.9150,"a",%progbits
+ 2286              		.align	2
+ 2287              		.type	__func__.9150, %object
+ 2288              		.size	__func__.9150, 22
+ 2289              	__func__.9150:
+ 2290 0000 70617261 		.ascii	"parameter_vector_read\000"
+ 2290      6D657465 
+ 2290      725F7665 
+ 2290      63746F72 
+ 2290      5F726561 
+ 2291              		.section	.rodata.__func__.9159,"a",%progbits
+ 2292              		.align	2
+ 2293              		.type	__func__.9159, %object
+ 2294              		.size	__func__.9159, 21
+ 2295              	__func__.9159:
+ 2296 0000 70617261 		.ascii	"parameter_vector_set\000"
+ 2296      6D657465 
+ 2296      725F7665 
+ 2296      63746F72 
+ 2296      5F736574 
+ 2297              		.section	.rodata.__func__.9179,"a",%progbits
+ 2298              		.align	2
+ 2299              		.type	__func__.9179, %object
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 42
+
+
+ 2300              		.size	__func__.9179, 47
+ 2301              	__func__.9179:
+ 2302 0000 70617261 		.ascii	"parameter_variable_vector_declare_with_default\000"
+ 2302      6D657465 
+ 2302      725F7661 
+ 2302      72696162 
+ 2302      6C655F76 
+ 2303              		.section	.rodata.__func__.9183,"a",%progbits
+ 2304              		.align	2
+ 2305              		.type	__func__.9183, %object
+ 2306              		.size	__func__.9183, 34
+ 2307              	__func__.9183:
+ 2308 0000 70617261 		.ascii	"parameter_variable_vector_max_dim\000"
+ 2308      6D657465 
+ 2308      725F7661 
+ 2308      72696162 
+ 2308      6C655F76 
+ 2309              		.section	.rodata.__func__.9192,"a",%progbits
+ 2310              		.align	2
+ 2311              		.type	__func__.9192, %object
+ 2312              		.size	__func__.9192, 31
+ 2313              	__func__.9192:
+ 2314 0000 70617261 		.ascii	"parameter_variable_vector_read\000"
+ 2314      6D657465 
+ 2314      725F7661 
+ 2314      72696162 
+ 2314      6C655F76 
+ 2315              		.section	.rodata.__func__.9203,"a",%progbits
+ 2316              		.align	2
+ 2317              		.type	__func__.9203, %object
+ 2318              		.size	__func__.9203, 30
+ 2319              	__func__.9203:
+ 2320 0000 70617261 		.ascii	"parameter_variable_vector_set\000"
+ 2320      6D657465 
+ 2320      725F7661 
+ 2320      72696162 
+ 2320      6C655F76 
+ 2321              		.section	.rodata.__func__.9223,"a",%progbits
+ 2322              		.align	2
+ 2323              		.type	__func__.9223, %object
+ 2324              		.size	__func__.9223, 38
+ 2325              	__func__.9223:
+ 2326 0000 70617261 		.ascii	"parameter_string_declare_with_default\000"
+ 2326      6D657465 
+ 2326      725F7374 
+ 2326      72696E67 
+ 2326      5F646563 
+ 2327              		.section	.rodata.__func__.9227,"a",%progbits
+ 2328              		.align	2
+ 2329              		.type	__func__.9227, %object
+ 2330              		.size	__func__.9227, 25
+ 2331              	__func__.9227:
+ 2332 0000 70617261 		.ascii	"parameter_string_max_len\000"
+ 2332      6D657465 
+ 2332      725F7374 
+ 2332      72696E67 
+ 2332      5F6D6178 
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 43
+
+
+ 2333              		.section	.rodata.__func__.9238,"a",%progbits
+ 2334              		.align	2
+ 2335              		.type	__func__.9238, %object
+ 2336              		.size	__func__.9238, 22
+ 2337              	__func__.9238:
+ 2338 0000 70617261 		.ascii	"parameter_string_read\000"
+ 2338      6D657465 
+ 2338      725F7374 
+ 2338      72696E67 
+ 2338      5F726561 
+ 2339              		.section	.rodata.__func__.9249,"a",%progbits
+ 2340              		.align	2
+ 2341              		.type	__func__.9249, %object
+ 2342              		.size	__func__.9249, 27
+ 2343              	__func__.9249:
+ 2344 0000 70617261 		.ascii	"parameter_string_set_w_len\000"
+ 2344      6D657465 
+ 2344      725F7374 
+ 2344      72696E67 
+ 2344      5F736574 
+ 2345              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 44
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 parameter.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:15     .text.port_lock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:21     .text.port_lock:0000000000000000 port_lock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:45     .text.port_unlock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:51     .text.port_unlock:0000000000000000 port_unlock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:75     .text.chSysLock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:81     .text.chSysLock:0000000000000000 chSysLock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:93     .text.chSysUnlock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:99     .text.chSysUnlock:0000000000000000 chSysUnlock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:128    .text.chSysUnlock:0000000000000034 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2241   .rodata.__func__.8162:0000000000000000 __func__.8162
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:132    .text.id_split:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:138    .text.id_split:0000000000000000 id_split
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:180    .text.get_subnamespace:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:186    .text.get_subnamespace:0000000000000000 get_subnamespace
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:245    .text.get_parameter:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:251    .text.get_parameter:0000000000000000 get_parameter
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:310    .text.parameter_namespace_declare:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:317    .text.parameter_namespace_declare:0000000000000000 parameter_namespace_declare
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:368    .text._parameter_namespace_find_w_id_len:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:375    .text._parameter_namespace_find_w_id_len:0000000000000000 _parameter_namespace_find_w_id_len
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:429    .text.parameter_namespace_find:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:436    .text.parameter_namespace_find:0000000000000000 parameter_namespace_find
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:459    .text._parameter_find_w_id_len:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:466    .text._parameter_find_w_id_len:0000000000000000 _parameter_find_w_id_len
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:534    .text.parameter_find:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:541    .text.parameter_find:0000000000000000 parameter_find
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:564    .text._parameter_declare:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:571    .text._parameter_declare:0000000000000000 _parameter_declare
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:610    .text.parameter_namespace_contains_changed:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:617    .text.parameter_namespace_contains_changed:0000000000000000 parameter_namespace_contains_changed
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:642    .text.parameter_changed:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:649    .text.parameter_changed:0000000000000000 parameter_changed
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:669    .text.parameter_defined:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:676    .text.parameter_defined:0000000000000000 parameter_defined
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:703    .text._parameter_changed_set:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:710    .text._parameter_changed_set:0000000000000000 _parameter_changed_set
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:760    .text._parameter_changed_clear:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:767    .text._parameter_changed_clear:0000000000000000 _parameter_changed_clear
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:816    .text.parameter_scalar_declare:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:823    .text.parameter_scalar_declare:0000000000000000 parameter_scalar_declare
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:846    .text.parameter_scalar_declare_with_default:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:853    .text.parameter_scalar_declare_with_default:0000000000000000 parameter_scalar_declare_with_default
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:882    .text.parameter_scalar_get:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:889    .text.parameter_scalar_get:0000000000000000 parameter_scalar_get
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:915    .text.parameter_scalar_read:0000000000000000 parameter_scalar_read
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:908    .text.parameter_scalar_read:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:953    .text.parameter_scalar_read:0000000000000048 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2247   .rodata.__func__.9069:0000000000000000 __func__.9069
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:956    .text.parameter_scalar_set:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:963    .text.parameter_scalar_set:0000000000000000 parameter_scalar_set
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:993    .text.parameter_scalar_set:0000000000000038 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2253   .rodata.__func__.9075:0000000000000000 __func__.9075
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:996    .text.parameter_integer_declare:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1003   .text.parameter_integer_declare:0000000000000000 parameter_integer_declare
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1026   .text.parameter_integer_declare_with_default:0000000000000000 $t
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 45
+
+
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1033   .text.parameter_integer_declare_with_default:0000000000000000 parameter_integer_declare_with_default
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1062   .text.parameter_integer_get:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1069   .text.parameter_integer_get:0000000000000000 parameter_integer_get
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1095   .text.parameter_integer_read:0000000000000000 parameter_integer_read
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1088   .text.parameter_integer_read:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1132   .text.parameter_integer_read:0000000000000044 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2259   .rodata.__func__.9093:0000000000000000 __func__.9093
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1135   .text.parameter_integer_set:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1142   .text.parameter_integer_set:0000000000000000 parameter_integer_set
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1172   .text.parameter_integer_set:0000000000000034 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2265   .rodata.__func__.9099:0000000000000000 __func__.9099
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1175   .text.parameter_boolean_declare:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1182   .text.parameter_boolean_declare:0000000000000000 parameter_boolean_declare
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1205   .text.parameter_boolean_declare_with_default:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1212   .text.parameter_boolean_declare_with_default:0000000000000000 parameter_boolean_declare_with_default
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1241   .text.parameter_boolean_set:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1248   .text.parameter_boolean_set:0000000000000000 parameter_boolean_set
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1279   .text.parameter_boolean_set:0000000000000038 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2271   .rodata.__func__.9115:0000000000000000 __func__.9115
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1282   .text.parameter_boolean_get:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1289   .text.parameter_boolean_get:0000000000000000 parameter_boolean_get
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1315   .text.parameter_boolean_read:0000000000000000 parameter_boolean_read
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1308   .text.parameter_boolean_read:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1352   .text.parameter_boolean_read:0000000000000044 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2277   .rodata.__func__.9122:0000000000000000 __func__.9122
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1355   .text.parameter_vector_declare:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1362   .text.parameter_vector_declare:0000000000000000 parameter_vector_declare
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1392   .text.parameter_vector_declare_with_default:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1399   .text.parameter_vector_declare_with_default:0000000000000000 parameter_vector_declare_with_default
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1425   .text.parameter_vector_dim:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1432   .text.parameter_vector_dim:0000000000000000 parameter_vector_dim
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1456   .text.parameter_vector_dim:0000000000000024 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2283   .rodata.__func__.9141:0000000000000000 __func__.9141
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1459   .text.parameter_vector_get:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1466   .text.parameter_vector_get:0000000000000000 parameter_vector_get
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1493   .text.parameter_vector_read:0000000000000000 parameter_vector_read
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1486   .text.parameter_vector_read:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1552   .text.parameter_vector_read:000000000000006c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2289   .rodata.__func__.9150:0000000000000000 __func__.9150
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1555   .text.parameter_vector_set:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1562   .text.parameter_vector_set:0000000000000000 parameter_vector_set
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1614   .text.parameter_vector_set:000000000000005c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2295   .rodata.__func__.9159:0000000000000000 __func__.9159
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1617   .text.parameter_variable_vector_declare:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1624   .text.parameter_variable_vector_declare:0000000000000000 parameter_variable_vector_declare
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1654   .text.parameter_variable_vector_declare_with_default:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1661   .text.parameter_variable_vector_declare_with_default:0000000000000000 parameter_variable_vector_declare_with_default
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1698   .text.parameter_variable_vector_declare_with_default:0000000000000040 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2301   .rodata.__func__.9179:0000000000000000 __func__.9179
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1701   .text.parameter_variable_vector_max_dim:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1708   .text.parameter_variable_vector_max_dim:0000000000000000 parameter_variable_vector_max_dim
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1732   .text.parameter_variable_vector_max_dim:0000000000000024 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2307   .rodata.__func__.9183:0000000000000000 __func__.9183
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1735   .text.parameter_variable_vector_get:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1742   .text.parameter_variable_vector_get:0000000000000000 parameter_variable_vector_get
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1770   .text.parameter_variable_vector_read:0000000000000000 parameter_variable_vector_read
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1763   .text.parameter_variable_vector_read:0000000000000000 $t
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 46
+
+
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1833   .text.parameter_variable_vector_read:0000000000000074 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2313   .rodata.__func__.9192:0000000000000000 __func__.9192
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1836   .text.parameter_variable_vector_set:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1843   .text.parameter_variable_vector_set:0000000000000000 parameter_variable_vector_set
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1906   .text.parameter_variable_vector_set:0000000000000074 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2319   .rodata.__func__.9203:0000000000000000 __func__.9203
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1909   .text.parameter_string_declare:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1916   .text.parameter_string_declare:0000000000000000 parameter_string_declare
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1946   .text.parameter_string_declare_with_default:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:1953   .text.parameter_string_declare_with_default:0000000000000000 parameter_string_declare_with_default
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2000   .text.parameter_string_declare_with_default:0000000000000058 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2325   .rodata.__func__.9223:0000000000000000 __func__.9223
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2003   .text.parameter_string_max_len:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2010   .text.parameter_string_max_len:0000000000000000 parameter_string_max_len
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2036   .text.parameter_string_max_len:0000000000000028 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2331   .rodata.__func__.9227:0000000000000000 __func__.9227
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2039   .text.parameter_string_get:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2046   .text.parameter_string_get:0000000000000000 parameter_string_get
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2078   .text.parameter_string_read:0000000000000000 parameter_string_read
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2071   .text.parameter_string_read:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2149   .text.parameter_string_read:0000000000000088 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2337   .rodata.__func__.9238:0000000000000000 __func__.9238
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2152   .text.parameter_string_set:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2159   .text.parameter_string_set:0000000000000000 parameter_string_set
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2189   .text.parameter_string_set_w_len:0000000000000000 parameter_string_set_w_len
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2182   .text.parameter_string_set_w_len:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2235   .text.parameter_string_set_w_len:0000000000000058 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2343   .rodata.__func__.9249:0000000000000000 __func__.9249
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2238   .rodata.__func__.8162:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2244   .rodata.__func__.9069:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2250   .rodata.__func__.9075:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2256   .rodata.__func__.9093:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2262   .rodata.__func__.9099:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2268   .rodata.__func__.9115:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2274   .rodata.__func__.9122:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2280   .rodata.__func__.9141:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2286   .rodata.__func__.9150:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2292   .rodata.__func__.9159:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2298   .rodata.__func__.9179:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2304   .rodata.__func__.9183:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2310   .rodata.__func__.9192:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2316   .rodata.__func__.9203:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2322   .rodata.__func__.9223:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2328   .rodata.__func__.9227:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2334   .rodata.__func__.9238:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s:2340   .rodata.__func__.9249:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+_stats_start_measure_crit_thd
+_dbg_check_lock
+_dbg_check_unlock
+_stats_stop_measure_crit_thd
+chSysHalt
+ch
+strncmp
+strlen
+strncpy
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//cczHMrzu.s 			page 47
+
+
+memcpy

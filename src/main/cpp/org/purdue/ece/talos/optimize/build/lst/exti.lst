@@ -1,0 +1,409 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"exti.c"
+  14              		.section	.text.port_lock,"ax",%progbits
+  15              		.align	1
+  16              		.syntax unified
+  17              		.thumb
+  18              		.thumb_func
+  19              		.fpu fpv4-sp-d16
+  20              		.type	port_lock, %function
+  21              	port_lock:
+  22              		@ args = 0, pretend = 0, frame = 8
+  23              		@ frame_needed = 1, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 80B4     		push	{r7}
+  26 0002 83B0     		sub	sp, sp, #12
+  27 0004 00AF     		add	r7, sp, #0
+  28 0006 2023     		movs	r3, #32
+  29 0008 7B60     		str	r3, [r7, #4]
+  30 000a 7B68     		ldr	r3, [r7, #4]
+  31              		.syntax unified
+  32              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  33 000c 83F31188 		MSR basepri, r3
+  34              	@ 0 "" 2
+  35              		.thumb
+  36              		.syntax unified
+  37 0010 00BF     		nop
+  38 0012 0C37     		adds	r7, r7, #12
+  39 0014 BD46     		mov	sp, r7
+  40              		@ sp needed
+  41 0016 5DF8047B 		ldr	r7, [sp], #4
+  42 001a 7047     		bx	lr
+  43              		.size	port_lock, .-port_lock
+  44              		.section	.text.port_unlock,"ax",%progbits
+  45              		.align	1
+  46              		.syntax unified
+  47              		.thumb
+  48              		.thumb_func
+  49              		.fpu fpv4-sp-d16
+  50              		.type	port_unlock, %function
+  51              	port_unlock:
+  52              		@ args = 0, pretend = 0, frame = 8
+  53              		@ frame_needed = 1, uses_anonymous_args = 0
+  54              		@ link register save eliminated.
+  55 0000 80B4     		push	{r7}
+  56 0002 83B0     		sub	sp, sp, #12
+  57 0004 00AF     		add	r7, sp, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s 			page 2
+
+
+  58 0006 0023     		movs	r3, #0
+  59 0008 7B60     		str	r3, [r7, #4]
+  60 000a 7B68     		ldr	r3, [r7, #4]
+  61              		.syntax unified
+  62              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  63 000c 83F31188 		MSR basepri, r3
+  64              	@ 0 "" 2
+  65              		.thumb
+  66              		.syntax unified
+  67 0010 00BF     		nop
+  68 0012 0C37     		adds	r7, r7, #12
+  69 0014 BD46     		mov	sp, r7
+  70              		@ sp needed
+  71 0016 5DF8047B 		ldr	r7, [sp], #4
+  72 001a 7047     		bx	lr
+  73              		.size	port_unlock, .-port_unlock
+  74              		.section	.text.port_lock_from_isr,"ax",%progbits
+  75              		.align	1
+  76              		.syntax unified
+  77              		.thumb
+  78              		.thumb_func
+  79              		.fpu fpv4-sp-d16
+  80              		.type	port_lock_from_isr, %function
+  81              	port_lock_from_isr:
+  82              		@ args = 0, pretend = 0, frame = 0
+  83              		@ frame_needed = 1, uses_anonymous_args = 0
+  84 0000 80B5     		push	{r7, lr}
+  85 0002 00AF     		add	r7, sp, #0
+  86 0004 FFF7FEFF 		bl	port_lock
+  87 0008 00BF     		nop
+  88 000a 80BD     		pop	{r7, pc}
+  89              		.size	port_lock_from_isr, .-port_lock_from_isr
+  90              		.section	.text.port_unlock_from_isr,"ax",%progbits
+  91              		.align	1
+  92              		.syntax unified
+  93              		.thumb
+  94              		.thumb_func
+  95              		.fpu fpv4-sp-d16
+  96              		.type	port_unlock_from_isr, %function
+  97              	port_unlock_from_isr:
+  98              		@ args = 0, pretend = 0, frame = 0
+  99              		@ frame_needed = 1, uses_anonymous_args = 0
+ 100 0000 80B5     		push	{r7, lr}
+ 101 0002 00AF     		add	r7, sp, #0
+ 102 0004 FFF7FEFF 		bl	port_unlock
+ 103 0008 00BF     		nop
+ 104 000a 80BD     		pop	{r7, pc}
+ 105              		.size	port_unlock_from_isr, .-port_unlock_from_isr
+ 106              		.section	.text.chSysLockFromISR,"ax",%progbits
+ 107              		.align	1
+ 108              		.syntax unified
+ 109              		.thumb
+ 110              		.thumb_func
+ 111              		.fpu fpv4-sp-d16
+ 112              		.type	chSysLockFromISR, %function
+ 113              	chSysLockFromISR:
+ 114              		@ args = 0, pretend = 0, frame = 0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s 			page 3
+
+
+ 115              		@ frame_needed = 1, uses_anonymous_args = 0
+ 116 0000 80B5     		push	{r7, lr}
+ 117 0002 00AF     		add	r7, sp, #0
+ 118 0004 FFF7FEFF 		bl	port_lock_from_isr
+ 119 0008 FFF7FEFF 		bl	_stats_start_measure_crit_isr
+ 120 000c FFF7FEFF 		bl	_dbg_check_lock_from_isr
+ 121 0010 00BF     		nop
+ 122 0012 80BD     		pop	{r7, pc}
+ 123              		.size	chSysLockFromISR, .-chSysLockFromISR
+ 124              		.section	.text.chSysUnlockFromISR,"ax",%progbits
+ 125              		.align	1
+ 126              		.syntax unified
+ 127              		.thumb
+ 128              		.thumb_func
+ 129              		.fpu fpv4-sp-d16
+ 130              		.type	chSysUnlockFromISR, %function
+ 131              	chSysUnlockFromISR:
+ 132              		@ args = 0, pretend = 0, frame = 0
+ 133              		@ frame_needed = 1, uses_anonymous_args = 0
+ 134 0000 80B5     		push	{r7, lr}
+ 135 0002 00AF     		add	r7, sp, #0
+ 136 0004 FFF7FEFF 		bl	_dbg_check_unlock_from_isr
+ 137 0008 FFF7FEFF 		bl	_stats_stop_measure_crit_isr
+ 138 000c FFF7FEFF 		bl	port_unlock_from_isr
+ 139 0010 00BF     		nop
+ 140 0012 80BD     		pop	{r7, pc}
+ 141              		.size	chSysUnlockFromISR, .-chSysUnlockFromISR
+ 142              		.section	.text.chEvtObjectInit,"ax",%progbits
+ 143              		.align	1
+ 144              		.syntax unified
+ 145              		.thumb
+ 146              		.thumb_func
+ 147              		.fpu fpv4-sp-d16
+ 148              		.type	chEvtObjectInit, %function
+ 149              	chEvtObjectInit:
+ 150              		@ args = 0, pretend = 0, frame = 8
+ 151              		@ frame_needed = 1, uses_anonymous_args = 0
+ 152              		@ link register save eliminated.
+ 153 0000 80B4     		push	{r7}
+ 154 0002 83B0     		sub	sp, sp, #12
+ 155 0004 00AF     		add	r7, sp, #0
+ 156 0006 7860     		str	r0, [r7, #4]
+ 157 0008 7B68     		ldr	r3, [r7, #4]
+ 158 000a 7A68     		ldr	r2, [r7, #4]
+ 159 000c 1A60     		str	r2, [r3]
+ 160 000e 00BF     		nop
+ 161 0010 0C37     		adds	r7, r7, #12
+ 162 0012 BD46     		mov	sp, r7
+ 163              		@ sp needed
+ 164 0014 5DF8047B 		ldr	r7, [sp], #4
+ 165 0018 7047     		bx	lr
+ 166              		.size	chEvtObjectInit, .-chEvtObjectInit
+ 167              		.global	exti_events
+ 168              		.section	.bss.exti_events,"aw",%nobits
+ 169              		.align	2
+ 170              		.type	exti_events, %object
+ 171              		.size	exti_events, 4
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s 			page 4
+
+
+ 172              	exti_events:
+ 173 0000 00000000 		.space	4
+ 174              		.section	.text.gpio_exti_callback,"ax",%progbits
+ 175              		.align	1
+ 176              		.syntax unified
+ 177              		.thumb
+ 178              		.thumb_func
+ 179              		.fpu fpv4-sp-d16
+ 180              		.type	gpio_exti_callback, %function
+ 181              	gpio_exti_callback:
+ 182              		@ args = 0, pretend = 0, frame = 8
+ 183              		@ frame_needed = 1, uses_anonymous_args = 0
+ 184 0000 80B5     		push	{r7, lr}
+ 185 0002 82B0     		sub	sp, sp, #8
+ 186 0004 00AF     		add	r7, sp, #0
+ 187 0006 7860     		str	r0, [r7, #4]
+ 188 0008 3960     		str	r1, [r7]
+ 189 000a 3B68     		ldr	r3, [r7]
+ 190 000c 032B     		cmp	r3, #3
+ 191 000e 08D1     		bne	.L9
+ 192 0010 FFF7FEFF 		bl	chSysLockFromISR
+ 193 0014 0221     		movs	r1, #2
+ 194 0016 0A48     		ldr	r0, .L12
+ 195 0018 FFF7FEFF 		bl	chEvtBroadcastFlagsI
+ 196 001c FFF7FEFF 		bl	chSysUnlockFromISR
+ 197 0020 0AE0     		b	.L11
+ 198              	.L9:
+ 199 0022 3B68     		ldr	r3, [r7]
+ 200 0024 0F2B     		cmp	r3, #15
+ 201 0026 07D1     		bne	.L11
+ 202 0028 FFF7FEFF 		bl	chSysLockFromISR
+ 203 002c 0121     		movs	r1, #1
+ 204 002e 0448     		ldr	r0, .L12
+ 205 0030 FFF7FEFF 		bl	chEvtBroadcastFlagsI
+ 206 0034 FFF7FEFF 		bl	chSysUnlockFromISR
+ 207              	.L11:
+ 208 0038 00BF     		nop
+ 209 003a 0837     		adds	r7, r7, #8
+ 210 003c BD46     		mov	sp, r7
+ 211              		@ sp needed
+ 212 003e 80BD     		pop	{r7, pc}
+ 213              	.L13:
+ 214              		.align	2
+ 215              	.L12:
+ 216 0040 00000000 		.word	exti_events
+ 217              		.size	gpio_exti_callback, .-gpio_exti_callback
+ 218              		.section	.rodata.extcfg,"a",%progbits
+ 219              		.align	2
+ 220              		.type	extcfg, %object
+ 221              		.size	extcfg, 184
+ 222              	extcfg:
+ 223 0000 00000000 		.word	0
+ 224 0004 00000000 		.word	0
+ 225 0008 00000000 		.word	0
+ 226 000c 00000000 		.word	0
+ 227 0010 00000000 		.word	0
+ 228 0014 00000000 		.word	0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s 			page 5
+
+
+ 229 0018 37000000 		.word	55
+ 230 001c 00000000 		.word	gpio_exti_callback
+ 231 0020 00000000 		.word	0
+ 232 0024 00000000 		.word	0
+ 233 0028 00000000 		.word	0
+ 234 002c 00000000 		.word	0
+ 235 0030 00000000 		.word	0
+ 236 0034 00000000 		.word	0
+ 237 0038 00000000 		.word	0
+ 238 003c 00000000 		.word	0
+ 239 0040 00000000 		.word	0
+ 240 0044 00000000 		.word	0
+ 241 0048 00000000 		.word	0
+ 242 004c 00000000 		.word	0
+ 243 0050 00000000 		.word	0
+ 244 0054 00000000 		.word	0
+ 245 0058 00000000 		.word	0
+ 246 005c 00000000 		.word	0
+ 247 0060 00000000 		.word	0
+ 248 0064 00000000 		.word	0
+ 249 0068 00000000 		.word	0
+ 250 006c 00000000 		.word	0
+ 251 0070 00000000 		.word	0
+ 252 0074 00000000 		.word	0
+ 253 0078 35000000 		.word	53
+ 254 007c 00000000 		.word	gpio_exti_callback
+ 255 0080 00000000 		.word	0
+ 256 0084 00000000 		.word	0
+ 257 0088 00000000 		.word	0
+ 258 008c 00000000 		.word	0
+ 259 0090 00000000 		.word	0
+ 260 0094 00000000 		.word	0
+ 261 0098 00000000 		.word	0
+ 262 009c 00000000 		.word	0
+ 263 00a0 00000000 		.word	0
+ 264 00a4 00000000 		.word	0
+ 265 00a8 00000000 		.word	0
+ 266 00ac 00000000 		.word	0
+ 267 00b0 00000000 		.word	0
+ 268 00b4 00000000 		.word	0
+ 269              		.section	.text.exti_start,"ax",%progbits
+ 270              		.align	1
+ 271              		.global	exti_start
+ 272              		.syntax unified
+ 273              		.thumb
+ 274              		.thumb_func
+ 275              		.fpu fpv4-sp-d16
+ 276              		.type	exti_start, %function
+ 277              	exti_start:
+ 278              		@ args = 0, pretend = 0, frame = 0
+ 279              		@ frame_needed = 1, uses_anonymous_args = 0
+ 280 0000 80B5     		push	{r7, lr}
+ 281 0002 00AF     		add	r7, sp, #0
+ 282 0004 0448     		ldr	r0, .L15
+ 283 0006 FFF7FEFF 		bl	chEvtObjectInit
+ 284 000a 0449     		ldr	r1, .L15+4
+ 285 000c 0448     		ldr	r0, .L15+8
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s 			page 6
+
+
+ 286 000e FFF7FEFF 		bl	extStart
+ 287 0012 00BF     		nop
+ 288 0014 80BD     		pop	{r7, pc}
+ 289              	.L16:
+ 290 0016 00BF     		.align	2
+ 291              	.L15:
+ 292 0018 00000000 		.word	exti_events
+ 293 001c 00000000 		.word	extcfg
+ 294 0020 00000000 		.word	EXTD1
+ 295              		.size	exti_start, .-exti_start
+ 296              		.section	.text.exti_disable_ir_remote,"ax",%progbits
+ 297              		.align	1
+ 298              		.global	exti_disable_ir_remote
+ 299              		.syntax unified
+ 300              		.thumb
+ 301              		.thumb_func
+ 302              		.fpu fpv4-sp-d16
+ 303              		.type	exti_disable_ir_remote, %function
+ 304              	exti_disable_ir_remote:
+ 305              		@ args = 0, pretend = 0, frame = 0
+ 306              		@ frame_needed = 1, uses_anonymous_args = 0
+ 307 0000 80B5     		push	{r7, lr}
+ 308 0002 00AF     		add	r7, sp, #0
+ 309 0004 0321     		movs	r1, #3
+ 310 0006 0248     		ldr	r0, .L18
+ 311 0008 FFF7FEFF 		bl	ext_lld_channel_disable
+ 312 000c 00BF     		nop
+ 313 000e 80BD     		pop	{r7, pc}
+ 314              	.L19:
+ 315              		.align	2
+ 316              	.L18:
+ 317 0010 00000000 		.word	EXTD1
+ 318              		.size	exti_disable_ir_remote, .-exti_disable_ir_remote
+ 319              		.section	.text.exti_enable_ir_remote,"ax",%progbits
+ 320              		.align	1
+ 321              		.global	exti_enable_ir_remote
+ 322              		.syntax unified
+ 323              		.thumb
+ 324              		.thumb_func
+ 325              		.fpu fpv4-sp-d16
+ 326              		.type	exti_enable_ir_remote, %function
+ 327              	exti_enable_ir_remote:
+ 328              		@ args = 0, pretend = 0, frame = 0
+ 329              		@ frame_needed = 1, uses_anonymous_args = 0
+ 330 0000 80B5     		push	{r7, lr}
+ 331 0002 00AF     		add	r7, sp, #0
+ 332 0004 0321     		movs	r1, #3
+ 333 0006 0248     		ldr	r0, .L21
+ 334 0008 FFF7FEFF 		bl	ext_lld_channel_enable
+ 335 000c 00BF     		nop
+ 336 000e 80BD     		pop	{r7, pc}
+ 337              	.L22:
+ 338              		.align	2
+ 339              	.L21:
+ 340 0010 00000000 		.word	EXTD1
+ 341              		.size	exti_enable_ir_remote, .-exti_enable_ir_remote
+ 342              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s 			page 7
+
+
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s 			page 8
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 exti.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:15     .text.port_lock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:21     .text.port_lock:0000000000000000 port_lock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:45     .text.port_unlock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:51     .text.port_unlock:0000000000000000 port_unlock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:75     .text.port_lock_from_isr:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:81     .text.port_lock_from_isr:0000000000000000 port_lock_from_isr
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:91     .text.port_unlock_from_isr:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:97     .text.port_unlock_from_isr:0000000000000000 port_unlock_from_isr
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:107    .text.chSysLockFromISR:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:113    .text.chSysLockFromISR:0000000000000000 chSysLockFromISR
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:125    .text.chSysUnlockFromISR:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:131    .text.chSysUnlockFromISR:0000000000000000 chSysUnlockFromISR
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:143    .text.chEvtObjectInit:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:149    .text.chEvtObjectInit:0000000000000000 chEvtObjectInit
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:172    .bss.exti_events:0000000000000000 exti_events
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:169    .bss.exti_events:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:175    .text.gpio_exti_callback:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:181    .text.gpio_exti_callback:0000000000000000 gpio_exti_callback
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:216    .text.gpio_exti_callback:0000000000000040 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:219    .rodata.extcfg:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:222    .rodata.extcfg:0000000000000000 extcfg
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:270    .text.exti_start:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:277    .text.exti_start:0000000000000000 exti_start
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:292    .text.exti_start:0000000000000018 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:297    .text.exti_disable_ir_remote:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:304    .text.exti_disable_ir_remote:0000000000000000 exti_disable_ir_remote
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:317    .text.exti_disable_ir_remote:0000000000000010 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:320    .text.exti_enable_ir_remote:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:327    .text.exti_enable_ir_remote:0000000000000000 exti_enable_ir_remote
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccWiyeim.s:340    .text.exti_enable_ir_remote:0000000000000010 $d
+
+UNDEFINED SYMBOLS
+_stats_start_measure_crit_isr
+_dbg_check_lock_from_isr
+_dbg_check_unlock_from_isr
+_stats_stop_measure_crit_isr
+chEvtBroadcastFlagsI
+extStart
+EXTD1
+ext_lld_channel_disable
+ext_lld_channel_enable

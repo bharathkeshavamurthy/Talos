@@ -1,0 +1,90 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbY2l3s.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"crt1.c"
+  14              		.section	.text.__early_init,"ax",%progbits
+  15              		.align	1
+  16              		.weak	__early_init
+  17              		.syntax unified
+  18              		.thumb
+  19              		.thumb_func
+  20              		.fpu fpv4-sp-d16
+  21              		.type	__early_init, %function
+  22              	__early_init:
+  23              		@ args = 0, pretend = 0, frame = 0
+  24              		@ frame_needed = 1, uses_anonymous_args = 0
+  25              		@ link register save eliminated.
+  26 0000 80B4     		push	{r7}
+  27 0002 00AF     		add	r7, sp, #0
+  28 0004 00BF     		nop
+  29 0006 BD46     		mov	sp, r7
+  30              		@ sp needed
+  31 0008 5DF8047B 		ldr	r7, [sp], #4
+  32 000c 7047     		bx	lr
+  33              		.size	__early_init, .-__early_init
+  34              		.section	.text.__late_init,"ax",%progbits
+  35              		.align	1
+  36              		.weak	__late_init
+  37              		.syntax unified
+  38              		.thumb
+  39              		.thumb_func
+  40              		.fpu fpv4-sp-d16
+  41              		.type	__late_init, %function
+  42              	__late_init:
+  43              		@ args = 0, pretend = 0, frame = 0
+  44              		@ frame_needed = 1, uses_anonymous_args = 0
+  45              		@ link register save eliminated.
+  46 0000 80B4     		push	{r7}
+  47 0002 00AF     		add	r7, sp, #0
+  48 0004 00BF     		nop
+  49 0006 BD46     		mov	sp, r7
+  50              		@ sp needed
+  51 0008 5DF8047B 		ldr	r7, [sp], #4
+  52 000c 7047     		bx	lr
+  53              		.size	__late_init, .-__late_init
+  54              		.section	.text.__default_exit,"ax",%progbits
+  55              		.align	1
+  56              		.weak	__default_exit
+  57              		.syntax unified
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbY2l3s.s 			page 2
+
+
+  58              		.thumb
+  59              		.thumb_func
+  60              		.fpu fpv4-sp-d16
+  61              		.type	__default_exit, %function
+  62              	__default_exit:
+  63              		@ args = 0, pretend = 0, frame = 0
+  64              		@ frame_needed = 1, uses_anonymous_args = 0
+  65              		@ link register save eliminated.
+  66 0000 80B4     		push	{r7}
+  67 0002 00AF     		add	r7, sp, #0
+  68              	.L4:
+  69 0004 FEE7     		b	.L4
+  70              		.size	__default_exit, .-__default_exit
+  71              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbY2l3s.s 			page 3
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 crt1.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbY2l3s.s:15     .text.__early_init:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbY2l3s.s:22     .text.__early_init:0000000000000000 __early_init
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbY2l3s.s:35     .text.__late_init:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbY2l3s.s:42     .text.__late_init:0000000000000000 __late_init
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbY2l3s.s:55     .text.__default_exit:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbY2l3s.s:62     .text.__default_exit:0000000000000000 __default_exit
+
+NO UNDEFINED SYMBOLS

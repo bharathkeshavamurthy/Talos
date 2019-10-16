@@ -1,0 +1,246 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"chstats.c"
+  14              		.section	.text._stats_init,"ax",%progbits
+  15              		.align	1
+  16              		.global	_stats_init
+  17              		.syntax unified
+  18              		.thumb
+  19              		.thumb_func
+  20              		.fpu fpv4-sp-d16
+  21              		.type	_stats_init, %function
+  22              	_stats_init:
+  23              		@ args = 0, pretend = 0, frame = 0
+  24              		@ frame_needed = 1, uses_anonymous_args = 0
+  25 0000 80B5     		push	{r7, lr}
+  26 0002 00AF     		add	r7, sp, #0
+  27 0004 074B     		ldr	r3, .L2
+  28 0006 0022     		movs	r2, #0
+  29 0008 C3F8B024 		str	r2, [r3, #1200]
+  30 000c 054B     		ldr	r3, .L2
+  31 000e 0022     		movs	r2, #0
+  32 0010 C3F8B424 		str	r2, [r3, #1204]
+  33 0014 0448     		ldr	r0, .L2+4
+  34 0016 FFF7FEFF 		bl	chTMObjectInit
+  35 001a 0448     		ldr	r0, .L2+8
+  36 001c FFF7FEFF 		bl	chTMObjectInit
+  37 0020 00BF     		nop
+  38 0022 80BD     		pop	{r7, pc}
+  39              	.L3:
+  40              		.align	2
+  41              	.L2:
+  42 0024 00000000 		.word	ch
+  43 0028 B8040000 		.word	ch+1208
+  44 002c D0040000 		.word	ch+1232
+  45              		.size	_stats_init, .-_stats_init
+  46              		.section	.text._stats_increase_irq,"ax",%progbits
+  47              		.align	1
+  48              		.global	_stats_increase_irq
+  49              		.syntax unified
+  50              		.thumb
+  51              		.thumb_func
+  52              		.fpu fpv4-sp-d16
+  53              		.type	_stats_increase_irq, %function
+  54              	_stats_increase_irq:
+  55              		@ args = 0, pretend = 0, frame = 0
+  56              		@ frame_needed = 1, uses_anonymous_args = 0
+  57              		@ link register save eliminated.
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s 			page 2
+
+
+  58 0000 80B4     		push	{r7}
+  59 0002 00AF     		add	r7, sp, #0
+  60 0004 054B     		ldr	r3, .L5
+  61 0006 D3F8B034 		ldr	r3, [r3, #1200]
+  62 000a 0133     		adds	r3, r3, #1
+  63 000c 034A     		ldr	r2, .L5
+  64 000e C2F8B034 		str	r3, [r2, #1200]
+  65 0012 00BF     		nop
+  66 0014 BD46     		mov	sp, r7
+  67              		@ sp needed
+  68 0016 5DF8047B 		ldr	r7, [sp], #4
+  69 001a 7047     		bx	lr
+  70              	.L6:
+  71              		.align	2
+  72              	.L5:
+  73 001c 00000000 		.word	ch
+  74              		.size	_stats_increase_irq, .-_stats_increase_irq
+  75              		.section	.text._stats_ctxswc,"ax",%progbits
+  76              		.align	1
+  77              		.global	_stats_ctxswc
+  78              		.syntax unified
+  79              		.thumb
+  80              		.thumb_func
+  81              		.fpu fpv4-sp-d16
+  82              		.type	_stats_ctxswc, %function
+  83              	_stats_ctxswc:
+  84              		@ args = 0, pretend = 0, frame = 8
+  85              		@ frame_needed = 1, uses_anonymous_args = 0
+  86 0000 80B5     		push	{r7, lr}
+  87 0002 82B0     		sub	sp, sp, #8
+  88 0004 00AF     		add	r7, sp, #0
+  89 0006 7860     		str	r0, [r7, #4]
+  90 0008 3960     		str	r1, [r7]
+  91 000a 0A4B     		ldr	r3, .L8
+  92 000c D3F8B434 		ldr	r3, [r3, #1204]
+  93 0010 0133     		adds	r3, r3, #1
+  94 0012 084A     		ldr	r2, .L8
+  95 0014 C2F8B434 		str	r3, [r2, #1204]
+  96 0018 3B68     		ldr	r3, [r7]
+  97 001a 03F15002 		add	r2, r3, #80
+  98 001e 7B68     		ldr	r3, [r7, #4]
+  99 0020 5033     		adds	r3, r3, #80
+ 100 0022 1946     		mov	r1, r3
+ 101 0024 1046     		mov	r0, r2
+ 102 0026 FFF7FEFF 		bl	chTMChainMeasurementToX
+ 103 002a 00BF     		nop
+ 104 002c 0837     		adds	r7, r7, #8
+ 105 002e BD46     		mov	sp, r7
+ 106              		@ sp needed
+ 107 0030 80BD     		pop	{r7, pc}
+ 108              	.L9:
+ 109 0032 00BF     		.align	2
+ 110              	.L8:
+ 111 0034 00000000 		.word	ch
+ 112              		.size	_stats_ctxswc, .-_stats_ctxswc
+ 113              		.section	.text._stats_start_measure_crit_thd,"ax",%progbits
+ 114              		.align	1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s 			page 3
+
+
+ 115              		.global	_stats_start_measure_crit_thd
+ 116              		.syntax unified
+ 117              		.thumb
+ 118              		.thumb_func
+ 119              		.fpu fpv4-sp-d16
+ 120              		.type	_stats_start_measure_crit_thd, %function
+ 121              	_stats_start_measure_crit_thd:
+ 122              		@ args = 0, pretend = 0, frame = 0
+ 123              		@ frame_needed = 1, uses_anonymous_args = 0
+ 124 0000 80B5     		push	{r7, lr}
+ 125 0002 00AF     		add	r7, sp, #0
+ 126 0004 0248     		ldr	r0, .L11
+ 127 0006 FFF7FEFF 		bl	chTMStartMeasurementX
+ 128 000a 00BF     		nop
+ 129 000c 80BD     		pop	{r7, pc}
+ 130              	.L12:
+ 131 000e 00BF     		.align	2
+ 132              	.L11:
+ 133 0010 B8040000 		.word	ch+1208
+ 134              		.size	_stats_start_measure_crit_thd, .-_stats_start_measure_crit_thd
+ 135              		.section	.text._stats_stop_measure_crit_thd,"ax",%progbits
+ 136              		.align	1
+ 137              		.global	_stats_stop_measure_crit_thd
+ 138              		.syntax unified
+ 139              		.thumb
+ 140              		.thumb_func
+ 141              		.fpu fpv4-sp-d16
+ 142              		.type	_stats_stop_measure_crit_thd, %function
+ 143              	_stats_stop_measure_crit_thd:
+ 144              		@ args = 0, pretend = 0, frame = 0
+ 145              		@ frame_needed = 1, uses_anonymous_args = 0
+ 146 0000 80B5     		push	{r7, lr}
+ 147 0002 00AF     		add	r7, sp, #0
+ 148 0004 0248     		ldr	r0, .L14
+ 149 0006 FFF7FEFF 		bl	chTMStopMeasurementX
+ 150 000a 00BF     		nop
+ 151 000c 80BD     		pop	{r7, pc}
+ 152              	.L15:
+ 153 000e 00BF     		.align	2
+ 154              	.L14:
+ 155 0010 B8040000 		.word	ch+1208
+ 156              		.size	_stats_stop_measure_crit_thd, .-_stats_stop_measure_crit_thd
+ 157              		.section	.text._stats_start_measure_crit_isr,"ax",%progbits
+ 158              		.align	1
+ 159              		.global	_stats_start_measure_crit_isr
+ 160              		.syntax unified
+ 161              		.thumb
+ 162              		.thumb_func
+ 163              		.fpu fpv4-sp-d16
+ 164              		.type	_stats_start_measure_crit_isr, %function
+ 165              	_stats_start_measure_crit_isr:
+ 166              		@ args = 0, pretend = 0, frame = 0
+ 167              		@ frame_needed = 1, uses_anonymous_args = 0
+ 168 0000 80B5     		push	{r7, lr}
+ 169 0002 00AF     		add	r7, sp, #0
+ 170 0004 0248     		ldr	r0, .L17
+ 171 0006 FFF7FEFF 		bl	chTMStartMeasurementX
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s 			page 4
+
+
+ 172 000a 00BF     		nop
+ 173 000c 80BD     		pop	{r7, pc}
+ 174              	.L18:
+ 175 000e 00BF     		.align	2
+ 176              	.L17:
+ 177 0010 D0040000 		.word	ch+1232
+ 178              		.size	_stats_start_measure_crit_isr, .-_stats_start_measure_crit_isr
+ 179              		.section	.text._stats_stop_measure_crit_isr,"ax",%progbits
+ 180              		.align	1
+ 181              		.global	_stats_stop_measure_crit_isr
+ 182              		.syntax unified
+ 183              		.thumb
+ 184              		.thumb_func
+ 185              		.fpu fpv4-sp-d16
+ 186              		.type	_stats_stop_measure_crit_isr, %function
+ 187              	_stats_stop_measure_crit_isr:
+ 188              		@ args = 0, pretend = 0, frame = 0
+ 189              		@ frame_needed = 1, uses_anonymous_args = 0
+ 190 0000 80B5     		push	{r7, lr}
+ 191 0002 00AF     		add	r7, sp, #0
+ 192 0004 0248     		ldr	r0, .L20
+ 193 0006 FFF7FEFF 		bl	chTMStopMeasurementX
+ 194 000a 00BF     		nop
+ 195 000c 80BD     		pop	{r7, pc}
+ 196              	.L21:
+ 197 000e 00BF     		.align	2
+ 198              	.L20:
+ 199 0010 D0040000 		.word	ch+1232
+ 200              		.size	_stats_stop_measure_crit_isr, .-_stats_stop_measure_crit_isr
+ 201              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s 			page 5
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 chstats.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s:15     .text._stats_init:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s:22     .text._stats_init:0000000000000000 _stats_init
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s:42     .text._stats_init:0000000000000024 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s:47     .text._stats_increase_irq:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s:54     .text._stats_increase_irq:0000000000000000 _stats_increase_irq
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s:73     .text._stats_increase_irq:000000000000001c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s:76     .text._stats_ctxswc:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s:83     .text._stats_ctxswc:0000000000000000 _stats_ctxswc
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s:111    .text._stats_ctxswc:0000000000000034 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s:114    .text._stats_start_measure_crit_thd:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s:121    .text._stats_start_measure_crit_thd:0000000000000000 _stats_start_measure_crit_thd
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s:133    .text._stats_start_measure_crit_thd:0000000000000010 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s:136    .text._stats_stop_measure_crit_thd:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s:143    .text._stats_stop_measure_crit_thd:0000000000000000 _stats_stop_measure_crit_thd
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s:155    .text._stats_stop_measure_crit_thd:0000000000000010 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s:158    .text._stats_start_measure_crit_isr:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s:165    .text._stats_start_measure_crit_isr:0000000000000000 _stats_start_measure_crit_isr
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s:177    .text._stats_start_measure_crit_isr:0000000000000010 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s:180    .text._stats_stop_measure_crit_isr:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s:187    .text._stats_stop_measure_crit_isr:0000000000000000 _stats_stop_measure_crit_isr
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccqggELc.s:199    .text._stats_stop_measure_crit_isr:0000000000000010 $d
+
+UNDEFINED SYMBOLS
+chTMObjectInit
+ch
+chTMChainMeasurementToX
+chTMStartMeasurementX
+chTMStopMeasurementX

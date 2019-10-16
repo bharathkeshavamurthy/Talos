@@ -1,0 +1,488 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"i2c_bus.c"
+  14              		.section	.bss.errors,"aw",%nobits
+  15              		.align	2
+  16              		.type	errors, %object
+  17              		.size	errors, 4
+  18              	errors:
+  19 0000 00000000 		.space	4
+  20              		.section	.data.timeout,"aw",%progbits
+  21              		.align	2
+  22              		.type	timeout, %object
+  23              		.size	timeout, 4
+  24              	timeout:
+  25 0000 04000000 		.word	4
+  26              		.section	.text.i2c_start,"ax",%progbits
+  27              		.align	1
+  28              		.global	i2c_start
+  29              		.syntax unified
+  30              		.thumb
+  31              		.thumb_func
+  32              		.fpu fpv4-sp-d16
+  33              		.type	i2c_start, %function
+  34              	i2c_start:
+  35              		@ args = 0, pretend = 0, frame = 8
+  36              		@ frame_needed = 1, uses_anonymous_args = 0
+  37 0000 80B5     		push	{r7, lr}
+  38 0002 82B0     		sub	sp, sp, #8
+  39 0004 00AF     		add	r7, sp, #0
+  40 0006 184B     		ldr	r3, .L7
+  41 0008 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+  42 000a 012B     		cmp	r3, #1
+  43 000c 27D1     		bne	.L6
+  44 000e 0522     		movs	r2, #5
+  45 0010 4FF48071 		mov	r1, #256
+  46 0014 1548     		ldr	r0, .L7+4
+  47 0016 FFF7FEFF 		bl	_pal_lld_setgroupmode
+  48 001a 0023     		movs	r3, #0
+  49 001c FB71     		strb	r3, [r7, #7]
+  50 001e 0BE0     		b	.L4
+  51              	.L5:
+  52 0020 124B     		ldr	r3, .L7+4
+  53 0022 5B69     		ldr	r3, [r3, #20]
+  54 0024 114A     		ldr	r2, .L7+4
+  55 0026 83F48073 		eor	r3, r3, #256
+  56 002a 5361     		str	r3, [r2, #20]
+  57 002c 0120     		movs	r0, #1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s 			page 2
+
+
+  58 002e FFF7FEFF 		bl	chThdSleep
+  59 0032 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+  60 0034 0133     		adds	r3, r3, #1
+  61 0036 FB71     		strb	r3, [r7, #7]
+  62              	.L4:
+  63 0038 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+  64 003a 1F2B     		cmp	r3, #31
+  65 003c F0D9     		bls	.L5
+  66 003e 0B4B     		ldr	r3, .L7+4
+  67 0040 4FF48072 		mov	r2, #256
+  68 0044 1A83     		strh	r2, [r3, #24]	@ movhi
+  69 0046 40F20622 		movw	r2, #518
+  70 004a 4FF48071 		mov	r1, #256
+  71 004e 0748     		ldr	r0, .L7+4
+  72 0050 FFF7FEFF 		bl	_pal_lld_setgroupmode
+  73 0054 0649     		ldr	r1, .L7+8
+  74 0056 0448     		ldr	r0, .L7
+  75 0058 FFF7FEFF 		bl	i2cStart
+  76 005c 00E0     		b	.L1
+  77              	.L6:
+  78 005e 00BF     		nop
+  79              	.L1:
+  80 0060 0837     		adds	r7, r7, #8
+  81 0062 BD46     		mov	sp, r7
+  82              		@ sp needed
+  83 0064 80BD     		pop	{r7, pc}
+  84              	.L8:
+  85 0066 00BF     		.align	2
+  86              	.L7:
+  87 0068 00000000 		.word	I2CD1
+  88 006c 00040240 		.word	1073873920
+  89 0070 00000000 		.word	i2c_cfg1.9864
+  90              		.size	i2c_start, .-i2c_start
+  91              		.section	.text.i2c_stop,"ax",%progbits
+  92              		.align	1
+  93              		.global	i2c_stop
+  94              		.syntax unified
+  95              		.thumb
+  96              		.thumb_func
+  97              		.fpu fpv4-sp-d16
+  98              		.type	i2c_stop, %function
+  99              	i2c_stop:
+ 100              		@ args = 0, pretend = 0, frame = 0
+ 101              		@ frame_needed = 1, uses_anonymous_args = 0
+ 102 0000 80B5     		push	{r7, lr}
+ 103 0002 00AF     		add	r7, sp, #0
+ 104 0004 0248     		ldr	r0, .L10
+ 105 0006 FFF7FEFF 		bl	i2cStop
+ 106 000a 00BF     		nop
+ 107 000c 80BD     		pop	{r7, pc}
+ 108              	.L11:
+ 109 000e 00BF     		.align	2
+ 110              	.L10:
+ 111 0010 00000000 		.word	I2CD1
+ 112              		.size	i2c_stop, .-i2c_stop
+ 113              		.section	.text.i2c_update_last_error,"ax",%progbits
+ 114              		.align	1
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s 			page 3
+
+
+ 115              		.global	i2c_update_last_error
+ 116              		.syntax unified
+ 117              		.thumb
+ 118              		.thumb_func
+ 119              		.fpu fpv4-sp-d16
+ 120              		.type	i2c_update_last_error, %function
+ 121              	i2c_update_last_error:
+ 122              		@ args = 0, pretend = 0, frame = 0
+ 123              		@ frame_needed = 1, uses_anonymous_args = 0
+ 124 0000 80B5     		push	{r7, lr}
+ 125 0002 00AF     		add	r7, sp, #0
+ 126 0004 0348     		ldr	r0, .L13
+ 127 0006 FFF7FEFF 		bl	i2cGetErrors
+ 128 000a 0246     		mov	r2, r0
+ 129 000c 024B     		ldr	r3, .L13+4
+ 130 000e 1A60     		str	r2, [r3]
+ 131 0010 00BF     		nop
+ 132 0012 80BD     		pop	{r7, pc}
+ 133              	.L14:
+ 134              		.align	2
+ 135              	.L13:
+ 136 0014 00000000 		.word	I2CD1
+ 137 0018 00000000 		.word	errors
+ 138              		.size	i2c_update_last_error, .-i2c_update_last_error
+ 139              		.section	.text.get_last_i2c_error,"ax",%progbits
+ 140              		.align	1
+ 141              		.global	get_last_i2c_error
+ 142              		.syntax unified
+ 143              		.thumb
+ 144              		.thumb_func
+ 145              		.fpu fpv4-sp-d16
+ 146              		.type	get_last_i2c_error, %function
+ 147              	get_last_i2c_error:
+ 148              		@ args = 0, pretend = 0, frame = 0
+ 149              		@ frame_needed = 1, uses_anonymous_args = 0
+ 150              		@ link register save eliminated.
+ 151 0000 80B4     		push	{r7}
+ 152 0002 00AF     		add	r7, sp, #0
+ 153 0004 034B     		ldr	r3, .L17
+ 154 0006 1B68     		ldr	r3, [r3]
+ 155 0008 1846     		mov	r0, r3
+ 156 000a BD46     		mov	sp, r7
+ 157              		@ sp needed
+ 158 000c 5DF8047B 		ldr	r7, [sp], #4
+ 159 0010 7047     		bx	lr
+ 160              	.L18:
+ 161 0012 00BF     		.align	2
+ 162              	.L17:
+ 163 0014 00000000 		.word	errors
+ 164              		.size	get_last_i2c_error, .-get_last_i2c_error
+ 165              		.section	.text.read_reg,"ax",%progbits
+ 166              		.align	1
+ 167              		.global	read_reg
+ 168              		.syntax unified
+ 169              		.thumb
+ 170              		.thumb_func
+ 171              		.fpu fpv4-sp-d16
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s 			page 4
+
+
+ 172              		.type	read_reg, %function
+ 173              	read_reg:
+ 174              		@ args = 0, pretend = 0, frame = 24
+ 175              		@ frame_needed = 1, uses_anonymous_args = 0
+ 176 0000 80B5     		push	{r7, lr}
+ 177 0002 8AB0     		sub	sp, sp, #40
+ 178 0004 04AF     		add	r7, sp, #16
+ 179 0006 0346     		mov	r3, r0
+ 180 0008 3A60     		str	r2, [r7]
+ 181 000a FB71     		strb	r3, [r7, #7]
+ 182 000c 0B46     		mov	r3, r1
+ 183 000e BB71     		strb	r3, [r7, #6]
+ 184 0010 BB79     		ldrb	r3, [r7, #6]
+ 185 0012 3B74     		strb	r3, [r7, #16]
+ 186 0014 0023     		movs	r3, #0
+ 187 0016 3B73     		strb	r3, [r7, #12]
+ 188 0018 1C48     		ldr	r0, .L24
+ 189 001a FFF7FEFF 		bl	i2cAcquireBus
+ 190 001e 1B4B     		ldr	r3, .L24
+ 191 0020 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 192 0022 012B     		cmp	r3, #1
+ 193 0024 27D0     		beq	.L20
+ 194 0026 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 195 0028 99B2     		uxth	r1, r3
+ 196 002a 194B     		ldr	r3, .L24+4
+ 197 002c 1B68     		ldr	r3, [r3]
+ 198 002e 07F11002 		add	r2, r7, #16
+ 199 0032 0293     		str	r3, [sp, #8]
+ 200 0034 0123     		movs	r3, #1
+ 201 0036 0193     		str	r3, [sp, #4]
+ 202 0038 07F10C03 		add	r3, r7, #12
+ 203 003c 0093     		str	r3, [sp]
+ 204 003e 0123     		movs	r3, #1
+ 205 0040 1248     		ldr	r0, .L24
+ 206 0042 FFF7FEFF 		bl	i2cMasterTransmitTimeout
+ 207 0046 7861     		str	r0, [r7, #20]
+ 208 0048 7B69     		ldr	r3, [r7, #20]
+ 209 004a 002B     		cmp	r3, #0
+ 210 004c 13D0     		beq	.L20
+ 211 004e 0F48     		ldr	r0, .L24
+ 212 0050 FFF7FEFF 		bl	i2cGetErrors
+ 213 0054 0246     		mov	r2, r0
+ 214 0056 0F4B     		ldr	r3, .L24+8
+ 215 0058 1A60     		str	r2, [r3]
+ 216 005a 0C4B     		ldr	r3, .L24
+ 217 005c 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 218 005e 052B     		cmp	r3, #5
+ 219 0060 03D1     		bne	.L21
+ 220 0062 FFF7FEFF 		bl	i2c_stop
+ 221 0066 FFF7FEFF 		bl	i2c_start
+ 222              	.L21:
+ 223 006a 0848     		ldr	r0, .L24
+ 224 006c FFF7FEFF 		bl	i2cReleaseBus
+ 225 0070 7B69     		ldr	r3, [r7, #20]
+ 226 0072 5BB2     		sxtb	r3, r3
+ 227 0074 06E0     		b	.L23
+ 228              	.L20:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s 			page 5
+
+
+ 229 0076 0548     		ldr	r0, .L24
+ 230 0078 FFF7FEFF 		bl	i2cReleaseBus
+ 231 007c 3A7B     		ldrb	r2, [r7, #12]	@ zero_extendqisi2
+ 232 007e 3B68     		ldr	r3, [r7]
+ 233 0080 1A70     		strb	r2, [r3]
+ 234 0082 0023     		movs	r3, #0
+ 235              	.L23:
+ 236 0084 1846     		mov	r0, r3
+ 237 0086 1837     		adds	r7, r7, #24
+ 238 0088 BD46     		mov	sp, r7
+ 239              		@ sp needed
+ 240 008a 80BD     		pop	{r7, pc}
+ 241              	.L25:
+ 242              		.align	2
+ 243              	.L24:
+ 244 008c 00000000 		.word	I2CD1
+ 245 0090 00000000 		.word	timeout
+ 246 0094 00000000 		.word	errors
+ 247              		.size	read_reg, .-read_reg
+ 248              		.section	.text.write_reg,"ax",%progbits
+ 249              		.align	1
+ 250              		.global	write_reg
+ 251              		.syntax unified
+ 252              		.thumb
+ 253              		.thumb_func
+ 254              		.fpu fpv4-sp-d16
+ 255              		.type	write_reg, %function
+ 256              	write_reg:
+ 257              		@ args = 0, pretend = 0, frame = 24
+ 258              		@ frame_needed = 1, uses_anonymous_args = 0
+ 259 0000 80B5     		push	{r7, lr}
+ 260 0002 8AB0     		sub	sp, sp, #40
+ 261 0004 04AF     		add	r7, sp, #16
+ 262 0006 0346     		mov	r3, r0
+ 263 0008 FB71     		strb	r3, [r7, #7]
+ 264 000a 0B46     		mov	r3, r1
+ 265 000c BB71     		strb	r3, [r7, #6]
+ 266 000e 1346     		mov	r3, r2
+ 267 0010 7B71     		strb	r3, [r7, #5]
+ 268 0012 BB79     		ldrb	r3, [r7, #6]
+ 269 0014 3B74     		strb	r3, [r7, #16]
+ 270 0016 7B79     		ldrb	r3, [r7, #5]
+ 271 0018 7B74     		strb	r3, [r7, #17]
+ 272 001a 0023     		movs	r3, #0
+ 273 001c 3B73     		strb	r3, [r7, #12]
+ 274 001e 1B48     		ldr	r0, .L31
+ 275 0020 FFF7FEFF 		bl	i2cAcquireBus
+ 276 0024 194B     		ldr	r3, .L31
+ 277 0026 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 278 0028 012B     		cmp	r3, #1
+ 279 002a 27D0     		beq	.L27
+ 280 002c FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 281 002e 99B2     		uxth	r1, r3
+ 282 0030 174B     		ldr	r3, .L31+4
+ 283 0032 1B68     		ldr	r3, [r3]
+ 284 0034 07F11002 		add	r2, r7, #16
+ 285 0038 0293     		str	r3, [sp, #8]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s 			page 6
+
+
+ 286 003a 0023     		movs	r3, #0
+ 287 003c 0193     		str	r3, [sp, #4]
+ 288 003e 07F10C03 		add	r3, r7, #12
+ 289 0042 0093     		str	r3, [sp]
+ 290 0044 0223     		movs	r3, #2
+ 291 0046 1148     		ldr	r0, .L31
+ 292 0048 FFF7FEFF 		bl	i2cMasterTransmitTimeout
+ 293 004c 7861     		str	r0, [r7, #20]
+ 294 004e 7B69     		ldr	r3, [r7, #20]
+ 295 0050 002B     		cmp	r3, #0
+ 296 0052 13D0     		beq	.L27
+ 297 0054 0D48     		ldr	r0, .L31
+ 298 0056 FFF7FEFF 		bl	i2cGetErrors
+ 299 005a 0246     		mov	r2, r0
+ 300 005c 0D4B     		ldr	r3, .L31+8
+ 301 005e 1A60     		str	r2, [r3]
+ 302 0060 0A4B     		ldr	r3, .L31
+ 303 0062 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 304 0064 052B     		cmp	r3, #5
+ 305 0066 03D1     		bne	.L28
+ 306 0068 FFF7FEFF 		bl	i2c_stop
+ 307 006c FFF7FEFF 		bl	i2c_start
+ 308              	.L28:
+ 309 0070 0648     		ldr	r0, .L31
+ 310 0072 FFF7FEFF 		bl	i2cReleaseBus
+ 311 0076 7B69     		ldr	r3, [r7, #20]
+ 312 0078 5BB2     		sxtb	r3, r3
+ 313 007a 03E0     		b	.L30
+ 314              	.L27:
+ 315 007c 0348     		ldr	r0, .L31
+ 316 007e FFF7FEFF 		bl	i2cReleaseBus
+ 317 0082 0023     		movs	r3, #0
+ 318              	.L30:
+ 319 0084 1846     		mov	r0, r3
+ 320 0086 1837     		adds	r7, r7, #24
+ 321 0088 BD46     		mov	sp, r7
+ 322              		@ sp needed
+ 323 008a 80BD     		pop	{r7, pc}
+ 324              	.L32:
+ 325              		.align	2
+ 326              	.L31:
+ 327 008c 00000000 		.word	I2CD1
+ 328 0090 00000000 		.word	timeout
+ 329 0094 00000000 		.word	errors
+ 330              		.size	write_reg, .-write_reg
+ 331              		.section	.text.read_reg_multi,"ax",%progbits
+ 332              		.align	1
+ 333              		.global	read_reg_multi
+ 334              		.syntax unified
+ 335              		.thumb
+ 336              		.thumb_func
+ 337              		.fpu fpv4-sp-d16
+ 338              		.type	read_reg_multi, %function
+ 339              	read_reg_multi:
+ 340              		@ args = 0, pretend = 0, frame = 16
+ 341              		@ frame_needed = 1, uses_anonymous_args = 0
+ 342 0000 80B5     		push	{r7, lr}
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s 			page 7
+
+
+ 343 0002 88B0     		sub	sp, sp, #32
+ 344 0004 04AF     		add	r7, sp, #16
+ 345 0006 3A60     		str	r2, [r7]
+ 346 0008 1A46     		mov	r2, r3
+ 347 000a 0346     		mov	r3, r0
+ 348 000c FB71     		strb	r3, [r7, #7]
+ 349 000e 0B46     		mov	r3, r1
+ 350 0010 BB71     		strb	r3, [r7, #6]
+ 351 0012 1346     		mov	r3, r2
+ 352 0014 7B71     		strb	r3, [r7, #5]
+ 353 0016 1B48     		ldr	r0, .L37
+ 354 0018 FFF7FEFF 		bl	i2cAcquireBus
+ 355 001c 194B     		ldr	r3, .L37
+ 356 001e 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 357 0020 012B     		cmp	r3, #1
+ 358 0022 27D0     		beq	.L34
+ 359 0024 FB79     		ldrb	r3, [r7, #7]	@ zero_extendqisi2
+ 360 0026 99B2     		uxth	r1, r3
+ 361 0028 97F90530 		ldrsb	r3, [r7, #5]
+ 362 002c 164A     		ldr	r2, .L37+4
+ 363 002e 1268     		ldr	r2, [r2]
+ 364 0030 B81D     		adds	r0, r7, #6
+ 365 0032 0292     		str	r2, [sp, #8]
+ 366 0034 0193     		str	r3, [sp, #4]
+ 367 0036 3B68     		ldr	r3, [r7]
+ 368 0038 0093     		str	r3, [sp]
+ 369 003a 0123     		movs	r3, #1
+ 370 003c 0246     		mov	r2, r0
+ 371 003e 1148     		ldr	r0, .L37
+ 372 0040 FFF7FEFF 		bl	i2cMasterTransmitTimeout
+ 373 0044 F860     		str	r0, [r7, #12]
+ 374 0046 FB68     		ldr	r3, [r7, #12]
+ 375 0048 002B     		cmp	r3, #0
+ 376 004a 13D0     		beq	.L34
+ 377 004c 0D48     		ldr	r0, .L37
+ 378 004e FFF7FEFF 		bl	i2cGetErrors
+ 379 0052 0246     		mov	r2, r0
+ 380 0054 0D4B     		ldr	r3, .L37+8
+ 381 0056 1A60     		str	r2, [r3]
+ 382 0058 0A4B     		ldr	r3, .L37
+ 383 005a 1B78     		ldrb	r3, [r3]	@ zero_extendqisi2
+ 384 005c 052B     		cmp	r3, #5
+ 385 005e 03D1     		bne	.L35
+ 386 0060 FFF7FEFF 		bl	i2c_stop
+ 387 0064 FFF7FEFF 		bl	i2c_start
+ 388              	.L35:
+ 389 0068 0648     		ldr	r0, .L37
+ 390 006a FFF7FEFF 		bl	i2cReleaseBus
+ 391 006e FB68     		ldr	r3, [r7, #12]
+ 392 0070 5BB2     		sxtb	r3, r3
+ 393 0072 03E0     		b	.L36
+ 394              	.L34:
+ 395 0074 0348     		ldr	r0, .L37
+ 396 0076 FFF7FEFF 		bl	i2cReleaseBus
+ 397 007a 0023     		movs	r3, #0
+ 398              	.L36:
+ 399 007c 1846     		mov	r0, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s 			page 8
+
+
+ 400 007e 1037     		adds	r7, r7, #16
+ 401 0080 BD46     		mov	sp, r7
+ 402              		@ sp needed
+ 403 0082 80BD     		pop	{r7, pc}
+ 404              	.L38:
+ 405              		.align	2
+ 406              	.L37:
+ 407 0084 00000000 		.word	I2CD1
+ 408 0088 00000000 		.word	timeout
+ 409 008c 00000000 		.word	errors
+ 410              		.size	read_reg_multi, .-read_reg_multi
+ 411              		.section	.rodata.i2c_cfg1.9864,"a",%progbits
+ 412              		.align	2
+ 413              		.type	i2c_cfg1.9864, %object
+ 414              		.size	i2c_cfg1.9864, 12
+ 415              	i2c_cfg1.9864:
+ 416 0000 01       		.byte	1
+ 417 0001 000000   		.space	3
+ 418 0004 400D0300 		.word	200000
+ 419 0008 02       		.byte	2
+ 420 0009 000000   		.space	3
+ 421              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s 			page 9
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 i2c_bus.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:15     .bss.errors:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:18     .bss.errors:0000000000000000 errors
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:21     .data.timeout:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:24     .data.timeout:0000000000000000 timeout
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:27     .text.i2c_start:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:34     .text.i2c_start:0000000000000000 i2c_start
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:87     .text.i2c_start:0000000000000068 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:415    .rodata.i2c_cfg1.9864:0000000000000000 i2c_cfg1.9864
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:92     .text.i2c_stop:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:99     .text.i2c_stop:0000000000000000 i2c_stop
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:111    .text.i2c_stop:0000000000000010 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:114    .text.i2c_update_last_error:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:121    .text.i2c_update_last_error:0000000000000000 i2c_update_last_error
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:136    .text.i2c_update_last_error:0000000000000014 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:140    .text.get_last_i2c_error:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:147    .text.get_last_i2c_error:0000000000000000 get_last_i2c_error
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:163    .text.get_last_i2c_error:0000000000000014 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:166    .text.read_reg:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:173    .text.read_reg:0000000000000000 read_reg
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:244    .text.read_reg:000000000000008c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:249    .text.write_reg:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:256    .text.write_reg:0000000000000000 write_reg
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:327    .text.write_reg:000000000000008c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:332    .text.read_reg_multi:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:339    .text.read_reg_multi:0000000000000000 read_reg_multi
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:407    .text.read_reg_multi:0000000000000084 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccRJ2WXU.s:412    .rodata.i2c_cfg1.9864:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+_pal_lld_setgroupmode
+chThdSleep
+i2cStart
+I2CD1
+i2cStop
+i2cGetErrors
+i2cAcquireBus
+i2cMasterTransmitTimeout
+i2cReleaseBus

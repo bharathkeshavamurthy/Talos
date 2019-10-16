@@ -1,0 +1,179 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccZ44bcH.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"e_ad_conv.c"
+  14              		.global	e_mic_scan
+  15              		.section	.bss.e_mic_scan,"aw",%nobits
+  16              		.align	2
+  17              		.type	e_mic_scan, %object
+  18              		.size	e_mic_scan, 4
+  19              	e_mic_scan:
+  20 0000 00000000 		.space	4
+  21              		.global	e_last_mic_scan_id
+  22              		.section	.data.e_last_mic_scan_id,"aw",%progbits
+  23              		.align	2
+  24              		.type	e_last_mic_scan_id, %object
+  25              		.size	e_last_mic_scan_id, 4
+  26              	e_last_mic_scan_id:
+  27 0000 9F000000 		.word	159
+  28              		.section	.text.e_init_ad_scan,"ax",%progbits
+  29              		.align	1
+  30              		.global	e_init_ad_scan
+  31              		.syntax unified
+  32              		.thumb
+  33              		.thumb_func
+  34              		.fpu fpv4-sp-d16
+  35              		.type	e_init_ad_scan, %function
+  36              	e_init_ad_scan:
+  37              		@ args = 0, pretend = 0, frame = 8
+  38              		@ frame_needed = 1, uses_anonymous_args = 0
+  39 0000 80B5     		push	{r7, lr}
+  40 0002 82B0     		sub	sp, sp, #8
+  41 0004 00AF     		add	r7, sp, #0
+  42 0006 0346     		mov	r3, r0
+  43 0008 FB71     		strb	r3, [r7, #7]
+  44 000a FFF7FEFF 		bl	proximity_start
+  45 000e FFF7FEFF 		bl	imu_start
+  46 0012 0020     		movs	r0, #0
+  47 0014 FFF7FEFF 		bl	mic_start
+  48 0018 FFF7FEFF 		bl	mic_get_buffer_ptr
+  49 001c 0246     		mov	r2, r0
+  50 001e 034B     		ldr	r3, .L2
+  51 0020 1A60     		str	r2, [r3]
+  52 0022 00BF     		nop
+  53 0024 0837     		adds	r7, r7, #8
+  54 0026 BD46     		mov	sp, r7
+  55              		@ sp needed
+  56 0028 80BD     		pop	{r7, pc}
+  57              	.L3:
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccZ44bcH.s 			page 2
+
+
+  58 002a 00BF     		.align	2
+  59              	.L2:
+  60 002c 00000000 		.word	e_mic_scan
+  61              		.size	e_init_ad_scan, .-e_init_ad_scan
+  62              		.section	.text.e_ad_is_acquisition_completed,"ax",%progbits
+  63              		.align	1
+  64              		.global	e_ad_is_acquisition_completed
+  65              		.syntax unified
+  66              		.thumb
+  67              		.thumb_func
+  68              		.fpu fpv4-sp-d16
+  69              		.type	e_ad_is_acquisition_completed, %function
+  70              	e_ad_is_acquisition_completed:
+  71              		@ args = 0, pretend = 0, frame = 0
+  72              		@ frame_needed = 1, uses_anonymous_args = 0
+  73              		@ link register save eliminated.
+  74 0000 80B4     		push	{r7}
+  75 0002 00AF     		add	r7, sp, #0
+  76 0004 0123     		movs	r3, #1
+  77 0006 1846     		mov	r0, r3
+  78 0008 BD46     		mov	sp, r7
+  79              		@ sp needed
+  80 000a 5DF8047B 		ldr	r7, [sp], #4
+  81 000e 7047     		bx	lr
+  82              		.size	e_ad_is_acquisition_completed, .-e_ad_is_acquisition_completed
+  83              		.section	.text.e_ad_is_array_filled,"ax",%progbits
+  84              		.align	1
+  85              		.global	e_ad_is_array_filled
+  86              		.syntax unified
+  87              		.thumb
+  88              		.thumb_func
+  89              		.fpu fpv4-sp-d16
+  90              		.type	e_ad_is_array_filled, %function
+  91              	e_ad_is_array_filled:
+  92              		@ args = 0, pretend = 0, frame = 0
+  93              		@ frame_needed = 1, uses_anonymous_args = 0
+  94              		@ link register save eliminated.
+  95 0000 80B4     		push	{r7}
+  96 0002 00AF     		add	r7, sp, #0
+  97 0004 0123     		movs	r3, #1
+  98 0006 1846     		mov	r0, r3
+  99 0008 BD46     		mov	sp, r7
+ 100              		@ sp needed
+ 101 000a 5DF8047B 		ldr	r7, [sp], #4
+ 102 000e 7047     		bx	lr
+ 103              		.size	e_ad_is_array_filled, .-e_ad_is_array_filled
+ 104              		.section	.text.e_ad_scan_on,"ax",%progbits
+ 105              		.align	1
+ 106              		.global	e_ad_scan_on
+ 107              		.syntax unified
+ 108              		.thumb
+ 109              		.thumb_func
+ 110              		.fpu fpv4-sp-d16
+ 111              		.type	e_ad_scan_on, %function
+ 112              	e_ad_scan_on:
+ 113              		@ args = 0, pretend = 0, frame = 0
+ 114              		@ frame_needed = 1, uses_anonymous_args = 0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccZ44bcH.s 			page 3
+
+
+ 115              		@ link register save eliminated.
+ 116 0000 80B4     		push	{r7}
+ 117 0002 00AF     		add	r7, sp, #0
+ 118 0004 00BF     		nop
+ 119 0006 BD46     		mov	sp, r7
+ 120              		@ sp needed
+ 121 0008 5DF8047B 		ldr	r7, [sp], #4
+ 122 000c 7047     		bx	lr
+ 123              		.size	e_ad_scan_on, .-e_ad_scan_on
+ 124              		.section	.text.e_ad_scan_off,"ax",%progbits
+ 125              		.align	1
+ 126              		.global	e_ad_scan_off
+ 127              		.syntax unified
+ 128              		.thumb
+ 129              		.thumb_func
+ 130              		.fpu fpv4-sp-d16
+ 131              		.type	e_ad_scan_off, %function
+ 132              	e_ad_scan_off:
+ 133              		@ args = 0, pretend = 0, frame = 0
+ 134              		@ frame_needed = 1, uses_anonymous_args = 0
+ 135              		@ link register save eliminated.
+ 136 0000 80B4     		push	{r7}
+ 137 0002 00AF     		add	r7, sp, #0
+ 138 0004 00BF     		nop
+ 139 0006 BD46     		mov	sp, r7
+ 140              		@ sp needed
+ 141 0008 5DF8047B 		ldr	r7, [sp], #4
+ 142 000c 7047     		bx	lr
+ 143              		.size	e_ad_scan_off, .-e_ad_scan_off
+ 144              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccZ44bcH.s 			page 4
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 e_ad_conv.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccZ44bcH.s:19     .bss.e_mic_scan:0000000000000000 e_mic_scan
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccZ44bcH.s:16     .bss.e_mic_scan:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccZ44bcH.s:26     .data.e_last_mic_scan_id:0000000000000000 e_last_mic_scan_id
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccZ44bcH.s:23     .data.e_last_mic_scan_id:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccZ44bcH.s:29     .text.e_init_ad_scan:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccZ44bcH.s:36     .text.e_init_ad_scan:0000000000000000 e_init_ad_scan
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccZ44bcH.s:60     .text.e_init_ad_scan:000000000000002c $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccZ44bcH.s:63     .text.e_ad_is_acquisition_completed:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccZ44bcH.s:70     .text.e_ad_is_acquisition_completed:0000000000000000 e_ad_is_acquisition_completed
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccZ44bcH.s:84     .text.e_ad_is_array_filled:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccZ44bcH.s:91     .text.e_ad_is_array_filled:0000000000000000 e_ad_is_array_filled
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccZ44bcH.s:105    .text.e_ad_scan_on:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccZ44bcH.s:112    .text.e_ad_scan_on:0000000000000000 e_ad_scan_on
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccZ44bcH.s:125    .text.e_ad_scan_off:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccZ44bcH.s:132    .text.e_ad_scan_off:0000000000000000 e_ad_scan_off
+
+UNDEFINED SYMBOLS
+proximity_start
+imu_start
+mic_start
+mic_get_buffer_ptr

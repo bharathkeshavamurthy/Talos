@@ -1,0 +1,1132 @@
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s 			page 1
+
+
+   1              		.cpu cortex-m4
+   2              		.eabi_attribute 27, 1
+   3              		.eabi_attribute 28, 1
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 6
+  11              		.eabi_attribute 34, 1
+  12              		.eabi_attribute 18, 4
+  13              		.file	"chqueues.c"
+  14              		.section	.text.port_lock,"ax",%progbits
+  15              		.align	1
+  16              		.syntax unified
+  17              		.thumb
+  18              		.thumb_func
+  19              		.fpu fpv4-sp-d16
+  20              		.type	port_lock, %function
+  21              	port_lock:
+  22              		@ args = 0, pretend = 0, frame = 8
+  23              		@ frame_needed = 1, uses_anonymous_args = 0
+  24              		@ link register save eliminated.
+  25 0000 80B4     		push	{r7}
+  26 0002 83B0     		sub	sp, sp, #12
+  27 0004 00AF     		add	r7, sp, #0
+  28 0006 2023     		movs	r3, #32
+  29 0008 7B60     		str	r3, [r7, #4]
+  30 000a 7B68     		ldr	r3, [r7, #4]
+  31              		.syntax unified
+  32              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  33 000c 83F31188 		MSR basepri, r3
+  34              	@ 0 "" 2
+  35              		.thumb
+  36              		.syntax unified
+  37 0010 00BF     		nop
+  38 0012 0C37     		adds	r7, r7, #12
+  39 0014 BD46     		mov	sp, r7
+  40              		@ sp needed
+  41 0016 5DF8047B 		ldr	r7, [sp], #4
+  42 001a 7047     		bx	lr
+  43              		.size	port_lock, .-port_lock
+  44              		.section	.text.port_unlock,"ax",%progbits
+  45              		.align	1
+  46              		.syntax unified
+  47              		.thumb
+  48              		.thumb_func
+  49              		.fpu fpv4-sp-d16
+  50              		.type	port_unlock, %function
+  51              	port_unlock:
+  52              		@ args = 0, pretend = 0, frame = 8
+  53              		@ frame_needed = 1, uses_anonymous_args = 0
+  54              		@ link register save eliminated.
+  55 0000 80B4     		push	{r7}
+  56 0002 83B0     		sub	sp, sp, #12
+  57 0004 00AF     		add	r7, sp, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s 			page 2
+
+
+  58 0006 0023     		movs	r3, #0
+  59 0008 7B60     		str	r3, [r7, #4]
+  60 000a 7B68     		ldr	r3, [r7, #4]
+  61              		.syntax unified
+  62              	@ 546 "../e-puck2_main-processor/ChibiOS//os/ext/CMSIS/include/core_cmFunc.h" 1
+  63 000c 83F31188 		MSR basepri, r3
+  64              	@ 0 "" 2
+  65              		.thumb
+  66              		.syntax unified
+  67 0010 00BF     		nop
+  68 0012 0C37     		adds	r7, r7, #12
+  69 0014 BD46     		mov	sp, r7
+  70              		@ sp needed
+  71 0016 5DF8047B 		ldr	r7, [sp], #4
+  72 001a 7047     		bx	lr
+  73              		.size	port_unlock, .-port_unlock
+  74              		.section	.text.queue_init,"ax",%progbits
+  75              		.align	1
+  76              		.syntax unified
+  77              		.thumb
+  78              		.thumb_func
+  79              		.fpu fpv4-sp-d16
+  80              		.type	queue_init, %function
+  81              	queue_init:
+  82              		@ args = 0, pretend = 0, frame = 8
+  83              		@ frame_needed = 1, uses_anonymous_args = 0
+  84              		@ link register save eliminated.
+  85 0000 80B4     		push	{r7}
+  86 0002 83B0     		sub	sp, sp, #12
+  87 0004 00AF     		add	r7, sp, #0
+  88 0006 7860     		str	r0, [r7, #4]
+  89 0008 7B68     		ldr	r3, [r7, #4]
+  90 000a 7A68     		ldr	r2, [r7, #4]
+  91 000c 1A60     		str	r2, [r3]
+  92 000e 7B68     		ldr	r3, [r7, #4]
+  93 0010 7A68     		ldr	r2, [r7, #4]
+  94 0012 5A60     		str	r2, [r3, #4]
+  95 0014 00BF     		nop
+  96 0016 0C37     		adds	r7, r7, #12
+  97 0018 BD46     		mov	sp, r7
+  98              		@ sp needed
+  99 001a 5DF8047B 		ldr	r7, [sp], #4
+ 100 001e 7047     		bx	lr
+ 101              		.size	queue_init, .-queue_init
+ 102              		.section	.text.chSysLock,"ax",%progbits
+ 103              		.align	1
+ 104              		.syntax unified
+ 105              		.thumb
+ 106              		.thumb_func
+ 107              		.fpu fpv4-sp-d16
+ 108              		.type	chSysLock, %function
+ 109              	chSysLock:
+ 110              		@ args = 0, pretend = 0, frame = 0
+ 111              		@ frame_needed = 1, uses_anonymous_args = 0
+ 112 0000 80B5     		push	{r7, lr}
+ 113 0002 00AF     		add	r7, sp, #0
+ 114 0004 FFF7FEFF 		bl	port_lock
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s 			page 3
+
+
+ 115 0008 FFF7FEFF 		bl	_stats_start_measure_crit_thd
+ 116 000c FFF7FEFF 		bl	_dbg_check_lock
+ 117 0010 00BF     		nop
+ 118 0012 80BD     		pop	{r7, pc}
+ 119              		.size	chSysLock, .-chSysLock
+ 120              		.section	.text.chSysUnlock,"ax",%progbits
+ 121              		.align	1
+ 122              		.syntax unified
+ 123              		.thumb
+ 124              		.thumb_func
+ 125              		.fpu fpv4-sp-d16
+ 126              		.type	chSysUnlock, %function
+ 127              	chSysUnlock:
+ 128              		@ args = 0, pretend = 0, frame = 0
+ 129              		@ frame_needed = 1, uses_anonymous_args = 0
+ 130 0000 80B5     		push	{r7, lr}
+ 131 0002 00AF     		add	r7, sp, #0
+ 132 0004 FFF7FEFF 		bl	_dbg_check_unlock
+ 133 0008 FFF7FEFF 		bl	_stats_stop_measure_crit_thd
+ 134 000c 094B     		ldr	r3, .L7
+ 135 000e 1B68     		ldr	r3, [r3]
+ 136 0010 084A     		ldr	r2, .L7
+ 137 0012 9342     		cmp	r3, r2
+ 138 0014 0AD0     		beq	.L6
+ 139 0016 074B     		ldr	r3, .L7
+ 140 0018 9B69     		ldr	r3, [r3, #24]
+ 141 001a 9A68     		ldr	r2, [r3, #8]
+ 142 001c 054B     		ldr	r3, .L7
+ 143 001e 1B68     		ldr	r3, [r3]
+ 144 0020 9B68     		ldr	r3, [r3, #8]
+ 145 0022 9A42     		cmp	r2, r3
+ 146 0024 02D2     		bcs	.L6
+ 147 0026 0448     		ldr	r0, .L7+4
+ 148 0028 FFF7FEFF 		bl	chSysHalt
+ 149              	.L6:
+ 150 002c FFF7FEFF 		bl	port_unlock
+ 151 0030 00BF     		nop
+ 152 0032 80BD     		pop	{r7, pc}
+ 153              	.L8:
+ 154              		.align	2
+ 155              	.L7:
+ 156 0034 00000000 		.word	ch
+ 157 0038 00000000 		.word	__func__.7153
+ 158              		.size	chSysUnlock, .-chSysUnlock
+ 159              		.section	.text.chThdQueueObjectInit,"ax",%progbits
+ 160              		.align	1
+ 161              		.syntax unified
+ 162              		.thumb
+ 163              		.thumb_func
+ 164              		.fpu fpv4-sp-d16
+ 165              		.type	chThdQueueObjectInit, %function
+ 166              	chThdQueueObjectInit:
+ 167              		@ args = 0, pretend = 0, frame = 8
+ 168              		@ frame_needed = 1, uses_anonymous_args = 0
+ 169 0000 80B5     		push	{r7, lr}
+ 170 0002 82B0     		sub	sp, sp, #8
+ 171 0004 00AF     		add	r7, sp, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s 			page 4
+
+
+ 172 0006 7860     		str	r0, [r7, #4]
+ 173 0008 7868     		ldr	r0, [r7, #4]
+ 174 000a FFF7FEFF 		bl	queue_init
+ 175 000e 00BF     		nop
+ 176 0010 0837     		adds	r7, r7, #8
+ 177 0012 BD46     		mov	sp, r7
+ 178              		@ sp needed
+ 179 0014 80BD     		pop	{r7, pc}
+ 180              		.size	chThdQueueObjectInit, .-chThdQueueObjectInit
+ 181              		.section	.text.chIQIsEmptyI,"ax",%progbits
+ 182              		.align	1
+ 183              		.syntax unified
+ 184              		.thumb
+ 185              		.thumb_func
+ 186              		.fpu fpv4-sp-d16
+ 187              		.type	chIQIsEmptyI, %function
+ 188              	chIQIsEmptyI:
+ 189              		@ args = 0, pretend = 0, frame = 8
+ 190              		@ frame_needed = 1, uses_anonymous_args = 0
+ 191 0000 80B5     		push	{r7, lr}
+ 192 0002 82B0     		sub	sp, sp, #8
+ 193 0004 00AF     		add	r7, sp, #0
+ 194 0006 7860     		str	r0, [r7, #4]
+ 195 0008 FFF7FEFF 		bl	chDbgCheckClassI
+ 196 000c 7B68     		ldr	r3, [r7, #4]
+ 197 000e 9B68     		ldr	r3, [r3, #8]
+ 198 0010 002B     		cmp	r3, #0
+ 199 0012 0CBF     		ite	eq
+ 200 0014 0123     		moveq	r3, #1
+ 201 0016 0023     		movne	r3, #0
+ 202 0018 DBB2     		uxtb	r3, r3
+ 203 001a 1846     		mov	r0, r3
+ 204 001c 0837     		adds	r7, r7, #8
+ 205 001e BD46     		mov	sp, r7
+ 206              		@ sp needed
+ 207 0020 80BD     		pop	{r7, pc}
+ 208              		.size	chIQIsEmptyI, .-chIQIsEmptyI
+ 209              		.section	.text.chIQIsFullI,"ax",%progbits
+ 210              		.align	1
+ 211              		.syntax unified
+ 212              		.thumb
+ 213              		.thumb_func
+ 214              		.fpu fpv4-sp-d16
+ 215              		.type	chIQIsFullI, %function
+ 216              	chIQIsFullI:
+ 217              		@ args = 0, pretend = 0, frame = 8
+ 218              		@ frame_needed = 1, uses_anonymous_args = 0
+ 219 0000 80B5     		push	{r7, lr}
+ 220 0002 82B0     		sub	sp, sp, #8
+ 221 0004 00AF     		add	r7, sp, #0
+ 222 0006 7860     		str	r0, [r7, #4]
+ 223 0008 FFF7FEFF 		bl	chDbgCheckClassI
+ 224 000c 7B68     		ldr	r3, [r7, #4]
+ 225 000e 5A69     		ldr	r2, [r3, #20]
+ 226 0010 7B68     		ldr	r3, [r7, #4]
+ 227 0012 9B69     		ldr	r3, [r3, #24]
+ 228 0014 9A42     		cmp	r2, r3
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s 			page 5
+
+
+ 229 0016 05D1     		bne	.L13
+ 230 0018 7B68     		ldr	r3, [r7, #4]
+ 231 001a 9B68     		ldr	r3, [r3, #8]
+ 232 001c 002B     		cmp	r3, #0
+ 233 001e 01D0     		beq	.L13
+ 234 0020 0123     		movs	r3, #1
+ 235 0022 00E0     		b	.L14
+ 236              	.L13:
+ 237 0024 0023     		movs	r3, #0
+ 238              	.L14:
+ 239 0026 03F00103 		and	r3, r3, #1
+ 240 002a DBB2     		uxtb	r3, r3
+ 241 002c 1846     		mov	r0, r3
+ 242 002e 0837     		adds	r7, r7, #8
+ 243 0030 BD46     		mov	sp, r7
+ 244              		@ sp needed
+ 245 0032 80BD     		pop	{r7, pc}
+ 246              		.size	chIQIsFullI, .-chIQIsFullI
+ 247              		.section	.text.chOQIsEmptyI,"ax",%progbits
+ 248              		.align	1
+ 249              		.syntax unified
+ 250              		.thumb
+ 251              		.thumb_func
+ 252              		.fpu fpv4-sp-d16
+ 253              		.type	chOQIsEmptyI, %function
+ 254              	chOQIsEmptyI:
+ 255              		@ args = 0, pretend = 0, frame = 8
+ 256              		@ frame_needed = 1, uses_anonymous_args = 0
+ 257 0000 80B5     		push	{r7, lr}
+ 258 0002 82B0     		sub	sp, sp, #8
+ 259 0004 00AF     		add	r7, sp, #0
+ 260 0006 7860     		str	r0, [r7, #4]
+ 261 0008 FFF7FEFF 		bl	chDbgCheckClassI
+ 262 000c 7B68     		ldr	r3, [r7, #4]
+ 263 000e 5A69     		ldr	r2, [r3, #20]
+ 264 0010 7B68     		ldr	r3, [r7, #4]
+ 265 0012 9B69     		ldr	r3, [r3, #24]
+ 266 0014 9A42     		cmp	r2, r3
+ 267 0016 05D1     		bne	.L17
+ 268 0018 7B68     		ldr	r3, [r7, #4]
+ 269 001a 9B68     		ldr	r3, [r3, #8]
+ 270 001c 002B     		cmp	r3, #0
+ 271 001e 01D0     		beq	.L17
+ 272 0020 0123     		movs	r3, #1
+ 273 0022 00E0     		b	.L18
+ 274              	.L17:
+ 275 0024 0023     		movs	r3, #0
+ 276              	.L18:
+ 277 0026 03F00103 		and	r3, r3, #1
+ 278 002a DBB2     		uxtb	r3, r3
+ 279 002c 1846     		mov	r0, r3
+ 280 002e 0837     		adds	r7, r7, #8
+ 281 0030 BD46     		mov	sp, r7
+ 282              		@ sp needed
+ 283 0032 80BD     		pop	{r7, pc}
+ 284              		.size	chOQIsEmptyI, .-chOQIsEmptyI
+ 285              		.section	.text.chOQIsFullI,"ax",%progbits
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s 			page 6
+
+
+ 286              		.align	1
+ 287              		.syntax unified
+ 288              		.thumb
+ 289              		.thumb_func
+ 290              		.fpu fpv4-sp-d16
+ 291              		.type	chOQIsFullI, %function
+ 292              	chOQIsFullI:
+ 293              		@ args = 0, pretend = 0, frame = 8
+ 294              		@ frame_needed = 1, uses_anonymous_args = 0
+ 295 0000 80B5     		push	{r7, lr}
+ 296 0002 82B0     		sub	sp, sp, #8
+ 297 0004 00AF     		add	r7, sp, #0
+ 298 0006 7860     		str	r0, [r7, #4]
+ 299 0008 FFF7FEFF 		bl	chDbgCheckClassI
+ 300 000c 7B68     		ldr	r3, [r7, #4]
+ 301 000e 9B68     		ldr	r3, [r3, #8]
+ 302 0010 002B     		cmp	r3, #0
+ 303 0012 0CBF     		ite	eq
+ 304 0014 0123     		moveq	r3, #1
+ 305 0016 0023     		movne	r3, #0
+ 306 0018 DBB2     		uxtb	r3, r3
+ 307 001a 1846     		mov	r0, r3
+ 308 001c 0837     		adds	r7, r7, #8
+ 309 001e BD46     		mov	sp, r7
+ 310              		@ sp needed
+ 311 0020 80BD     		pop	{r7, pc}
+ 312              		.size	chOQIsFullI, .-chOQIsFullI
+ 313              		.section	.text.chIQObjectInit,"ax",%progbits
+ 314              		.align	1
+ 315              		.global	chIQObjectInit
+ 316              		.syntax unified
+ 317              		.thumb
+ 318              		.thumb_func
+ 319              		.fpu fpv4-sp-d16
+ 320              		.type	chIQObjectInit, %function
+ 321              	chIQObjectInit:
+ 322              		@ args = 4, pretend = 0, frame = 16
+ 323              		@ frame_needed = 1, uses_anonymous_args = 0
+ 324 0000 80B5     		push	{r7, lr}
+ 325 0002 84B0     		sub	sp, sp, #16
+ 326 0004 00AF     		add	r7, sp, #0
+ 327 0006 F860     		str	r0, [r7, #12]
+ 328 0008 B960     		str	r1, [r7, #8]
+ 329 000a 7A60     		str	r2, [r7, #4]
+ 330 000c 3B60     		str	r3, [r7]
+ 331 000e FB68     		ldr	r3, [r7, #12]
+ 332 0010 1846     		mov	r0, r3
+ 333 0012 FFF7FEFF 		bl	chThdQueueObjectInit
+ 334 0016 FB68     		ldr	r3, [r7, #12]
+ 335 0018 0022     		movs	r2, #0
+ 336 001a 9A60     		str	r2, [r3, #8]
+ 337 001c FB68     		ldr	r3, [r7, #12]
+ 338 001e BA68     		ldr	r2, [r7, #8]
+ 339 0020 DA60     		str	r2, [r3, #12]
+ 340 0022 FB68     		ldr	r3, [r7, #12]
+ 341 0024 BA68     		ldr	r2, [r7, #8]
+ 342 0026 9A61     		str	r2, [r3, #24]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s 			page 7
+
+
+ 343 0028 FB68     		ldr	r3, [r7, #12]
+ 344 002a BA68     		ldr	r2, [r7, #8]
+ 345 002c 5A61     		str	r2, [r3, #20]
+ 346 002e BA68     		ldr	r2, [r7, #8]
+ 347 0030 7B68     		ldr	r3, [r7, #4]
+ 348 0032 1A44     		add	r2, r2, r3
+ 349 0034 FB68     		ldr	r3, [r7, #12]
+ 350 0036 1A61     		str	r2, [r3, #16]
+ 351 0038 FB68     		ldr	r3, [r7, #12]
+ 352 003a 3A68     		ldr	r2, [r7]
+ 353 003c DA61     		str	r2, [r3, #28]
+ 354 003e FB68     		ldr	r3, [r7, #12]
+ 355 0040 BA69     		ldr	r2, [r7, #24]
+ 356 0042 1A62     		str	r2, [r3, #32]
+ 357 0044 00BF     		nop
+ 358 0046 1037     		adds	r7, r7, #16
+ 359 0048 BD46     		mov	sp, r7
+ 360              		@ sp needed
+ 361 004a 80BD     		pop	{r7, pc}
+ 362              		.size	chIQObjectInit, .-chIQObjectInit
+ 363              		.section	.text.chIQResetI,"ax",%progbits
+ 364              		.align	1
+ 365              		.global	chIQResetI
+ 366              		.syntax unified
+ 367              		.thumb
+ 368              		.thumb_func
+ 369              		.fpu fpv4-sp-d16
+ 370              		.type	chIQResetI, %function
+ 371              	chIQResetI:
+ 372              		@ args = 0, pretend = 0, frame = 8
+ 373              		@ frame_needed = 1, uses_anonymous_args = 0
+ 374 0000 80B5     		push	{r7, lr}
+ 375 0002 82B0     		sub	sp, sp, #8
+ 376 0004 00AF     		add	r7, sp, #0
+ 377 0006 7860     		str	r0, [r7, #4]
+ 378 0008 FFF7FEFF 		bl	chDbgCheckClassI
+ 379 000c 7B68     		ldr	r3, [r7, #4]
+ 380 000e DA68     		ldr	r2, [r3, #12]
+ 381 0010 7B68     		ldr	r3, [r7, #4]
+ 382 0012 9A61     		str	r2, [r3, #24]
+ 383 0014 7B68     		ldr	r3, [r7, #4]
+ 384 0016 DA68     		ldr	r2, [r3, #12]
+ 385 0018 7B68     		ldr	r3, [r7, #4]
+ 386 001a 5A61     		str	r2, [r3, #20]
+ 387 001c 7B68     		ldr	r3, [r7, #4]
+ 388 001e 0022     		movs	r2, #0
+ 389 0020 9A60     		str	r2, [r3, #8]
+ 390 0022 7B68     		ldr	r3, [r7, #4]
+ 391 0024 6FF00101 		mvn	r1, #1
+ 392 0028 1846     		mov	r0, r3
+ 393 002a FFF7FEFF 		bl	chThdDequeueAllI
+ 394 002e 00BF     		nop
+ 395 0030 0837     		adds	r7, r7, #8
+ 396 0032 BD46     		mov	sp, r7
+ 397              		@ sp needed
+ 398 0034 80BD     		pop	{r7, pc}
+ 399              		.size	chIQResetI, .-chIQResetI
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s 			page 8
+
+
+ 400              		.section	.text.chIQPutI,"ax",%progbits
+ 401              		.align	1
+ 402              		.global	chIQPutI
+ 403              		.syntax unified
+ 404              		.thumb
+ 405              		.thumb_func
+ 406              		.fpu fpv4-sp-d16
+ 407              		.type	chIQPutI, %function
+ 408              	chIQPutI:
+ 409              		@ args = 0, pretend = 0, frame = 8
+ 410              		@ frame_needed = 1, uses_anonymous_args = 0
+ 411 0000 80B5     		push	{r7, lr}
+ 412 0002 82B0     		sub	sp, sp, #8
+ 413 0004 00AF     		add	r7, sp, #0
+ 414 0006 7860     		str	r0, [r7, #4]
+ 415 0008 0B46     		mov	r3, r1
+ 416 000a FB70     		strb	r3, [r7, #3]
+ 417 000c FFF7FEFF 		bl	chDbgCheckClassI
+ 418 0010 7868     		ldr	r0, [r7, #4]
+ 419 0012 FFF7FEFF 		bl	chIQIsFullI
+ 420 0016 0346     		mov	r3, r0
+ 421 0018 002B     		cmp	r3, #0
+ 422 001a 02D0     		beq	.L25
+ 423 001c 6FF00303 		mvn	r3, #3
+ 424 0020 1BE0     		b	.L26
+ 425              	.L25:
+ 426 0022 7B68     		ldr	r3, [r7, #4]
+ 427 0024 9B68     		ldr	r3, [r3, #8]
+ 428 0026 5A1C     		adds	r2, r3, #1
+ 429 0028 7B68     		ldr	r3, [r7, #4]
+ 430 002a 9A60     		str	r2, [r3, #8]
+ 431 002c 7B68     		ldr	r3, [r7, #4]
+ 432 002e 5B69     		ldr	r3, [r3, #20]
+ 433 0030 591C     		adds	r1, r3, #1
+ 434 0032 7A68     		ldr	r2, [r7, #4]
+ 435 0034 5161     		str	r1, [r2, #20]
+ 436 0036 FA78     		ldrb	r2, [r7, #3]
+ 437 0038 1A70     		strb	r2, [r3]
+ 438 003a 7B68     		ldr	r3, [r7, #4]
+ 439 003c 5A69     		ldr	r2, [r3, #20]
+ 440 003e 7B68     		ldr	r3, [r7, #4]
+ 441 0040 1B69     		ldr	r3, [r3, #16]
+ 442 0042 9A42     		cmp	r2, r3
+ 443 0044 03D3     		bcc	.L27
+ 444 0046 7B68     		ldr	r3, [r7, #4]
+ 445 0048 DA68     		ldr	r2, [r3, #12]
+ 446 004a 7B68     		ldr	r3, [r7, #4]
+ 447 004c 5A61     		str	r2, [r3, #20]
+ 448              	.L27:
+ 449 004e 7B68     		ldr	r3, [r7, #4]
+ 450 0050 0021     		movs	r1, #0
+ 451 0052 1846     		mov	r0, r3
+ 452 0054 FFF7FEFF 		bl	chThdDequeueNextI
+ 453 0058 0023     		movs	r3, #0
+ 454              	.L26:
+ 455 005a 1846     		mov	r0, r3
+ 456 005c 0837     		adds	r7, r7, #8
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s 			page 9
+
+
+ 457 005e BD46     		mov	sp, r7
+ 458              		@ sp needed
+ 459 0060 80BD     		pop	{r7, pc}
+ 460              		.size	chIQPutI, .-chIQPutI
+ 461              		.section	.text.chIQGetTimeout,"ax",%progbits
+ 462              		.align	1
+ 463              		.global	chIQGetTimeout
+ 464              		.syntax unified
+ 465              		.thumb
+ 466              		.thumb_func
+ 467              		.fpu fpv4-sp-d16
+ 468              		.type	chIQGetTimeout, %function
+ 469              	chIQGetTimeout:
+ 470              		@ args = 0, pretend = 0, frame = 16
+ 471              		@ frame_needed = 1, uses_anonymous_args = 0
+ 472 0000 80B5     		push	{r7, lr}
+ 473 0002 84B0     		sub	sp, sp, #16
+ 474 0004 00AF     		add	r7, sp, #0
+ 475 0006 7860     		str	r0, [r7, #4]
+ 476 0008 3960     		str	r1, [r7]
+ 477 000a FFF7FEFF 		bl	chSysLock
+ 478 000e 7B68     		ldr	r3, [r7, #4]
+ 479 0010 DB69     		ldr	r3, [r3, #28]
+ 480 0012 002B     		cmp	r3, #0
+ 481 0014 11D0     		beq	.L30
+ 482 0016 7B68     		ldr	r3, [r7, #4]
+ 483 0018 DB69     		ldr	r3, [r3, #28]
+ 484 001a 7868     		ldr	r0, [r7, #4]
+ 485 001c 9847     		blx	r3
+ 486 001e 0CE0     		b	.L30
+ 487              	.L32:
+ 488 0020 7B68     		ldr	r3, [r7, #4]
+ 489 0022 3968     		ldr	r1, [r7]
+ 490 0024 1846     		mov	r0, r3
+ 491 0026 FFF7FEFF 		bl	chThdEnqueueTimeoutS
+ 492 002a B860     		str	r0, [r7, #8]
+ 493 002c BB68     		ldr	r3, [r7, #8]
+ 494 002e 002B     		cmp	r3, #0
+ 495 0030 03DA     		bge	.L30
+ 496 0032 FFF7FEFF 		bl	chSysUnlock
+ 497 0036 BB68     		ldr	r3, [r7, #8]
+ 498 0038 1EE0     		b	.L31
+ 499              	.L30:
+ 500 003a 7868     		ldr	r0, [r7, #4]
+ 501 003c FFF7FEFF 		bl	chIQIsEmptyI
+ 502 0040 0346     		mov	r3, r0
+ 503 0042 002B     		cmp	r3, #0
+ 504 0044 ECD1     		bne	.L32
+ 505 0046 7B68     		ldr	r3, [r7, #4]
+ 506 0048 9B68     		ldr	r3, [r3, #8]
+ 507 004a 5A1E     		subs	r2, r3, #1
+ 508 004c 7B68     		ldr	r3, [r7, #4]
+ 509 004e 9A60     		str	r2, [r3, #8]
+ 510 0050 7B68     		ldr	r3, [r7, #4]
+ 511 0052 9B69     		ldr	r3, [r3, #24]
+ 512 0054 591C     		adds	r1, r3, #1
+ 513 0056 7A68     		ldr	r2, [r7, #4]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s 			page 10
+
+
+ 514 0058 9161     		str	r1, [r2, #24]
+ 515 005a 1B78     		ldrb	r3, [r3]
+ 516 005c FB73     		strb	r3, [r7, #15]
+ 517 005e 7B68     		ldr	r3, [r7, #4]
+ 518 0060 9A69     		ldr	r2, [r3, #24]
+ 519 0062 7B68     		ldr	r3, [r7, #4]
+ 520 0064 1B69     		ldr	r3, [r3, #16]
+ 521 0066 9A42     		cmp	r2, r3
+ 522 0068 03D3     		bcc	.L33
+ 523 006a 7B68     		ldr	r3, [r7, #4]
+ 524 006c DA68     		ldr	r2, [r3, #12]
+ 525 006e 7B68     		ldr	r3, [r7, #4]
+ 526 0070 9A61     		str	r2, [r3, #24]
+ 527              	.L33:
+ 528 0072 FFF7FEFF 		bl	chSysUnlock
+ 529 0076 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 530              	.L31:
+ 531 0078 1846     		mov	r0, r3
+ 532 007a 1037     		adds	r7, r7, #16
+ 533 007c BD46     		mov	sp, r7
+ 534              		@ sp needed
+ 535 007e 80BD     		pop	{r7, pc}
+ 536              		.size	chIQGetTimeout, .-chIQGetTimeout
+ 537              		.section	.text.chIQReadTimeout,"ax",%progbits
+ 538              		.align	1
+ 539              		.global	chIQReadTimeout
+ 540              		.syntax unified
+ 541              		.thumb
+ 542              		.thumb_func
+ 543              		.fpu fpv4-sp-d16
+ 544              		.type	chIQReadTimeout, %function
+ 545              	chIQReadTimeout:
+ 546              		@ args = 0, pretend = 0, frame = 24
+ 547              		@ frame_needed = 1, uses_anonymous_args = 0
+ 548 0000 80B5     		push	{r7, lr}
+ 549 0002 86B0     		sub	sp, sp, #24
+ 550 0004 00AF     		add	r7, sp, #0
+ 551 0006 F860     		str	r0, [r7, #12]
+ 552 0008 B960     		str	r1, [r7, #8]
+ 553 000a 7A60     		str	r2, [r7, #4]
+ 554 000c 3B60     		str	r3, [r7]
+ 555 000e FB68     		ldr	r3, [r7, #12]
+ 556 0010 DB69     		ldr	r3, [r3, #28]
+ 557 0012 3B61     		str	r3, [r7, #16]
+ 558 0014 0023     		movs	r3, #0
+ 559 0016 7B61     		str	r3, [r7, #20]
+ 560 0018 7B68     		ldr	r3, [r7, #4]
+ 561 001a 002B     		cmp	r3, #0
+ 562 001c 02D1     		bne	.L35
+ 563 001e 2548     		ldr	r0, .L43
+ 564 0020 FFF7FEFF 		bl	chSysHalt
+ 565              	.L35:
+ 566 0024 FFF7FEFF 		bl	chSysLock
+ 567              	.L42:
+ 568 0028 3B69     		ldr	r3, [r7, #16]
+ 569 002a 002B     		cmp	r3, #0
+ 570 002c 0FD0     		beq	.L37
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s 			page 11
+
+
+ 571 002e 3B69     		ldr	r3, [r7, #16]
+ 572 0030 F868     		ldr	r0, [r7, #12]
+ 573 0032 9847     		blx	r3
+ 574 0034 0BE0     		b	.L37
+ 575              	.L39:
+ 576 0036 FB68     		ldr	r3, [r7, #12]
+ 577 0038 3968     		ldr	r1, [r7]
+ 578 003a 1846     		mov	r0, r3
+ 579 003c FFF7FEFF 		bl	chThdEnqueueTimeoutS
+ 580 0040 0346     		mov	r3, r0
+ 581 0042 002B     		cmp	r3, #0
+ 582 0044 03D0     		beq	.L37
+ 583 0046 FFF7FEFF 		bl	chSysUnlock
+ 584 004a 7B69     		ldr	r3, [r7, #20]
+ 585 004c 2EE0     		b	.L38
+ 586              	.L37:
+ 587 004e F868     		ldr	r0, [r7, #12]
+ 588 0050 FFF7FEFF 		bl	chIQIsEmptyI
+ 589 0054 0346     		mov	r3, r0
+ 590 0056 002B     		cmp	r3, #0
+ 591 0058 EDD1     		bne	.L39
+ 592 005a FB68     		ldr	r3, [r7, #12]
+ 593 005c 9B68     		ldr	r3, [r3, #8]
+ 594 005e 5A1E     		subs	r2, r3, #1
+ 595 0060 FB68     		ldr	r3, [r7, #12]
+ 596 0062 9A60     		str	r2, [r3, #8]
+ 597 0064 FB68     		ldr	r3, [r7, #12]
+ 598 0066 9A69     		ldr	r2, [r3, #24]
+ 599 0068 511C     		adds	r1, r2, #1
+ 600 006a FB68     		ldr	r3, [r7, #12]
+ 601 006c 9961     		str	r1, [r3, #24]
+ 602 006e BB68     		ldr	r3, [r7, #8]
+ 603 0070 591C     		adds	r1, r3, #1
+ 604 0072 B960     		str	r1, [r7, #8]
+ 605 0074 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+ 606 0076 1A70     		strb	r2, [r3]
+ 607 0078 FB68     		ldr	r3, [r7, #12]
+ 608 007a 9A69     		ldr	r2, [r3, #24]
+ 609 007c FB68     		ldr	r3, [r7, #12]
+ 610 007e 1B69     		ldr	r3, [r3, #16]
+ 611 0080 9A42     		cmp	r2, r3
+ 612 0082 03D3     		bcc	.L40
+ 613 0084 FB68     		ldr	r3, [r7, #12]
+ 614 0086 DA68     		ldr	r2, [r3, #12]
+ 615 0088 FB68     		ldr	r3, [r7, #12]
+ 616 008a 9A61     		str	r2, [r3, #24]
+ 617              	.L40:
+ 618 008c FFF7FEFF 		bl	chSysUnlock
+ 619 0090 7B69     		ldr	r3, [r7, #20]
+ 620 0092 0133     		adds	r3, r3, #1
+ 621 0094 7B61     		str	r3, [r7, #20]
+ 622 0096 7B68     		ldr	r3, [r7, #4]
+ 623 0098 013B     		subs	r3, r3, #1
+ 624 009a 7B60     		str	r3, [r7, #4]
+ 625 009c 7B68     		ldr	r3, [r7, #4]
+ 626 009e 002B     		cmp	r3, #0
+ 627 00a0 01D1     		bne	.L41
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s 			page 12
+
+
+ 628 00a2 7B69     		ldr	r3, [r7, #20]
+ 629 00a4 02E0     		b	.L38
+ 630              	.L41:
+ 631 00a6 FFF7FEFF 		bl	chSysLock
+ 632 00aa BDE7     		b	.L42
+ 633              	.L38:
+ 634 00ac 1846     		mov	r0, r3
+ 635 00ae 1837     		adds	r7, r7, #24
+ 636 00b0 BD46     		mov	sp, r7
+ 637              		@ sp needed
+ 638 00b2 80BD     		pop	{r7, pc}
+ 639              	.L44:
+ 640              		.align	2
+ 641              	.L43:
+ 642 00b4 00000000 		.word	__func__.7877
+ 643              		.size	chIQReadTimeout, .-chIQReadTimeout
+ 644              		.section	.text.chOQObjectInit,"ax",%progbits
+ 645              		.align	1
+ 646              		.global	chOQObjectInit
+ 647              		.syntax unified
+ 648              		.thumb
+ 649              		.thumb_func
+ 650              		.fpu fpv4-sp-d16
+ 651              		.type	chOQObjectInit, %function
+ 652              	chOQObjectInit:
+ 653              		@ args = 4, pretend = 0, frame = 16
+ 654              		@ frame_needed = 1, uses_anonymous_args = 0
+ 655 0000 80B5     		push	{r7, lr}
+ 656 0002 84B0     		sub	sp, sp, #16
+ 657 0004 00AF     		add	r7, sp, #0
+ 658 0006 F860     		str	r0, [r7, #12]
+ 659 0008 B960     		str	r1, [r7, #8]
+ 660 000a 7A60     		str	r2, [r7, #4]
+ 661 000c 3B60     		str	r3, [r7]
+ 662 000e FB68     		ldr	r3, [r7, #12]
+ 663 0010 1846     		mov	r0, r3
+ 664 0012 FFF7FEFF 		bl	chThdQueueObjectInit
+ 665 0016 FB68     		ldr	r3, [r7, #12]
+ 666 0018 7A68     		ldr	r2, [r7, #4]
+ 667 001a 9A60     		str	r2, [r3, #8]
+ 668 001c FB68     		ldr	r3, [r7, #12]
+ 669 001e BA68     		ldr	r2, [r7, #8]
+ 670 0020 DA60     		str	r2, [r3, #12]
+ 671 0022 FB68     		ldr	r3, [r7, #12]
+ 672 0024 BA68     		ldr	r2, [r7, #8]
+ 673 0026 9A61     		str	r2, [r3, #24]
+ 674 0028 FB68     		ldr	r3, [r7, #12]
+ 675 002a BA68     		ldr	r2, [r7, #8]
+ 676 002c 5A61     		str	r2, [r3, #20]
+ 677 002e BA68     		ldr	r2, [r7, #8]
+ 678 0030 7B68     		ldr	r3, [r7, #4]
+ 679 0032 1A44     		add	r2, r2, r3
+ 680 0034 FB68     		ldr	r3, [r7, #12]
+ 681 0036 1A61     		str	r2, [r3, #16]
+ 682 0038 FB68     		ldr	r3, [r7, #12]
+ 683 003a 3A68     		ldr	r2, [r7]
+ 684 003c DA61     		str	r2, [r3, #28]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s 			page 13
+
+
+ 685 003e FB68     		ldr	r3, [r7, #12]
+ 686 0040 BA69     		ldr	r2, [r7, #24]
+ 687 0042 1A62     		str	r2, [r3, #32]
+ 688 0044 00BF     		nop
+ 689 0046 1037     		adds	r7, r7, #16
+ 690 0048 BD46     		mov	sp, r7
+ 691              		@ sp needed
+ 692 004a 80BD     		pop	{r7, pc}
+ 693              		.size	chOQObjectInit, .-chOQObjectInit
+ 694              		.section	.text.chOQResetI,"ax",%progbits
+ 695              		.align	1
+ 696              		.global	chOQResetI
+ 697              		.syntax unified
+ 698              		.thumb
+ 699              		.thumb_func
+ 700              		.fpu fpv4-sp-d16
+ 701              		.type	chOQResetI, %function
+ 702              	chOQResetI:
+ 703              		@ args = 0, pretend = 0, frame = 8
+ 704              		@ frame_needed = 1, uses_anonymous_args = 0
+ 705 0000 80B5     		push	{r7, lr}
+ 706 0002 82B0     		sub	sp, sp, #8
+ 707 0004 00AF     		add	r7, sp, #0
+ 708 0006 7860     		str	r0, [r7, #4]
+ 709 0008 FFF7FEFF 		bl	chDbgCheckClassI
+ 710 000c 7B68     		ldr	r3, [r7, #4]
+ 711 000e DA68     		ldr	r2, [r3, #12]
+ 712 0010 7B68     		ldr	r3, [r7, #4]
+ 713 0012 9A61     		str	r2, [r3, #24]
+ 714 0014 7B68     		ldr	r3, [r7, #4]
+ 715 0016 DA68     		ldr	r2, [r3, #12]
+ 716 0018 7B68     		ldr	r3, [r7, #4]
+ 717 001a 5A61     		str	r2, [r3, #20]
+ 718 001c 7B68     		ldr	r3, [r7, #4]
+ 719 001e 1B69     		ldr	r3, [r3, #16]
+ 720 0020 1A46     		mov	r2, r3
+ 721 0022 7B68     		ldr	r3, [r7, #4]
+ 722 0024 DB68     		ldr	r3, [r3, #12]
+ 723 0026 D31A     		subs	r3, r2, r3
+ 724 0028 1A46     		mov	r2, r3
+ 725 002a 7B68     		ldr	r3, [r7, #4]
+ 726 002c 9A60     		str	r2, [r3, #8]
+ 727 002e 7B68     		ldr	r3, [r7, #4]
+ 728 0030 6FF00101 		mvn	r1, #1
+ 729 0034 1846     		mov	r0, r3
+ 730 0036 FFF7FEFF 		bl	chThdDequeueAllI
+ 731 003a 00BF     		nop
+ 732 003c 0837     		adds	r7, r7, #8
+ 733 003e BD46     		mov	sp, r7
+ 734              		@ sp needed
+ 735 0040 80BD     		pop	{r7, pc}
+ 736              		.size	chOQResetI, .-chOQResetI
+ 737              		.section	.text.chOQPutTimeout,"ax",%progbits
+ 738              		.align	1
+ 739              		.global	chOQPutTimeout
+ 740              		.syntax unified
+ 741              		.thumb
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s 			page 14
+
+
+ 742              		.thumb_func
+ 743              		.fpu fpv4-sp-d16
+ 744              		.type	chOQPutTimeout, %function
+ 745              	chOQPutTimeout:
+ 746              		@ args = 0, pretend = 0, frame = 24
+ 747              		@ frame_needed = 1, uses_anonymous_args = 0
+ 748 0000 80B5     		push	{r7, lr}
+ 749 0002 86B0     		sub	sp, sp, #24
+ 750 0004 00AF     		add	r7, sp, #0
+ 751 0006 F860     		str	r0, [r7, #12]
+ 752 0008 0B46     		mov	r3, r1
+ 753 000a 7A60     		str	r2, [r7, #4]
+ 754 000c FB72     		strb	r3, [r7, #11]
+ 755 000e FFF7FEFF 		bl	chSysLock
+ 756 0012 0CE0     		b	.L48
+ 757              	.L50:
+ 758 0014 FB68     		ldr	r3, [r7, #12]
+ 759 0016 7968     		ldr	r1, [r7, #4]
+ 760 0018 1846     		mov	r0, r3
+ 761 001a FFF7FEFF 		bl	chThdEnqueueTimeoutS
+ 762 001e 7861     		str	r0, [r7, #20]
+ 763 0020 7B69     		ldr	r3, [r7, #20]
+ 764 0022 002B     		cmp	r3, #0
+ 765 0024 03DA     		bge	.L48
+ 766 0026 FFF7FEFF 		bl	chSysUnlock
+ 767 002a 7B69     		ldr	r3, [r7, #20]
+ 768 002c 26E0     		b	.L49
+ 769              	.L48:
+ 770 002e F868     		ldr	r0, [r7, #12]
+ 771 0030 FFF7FEFF 		bl	chOQIsFullI
+ 772 0034 0346     		mov	r3, r0
+ 773 0036 002B     		cmp	r3, #0
+ 774 0038 ECD1     		bne	.L50
+ 775 003a FB68     		ldr	r3, [r7, #12]
+ 776 003c 9B68     		ldr	r3, [r3, #8]
+ 777 003e 5A1E     		subs	r2, r3, #1
+ 778 0040 FB68     		ldr	r3, [r7, #12]
+ 779 0042 9A60     		str	r2, [r3, #8]
+ 780 0044 FB68     		ldr	r3, [r7, #12]
+ 781 0046 5B69     		ldr	r3, [r3, #20]
+ 782 0048 591C     		adds	r1, r3, #1
+ 783 004a FA68     		ldr	r2, [r7, #12]
+ 784 004c 5161     		str	r1, [r2, #20]
+ 785 004e FA7A     		ldrb	r2, [r7, #11]
+ 786 0050 1A70     		strb	r2, [r3]
+ 787 0052 FB68     		ldr	r3, [r7, #12]
+ 788 0054 5A69     		ldr	r2, [r3, #20]
+ 789 0056 FB68     		ldr	r3, [r7, #12]
+ 790 0058 1B69     		ldr	r3, [r3, #16]
+ 791 005a 9A42     		cmp	r2, r3
+ 792 005c 03D3     		bcc	.L51
+ 793 005e FB68     		ldr	r3, [r7, #12]
+ 794 0060 DA68     		ldr	r2, [r3, #12]
+ 795 0062 FB68     		ldr	r3, [r7, #12]
+ 796 0064 5A61     		str	r2, [r3, #20]
+ 797              	.L51:
+ 798 0066 FB68     		ldr	r3, [r7, #12]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s 			page 15
+
+
+ 799 0068 DB69     		ldr	r3, [r3, #28]
+ 800 006a 002B     		cmp	r3, #0
+ 801 006c 03D0     		beq	.L52
+ 802 006e FB68     		ldr	r3, [r7, #12]
+ 803 0070 DB69     		ldr	r3, [r3, #28]
+ 804 0072 F868     		ldr	r0, [r7, #12]
+ 805 0074 9847     		blx	r3
+ 806              	.L52:
+ 807 0076 FFF7FEFF 		bl	chSysUnlock
+ 808 007a 0023     		movs	r3, #0
+ 809              	.L49:
+ 810 007c 1846     		mov	r0, r3
+ 811 007e 1837     		adds	r7, r7, #24
+ 812 0080 BD46     		mov	sp, r7
+ 813              		@ sp needed
+ 814 0082 80BD     		pop	{r7, pc}
+ 815              		.size	chOQPutTimeout, .-chOQPutTimeout
+ 816              		.section	.text.chOQGetI,"ax",%progbits
+ 817              		.align	1
+ 818              		.global	chOQGetI
+ 819              		.syntax unified
+ 820              		.thumb
+ 821              		.thumb_func
+ 822              		.fpu fpv4-sp-d16
+ 823              		.type	chOQGetI, %function
+ 824              	chOQGetI:
+ 825              		@ args = 0, pretend = 0, frame = 16
+ 826              		@ frame_needed = 1, uses_anonymous_args = 0
+ 827 0000 80B5     		push	{r7, lr}
+ 828 0002 84B0     		sub	sp, sp, #16
+ 829 0004 00AF     		add	r7, sp, #0
+ 830 0006 7860     		str	r0, [r7, #4]
+ 831 0008 FFF7FEFF 		bl	chDbgCheckClassI
+ 832 000c 7868     		ldr	r0, [r7, #4]
+ 833 000e FFF7FEFF 		bl	chOQIsEmptyI
+ 834 0012 0346     		mov	r3, r0
+ 835 0014 002B     		cmp	r3, #0
+ 836 0016 02D0     		beq	.L54
+ 837 0018 6FF00203 		mvn	r3, #2
+ 838 001c 1BE0     		b	.L55
+ 839              	.L54:
+ 840 001e 7B68     		ldr	r3, [r7, #4]
+ 841 0020 9B68     		ldr	r3, [r3, #8]
+ 842 0022 5A1C     		adds	r2, r3, #1
+ 843 0024 7B68     		ldr	r3, [r7, #4]
+ 844 0026 9A60     		str	r2, [r3, #8]
+ 845 0028 7B68     		ldr	r3, [r7, #4]
+ 846 002a 9B69     		ldr	r3, [r3, #24]
+ 847 002c 591C     		adds	r1, r3, #1
+ 848 002e 7A68     		ldr	r2, [r7, #4]
+ 849 0030 9161     		str	r1, [r2, #24]
+ 850 0032 1B78     		ldrb	r3, [r3]
+ 851 0034 FB73     		strb	r3, [r7, #15]
+ 852 0036 7B68     		ldr	r3, [r7, #4]
+ 853 0038 9A69     		ldr	r2, [r3, #24]
+ 854 003a 7B68     		ldr	r3, [r7, #4]
+ 855 003c 1B69     		ldr	r3, [r3, #16]
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s 			page 16
+
+
+ 856 003e 9A42     		cmp	r2, r3
+ 857 0040 03D3     		bcc	.L56
+ 858 0042 7B68     		ldr	r3, [r7, #4]
+ 859 0044 DA68     		ldr	r2, [r3, #12]
+ 860 0046 7B68     		ldr	r3, [r7, #4]
+ 861 0048 9A61     		str	r2, [r3, #24]
+ 862              	.L56:
+ 863 004a 7B68     		ldr	r3, [r7, #4]
+ 864 004c 0021     		movs	r1, #0
+ 865 004e 1846     		mov	r0, r3
+ 866 0050 FFF7FEFF 		bl	chThdDequeueNextI
+ 867 0054 FB7B     		ldrb	r3, [r7, #15]	@ zero_extendqisi2
+ 868              	.L55:
+ 869 0056 1846     		mov	r0, r3
+ 870 0058 1037     		adds	r7, r7, #16
+ 871 005a BD46     		mov	sp, r7
+ 872              		@ sp needed
+ 873 005c 80BD     		pop	{r7, pc}
+ 874              		.size	chOQGetI, .-chOQGetI
+ 875              		.section	.text.chOQWriteTimeout,"ax",%progbits
+ 876              		.align	1
+ 877              		.global	chOQWriteTimeout
+ 878              		.syntax unified
+ 879              		.thumb
+ 880              		.thumb_func
+ 881              		.fpu fpv4-sp-d16
+ 882              		.type	chOQWriteTimeout, %function
+ 883              	chOQWriteTimeout:
+ 884              		@ args = 0, pretend = 0, frame = 24
+ 885              		@ frame_needed = 1, uses_anonymous_args = 0
+ 886 0000 80B5     		push	{r7, lr}
+ 887 0002 86B0     		sub	sp, sp, #24
+ 888 0004 00AF     		add	r7, sp, #0
+ 889 0006 F860     		str	r0, [r7, #12]
+ 890 0008 B960     		str	r1, [r7, #8]
+ 891 000a 7A60     		str	r2, [r7, #4]
+ 892 000c 3B60     		str	r3, [r7]
+ 893 000e FB68     		ldr	r3, [r7, #12]
+ 894 0010 DB69     		ldr	r3, [r3, #28]
+ 895 0012 3B61     		str	r3, [r7, #16]
+ 896 0014 0023     		movs	r3, #0
+ 897 0016 7B61     		str	r3, [r7, #20]
+ 898 0018 7B68     		ldr	r3, [r7, #4]
+ 899 001a 002B     		cmp	r3, #0
+ 900 001c 02D1     		bne	.L58
+ 901 001e 2548     		ldr	r0, .L66
+ 902 0020 FFF7FEFF 		bl	chSysHalt
+ 903              	.L58:
+ 904 0024 FFF7FEFF 		bl	chSysLock
+ 905 0028 0BE0     		b	.L59
+ 906              	.L61:
+ 907 002a FB68     		ldr	r3, [r7, #12]
+ 908 002c 3968     		ldr	r1, [r7]
+ 909 002e 1846     		mov	r0, r3
+ 910 0030 FFF7FEFF 		bl	chThdEnqueueTimeoutS
+ 911 0034 0346     		mov	r3, r0
+ 912 0036 002B     		cmp	r3, #0
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s 			page 17
+
+
+ 913 0038 03D0     		beq	.L59
+ 914 003a FFF7FEFF 		bl	chSysUnlock
+ 915 003e 7B69     		ldr	r3, [r7, #20]
+ 916 0040 34E0     		b	.L60
+ 917              	.L59:
+ 918 0042 F868     		ldr	r0, [r7, #12]
+ 919 0044 FFF7FEFF 		bl	chOQIsFullI
+ 920 0048 0346     		mov	r3, r0
+ 921 004a 002B     		cmp	r3, #0
+ 922 004c EDD1     		bne	.L61
+ 923 004e FB68     		ldr	r3, [r7, #12]
+ 924 0050 9B68     		ldr	r3, [r3, #8]
+ 925 0052 5A1E     		subs	r2, r3, #1
+ 926 0054 FB68     		ldr	r3, [r7, #12]
+ 927 0056 9A60     		str	r2, [r3, #8]
+ 928 0058 BA68     		ldr	r2, [r7, #8]
+ 929 005a 531C     		adds	r3, r2, #1
+ 930 005c BB60     		str	r3, [r7, #8]
+ 931 005e FB68     		ldr	r3, [r7, #12]
+ 932 0060 5B69     		ldr	r3, [r3, #20]
+ 933 0062 581C     		adds	r0, r3, #1
+ 934 0064 F968     		ldr	r1, [r7, #12]
+ 935 0066 4861     		str	r0, [r1, #20]
+ 936 0068 1278     		ldrb	r2, [r2]	@ zero_extendqisi2
+ 937 006a 1A70     		strb	r2, [r3]
+ 938 006c FB68     		ldr	r3, [r7, #12]
+ 939 006e 5A69     		ldr	r2, [r3, #20]
+ 940 0070 FB68     		ldr	r3, [r7, #12]
+ 941 0072 1B69     		ldr	r3, [r3, #16]
+ 942 0074 9A42     		cmp	r2, r3
+ 943 0076 03D3     		bcc	.L62
+ 944 0078 FB68     		ldr	r3, [r7, #12]
+ 945 007a DA68     		ldr	r2, [r3, #12]
+ 946 007c FB68     		ldr	r3, [r7, #12]
+ 947 007e 5A61     		str	r2, [r3, #20]
+ 948              	.L62:
+ 949 0080 3B69     		ldr	r3, [r7, #16]
+ 950 0082 002B     		cmp	r3, #0
+ 951 0084 02D0     		beq	.L63
+ 952 0086 3B69     		ldr	r3, [r7, #16]
+ 953 0088 F868     		ldr	r0, [r7, #12]
+ 954 008a 9847     		blx	r3
+ 955              	.L63:
+ 956 008c FFF7FEFF 		bl	chSysUnlock
+ 957 0090 7B69     		ldr	r3, [r7, #20]
+ 958 0092 0133     		adds	r3, r3, #1
+ 959 0094 7B61     		str	r3, [r7, #20]
+ 960 0096 7B68     		ldr	r3, [r7, #4]
+ 961 0098 013B     		subs	r3, r3, #1
+ 962 009a 7B60     		str	r3, [r7, #4]
+ 963 009c 7B68     		ldr	r3, [r7, #4]
+ 964 009e 002B     		cmp	r3, #0
+ 965 00a0 01D1     		bne	.L64
+ 966 00a2 7B69     		ldr	r3, [r7, #20]
+ 967 00a4 02E0     		b	.L60
+ 968              	.L64:
+ 969 00a6 FFF7FEFF 		bl	chSysLock
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s 			page 18
+
+
+ 970 00aa CAE7     		b	.L59
+ 971              	.L60:
+ 972 00ac 1846     		mov	r0, r3
+ 973 00ae 1837     		adds	r7, r7, #24
+ 974 00b0 BD46     		mov	sp, r7
+ 975              		@ sp needed
+ 976 00b2 80BD     		pop	{r7, pc}
+ 977              	.L67:
+ 978              		.align	2
+ 979              	.L66:
+ 980 00b4 00000000 		.word	__func__.7913
+ 981              		.size	chOQWriteTimeout, .-chOQWriteTimeout
+ 982              		.section	.rodata.__func__.7153,"a",%progbits
+ 983              		.align	2
+ 984              		.type	__func__.7153, %object
+ 985              		.size	__func__.7153, 12
+ 986              	__func__.7153:
+ 987 0000 63685379 		.ascii	"chSysUnlock\000"
+ 987      73556E6C 
+ 987      6F636B00 
+ 988              		.section	.rodata.__func__.7877,"a",%progbits
+ 989              		.align	2
+ 990              		.type	__func__.7877, %object
+ 991              		.size	__func__.7877, 16
+ 992              	__func__.7877:
+ 993 0000 63684951 		.ascii	"chIQReadTimeout\000"
+ 993      52656164 
+ 993      54696D65 
+ 993      6F757400 
+ 994              		.section	.rodata.__func__.7913,"a",%progbits
+ 995              		.align	2
+ 996              		.type	__func__.7913, %object
+ 997              		.size	__func__.7913, 17
+ 998              	__func__.7913:
+ 999 0000 63684F51 		.ascii	"chOQWriteTimeout\000"
+ 999      57726974 
+ 999      6554696D 
+ 999      656F7574 
+ 999      00
+ 1000              		.ident	"GCC: (GNU Tools for Arm Embedded Processors 7-2017-q4-major) 7.2.1 20170904 (release) [ARM
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s 			page 19
+
+
+DEFINED SYMBOLS
+                            *ABS*:0000000000000000 chqueues.c
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:15     .text.port_lock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:21     .text.port_lock:0000000000000000 port_lock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:45     .text.port_unlock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:51     .text.port_unlock:0000000000000000 port_unlock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:75     .text.queue_init:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:81     .text.queue_init:0000000000000000 queue_init
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:103    .text.chSysLock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:109    .text.chSysLock:0000000000000000 chSysLock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:121    .text.chSysUnlock:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:127    .text.chSysUnlock:0000000000000000 chSysUnlock
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:156    .text.chSysUnlock:0000000000000034 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:986    .rodata.__func__.7153:0000000000000000 __func__.7153
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:160    .text.chThdQueueObjectInit:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:166    .text.chThdQueueObjectInit:0000000000000000 chThdQueueObjectInit
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:182    .text.chIQIsEmptyI:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:188    .text.chIQIsEmptyI:0000000000000000 chIQIsEmptyI
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:210    .text.chIQIsFullI:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:216    .text.chIQIsFullI:0000000000000000 chIQIsFullI
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:248    .text.chOQIsEmptyI:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:254    .text.chOQIsEmptyI:0000000000000000 chOQIsEmptyI
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:286    .text.chOQIsFullI:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:292    .text.chOQIsFullI:0000000000000000 chOQIsFullI
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:314    .text.chIQObjectInit:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:321    .text.chIQObjectInit:0000000000000000 chIQObjectInit
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:364    .text.chIQResetI:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:371    .text.chIQResetI:0000000000000000 chIQResetI
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:401    .text.chIQPutI:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:408    .text.chIQPutI:0000000000000000 chIQPutI
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:462    .text.chIQGetTimeout:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:469    .text.chIQGetTimeout:0000000000000000 chIQGetTimeout
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:538    .text.chIQReadTimeout:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:545    .text.chIQReadTimeout:0000000000000000 chIQReadTimeout
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:642    .text.chIQReadTimeout:00000000000000b4 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:992    .rodata.__func__.7877:0000000000000000 __func__.7877
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:645    .text.chOQObjectInit:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:652    .text.chOQObjectInit:0000000000000000 chOQObjectInit
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:695    .text.chOQResetI:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:702    .text.chOQResetI:0000000000000000 chOQResetI
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:738    .text.chOQPutTimeout:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:745    .text.chOQPutTimeout:0000000000000000 chOQPutTimeout
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:817    .text.chOQGetI:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:824    .text.chOQGetI:0000000000000000 chOQGetI
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:876    .text.chOQWriteTimeout:0000000000000000 $t
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:883    .text.chOQWriteTimeout:0000000000000000 chOQWriteTimeout
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:980    .text.chOQWriteTimeout:00000000000000b4 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:998    .rodata.__func__.7913:0000000000000000 __func__.7913
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:983    .rodata.__func__.7153:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:989    .rodata.__func__.7877:0000000000000000 $d
+/var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s:995    .rodata.__func__.7913:0000000000000000 $d
+
+UNDEFINED SYMBOLS
+_stats_start_measure_crit_thd
+_dbg_check_lock
+_dbg_check_unlock
+_stats_stop_measure_crit_thd
+ARM GAS  /var/folders/d2/nstgp4h54kz7g1l847x_b8wc0000gn/T//ccbokjY4.s 			page 20
+
+
+chSysHalt
+ch
+chDbgCheckClassI
+chThdDequeueAllI
+chThdDequeueNextI
+chThdEnqueueTimeoutS
