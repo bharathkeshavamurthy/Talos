@@ -17,3 +17,6 @@ magnetometer
 proximities
 inertial
 micro
+gyro
+imu
+ms

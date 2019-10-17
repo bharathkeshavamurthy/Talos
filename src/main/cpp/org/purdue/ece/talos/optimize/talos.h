@@ -67,6 +67,15 @@ extern "C" {
 extern messagebus_t bus;
 extern parameter_namespace_t parameter_root;
 
+/* Obstacle Avoidance feature */
+void obstacle_avoidance(void);
+
+/* Rotation using the Gyro feature */
+void rotation_using_gyro(void);
+
+/* Cliff Fall Avoidance feature */
+void cliff_fall_avoidance(void);
+
 #ifdef __cplusplus
 }
 #endif /* __cplusplus */
