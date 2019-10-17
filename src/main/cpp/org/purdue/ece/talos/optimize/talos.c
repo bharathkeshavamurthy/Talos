@@ -377,9 +377,9 @@ int main(void) {
 
 	/* Feature operations listed here */
 
-	// obstacle_avoidance();
+	obstacle_avoidance();
 	// rotation_using_gyro();
-	cliff_fall_avoidance();
+	// cliff_fall_avoidance();
 
 	/* Feature operations list ends here */
 }
