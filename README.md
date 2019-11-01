@@ -12,3 +12,5 @@ https://www.espressif.com/sites/default/files/documentation/esp32_datasheet_en.p
 https://www.gctronic.com/doc/index.php?title=Advanced_sercom_protocol
 # Black Magic Probe Programmer/Debugger
 https://github.com/blacksphere/blackmagic/wiki
+# ESP-IDF Build System for ESP32 Firmware Modifications
+https://docs.espressif.com/projects/esp-idf/en/latest/api-guides/build-system.html#idf-py
