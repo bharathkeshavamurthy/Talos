@@ -15,3 +15,6 @@
 [submodule "src/main/cpp/org/purdue/ece/talos/e-puck2_cpp"]
 	path = src/main/cpp/org/purdue/ece/talos/e-puck2_cpp
 	url = https://github.com/e-puck2/e-puck2_cpp.git
+[submodule "src/main/cpp/org/purdue/ece/talos/esp-idf"]
+	path = src/main/cpp/org/purdue/ece/talos/esp-idf
+	url = https://github.com/espressif/esp-idf.git
