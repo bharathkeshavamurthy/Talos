@@ -20,3 +20,6 @@ micro
 gyro
 imu
 ms
+nov
+talos
+espressif
