@@ -18,7 +18,7 @@
 [submodule "src/main/cpp/org/purdue/ece/talos/esp-idf"]
 	path = src/main/cpp/org/purdue/ece/talos/esp-idf
 	url = https://github.com/espressif/esp-idf.git
-[submodule "/Users/bharathkeshavamurthy/Workspaces/Talos/src/main/cpp/org/purdue/ece/talos/e-puck2-esp"]
-	path = /Users/bharathkeshavamurthy/Workspaces/Talos/src/main/cpp/org/purdue/ece/talos/e-puck2-esp
+[submodule "src/main/cpp/org/purdue/ece/talos/e-puck2-esp-wifi"]
+	path = src/main/cpp/org/purdue/ece/talos/e-puck2-esp-wifi
 	url = https://github.com/e-puck2/esp-idf.git
 	branch = wifi
