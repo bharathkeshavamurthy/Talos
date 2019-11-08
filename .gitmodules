@@ -22,3 +22,7 @@
 	path = src/main/cpp/org/purdue/ece/talos/e-puck2-esp-wifi
 	url = https://github.com/e-puck2/esp-idf.git
 	branch = wifi
+[submodule "src/main/cpp/org/purdue/ece/talos/e-puck2-esp-stable"]
+	path = src/main/cpp/org/purdue/ece/talos/e-puck2-esp-stable
+	url = https://github.com/e-puck2/esp-idf.git
+	branch = e-puck
