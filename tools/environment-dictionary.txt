@@ -23,3 +23,10 @@ ms
 nov
 talos
 espressif
+mutex
+async
+struct
+authmode
+configs
+bssid
+funcs

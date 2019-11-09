@@ -1,0 +1,68 @@
+menu "TALOS: Distributed Active Mesh Configuration"
+
+    config MESH_CHANNEL
+        int "Channel"
+        range 1 14
+        default 1
+        help
+            Mesh Network Channel.
+
+    config MESH_ROUTER_SSID
+        string "Router SSID"
+        default "Artemis"
+        help
+            Router SSID
+
+    config MESH_ROUTER_PASSWORD
+        string "Router Password"
+        default "xxxxxxxxxxxxxxxx"
+        help
+            Router Password
+
+    choice
+        bool "Mesh AP Authentication Mode"
+        default WIFI_AUTH_WPA2_PSK
+        help
+            Authentication Mode
+
+        config WIFI_AUTH_OPEN
+            bool "WIFI_AUTH_OPEN"
+        config WIFI_AUTH_WPA_PSK
+            bool "WIFI_AUTH_WPA_PSK"
+        config WIFI_AUTH_WPA2_PSK
+            bool "WIFI_AUTH_WPA2_PSK"
+        config WIFI_AUTH_WPA_WPA2_PSK
+            bool "WIFI_AUTH_WPA_WPA2_PSK"
+    endchoice
+
+    config MESH_AP_AUTHMODE
+        int
+        default 0 if WIFI_AUTH_OPEN
+        default 2 if WIFI_AUTH_WPA_PSK
+        default 3 if WIFI_AUTH_WPA2_PSK
+        default 4 if WIFI_AUTH_WPA_WPA2_PSK
+        help
+            Mesh AP Authentication Mode
+
+    config MESH_AP_PASSWORD
+        string "Mesh AP Password"
+        default "xxxxxxxxxxxxxxxx"
+        help
+            Mesh AP Password
+
+    config MESH_AP_MAX_CONNECTIONS
+        int "Mesh AP Connections"
+        range 1 10
+        default 6
+        help
+            The maximum number of stations allowed to connect into this mesh network
+
+    config MESH_MAX_LAYERS
+        int "Mesh Max Layers"
+        range 1 25
+        default 6
+        help
+            The maximum number of layers allowed in this mesh network
+            
+endmenu
+
