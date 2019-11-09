@@ -30,3 +30,6 @@ authmode
 configs
 bssid
 funcs
+tx
+rx
+crypto

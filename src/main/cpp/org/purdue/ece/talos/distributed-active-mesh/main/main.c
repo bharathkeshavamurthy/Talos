@@ -15,6 +15,7 @@
 /* Includes */
 #include <string.h>
 
+#include "main.h"
 #include "mesh.h"
 #include "esp_log.h"
 #include "esp_mesh.h"
@@ -22,21 +23,19 @@
 #include "nvs_flash.h"
 #include "esp_event.h"
 #include "esp_system.h"
+#include "freertos/task.h"
+#include "driver/spi_slave.h"
+#include "freertos/FreeRTOS.h"
 #include "esp_mesh_internal.h"
-
-/* Macros */
-#ifndef MESH_SET_ROOT
-#define MESH_SET_NODE
-#endif
-
-/* Constant Declarations */
-static const int DEFAULT_RSSI = -120;
-static const uint8_t MESH_ID[6] = {0x77, 0x77, 0x77, 0x77, 0x77, 0x77};
+#include "freertos/event_groups.h"
 
 /* Variable Declarations */
-static int mesh_layer = -1;
-static uint8_t last_layer = 0;
-static mesh_addr_t mesh_parent_addr;
+uint8_t *spi_tx_buffer;
+uint8_t *spi_rx_buffer;
+data_buffer_t *data_buffer_1;
+data_buffer_t *data_buffer_2;
+data_buffer_t *data_buffer_previous;
+data_buffer_t *data_buffer_current;
 
 /* Handler routine for handling Parent Scans in the Mesh */
 void mesh_scan_handler(int count) {
@@ -65,9 +64,10 @@ void mesh_scan_handler(int count) {
 		ESP_ERROR_CHECK(esp_mesh_scan_get_ap_ie_len(&ie_len));
 		/* Get AP record */
 		ESP_ERROR_CHECK(esp_mesh_scan_get_ap_record(&record, &association));
+
 		/* IEEE 802.11s Mesh Information Element (IE) validity check */
 		if (ie_len == sizeof(association)) {
-#ifdef MESH_SET_NODE
+#ifdef MESH_SET_NODE /* MESH_SET_NODE */
 			/* The AP under consideration for being my parent is not idle, is allowed in this layer in terms of layer capacity, allows more child connections to it, and is pretty good in terms of received signal strength */
 			if (association.mesh_type != MESH_IDLE && association.layer_cap && association.assoc < association.assoc_cap && record.rssi > -70) {
 				/* Layer correctness check and Layer2 capacity check */
@@ -87,9 +87,9 @@ void mesh_scan_handler(int count) {
 					break;
 				}
 			}
-#endif
+#endif /* MESH_SET_NODE */
 		} else {
-#ifdef MESH_SET_ROOT
+#ifdef MESH_SET_ROOT /* MESH_SET_ROOT */
 			/* If the parent is not the router, set me as the root and my layer as the root layer */
 			if (!strcmp(CONFIG_MESH_ROUTER_SSID, (char *) record.ssid)) {
 				parent_found = true;
@@ -97,9 +97,10 @@ void mesh_scan_handler(int count) {
 				my_type = MESH_ROOT;
 				my_layer = MESH_ROOT_LAYER;
 			}
-#endif
+#endif /* MESH_SET_ROOT */
 		}
 	}
+
 	/* Flush the scan results */
 	esp_mesh_flush_scan_result();
 	if (parent_found == 1) {
@@ -155,7 +156,7 @@ void mesh_event_handler(void *arg, esp_event_base_t event_base, int32_t event_id
 
 	case MESH_EVENT_PARENT_CONNECTED: {
 		/* Parse the received event_data which is a MESH_EVENT_PARENT_CONNECTED event */
-		mesh_event_connected_t *connected = (mesh_event_connected_t *)event_data;
+		mesh_event_connected_t *connected = (mesh_event_connected_t *) event_data;
 		/* The parent's layer */
 		mesh_layer = connected->self_layer;
 		last_layer = mesh_layer;
@@ -170,7 +171,7 @@ void mesh_event_handler(void *arg, esp_event_base_t event_base, int32_t event_id
 
 	case MESH_EVENT_PARENT_DISCONNECTED: {
 		/* Parse the received event_data which is a MESH_EVENT_PARENT_DISCONNECTED event */
-		mesh_event_disconnected_t *disconnected = (mesh_event_disconnected_t *)event_data;
+		mesh_event_disconnected_t *disconnected = (mesh_event_disconnected_t *) event_data;
 		/* Get the value of the current layer in this Mesh network */
 		mesh_layer = esp_mesh_get_layer();
 		/* If too many associations if the reason the parent disconnected from this node, stop scanning and start scanning again with new configurations (show_hidden, passive, non-blocking) */
@@ -185,7 +186,7 @@ void mesh_event_handler(void *arg, esp_event_base_t event_base, int32_t event_id
 
 	case MESH_EVENT_LAYER_CHANGE: {
 		/* Parse the received event_data which is a MESH_EVENT_LAYER_CHANGE event */
-		mesh_event_layer_change_t *layer_change = (mesh_event_layer_change_t *)event_data;
+		mesh_event_layer_change_t *layer_change = (mesh_event_layer_change_t *) event_data;
 		/* This node's new layer */
 		mesh_layer = layer_change->new_layer;
 		last_layer = mesh_layer;
@@ -194,7 +195,7 @@ void mesh_event_handler(void *arg, esp_event_base_t event_base, int32_t event_id
 
 	case MESH_EVENT_SCAN_DONE: {
 		/* Parse the received event_data which is a MESH_EVENT_SCAN_DONE event */
-		mesh_event_scan_done_t *scan_done = (mesh_event_scan_done_t *)event_data;
+		mesh_event_scan_done_t *scan_done = (mesh_event_scan_done_t *) event_data;
 		/* Call the mesh_scan_handler routine */
 		mesh_scan_handler(scan_done->number);
 	}
@@ -213,6 +214,34 @@ void mesh_event_handler(void *arg, esp_event_base_t event_base, int32_t event_id
 	break;
 
 	}
+}
+
+/* Initialize the SPI communication interface between the STM32F407uC and the ESP32 radio module */
+void spi_init(void) {
+	/* Allocate the SPI Tx/Rx/Data Buffers */
+	spi_tx_buffer = (uint8_t *) heap_caps_malloc(SPI_PACKET_MAX_SIZE, MALLOC_CAP_DMA);
+	spi_rx_buffer = (uint8_t *) heap_caps_malloc(SPI_PACKET_MAX_SIZE, MALLOC_CAP_DMA);
+	data_buffer_1 = (data_buffer_t *) heap_caps_calloc(1, sizeof(data_buffer_t), MALLOC_CAP_DMA);
+	data_buffer_1->data = (uint8_t *) heap_caps_calloc(MAX_BUFFER_SIZE, 1, MALLOC_CAP_DMA);
+	data_buffer_2 = (data_buffer_t *) heap_caps_calloc(1, sizeof(data_buffer_t), MALLOC_CAP_DMA);
+	data_buffer_2->data = (uint8_t *) heap_caps_calloc(MAX_BUFFER_SIZE, 1, MALLOC_CAP_DMA);
+	if (spi_tx_buffer == NULL || spi_rx_buffer == NULL || data_buffer_1->data == NULL || data_buffer_2->data == NULL) {
+		ESP_LOGE(MESH_TAG, "Memory Allocation Failed for one of the SPI Tx or Rx or Data Buffers!");
+	}
+	data_buffer_previous = data_buffer_1;
+	data_buffer_current = data_buffer_2;
+	data_buffer_current->data_buffer_state = DATA_BUFFER_EMPTY;
+
+	/* Create an SPI Event Group */
+	spi_event_group = xEventGroupCreate();
+
+	/* Enable pull-ups on the SPI input lines (MOSI, CLK, and CS) in order to prevent rogue pulses from being detected on these lines when the master is not connected */
+	gpio_set_pull_mode(PIN_NUM_MOSI, GPIO_PULLUP_ONLY);
+	gpio_set_pull_mode(PIN_NUM_CLK, GPIO_PULLUP_ONLY);
+	gpio_set_pull_mode(PIN_NUM_CS, GPIO_PULLUP_ONLY);
+
+	/* SPI Bus Initialization */
+	ESP_ERROR_CHECK(spi_slave_initialize(VSPI_HOST, &spi_bus_config, &spi_slave_interface_config, 1));
 }
 
 /* Run Trigger */
