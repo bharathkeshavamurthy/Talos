@@ -33,8 +33,8 @@
 #define DELAY(ticks) (ticks)
 
 /* Constant Declarations */
-const int EVT_DATA_BUFFER_FILL_NEXT = BIT0;
-const int EVT_DATA_BUFFER_FILLED = BIT1;
+const int EVENT_DATA_BUFFER_FILL_NEXT = BIT0;
+const int EVENT_DATA_BUFFER_FILLED = BIT1;
 
 static const int DEFAULT_RSSI = -120;
 static const uint8_t MESH_ID[6] = {0x77, 0x77, 0x77, 0x77, 0x77, 0x77};
@@ -83,6 +83,6 @@ void spi_init(void);
 void spi_task(void);
 
 /* Get the most recent data received from the STM32F407uC */
-data_buffer_t *spi_get_data(void);
+data_buffer_t* spi_get_data(void);
 
 #endif /* INCLUDE_MAIN_H_ */

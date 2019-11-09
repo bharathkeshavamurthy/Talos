@@ -18,15 +18,19 @@
 #include "main.h"
 #include "mesh.h"
 #include "esp_log.h"
+#include "esp_err.h"
+#include "esp_attr.h"
 #include "esp_mesh.h"
 #include "esp_wifi.h"
 #include "nvs_flash.h"
 #include "esp_event.h"
 #include "esp_system.h"
 #include "freertos/task.h"
+#include "freertos/queue.h"
 #include "driver/spi_slave.h"
 #include "freertos/FreeRTOS.h"
 #include "esp_mesh_internal.h"
+#include "freertos/xtensa_api.h"
 #include "freertos/event_groups.h"
 
 /* Variable Declarations */
@@ -242,6 +246,128 @@ void spi_init(void) {
 
 	/* SPI Bus Initialization */
 	ESP_ERROR_CHECK(spi_slave_initialize(VSPI_HOST, &spi_bus_config, &spi_slave_interface_config, 1));
+}
+
+/* Get the data pointer over SPI */
+data_buffer_t* spi_get_data(void) {
+	/* If the current data buffer is empty, wait for the buffer to be filled with new information */
+	if (data_buffer_current->data_buffer_state == DATA_BUFFER_EMPTY) {
+		xEventgroupWaitbits(spi_event_group, EVENT_DATA_BUFFER_FILLED, true, false, portMAX_DELAY);
+	}
+	/* Clear the EVENT_DATA_BUFFER_FILLED bit */
+	xEventGroupClearBits(spi_event_group, EVENT_DATA_BUFFER_FILLED);
+	/* Extract the new information and prepare the buffers for the next transaction */
+	data_buffer_previous = data_buffer_current;
+	data_buffer_current = (data_buffer_current == data_buffer_1) ? data_buffer_2 : data_buffer_1;
+	data_buffer_current->data_buffer_state = DATA_BUFFER_EMPTY;
+	/* Fill the next buffer by setting the EVENT_DATA_BUFFER_FILL_NEXT bit in the spi_event_group */
+	xEventGroupSetBits(spi_event_group, EVENT_DATA_BUFFER_FILL_NEXT);
+	/* Return the extracted information from this read cycle */
+	return data_buffer_previous;
+}
+
+/* The core SPI task */
+void spi_task(void) {
+	/* Allocate the buffers and configure the spi_slave_transaction */
+	memset(spi_tx_buffer, 0x01, SPI_PACKET_MAX_SIZE);
+	memset(spi_rx_buffer, 0x01, SPI_PACKET_MAX_SIZE);
+	memset(&spi_slave_transaction, 0, sizeof(spi_slave_transaction));
+	spi_slave_transaction.tx_buffer = spi_tx_buffer;
+	spi_slave_transaction.rx_buffer = spi_rx_buffer;
+	spi_slave_transaction.length = SPI_PACKET_MAX_SIZE * 8;
+	spi_slave_transaction.user = (void *) 0;
+
+	/* Internal members */
+	uint8_t spi_state = 0;
+	uint16_t number_of_packets = 0;
+	uint32_t remaining_bytes = 0;
+	uint8_t packetId = 0;
+
+	/* Forever */
+	while (1) {
+		/* Enable data reception from the SPI Master */
+		spi_tx_buffer[0] = 1;
+		/* Get the values of the stepper motors: -"E" => 2's complement of Hex(ASCII(E)) = 2's complement of Hex(69) = 2's complement of 45 = 2's complement of (0100 0101) = 1011 1011 = 0xBB */
+		spi_tx_buffer[1] = 0xBB;
+		switch(spi_state) {
+		/* Prepare to read the header */
+		case 0: {
+			spi_slave_transaction.rx_buffer = spi_rx_buffer;
+			/* Always clear this transaction length bit because I use it to determine the number of bits received in the next transaction with the master */
+			spi_slave_transaction.trans_len = 0;
+			spi_state = 1;
+		}
+		break;
+		/* Read the header */
+		case 1: {
+			ESP_ERROR_CHECK(spi_slave_transmit(VSPI_HOST, &spi_slave_transaction, portMAX_DELAY));
+			if (spi_slave_transaction.trans_len == 0) {
+				break;
+			/* Header correctness check */
+			} else if (spi_slave_transaction.trans_len == 12 * 8) {
+				spi_state = 2;
+			} else {
+				spi_state = 0;
+			}
+		}
+		break;
+		/* Prepare to read data from the master except for some remaining bytes that'll be left over... */
+		case 2: {
+			number_of_packets = MAX_BUFFER_SIZE / SPI_MAX_PACKET_SIZE;
+			packetId = 0;
+			spi_state = 3;
+		}
+		break;
+		/* Read data (there's some data left over...) */
+		case 3: {
+			spi_slave_transaction.rx_buffer = &(data_buffer_current->data(packetId * SPI_MAX_PACKET_SIZE));
+			spi_slave_transaction.trans_len = 0;
+			ESP_ERROR_CHECK(spi_slave_transmit(VSPIHOST, &spi_slave_transaction, portMAX_DELAY));
+			if (spi_slave_transaction.trans_len == 0) {
+				break;
+			} else if (spi_slave_transaction.trans_len == SPI_MAX_PACKET_SIZE * 8) {
+				packetId += 1;
+				if (packetId == number_of_packets) {
+					spi_state = 4;
+				}
+			} else {
+				spi_state = 0;
+			}
+		}
+		break;
+		/* Prepare to read the leftovers */
+		case 4: {
+			remaining_bytes = MAX_BUFFER_SIZE % SPI_MAX_PACKET_SIZE;
+			spi_slave_transaction.rx_buffer = &(data_buffer_current->data[packetId * SPI_MAX_PACKET_SIZE]);
+			spi_slave_transaction.trans_len = 0;
+			spi_state = 5;
+		}
+		break;
+		/* Read the leftovers */
+		case 5: {
+			ESP_ERROR_CHECK(spi_slave_transmit(VSPI_HOST, &spi_slave_transaction, portMAX_DELAY));
+			if (spi_slave_transaction.trans_len == 0) {
+				break;
+			} else if (spi_slave_transaction.trans_len == remaining_bytes * 8) {
+				data_buffer_current->data_buffer_state = DATA_BUFFER_FILLED;
+				spi_state = 6;
+				xEventGroupSetBits(spi_event_group, EVENT_DATA_BUFFER_FILLED);
+			} else {
+				spi_state = 0;
+			}
+		}
+		break;
+		/* Next "new" transaction */
+		case 6: {
+			spi_state = 0;
+		}
+		break;
+		default: {
+			ESP_LOGW(MESH_TAG, "Invalid SPI State: %d", spi_state);
+		}
+		break;
+		}
+	}
 }
 
 /* Run Trigger */
