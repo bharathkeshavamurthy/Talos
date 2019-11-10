@@ -8,7 +8,7 @@ GLOBAL_PATH = ../e-puck2_main-processor
 # The name of the project
 PROJECT = optimize
 # C sources
-CSRC = talos.c
+CSRC = talos_leds.c spi_communication.c talos.c
 # C++ sources
 # CPPSRC = $(CHCPPSRC) talos.cpp
 # Options

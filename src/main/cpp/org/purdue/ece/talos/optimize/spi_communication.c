@@ -16,9 +16,11 @@
 #include "spi_communication.h"
 
 /* Global variable definitions */
-int data_pointer = NULL;
-int spi_tx_buffer[SPI_MAX_PACKET_SIZE];
-int spi_rx_buffer[SPI_MAX_PACKET_SIZE];
+uint8_t *data_pointer = NULL;
+uint8_t talos_spi_suspend_flag = 0;
+uint8_t talos_rgb_setting_enabled = 0;
+uint8_t spi_tx_buffer[SPI_MAX_PACKET_SIZE];
+uint8_t spi_rx_buffer[SPI_MAX_PACKET_SIZE];
 
 static thread_t *spi_thread_pointer;
 
@@ -27,6 +29,8 @@ static THD_WORKING_AREA(spi_thread_working_area, 1024);
 /* The SPI communication thread */
 static THD_FUNCTION(spi_thread, p) {
 	(void)p;
+	systime_t time;
+	volatile uint32_t delay = 0;
 	chRegSetThreadName("SPI Thread");
 
 	/* Internal members */
@@ -35,26 +39,89 @@ static THD_FUNCTION(spi_thread, p) {
 
 	/* Forever */
 	while(true) {
+		time = chVTGetSystemTime();
+
+		/* Check for suspension */
+		chSysLock();
+		if(talos_spi_suspend_flag == 1) {
+			chSchGoSleepS(CH_STATE_SUSPENDED);
+		}
+		chSysUnlock();
+
 		/* Get motor speeds */
 		left_motor_speed = left_motor_get_desired_speed();
 		right_motor_speed = right_motor_get_desired_speed();
-		/* Allocate the Tx and Rx buffers */
-		memset(spi_tx_buffer, 0x00, SPI_PACKET_MAX_SIZE);
-		memset(spi_rx_buffer, 0x00, SPI_PACKET_MAX_SIZE);
-		/* Set the Tx buffer */
+
+		/* Allocate the Tx buffers and transact RGB LED operations */
+		memset(spi_rx_buffer, 0xFF, SPI_MAX_PACKET_SIZE);
+		if(talos_rgb_setting_enabled == 1) {
+			talos_get_all_rgb_state(&spi_tx_buffer[0]);
+		} else {
+			memset(spi_tx_buffer, 101, 12);
+		}
+		spiSelect(&SPID1);
+		spiExchange(&SPID1, 12, spi_tx_buffer, spi_rx_buffer);
+		spiUnselect(&SPID1);
+
+		/* A pause in between transactions */
+		for(delay=0; delay<SPI_DELAY * 2; delay++) {
+			__NOP();
+		}
+
+		/* Set the Tx buffer for the motor data transfer */
+		memset(spi_tx_buffer, 0xFF, SPI_MAX_PACKET_SIZE);
 		spi_tx_buffer[0] = (right_motor_speed >> 8) & 0xFF;
 		spi_tx_buffer[1] = right_motor_speed & 0xFF;
 		spi_tx_buffer[2] = (left_motor_speed >> 8) & 0xFF;
 		spi_tx_buffer[3] = left_motor_speed & 0xFF;
-		/* Start transaction */
+
+		/* Start the transaction */
 		spiSelect(&SPID1);
-		spiExchange(&SPID1, spi_tx_buffer, spi_rx_buffer);
+		spiExchange(&SPID1, SPI_MAX_PACKET_SIZE, spi_tx_buffer, spi_rx_buffer);
 		spiUnselect(&SPID1);
+
 #ifdef FOLLOWER /* FOLLOWER */
 		/* Extract the received information and set motor speeds */
 		right_motor_set_speed((spi_rx_buffer[0] << 8) | spi_rx_buffer[1]);
 		left_motor_set_speed((spi_rx_buffer[2] << 8) | spi_rx_buffer[3]);
 #endif /* FOLLOWER */
+
+		chThdSleepUntilWindowed(time, time + MS2ST(50));
+	}
+}
+
+/* Enable setting the RGB LED values */
+void talos_spi_rgb_setting_enable(void) {
+	talos_rgb_setting_enabled = 1;
+}
+
+/* Disable setting the RGB LED values */
+void talos_spi_rgb_setting_disable(void) {
+	talos_rgb_setting_enabled = 0;
+}
+
+/* Check if the RGB LED value setting operation is enabled */
+uint8_t talos_spi_rgb_setting_is_enabled(void) {
+	return talos_rgb_setting_enabled;
+}
+
+/* Suspend SPI communication */
+void talos_spi_comm_suspend(void) {
+	if(talos_spi_suspend_flag == 0) {
+		talos_spi_suspend_flag = 1;
+		while(spi_thread_pointer->p_state != CH_STATE_SUSPENDED) { // @suppress("Field cannot be resolved")
+			chThdSleepMilliseconds(2);
+		}
+	}
+}
+
+/* Resume SPI communication */
+void talos_spi_comm_resume(void) {
+	if(talos_spi_suspend_flag == 1) {
+		chSysLock();
+		chSchWakeupS(spi_thread_pointer, MSG_OK);
+		talos_spi_suspend_flag = 0;
+		chSysUnlock();
 	}
 }
 
@@ -68,5 +135,5 @@ void spi_communication_start(void) {
 			SPI_CR1_BR_1
 	};
 	spiStart(&SPID1, &spi_config);
-	spi_thread_pointer = chThdCreateStatic(spi_thread_work_area, sizeof(spi_thread_working_area), NORMALPRIO, spi_thread, NULL);
+	spi_thread_pointer = chThdCreateStatic(spi_thread_working_area, sizeof(spi_thread_working_area), NORMALPRIO, spi_thread, NULL);
 }

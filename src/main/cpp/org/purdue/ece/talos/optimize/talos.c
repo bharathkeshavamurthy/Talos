@@ -14,11 +14,7 @@
 
 /* This file has been derived from the provided e-puck2 main controller firmware */
 
-#include <math.h>
-#include <talos.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include "talos.h"
 
 #define SHELL_WA_SIZE THD_WORKING_AREA_SIZE(2048)
 
@@ -41,10 +37,10 @@ void obstacle_avoidance() {
 	systime_t time;
 
 	// Turn on the Body LED
-	set_body_led(1);
+	talos_set_body_led(1);
 
 	// Turn on the Front LED
-	set_front_led(1);
+	talos_set_front_led(1);
 
 	unsigned int red_leds_state = 0;
 
@@ -63,58 +59,58 @@ void obstacle_avoidance() {
 
 		// Play with the Red LEDs
 		red_leds_state = (red_leds_state == 1) ? 0 : 1;
-		for (unsigned int led = LED1; led != NUM_LED; led++) {
-			set_led((led_name_t) led, red_leds_state);
+		for (unsigned int led = TALOS_LED1; led != TALOS_NUM_LED; led++) {
+			talos_set_led((talos_led_name_t) led, red_leds_state);
 		}
 
 		// Play with the RGB LEDs
 		switch (rgb_leds_state) {
 		case 0:
-			for (unsigned int rgb_led = LED2; rgb_led != NUM_RGB_LED;
+			for (unsigned int rgb_led = TALOS_LED2; rgb_led != TALOS_NUM_RGB_LED;
 					rgb_led++) {
-				set_rgb_led((rgb_led_name_t) rgb_led, 10, 0, 0);
+				talos_set_rgb_led((talos_rgb_led_name_t) rgb_led, 10, 0, 0);
 			}
 			rgb_leds_state = 1;
 			break;
 		case 1:
-			for (unsigned int rgb_led = LED2; rgb_led != NUM_RGB_LED;
+			for (unsigned int rgb_led = TALOS_LED2; rgb_led != TALOS_NUM_RGB_LED;
 					rgb_led++) {
-				set_rgb_led((rgb_led_name_t) rgb_led, 0, 10, 0);
+				talos_set_rgb_led((talos_rgb_led_name_t) rgb_led, 0, 10, 0);
 			}
 			rgb_leds_state = 2;
 			break;
 		case 2:
-			for (unsigned int rgb_led = LED2; rgb_led != NUM_RGB_LED;
+			for (unsigned int rgb_led = TALOS_LED2; rgb_led != TALOS_NUM_RGB_LED;
 					rgb_led++) {
-				set_rgb_led((rgb_led_name_t) rgb_led, 0, 0, 10);
+				talos_set_rgb_led((talos_rgb_led_name_t) rgb_led, 0, 0, 10);
 			}
 			rgb_leds_state = 3;
 			break;
 		case 3:
-			for (unsigned int rgb_led = LED2; rgb_led != NUM_RGB_LED;
+			for (unsigned int rgb_led = TALOS_LED2; rgb_led != TALOS_NUM_RGB_LED;
 					rgb_led++) {
-				set_rgb_led((rgb_led_name_t) rgb_led, 10, 10, 0);
+				talos_set_rgb_led((talos_rgb_led_name_t) rgb_led, 10, 10, 0);
 			}
 			rgb_leds_state = 4;
 			break;
 		case 4:
-			for (unsigned int rgb_led = LED2; rgb_led != NUM_RGB_LED;
+			for (unsigned int rgb_led = TALOS_LED2; rgb_led != TALOS_NUM_RGB_LED;
 					rgb_led++) {
-				set_rgb_led((rgb_led_name_t) rgb_led, 0, 10, 10);
+				talos_set_rgb_led((talos_rgb_led_name_t) rgb_led, 0, 10, 10);
 			}
 			rgb_leds_state = 5;
 			break;
 		case 5:
-			for (unsigned int rgb_led = LED2; rgb_led != NUM_RGB_LED;
+			for (unsigned int rgb_led = TALOS_LED2; rgb_led != TALOS_NUM_RGB_LED;
 					rgb_led++) {
-				set_rgb_led((rgb_led_name_t) rgb_led, 10, 0, 10);
+				talos_set_rgb_led((talos_rgb_led_name_t) rgb_led, 10, 0, 10);
 			}
 			rgb_leds_state = 6;
 			break;
 		case 6:
-			for (unsigned int rgb_led = LED2; rgb_led != NUM_RGB_LED;
+			for (unsigned int rgb_led = TALOS_LED2; rgb_led != TALOS_NUM_RGB_LED;
 					rgb_led++) {
-				set_rgb_led((rgb_led_name_t) rgb_led, 10, 0, 10);
+				talos_set_rgb_led((talos_rgb_led_name_t) rgb_led, 10, 0, 10);
 			}
 			rgb_leds_state = 0;
 			break;
@@ -167,58 +163,58 @@ void rotation_using_gyro() {
 
 		// Play with the Red LEDs
 		red_leds_state = (red_leds_state == 1) ? 0 : 1;
-		for (unsigned int led = LED1; led != NUM_LED; led++) {
-			set_led((led_name_t) led, red_leds_state);
+		for (unsigned int led = TALOS_LED1; led != TALOS_NUM_LED; led++) {
+			talos_set_led((talos_led_name_t) led, red_leds_state);
 		}
 
 		// Play with the RGB LEDs
 		switch (rgb_leds_state) {
 		case 0:
-			for (unsigned int rgb_led = LED2; rgb_led != NUM_RGB_LED;
+			for (unsigned int rgb_led = TALOS_LED2; rgb_led != TALOS_NUM_RGB_LED;
 					rgb_led++) {
-				set_rgb_led((rgb_led_name_t) rgb_led, 10, 0, 0);
+				talos_set_rgb_led((talos_rgb_led_name_t) rgb_led, 10, 0, 0);
 			}
 			rgb_leds_state = 1;
 			break;
 		case 1:
-			for (unsigned int rgb_led = LED2; rgb_led != NUM_RGB_LED;
+			for (unsigned int rgb_led = TALOS_LED2; rgb_led != TALOS_NUM_RGB_LED;
 					rgb_led++) {
-				set_rgb_led((rgb_led_name_t) rgb_led, 0, 10, 0);
+				talos_set_rgb_led((talos_rgb_led_name_t) rgb_led, 0, 10, 0);
 			}
 			rgb_leds_state = 2;
 			break;
 		case 2:
-			for (unsigned int rgb_led = LED2; rgb_led != NUM_RGB_LED;
+			for (unsigned int rgb_led = TALOS_LED2; rgb_led != TALOS_NUM_RGB_LED;
 					rgb_led++) {
-				set_rgb_led((rgb_led_name_t) rgb_led, 0, 0, 10);
+				talos_set_rgb_led((talos_rgb_led_name_t) rgb_led, 0, 0, 10);
 			}
 			rgb_leds_state = 3;
 			break;
 		case 3:
-			for (unsigned int rgb_led = LED2; rgb_led != NUM_RGB_LED;
+			for (unsigned int rgb_led = TALOS_LED2; rgb_led != TALOS_NUM_RGB_LED;
 					rgb_led++) {
-				set_rgb_led((rgb_led_name_t) rgb_led, 10, 10, 0);
+				talos_set_rgb_led((talos_rgb_led_name_t) rgb_led, 10, 10, 0);
 			}
 			rgb_leds_state = 4;
 			break;
 		case 4:
-			for (unsigned int rgb_led = LED2; rgb_led != NUM_RGB_LED;
+			for (unsigned int rgb_led = TALOS_LED2; rgb_led != TALOS_NUM_RGB_LED;
 					rgb_led++) {
-				set_rgb_led((rgb_led_name_t) rgb_led, 0, 10, 10);
+				talos_set_rgb_led((talos_rgb_led_name_t) rgb_led, 0, 10, 10);
 			}
 			rgb_leds_state = 5;
 			break;
 		case 5:
-			for (unsigned int rgb_led = LED2; rgb_led != NUM_RGB_LED;
+			for (unsigned int rgb_led = TALOS_LED2; rgb_led != TALOS_NUM_RGB_LED;
 					rgb_led++) {
-				set_rgb_led((rgb_led_name_t) rgb_led, 10, 0, 10);
+				talos_set_rgb_led((talos_rgb_led_name_t) rgb_led, 10, 0, 10);
 			}
 			rgb_leds_state = 6;
 			break;
 		case 6:
-			for (unsigned int rgb_led = LED2; rgb_led != NUM_RGB_LED;
+			for (unsigned int rgb_led = TALOS_LED2; rgb_led != TALOS_NUM_RGB_LED;
 					rgb_led++) {
-				set_rgb_led((rgb_led_name_t) rgb_led, 10, 0, 10);
+				talos_set_rgb_led((talos_rgb_led_name_t) rgb_led, 10, 0, 10);
 			}
 			rgb_leds_state = 0;
 			break;
@@ -259,10 +255,10 @@ void cliff_fall_avoidance() {
 	int ground_sensor_values[5];
 
 	// Turn on the Body LED
-	set_body_led(1);
+	talos_set_body_led(1);
 
 	// Turn on the Front LED
-	set_front_led(1);
+	talos_set_front_led(1);
 
 	// The on-surface calibration
 	int on_surface_information[5];
@@ -287,9 +283,9 @@ void cliff_fall_avoidance() {
 				|| ground_sensor_values[1] > on_surface_information[1]
 				|| ground_sensor_values[2] > on_surface_information[2]) {
 			// Turn off the Body LED
-			set_body_led(0);
+			talos_set_body_led(0);
 			// Turn off the Front LED
-			set_front_led(0);
+			talos_set_front_led(0);
 
 			/* Rotation code using the Gyro to prevent falling */
 
@@ -341,9 +337,9 @@ int main(void) {
 	parameter_namespace_declare(&parameter_root, NULL, NULL);
 
 	// Initialize the on-board peripherals
-	clear_leds();
-	set_body_led(0);
-	set_front_led(0);
+	talos_clear_leds();
+	talos_set_body_led(0);
+	talos_set_front_led(0);
 	usb_start();
 	dcmi_start();
 	cam_start();

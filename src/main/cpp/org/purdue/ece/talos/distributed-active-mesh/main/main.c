@@ -316,12 +316,12 @@ data_buffer_t* spi_get_data(void) {
 /* The core SPI task */
 void spi_task(void) {
 	/* Allocate the buffers and configure the spi_slave_transaction */
-	memset(spi_tx_buffer, 0x00, SPI_PACKET_MAX_SIZE);
-	memset(spi_rx_buffer, 0x00, SPI_PACKET_MAX_SIZE);
+	memset(spi_tx_buffer, 0xFF, SPI_MAX_PACKET_SIZE);
+	memset(spi_rx_buffer, 0xFF, SPI_MAX_PACKET_SIZE);
 	memset(&spi_slave_transaction, 0, sizeof(spi_slave_transaction));
 	spi_slave_transaction.tx_buffer = spi_tx_buffer;
 	spi_slave_transaction.rx_buffer = spi_rx_buffer;
-	spi_slave_transaction.length = SPI_PACKET_MAX_SIZE * 8;
+	spi_slave_transaction.length = SPI_MAX_PACKET_SIZE * 8;
 	spi_slave_transaction.user = (void *) 0;
 
 	/* Internal members */
@@ -353,8 +353,8 @@ void spi_task(void) {
 /* Initialize the SPI communication interface between the STM32F407uC and the ESP32 radio module */
 void spi_init(void) {
 	/* Allocate the SPI Tx/Rx/Data Buffers */
-	spi_tx_buffer = (uint8_t *) heap_caps_malloc(SPI_PACKET_MAX_SIZE, MALLOC_CAP_DMA);
-	spi_rx_buffer = (uint8_t *) heap_caps_malloc(SPI_PACKET_MAX_SIZE, MALLOC_CAP_DMA);
+	spi_tx_buffer = (uint8_t *) heap_caps_malloc(SPI_MAX_PACKET_SIZE, MALLOC_CAP_DMA);
+	spi_rx_buffer = (uint8_t *) heap_caps_malloc(SPI_MAX_PACKET_SIZE, MALLOC_CAP_DMA);
 	data_buffer_1 = (data_buffer_t *) heap_caps_calloc(1, sizeof(data_buffer_t), MALLOC_CAP_DMA);
 	data_buffer_1->data = (uint8_t *) heap_caps_calloc(MAX_BUFFER_SIZE, 1, MALLOC_CAP_DMA);
 	data_buffer_2 = (data_buffer_t *) heap_caps_calloc(1, sizeof(data_buffer_t), MALLOC_CAP_DMA);
