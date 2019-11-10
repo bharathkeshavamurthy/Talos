@@ -34,10 +34,13 @@
 #include "freertos/event_groups.h"
 
 /* Variable Declarations */
+int right_motor_speed;
+int left_motor_speed;
 uint8_t *spi_tx_buffer;
 uint8_t *spi_rx_buffer;
 data_buffer_t *data_buffer_1;
 data_buffer_t *data_buffer_2;
+mesh_type_t my_type = MESH_IDLE;
 data_buffer_t *data_buffer_previous;
 data_buffer_t *data_buffer_current;
 
@@ -58,7 +61,6 @@ void mesh_scan_handler(int count) {
 	unsigned int parent_found = 0;
 
 	/* Temporary members */
-	mesh_type_t my_type = MESH_IDLE;
 	mesh_assoc_t association;
 	wifi_ap_record_t record;
 
@@ -143,7 +145,6 @@ void p2p_rx(void *arg) {
 	/* Initializing internal members */
 	int flag = 0;
 	int received_count = 0;
-	int send_count = 0;
 	unsigned int is_running = 1;
 	mesh_data_t data = {
 			.data = rx_buffer,
@@ -157,11 +158,11 @@ void p2p_rx(void *arg) {
 		if (error_code != ESP_OK || !data.size) {
 			continue;
 		}
-		if (data.size >= size(send_count)) {
-			send_count = (data.data[25] << 24) | (data.data[24] << 16) | (data.data[23] << 8) | data.data[22];
-		}
+		right_motor_speed = (data.data[26] << 8) | (data.data[25]);
+		left_motor_speed = (data.data[24] << 8) | (data.data[23]);
 		received_count++;
 	}
+	is_running = 0;
 	vTaskDelete(NULL);
 }
 
@@ -180,10 +181,10 @@ void p2p_tx(void) {
 	while (is_running) {
 		esp_mesh_get_routing_table((mesh_addr_t *) &route_table, CONFIG_MESH_ROUTE_TABLE_SIZE * 6, &route_table_size);
 		send_count++;
-		tx_buffer[25] = (send_count >> 24) & 0xFF;
-		tx_buffer[24] = (send_count >> 16) & 0xFF;
-		tx_buffer[23] = (send_count >> 8) & 0xFF;
-		tx_buffer[22] = send_count & 0xFF;
+		tx_buffer[26] = (right_motor_speed >> 8) & 0xFF;
+		tx_buffer[25] = right_motor_speed & 0xFF;
+		tx_buffer[24] = (left_motor_speed >> 8) & 0xFF;
+		tx_buffer[23] = left_motor_speed & 0xFF;
 		for (int i=0; i<route_table_size; i++) {
 			ESP_ERROR_CHECK(esp_mesh_send(&route_table[i], &data, MESH_DATA_P2P, NULL, 0));
 		}
@@ -191,6 +192,7 @@ void p2p_tx(void) {
 			vTaskDelay(1 * 1000 / portTICK_RATE_MS);
 		}
 	}
+	is_running = 0;
 	vTaskDelete(NULL);
 }
 
@@ -199,8 +201,12 @@ esp_err_t start_p2p_communication(void) {
 	/* If p2p communication hasn't started, start it by creating Tx and Rx tasks */
 	if (has_p2p_communication_started == 0) {
 		has_p2p_communication_started = 1;
-		xTaskCreate(p2p_tx, "P2P_TX", P2P_COMMUNICATION_TASK_STACK_DEPTH, NULL, P2P_COMMUNICATION_TASK_PRIORITY, NULL);
+		if (my_type != MESH_LEAF) {
+			xTaskCreate(p2p_tx, "P2P_TX", P2P_COMMUNICATION_TASK_STACK_DEPTH, NULL, P2P_COMMUNICATION_TASK_PRIORITY, NULL);
+		}
+#ifndef MESH_SET_ROOT /* MESH_SET_ROOT */
 		xTaskCreate(p2p_rx, "P2P_RX", P2P_COMMUNICATION_TASK_STACK_DEPTH, NULL, P2P_COMMUNICATION_TASK_PRIORITY, NULL);
+#endif /* MESH_SET_ROOT */
 	}
 	return ESP_OK;
 }
@@ -310,8 +316,8 @@ data_buffer_t* spi_get_data(void) {
 /* The core SPI task */
 void spi_task(void) {
 	/* Allocate the buffers and configure the spi_slave_transaction */
-	memset(spi_tx_buffer, 0x01, SPI_PACKET_MAX_SIZE);
-	memset(spi_rx_buffer, 0x01, SPI_PACKET_MAX_SIZE);
+	memset(spi_tx_buffer, 0x00, SPI_PACKET_MAX_SIZE);
+	memset(spi_rx_buffer, 0x00, SPI_PACKET_MAX_SIZE);
 	memset(&spi_slave_transaction, 0, sizeof(spi_slave_transaction));
 	spi_slave_transaction.tx_buffer = spi_tx_buffer;
 	spi_slave_transaction.rx_buffer = spi_rx_buffer;
@@ -326,88 +332,21 @@ void spi_task(void) {
 
 	/* Forever */
 	while (1) {
-		/* Enable data reception from the SPI Master */
-		spi_tx_buffer[0] = 1;
-		/* Get the values of the stepper motors: -"E" => 2's complement of Hex(ASCII(E)) = 2's complement of Hex(69) = 2's complement of 45 = 2's complement of (0100 0101) = 1011 1011 = 0xBB */
-		spi_tx_buffer[1] = 0xBB;
-		switch(spi_state) {
-		/* Prepare to read the header */
-		case 0: {
-			spi_slave_transaction.rx_buffer = spi_rx_buffer;
-			/* Always clear this transaction length bit because I use it to determine the number of bits received in the next transaction with the master */
-			spi_slave_transaction.trans_len = 0;
-			spi_state = 1;
-		}
-		break;
-		/* Read the header */
-		case 1: {
-			ESP_ERROR_CHECK(spi_slave_transmit(VSPI_HOST, &spi_slave_transaction, portMAX_DELAY));
-			if (spi_slave_transaction.trans_len == 0) {
-				break;
-			/* Header correctness check */
-			} else if (spi_slave_transaction.trans_len == 12 * 8) {
-				spi_state = 2;
-			} else {
-				spi_state = 0;
-			}
-		}
-		break;
-		/* Prepare to read data from the master except for some remaining bytes that'll be left over... */
-		case 2: {
-			number_of_packets = MAX_BUFFER_SIZE / SPI_MAX_PACKET_SIZE;
-			packet_id = 0;
-			spi_state = 3;
-		}
-		break;
-		/* Read data (there's some data left over...) */
-		case 3: {
-			spi_slave_transaction.rx_buffer = &(data_buffer_current->data(packet_id * SPI_MAX_PACKET_SIZE));
-			spi_slave_transaction.trans_len = 0;
-			ESP_ERROR_CHECK(spi_slave_transmit(VSPIHOST, &spi_slave_transaction, portMAX_DELAY));
-			if (spi_slave_transaction.trans_len == 0) {
-				break;
-			} else if (spi_slave_transaction.trans_len == SPI_MAX_PACKET_SIZE * 8) {
-				packet_id += 1;
-				if (packet_id == number_of_packets) {
-					spi_state = 4;
-				}
-			} else {
-				spi_state = 0;
-			}
-		}
-		break;
-		/* Prepare to read the leftovers */
-		case 4: {
-			remaining_bytes = MAX_BUFFER_SIZE % SPI_MAX_PACKET_SIZE;
-			spi_slave_transaction.rx_buffer = &(data_buffer_current->data[packet_id * SPI_MAX_PACKET_SIZE]);
-			spi_slave_transaction.trans_len = 0;
-			spi_state = 5;
-		}
-		break;
-		/* Read the leftovers */
-		case 5: {
-			ESP_ERROR_CHECK(spi_slave_transmit(VSPI_HOST, &spi_slave_transaction, portMAX_DELAY));
-			if (spi_slave_transaction.trans_len == 0) {
-				break;
-			} else if (spi_slave_transaction.trans_len == remaining_bytes * 8) {
-				data_buffer_current->data_buffer_state = DATA_BUFFER_FILLED;
-				spi_state = 6;
-				xEventGroupSetBits(spi_event_group, EVENT_DATA_BUFFER_FILLED);
-			} else {
-				spi_state = 0;
-			}
-		}
-		break;
-		/* Next "new" transaction */
-		case 6: {
-			spi_state = 0;
-		}
-		break;
-		default: {
-			ESP_LOGW(MESH_TAG, "Invalid SPI State: %d", spi_state);
-		}
-		break;
-		}
+
+#ifndef MESH_SET_ROOT /* MESH_SET_ROOT */
+		spi_tx_buffer[0] = (right_motor_speed >> 8) & 0xFF;
+		spi_tx_buffer[1] = right_motor_speed & 0xFF;
+		spi_tx_buffer[2] = (left_motor_speed >> 8) & 0xFF;
+		spi_tx_buffer[3] = left_motor_speed & 0xFF;
+#endif /* MESH_SET_ROOT */
+
+		/* Execute the transaction with the master */
+		ESP_ERROR_CHECK(spi_slave_transmit(VSPI_HOST, &spi_slave_transaction, portMAX_DELAY));
+
+#ifdef MESH_SET_ROOT /* MESH_SET_ROOT */
+		right_motor_speed = (spi_rx_buffer[0] << 8) | spi_rx_buffer[1];
+		left_motor_speed = (spi_rx_buffer[2] << 8) | spi_rx_buffer[3];
+#endif /* MESH_SET_ROOT */
 	}
 }
 

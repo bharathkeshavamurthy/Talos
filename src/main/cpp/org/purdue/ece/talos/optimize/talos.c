@@ -377,9 +377,9 @@ int main(void) {
 
 	/* Feature operations listed here */
 
-#ifdef LEADER
+#ifdef LEADER /* LEADER */
 	obstacle_avoidance();
-#endif
+#endif /* LEADER */
 
 	// rotation_using_gyro();
 	// cliff_fall_avoidance();

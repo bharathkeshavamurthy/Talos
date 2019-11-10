@@ -38,18 +38,23 @@ static THD_FUNCTION(spi_thread, p) {
 		/* Get motor speeds */
 		left_motor_speed = left_motor_get_desired_speed();
 		right_motor_speed = right_motor_get_desired_speed();
+		/* Allocate the Tx and Rx buffers */
+		memset(spi_tx_buffer, 0x00, SPI_PACKET_MAX_SIZE);
+		memset(spi_rx_buffer, 0x00, SPI_PACKET_MAX_SIZE);
 		/* Set the Tx buffer */
-		spi_tx_buffer[0] = left_motor_speed;
-		spi_tx_buffer[1] = right_motor_speed;
+		spi_tx_buffer[0] = (right_motor_speed >> 8) & 0xFF;
+		spi_tx_buffer[1] = right_motor_speed & 0xFF;
+		spi_tx_buffer[2] = (left_motor_speed >> 8) & 0xFF;
+		spi_tx_buffer[3] = left_motor_speed & 0xFF;
 		/* Start transaction */
 		spiSelect(&SPID1);
 		spiExchange(&SPID1, spi_tx_buffer, spi_rx_buffer);
 		spiUnselect(&SPID1);
-#ifdef FOLLOWER
+#ifdef FOLLOWER /* FOLLOWER */
 		/* Extract the received information and set motor speeds */
-		left_motor_set_speed(spi_rx_buffer[0]);
-		right_motor_set_speed(spi_rx_buffer[1]);
-#endif
+		right_motor_set_speed((spi_rx_buffer[0] << 8) | spi_rx_buffer[1]);
+		left_motor_set_speed((spi_rx_buffer[2] << 8) | spi_rx_buffer[3]);
+#endif /* FOLLOWER */
 	}
 }
 

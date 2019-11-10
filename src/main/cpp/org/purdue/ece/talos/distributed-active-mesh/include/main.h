@@ -20,7 +20,7 @@
 
 #define CORE_0 0
 #define CORE_1 1
-#define TX_SIZE 1460
+#define TX_SIZE 1500
 #define RX_SIZE 1500
 #define PIN_NUM_CS 5
 #define PIN_NUM_CLK 18
@@ -28,9 +28,9 @@
 #define PIN_NUM_MOSI 23
 #define BUFFER_SIZE 1024
 #define SPI_TASK_PRIORITY 5
+#define SPI_MAX_PACKET_SIZE 4
 #define MAX_BUFFER_SIZE 38400
 #define SPI_TASK_STACK_SIZE 4096
-#define SPI_PACKET_MAX_SIZE 4092
 #define P2P_COMMUNICATION_TASK_PRIORITY 5
 
 #define DELAY(ticks) (ticks)
