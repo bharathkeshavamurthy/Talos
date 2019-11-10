@@ -289,34 +289,6 @@ void mesh_event_handler(void *arg, esp_event_base_t event_base, int32_t event_id
 	}
 }
 
-/* Initialize the SPI communication interface between the STM32F407uC and the ESP32 radio module */
-void spi_init(void) {
-	/* Allocate the SPI Tx/Rx/Data Buffers */
-	spi_tx_buffer = (uint8_t *) heap_caps_malloc(SPI_PACKET_MAX_SIZE, MALLOC_CAP_DMA);
-	spi_rx_buffer = (uint8_t *) heap_caps_malloc(SPI_PACKET_MAX_SIZE, MALLOC_CAP_DMA);
-	data_buffer_1 = (data_buffer_t *) heap_caps_calloc(1, sizeof(data_buffer_t), MALLOC_CAP_DMA);
-	data_buffer_1->data = (uint8_t *) heap_caps_calloc(MAX_BUFFER_SIZE, 1, MALLOC_CAP_DMA);
-	data_buffer_2 = (data_buffer_t *) heap_caps_calloc(1, sizeof(data_buffer_t), MALLOC_CAP_DMA);
-	data_buffer_2->data = (uint8_t *) heap_caps_calloc(MAX_BUFFER_SIZE, 1, MALLOC_CAP_DMA);
-	if (spi_tx_buffer == NULL || spi_rx_buffer == NULL || data_buffer_1->data == NULL || data_buffer_2->data == NULL) {
-		ESP_LOGE(MESH_TAG, "Memory Allocation Failed for one of the SPI Tx or Rx or Data Buffers!");
-	}
-	data_buffer_previous = data_buffer_1;
-	data_buffer_current = data_buffer_2;
-	data_buffer_current->data_buffer_state = DATA_BUFFER_EMPTY;
-
-	/* Create an SPI Event Group */
-	spi_event_group = xEventGroupCreate();
-
-	/* Enable pull-ups on the SPI input lines (MOSI, CLK, and CS) in order to prevent rogue pulses from being detected on these lines when the master is not connected */
-	gpio_set_pull_mode(PIN_NUM_MOSI, GPIO_PULLUP_ONLY);
-	gpio_set_pull_mode(PIN_NUM_CLK, GPIO_PULLUP_ONLY);
-	gpio_set_pull_mode(PIN_NUM_CS, GPIO_PULLUP_ONLY);
-
-	/* SPI Bus Initialization */
-	ESP_ERROR_CHECK(spi_slave_initialize(VSPI_HOST, &spi_bus_config, &spi_slave_interface_config, 1));
-}
-
 /* Get the data pointer over SPI */
 data_buffer_t* spi_get_data(void) {
 	/* If the current data buffer is empty, wait for the buffer to be filled with new information */
@@ -350,7 +322,7 @@ void spi_task(void) {
 	uint8_t spi_state = 0;
 	uint16_t number_of_packets = 0;
 	uint32_t remaining_bytes = 0;
-	uint8_t packetId = 0;
+	uint8_t packet_id = 0;
 
 	/* Forever */
 	while (1) {
@@ -383,20 +355,20 @@ void spi_task(void) {
 		/* Prepare to read data from the master except for some remaining bytes that'll be left over... */
 		case 2: {
 			number_of_packets = MAX_BUFFER_SIZE / SPI_MAX_PACKET_SIZE;
-			packetId = 0;
+			packet_id = 0;
 			spi_state = 3;
 		}
 		break;
 		/* Read data (there's some data left over...) */
 		case 3: {
-			spi_slave_transaction.rx_buffer = &(data_buffer_current->data(packetId * SPI_MAX_PACKET_SIZE));
+			spi_slave_transaction.rx_buffer = &(data_buffer_current->data(packet_id * SPI_MAX_PACKET_SIZE));
 			spi_slave_transaction.trans_len = 0;
 			ESP_ERROR_CHECK(spi_slave_transmit(VSPIHOST, &spi_slave_transaction, portMAX_DELAY));
 			if (spi_slave_transaction.trans_len == 0) {
 				break;
 			} else if (spi_slave_transaction.trans_len == SPI_MAX_PACKET_SIZE * 8) {
-				packetId += 1;
-				if (packetId == number_of_packets) {
+				packet_id += 1;
+				if (packet_id == number_of_packets) {
 					spi_state = 4;
 				}
 			} else {
@@ -407,7 +379,7 @@ void spi_task(void) {
 		/* Prepare to read the leftovers */
 		case 4: {
 			remaining_bytes = MAX_BUFFER_SIZE % SPI_MAX_PACKET_SIZE;
-			spi_slave_transaction.rx_buffer = &(data_buffer_current->data[packetId * SPI_MAX_PACKET_SIZE]);
+			spi_slave_transaction.rx_buffer = &(data_buffer_current->data[packet_id * SPI_MAX_PACKET_SIZE]);
 			spi_slave_transaction.trans_len = 0;
 			spi_state = 5;
 		}
@@ -437,6 +409,34 @@ void spi_task(void) {
 		break;
 		}
 	}
+}
+
+/* Initialize the SPI communication interface between the STM32F407uC and the ESP32 radio module */
+void spi_init(void) {
+	/* Allocate the SPI Tx/Rx/Data Buffers */
+	spi_tx_buffer = (uint8_t *) heap_caps_malloc(SPI_PACKET_MAX_SIZE, MALLOC_CAP_DMA);
+	spi_rx_buffer = (uint8_t *) heap_caps_malloc(SPI_PACKET_MAX_SIZE, MALLOC_CAP_DMA);
+	data_buffer_1 = (data_buffer_t *) heap_caps_calloc(1, sizeof(data_buffer_t), MALLOC_CAP_DMA);
+	data_buffer_1->data = (uint8_t *) heap_caps_calloc(MAX_BUFFER_SIZE, 1, MALLOC_CAP_DMA);
+	data_buffer_2 = (data_buffer_t *) heap_caps_calloc(1, sizeof(data_buffer_t), MALLOC_CAP_DMA);
+	data_buffer_2->data = (uint8_t *) heap_caps_calloc(MAX_BUFFER_SIZE, 1, MALLOC_CAP_DMA);
+	if (spi_tx_buffer == NULL || spi_rx_buffer == NULL || data_buffer_1->data == NULL || data_buffer_2->data == NULL) {
+		ESP_LOGE(MESH_TAG, "Memory Allocation Failed for one of the SPI Tx or Rx or Data Buffers!");
+	}
+	data_buffer_previous = data_buffer_1;
+	data_buffer_current = data_buffer_2;
+	data_buffer_current->data_buffer_state = DATA_BUFFER_EMPTY;
+
+	/* Create an SPI Event Group */
+	spi_event_group = xEventGroupCreate();
+
+	/* Enable pull-ups on the SPI input lines (MOSI, CLK, and CS) in order to prevent rogue pulses from being detected on these lines when the master is not connected */
+	gpio_set_pull_mode(PIN_NUM_MOSI, GPIO_PULLUP_ONLY);
+	gpio_set_pull_mode(PIN_NUM_CLK, GPIO_PULLUP_ONLY);
+	gpio_set_pull_mode(PIN_NUM_CS, GPIO_PULLUP_ONLY);
+
+	/* SPI Bus Initialization */
+	ESP_ERROR_CHECK(spi_slave_initialize(VSPI_HOST, &spi_bus_config, &spi_slave_interface_config, 1));
 }
 
 /* Run Trigger */
@@ -488,4 +488,9 @@ void app_main(void) {
 
 	/* Start the Mesh */
 	ESP_ERROR_CHECK(esp_mesh_start());
+
+	/* Initialize SPI */
+	spi_init();
+	/* Create a pinned SPI communication task */
+	xTaskCreatePinnedToCore(spi_task, "SPI Task", SPI_TASK_STACK_SIZE, NULL, SPI_TASK_PRIORITY, NULL, CORE_1);
 }

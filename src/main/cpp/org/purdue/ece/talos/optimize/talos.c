@@ -24,7 +24,7 @@
 
 // Inter-Process Communication (IPC) Bus members
 messagebus_t bus;
-MUTEX_DECL(bus_lock);
+MUTEX_DECL(bus_lock); // @suppress("Field cannot be resolved")
 CONDVAR_DECL(bus_condvar);
 
 parameter_namespace_t parameter_root, aseba_ns;
@@ -354,7 +354,7 @@ int main(void) {
 	exti_start();
 	imu_start();
 	ir_remote_start();
-	spi_comm_start();
+	spi_communication_start();
 	VL53L0X_start();
 	serial_start();
 	mic_start(NULL);
@@ -377,9 +377,12 @@ int main(void) {
 
 	/* Feature operations listed here */
 
-	// obstacle_avoidance();
+#ifdef LEADER
+	obstacle_avoidance();
+#endif
+
 	// rotation_using_gyro();
-	cliff_fall_avoidance();
+	// cliff_fall_avoidance();
 
 	/* Feature operations list ends here */
 }

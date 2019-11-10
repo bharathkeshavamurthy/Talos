@@ -83,6 +83,12 @@ typedef struct {
 /* Function Declaration for Handling Parent Scans in the Mesh */
 void mesh_scan_handler(int count);
 
+/* Function Declaration for the peer to peer Rx task routine */
+void p2p_rx(void *arg);
+
+/* Function Declaration for the peer to peer Tx task routine */
+void p2p_tx(void *arg);
+
 /* Function Declaration for the peer to peer communication between a node and its parent */
 esp_err_t start_p2p_communication(void);
 

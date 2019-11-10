@@ -59,7 +59,7 @@ extern "C" {
 #include "sdio.h"
 #include "selector.h"
 #include "serial_comm.h"
-#include "spi_comm.h"
+#include "spi_communication.h"
 #include "usbcfg.h"
 #include "communication.h"
 #include "uc_usage.h"

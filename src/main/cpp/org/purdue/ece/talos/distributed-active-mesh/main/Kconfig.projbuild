@@ -63,6 +63,13 @@ menu "TALOS: Distributed Active Mesh Configuration"
         default 6
         help
             The maximum number of layers allowed in this mesh network
+    
+    config MESH_ROUTE_TABLE_SIZE
+        int "Mesh Routing Table Size"
+        range 1 300
+        default 50
+        help
+            The number of devices over the network (max: 300)
             
 endmenu
 
