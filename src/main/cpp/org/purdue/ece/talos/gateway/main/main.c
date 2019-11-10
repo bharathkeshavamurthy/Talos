@@ -27,16 +27,6 @@
 #include "nvs_flash.h"
 #include "esp_system.h"
 
-/* The Access Point definitions */
-#define AP_MAX_CONN 4
-#define AP_ESP_WIFI_SSID "Talos"
-#define AP_ESP_WIFI_PASSWORD "Talos@Purdue2019"
-
-/* The Station definitions */
-#define STA_ESP_WIFI_SSID "Artemis"
-#define STA_ESP_WIFI_PASSWORD "KimbalMusk@Lafayette2020"
-#define STA_ESP_MAXIMUM_RETRY 100
-
 /* The correctness indicator */
 #define BLINK_GPIO 4
 
@@ -57,11 +47,11 @@ static void access_point_event_handler(void* arg, esp_event_base_t event_base, i
 	/* Connection Event */
 	if (event_id == WIFI_EVENT_AP_STACONNECTED) {
 		wifi_event_ap_staconnected_t* event = (wifi_event_ap_staconnected_t*) event_data;
-		ESP_LOGI(TAG, "Station "MACSTR" joined, AID = %d", MAC2STR(event->mac), event->aid);
+		/* Do some stuff here */
 	/* Disconnection Event */
 	} else if (event_id == WIFI_EVENT_AP_STADISCONNECTED) {
 		wifi_event_ap_stadisconnected_t* event = (wifi_event_ap_stadisconnected_t*) event_data;
-		ESP_LOGI(TAG, "Station "MACSTR" left, AID = %d", MAC2STR(event->mac), event->aid);
+		/* Do some stuff here */
 	}
 }
 
@@ -73,7 +63,7 @@ static void station_event_handler(void* arg, esp_event_base_t event_base, int32_
         esp_wifi_connect();
     /* Station Disconnected from AP Event */
     } else if (event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED) {
-        if (s_retry_num < STA_ESP_MAXIMUM_RETRY) {
+        if (s_retry_num < CONFIG_STA_ESP_MAXIMUM_RETRY) {
             esp_wifi_connect();
             xEventGroupClearBits(s_wifi_event_group, WIFI_CONNECTED_BIT);
             s_retry_num++;
@@ -83,7 +73,7 @@ static void station_event_handler(void* arg, esp_event_base_t event_base, int32_
     /* Station Connected to the AP Event */
     } else if (event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP) {
         ip_event_got_ip_t* event = (ip_event_got_ip_t*) event_data;
-        ESP_LOGI(TAG, "Received IP Address: %s", ip4addr_ntoa(&event->ip_info.ip));
+        ESP_LOGI(TAG, "Received IP Address: %s", ip4addr_ntoa(&event->ip_info.ip)); // @suppress("Field cannot be resolved")
         s_retry_num = 0;
         xEventGroupSetBits(s_wifi_event_group, WIFI_CONNECTED_BIT);
     }
@@ -103,15 +93,15 @@ void gateway_initialization(void) {
 	/* Provided AP Configurations */
 	wifi_config_t ap_wifi_config = {
 		.ap = {
-			.ssid = AP_ESP_WIFI_SSID,
-			.ssid_len = strlen(AP_ESP_WIFI_SSID),
-			.password = AP_ESP_WIFI_PASSWORD,
-			.max_connection = AP_MAX_CONN,
+			.ssid = CONFIG_AP_ESP_WIFI_SSID,
+			.ssid_len = strlen(CONFIG_AP_ESP_WIFI_SSID),
+			.password = CONFIG_AP_ESP_WIFI_PASSWORD,
+			.max_connection = CONFIG_AP_MAX_CONN,
 			.authmode = WIFI_AUTH_WPA_WPA2_PSK
 		},
 	};
 	/* Authentication Model is WIFI_AUTH_OPEN when no password is provided */
-	if (strlen(AP_ESP_WIFI_PASSWORD) == 0) {
+	if (strlen(CONFIG_AP_ESP_WIFI_PASSWORD) == 0) {
 		ap_wifi_config.ap.authmode = WIFI_AUTH_OPEN;
 	}
 	/* Register the 	Station Event Handler for WIFI_EVENTs and IP_EVENTs */
@@ -120,8 +110,8 @@ void gateway_initialization(void) {
 	/* Provided STA Configurations */
 	wifi_config_t sta_wifi_config = {
 		.sta = {
-			.ssid = STA_ESP_WIFI_SSID,
-			.password = STA_ESP_WIFI_PASSWORD
+			.ssid = CONFIG_STA_ESP_WIFI_SSID,
+			.password = CONFIG_STA_ESP_WIFI_PASSWORD
 		},
 	};
 	/* Set the provided configurations */
@@ -141,7 +131,7 @@ void gateway_initialization(void) {
 	}
 	gpio_set_level(BLINK_GPIO, 1);
 	/* Final Logging */
-	ESP_LOGI(TAG, "Finished creating an Access Point with SSID: %s and Connected to %s", AP_ESP_WIFI_SSID, STA_ESP_WIFI_SSID);
+	ESP_LOGI(TAG, "Finished creating an Access Point with SSID: %s and Connected to %s", CONFIG_AP_ESP_WIFI_SSID, CONFIG_STA_ESP_WIFI_SSID);
 }
 
 /* Run Trigger */

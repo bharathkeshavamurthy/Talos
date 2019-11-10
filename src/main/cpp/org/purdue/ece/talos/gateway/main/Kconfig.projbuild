@@ -1,0 +1,42 @@
+menu "TALOS: Gateway Node Configuration"
+
+    config AP_ESP_WIFI_SSID
+        string "SSID of this Access Point"
+        default "Talos"
+        help
+            AP SSID
+
+    config AP_ESP_WIFI_PASSWORD
+        string "Password of this Access Point"
+        default "xxxxxxxxxxxxxxxx"
+        help
+            AP Password
+
+    config AP_MAX_CONN
+        int "Max AP Connections"
+        range 1 10
+        default 6
+        help
+            The maximum number of stations allowed to connect to this gateway node
+
+	config STA_ESP_WIFI_SSID
+        string "SSID of the router this gateway should connect to..."
+        default "ArkAngel IV"
+        help
+            Router SSID [in STA mode]
+
+    config STA_ESP_WIFI_PASSWORD
+        string "Password of the router this gateway should connect to..."
+        default "xxxxxxxxxxxxxxxx"
+        help
+            Router Password [in STA mode]
+
+    config STA_ESP_MAXIMUM_RETRY
+        int "Max Retry Attempts in order to connect to the Router"
+        range 1 1000
+        default 100
+        help
+            The maximum number of retry attempts allowed to connect to the router [in STA mode]
+            
+endmenu
+
