@@ -20,6 +20,8 @@
 
 #define CORE_0 0
 #define CORE_1 1
+#define TX_SIZE 1460
+#define RX_SIZE 1500
 #define PIN_NUM_CS 5
 #define PIN_NUM_CLK 18
 #define PIN_NUM_MISO 19
@@ -29,12 +31,14 @@
 #define MAX_BUFFER_SIZE 38400
 #define SPI_TASK_STACK_SIZE 4096
 #define SPI_PACKET_MAX_SIZE 4092
+#define P2P_COMMUNICATION_TASK_PRIORITY 5
 
 #define DELAY(ticks) (ticks)
 
 /* Constant Declarations */
-const int EVENT_DATA_BUFFER_FILL_NEXT = BIT0;
 const int EVENT_DATA_BUFFER_FILLED = BIT1;
+const int EVENT_DATA_BUFFER_FILL_NEXT = BIT0;
+const uint32_t P2P_COMMUNICATION_TASK_STACK_DEPTH = 3072;
 
 static const int DEFAULT_RSSI = -120;
 static const uint8_t MESH_ID[6] = {0x77, 0x77, 0x77, 0x77, 0x77, 0x77};
@@ -44,7 +48,10 @@ static int mesh_layer = -1;
 static uint8_t last_layer = 0;
 static mesh_addr_t mesh_parent_addr;
 static EventGroupHandle_t spi_event_group;
+static uint8_t tx_buffer[TX_SIZE] = {0, };
+static uint8_t rx_buffer[RX_SIZE] = {0, };
 static spi_slave_transaction_t spi_slave_transaction;
+static unsigned int has_p2p_communication_started = 0;
 
 static spi_bus_config_t spi_bus_config = {
 		.miso_io_num = PIN_NUM_MISO,
@@ -70,19 +77,22 @@ typedef enum {
 /* Data Buffer Structure */
 typedef struct {
 	data_buffer_state_t data_buffer_state;
-	uint8_t *data; // @suppress("Type cannot be resolved")
+	uint8_t *data;
 } data_buffer_t;
 
 /* Function Declaration for Handling Parent Scans in the Mesh */
 void mesh_scan_handler(int count);
 
-/* Initialize the SPI communication between the STM32F407uC and the ESP32 radio module */
+/* Function Declaration for the peer to peer communication between a node and its parent */
+esp_err_t start_p2p_communication(void);
+
+/* Function Declaration to initialize the SPI communication between the STM32F407uC and the ESP32 radio module */
 void spi_init(void);
 
-/* SPI communication handler between the STM32F407uC and the ESP32 radio module */
+/* Function Declaration for the SPI communication handler between the STM32F407uC and the ESP32 radio module */
 void spi_task(void);
 
-/* Get the most recent data received from the STM32F407uC */
+/* Function Declaration for a routine to get the most recent data received from the STM32F407uC */
 data_buffer_t* spi_get_data(void);
 
 #endif /* INCLUDE_MAIN_H_ */

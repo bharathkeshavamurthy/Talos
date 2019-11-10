@@ -55,7 +55,7 @@ void mesh_scan_handler(int count) {
 	/* Internal variables */
 	int ie_len = 0;
 	int my_layer = -1;
-	int parent_found = 0;
+	unsigned int parent_found = 0;
 
 	/* Temporary members */
 	mesh_type_t my_type = MESH_IDLE;
@@ -138,6 +138,73 @@ void mesh_scan_handler(int count) {
 	}
 }
 
+/* The peer to peer Rx task routine */
+void p2p_rx(void *arg) {
+	/* Initializing internal members */
+	int flag = 0;
+	int received_count = 0;
+	int send_count = 0;
+	unsigned int is_running = 1;
+	mesh_data_t data = {
+			.data = rx_buffer,
+			.size = RX_SIZE,
+	};
+	mesh_addr_t sender;
+
+	while (is_running) {
+		data.size = RX_SIZE;
+		error_code = esp_mesh_recv(&sender, &data, portMAX_DELAY, &flag, NULL, 0);
+		if (error_code != ESP_OK || !data.size) {
+			continue;
+		}
+		if (data.size >= size(send_count)) {
+			send_count = (data.data[25] << 24) | (data.data[24] << 16) | (data.data[23] << 8) | data.data[22];
+		}
+		received_count++;
+	}
+	vTaskDelete(NULL);
+}
+
+/* The peer to peer Tx task routine */
+void p2p_tx(void) {
+	unsigned int is_running = 1;
+	mesh_addr_t route_table[CONFIG_MESH_ROUTE_TABLE_SIZE];
+	mesh_data_t data = {
+			.data = tx_buffer,
+			.size = TX_SIZE,
+			.proto = MESH_PROTO_BIN,
+			.tos = MESH_TOS_P2P
+	};
+	int send_count = 0;
+	int route_table_size = 0;
+	while (is_running) {
+		esp_mesh_get_routing_table((mesh_addr_t *) &route_table, CONFIG_MESH_ROUTE_TABLE_SIZE * 6, &route_table_size);
+		send_count++;
+		tx_buffer[25] = (send_count >> 24) & 0xFF;
+		tx_buffer[24] = (send_count >> 16) & 0xFF;
+		tx_buffer[23] = (send_count >> 8) & 0xFF;
+		tx_buffer[22] = send_count & 0xFF;
+		for (int i=0; i<route_table_size; i++) {
+			ESP_ERROR_CHECK(esp_mesh_send(&route_table[i], &data, MESH_DATA_P2P, NULL, 0));
+		}
+		if (route_table_size < 10) {
+			vTaskDelay(1 * 1000 / portTICK_RATE_MS);
+		}
+	}
+	vTaskDelete(NULL);
+}
+
+/* Start peer to peer communication between me and my parent */
+esp_err_t start_p2p_communication(void) {
+	/* If p2p communication hasn't started, start it by creating Tx and Rx tasks */
+	if (has_p2p_communication_started == 0) {
+		has_p2p_communication_started = 1;
+		xTaskCreate(p2p_tx, "P2P_TX", P2P_COMMUNICATION_TASK_STACK_DEPTH, NULL, P2P_COMMUNICATION_TASK_PRIORITY, NULL);
+		xTaskCreate(p2p_rx, "P2P_RX", P2P_COMMUNICATION_TASK_STACK_DEPTH, NULL, P2P_COMMUNICATION_TASK_PRIORITY, NULL);
+	}
+	return ESP_OK;
+}
+
 /* A routine to handle MESH_EVENTs */
 void mesh_event_handler(void *arg, esp_event_base_t event_base, int32_t event_id, void *event_data) {
 	wifi_scan_config_t scan_config = {0};
@@ -170,6 +237,8 @@ void mesh_event_handler(void *arg, esp_event_base_t event_base, int32_t event_id
 			/* Start the DHCP client */
 			tcpip_adapter_dhcpc_start(TCPIP_ADAPTER_IF_STA);
 		}
+		/* Start p2p communication with my parent */
+		start_p2p_communication();
 	}
 	break;
 
