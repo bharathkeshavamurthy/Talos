@@ -13,6 +13,26 @@
 #ifndef INCLUDE_MAIN_H_
 #define INCLUDE_MAIN_H_
 
+/* Includes */
+#include <string.h>
+
+#include "esp_log.h"
+#include "esp_err.h"
+#include "esp_attr.h"
+#include "esp_mesh.h"
+#include "esp_wifi.h"
+#include "nvs_flash.h"
+#include "esp_event.h"
+#include "esp_system.h"
+#include "driver/gpio.h"
+#include "freertos/task.h"
+#include "freertos/queue.h"
+#include "driver/spi_slave.h"
+#include "freertos/FreeRTOS.h"
+#include "esp_mesh_internal.h"
+#include "freertos/xtensa_api.h"
+#include "freertos/event_groups.h"
+
 /* Macros */
 #ifndef MESH_SET_ROOT /* MESH_SET_ROOT */
 #define MESH_SET_NODE
@@ -41,6 +61,7 @@ const int EVENT_DATA_BUFFER_FILL_NEXT = BIT0;
 const uint32_t P2P_COMMUNICATION_TASK_STACK_DEPTH = 3072;
 
 static const int DEFAULT_RSSI = -120;
+static const char *MESH_TAG = "Talos Distributed Active Mesh Networking";
 static const uint8_t MESH_ID[6] = {0x77, 0x77, 0x77, 0x77, 0x77, 0x77};
 
 /* Variable Declarations */
@@ -96,7 +117,7 @@ esp_err_t start_p2p_communication(void);
 void spi_init(void);
 
 /* Function Declaration for the SPI communication handler between the STM32F407uC and the ESP32 radio module */
-void spi_task(void);
+void spi_task(void *arg);
 
 /* Function Declaration for a routine to get the most recent data received from the STM32F407uC */
 data_buffer_t* spi_get_data(void);

@@ -13,25 +13,7 @@
 /* This entity has been derived from the WiFi capabilities of the ESP32 and several ESP-IDF utilities along with the interface code for the e-puck2 */
 
 /* Includes */
-#include <string.h>
-
 #include "main.h"
-#include "mesh.h"
-#include "esp_log.h"
-#include "esp_err.h"
-#include "esp_attr.h"
-#include "esp_mesh.h"
-#include "esp_wifi.h"
-#include "nvs_flash.h"
-#include "esp_event.h"
-#include "esp_system.h"
-#include "freertos/task.h"
-#include "freertos/queue.h"
-#include "driver/spi_slave.h"
-#include "freertos/FreeRTOS.h"
-#include "esp_mesh_internal.h"
-#include "freertos/xtensa_api.h"
-#include "freertos/event_groups.h"
 
 /* Variable Declarations */
 int right_motor_speed;
@@ -47,7 +29,7 @@ data_buffer_t *data_buffer_current;
 /* Handler routine for handling Parent Scans in the Mesh */
 void mesh_scan_handler(int count) {
 	/* Initialize the parent association struct */
-	mesh_assoc_t associated_parent = { .layer = CONFIG_MESH_MAX_LAYER, .rssi = DEFAULT_RSSI };
+	mesh_assoc_t associated_parent = { .layer = CONFIG_MESH_MAX_LAYERS, .rssi = DEFAULT_RSSI };
 	/* Initialize the parent record struct */
 	wifi_ap_record_t associated_parent_record = {0};
 	/* Initialize the parent config struct */
@@ -135,7 +117,7 @@ void mesh_scan_handler(int count) {
 		ESP_ERROR_CHECK(esp_mesh_set_ie_crypto_funcs(NULL));
 		esp_wifi_scan_stop();
 		scan_config.show_hidden = 1;
-		scan_config_scan_type = WIFI_SCAN_TYPE_PASSIVE;
+		scan_config.scan_type = WIFI_SCAN_TYPE_PASSIVE;
 		ESP_ERROR_CHECK(esp_wifi_scan_start(&scan_config, 0));
 	}
 }
@@ -145,6 +127,7 @@ void p2p_rx(void *arg) {
 	/* Initializing internal members */
 	int flag = 0;
 	int received_count = 0;
+	esp_err_t error_code;
 	unsigned int is_running = 1;
 	mesh_data_t data = {
 			.data = rx_buffer,
@@ -167,7 +150,7 @@ void p2p_rx(void *arg) {
 }
 
 /* The peer to peer Tx task routine */
-void p2p_tx(void) {
+void p2p_tx(void *arg) {
 	unsigned int is_running = 1;
 	mesh_addr_t route_table[CONFIG_MESH_ROUTE_TABLE_SIZE];
 	mesh_data_t data = {
@@ -299,7 +282,7 @@ void mesh_event_handler(void *arg, esp_event_base_t event_base, int32_t event_id
 data_buffer_t* spi_get_data(void) {
 	/* If the current data buffer is empty, wait for the buffer to be filled with new information */
 	if (data_buffer_current->data_buffer_state == DATA_BUFFER_EMPTY) {
-		xEventgroupWaitbits(spi_event_group, EVENT_DATA_BUFFER_FILLED, true, false, portMAX_DELAY);
+		xEventGroupWaitBits(spi_event_group, EVENT_DATA_BUFFER_FILLED, true, false, portMAX_DELAY);
 	}
 	/* Clear the EVENT_DATA_BUFFER_FILLED bit */
 	xEventGroupClearBits(spi_event_group, EVENT_DATA_BUFFER_FILLED);
@@ -314,7 +297,7 @@ data_buffer_t* spi_get_data(void) {
 }
 
 /* The core SPI task */
-void spi_task(void) {
+void spi_task(void *arg) {
 	/* Allocate the buffers and configure the spi_slave_transaction */
 	memset(spi_tx_buffer, 0xFF, SPI_MAX_PACKET_SIZE);
 	memset(spi_rx_buffer, 0xFF, SPI_MAX_PACKET_SIZE);
@@ -323,12 +306,6 @@ void spi_task(void) {
 	spi_slave_transaction.rx_buffer = spi_rx_buffer;
 	spi_slave_transaction.length = SPI_MAX_PACKET_SIZE * 8;
 	spi_slave_transaction.user = (void *) 0;
-
-	/* Internal members */
-	uint8_t spi_state = 0;
-	uint16_t number_of_packets = 0;
-	uint32_t remaining_bytes = 0;
-	uint8_t packet_id = 0;
 
 	/* Forever */
 	while (1) {

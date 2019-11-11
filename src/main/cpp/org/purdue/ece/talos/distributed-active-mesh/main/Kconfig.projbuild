@@ -9,7 +9,7 @@ menu "TALOS: Distributed Active Mesh Configuration"
 
     config MESH_ROUTER_SSID
         string "Router SSID"
-        default "Artemis"
+        default "Talos"
         help
             Router SSID
 
