@@ -16,22 +16,7 @@
 /* Includes */
 #include <string.h>
 
-#include "esp_log.h"
-#include "esp_err.h"
-#include "esp_attr.h"
-#include "esp_mesh.h"
-#include "esp_wifi.h"
-#include "nvs_flash.h"
-#include "esp_event.h"
-#include "esp_system.h"
-#include "driver/gpio.h"
-#include "freertos/task.h"
-#include "freertos/queue.h"
-#include "driver/spi_slave.h"
-#include "freertos/FreeRTOS.h"
-#include "esp_mesh_internal.h"
-#include "freertos/xtensa_api.h"
-#include "freertos/event_groups.h"
+#include "talos_rgb_led.h"
 
 /* Macros */
 #ifndef MESH_SET_ROOT /* MESH_SET_ROOT */
@@ -120,6 +105,6 @@ void spi_init(void);
 void spi_task(void *arg);
 
 /* Function Declaration for a routine to get the most recent data received from the STM32F407uC */
-data_buffer_t* spi_get_data(void);
+data_buffer_t* spi_get_data_ptr(void);
 
 #endif /* INCLUDE_MAIN_H_ */

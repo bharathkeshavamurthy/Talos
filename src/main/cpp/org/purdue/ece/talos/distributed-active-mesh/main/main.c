@@ -279,7 +279,7 @@ void mesh_event_handler(void *arg, esp_event_base_t event_base, int32_t event_id
 }
 
 /* Get the data pointer over SPI */
-data_buffer_t* spi_get_data(void) {
+data_buffer_t* spi_get_data_ptr(void) {
 	/* If the current data buffer is empty, wait for the buffer to be filled with new information */
 	if (data_buffer_current->data_buffer_state == DATA_BUFFER_EMPTY) {
 		xEventGroupWaitBits(spi_event_group, EVENT_DATA_BUFFER_FILLED, true, false, portMAX_DELAY);
@@ -309,7 +309,17 @@ void spi_task(void *arg) {
 
 	/* Forever */
 	while (1) {
-
+		/* RGB LEDs transaction */
+		spi_tx_buffer[0] = 0x01;
+		spi_tx_buffer[1] = 0xBB;
+		spi_slave_transaction.rx_buffer = spi_rx_buffer;
+		spi_slave_transaction.trans_len = 0;
+		ESP_ERROR_CHECK(spi_slave_transmit(VSPI_HOST, &spi_slave_transaction, portMAX_DELAY));
+		if (spi_slave_transaction.trans_len == 12 * 8) {
+			rgb_update_all(spi_rx_buffer);
+			data_buffer_current->data_buffer_state = EVENT_DATA_BUFFER_FILLED;
+			xEventGroupSetBits(spi_event_group, EVENT_DATA_BUFFER_FILLED);
+		}
 #ifndef MESH_SET_ROOT /* MESH_SET_ROOT */
 		spi_tx_buffer[0] = (right_motor_speed >> 8) & 0xFF;
 		spi_tx_buffer[1] = right_motor_speed & 0xFF;
@@ -338,6 +348,7 @@ void spi_init(void) {
 	data_buffer_2->data = (uint8_t *) heap_caps_calloc(MAX_BUFFER_SIZE, 1, MALLOC_CAP_DMA);
 	if (spi_tx_buffer == NULL || spi_rx_buffer == NULL || data_buffer_1->data == NULL || data_buffer_2->data == NULL) {
 		ESP_LOGE(MESH_TAG, "Memory Allocation Failed for one of the SPI Tx or Rx or Data Buffers!");
+		return;
 	}
 	data_buffer_previous = data_buffer_1;
 	data_buffer_current = data_buffer_2;
@@ -361,6 +372,18 @@ void app_main(void) {
 	/* Primary Initializations */
 	/* Non-Volatile Flash Storage Initialization */
 	ESP_ERROR_CHECK(nvs_flash_init());
+
+	/* Initialize the RGB LEDs */
+	rgb_init();
+
+	/* Initialize SPI */
+	spi_init();
+	/* Create a pinned SPI communication task */
+	xTaskCreatePinnedToCore(spi_task, "SPI Task", SPI_TASK_STACK_SIZE, NULL, SPI_TASK_PRIORITY, NULL, CORE_1);
+
+	/* Create a pinned RGB handling task */
+	xTaskCreatePinnedToCore(rgb_task, "RGB Task", RGB_TASK_STACK_SIZE, NULL, RGB_TASK_PRIORITY, NULL, CORE_0);
+
 	/* TCP/IP Adapter Initialization */
 	tcpip_adapter_init();
 
@@ -404,9 +427,4 @@ void app_main(void) {
 
 	/* Start the Mesh */
 	ESP_ERROR_CHECK(esp_mesh_start());
-
-	/* Initialize SPI */
-	spi_init();
-	/* Create a pinned SPI communication task */
-	xTaskCreatePinnedToCore(spi_task, "SPI Task", SPI_TASK_STACK_SIZE, NULL, SPI_TASK_PRIORITY, NULL, CORE_1);
 }
