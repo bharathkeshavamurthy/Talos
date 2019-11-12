@@ -25,15 +25,15 @@
 
 #define CORE_0 0
 #define CORE_1 1
-#define TX_SIZE 1500
-#define RX_SIZE 1500
+#define TX_SIZE 1920
+#define RX_SIZE 1920
 #define PIN_NUM_CS 5
 #define PIN_NUM_CLK 18
 #define PIN_NUM_MISO 19
 #define PIN_NUM_MOSI 23
 #define BUFFER_SIZE 1024
 #define SPI_TASK_PRIORITY 5
-#define SPI_MAX_PACKET_SIZE 14
+#define SPI_MAX_PACKET_SIZE 1024
 #define MAX_BUFFER_SIZE 38400
 #define SPI_TASK_STACK_SIZE 4096
 #define P2P_COMMUNICATION_TASK_PRIORITY 5
@@ -47,7 +47,7 @@ const uint32_t P2P_COMMUNICATION_TASK_STACK_DEPTH = 3072;
 
 static const int DEFAULT_RSSI = -120;
 static const char *MESH_TAG = "Talos Distributed Active Mesh Networking";
-static const uint8_t MESH_ID[6] = {0x77, 0x77, 0x77, 0x77, 0x77, 0x77};
+static const uint8_t MESH_ID[6] = {0xFF, 0xEE, 0xDD, 0xCC, 0xBB, 0xAA};
 
 /* Variable Declarations */
 static int mesh_layer = -1;

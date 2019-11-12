@@ -8,28 +8,28 @@ void talos_set_led(talos_led_name_t led_number, unsigned int value) {
 	switch(led_number) {
 		case TALOS_LED1:
 			if(value>1)  {
-				palTogglePad(GPIOD, GPIOD_LED1);
+				palTogglePad(GPIOD, GPIOD_LED1); // @suppress("Field cannot be resolved")
 			} else {
 				value ? palClearPad(GPIOD, GPIOD_LED1) : palSetPad(GPIOD, GPIOD_LED1);
 			}
 			break;
 		case TALOS_LED3:
 			if(value>1) {
-				palTogglePad(GPIOD, GPIOD_LED3);
+				palTogglePad(GPIOD, GPIOD_LED3); // @suppress("Field cannot be resolved")
 			} else {
 				value ? palClearPad(GPIOD, GPIOD_LED3) : palSetPad(GPIOD, GPIOD_LED3);
 			}
 			break;
 		case TALOS_LED5:
 			if(value>1) {
-				palTogglePad(GPIOD, GPIOD_LED5);
+				palTogglePad(GPIOD, GPIOD_LED5); // @suppress("Field cannot be resolved")
 			} else {
 				value ? palClearPad(GPIOD, GPIOD_LED5) : palSetPad(GPIOD, GPIOD_LED5);
 			}
 			break;
 		case TALOS_LED7:
 			if(value>1) {
-				palTogglePad(GPIOD, GPIOD_LED7);
+				palTogglePad(GPIOD, GPIOD_LED7); // @suppress("Field cannot be resolved")
 			} else {
 				value ? palClearPad(GPIOD, GPIOD_LED7) : palSetPad(GPIOD, GPIOD_LED7);
 			}
@@ -63,7 +63,7 @@ void talos_toggle_rgb_led(talos_rgb_led_name_t led_number, talos_color_led_name_
 
 void talos_set_body_led(unsigned int value) {
 	if(value>1) {
-		palTogglePad(GPIOB, GPIOB_LED_BODY);
+		palTogglePad(GPIOB, GPIOB_LED_BODY); // @suppress("Field cannot be resolved")
 	} else {
 		value ? palSetPad(GPIOB, GPIOB_LED_BODY) : palClearPad(GPIOB, GPIOB_LED_BODY);
 	}
@@ -71,7 +71,7 @@ void talos_set_body_led(unsigned int value) {
 
 void talos_set_front_led(unsigned int value) {
 	if(value>1) {
-		palTogglePad(GPIOD, GPIOD_LED_FRONT);
+		palTogglePad(GPIOD, GPIOD_LED_FRONT); // @suppress("Field cannot be resolved")
 	} else {
 		value ? palSetPad(GPIOD, GPIOD_LED_FRONT) : palClearPad(GPIOD, GPIOD_LED_FRONT);
 	}

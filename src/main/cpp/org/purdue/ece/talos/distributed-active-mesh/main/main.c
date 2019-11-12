@@ -141,8 +141,11 @@ void p2p_rx(void *arg) {
 		if (error_code != ESP_OK || !data.size) {
 			continue;
 		}
-		right_motor_speed = (data.data[26] << 8) | (data.data[25]);
-		left_motor_speed = (data.data[24] << 8) | (data.data[23]);
+		/* Extract the motor speeds from the Rx buffer */
+		right_motor_speed = (data.data[0] << 8) | data.data[1];
+		right_motor_speed = (data.data[2] == 0x01) ? right_motor_speed : (-1 * right_motor_speed);
+		left_motor_speed = (data.data[3] << 8) | data.data[4];
+		left_motor_speed = (data.data[5] == 0x01) ? left_motor_speed : (-1 * left_motor_speed);
 		received_count++;
 	}
 	is_running = 0;
@@ -161,13 +164,17 @@ void p2p_tx(void *arg) {
 	};
 	int send_count = 0;
 	int route_table_size = 0;
+
 	while (is_running) {
 		esp_mesh_get_routing_table((mesh_addr_t *) &route_table, CONFIG_MESH_ROUTE_TABLE_SIZE * 6, &route_table_size);
 		send_count++;
-		tx_buffer[26] = (right_motor_speed >> 8) & 0xFF;
-		tx_buffer[25] = right_motor_speed & 0xFF;
-		tx_buffer[24] = (left_motor_speed >> 8) & 0xFF;
-		tx_buffer[23] = left_motor_speed & 0xFF;
+		/* Prepare the Tx buffer to send the motor speeds to the peers in my route table */
+		tx_buffer[0] = (right_motor_speed >> 8) & 0xFF;
+		tx_buffer[1] = right_motor_speed & 0xFF;
+		tx_buffer[2] = (right_motor_speed >= 0) ? 0x01 : 0x00;
+		tx_buffer[3] = (left_motor_speed >> 8) & 0xFF;
+		tx_buffer[4] = left_motor_speed & 0xFF;
+		tx_buffer[5] = (left_motor_speed >= 0) ? 0x01 : 0x00;
 		for (int i=0; i<route_table_size; i++) {
 			ESP_ERROR_CHECK(esp_mesh_send(&route_table[i], &data, MESH_DATA_P2P, NULL, 0));
 		}
@@ -309,9 +316,11 @@ void spi_task(void *arg) {
 
 	/* Forever */
 	while (1) {
+#ifdef MESH_SET_ROOT /* MESH_SET_ROOT */
 		/* RGB LEDs transaction */
-		spi_tx_buffer[0] = 0x01;
-		spi_tx_buffer[1] = 0xBB;
+		memset(spi_tx_buffer, 0xFF, SPI_MAX_PACKET_SIZE);
+		memset(spi_rx_buffer, 0xFF, SPI_MAX_PACKET_SIZE);
+		spi_slave_transaction.tx_buffer = spi_tx_buffer;
 		spi_slave_transaction.rx_buffer = spi_rx_buffer;
 		spi_slave_transaction.trans_len = 0;
 		ESP_ERROR_CHECK(spi_slave_transmit(VSPI_HOST, &spi_slave_transaction, portMAX_DELAY));
@@ -320,19 +329,42 @@ void spi_task(void *arg) {
 			data_buffer_current->data_buffer_state = EVENT_DATA_BUFFER_FILLED;
 			xEventGroupSetBits(spi_event_group, EVENT_DATA_BUFFER_FILLED);
 		}
-#ifndef MESH_SET_ROOT /* MESH_SET_ROOT */
-		spi_tx_buffer[0] = (right_motor_speed >> 8) & 0xFF;
-		spi_tx_buffer[1] = right_motor_speed & 0xFF;
-		spi_tx_buffer[2] = (left_motor_speed >> 8) & 0xFF;
-		spi_tx_buffer[3] = left_motor_speed & 0xFF;
 #endif /* MESH_SET_ROOT */
 
-		/* Execute the transaction with the master */
+#ifndef MESH_SET_ROOT /* MESH_SET_ROOT */
+		/* Slave driving the Master's motors */
+		memset(spi_tx_buffer, 0xFF, SPI_MAX_PACKET_SIZE);
+		memset(spi_rx_buffer, 0xFF, SPI_MAX_PACKET_SIZE);
+		spi_slave_transaction.rx_buffer = spi_rx_buffer;
+		spi_slave_transaction.trans_len = 0;
+		spi_tx_buffer[0] = (right_motor_speed >> 8) & 0xFF;
+		spi_tx_buffer[1] = right_motor_speed & 0xFF;
+		spi_tx_buffer[2] = (right_motor_speed >= 0) ? 0x01 : 0x00;
+		spi_tx_buffer[3] = (left_motor_speed >> 8) & 0xFF;
+		spi_tx_buffer[4] = left_motor_speed & 0xFF;
+		spi_tx_buffer[5] = (left_motor_speed >= 0) ? 0x01 : 0x00;
+		spi_slave_transaction.tx_buffer = spi_tx_buffer;
+		/* Execute the transaction with the Master */
 		ESP_ERROR_CHECK(spi_slave_transmit(VSPI_HOST, &spi_slave_transaction, portMAX_DELAY));
+#endif /* MESH_SET_ROOT */
 
 #ifdef MESH_SET_ROOT /* MESH_SET_ROOT */
-		right_motor_speed = (spi_rx_buffer[0] << 8) | spi_rx_buffer[1];
-		left_motor_speed = (spi_rx_buffer[2] << 8) | spi_rx_buffer[3];
+		/* Receive the motor information from the Master in order to send this information to my peers */
+		memset(spi_tx_buffer, 0xFF, SPI_MAX_PACKET_SIZE);
+		memset(spi_rx_buffer, 0xFF, SPI_MAX_PACKET_SIZE);
+		spi_slave_transaction.tx_buffer = spi_tx_buffer;
+		spi_slave_transaction.rx_buffer = spi_rx_buffer;
+		spi_slave_transaction.trans_len = 0;
+		/* Execute the transaction with the Master */
+		ESP_ERROR_CHECK(spi_slave_transmit(VSPI_HOST, &spi_slave_transaction, portMAX_DELAY));
+		if (spi_slave_transaction.trans_len == 6 * 8) {
+			right_motor_speed = (spi_rx_buffer[0] << 8) | spi_rx_buffer[1];
+			right_motor_speed = (spi_rx_buffer[2] == 0x01) ? right_motor_speed : (-1 * right_motor_speed);
+			left_motor_speed = (spi_rx_buffer[3] << 8) | spi_rx_buffer[4];
+			left_motor_speed = (left_motor_speed[5] == 0x01) ? left_motor_speed : (-1 * left_motor_speed);
+			data_buffer_current->data_buffer_state = EVENT_DATA_BUFFER_FILLED;
+			xEventGroupSetBits(spi_event_group, EVENT_DATA_BUFFER_FILLED);
+		}
 #endif /* MESH_SET_ROOT */
 	}
 }
