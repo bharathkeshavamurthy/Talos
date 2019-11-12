@@ -129,7 +129,6 @@ void gateway_initialization(void) {
 		gpio_set_level(BLINK_GPIO, 1);
 		vTaskDelay(1000 / (3 * portTICK_PERIOD_MS));
 	}
-	gpio_set_level(BLINK_GPIO, 1);
 	/* Final Logging */
 	ESP_LOGI(TAG, "Finished creating an Access Point with SSID: %s and Connected to %s", CONFIG_AP_ESP_WIFI_SSID, CONFIG_STA_ESP_WIFI_SSID);
 }

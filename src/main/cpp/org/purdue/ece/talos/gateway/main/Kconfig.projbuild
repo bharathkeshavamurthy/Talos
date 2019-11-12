@@ -1,4 +1,4 @@
-menu "TALOS: Gateway Node Configuration"
+menu "TALOS: Gateway Node Configurations"
 
     config AP_ESP_WIFI_SSID
         string "SSID of this Access Point"

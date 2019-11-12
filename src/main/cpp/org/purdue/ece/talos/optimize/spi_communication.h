@@ -28,8 +28,12 @@
 #include "talos_leds.h"
 
 /* Macros */
+#ifndef LEADER /* LEADER */
+#define FOLLOWER
+#endif /* LEADER */
+
 #define SPI_DELAY 5000
-#define SPI_MAX_PACKET_SIZE 14
+#define SPI_MAX_PACKET_SIZE 1024
 
 /* Function Declaration to start the SPI communication between the Master and the Slave */
 void spi_communication_start(void);

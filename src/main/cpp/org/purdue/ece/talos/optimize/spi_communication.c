@@ -48,44 +48,72 @@ static THD_FUNCTION(spi_thread, p) {
 		}
 		chSysUnlock();
 
-		/* Get motor speeds */
-		left_motor_speed = left_motor_get_desired_speed();
-		right_motor_speed = right_motor_get_desired_speed();
-
-		/* Allocate the Tx buffers and transact RGB LED operations */
+#ifdef LEADER /* LEADER */
+		/* Allocate the Tx and Rx buffers for transacting RGB LED operations */
+		memset(spi_tx_buffer, 0xFF, SPI_MAX_PACKET_SIZE);
 		memset(spi_rx_buffer, 0xFF, SPI_MAX_PACKET_SIZE);
 		if(talos_rgb_setting_enabled == 1) {
 			talos_get_all_rgb_state(&spi_tx_buffer[0]);
 		} else {
 			memset(spi_tx_buffer, 101, 12);
 		}
+		/* Execute the transaction */
 		spiSelect(&SPID1);
 		spiExchange(&SPID1, 12, spi_tx_buffer, spi_rx_buffer);
 		spiUnselect(&SPID1);
-
 		/* A pause in between transactions */
 		for(delay=0; delay<SPI_DELAY * 2; delay++) {
 			__NOP();
 		}
+#endif /* LEADER */
 
-		/* Set the Tx buffer for the motor data transfer */
+#ifdef LEADER /*LEADER */
+		/* Allocate the Tx and Rx buffers for transacting motor operations */
 		memset(spi_tx_buffer, 0xFF, SPI_MAX_PACKET_SIZE);
-		spi_tx_buffer[0] = (right_motor_speed >> 8) & 0xFF;
-		spi_tx_buffer[1] = right_motor_speed & 0xFF;
-		spi_tx_buffer[2] = (left_motor_speed >> 8) & 0xFF;
-		spi_tx_buffer[3] = left_motor_speed & 0xFF;
-
-		/* Start the transaction */
+		memset(spi_rx_buffer, 0xFF, SPI_MAX_PACKET_SIZE);
+		/* Get motor speeds */
+		left_motor_speed = left_motor_get_desired_speed();
+		right_motor_speed = right_motor_get_desired_speed();
+		/* Prepare the Tx buffer */
+		spi_tx_buffer[0] = (abs(right_motor_speed) >> 8) & 0xFF;
+		spi_tx_buffer[1] = abs(right_motor_speed) & 0xFF;
+		spi_tx_buffer[2] = (right_motor_speed >= 0) ? 1 : 0;
+		spi_tx_buffer[3] = (abs(left_motor_speed) >> 8) & 0xFF;
+		spi_tx_buffer[4] = abs(left_motor_speed) & 0xFF;
+		spi_tx_buffer[5] = (left_motor_speed >= 0) ? 1 : 0;
+		/* Execute the transaction */
 		spiSelect(&SPID1);
-		spiExchange(&SPID1, SPI_MAX_PACKET_SIZE, spi_tx_buffer, spi_rx_buffer);
+		spiExchange(&SPID1, 6, spi_tx_buffer, spi_rx_buffer);
 		spiUnselect(&SPID1);
+		/* A pause in between transactions */
+		for(delay=0; delay<SPI_DELAY * 2; delay++) {
+			__NOP();
+		}
+#endif /* LEADER */
 
 #ifdef FOLLOWER /* FOLLOWER */
-		/* Extract the received information and set motor speeds */
-		right_motor_set_speed((spi_rx_buffer[0] << 8) | spi_rx_buffer[1]);
-		left_motor_set_speed((spi_rx_buffer[2] << 8) | spi_rx_buffer[3]);
+		/* Allocate the Tx and Rx buffers for transacting motor operations */
+		memset(spi_tx_buffer, 0xFF, SPI_MAX_PACKET_SIZE);
+		memset(spi_rx_buffer, 0xFF, SPI_MAX_PACKET_SIZE);
+		/* Execute the transaction */
+		spiSelect(&SPID1);
+		spiExchange(&SPID1, 6, spi_tx_buffer, spi_rx_buffer);
+		spiUnselect(&SPID1);
+		/* Extract the received information */
+		right_motor_speed = (spi_rx_buffer[0] << 8) | spi_rx_buffer[1];
+		right_motor_speed = (spi_tx_buffer[2] == 1) ? right_motor_speed : (-1 * right_motor_speed);
+		left_motor_speed = (spi_rx_buffer[3] << 8) | spi_rx_buffer[4];
+		left_motor_speed = (spi_rx_buffer[5] == 1) ? left_motor_speed : (-1 * left_motor_speed);
+		/* Set motor speeds */
+		right_motor_set_speed(right_motor_speed);
+		left_motor_set_speed(left_motor_speed);
+		/* A pause in between transactions */
+		for(delay=0; delay<SPI_DELAY * 2; delay++) {
+			__NOP();
+		}
 #endif /* FOLLOWER */
 
+		/* Sleep for 50 ms */
 		chThdSleepUntilWindowed(time, time + MS2ST(50));
 	}
 }
