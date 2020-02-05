@@ -59,20 +59,22 @@ data_buffer_t *data_buffer_2;
 data_buffer_t *data_buffer_previous;
 data_buffer_t *data_buffer_current;
 
-/* The Gateway */
 /* MESH_SET_ROOT */
 #ifdef MESH_SET_ROOT
-uint8_t number_of_children = 0;
-uint8_t children[NUMBER_OF_CHILDREN];
+	uint8_t number_of_children = 0;
+	uint8_t children[NUMBER_OF_CHILDREN];
 #endif
 /* MESH_SET_ROOT */
 
 /* The Handler method for MESH_EVENTs */
+/* NOTE: There are some filler cases added for enhanced debugging */
+/* NOTE: Self-Organization has been disabled in the mesh start sequence; Nearest Neighbor Discovery using RSSI is enabled in the scan handler routine */
 void mesh_event_handler(void *arg, esp_event_base_t event_base, int32_t event_id, void *event_data) {
 	wifi_scan_config_t scan_config = {0};
 
 	switch(event_id) {
 	case MESH_EVENT_STARTED: {
+		/* Log a DEBUG message here indicating that the mesh has been started */
 		ESP_ERROR_CHECK(esp_mesh_set_self_organized(0, 0));
 		esp_wifi_scan_stop();
 		scan_config.show_hidden = 1;
@@ -81,7 +83,13 @@ void mesh_event_handler(void *arg, esp_event_base_t event_base, int32_t event_id
 	}
 	break;
 
+	case MESH_EVENT_STOPPED: {
+		/* Log an DEBUG message here indicating that the mesh has been terminated */
+	}
+	break;
+
 	case MESH_EVENT_SCAN_DONE: {
+		/* Log a DEBUG message here indicating that the scan operation has been completed */
 		mesh_event_scan_done_t *scan_done = (mesh_event_scan_done_t *) event_data;
 		mesh_scan_handler(scan_done->number);
 	}
@@ -93,42 +101,57 @@ void mesh_event_handler(void *arg, esp_event_base_t event_base, int32_t event_id
 		if (esp_mesh_is_root()) {
 			ESP_ERROR_CHECK(tcpip_adapter_dhcpc_start(TCPIP_ADAPTER_IF_STA));
 		}
-/* Not the Gateway */
 /* MESH_SET_ROOT */
 #ifndef MESH_SET_ROOT
 		ESP_ERROR_CHECK(mesh_p2p_communication_start());
 #endif
 /* MESH_SET_ROOT */
+		/* Log a DEBUG message here indicating that this node has connected to a parent - use the ${parent_connected} member for additional information */
 	}
 	break;
 
 	case MESH_EVENT_PARENT_DISCONNECTED: {
 		mesh_event_disconnected_t *parent_disconnected = (mesh_event_disconnected_t *) event_data;
 		/* Log the reason for disconnection here, i.e. parent_disconnected->reason */
+/* MESH_SET_ROOT */
+#ifndef MESH_SET_ROOT
+		ESP_ERROR_CHECK(mesh_p2p_communication_stop());
+#endif
+/* MESH_SET_ROOT */
 		esp_wifi_scan_stop();
 		scan_config.show_hidden = 1;
 		scan_config.scan_type = WIFI_SCAN_TYPE_PASSIVE;
 		ESP_ERROR_CHECK(esp_wifi_scan_start(&scan_config, 0));
+		/* Log a DEBUG message here indicating that this node has disconnected from its parent - use the ${parent_disconnected} member for additional information */
+	}
+	break;
+
+	case MESH_EVENT_NO_PARENT_FOUND: {
+		mesh_event_no_parent_found_t *no_parent_found = (mesh_event_no_parent_found_t *) event_data;
+		/* Log a DEBUG message here indicating that no parent has been found for this node - use the ${no_parent_found} member for additional information */
 	}
 	break;
 
 	case MESH_EVENT_CHILD_CONNECTED: {
 		mesh_event_child_connected_t *child_connected = (mesh_event_child_connected_t *) event_data;
-/* The Gateway */
 /* MESH_SET_ROOT */
 #ifdef MESH_SET_ROOT
 		children[number_of_children] = child_connected->mac;
 		number_of_children++;
+		if (number_of_children == NUMBER_OF_CHILDREN) {
+			ESP_ERROR_CHECK(mesh_p2p_communication_start());
+		}
 #endif
 /* MESH_SET_ROOT */
+		/* Log a DEBUG message here indicating that a child has connected to this node - use the ${child_connected} member for additional information */
 	}
 	break;
 
 	case MESH_EVENT_CHILD_DISCONNECTED: {
 		mesh_event_child_disconnected_t *child_disconnected = (mesh_event_child_disconnected_t *) event_data;
-/* The Gateway */
 /* MESH_SET_ROOT */
 #ifdef MESH_SET_ROOT
+		ESP_ERROR_CHECK(mesh_p2p_communication_stop());
 		disconnected_child = 0;
 		for (int child=0; child<number_of_children; child++) {
 			if (children[child] == child_disconnected->mac) {
@@ -140,8 +163,68 @@ void mesh_event_handler(void *arg, esp_event_base_t event_base, int32_t event_id
 		}
 #endif
 /* MESH_SET_ROOT */
+		/* Log a DEBUG message here indicating that a child has disconnected from this node - use the ${child_disconnected} member for additional information */
 	}
 	break;
+
+	case MESH_EVENT_ROUTING_TABLE_ADD: {
+		mesh_event_routing_table_change_t *routing_table_change = (mesh_event_routing_table_change_t *) event_data;
+		/* Log a DEBUG message here indicating an addition to the routing table - use the ${routing_table_change} member for additional information */
+	}
+	break;
+
+	case MESH_EVENT_ROUTING_TABLE_REMOVE: {
+		mesh_event_routing_table_change_t *routing_table_change = (mesh_event_routing_table_change_t *) event_data;
+		/* Log a DEBUG message here indicating a removal from the routing table - use the ${routing_table_change} member for additional information */
+	}
+	break;
+
+	case MESH_EVENT_NETWORK_STATE: {
+		mesh_event_network_state_t *network_state = (mesh_event_network_state_t *) event_data;
+		/* Log a DEBUG message here printing the state of the mesh network - use the ${network_state} member to determine if the network is root-less */
+	}
+	break;
+
+	case MESH_EVENT_ROOT_FIXED: {
+		mesh_event_root_fixed_t *root_fixed = (mesh_event_root_fixed_t *) event_data;
+		/* Log a DEBUG message here indicating that the root for this mesh network has been fixed - use the ${root_fixed} member for additional information */
+	}
+	break;
+
+	case MESH_EVENT_ROOT_ADDRESS: {
+		mesh_event_root_address_t *root_address = (mesh_event_root_address_t *) event_data;
+		/* Log a DEBUG message here printing the MAC address of the root node of this mesh network - use the ${root_address} member for extracting the relevant MAC address */
+	}
+	break;
+
+	case MESH_EVENT_CHANNEL_SWITCH: {
+		mesh_event_channel_switch_t *channel_switch = (mesh_event_channel_switch_t *) event_data;
+		/* Log a DEBUG message here indicating a channel switch - use the ${channel_switch} member for additional information */
+	}
+	break;
+
+	case MESH_EVENT_ROUTER_SWITCH: {
+		mesh_event_router_switch_t *router_switch = (mesh_event_router_switch_t *) event_data;
+		/* Log a DEBUG message here indicating a router switch - use the ${router_switch} member for additional information */
+	}
+	break;
+
+	case MESH_EVENT_FIND_NETWORK: {
+		mesh_event_find_network_t *find_network = (mesh_event_find_network_t *) event_data;
+		/* Log a DEBUG message indicating a channel switch and a router search - use the ${find_network} member and associated ${channel} and ${router_bssid} sub-members for additional information */
+	}
+	break;
+
+	case MESH_EVENT_STOP_RECONNECTION: {
+		/* Log a DEBUG message saying a <STOP_RECONNECTION> event has been received for this node in this mesh */
+	}
+	break;
+
+	default: {
+		/* Log an ERROR message indicating the reception of an incorrect MESH_EVENT identifier */
+		break;
+	}
+
 	}
 }
 
