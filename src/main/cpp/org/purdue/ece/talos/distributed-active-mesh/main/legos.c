@@ -10,15 +10,18 @@
  *  Copyright (c) 2020. All Rights Reserved.
  */
 
-#ifndef MESH_SET_ROOT
-	#define MESH_SET_ROOT
+/* NEAREST_NEIGHBOR_RSSI_THRESHOLD */
+#ifndef NEAREST_NEIGHBOR_RSSI_THRESHOLD
+	#define NEAREST_NEIGHBOR_RSSI_THRESHOLD -40
 #endif
+/* NEAREST_NEIGHBOR_RSSI_THRESHOLD */
 
 #define CORE_1 1
 #define PIN_NUM_CS 5
 #define PIN_NUM_CLK 18
 #define PIN_NUM_MISO 19
 #define PIN_NUM_MOSI 23
+#define DEFAULT_RSSI -120
 #define SPI_TASK_PRIORITY 5
 #define NUMBER_OF_CHILDREN 3
 #define MAX_BUFFER_SIZE 48000
@@ -61,8 +64,13 @@ data_buffer_t *data_buffer_current;
 
 /* MESH_SET_ROOT */
 #ifdef MESH_SET_ROOT
+	int node_layer = 1;
 	uint8_t number_of_children = 0;
+	mesh_type_t node_type = MESH_NODE;
 	uint8_t children[NUMBER_OF_CHILDREN];
+#else
+	int node_layer = 2;
+	mesh_type_t node_type = MESH_LEAF;
 #endif
 /* MESH_SET_ROOT */
 
@@ -71,6 +79,74 @@ void received_ip_address_event_handler(void *arg, esp_event_base_t event_base, i
 	ip_event_got_ip_t *received_ip_address = (ip_event_got_ip_t *) event_data;
 	/* Log a DEBUG message indicating that an IP address has been assigned to this TCP/IP adapter (of this node) - use the ${received_ip_address} member for additional information */
 	/* ip4addr_ntoa(&received_ip_address->ip_info.ip) */
+}
+
+/* The Handler method for handling parent scans in the mesh network */
+void mesh_scan_handler(int count) {
+	int information_element_length = 0;
+	unsigned int parent_found = 0;
+
+	mesh_assoc_t association;
+	mesh_assoc_t associated_parent = {
+			.layer = CONFIG_MESH_MAX_LAYERS,
+			.rssi = DEFAULT_RSSI
+	};
+	wifi_ap_record_t wifi_ap_record;
+	wifi_ap_record_t associated_parent_record = {0};
+	wifi_config_t associated_parent_config = {0};
+	wifi_scan_config_t wifi_scan_config = {0};
+
+	for (int i=0; i< count; i++) {
+		ESP_ERROR_CHECK(esp_mesh_scan_get_ap_ie_len(&information_element_length));
+		ESP_ERROR_CHECK(esp_mesh_scan_get_ap_record(&wifi_ap_record, &association));
+		if (information_element_length == sizeof(association)) {
+			/* This is a simple single secondary layer mesh network coordinated by a designated gateway that's connected to the router in the WLAN */
+			/* Hence, there is no need for complicated topology checks here... */
+			if (association.mesh_type != MESH_IDLE && association.assoc < association.assoc_cap && wifi_ap_record.rssi > NEAREST_NEIGHBOR_RSSI_THRESHOLD) {
+				parent_found = 1;
+				memcpy(&associated_parent, &association, sizeof(association));
+				memcpy(&associated_parent_record, &wifi_ap_record, sizeof(wifi_ap_record));
+				break;
+			}
+		} else {
+/* MESH_SET_ROOT */
+#ifdef MESH_SET_ROOT
+			if (!strcmp(CONFIG_MESH_ROUTER_SSID, (char *) wifi_ap_record.ssid)) {
+				parent_found = 1;
+				memcpy(&associated_parent_record, &wifi_ap_record, sizeof(wifi_ap_record));
+				node_type = MESH_ROOT;
+			}
+#endif
+/* MESH_SET_ROOT */
+		}
+	}
+
+	ESP_ERROR_CHECK(esp_mesh_flush_scan_result());
+
+	if (parent_found == 1) {
+		associated_parent_config.sta.channel = associated_parent_record.primary;
+		associated_parent_config.sta.bssid_set = 1;
+		memcpy(&associated_parent_config.sta.ssid, &associated_parent_record.ssid, sizeof(associated_parent_record.ssid));
+		memcpy(&associated_parent_config.sta.bssid, &associated_parent_record.bssid, 6);
+		ESP_ERROR_CHECK(esp_mesh_set_ap_authmode(associated_parent_record.authmode));
+		if (node_type == MESH_ROOT && associated_parent_record.authmode != WIFI_AUTH_OPEN) {
+			memcpy(&associated_parent_config.sta.password, CONFIG_MESH_ROUTER_PASSWORD, strlen(CONFIG_MESH_ROUTER_PASSWORD));
+		} else if (associated_parent_record.authmode != WIFI_AUTH_OPEN) {
+			memcpy(&associated_parent_config.sta.password, &CONFIG_MESH_AP_PASSWORD, strlen(CONFIG_MESH_AP_PASSWORD));
+		} else{
+			/* Security is Paramount: Log an ERROR message saying that Open WiFi Authentication Mode is not supported! */
+			return;
+		}
+		ESP_ERROR_CHECK(esp_mesh_set_parent(&associated_parent_config, (mesh_addr_t *) &associated_parent.mesh_id, node_type, node_layer));
+	} else {
+		/* TODO: This might be a little too drastic...Re-evaluate this! */
+		ESP_ERROR_CHECK(esp_mesh_set_ie_crypto_funcs(NULL));
+		esp_wifi_scan_stop();
+		wifi_scan_config.show_hidden = 1;
+		wifi_scan_config.scan_type = WIFI_SCAN_TYPE_PASSIVE;
+		/* TODO: Is a blocking-call necessary here...Again, is this too drastic a step? Re-evaluate this! */
+		ESP_ERROR_CHECK(esp_wifi_scan_start(&wifi_scan_config, 0));
+	}
 }
 
 /* The Handler method for MESH_EVENTs */

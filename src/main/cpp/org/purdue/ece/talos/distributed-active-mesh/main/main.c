@@ -80,7 +80,7 @@ void mesh_scan_handler(int count) {
 #ifdef MESH_SET_ROOT /* MESH_SET_ROOT */
 			/* If the parent is not the router, set me as the root and my layer as the root layer */
 			if (!strcmp(CONFIG_MESH_ROUTER_SSID, (char *) record.ssid)) {
-				parent_found = true;
+				parent_found = 1;
 				memcpy(&associated_parent_record, &record, sizeof(record));
 				my_type = MESH_ROOT;
 				my_layer = MESH_ROOT_LAYER;
