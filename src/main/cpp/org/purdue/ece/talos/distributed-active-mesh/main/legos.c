@@ -16,6 +16,12 @@
 #endif
 /* NEAREST_NEIGHBOR_RSSI_THRESHOLD */
 
+/* MESH_SET_ROOT */
+#ifdef MESH_SET_ROOT
+	#define NUMBER_OF_CHILDREN 3
+#endif
+/* MESH_SET_ROOT */
+
 #define CORE_1 1
 #define PIN_NUM_CS 5
 #define PIN_NUM_CLK 1
@@ -23,11 +29,21 @@
 #define PIN_NUM_MOSI 23
 #define DEFAULT_RSSI -120
 #define SPI_TASK_PRIORITY 5
-#define NUMBER_OF_CHILDREN 3
+#define P2P_BUFFER_SIZE 1024
 #define MAX_BUFFER_SIZE 48000
 #define SPI_TASK_STACK_SIZE 2048
 #define SPI_MAX_PACKET_SIZE 1024
 
+static uint8_t running = 0;
+/* MESH_SET_ROOT */
+#ifdef MESH_SET_ROOT
+	static uint8_t formation, dispersion = 0;
+	static uint8_t tx_buffer[P2P_BUFFER_SIZE] = {0, };
+#endif
+/* MESH_SET_ROOT */
+static uint8_t rx_buffer[P2P_BUFFER_SIZE] = {0, };
+
+static int motion_dynamics_flag = 0;
 static const uint8_t MESH_ID[6] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 
 static spi_bus_config_t spi_bus_config = {
@@ -149,6 +165,77 @@ void mesh_scan_handler(int count) {
 	}
 }
 
+/* MESH_SET_ROOT */
+#ifdef MESH_SET_ROOT
+/* The Mesh P2P Tx Routine */
+void mesh_p2p_tx(void *arg) {
+	int flag = 0;
+	int route_table_size = 0;
+	mesh_data_t data;
+	data.data = tx_buffer;
+	data.size = P2P_BUFFER_SIZE;
+	mesh_addr_t route_table[NUMBER_OF_CHILDREN];
+	while (running) {
+		esp_mesh_get_routing_table((mesh_addr_t *) &route_table, NUMBER_OF_CHILDREN * 6, &route_table_size);
+		if (route_table_size < NUMBER_OF_CHILDREN) {
+			vTaskDelay(1000 / portTICK_RATE_MS);
+		}
+		if (formation) {
+			motion_dynamics_flag = 1;
+		} else if(dispersion) {
+			motion_dynamics_flag = 2;
+		} else {
+			motion_dynamics_flag = 0;
+		}
+		tx_buffer[0] = motion_dynamics_flag;
+		for (int i=0; i<route_table_size; i++) {
+			ESP_ERROR_CHECK(esp_mesh_send(&route_table[i], &data, MESH_DATA_P2P, NULL, 0));
+		}
+	}
+	vTaskDelete(NULL);
+}
+#endif
+/* MESH_SET_ROOT */
+
+/* The Mesh Peer-to-Peer Rx Routine */
+void mesh_p2p_rx(void *arg) {
+	int flag = 0;
+	mesh_addr_t sender_address;
+	mesh_data_t received_data;
+	received_data.data = rx_buffer;
+	received_data.size = P2P_BUFFER_SIZE;
+	while (running) {
+		received_data.size = P2P_BUFFER_SIZE;
+		ESP_ERROR_CHECK(esp_mesh_recv(&sender_address, &received_data, portMAX_DELAY, &flag, NULL, 0));
+		if (!received_data.size) {
+			motion_dynamics_flag = received_data[0];
+		}
+	}
+	vTaskDelete(NULL);
+}
+
+/* Peer-to-Peer Communication Start Routine */
+esp_err_t mesh_p2p_communication_start(void) {
+	if (!running) {
+		running = 1;
+/* MESH_SET_ROOT */
+#ifdef MESH_SET_ROOT
+		xTaskCreate(mesh_p2p_tx, "Mesh_Tx", 3072, NULL, 5, NULL);
+#endif
+/* MESH_SET_ROOT */
+		xTaskCreate(mesh_p2p_rx, "Mesh_Rx", 3072, NULL, 5, NULL);
+	}
+	return ESP_OK;
+}
+
+/* Peer-to-Peer Communication Stop Routine */
+esp_err_t mesh_p2p_communication_stop(void) {
+	if (running) {
+		running = 0;
+	}
+	return ESP_OK;
+}
+
 /* The Handler method for MESH_EVENTs */
 /* NOTE: There are some filler cases added for enhanced debugging */
 /* NOTE: Self-Organization has been disabled in the mesh start sequence; Nearest Neighbor Discovery using RSSI is enabled in the scan handler routine */
@@ -222,6 +309,7 @@ void mesh_event_handler(void *arg, esp_event_base_t event_base, int32_t event_id
 		children[number_of_children] = child_connected->mac;
 		number_of_children++;
 		if (number_of_children == NUMBER_OF_CHILDREN) {
+			formation = 1;
 			ESP_ERROR_CHECK(mesh_p2p_communication_start());
 		}
 #endif
@@ -234,8 +322,8 @@ void mesh_event_handler(void *arg, esp_event_base_t event_base, int32_t event_id
 		mesh_event_child_disconnected_t *child_disconnected = (mesh_event_child_disconnected_t *) event_data;
 /* MESH_SET_ROOT */
 #ifdef MESH_SET_ROOT
-		ESP_ERROR_CHECK(mesh_p2p_communication_stop());
 		disconnected_child = 0;
+		ESP_ERROR_CHECK(mesh_p2p_communication_stop());
 		for (int child=0; child<number_of_children; child++) {
 			if (children[child] == child_disconnected->mac) {
 				disconnected_child = child;
@@ -309,6 +397,30 @@ void mesh_event_handler(void *arg, esp_event_base_t event_base, int32_t event_id
 	}
 
 	}
+}
+
+/* The SPI Task Routine */
+void spi_task(void *arg) {
+	memset(spi_tx_buffer, 0x00, SPI_MAX_PACKET_SIZE);
+	memset(spi_rx_buffer, 0x00, SPI_MAX_PACKET_SIZE);
+	memset(&spi_slave_transaction, 0, sizeof(spi_slave_transaction));
+	spi_slave_transaction.tx_buffer = spi_tx_buffer;
+	spi_slave_transaction.rx_buffer = spi_rx_buffer;
+	spi_slave_transaction.length = SPI_MAX_PACKET_SIZE * 8;
+	spi_slave_transaction.user = (void *) 0;
+	while (running) {
+		spi_tx_buffer[0] = motion_dynamics_flag;
+		spi_slave_transaction.trans_len = 1 * 8;
+		spi_slave_transaction.tx_buffer = spi_tx_buffer;
+		ESP_ERROR_CHECK(spi_slave_transmit(VSPI_HOST, &spi_slave_transaction, portMAX_DELAY));
+	}
+	memset(spi_tx_buffer, 0x00, SPI_MAX_PACKET_SIZE);
+	memset(spi_rx_buffer, 0x00, SPI_MAX_PACKET_SIZE);
+	spi_tx_buffer[0] = 0; /* A Reset */
+	spi_slave_transaction.trans_len = 1 * 8;
+	spi_slave_transaction.tx_buffer = spi_tx_buffer;
+	spi_slave_transaction.rx_buffer = spi_rx_buffer;
+	ESP_ERROR_CHECK(spi_slave_transmit(VSPI_HOST, &spi_slave_transaction, portMAX_DELAY));
 }
 
 /* The SPI Initialization routine */
