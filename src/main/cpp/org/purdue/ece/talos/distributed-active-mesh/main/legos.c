@@ -66,6 +66,13 @@ data_buffer_t *data_buffer_current;
 #endif
 /* MESH_SET_ROOT */
 
+/* The Handler method for a specific IP_EVENT: IP_EVENT_STA_GOT_IP */
+void received_ip_address_event_handler(void *arg, esp_event_base_t event_base, int32_t event_id, void *event_data) {
+	ip_event_got_ip_t *received_ip_address = (ip_event_got_ip_t *) event_data;
+	/* Log a DEBUG message indicating that an IP address has been assigned to this TCP/IP adapter (of this node) - use the ${received_ip_address} member for additional information */
+	/* ip4addr_ntoa(&received_ip_address->ip_info.ip) */
+}
+
 /* The Handler method for MESH_EVENTs */
 /* NOTE: There are some filler cases added for enhanced debugging */
 /* NOTE: Self-Organization has been disabled in the mesh start sequence; Nearest Neighbor Discovery using RSSI is enabled in the scan handler routine */
@@ -278,6 +285,7 @@ void app_main(void) {
 	tcpip_adapter_init();
 	ESP_ERROR_CHECK(tcpip_adapter_dhcps_stop(TCPIP_ADAPTER_IF_AP));
 	ESP_ERROR_CHECK(tcpip_adapter_dhcpc_stop(TCPIP_ADAPTER_IF_STA));
+	ESP_ERROR_CHECK(esp_event_handler_register(IP_EVENT, IP_EVENT_STA_GOT_IP, &received_ip_address_event_handler, NULL));
 
 	/* WiFi Initializations and Configurations */
 	wifi_init_config_t wifi_init_config = WIFI_INIT_CONFIG_DEFAULT();
