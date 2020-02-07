@@ -19,6 +19,8 @@
 /* MESH_SET_ROOT */
 #ifdef MESH_SET_ROOT
 	#define NUMBER_OF_CHILDREN 3
+	#define DISPERSION_THRESHOLD 100
+	#define REFORMATION_THRESHOLD 200
 #endif
 /* MESH_SET_ROOT */
 
@@ -194,6 +196,25 @@ void mesh_p2p_tx(void *arg) {
 	}
 	vTaskDelete(NULL);
 }
+/* The Bot-Group Coordination Routine */
+void group_coordination(void *arg) {
+	while (1) {
+		if (formation) {
+			vTaskDelay(DISPERSION_THRESHOLD * 1000 / portTICK_RATE_MS);
+			formation = 0;
+			dispersion = 1;
+			continue;
+		} else if (dispersion) {
+			vTaskDelay(DISPERSION_THRESHOLD * 1000 / portTICK_RATE_MS);
+			dispersion = 0;
+			formation = 1;
+			continue;
+		} else {
+			formation = 0;
+			dispersion = 0;
+		}
+	}
+}
 #else
 /* The Mesh Peer-to-Peer Rx Routine */
 void mesh_p2p_rx(void *arg) {
@@ -220,6 +241,7 @@ esp_err_t mesh_p2p_communication_start(void) {
 		running = 1;
 /* MESH_SET_ROOT */
 #ifdef MESH_SET_ROOT
+		xTaskCreate(group_coordination, "Bot-Group Coordination", 3072, NULL, 5, NULL);
 		xTaskCreate(mesh_p2p_tx, "Mesh_Tx", 3072, NULL, 5, NULL);
 #else
 		xTaskCreate(mesh_p2p_rx, "Mesh_Rx", 3072, NULL, 5, NULL);
