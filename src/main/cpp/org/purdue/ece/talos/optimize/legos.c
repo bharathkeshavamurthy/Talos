@@ -53,6 +53,7 @@ void main(void) {
 	motors_init();
 	/* Initialize the Proximity Sensors in accordance with the bot-group topology dynamics */
 	proximity_start();
+	/* TODO: Save the Status of the Proximity Sensors here... */
 	/* Initialize the Serial Peripheral Interface for Master/Slave communication with the ESP32 radio IC */
 	spi_communication_start();
 

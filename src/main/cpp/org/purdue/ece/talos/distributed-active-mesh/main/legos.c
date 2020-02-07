@@ -44,7 +44,6 @@ static uint8_t running = 0;
 #endif
 /* MESH_SET_ROOT */
 static uint8_t rx_buffer[P2P_BUFFER_SIZE] = {0, };
-
 static int motion_dynamics_flag = 0;
 static const uint8_t MESH_ID[6] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
 
