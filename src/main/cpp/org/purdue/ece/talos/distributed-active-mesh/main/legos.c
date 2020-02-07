@@ -185,7 +185,7 @@ void mesh_p2p_tx(void *arg) {
 		} else if(dispersion) {
 			motion_dynamics_flag = 2;
 		} else {
-			motion_dynamics_flag = 0;
+			motion_dynamics_flag = 3;
 		}
 		tx_buffer[0] = motion_dynamics_flag;
 		for (int i=0; i<route_table_size; i++) {
@@ -194,9 +194,7 @@ void mesh_p2p_tx(void *arg) {
 	}
 	vTaskDelete(NULL);
 }
-#endif
-/* MESH_SET_ROOT */
-
+#else
 /* The Mesh Peer-to-Peer Rx Routine */
 void mesh_p2p_rx(void *arg) {
 	int flag = 0;
@@ -213,6 +211,8 @@ void mesh_p2p_rx(void *arg) {
 	}
 	vTaskDelete(NULL);
 }
+#endif
+/* MESH_SET_ROOT */
 
 /* Peer-to-Peer Communication Start Routine */
 esp_err_t mesh_p2p_communication_start(void) {
@@ -221,9 +221,10 @@ esp_err_t mesh_p2p_communication_start(void) {
 /* MESH_SET_ROOT */
 #ifdef MESH_SET_ROOT
 		xTaskCreate(mesh_p2p_tx, "Mesh_Tx", 3072, NULL, 5, NULL);
+#else
+		xTaskCreate(mesh_p2p_rx, "Mesh_Rx", 3072, NULL, 5, NULL);
 #endif
 /* MESH_SET_ROOT */
-		xTaskCreate(mesh_p2p_rx, "Mesh_Rx", 3072, NULL, 5, NULL);
 	}
 	return ESP_OK;
 }
