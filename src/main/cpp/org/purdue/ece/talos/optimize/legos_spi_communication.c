@@ -13,11 +13,21 @@
 /* The Includes */
 #include "legos_spi_communication.h"
 
+/* ODD_ONE_OUT */
+#ifdef ODD_ONE_OUT
+	// Inter-Process Communication (IPC) Bus members
+	messagebus_t bus;
+	MUTEX_DECL(bus_lock); // @suppress("Field cannot be resolved")
+	CONDVAR_DECL(bus_condvar);
+#endif
+/* ODD_ONE_OUT */
+
 /* Global variable definitions */
 uint8_t *data_pointer = NULL;
 uint8_t talos_spi_suspend_flag = 0;
 uint8_t spi_tx_buffer[SPI_MAX_PACKET_SIZE];
 uint8_t spi_rx_buffer[SPI_MAX_PACKET_SIZE];
+uint16_t *initial_proximity_sensor_values[8];
 
 static thread_t *spi_thread_pointer;
 
@@ -86,10 +96,24 @@ static THD_FUNCTION(spi_thread, p) {
 
 		/* Re-formation */
 		case 3: {
+/* ODD_ONE_OUT */
 #ifdef ODD_ONE_OUT
-			right_motor_set_speed(1000);
-			left_motor_set_speed(1000);
-			/* TODO: Proximity Sensor Status Check Code Here */
+			right_motor_set_speed(100);
+			left_motor_set_speed(100);
+			while (true) {
+				proximity_msg_t proximity_msg;
+				messagebus_topic_t *prox_topic = messagebus_find_topic_blocking(&bus, "/proximity");
+				messagebus_topic_wait(prox_topic, &proximity_msg, sizeof(proximity_msg));
+				for(int i=0; i<8; i++) {
+					if (get_calibrated_prox(i) >= (initial_proximity_sensor_values[i] * 2)) {
+						continue;
+					}
+				}
+				break;
+			}
+			right_motor_set_speed(0);
+			left_motor_set_speed(0);
+/* ODD_ONE_OUT */
 #else
 			right_motor_set_speed(0);
 			left_motor_set_speed(0);
@@ -137,7 +161,14 @@ void talos_spi_comm_resume(void) {
 }
 
 /* Start the SPI communication between the Master (STM32F407uC) and the Slave (ESP32) */
-void spi_communication_start(void) {
+void spi_communication_start(uint16_t *proximity_sensor_values) {
+/* ODD_ONE_OUT */
+#ifdef ODD_ONE_OUT
+	// Initialize the IPC Message Bus and Store the initial Proximity Sensor values */
+	messagebus_init(&bus, &bus_lock, &bus_condvar);
+	memcpy(initial_proximity_sensor_values, proximity_sensor_values, 8);
+#endif
+/* ODD_ONE_OUT */
 	/* SPI1 max speed is 42MHz. However, the ESP32 radio module allows a max speed of 10MHz. So, a pre-scaler of 1/8 is used. */
 	static const SPIConfig spi_config = {
 			NULL,

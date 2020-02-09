@@ -10,6 +10,9 @@
  *  Copyright (c) 2020. All Rights Reserved.
  */
 
+#include "legos.h"
+#include <string.h>
+
 /* NEAREST_NEIGHBOR_RSSI_THRESHOLD */
 #ifndef NEAREST_NEIGHBOR_RSSI_THRESHOLD
 	#define NEAREST_NEIGHBOR_RSSI_THRESHOLD -40

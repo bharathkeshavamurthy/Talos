@@ -24,12 +24,14 @@
 #include "usbcfg.h"
 #include "motors.h"
 #include "chprintf.h"
+#include "sensors/proximity.h"
+#include "msgbus/messagebus.h"
 
 #define SPI_DELAY 5000
 #define SPI_MAX_PACKET_SIZE 1024
 
 /* Function Declaration to start the SPI communication between the Master and the Slave */
-void spi_communication_start(void);
+void spi_communication_start(uint16_t proximity_sensor_values);
 
 /* Function Declaration to suspend SPI communication */
 void talos_spi_comm_suspend(void);

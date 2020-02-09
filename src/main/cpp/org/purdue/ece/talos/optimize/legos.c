@@ -32,6 +32,10 @@ static bool load_config(void) {
 
 /* Run Trigger */
 void main(void) {
+	/* Variable Declarations for handling the Proximity Sensors */
+	proximity_msg_t proximity_msg;
+	uint16_t proximity_sensor_values[8];
+
 	/* System Initializations Begin */
 
 	/* Hardware Abstraction Layer Initialization */
@@ -53,16 +57,21 @@ void main(void) {
 	motors_init();
 	/* Initialize the Proximity Sensors in accordance with the bot-group topology dynamics */
 	proximity_start();
-	/* TODO: Save the Status of the Proximity Sensors here... */
+	messagebus_topic_t *proximity_sensors_topic = messagebus_find_topic_blocking(&bus, "/proximity");
+	messagebus_topic_wait(proximity_sensors_topic, &proximity_msg, sizeof(proximity_msg));
+	for(int i=0; i<8; i++) {
+		proximity_sensor_values[i] = get_calibrated_prox(i);
+	}
+
 	/* Initialize the Serial Peripheral Interface for Master/Slave communication with the ESP32 radio IC */
-	spi_communication_start();
+	spi_communication_start(proximity_sensor_values);
 
 	/* Bot-group Motion and Topology Dynamics Initialization End */
 
 	/* Aseba CAN System Initialization Begin */
 
 	/* Use the previously create ${parameter_root} as the parent for this "aseba" parameter */
-	parameter_namespace_declare(&aseba_ns,  &parameter_root, "aseba");
+	parameter_namespace_declare(&aseba_ns, &parameter_root, "aseba");
 	aseba_declare_parameters(&aseba_ns);
 	/* Load the parameter tree from the Flash memory */
 	load_config();
