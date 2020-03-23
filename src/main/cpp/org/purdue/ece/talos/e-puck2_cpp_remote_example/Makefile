@@ -17,4 +17,3 @@ all: $(OBJS)
 
 clean:
 	$(RM) -f $(TARGET)
-	$(RM) *.o
