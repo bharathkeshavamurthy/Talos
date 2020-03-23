@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/swistrack/!svn/ver/464/Examples/OutputProcessing/NMEAParserC
+END
+nmea_parser.h
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/swistrack/!svn/ver/464/Examples/OutputProcessing/NMEAParserC/nmea_parser.h
+END
+example-stdin.c
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svnroot/swistrack/!svn/ver/464/Examples/OutputProcessing/NMEAParserC/example-stdin.c
+END
+Makefile
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svnroot/swistrack/!svn/ver/448/Examples/OutputProcessing/NMEAParserC/Makefile
+END
+README
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svnroot/swistrack/!svn/ver/448/Examples/OutputProcessing/NMEAParserC/README
+END
+nmea_parser.c
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svnroot/swistrack/!svn/ver/464/Examples/OutputProcessing/NMEAParserC/nmea_parser.c
+END
