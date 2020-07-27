@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<swistrack>
+  <components>
+    <component type="InputCameraUSB">
+      <enabledinterval value="1"/>
+      <parameter name="Brightness" value="-128"/>
+      <parameter name="CameraNumber" value="1"/>
+      <parameter name="Contrast" value="255"/>
+      <parameter name="Exposure" value="0"/>
+      <parameter name="FlipVertically" value="false"/>
+      <parameter name="Gain" value="0"/>
+      <parameter name="autoExposure" value="false"/>
+    </component>
+    <component type="ConvertToGray">
+      <enabledinterval value="1"/>
+      <parameter name="Channel" value="1"/>
+    </component>
+    <component type="ThresholdGray">
+      <enabledinterval value="1"/>
+      <parameter name="InvertThreshold" value="false"/>
+      <parameter name="Threshold" value="44"/>
+    </component>
+    <component type="BinaryErosion">
+      <enabledinterval value="1"/>
+      <parameter name="Iterations" value="1"/>
+    </component>
+    <component type="BinaryDilation">
+      <enabledinterval value="1"/>
+      <parameter name="Iterations" value="1"/>
+    </component>
+    <component type="BlobDetectionMinMax">
+      <enabledinterval value="1"/>
+      <parameter name="AreaBool" value="true"/>
+      <parameter name="CompactnessBool" value="false"/>
+      <parameter name="MaxArea" value="200"/>
+      <parameter name="MaxCompactness" value="1.000000"/>
+      <parameter name="MaxNumber" value="2"/>
+      <parameter name="MaxOrientation" value=""/>
+      <parameter name="MinArea" value="2"/>
+      <parameter name="MinCompactness" value="0.000000"/>
+      <parameter name="MinOrientation" value=""/>
+      <parameter name="OrientationBool" value=""/>
+    </component>
+    <component type="NearestNeighborTracking">
+      <enabledinterval value="1"/>
+      <parameter name="MaxDistance" value="100.000000"/>
+      <parameter name="MaxNumber" value="2"/>
+    </component>
+    <component type="OutputFile">
+      <enabledinterval value="1"/>
+    </component>
+  </components>
+  <server>
+    <port>3000</port>
+  </server>
+</swistrack>
