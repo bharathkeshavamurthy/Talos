@@ -23,3 +23,6 @@
 	path = src/main/cpp/org/purdue/ece/talos/e-puck2-esp-stable
 	url = https://github.com/e-puck2/esp-idf.git
 	branch = e-puck
+[submodule "src/main/cpp/org/purdue/ece/talos/e-puck2_main-processor"]
+	path = src/main/cpp/org/purdue/ece/talos/e-puck2_main-processor
+	url = https://github.com/e-puck2/e-puck2_main-processor.git
