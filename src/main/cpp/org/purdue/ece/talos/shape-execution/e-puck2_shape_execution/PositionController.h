@@ -34,6 +34,8 @@ void stopPositionController();
 // Print the information (such as position, orientation, target, ...) to a terminal window.
 void printOnTerminal(int id);
 void printAllOnTerminal();
+
+// Ready the tracking data obtained from Swistrack for shape execution
 void ready_position_data();
 
 #ifdef __cplusplus

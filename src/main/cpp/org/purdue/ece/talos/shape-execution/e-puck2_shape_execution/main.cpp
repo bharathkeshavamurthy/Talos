@@ -12,13 +12,10 @@
 // MAIN //
 //******//
 int main(int argc, char *argv[]) {
-	
 	Epuck2 robots[NUM_ROBOTS];
 	char port[NUM_ROBOTS][20];
     unsigned int i, exitProg=0;
-
     system("mode 100, 40");
-
 	if(argc == 3) {
 		sprintf(&port[0][0], "%s", argv[1]);
 		sprintf(&port[1][0], "%s", argv[2]);
@@ -28,9 +25,7 @@ int main(int argc, char *argv[]) {
 			scanf("%s", &port[i][0]);
 		}
 	}
-
     //enableDebugToFile();
-
     // Init the communication with the robots
 	for(i=0; i<NUM_ROBOTS; i++) {
 		std::cerr << "Connecting to robot on port " << port[i] << std::endl;
@@ -40,37 +35,26 @@ int main(int argc, char *argv[]) {
 		}
 		std::cerr << "connected!" << std::endl;
 	}
-	
     // Init the controller (identify robots).
     startPositionController(robots, NUM_ROBOTS);
-
     while(!exitProg) {
-
         positionControlExec();
         printAllOnTerminal();
-
         if(QKeyPressed()) {
             exitProg = 1;
         }
-
         if(SpaceKeyPressed()) {
             while(identifyRobotParticles());
         }
-
     }
-
     //disableDebugToFile();
-
 	// Put the robots in a default state and close the communication.
     for(i=0; i<NUM_ROBOTS; i++) {
 		robots[i].setSpeed(0, 0);
 		robots[i].waitForUpdate(5000000);
 		robots[i].stopCommunication();
     }
-
     stopPositionController();
-
 	return 0;
-
 }
 

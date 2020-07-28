@@ -58,7 +58,6 @@ void MySwisTrackClient::OnNMEAProcessMessage(CommunicationMessage *m, bool withc
 		currentParticle = m->GetInt(0,0);
         xPos[currentParticle] = m->GetDouble(1, 0);
         yPos[currentParticle] = m->GetDouble(2, 0);
-		//std::cout << "SwisTrack Client: Particle: " << currentParticle << " | x = " << xPos[currentParticle] << " | y = " << yPos[currentParticle] << std::endl; 
         packetCount[currentParticle]++;
 
 	} else if (m->mCommand == "STEP_STOP") {
