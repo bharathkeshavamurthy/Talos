@@ -110,7 +110,13 @@ class Epuck2
         * \param id X_AXIS, Y_AXIS or Z_AXIS.
         * \return values in float, range is +/- 4912.0 uT (magnetic flux density expressed in micro Tesla).
         */
-		float getMagneticField(uint8_t id);
+		/* float getMagneticField(uint8_t id); */
+		
+		/* Get the heading computed in the firmware as a part of the ASERCOM v2 code */
+		int16_t getHeading(void);
+		
+		/* Get the IMU X-axis magnetometer value obtained in the firmware as a part of the ASERCOM v2 code */
+		int16_t getImuMagValueX(void);
 
 		/**
         * \brief Temperature given from the IMU.
@@ -267,7 +273,14 @@ class Epuck2
 		float orientation; /**< Orientation of the robot (last update) */
 		float inclination; /**< Inclination of the robot (last update) */
         int16_t gyro_raw[3]; /**< Gyroscope raw values (last update) */
-        float magnetic_field[3]; /**< Magnetic field raw values (last update) */
+		
+		/*
+        float magnetic_field[3];
+		*/
+		
+		int16_t heading;
+		int16_t imu_mag_value_x;
+		
         int8_t temperature; /**< Temperature (last update) */
 		uint16_t proximity[8]; /**< IR proximity values (last update) */
 		uint16_t ambient[8]; /**< IR proximity ambient values (last update) */

@@ -115,10 +115,15 @@ void Epuck2::commThread(void) {
         gyro_raw[1] = (input_buffer[21]<<8) + input_buffer[20];
         gyro_raw[2] = (input_buffer[23]<<8) + input_buffer[22];
 
+		/*
         magnetic_field[0] = *((float*)&input_buffer[24]);
         magnetic_field[1] = *((float*)&input_buffer[28]);
         magnetic_field[2] = *((float*)&input_buffer[32]);
-
+		*/
+		
+		heading = input_buffer[24];
+		imu_mag_value_x = input_buffer[25];
+		
         temperature = input_buffer[36];
 
         proximity[0] =  (input_buffer[38]<<8) + input_buffer[37];
@@ -168,6 +173,14 @@ void Epuck2::commThread(void) {
 
         mutexRx.unlock();
     }
+}
+
+int16_t Epuck2::getHeading(void) {
+	return heading;
+}
+
+int16_t Epuck2::getImuMagValueX(void) {
+	return imu_mag_value_x;
 }
 
 int8_t Epuck2::startCommunication(char* portName) {
@@ -226,6 +239,7 @@ int16_t Epuck2::getGyroRaw(uint8_t id) {
     }
 }
 
+/*
 float Epuck2::getMagneticField(uint8_t id) {
     if(id > 2) {
         return 0;
@@ -233,6 +247,7 @@ float Epuck2::getMagneticField(uint8_t id) {
         return magnetic_field[id];
     }
 }
+*/
 
 int8_t Epuck2::getTemperature(void) {
     return temperature;

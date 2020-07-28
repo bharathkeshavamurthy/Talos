@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include "epuck2.h"
 #if defined(_WIN32) || defined(_WIN64)
-#include "windows.h"
+	#include "windows.h"
 #endif
 
 using namespace std;
@@ -25,49 +25,44 @@ int main()
 
     while(1) {
 		
-		/* Uncomment the part of the code (sensor/actuator) you want to test*/
-		
-		/* rotation_angle += (epuck2.getGyroRaw(2) - 0.0) * (250.0 / 32768.0) * (3.14 / 180.0);
+		/*
+		rotation_angle += (epuck2.getGyroRaw(2) - 0.0) * (250.0 / 32768.0) * (3.14 / 180.0);
 		cout << rotation_angle << endl;
 		if (rotation_angle >= 15.0) {
 			epuck2.setSpeed(0, 0);
 		}
 		else {
 			epuck2.setSpeed(-50, 50);
-		} */
+		}
+		*/
 		
-		//cout << epuck2.getDistanceMillimeters() << endl;
-        //cout << epuck2.getProximity(0) << endl;
-        //cout << epuck2.getAccelerometerRaw(0) << endl;
-        //cout << epuck2.getAcceleration() << ", " << epuck2.getOrientation() << ", " << epuck2.getInclination() << endl;
-        //cout << epuck2.getMagneticField(0) << ", " << epuck2.getMagneticField(1) << ", " << epuck2.getMagneticField(2) << endl;
-        //cout << (int)epuck2.getTemperature() << endl;
-        //cout << (int)epuck2.getMicVolume(MIC_RIGHT) << ", " << (int)epuck2.getMicVolume(MIC_LEFT) << ", " << (int)epuck2.getMicVolume(MIC_BACK) << ", " << (int)epuck2.getMicVolume(MIC_FRONT) << endl;
-        //cout << epuck2.getMotorSteps(LEFT) << ", " << epuck2.getMotorSteps(RIGHT) << endl;
-        //cout << epuck2.getBatteryRaw() << endl;
-        //cout << (int)epuck2.getSdState() << endl;
-        //cout << (int)epuck2.getGroundProximity(0) << endl;
-		//cout << epuck2.getOrientation() << endl;
-        //epuck2.setSpeed(300, -300);
-        //epuck2.setLed(LED1, 1);
-        //epuck2.setRgbLeds(100,0,0, 100,0,0, 100,0,0, 100,0,0);
-        //epuck2.setSound(SOUND_UNDERWORLD);
-		// #if defined(_WIN32) || defined(_WIN64)
-			// Sleep(10000);
-		// #else
-			// usleep(10000000);
-		// #endif
-        //epuck2.setSpeed(0, 0);
-        //epuck2.setLed(LED1, 0);
-        //epuck2.setRgbLeds(0,100,0, 0,100,0, 0,100,0, 0,100,0);
-        //epuck2.setSound(SOUND_STOP);
-		//#if defined(_WIN32) || defined(_WIN64)
-		//	Sleep(100);
-		//#else
-		//	usleep(100000);
-		//#endif
+		/* Sensor tests */
+		cout << "ToF: " << epuck2.getDistanceMillimeters() << endl;
+        cout << "Proximity-0: " << epuck2.getProximity(0) << endl;
+        cout << "Accelerometer Raw-0: " << epuck2.getAccelerometerRaw(0) << endl;
+        cout << "Acceleration: " << epuck2.getAcceleration() << ", Orientation: " << epuck2.getOrientation() << ", Inclination: " << epuck2.getInclination() << endl;
+        cout << "Heading: " << epuck2.getHeading() << ", IMU Mag Value X: " << epuck2.getImuMagValueX() << endl;
+        cout << "Temperature: " << (int)epuck2.getTemperature() << endl;
+        cout << "Mic Volume Right: " << (int)epuck2.getMicVolume(MIC_RIGHT) << ", Mic Volume Left: " << (int)epuck2.getMicVolume(MIC_LEFT) << ", Mic Volume Back: " << (int)epuck2.getMicVolume(MIC_BACK) << ", Mic Volume Front: " << (int)epuck2.getMicVolume(MIC_FRONT) << endl;
+        cout << "Motor Steps Left: " << epuck2.getMotorSteps(LEFT) << ", Motor Steps Right: " << epuck2.getMotorSteps(RIGHT) << endl;
+        cout << "Battery Raw: " << epuck2.getBatteryRaw() << endl;
+        cout << "SD State: " << (int)epuck2.getSdState() << endl;
+        cout << "Ground Proximity-0: " << (int)epuck2.getGroundProximity(0) << endl;
+		/* Sensor tests */
 		
-		Sleep(250);
+		/* Actuator tests */
+        epuck2.setSpeed(300, -300);
+        epuck2.setLed(LED1, 1);
+        epuck2.setRgbLeds(100,0,0, 100,0,0, 100,0,0, 100,0,0);
+        epuck2.setSound(SOUND_UNDERWORLD);
+		/* Actuator tests */
+		
+		
+		#if defined(_WIN32) || defined(_WIN64)
+			Sleep(100);
+		#else
+			usleep(100000);
+		#endif
 		
     }
 
