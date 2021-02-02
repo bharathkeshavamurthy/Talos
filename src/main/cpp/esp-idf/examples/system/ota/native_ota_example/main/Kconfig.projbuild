@@ -1,0 +1,20 @@
+menu "Example Configuration"
+
+    config EXAMPLE_FIRMWARE_UPG_URL
+        string "Firmware Upgrade URL"
+        default "https://192.168.2.106:8070/hello-world.bin"
+        help
+            URL of server which hosts the firmware image.
+
+    config EXAMPLE_GPIO_DIAGNOSTIC
+        int "Number of the GPIO input for diagnostic"
+        range 0 39
+        default 4
+        help
+            Used to demonstrate how a rollback works.
+            The selected GPIO will be configured as an input with internal pull-up enabled.
+            To trigger a rollback, this GPIO must be pulled low while the message
+            `Diagnostics (5 sec)...` which will be on first boot.
+            If GPIO is not pulled low then the operable of the app will be confirmed.
+
+endmenu
