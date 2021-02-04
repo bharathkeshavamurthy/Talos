@@ -1,0 +1,6 @@
+23:48:36 **** Build of configuration Default for project optimize ****
+make e-puck2 
+make: *** No rule to make target `e-puck2'.  Stop.
+
+23:48:37 Build Finished (took 965ms)
+

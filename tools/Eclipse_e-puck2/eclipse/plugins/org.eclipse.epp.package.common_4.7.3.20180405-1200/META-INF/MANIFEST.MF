@@ -1,0 +1,31 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: org.eclipse.epp.package.common;singleton:=true
+Archiver-Version: Plexus Archiver
+Built-By: genie.packaging
+Require-Bundle: org.eclipse.platform,org.eclipse.equinox.app
+Bundle-ManifestVersion: 2
+Bundle-RequiredExecutionEnvironment: JavaSE-1.6
+Eclipse-SourceReferences: scm:git:git://git.eclipse.org/gitroot/epp/or
+ g.eclipse.epp.packages.git;path="packages/org.eclipse.epp.package.com
+ mon";commitId=266f44bb2e1350b9d4bdcda39bbe0b8562053675
+Bundle-Vendor: Eclipse Packaging Project
+Bundle-Name: Common EPP Bundle
+Bundle-Version: 4.7.3.20180405-1200
+Created-By: Apache Maven 3.5.2
+Build-Jdk: 1.8.0_162
+Eclipse-BundleShape: dir
+
+Name: META-INF/maven/org.eclipse.epp/org.eclipse.epp.package.common/po
+ m.xml
+SHA-256-Digest: 97ADMrlc+rdp/C0FjKZ00nH5eqsVZgjIiWE1MLja8xg=
+
+Name: about.html
+SHA-256-Digest: UTaB7jny234ewRnQ2UOoGM8hk+k1vS982d8D3YQUB6k=
+
+Name: splash.bmp
+SHA-256-Digest: /rrls2MJ/fkHTq4whSbMWSFPbvzYMPYGZ2zs6J8HCSo=
+
+Name: META-INF/maven/org.eclipse.epp/org.eclipse.epp.package.common/po
+ m.properties
+SHA-256-Digest: XYP2+c3Rgo8/wc1V6gDMBNe+y2dCXmeqVd10bHmw5No=
+

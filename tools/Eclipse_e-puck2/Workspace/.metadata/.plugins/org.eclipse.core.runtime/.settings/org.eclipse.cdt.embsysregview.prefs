@@ -1,0 +1,5 @@
+architecture=E-puck
+board=---  none ---
+chip=STM32F40x
+eclipse.preferences.version=1
+vendor=F4 serie

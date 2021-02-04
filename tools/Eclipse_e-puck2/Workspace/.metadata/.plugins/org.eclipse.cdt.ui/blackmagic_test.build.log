@@ -1,0 +1,6 @@
+16:01:58 **** Clean-only build of configuration Default for project blackmagic_test ****
+make PROBE_HOST=f4discovery clean 
+  CLEAN
+
+16:02:12 Build Finished (took 13s.753ms)
+

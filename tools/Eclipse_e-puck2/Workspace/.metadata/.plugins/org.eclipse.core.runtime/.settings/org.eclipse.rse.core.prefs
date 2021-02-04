@@ -1,0 +1,4 @@
+activeuserprofiles=PC-Virtuel;Team
+eclipse.preferences.version=1
+org.eclipse.rse.systemtype.local.systemType.defaultUserId=test
+useridperkey=PC-Virtuel.Local\=test;

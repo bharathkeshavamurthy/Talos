@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.cdt.platform"
+      label="%featureName"
+      version="9.4.3.201802261533"
+      provider-name="%providerName">
+
+   <description>
+      %description
+   </description>
+
+   <copyright>
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <includes
+         id="org.eclipse.cdt.native"
+         version="9.4.3.201802261533"/>
+
+   <plugin
+         id="org.eclipse.cdt"
+         download-size="37"
+         install-size="48"
+         version="9.4.3.201802261533"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.cdt.core"
+         download-size="5678"
+         install-size="13184"
+         version="6.4.0.201802261533"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.cdt.codan.core"
+         download-size="143"
+         install-size="288"
+         version="4.0.0.201802261533"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.cdt.codan.ui"
+         download-size="126"
+         install-size="268"
+         version="3.3.0.201802261533"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.cdt.codan.core.cxx"
+         download-size="73"
+         install-size="148"
+         version="3.4.0.201802261533"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.cdt.codan.ui.cxx"
+         download-size="28"
+         install-size="49"
+         version="3.3.0.201802261533"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.cdt.codan.checkers"
+         download-size="92"
+         install-size="218"
+         version="3.2.0.201802261533"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.cdt.codan.checkers.ui"
+         download-size="50"
+         install-size="100"
+         version="3.2.1.201802261533"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.cdt.debug.core"
+         download-size="314"
+         install-size="654"
+         version="8.3.0.201802261533"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.cdt.debug.ui"
+         download-size="1060"
+         install-size="2225"
+         version="8.3.0.201802261533"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.cdt.make.core"
+         download-size="445"
+         install-size="974"
+         version="7.4.0.201802261533"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.cdt.make.ui"
+         download-size="510"
+         install-size="1041"
+         version="7.3.0.201802261533"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.cdt.managedbuilder.core"
+         download-size="1318"
+         install-size="3217"
+         version="8.6.0.201802261533"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.cdt.managedbuilder.ui"
+         download-size="487"
+         install-size="1050"
+         version="9.1.0.201802261533"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.cdt.ui"
+         download-size="6102"
+         install-size="13694"
+         version="6.3.0.201802261533"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.cdt.doc.user"
+         download-size="15278"
+         install-size="16926"
+         version="5.4.0.201802261533"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.cdt.dsf"
+         download-size="332"
+         install-size="682"
+         version="2.8.0.201802261533"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.cdt.dsf.ui"
+         download-size="1449"
+         install-size="3338"
+         version="2.5.0.201802261533"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.cdt.native.serial"
+         download-size="224"
+         install-size="782"
+         version="1.1.0.201802261533"
+         unpack="false"/>
+
+</feature>

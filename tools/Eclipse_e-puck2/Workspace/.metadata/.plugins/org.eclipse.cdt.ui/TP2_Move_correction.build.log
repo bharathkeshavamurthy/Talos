@@ -1,0 +1,9 @@
+14:47:59 **** Incremental Build of configuration Default for project TP2_Move_correction ****
+make all 
+arm-none-eabi-size move.elf
+   text	   data	    bss	    dec	    hex	filename
+   5532	      4	   1556	   7092	   1bb4	move.elf
+> Done
+
+14:48:00 Build Finished (took 871ms)
+

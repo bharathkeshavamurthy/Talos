@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+      id="org.eclipse.tracecompass.tmf"
+      label="%featureName"
+      version="3.3.0.201803071910"
+      provider-name="%featureProvider">
+
+   <description>
+      %description
+   </description>
+
+   <copyright>
+      %copyright
+   </copyright>
+
+   <license url="%licenseURL">
+      %license
+   </license>
+
+   <requires>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.eclipse.core.resources"/>
+      <import plugin="org.eclipse.ui.views"/>
+      <import plugin="org.eclipse.core.expressions"/>
+      <import plugin="org.eclipse.ui"/>
+      <import plugin="org.eclipse.ui.ide"/>
+      <import plugin="org.eclipse.ui.navigator"/>
+      <import plugin="org.eclipse.ui.navigator.resources"/>
+      <import plugin="org.eclipse.emf.common" version="2.5.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.ecore" version="2.5.0" match="greaterOrEqual"/>
+   </requires>
+
+   <plugin
+         id="org.eclipse.tracecompass.tmf.core"
+         download-size="726"
+         install-size="1543"
+         version="3.3.0.201803071910"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.tracecompass.tmf.ui"
+         download-size="2359"
+         install-size="5248"
+         version="3.3.0.201803071910"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.tracecompass.doc.dev"
+         download-size="2910"
+         install-size="3538"
+         version="3.3.0.201803071910"/>
+
+   <plugin
+         id="org.eclipse.tracecompass.tmf.analysis.xml.core"
+         download-size="313"
+         install-size="789"
+         version="2.5.0.201803071910"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.tracecompass.tmf.analysis.xml.ui"
+         download-size="106"
+         install-size="213"
+         version="2.1.4.201803071910"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.tracecompass.statesystem.core"
+         download-size="120"
+         install-size="255"
+         version="3.2.1.201803071910"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.tracecompass.segmentstore.core"
+         download-size="61"
+         install-size="126"
+         version="2.0.1.201803071910"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.tracecompass.analysis.graph.core"
+         download-size="56"
+         install-size="103"
+         version="1.2.0.201803071910"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.tracecompass.analysis.graph.ui"
+         download-size="43"
+         install-size="93"
+         version="1.0.5.201803071910"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.tracecompass.analysis.timing.core"
+         download-size="74"
+         install-size="152"
+         version="3.1.2.201803071910"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.tracecompass.analysis.timing.ui"
+         download-size="164"
+         install-size="346"
+         version="2.2.0.201803071910"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.tracecompass.tmf.chart.core"
+         download-size="42"
+         install-size="69"
+         version="1.0.1.201803071910"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.tracecompass.tmf.chart.ui"
+         download-size="113"
+         install-size="252"
+         version="1.0.3.201803071910"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.tracecompass.datastore.core"
+         download-size="83"
+         install-size="174"
+         version="1.1.1.201803071910"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.tracecompass.analysis.counters.core"
+         download-size="29"
+         install-size="54"
+         version="1.2.0.201803071910"
+         unpack="false"/>
+
+   <plugin
+         id="org.eclipse.tracecompass.analysis.counters.ui"
+         download-size="24"
+         install-size="35"
+         version="0.0.3.201803071910"
+         unpack="false"/>
+
+</feature>

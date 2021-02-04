@@ -1,0 +1,26 @@
+Manifest-Version: 1.0
+Archiver-Version: Plexus Archiver
+Built-By: genie.tm
+Build-Jdk: 1.7.0_80
+Created-By: Apache Maven 3.0.5
+
+Name: epl-v10.html
+SHA-256-Digest: mpbQ2vmKpvtKpTDTmcdCxmEhsL2uSh9/+iLSE14d9/0=
+
+Name: META-INF/maven/org.eclipse.tm.terminal/org.eclipse.tm.terminal.c
+ onnector.telnet.feature/pom.xml
+SHA-256-Digest: TfBDN7/wsg0PLo+I4Qs62IzZs5i7EXTEJ/npLKXZTWs=
+
+Name: feature.xml
+SHA-256-Digest: 30iPA8WTKKJGu77ZtNJmmrB+TTc1hWfiXtFSXU4hhp4=
+
+Name: feature.properties
+SHA-256-Digest: MlZ4Vto9d1ehDu2gIP5jZY54yrCscUVBc1Y3g6a8P4U=
+
+Name: license.html
+SHA-256-Digest: X315zLynvdLZ4DaYSopgxruQUUEadA3FOPNviC+YO24=
+
+Name: META-INF/maven/org.eclipse.tm.terminal/org.eclipse.tm.terminal.c
+ onnector.telnet.feature/pom.properties
+SHA-256-Digest: jlUujL5gZm0oYMRB2CgJI6SBPiiAGqsOYtCs/9BL3Lw=
+

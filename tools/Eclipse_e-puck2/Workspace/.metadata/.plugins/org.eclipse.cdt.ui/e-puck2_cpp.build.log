@@ -1,0 +1,14 @@
+20:56:23 **** Build of configuration Default for project e-puck2_cpp ****
+make all 
+../e-puck2_main-processor/Makefile:107: ../e-puck2_main-processor/ChibiOS//os/common/ports/ARMCMx/compilers/GCC/mk/startup_stm32f4xx.mk: No such file or directory
+../e-puck2_main-processor/Makefile:109: ../e-puck2_main-processor/ChibiOS//os/hal/hal.mk: No such file or directory
+../e-puck2_main-processor/Makefile:110: ../e-puck2_main-processor/ChibiOS//os/hal/ports/STM32/STM32F4xx/platform.mk: No such file or directory
+../e-puck2_main-processor/Makefile:112: ../e-puck2_main-processor/ChibiOS//os/hal/osal/rt/osal.mk: No such file or directory
+../e-puck2_main-processor/Makefile:114: ../e-puck2_main-processor/ChibiOS//os/rt/rt.mk: No such file or directory
+../e-puck2_main-processor/Makefile:115: ../e-puck2_main-processor/ChibiOS//os/rt/ports/ARMCMx/compilers/GCC/mk/port_v7m.mk: No such file or directory
+../e-puck2_main-processor/Makefile:117: ../e-puck2_main-processor/ChibiOS//test/rt/test.mk: No such file or directory
+../e-puck2_main-processor/Makefile:256: ../e-puck2_main-processor/ChibiOS//os/common/ports/ARMCMx/compilers/GCC/rules.mk: No such file or directory
+make: *** No rule to make target `../e-puck2_main-processor/ChibiOS//os/common/ports/ARMCMx/compilers/GCC/rules.mk'.  Stop.
+
+20:56:24 Build Finished (took 404ms)
+

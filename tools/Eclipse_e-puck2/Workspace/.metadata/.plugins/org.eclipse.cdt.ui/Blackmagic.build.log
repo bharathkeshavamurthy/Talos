@@ -1,0 +1,6 @@
+17:50:35 **** Clean-only build of configuration Default for project Blackmagic ****
+make PROBE_HOST=e-puck/2.0 clean 
+  CLEAN
+
+17:50:42 Build Finished (took 7s.770ms)
+
