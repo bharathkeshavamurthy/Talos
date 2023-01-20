@@ -1,5 +1,5 @@
 # Talos
-Multi-agent Optimization using e-puck2 robots
+Distributed Multi-agent Optimization (using e-puck2 robots)
 # Members
 Bharath Keshavamurthy <br/>
 Nicolo Michelusi
